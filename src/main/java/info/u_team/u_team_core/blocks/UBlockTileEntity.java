@@ -13,15 +13,15 @@ import net.minecraft.world.World;
 
 /**
  * Block API<br>
- *   -> Block for TileEntity's
+ * -> Block for TileEntity's
  * 
  * @date 17.08.2017
  * @author MrTroble
  *
  */
 
-public class UBlockTileEntity extends UBlock implements ITileEntityProvider{
-
+public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
+	
 	private Class<? extends UTileEntity> clazz = null;
 	
 	public UBlockTileEntity(@Nonnull Material materialIn, @Nonnull String name, @Nullable UCreativeTab tab) {
@@ -39,18 +39,19 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider{
 	public UBlockTileEntity(@Nullable Class<? extends UTileEntity> tileclazz, @Nonnull Material materialIn, @Nonnull String name, @Nullable UCreativeTab tab, @Nullable Class<? extends UItemBlock> clazz) {
 		super(materialIn, name, tab, clazz);
 		this.clazz = tileclazz;
-		if(this.clazz != null) {
-			try{
+		if (this.clazz != null) {
+			try {
 				TileEntity.addMapping(this.clazz, this.clazz.getName());
 			} catch (IllegalArgumentException ex) {
 				UCoreConstants.LOGGER.warn("Tile used by multiple Blocks", ex);
 			}
 		}
 	}
-
+	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		if(clazz == null) return null; 
+		if (clazz == null)
+			return null;
 		try {
 			return clazz.newInstance();
 		} catch (InstantiationException | IllegalAccessException e) {
@@ -58,7 +59,5 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider{
 		}
 		return null;
 	}
-
-	
 	
 }

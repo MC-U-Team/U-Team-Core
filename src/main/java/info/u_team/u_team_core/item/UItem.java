@@ -8,19 +8,20 @@ import net.minecraft.item.Item;
 
 /**
  * Item API<br>
- *   -> Basic Item
+ * -> Basic Item
  * 
  * @date 17.08.2017
  * @author MrTroble
  *
  */
 
-public class UItem extends Item{
-
+public class UItem extends Item {
+	
 	public UItem(@Nonnull String name, @Nullable UCreativeTab tab) {
 		this.setUnlocalizedName(name);
 		this.setRegistryName(UCoreMain.SUBMOD_MODID, name);
-		if(tab != null)this.setCreativeTab(tab);
+		if (tab != null)
+			this.setCreativeTab(tab);
 	}
 	
 }

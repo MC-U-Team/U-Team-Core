@@ -5,22 +5,22 @@ import net.minecraft.inventory.Container;
 
 /**
  * Gui API<br>
- *   -> Gui Container
+ * -> Gui Container
  * 
  * @date 17.08.2017
  * @author MrTroble
  *
  */
 
-public class UGuiContainer extends GuiContainer{
-
+public class UGuiContainer extends GuiContainer {
+	
 	public UGuiContainer(Container inventorySlotsIn) {
 		super(inventorySlotsIn);
 	}
-
+	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		
 	}
-
+	
 }

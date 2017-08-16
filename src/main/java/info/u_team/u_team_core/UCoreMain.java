@@ -38,7 +38,7 @@ public class UCoreMain {
 	public CommonProxy getProxy() {
 		return proxy;
 	}
-			
+	
 	// fml events
 	
 	@EventHandler
