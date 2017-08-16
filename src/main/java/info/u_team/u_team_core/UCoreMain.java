@@ -26,6 +26,8 @@ public class UCoreMain {
 	@SidedProxy(serverSide = UCoreConstants.COMMONPROXY, clientSide = UCoreConstants.CLIENTPROXY)
 	private static CommonProxy proxy;
 	
+	public static String SUBMOD_MODID = UCoreConstants.MODID;
+	
 	// getter and setter
 	
 	@InstanceFactory
@@ -36,7 +38,7 @@ public class UCoreMain {
 	public CommonProxy getProxy() {
 		return proxy;
 	}
-	
+			
 	// fml events
 	
 	@EventHandler
