@@ -2,13 +2,9 @@ package info.u_team.u_team_core;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.intern.proxy.CommonProxy;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.EventHandler;
-import net.minecraftforge.fml.common.Mod.InstanceFactory;
-import net.minecraftforge.fml.common.SidedProxy;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.*;
+import net.minecraftforge.fml.common.Mod.*;
+import net.minecraftforge.fml.common.event.*;
 
 /**
  * This is the main class of this utility mod and represents the mod in forge. It is used to listen to events and setup everything nessesary.

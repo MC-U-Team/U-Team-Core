@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.blocks.tileentity;
+package info.u_team.u_team_core.tileentity;
 
 import net.minecraft.tileentity.TileEntity;
 
@@ -6,6 +6,7 @@ import net.minecraft.tileentity.TileEntity;
  * TileEntity API<br>
  *   -> Basic TileEntity
  * 
+ * @date 17.08.2017
  * @author MrTroble
  *
  */

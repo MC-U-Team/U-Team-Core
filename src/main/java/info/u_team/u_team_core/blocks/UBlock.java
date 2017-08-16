@@ -2,13 +2,12 @@ package info.u_team.u_team_core.blocks;
 
 import java.lang.reflect.InvocationTargetException;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.annotation.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.blocks.item.UItemBlock;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.intern.UCoreConstants;
+import info.u_team.u_team_core.item.UItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -17,8 +16,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * Block API<br>
  *   -> Basic Block
  * 
+ * @date 17.08.2017
  * @author MrTroble 
- * 
  */
 
 public class UBlock extends Block{
