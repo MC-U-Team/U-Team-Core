@@ -20,8 +20,9 @@ public class UItem extends Item {
 	public UItem(@Nonnull String name, @Nullable UCreativeTab tab) {
 		this.setUnlocalizedName(name);
 		this.setRegistryName(UCoreMain.SUBMOD_MODID, name);
-		if (tab != null)
+		if (tab != null) {
 			this.setCreativeTab(tab);
+		}
 	}
 	
 }

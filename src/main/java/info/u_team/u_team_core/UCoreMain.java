@@ -1,6 +1,7 @@
 package info.u_team.u_team_core;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
+import info.u_team.u_team_core.intern.client.ClientSocket;
 import info.u_team.u_team_core.intern.proxy.CommonProxy;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Mod.*;
@@ -43,6 +44,13 @@ public class UCoreMain {
 	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
+		ClientSocket socket;
+		try {
+			socket = new ClientSocket();
+			socket.auth();
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@EventHandler

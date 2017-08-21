@@ -13,6 +13,7 @@ import java.security.*;
  * <a href="https://gist.github.com/unascribed/70e830d471d6a3272e3f">https://gist.github.com/unascribed/70e830d471d6a3272e3f<a>
  * 
  * @author Aesen "unascribed" Vismea
+ * @date 17.08.2017
  */
 public class SHA1 {
 	
