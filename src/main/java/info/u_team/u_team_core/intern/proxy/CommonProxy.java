@@ -9,4 +9,13 @@ package info.u_team.u_team_core.intern.proxy;
  */
 public class CommonProxy {
 	
+	public void preinit() {
+	}
+	
+	public void init() {
+	}
+	
+	public void postinit() {
+	}
+	
 }
