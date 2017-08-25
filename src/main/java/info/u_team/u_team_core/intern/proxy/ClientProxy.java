@@ -17,7 +17,7 @@ public class ClientProxy extends CommonProxy {
 	
 	public void preinit() {
 		super.preinit();
-		client = new Client();
+		setupClient();
 	}
 	
 	public void init() {
@@ -26,6 +26,10 @@ public class ClientProxy extends CommonProxy {
 	
 	public void postinit() {
 		super.postinit();
+	}
+	
+	private void setupClient() {
+		client = new Client();
 	}
 	
 }
