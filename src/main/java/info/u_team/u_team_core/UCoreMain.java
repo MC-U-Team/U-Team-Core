@@ -26,8 +26,6 @@ public class UCoreMain {
 	@SidedProxy(serverSide = UCoreConstants.COMMONPROXY, clientSide = UCoreConstants.CLIENTPROXY)
 	private static CommonProxy proxy;
 	
-	public static String SUBMOD_MODID = UCoreConstants.MODID;
-	
 	// getter and setter
 	
 	@InstanceFactory

@@ -1,11 +1,9 @@
 package info.u_team.u_team_core.blocks;
 
-import javax.annotation.*;
-
-import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.item.UItemBlock;
+import info.u_team.u_team_core.sub.USub;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -20,14 +18,22 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class UBlock extends Block {
 	
-	public UBlock(@Nonnull Material material, @Nonnull String name, @Nullable UCreativeTab tab) {
+	public UBlock(Material material, String name) {
+		this(material, name, null, UItemBlock.class);
+	}
+	
+	public UBlock(Material material, String name, Class<? extends UItemBlock> itemblock) {
+		this(material, name, null, itemblock);
+	}
+	
+	public UBlock(Material material, String name, UCreativeTab tab) {
 		this(material, name, tab, UItemBlock.class);
 	}
 	
-	public UBlock(@Nonnull Material material, @Nonnull String name, @Nullable UCreativeTab tab, @Nullable Class<? extends UItemBlock> itemblock) {
+	public UBlock(Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
 		super(material);
 		
-		this.setRegistryName(UCoreMain.SUBMOD_MODID, name);
+		this.setRegistryName(USub.getID(), name);
 		this.setUnlocalizedName(name);
 		
 		if (tab != null) {
@@ -37,12 +43,12 @@ public class UBlock extends Block {
 		register(itemblock);
 	}
 	
-	private void register(Class<? extends UItemBlock> itemblock) {
+	private final void register(Class<? extends UItemBlock> itemblock) {
 		try {
 			GameRegistry.register(this);
 			GameRegistry.register(itemblock.getConstructor(UBlock.class).newInstance(this));
 		} catch (Exception ex) {
-			UCoreConstants.LOGGER.error("Error in Gameregistery", ex);
+			UCoreConstants.LOGGER.error("Error catched while registering blocks.", ex);
 		}
 	}
 	

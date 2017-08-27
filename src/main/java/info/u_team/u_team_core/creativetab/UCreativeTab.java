@@ -25,7 +25,7 @@ public class UCreativeTab extends CreativeTabs {
 		this.metadata = metadata;
 		
 		if (item == null) {
-			UCoreConstants.LOGGER.warn(new NullPointerException("Tried to use null as icon item..."));
+			UCoreConstants.LOGGER.error(new NullPointerException("Tried to use null as icon item."));
 			return;
 		}
 		if (settab) {

@@ -4,6 +4,7 @@ import javax.annotation.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
+import info.u_team.u_team_core.sub.USub;
 import net.minecraft.item.Item;
 
 /**
@@ -19,7 +20,7 @@ public class UItem extends Item {
 	
 	public UItem(@Nonnull String name, @Nullable UCreativeTab tab) {
 		this.setUnlocalizedName(name);
-		this.setRegistryName(UCoreMain.SUBMOD_MODID, name);
+		this.setRegistryName(USub.getID(), name);
 		if (tab != null) {
 			this.setCreativeTab(tab);
 		}
