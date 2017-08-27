@@ -24,7 +24,6 @@ public class UCreativeTab extends CreativeTabs {
 	public UCreativeTab(@Nonnull String label, @Nonnull Item item) {
 		super(label);
 		this.setIcon(item);
-		item.setCreativeTab(this);
 	}
 	
 	public UCreativeTab(@Nonnull String label, @Nonnull ItemStack itemstack) {
@@ -33,7 +32,6 @@ public class UCreativeTab extends CreativeTabs {
 	
 	public UCreativeTab(@Nonnull String label, @Nonnull Block block) {
 		this(label, Item.getItemFromBlock(block));
-		block.setCreativeTab(this);
 	}
 	
 	public void setIcon(@Nonnull Item item) {

@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.container;
+package info.u_team.u_team_core.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.inventory.Container;

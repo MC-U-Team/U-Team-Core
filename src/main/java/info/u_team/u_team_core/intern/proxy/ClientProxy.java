@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.intern.proxy;
 
-import info.u_team.u_team_core.intern.client.*;
+import info.u_team.u_team_core.intern.client.Client;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
