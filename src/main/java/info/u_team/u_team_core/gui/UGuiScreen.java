@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.ui;
+package info.u_team.u_team_core.gui;
 
 import net.minecraft.client.gui.GuiScreen;
 
