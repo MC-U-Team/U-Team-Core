@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.blocks;
+package info.u_team.u_team_core.block;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.intern.UCoreConstants;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * -> Basic Block
  * 
  * @date 17.08.2017
- * @author MrTroble
+ * @author MrTroble, HyCraftHD
  */
 
 public class UBlock extends Block {
@@ -33,11 +33,11 @@ public class UBlock extends Block {
 	public UBlock(Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
 		super(material);
 		
-		this.setRegistryName(USub.getID(), name);
-		this.setUnlocalizedName(name);
+		setRegistryName(USub.getID(), name);
+		setUnlocalizedName(name);
 		
 		if (tab != null) {
-			this.setCreativeTab(tab);
+			setCreativeTab(tab);
 		}
 		
 		register(itemblock);
