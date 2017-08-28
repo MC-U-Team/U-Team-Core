@@ -1,11 +1,9 @@
 package info.u_team.u_team_core.item;
 
-import javax.annotation.*;
-
-import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.sub.USub;
 import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Item API<br>
@@ -18,12 +16,24 @@ import net.minecraft.item.Item;
 
 public class UItem extends Item {
 	
-	public UItem(@Nonnull String name, @Nullable UCreativeTab tab) {
-		this.setUnlocalizedName(name);
-		this.setRegistryName(USub.getID(), name);
+	public UItem(String name) {
+		this(name, null);
+	}
+	
+	public UItem(String name, UCreativeTab tab) {
+		
+		setRegistryName(USub.getID(), name);
+		setUnlocalizedName(name);
+		
 		if (tab != null) {
-			this.setCreativeTab(tab);
+			setCreativeTab(tab);
 		}
+		
+		register();
+	}
+	
+	private final void register() {
+		GameRegistry.register(this);
 	}
 	
 }

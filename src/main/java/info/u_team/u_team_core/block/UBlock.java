@@ -48,7 +48,7 @@ public class UBlock extends Block {
 			GameRegistry.register(this);
 			GameRegistry.register(itemblock.getConstructor(UBlock.class).newInstance(this));
 		} catch (Exception ex) {
-			UCoreConstants.LOGGER.error("Error catched while registering blocks.", ex);
+			UCoreConstants.LOGGER.error("Error catched while registering block.", ex);
 		}
 	}
 	
