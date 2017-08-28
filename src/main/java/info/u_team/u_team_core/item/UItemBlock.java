@@ -1,7 +1,5 @@
 package info.u_team.u_team_core.item;
 
-import javax.annotation.Nonnull;
-
 import info.u_team.u_team_core.block.UBlock;
 import net.minecraft.item.ItemBlock;
 
@@ -15,9 +13,9 @@ import net.minecraft.item.ItemBlock;
 
 public class UItemBlock extends ItemBlock {
 	
-	public UItemBlock(@Nonnull UBlock block) {
+	public UItemBlock(UBlock block) {
 		super(block);
-		this.setRegistryName(block.getRegistryName());
+		setRegistryName(block.getRegistryName());
 	}
 	
 }

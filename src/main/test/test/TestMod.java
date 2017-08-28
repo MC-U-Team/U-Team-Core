@@ -4,6 +4,7 @@ import info.u_team.u_team_core.block.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.sub.USub;
+import info.u_team.u_team_core.tileentity.UTileEntity;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -29,7 +30,7 @@ public class TestMod {
 		
 		item = new UItem("test", tab);
 		
-		blocktile = new UBlockTileEntity(null, Material.ROCK, "testtile");
+		blocktile = new UBlockTileEntity(UTileEntity.class,"lelll", Material.ROCK, "testtile");
 	}
 	
 	@EventHandler
