@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.block;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
-import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.item.UItemBlock;
 import info.u_team.u_team_core.sub.USub;
 import net.minecraft.block.Block;
@@ -17,6 +16,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 
 public class UBlock extends Block {
+	
+	private UItemBlock uitemblock = null;
 	
 	public UBlock(Material material, String name) {
 		this(material, name, null, UItemBlock.class);
@@ -40,16 +41,18 @@ public class UBlock extends Block {
 			setCreativeTab(tab);
 		}
 		
-		register(itemblock);
+		try {
+			uitemblock = itemblock.getConstructor(UBlock.class).newInstance(this);
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		register();
 	}
 	
-	private final void register(Class<? extends UItemBlock> itemblock) {
-		try {
-			GameRegistry.register(this);
-			GameRegistry.register(itemblock.getConstructor(UBlock.class).newInstance(this));
-		} catch (Exception ex) {
-			UCoreConstants.LOGGER.error("Error catched while registering block.", ex);
-		}
+	private final void register() {
+		GameRegistry.register(this);
+		GameRegistry.register(uitemblock);
 	}
 	
 }
