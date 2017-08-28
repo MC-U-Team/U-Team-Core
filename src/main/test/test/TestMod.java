@@ -23,7 +23,6 @@ public class TestMod {
 		USub.setID("test");
 		
 		block = new UBlock(Material.ROCK, "testblock");
-		
 		tab = new UCreativeTab("test", block, true);
 		
 		item = new UItem("test", tab);

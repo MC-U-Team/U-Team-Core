@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.creativetab;
 
-import info.u_team.u_team_core.intern.UCoreConstants;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -19,18 +18,8 @@ public class UCreativeTab extends CreativeTabs {
 	private Item item = null;
 	private int metadata = 0;
 	
-	public UCreativeTab(String label, Item item, int metadata, boolean settab) {
-		super(label);
-		this.item = item;
-		this.metadata = metadata;
-		
-		if (item == null) {
-			UCoreConstants.LOGGER.error("Tried to use null as icon item.", new NullPointerException());
-			return;
-		}
-		if (settab) {
-			item.setCreativeTab(this);
-		}
+	public UCreativeTab(String label) {
+		this(label, (Item)null, 0, false);
 	}
 	
 	public UCreativeTab(String label, Item item) {
@@ -61,6 +50,21 @@ public class UCreativeTab extends CreativeTabs {
 		this(label, block, 0, settab);
 	}
 	
+	public UCreativeTab(String label, Item item, int metadata, boolean settab) {
+		super(label);
+		this.item = item;
+		this.metadata = metadata;
+		
+		if (settab && item != null) {
+			item.setCreativeTab(this);
+		}
+	}
+	
+	public void setIcon(Item item, int metadata) {
+		this.item = item;
+		this.metadata = metadata;
+	}
+	
 	@Override
 	public Item getTabIconItem() {
 		if (item == null) {
@@ -71,6 +75,9 @@ public class UCreativeTab extends CreativeTabs {
 	
 	@Override
 	public int getIconItemDamage() {
+		if (item == null) {
+			return 0;
+		}
 		return metadata;
 	}
 	
