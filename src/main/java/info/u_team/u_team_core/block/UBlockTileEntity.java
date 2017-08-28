@@ -3,6 +3,7 @@ package info.u_team.u_team_core.block;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.item.UItemBlock;
+import info.u_team.u_team_core.sub.USub;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -67,6 +68,8 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 		String name = tileentityname;
 		if (name == null) {
 			name = tileentity.getName();
+		} else {
+			name = USub.getID() + ":" + name;
 		}
 		TileEntity.addMapping(tileentity, name);
 		this.tileentity = tileentity;
