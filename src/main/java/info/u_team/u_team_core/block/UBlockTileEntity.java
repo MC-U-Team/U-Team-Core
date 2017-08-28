@@ -21,6 +21,27 @@ import net.minecraft.world.World;
 public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 	
 	private Class<? extends UTileEntity> tileentity = null;
+	private String tileentityname = null;
+	
+	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name) {
+		this(tileentity, material, name);
+		this.tileentityname = tileentityname;
+	}
+	
+	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, Class<? extends UItemBlock> itemblock) {
+		this(tileentity, material, name, itemblock);
+		this.tileentityname = tileentityname;
+	}
+	
+	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, UCreativeTab tab) {
+		this(tileentity, material, name, tab);
+		this.tileentityname = tileentityname;
+	}
+	
+	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
+		this(tileentity, material, name, tab, itemblock);
+		this.tileentityname = tileentityname;
+	}
 	
 	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, Material material, String name) {
 		super(material, name);
@@ -43,15 +64,12 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 	}
 	
 	private final void register(Class<? extends UTileEntity> tileentity) {
-		try {
-			if (tileentity == null) {
-				throw new NullPointerException("Tileentity is null.?");
-			}
-			TileEntity.addMapping(tileentity, tileentity.getName());
-			this.tileentity = tileentity;
-		} catch (Exception ex) {
-			UCoreConstants.LOGGER.error("Error catched while registering tileentity.", ex);
+		String name = tileentityname;
+		if (name == null) {
+			name = tileentity.getName();
 		}
+		TileEntity.addMapping(tileentity, name);
+		this.tileentity = tileentity;
 	}
 	
 	@Override

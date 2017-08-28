@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.block;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
+import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.item.UItemBlock;
 import info.u_team.u_team_core.sub.USub;
 import net.minecraft.block.Block;
@@ -44,7 +45,7 @@ public class UBlock extends Block {
 		try {
 			uitemblock = itemblock.getConstructor(UBlock.class).newInstance(this);
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			UCoreConstants.LOGGER.error("Couldn't create itemblock object.", ex);
 		}
 		
 		register();
