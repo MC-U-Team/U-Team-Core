@@ -1,6 +1,8 @@
 package info.u_team.u_team_core.intern.proxy;
 
+import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.intern.client.Client;
+import info.u_team.u_team_core.sub.metadata.MetadataFetcher;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -18,6 +20,7 @@ public class ClientProxy extends CommonProxy {
 	
 	public void preinit(FMLPreInitializationEvent event) {
 		super.preinit(event);
+		applyMetadata(event);
 		setupClient();
 	}
 	
@@ -27,6 +30,11 @@ public class ClientProxy extends CommonProxy {
 	
 	public void postinit(FMLPostInitializationEvent event) {
 		super.postinit(event);
+	}
+	
+	// methods
+	private void applyMetadata(FMLPreInitializationEvent event) {
+		new MetadataFetcher(UCoreConstants.MODID).setName(UCoreConstants.NAME).setVersion(UCoreConstants.VERSION).applyMetadata(event.getModMetadata());
 	}
 	
 	private void setupClient() {
