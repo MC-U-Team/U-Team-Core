@@ -1,6 +1,6 @@
 package test;
 
-import info.u_team.u_team_core.block.UBlock;
+import info.u_team.u_team_core.block.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.sub.USub;
@@ -17,6 +17,8 @@ public class TestMod {
 	private UBlock block;
 	private UItem item;
 	
+	private UBlockTileEntity blocktile;
+	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 		
@@ -26,6 +28,8 @@ public class TestMod {
 		tab = new UCreativeTab("test", block, true);
 		
 		item = new UItem("test", tab);
+		
+		blocktile = new UBlockTileEntity(null, Material.ROCK, "testtile");
 	}
 	
 	@EventHandler
