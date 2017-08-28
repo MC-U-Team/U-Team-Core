@@ -10,11 +10,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
 
-@Mod(modid = "test")
+@Mod(modid = "test", name = "test", version = "1.0.0")
 public class TestMod extends USubMod {
 	
 	public TestMod() {
-		super("test");
+		super("test", "TestMod", "1.0.0");
 	}
 	
 	private UCreativeTab tab;
