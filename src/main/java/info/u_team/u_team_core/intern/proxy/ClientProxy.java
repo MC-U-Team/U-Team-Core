@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.intern.proxy;
 
 import info.u_team.u_team_core.intern.client.Client;
+import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
@@ -15,17 +16,17 @@ public class ClientProxy extends CommonProxy {
 	
 	public static Client client;
 	
-	public void preinit() {
-		super.preinit();
+	public void preinit(FMLPreInitializationEvent event) {
+		super.preinit(event);
 		setupClient();
 	}
 	
-	public void init() {
-		super.init();
+	public void init(FMLInitializationEvent event) {
+		super.init(event);
 	}
 	
-	public void postinit() {
-		super.postinit();
+	public void postinit(FMLPostInitializationEvent event) {
+		super.postinit(event);
 	}
 	
 	private void setupClient() {

@@ -41,16 +41,16 @@ public class UCoreMain {
 	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
-		proxy.preinit();
+		proxy.preinit(event);
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		proxy.init();
+		proxy.init(event);
 	}
 	
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {
-		proxy.postinit();
+		proxy.postinit(event);
 	}
 }

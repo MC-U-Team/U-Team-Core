@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.intern.proxy;
 
+import net.minecraftforge.fml.common.event.*;
+
 /**
  * This class has methods that are only run by the server.
  * 
@@ -9,13 +11,13 @@ package info.u_team.u_team_core.intern.proxy;
  */
 public class CommonProxy {
 	
-	public void preinit() {
+	public void preinit(FMLPreInitializationEvent event) {
 	}
 	
-	public void init() {
+	public void init(FMLInitializationEvent event) {
 	}
 	
-	public void postinit() {
+	public void postinit(FMLPostInitializationEvent event) {
 	}
 	
 }
