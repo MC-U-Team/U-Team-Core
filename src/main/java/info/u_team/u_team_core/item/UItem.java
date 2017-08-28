@@ -21,6 +21,7 @@ public class UItem extends Item {
 	}
 	
 	public UItem(String name, UCreativeTab tab) {
+		super();
 		
 		setRegistryName(USub.getID(), name);
 		setUnlocalizedName(name);
