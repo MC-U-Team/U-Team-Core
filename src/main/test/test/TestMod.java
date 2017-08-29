@@ -17,23 +17,23 @@ public class TestMod extends USubMod {
 		super("test", "TestMod", "1.0.0");
 	}
 	
-	private UCreativeTab tab;
+	public static UCreativeTab tab;
 	
-	private UBlock block;
-	private UItem item;
+	public static UBlock block;
+	public static UItem item;
 	
-	private UBlockTileEntity blocktile;
+	public static UBlockTileEntity blocktile;
 	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 		super.preinit(event);
 		tab = new UCreativeTab("test");
 		
-		item = new UItem("test", tab);
+		item = new UItem("testitem", tab);
 		block = new UBlock(Material.ROCK, "testblock", tab);
 		tab.setIcon(block);
 		
-		blocktile = new UBlockTileEntity(UTileEntity.class, "lelll", Material.ROCK, "testtile", tab);
+		blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
 		
 	}
 	
