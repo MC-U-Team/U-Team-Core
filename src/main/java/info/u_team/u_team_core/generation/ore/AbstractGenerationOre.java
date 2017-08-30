@@ -27,4 +27,8 @@ public abstract class AbstractGenerationOre implements IGeneration {
 		this(veinsize, count, Blocks.STONE);
 	}
 	
+	public void setPredicate(Predicate<IBlockState> predicate) { // maybe useful for changes in generation without creating a new instance
+		this.predicate = predicate;
+	}
+	
 }
