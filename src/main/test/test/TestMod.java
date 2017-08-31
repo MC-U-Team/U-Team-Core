@@ -49,9 +49,9 @@ public class TestMod extends USubMod {
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 		
-		GeneratableOre ore1 = new GeneratableOre(block.getDefaultState(), new GenerationOreMinMax(Blocks.AIR, 5, 1, 100, 100));
+		GeneratableOre ore1 = new GeneratableOre(Blocks.LAPIS_ORE.getDefaultState(), new GenerationOreCenterSpread(Blocks.AIR, 7, 1, 170, 16));
 		
-		GeneratableOre ore2 = new GeneratableOre(block.getDefaultState(), new GenerationOreMinMax(Blocks.AIR, 10, 1, 120, 130));
+		GeneratableOre ore2 = new GeneratableOre(Blocks.DIAMOND_ORE.getDefaultState(), new GenerationOreMinMax(Blocks.AIR, 8, 1, 120, 136));
 		
 		GameRegistry.registerWorldGenerator(new IWorldGenerator() {
 			

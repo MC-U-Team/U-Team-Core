@@ -15,16 +15,17 @@ public class GenerationOreMinMax extends AbstractGenerationOre {
 		super(veinsize, count);
 		this.minheight = minheight;
 		this.maxheight = maxheight;
+		fix();
 	}
 	
 	public GenerationOreMinMax(Block block, int veinsize, int count, int minheight, int maxheight) {
 		super(veinsize, count, block);
 		this.minheight = minheight;
 		this.maxheight = maxheight;
+		fix();
 	}
 	
-	@Override
-	public void generate(WorldGenerator generator, World world, Random random, BlockPos chunkpos) {
+	private void fix() {
 		if (maxheight < minheight) {
 			int i = minheight;
 			minheight = maxheight;
@@ -36,7 +37,10 @@ public class GenerationOreMinMax extends AbstractGenerationOre {
 				--minheight;
 			}
 		}
-		
+	}
+	
+	@Override
+	public void generate(WorldGenerator generator, World world, Random random, BlockPos chunkpos) {
 		for (int j = 0; j < count; ++j) {
 			BlockPos blockpos = chunkpos.add(random.nextInt(16), random.nextInt(maxheight - minheight) + minheight, random.nextInt(16));
 			generator.generate(world, random, blockpos);
