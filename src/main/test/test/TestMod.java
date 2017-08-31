@@ -57,4 +57,6 @@ public class TestMod extends USubMod {
 		super.postinit(event);
 	}
 	
+	@EventHandler
+	
 }
