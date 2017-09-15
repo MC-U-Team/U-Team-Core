@@ -6,6 +6,7 @@ import info.u_team.u_team_core.item.UItemBlock;
 import info.u_team.u_team_core.sub.USub;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -54,6 +55,10 @@ public class UBlock extends Block {
 	private final void register() {
 		GameRegistry.register(this);
 		GameRegistry.register(uitemblock);
+	}
+	
+	public Item getItem() {
+		return Item.getItemFromBlock(this);
 	}
 	
 }
