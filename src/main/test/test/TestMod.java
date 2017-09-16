@@ -1,5 +1,7 @@
 package test;
 
+import java.util.concurrent.*;
+
 import info.u_team.u_team_core.block.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.generation.GeneratableRegistry;
@@ -16,9 +18,10 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.server.FMLServerHandler;
 
 @Mod(modid = "test", name = "test", version = "1.0.0")
 public class TestMod extends USubMod {
@@ -112,18 +115,22 @@ public class TestMod extends USubMod {
 					BlockPos min = new BlockPos(box.minX, box.minY, box.minZ);
 					BlockPos max = new BlockPos(box.maxX, box.maxY, box.maxZ);
 					
-					SchematicEntry entry = new SchematicEntry("stone", 2);
+					SchematicEntry entry = new SchematicEntry("stone");
 					
-					for (int x = min.getX(); x <= max.getX(); x++) {
-						for (int z = min.getZ(); z <= max.getZ(); z++) {
-							for (int y = min.getY(); y <= max.getY(); y++) {
-								BlockPos nowpos = new BlockPos(x, y, z);
-								entry.toBlock(world, nowpos);
+					long s = System.currentTimeMillis();
+					
+						for (int x = min.getX(); x <= max.getX(); x++) {
+							for (int z = min.getZ(); z <= max.getZ(); z++) {
+								for (int y = min.getY(); y <= max.getY(); y++) {
+									BlockPos nowpos = new BlockPos(x, y, z);
+									entry.toBlock(world, nowpos);
+								}
 							}
 						}
-					}
-					
-					world.markBlockRangeForRenderUpdate(min, max);
+						
+					System.out.println(System.currentTimeMillis()-s);
+					System.out.println("ready, fast generation.");
+					// world.markBlockRangeForRenderUpdate(min, max);
 				}
 				
 			}
