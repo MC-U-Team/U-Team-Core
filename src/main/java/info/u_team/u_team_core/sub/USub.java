@@ -10,7 +10,7 @@ public class USub {
 		return SUB_MODID;
 	}
 	
-	public static void setID(String id) {
+	static void setID(String id) {
 		SUB_MODID = id;
 	}
 	

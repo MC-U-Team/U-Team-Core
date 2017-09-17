@@ -19,13 +19,13 @@ public class GeneratableRegistry {
 		generatablelast.get(dimension).add(generatable);
 	}
 	
-	public static void generateFirst(int dimension, World world, Random random, BlockPos chunkpos) {
+	public static void generateFirst(int dimension, World world, Random random, BlockPos chunkpos) { // internal use only
 		if (generatablefirst.containsKey(dimension)) {
 			generatablefirst.get(dimension).forEach(generatable -> generatable.generate(world, random, chunkpos));
 		}
 	}
 	
-	public static void generateLast(int dimension, World world, Random random, BlockPos chunkpos) {
+	public static void generateLast(int dimension, World world, Random random, BlockPos chunkpos) { // internal use only
 		if (generatablelast.containsKey(dimension)) {
 			generatablelast.get(dimension).forEach(generatable -> generatable.generate(world, random, chunkpos));
 		}

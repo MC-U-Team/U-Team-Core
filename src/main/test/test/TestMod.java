@@ -1,11 +1,13 @@
 package test;
 
+import java.io.*;
+
 import info.u_team.u_team_core.block.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.generation.GeneratableRegistry;
 import info.u_team.u_team_core.generation.ore.*;
 import info.u_team.u_team_core.item.UItem;
-import info.u_team.u_team_core.schematic.SchematicEntry;
+import info.u_team.u_team_core.schematic.*;
 import info.u_team.u_team_core.sub.USubMod;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import net.minecraft.block.material.Material;
@@ -15,7 +17,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
@@ -78,7 +79,6 @@ public class TestMod extends USubMod {
 				return "test";
 			}
 			
-			@SuppressWarnings("deprecation")
 			@Override
 			public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 				
@@ -88,12 +88,7 @@ public class TestMod extends USubMod {
 					throw new CommandException("Only players can use this command!");
 				}
 				
-				BlockPos pos = player.getPosition();
-				
-				if (args.length == 0) {
-					SchematicEntry entry = new SchematicEntry("furnace");
-					entry.toBlock(world, pos);
-				} else {
+				if (args.length == 1) {
 					int count = 0;
 					try {
 						count = Integer.valueOf(args[0]);
@@ -104,26 +99,27 @@ public class TestMod extends USubMod {
 						throw new CommandException("Arg 1 must be > 0");
 					}
 					
-					BlockPos pos1 = pos.add(count, 0, count);
-					BlockPos pos2 = pos.add(-count, 0, -count);
+					BlockPos pos = player.getPosition();
 					
-					StructureBoundingBox box = new StructureBoundingBox(pos1, pos2);
+					SchematicRegion region = new SchematicRegion(pos.add(-count, 0, -count), pos.add(count, 0, count));
+
+					System.out.println(region.getCount());
+					System.out.println(region.getMin());
+					System.out.println(region.getMax());
 					
-					BlockPos min = new BlockPos(box.minX, box.minY, box.minZ);
-					BlockPos max = new BlockPos(box.maxX, box.maxY, box.maxZ);
-					
-					SchematicEntry entry = new SchematicEntry("stone", 2);
-					
-					for (int x = min.getX(); x <= max.getX(); x++) {
-						for (int z = min.getZ(); z <= max.getZ(); z++) {
-							for (int y = min.getY(); y <= max.getY(); y++) {
-								BlockPos nowpos = new BlockPos(x, y, z);
-								entry.toBlock(world, nowpos);
-							}
-						}
+					try {
+						File file = new File("hello.txt");
+						file.createNewFile();
+						
+						SchematicSaver saver = new SchematicSaver(world, region, new FileOutputStream(file));
+						saver.finished(success -> {System.out.println("Schematic generated with " + success);});
+						
+						saver.start();
+						
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
 					
-					world.markBlockRangeForRenderUpdate(min, max);
 				}
 				
 			}
