@@ -2,7 +2,7 @@ package info.u_team.u_team_core.intern.client;
 
 import java.io.IOException;
 import java.math.BigInteger;
-import java.net.HttpURLConnection;
+import java.net.*;
 import java.util.*;
 
 import info.u_team.u_team_core.intern.client.request.*;
@@ -11,13 +11,46 @@ import net.minecraft.util.Session;
 
 public class Client {
 	
+	private boolean auth = false;
+	
 	public Client() {
-		// TODO Only auth when sending data->php file need to create session (1h for same account / same php session id)->Keep alive connection packet->every 2 minutes
-//		try {
-//			auth();
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		CookieHandler.setDefault(new CookieManager()); // We need this to keep the PHPSESSION cookie
+	}
+	
+	// public send data methods
+	
+	public void firstsend(Map<String, String> map) {
+		send(RequestMode.FIRSTSEND, map);
+	}
+	
+	// private utility and authentication methods
+	
+	private void send(RequestMode mode, Map<String, String> map) {
+		try {
+			if (isauth()) {
+				createPostRequest(RequestMode.FIRSTSEND, map);
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			checkauth(ex);
+		}
+	}
+	
+	private void checkauth(IOException ex) {
+		if (ex instanceof ClientResponseCodeException && ((ClientResponseCodeException) ex).getResponeCode() == 401) {
+			auth = false;
+		}
+	}
+	
+	private boolean isauth() {
+		try {
+			if (!auth) {
+				auth();
+			}
+		} catch (ClientAuthentificationException ex) {
+			ex.printStackTrace();
+		}
+		return auth;
 	}
 	
 	private void auth() throws ClientAuthentificationException {
@@ -35,24 +68,8 @@ public class Client {
 			hashmap.put("username", session.getUsername());
 			hashmap.put("token", servertoken);
 			
-			/* Scanner scanner = new Scanner( */createPostRequest(RequestMode.AUTH, hashmap).getInputStream()/* ) */;
-			// System.out.println("......................................................................................");
-			// while (scanner.hasNextLine()) {
-			// System.out.println(scanner.nextLine());
-			// Gson gson = new GsonBuilder().setPrettyPrinting().create();
-			//
-			// JsonElement element = new JsonParser().parse(scanner.nextLine());
-			//
-			// System.out.println(gson.toJson(element));
-			//
-			// String value = element.getAsJsonObject().get("properties").getAsJsonArray().get(0).getAsJsonObject().get("value").getAsString();
-			//
-			// System.out.println(value);
-			//
-			// System.out.println(new String(Base64.decodeBase64(value), Charsets.UTF_8));
-			//
-			// }
-			
+			createPostRequest(RequestMode.AUTH, hashmap);
+			auth = true;
 		} catch (Exception ex) {
 			throw new ClientAuthentificationException("Client authentification failed.", ex);
 		}

@@ -17,6 +17,7 @@ public class Request {
 	public HttpURLConnection create() throws IOException {
 		HttpURLConnection connection = (HttpURLConnection) new URL(connectionurl).openConnection();
 		connection.setRequestMethod("POST");
+		connection.setRequestProperty("User-Agent", "U-Team-Core Client");
 		connection.setDoOutput(true);
 		
 		OutputStream out = connection.getOutputStream();
@@ -24,7 +25,7 @@ public class Request {
 		out.flush();
 		
 		if (connection.getResponseCode() != 200) {
-			throw new IOException("Http Response: " + connection.getResponseCode() + " " + connection.getResponseMessage());
+			throw new ClientResponseCodeException(connection.getResponseCode(), connection.getResponseMessage());
 		}
 		
 		return connection;
