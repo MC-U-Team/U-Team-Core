@@ -28,7 +28,11 @@ public class Client {
 	private void send(RequestMode mode, Map<String, String> map) {
 		try {
 			if (isauth()) {
-				createPostRequest(RequestMode.FIRSTSEND, map);
+				Scanner scanner = new Scanner(createPostRequest(mode, map).getInputStream());
+				while (scanner.hasNextLine()) {
+					System.out.println(scanner.nextLine());
+				}
+				scanner.close();
 			}
 		} catch (IOException ex) {
 			ex.printStackTrace();
@@ -68,7 +72,11 @@ public class Client {
 			hashmap.put("username", session.getUsername());
 			hashmap.put("token", servertoken);
 			
-			createPostRequest(RequestMode.AUTH, hashmap);
+			Scanner scanner = new Scanner(createPostRequest(RequestMode.AUTH, hashmap).getInputStream());
+			while (scanner.hasNextLine()) {
+				System.out.println(scanner.nextLine());
+			}
+			scanner.close();
 			auth = true;
 		} catch (Exception ex) {
 			throw new ClientAuthentificationException("Client authentification failed.", ex);
