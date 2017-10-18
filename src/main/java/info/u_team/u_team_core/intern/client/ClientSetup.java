@@ -5,6 +5,7 @@ import java.util.concurrent.*;
 
 import org.lwjgl.opengl.Display;
 
+import info.u_team.u_team_core.intern.UCoreConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.launchwrapper.Launch;
@@ -32,7 +33,7 @@ public class ClientSetup {
 	}
 	
 	private Map<String, String> fetchdata() {
-		String country, language, cpu, system, display, graphicscard, graphicsdriver, javaversion, javabit, ram, minecraftversion, forgeversion, deobfuscatedenvironment, mods;
+		String country, language, cpu, system, display, graphicscard, graphicsdriver, javaversion, javabit, ram, minecraftversion, forgeversion, uteamcoreversion, deobfuscatedenvironment, mods;
 		
 		country = System.getProperty("user.country");
 		language = System.getProperty("user.language");
@@ -48,11 +49,13 @@ public class ClientSetup {
 		ram = "" + (Runtime.getRuntime().maxMemory() / 1024L / 1024L);
 		minecraftversion = ForgeVersion.mcVersion;
 		forgeversion = ForgeVersion.getVersion();
+		uteamcoreversion = UCoreConstants.VERSION;
 		deobfuscatedenvironment = ((Boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment")).toString();
 		mods = "";
 		for (ModContainer container : Loader.instance().getModList()) {
 			mods = mods + container.getModId() + "@" + container.getVersion() + ";";
 		}
+		mods = mods.substring(0, mods.length() - 1); // Should work, because fml mods are always present.
 		
 		HashMap<String, String> map = new HashMap<>();
 		
@@ -68,6 +71,7 @@ public class ClientSetup {
 		map.put("ram", ram);
 		map.put("minecraftversion", minecraftversion);
 		map.put("forgeversion", forgeversion);
+		map.put("uteamcoreversion", uteamcoreversion);
 		map.put("deobfuscatedenvironment", deobfuscatedenvironment);
 		map.put("mods", mods);
 		

@@ -6,7 +6,7 @@ import java.nio.charset.StandardCharsets;
 
 public class Request {
 	
-	private static final String connectionurl = "http://localhost/minecraftauth/index.php"; // debug url now (will be https)
+	private static final String connectionurl = "https://api.u-team.info/client/client";
 	
 	private String postrequest;
 	
