@@ -2,11 +2,10 @@ package info.u_team.u_team_core.schematic;
 
 import java.io.*;
 import java.util.function.Consumer;
-import java.util.zip.GZIPOutputStream;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.util.world.OffsetVec3i;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class SchematicSaver {
@@ -30,7 +29,17 @@ public class SchematicSaver {
 		Thread thread = new Thread(() -> {
 			boolean success = true;
 			try {
-				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new GZIPOutputStream(outputstream, true)));
+				BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputstream));
+				
+				writer.write("count:" + region.getCount());
+				writer.newLine();
+				writer.write("sizex:" + region.getSizeX());
+				writer.newLine();
+				writer.write("sizey:" + region.getSizeY());
+				writer.newLine();
+				writer.write("sizez:" + region.getSizeZ());
+				writer.newLine();
+				
 				for (int x = 0; x < region.getSizeX(); x++) {
 					for (int z = 0; z < region.getSizeZ(); z++) {
 						for (int y = 0; y < region.getSizeY(); y++) {
@@ -41,6 +50,7 @@ public class SchematicSaver {
 						}
 					}
 				}
+				
 				writer.close();
 			} catch (Exception ex) {
 				UCoreConstants.LOGGER.error("Error while trying to save schematic region.", ex);

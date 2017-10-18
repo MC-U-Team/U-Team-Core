@@ -20,7 +20,8 @@ public class BufferEntry {
 	private static BufferEntry INSTANCE;
 	
 	public static BufferEntry getBufferEntry() {
-		if(INSTANCE == null) INSTANCE = new BufferEntry();
+		if (INSTANCE == null)
+			INSTANCE = new BufferEntry();
 		return INSTANCE;
 	}
 	
@@ -47,13 +48,13 @@ public class BufferEntry {
 		return this;
 	}
 	
-	public BufferEntry normal(float x, float y,float z) {
+	public BufferEntry normal(float x, float y, float z) {
 		this.buffer.normal(x, y, z);
 		return this;
 	}
 	
 	public BufferEntry start(@Nonnull DrawFormat format) {
-		if(format == null) {
+		if (format == null) {
 			UCoreConstants.LOGGER.error("DrawFormar is null in BufferEntry.start()");
 		}
 		VertexFormat v = null;
@@ -74,7 +75,7 @@ public class BufferEntry {
 			v = DefaultVertexFormats.POSITION_TEX_NORMAL;
 			break;
 		}
-		if(v == null) {
+		if (v == null) {
 			UCoreConstants.LOGGER.error("Somthing went wrong with the draw start (Wrong vertex Format)");
 		}
 		this.buffer.begin(7, v);
