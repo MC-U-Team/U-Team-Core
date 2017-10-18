@@ -1,5 +1,12 @@
 package info.u_team.u_team_core.render;
 
+/**
+ * Entry for the MC standard VertexBuffer 
+ * 
+ * @author MrTroble
+ * @date 17.9.2017
+ *
+ */
 
 import javax.annotation.Nonnull;
 
