@@ -19,8 +19,12 @@ public class Client {
 	
 	// public send data methods
 	
-	public void firstsend(Map<String, String> map) {
+	public void firstSend(Map<String, String> map) {
 		send(RequestMode.FIRSTSEND, map);
+	}
+	
+	public void keepAlive() {
+		send(RequestMode.KEEP_ALIVE, new HashMap<>());
 	}
 	
 	// private utility and authentication methods
