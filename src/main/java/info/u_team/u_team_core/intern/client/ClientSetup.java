@@ -46,7 +46,7 @@ public class ClientSetup {
 		
 		javaversion = System.getProperty("java.version");
 		javabit = "" + (Minecraft.getMinecraft().isJava64bit() ? 64 : 32);
-		ram = "" + (Runtime.getRuntime().maxMemory() / 1024L / 1024L);
+		ram = "" + Math.round((Runtime.getRuntime().maxMemory() / 1024L / 1024L));
 		minecraftversion = ForgeVersion.mcVersion;
 		forgeversion = ForgeVersion.getVersion();
 		uteamcoreversion = UCoreConstants.VERSION;
