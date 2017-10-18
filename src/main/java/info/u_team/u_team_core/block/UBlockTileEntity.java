@@ -67,7 +67,7 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
 		super(material, name, tab, itemblock);
 		register(tileentity);
-	}	
+	}
 	
 	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, Object... objects) {
 		this(tileentity, tileentityname, material, name);
@@ -123,12 +123,12 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {
 		try {
-			if(objts == null) {
+			if (objts == null) {
 				return tileentity.newInstance();
 			} else {
 				Class<?>[] classes = new Class<?>[objts.length];
-				int i = 0; 
-				for(Object ob : objts) {
+				int i = 0;
+				for (Object ob : objts) {
 					classes[i] = ob.getClass();
 					i++;
 				}

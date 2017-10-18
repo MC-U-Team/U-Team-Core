@@ -30,21 +30,18 @@ public class SchematicEntry {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder();
-		builder.append("{\"name\":");
-		builder.append("\"");
+		builder.append("name:");
 		builder.append(registryname);
-		builder.append("\"");
 		if (meta != 0) {
-			builder.append(",\"meta\":");
+			builder.append(";");
+			builder.append("meta:");
 			builder.append(meta);
 		}
 		if (nbt != null) {
-			builder.append(",\"nbt\":");
-			builder.append("\"");
+			builder.append(";");
+			builder.append("nbt:");
 			builder.append(nbt.toString().replaceAll("\\r|\\n", ""));
-			builder.append("\"");
 		}
-		builder.append("}");
 		return builder.toString();
 	}
 	
