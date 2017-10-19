@@ -101,25 +101,32 @@ public class TestMod extends USubMod {
 					
 					BlockPos pos = player.getPosition();
 					
-					SchematicRegion region = new SchematicRegion(pos.add(-count, 0, -count), pos.add(count, 0, count));
-
-					System.out.println(region.getCount());
-					System.out.println(region.getMin());
-					System.out.println(region.getMax());
-					
+					SchematicSaveRegion region = new SchematicSaveRegion(world, pos.add(-count, 0, -count), pos.add(count, 0, count));
 					try {
-						File file = new File("hello.txt");
-						file.createNewFile();
-						
-						SchematicSaver saver = new SchematicSaver(world, region, new FileOutputStream(file));
-						saver.finished(success -> {System.out.println("Schematic generated with " + success);});
-						
-						saver.start();
-						
-					} catch (Exception e) {
+						SchematicWriter saver = new SchematicWriter(region, new File("savefile.nbt"));
+						saver.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
+					} catch (IOException e) {
 						e.printStackTrace();
 					}
 					
+				} else if (args.length == 2) {
+					boolean center = false, rotate = false;
+					try {
+						center = Boolean.valueOf(args[0]);
+						rotate = Boolean.valueOf(args[1]);
+					} catch (Exception ex) {
+						throw new CommandException("Arg 1 and Arg 2 must be an boolean!", ex);
+					}
+					
+					BlockPos pos = player.getPosition();
+					
+					SchematicLoadRegion region = new SchematicLoadRegion(world, pos);
+					try {
+						SchematicReader reader = new SchematicReader(region, new File("savefile.nbt"));
+						reader.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 				
 			}
