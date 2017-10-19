@@ -7,7 +7,6 @@ package info.u_team.u_team_core.render;
  * @date 17.9.2017
  *
  */
-
 public enum DrawFormat {
 	
 	POS_COLOR,

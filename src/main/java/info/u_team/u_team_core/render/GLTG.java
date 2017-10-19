@@ -7,13 +7,12 @@ import org.apache.logging.log4j.Logger;
 import info.u_team.u_team_core.intern.UCoreConstants;
 
 /**
- * Draw class for a higher level drawing 
+ * Draw class for a higher level drawing
  * 
  * @author MrTroble
  * @date 17.9.2017
  *
  */
-
 public class GLTG {
 	
 	private BufferEntry entry;
@@ -24,11 +23,6 @@ public class GLTG {
 		this.log = UCoreConstants.LOGGER;
 	}
 	
-	/**
-	 * 
-	 * @
-	 * 
-	 */
 	public void drawManual(@Nonnull float[][] vertex, float[][] color, float[][] tex, float[][] normal) {
 		if (entry == null) {
 			log.error("BufferEntry in GLTG drawManual is null");
