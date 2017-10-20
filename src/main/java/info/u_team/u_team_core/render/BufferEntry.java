@@ -1,5 +1,12 @@
 package info.u_team.u_team_core.render;
 
+import javax.annotation.Nonnull;
+
+import info.u_team.u_team_core.intern.UCoreConstants;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.VertexBuffer;
+import net.minecraft.client.renderer.vertex.*;
+
 /**
  * Entry for the MC standard VertexBuffer
  * 
@@ -7,12 +14,6 @@ package info.u_team.u_team_core.render;
  * @date 17.9.2017
  *
  */
-import javax.annotation.Nonnull;
-
-import info.u_team.u_team_core.intern.UCoreConstants;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.VertexBuffer;
-import net.minecraft.client.renderer.vertex.*;
 
 public class BufferEntry {
 	

@@ -3,8 +3,12 @@ package info.u_team.u_team_core.render;
 import javax.annotation.Nonnull;
 
 import org.apache.logging.log4j.Logger;
+import org.lwjgl.opengl.GL11;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.math.Vec2f;
 
 /**
  * Draw class for a higher level drawing
@@ -15,12 +19,19 @@ import info.u_team.u_team_core.intern.UCoreConstants;
  */
 public class GLTG {
 	
+	private static GLTG INSTANCE;
+	
 	private BufferEntry entry;
 	private Logger log;
 	
-	public GLTG() {
+	private GLTG() {
 		this.entry = BufferEntry.getBufferEntry();
 		this.log = UCoreConstants.LOGGER;
+	}
+	
+	public Vec2f setTexture(GuiRescourceLocation location) {
+		Minecraft.getMinecraft().getTextureManager().bindTexture(location);
+		return new Vec2f(GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH),GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT));
 	}
 	
 	public void drawManual(@Nonnull float[][] vertex, float[][] color, float[][] tex, float[][] normal) {
@@ -71,6 +82,21 @@ public class GLTG {
 			}
 		}
 		entry.endDraw();
+	}
+	
+	public static float[] vertex(float... data) {
+		return data;
+	}
+	
+	public static float[][] data(float[]... data){
+		return data;
+	}
+	
+	public static GLTG getGLTG() {
+		if(INSTANCE != null) {
+			INSTANCE = new GLTG();
+		}
+		return INSTANCE;
 	}
 	
 }
