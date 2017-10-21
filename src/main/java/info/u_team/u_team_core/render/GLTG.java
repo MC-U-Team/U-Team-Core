@@ -31,7 +31,7 @@ public class GLTG {
 	
 	public Vec2f setTexture(GuiRescourceLocation location) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(location);
-		return new Vec2f(GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH),GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT));
+		return new Vec2f(GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH), GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT));
 	}
 	
 	public void drawManual(@Nonnull float[][] vertex, float[][] color, float[][] tex, float[][] normal) {
@@ -88,12 +88,12 @@ public class GLTG {
 		return data;
 	}
 	
-	public static float[][] data(float[]... data){
+	public static float[][] data(float[]... data) {
 		return data;
 	}
 	
 	public static GLTG getGLTG() {
-		if(INSTANCE != null) {
+		if (INSTANCE != null) {
 			INSTANCE = new GLTG();
 		}
 		return INSTANCE;

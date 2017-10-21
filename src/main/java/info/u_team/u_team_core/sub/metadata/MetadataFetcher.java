@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.sub.metadata;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Field;
+import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 

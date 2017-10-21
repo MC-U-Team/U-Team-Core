@@ -1,7 +1,5 @@
 package info.u_team.u_team_core.schematic;
 
-import net.minecraft.util.*;
-
 public enum Rotation {
 	
 	ROTATION_0,
