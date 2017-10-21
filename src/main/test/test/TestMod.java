@@ -98,9 +98,9 @@ public class TestMod extends USubMod {
 					
 					BlockPos pos = player.getPosition();
 					
-					SchematicSaveRegion region = new SchematicSaveRegion(world, pos.add(-count, 0, -count), pos.add(count, 0, count));
+					USchematicSaveRegion region = new USchematicSaveRegion(world, pos.add(-count, 0, -count), pos.add(count, 0, count));
 					try {
-						SchematicWriter saver = new SchematicWriter(region, new File("savefile.nbt"));
+						USchematicWriter saver = new USchematicWriter(region, new File("savefile.nbt"));
 						saver.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -117,9 +117,9 @@ public class TestMod extends USubMod {
 					
 					BlockPos pos = player.getPosition();
 					
-					SchematicLoadRegion region = new SchematicLoadRegion(world, pos).center().rotate(Rotation.ROTATION_270);
+					USchematicLoadRegion region = new USchematicLoadRegion(world, pos).center().rotate(USchematicRotation.ROTATION_270);
 					try {
-						SchematicReader reader = new SchematicReader(region, new File("savefile.nbt"));
+						USchematicReader reader = new USchematicReader(region, new File("savefile.nbt"));
 						reader.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
 					} catch (IOException e) {
 						e.printStackTrace();

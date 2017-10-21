@@ -13,27 +13,27 @@ import info.u_team.u_team_core.util.io.NBTStreamUtil;
  * @author HyCraftHD
  * @date 21.10.2017
  */
-public class SchematicWriter {
+public class USchematicWriter {
 	
-	private SchematicSaveRegion region;
+	private USchematicSaveRegion region;
 	private OutputStream stream;
 	private BiConsumer<Boolean, Long> consumer;
 	
-	public SchematicWriter(SchematicSaveRegion region, File file) throws IOException {
+	public USchematicWriter(USchematicSaveRegion region, File file) throws IOException {
 		this(region, new FileOutputStream(file));
 	}
 	
-	public SchematicWriter(SchematicSaveRegion region, OutputStream stream) throws IOException {
+	public USchematicWriter(USchematicSaveRegion region, OutputStream stream) throws IOException {
 		this.region = region;
 		this.stream = stream;
 	}
 	
-	public SchematicWriter start() {
+	public USchematicWriter start() {
 		startSaver();
 		return this;
 	}
 	
-	public SchematicWriter finished(BiConsumer<Boolean, Long> consumer) {
+	public USchematicWriter finished(BiConsumer<Boolean, Long> consumer) {
 		this.consumer = consumer;
 		return this;
 	}

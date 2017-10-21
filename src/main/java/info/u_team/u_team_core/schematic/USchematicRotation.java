@@ -7,14 +7,14 @@ package info.u_team.u_team_core.schematic;
  * @author HyCraftHD
  * @date 21.10.2017
  */
-public enum Rotation {
+public enum USchematicRotation {
 	
 	ROTATION_0,
 	ROTATION_90,
 	ROTATION_180,
 	ROTATION_270;
 	
-	public Rotation add(Rotation rotation) {
+	public USchematicRotation add(USchematicRotation rotation) {
 		switch (rotation) {
 		case ROTATION_180:
 			

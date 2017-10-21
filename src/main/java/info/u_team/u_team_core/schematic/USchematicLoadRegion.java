@@ -11,7 +11,7 @@ import net.minecraft.world.World;
  * @author HyCraftHD
  * @date 21.10.2017
  */
-public class SchematicLoadRegion {
+public class USchematicLoadRegion {
 	
 	private World world;
 	private BlockPos start;
@@ -19,19 +19,19 @@ public class SchematicLoadRegion {
 	private int sizex, sizey, sizez;
 	
 	private boolean centerstart = false;
-	private Rotation rotation = Rotation.ROTATION_0;
+	private USchematicRotation rotation = USchematicRotation.ROTATION_0;
 	
-	public SchematicLoadRegion(World world, BlockPos start) {
+	public USchematicLoadRegion(World world, BlockPos start) {
 		this.world = world;
 		this.start = start;
 	}
 	
-	public SchematicLoadRegion center() {
+	public USchematicLoadRegion center() {
 		centerstart = true;
 		return this;
 	}
 	
-	public SchematicLoadRegion rotate(Rotation rotation) {
+	public USchematicLoadRegion rotate(USchematicRotation rotation) {
 		this.rotation = rotation;
 		return this;
 	}
@@ -64,7 +64,7 @@ public class SchematicLoadRegion {
 				for (int y = 0; y < sizey; y++) {
 					BlockPos pos = start.add(rotate(new BlockPos(x, y, z)));
 					
-					SchematicEntry entry = new SchematicEntry(list.getCompoundTagAt(i++));
+					USchematicEntry entry = new USchematicEntry(list.getCompoundTagAt(i++));
 					entry.setBlock(world, pos);
 				}
 			}

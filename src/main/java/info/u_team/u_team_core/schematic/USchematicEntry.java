@@ -17,13 +17,13 @@ import net.minecraft.world.World;
  * @author HyCraftHD
  * @date 21.10.2017
  */
-public class SchematicEntry {
+public class USchematicEntry {
 	
 	private ResourceLocation registryname;
 	private int meta;
 	private NBTTagCompound nbt;
 	
-	public SchematicEntry(World world, BlockPos pos) {
+	public USchematicEntry(World world, BlockPos pos) {
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		
@@ -39,7 +39,7 @@ public class SchematicEntry {
 		}
 	}
 	
-	public SchematicEntry(NBTTagCompound tag) {
+	public USchematicEntry(NBTTagCompound tag) {
 		registryname = new ResourceLocation(tag.getString("name"));
 		meta = tag.getInteger("meta");
 		nbt = tag.getCompoundTag("nbt");
