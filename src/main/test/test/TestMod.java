@@ -9,8 +9,6 @@ import info.u_team.u_team_core.generation.ore.*;
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.schematic.*;
 import info.u_team.u_team_core.sub.USubMod;
-import info.u_team.u_team_core.tileentity.UTileEntity;
-import net.minecraft.block.material.Material;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -39,13 +37,12 @@ public class TestMod extends USubMod {
 	public void preinit(FMLPreInitializationEvent event) {
 		super.preinit(event);
 		tab = new UCreativeTab("test");
-		
-		item = new UItem("testitem", tab);
-		block = new UBlock(Material.ROCK, "testblock", tab);
-		tab.setIcon(block);
-		
-		blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
-		
+		//
+		// item = new UItem("testitem", tab);
+		// block = new UBlock(Material.ROCK, "testblock", tab);
+		// tab.setIcon(block);
+		//
+		// blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
 	}
 	
 	@EventHandler
