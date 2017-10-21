@@ -120,7 +120,7 @@ public class TestMod extends USubMod {
 					
 					BlockPos pos = player.getPosition();
 					
-					SchematicLoadRegion region = new SchematicLoadRegion(world, pos);
+					SchematicLoadRegion region = new SchematicLoadRegion(world, pos).center().rotate(Rotation.ROTATION_270);
 					try {
 						SchematicReader reader = new SchematicReader(region, new File("savefile.nbt"));
 						reader.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
