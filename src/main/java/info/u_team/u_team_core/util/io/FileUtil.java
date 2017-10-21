@@ -43,7 +43,7 @@ public class FileUtil {
 		return new String[] {};
 	}
 	
-	public File getMainDirectory() {
+	public static File getMainDirectory() {
 		return new File(System.getProperty("user.dir"));
 	}
 	

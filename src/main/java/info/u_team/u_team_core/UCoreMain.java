@@ -53,4 +53,9 @@ public class UCoreMain {
 	public void postinit(FMLPostInitializationEvent event) {
 		proxy.postinit(event);
 	}
+	
+	@EventHandler
+	public void serverstart(FMLServerStartingEvent event) {
+		proxy.serverstart(event);
+	} 
 }

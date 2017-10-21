@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.intern.proxy;
 
+import info.u_team.u_team_core.intern.command.CommandUSchematic;
 import info.u_team.u_team_core.intern.generation.WorldGenerator;
 import net.minecraftforge.fml.common.event.*;
 
@@ -21,6 +22,10 @@ public class CommonProxy {
 	}
 	
 	public void postinit(FMLPostInitializationEvent event) {
+	}
+	
+	public void serverstart(FMLServerStartingEvent event) {
+		event.registerServerCommand(new CommandUSchematic());
 	}
 	
 }

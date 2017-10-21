@@ -36,4 +36,8 @@ public class ClientProxy extends CommonProxy {
 		super.postinit(event);
 	}
 	
+	public void serverstart(FMLServerStartingEvent event) {
+		super.serverstart(event);
+	}
+	
 }

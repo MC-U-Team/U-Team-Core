@@ -1,0 +1,6 @@
+command.uschematic.usage=/uschematic <save | load> ...
+command.uschematic.usage.save=/uschematic <save> <path> <x1> <y1> <z1> <x2> <y2> <z2>
+command.uschematic.usage.load=/uschematic <load> <path> <rotation in 0/90/180/270> <center in true/false> [<x> <y> <z>]
+command.uschematic.success.save=Successfully saved region <%s to %s> under file %s.uschematic in %s ms.
+command.uschematic.success.load=Successfully loaded file %s.uschematic to location %s in %s ms. 
+command.uschematic.error=Error while %s region: %s
