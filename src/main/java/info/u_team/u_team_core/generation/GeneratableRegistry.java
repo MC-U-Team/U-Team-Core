@@ -5,6 +5,13 @@ import java.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Generation API<br>
+ * -> Registry
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class GeneratableRegistry {
 	
 	private static HashMap<Integer, ArrayList<IGeneratable>> generatablefirst = new HashMap<>(), generatablelast = new HashMap<>();

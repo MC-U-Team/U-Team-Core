@@ -4,17 +4,24 @@ import java.io.*;
 
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * File utility
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ *
+ */
 public class FileUtil {
 	
-	public static InputStream getInputStreamFromFile(File file) throws IOException {
+	public static InputStream getInputStreamFromFile(File file) throws FileNotFoundException {
 		return new FileInputStream(file);
 	}
 	
-	public static InputStream getInputStreamFromResource(String resource) throws IOException {
+	public static InputStream getInputStreamFromResource(String resource) {
 		return FileUtil.class.getResourceAsStream(resource);
 	}
 	
-	public static InputStream getInputStreamFromResource(ResourceLocation resource) throws IOException {
+	public static InputStream getInputStreamFromResource(ResourceLocation resource) {
 		return getInputStreamFromResource("/assets/" + resource.getResourceDomain() + "/" + resource.getResourcePath());
 	}
 	

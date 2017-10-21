@@ -10,6 +10,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Schematic API<br>
+ * -> Entry
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class SchematicEntry {
 	
 	private ResourceLocation registryname;

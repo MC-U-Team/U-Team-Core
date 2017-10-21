@@ -9,6 +9,13 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
+/**
+ * World utility
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ *
+ */
 public class WorldUtil {
 	
 	public static boolean isBlockOver(World world, BlockPos blockpos) {

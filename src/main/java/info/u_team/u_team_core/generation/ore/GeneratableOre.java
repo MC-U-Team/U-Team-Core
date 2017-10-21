@@ -4,6 +4,13 @@ import info.u_team.u_team_core.generation.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.world.gen.feature.*;
 
+/**
+ * Generation API<br>
+ * -> Ore Generation Settings
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class GeneratableOre implements IGeneratable {
 	
 	private WorldGenerator generator;

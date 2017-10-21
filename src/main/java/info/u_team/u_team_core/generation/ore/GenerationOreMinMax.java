@@ -7,6 +7,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+/**
+ * Generation API<br>
+ * -> Ore Generation Min Max
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class GenerationOreMinMax extends AbstractGenerationOre {
 	
 	protected int minheight, maxheight;

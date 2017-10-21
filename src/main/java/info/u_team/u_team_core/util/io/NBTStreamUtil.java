@@ -4,6 +4,13 @@ import java.io.*;
 
 import net.minecraft.nbt.*;
 
+/**
+ * NBT utility
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ *
+ */
 public class NBTStreamUtil {
 	
 	public static NBTTagCompound readNBTFromFile(File file) throws IOException {

@@ -1,5 +1,12 @@
 package info.u_team.u_team_core.schematic;
 
+/**
+ * Schematic API<br>
+ * -> Rotation
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public enum Rotation {
 	
 	ROTATION_0,

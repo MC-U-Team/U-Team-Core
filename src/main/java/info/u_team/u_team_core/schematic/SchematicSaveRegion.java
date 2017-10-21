@@ -4,6 +4,13 @@ import net.minecraft.nbt.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+/**
+ * Schematic API<br>
+ * -> Save Region
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class SchematicSaveRegion {
 	
 	private World world;

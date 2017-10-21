@@ -4,6 +4,13 @@ import java.util.Random;
 
 import net.minecraft.util.math.*;
 
+/**
+ * Math utility
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ *
+ */
 public class MathUtil {
 	
 	public static int distance(int a, int b) {

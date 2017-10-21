@@ -3,6 +3,13 @@ package info.u_team.u_team_core.util.world;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
+/**
+ * Direction utility
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ *
+ */
 public class DirectionUtil {
 	
 	public static EnumFacing getDirectory(BlockPos pos1, BlockPos pos2) {

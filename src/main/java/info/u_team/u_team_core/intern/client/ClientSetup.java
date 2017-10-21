@@ -12,6 +12,12 @@ import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.*;
 
+/**
+ * Setup all data for Client
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class ClientSetup {
 	
 	private Client client;

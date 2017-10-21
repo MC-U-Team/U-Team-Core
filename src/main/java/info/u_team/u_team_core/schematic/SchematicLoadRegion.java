@@ -4,6 +4,13 @@ import net.minecraft.nbt.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
+/**
+ * Schematic API<br>
+ * -> Load Region
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class SchematicLoadRegion {
 	
 	private World world;

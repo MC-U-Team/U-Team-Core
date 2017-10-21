@@ -4,6 +4,13 @@ import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
 
+/**
+ * Block utility
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ *
+ */
 public class BlockUtil {
 	
 	public static Block from(Object obj) {

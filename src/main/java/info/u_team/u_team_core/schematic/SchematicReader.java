@@ -6,6 +6,13 @@ import java.util.function.BiConsumer;
 import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.util.io.NBTStreamUtil;
 
+/**
+ * Schematic API<br>
+ * -> Reader
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class SchematicReader {
 	
 	private SchematicLoadRegion region;
