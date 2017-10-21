@@ -21,7 +21,6 @@ public class Client {
 	
 	public Client() {
 		CookieHandler.setDefault(new CookieManager()); // We need this to keep the PHPSESSION cookie
-		System.setProperty("http.agent", "Chrome"); // We need this to let cloudflare accept out request
 	}
 	
 	// public send data methods
