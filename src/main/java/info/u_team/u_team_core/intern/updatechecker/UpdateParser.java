@@ -6,7 +6,6 @@ import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.versioning.DefaultArtifactVersion;
 
-
 /**
  * Update API<br>
  * -> Update parser
@@ -28,11 +27,11 @@ public class UpdateParser {
 	
 	private void parse(String data) {
 		JsonElement element = new JsonParser().parse(data);
-		JsonObject object = element.getAsJsonObject().get(ForgeVersion.mcVersion).getAsJsonObject();
-		if (object.isJsonNull()) {
+		JsonElement versionelement = element.getAsJsonObject().get(ForgeVersion.mcVersion);
+		if (versionelement == null || versionelement.isJsonNull()) {
 			result = new UpdateResult();
 		} else {
-			check(object.get("version").getAsString(), object.get("download").getAsString());
+			check(versionelement.getAsJsonObject().get("version").getAsString(), versionelement.getAsJsonObject().get("download").getAsString());
 		}
 	}
 	
