@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.intern.proxy;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.intern.client.ClientSetup;
@@ -30,7 +30,7 @@ public class ClientProxy extends CommonProxy {
 		UpdateCheckerRegistry.addMod(UCoreConstants.MODID, "https://api.u-team.info/update/uteamcore.json");
 		
 		if (Config.getPrivacyPolicyShow()) {
-			JOptionPane.showMessageDialog(null, I18n.format("client.privacy").replace("[newline]", "\n"), "Privacy Policy", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(null, I18n.format("client.privacy").replace("[newline]", "\n"), "By using this mod you accept the privacy policy", JOptionPane.INFORMATION_MESSAGE);
 			Config.setPrivacyPolicyShow(false);
 		}
 		if (Config.getTrackClientData()) {
