@@ -47,14 +47,13 @@ public class TestMod extends USubMod {
 		
 		blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
 		
-		// Noside
-		
-
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
+		
+		// Noside
 		
 		ClientRegistry.registerModel(item, 0, new ModelResourceLocation(new ResourceLocation("stick"), "inventory"));
 		ClientRegistry.registerModel(block, 0, new ModelResourceLocation(new ResourceLocation("stone"), "inventory"));
