@@ -10,6 +10,7 @@ import info.u_team.u_team_core.sub.metadata.MetadataFetcher;
 import info.u_team.u_team_core.updatechecker.UpdateCheckerRegistry;
 import net.minecraft.client.resources.I18n;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -29,11 +30,19 @@ public class ClientProxy extends CommonProxy {
 		new MetadataFetcher(UCoreConstants.MODID).setName(UCoreConstants.NAME).setVersion(UCoreConstants.VERSION).applyMetadata(event.getModMetadata());
 		UpdateCheckerRegistry.addMod(UCoreConstants.MODID, "https://api.u-team.info/update/uteamcore.json");
 		
-		if (Config.getPrivacyPolicyShow()) {
-			JOptionPane.showMessageDialog(null, I18n.format("client.privacy").replace("[newline]", "\n"), "By using this mod you accept the privacy policy", JOptionPane.INFORMATION_MESSAGE);
+		boolean privacypolicyshow = Config.getPrivacyPolicyShow();
+		boolean trackclientdata = Config.getTrackClientData();
+		
+		if (privacypolicyshow) {
+			int value = JOptionPane.showConfirmDialog(null, I18n.format("client.privacy").replace("[newline]", "\n"), "Privacy policy", JOptionPane.INFORMATION_MESSAGE);
+			if (value != 0) {
+				JOptionPane.showMessageDialog(null, I18n.format("client.privacy.decline").replace("[newline]", "\n"), "Privacy policy", JOptionPane.ERROR_MESSAGE);
+				FMLCommonHandler.instance().exitJava(0, true);
+				return;
+			}
 			Config.setPrivacyPolicyShow(false);
 		}
-		if (Config.getTrackClientData()) {
+		if (trackclientdata) {
 			new ClientSetup();
 		}
 	}
