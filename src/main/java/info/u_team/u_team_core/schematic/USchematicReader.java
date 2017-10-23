@@ -50,7 +50,9 @@ public class USchematicReader {
 				success = false;
 			}
 			
-			consumer.accept(success, System.currentTimeMillis() - time);
+			if (consumer != null) {
+				consumer.accept(success, System.currentTimeMillis() - time);
+			}
 		});
 		thread.setName("Schematic Loader");
 		thread.start();

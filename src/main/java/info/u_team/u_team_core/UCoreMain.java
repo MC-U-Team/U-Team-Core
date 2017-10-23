@@ -57,5 +57,5 @@ public class UCoreMain {
 	@EventHandler
 	public void serverstart(FMLServerStartingEvent event) {
 		proxy.serverstart(event);
-	} 
+	}
 }

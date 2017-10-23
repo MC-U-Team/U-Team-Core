@@ -15,31 +15,31 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public class CommonRegistry {
 	
-	public void registerAchievementPage(AchievementPage page) {
+	public static void registerAchievementPage(AchievementPage page) {
 		AchievementPage.registerAchievementPage(page);
 	}
 	
-	public void registerEventHandler(Object object) {
+	public static void registerEventHandler(Object object) {
 		MinecraftForge.EVENT_BUS.register(object);
 	}
 	
-	public void registerFuelHandler(IFuelHandler fueldhandler) {
+	public static void registerFuelHandler(IFuelHandler fueldhandler) {
 		GameRegistry.registerFuelHandler(fueldhandler);
 	}
 	
-	public void registerGuiHandler(Object mod, IGuiHandler handler) {
+	public static void registerGuiHandler(Object mod, IGuiHandler handler) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(mod, handler);
 	}
 	
-	public void registerRecipeShaped(ItemStack output, Object... obj) {
+	public static void registerRecipeShaped(ItemStack output, Object... obj) {
 		GameRegistry.addShapedRecipe(output, obj);
 	}
 	
-	public void registerRecipeShapeless(ItemStack output, Object... obj) {
+	public static void registerRecipeShapeless(ItemStack output, Object... obj) {
 		GameRegistry.addShapelessRecipe(output, obj);
 	}
 	
-	public void registerSmelting(ItemStack input, ItemStack output, float xp) {
+	public static void registerSmelting(ItemStack input, ItemStack output, float xp) {
 		GameRegistry.addSmelting(input, output, xp);
 	}
 }

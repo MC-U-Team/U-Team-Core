@@ -24,39 +24,39 @@ import net.minecraftforge.fml.relauncher.*;
 @SideOnly(Side.CLIENT)
 public class ClientRegistry {
 	
-	public <T extends Entity> void registerEntityRenderer(Class<T> clazz, IRenderFactory<? super T> rendererFactory) {
+	public static <T extends Entity> void registerEntityRenderer(Class<T> clazz, IRenderFactory<? super T> rendererFactory) {
 		RenderingRegistry.registerEntityRenderingHandler(clazz, rendererFactory);
 	}
 	
-	public void registerKeybinding(KeyBinding key) {
+	public static void registerKeybinding(KeyBinding key) {
 		net.minecraftforge.fml.client.registry.ClientRegistry.registerKeyBinding(key);
 	}
 	
-	public void registerModel(Item item) {
+	public static void registerModel(Item item) {
 		registerModel(item, 0);
 	}
 	
-	public void registerModel(Block block) {
+	public static void registerModel(Block block) {
 		registerModel(block, 0);
 	}
 	
-	public void registerModel(Item item, int meta) {
+	public static void registerModel(Item item, int meta) {
 		registerModel(item, meta, new ModelResourceLocation(ItemUtil.getRegistryName(item), "inventory"));
 	}
 	
-	public void registerModel(Block block, int meta) {
+	public static void registerModel(Block block, int meta) {
 		registerModel(block, meta, new ModelResourceLocation(BlockUtil.getRegistryName(block), "inventory"));
 	}
 	
-	public void registerModel(Item item, int meta, ModelResourceLocation location) {
+	public static void registerModel(Item item, int meta, ModelResourceLocation location) {
 		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, location);
 	}
 	
-	public void registerModel(Block block, int meta, ModelResourceLocation location) {
+	public static void registerModel(Block block, int meta, ModelResourceLocation location) {
 		registerModel(Item.getItemFromBlock(block), meta, location);
 	}
 	
-	public void registerModelVariants(Item item, String... names) {
+	public static void registerModelVariants(Item item, String... names) {
 		ResourceLocation[] res = new ResourceLocation[names.length];
 		String modid = USub.getID();
 		for (int i = 0; i < names.length; i++) {
@@ -65,7 +65,7 @@ public class ClientRegistry {
 		ModelBakery.registerItemVariants(item, res);
 	}
 	
-	public <T extends TileEntity> void registerSpecialTileEntityRenderer(Class<T> clazz, TileEntitySpecialRenderer<? super T> renderer) {
+	public static <T extends TileEntity> void registerSpecialTileEntityRenderer(Class<T> clazz, TileEntitySpecialRenderer<? super T> renderer) {
 		net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntitySpecialRenderer(clazz, renderer);
 	}
 	
