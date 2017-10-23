@@ -27,7 +27,7 @@ public class UpdateClientListener {
 				return;
 			}
 			show = true;
-			UpdateCheckerRegistry.checker.createChat().forEach(component -> minecraft.thePlayer.addChatComponentMessage(component));
+			UpdateCheckerRegistry.getChecker().createChat().forEach(component -> minecraft.thePlayer.addChatComponentMessage(component));
 		}
 	}
 }

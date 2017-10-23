@@ -49,7 +49,7 @@ public class ClientProxy extends CommonProxy {
 	
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-		UpdateCheckerRegistry.checker.start();
+		UpdateCheckerRegistry.getChecker().start();
 		MinecraftForge.EVENT_BUS.register(new UpdateClientListener());
 	}
 	
