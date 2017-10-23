@@ -31,7 +31,7 @@ jar {
     from "LICENSE"
     
     manifest.mainAttributes(
-    	"Implementation-Title": U Team Core",
+       	"Implementation-Title": "U Team Core",
     	"Implementation-Version": project.version,
 		"Built-On": minecraft.version
 	)
