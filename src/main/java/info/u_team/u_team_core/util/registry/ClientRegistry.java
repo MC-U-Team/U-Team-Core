@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.util.registry;
 
+import info.u_team.u_team_core.sub.USub;
 import info.u_team.u_team_core.util.stack.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -57,7 +58,7 @@ public class ClientRegistry {
 	
 	public void registerModelVariants(Item item, String... names) {
 		ResourceLocation[] res = new ResourceLocation[names.length];
-		String modid = item.getRegistryName().getResourceDomain();
+		String modid = USub.getID();
 		for (int i = 0; i < names.length; i++) {
 			res[i] = new ResourceLocation(modid, names[i]);
 		}
