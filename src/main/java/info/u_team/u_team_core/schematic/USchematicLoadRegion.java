@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.schematic;
 
 import net.minecraft.nbt.*;
-import net.minecraft.util.math.*;
+import net.minecraft.util.*;
 import net.minecraft.world.World;
 
 /**

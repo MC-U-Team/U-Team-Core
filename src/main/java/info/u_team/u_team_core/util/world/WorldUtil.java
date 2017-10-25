@@ -3,9 +3,7 @@ package info.u_team.u_team_core.util.world;
 import net.minecraft.block.BlockAir;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -55,10 +53,11 @@ public class WorldUtil {
 		return base;
 	}
 	
-	public static RayTraceResult rayTraceServerSide(EntityPlayer player, double range) {
-		Vec3d vec3 = new Vec3d(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ);
-		Vec3d vec31 = player.getLookVec();
-		Vec3d vec32 = vec3.addVector(vec31.xCoord * range, vec31.yCoord * range, vec31.zCoord * range);
-		return player.worldObj.rayTraceBlocks(vec3, vec32, true, false, true);
-	}
+	// TODO
+	// public static RayTraceResult rayTraceServerSide(EntityPlayer player, double range) {
+	// Vec3d vec3 = new Vec3d(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ);
+	// Vec3 vec31 = player.getLookVec();
+	// Vec3d vec32 = vec3.addVector(vec31.xCoord * range, vec31.yCoord * range, vec31.zCoord * range);
+	// return player.worldObj.rayTraceBlocks(vec3, vec32, true, false, true);
+	// }
 }

@@ -44,7 +44,7 @@ public class UCreativeTab extends CreativeTabs {
 	@Override
 	public Item getTabIconItem() {
 		if (item == null) {
-			return Items.ACACIA_BOAT;
+			return Items.acacia_door;
 		}
 		return item;
 	}

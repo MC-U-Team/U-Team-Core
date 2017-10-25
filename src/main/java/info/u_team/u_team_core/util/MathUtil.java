@@ -2,7 +2,7 @@ package info.u_team.u_team_core.util;
 
 import java.util.Random;
 
-import net.minecraft.util.math.*;
+import net.minecraft.util.*;
 
 /**
  * Math utility
