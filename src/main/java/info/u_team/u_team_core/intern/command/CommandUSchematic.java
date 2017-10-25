@@ -9,7 +9,6 @@ import info.u_team.u_team_core.schematic.*;
 import info.u_team.u_team_core.util.io.FileUtil;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 

@@ -38,6 +38,7 @@ jar {
 }
 
 dependencies {
+	compile "com.github.oshi:oshi-core:3.4.0"
 }
 
 processResources {
