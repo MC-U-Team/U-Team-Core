@@ -16,7 +16,7 @@ public class UItemBlock extends ItemBlock {
 	
 	public UItemBlock(Block block) {
 		super(block);
-		if(!(block instanceof UBlock)) {
+		if (!(block instanceof UBlock)) {
 			throw new IllegalArgumentException("You need to use an instance of UBlock here.");
 		}
 		this.setUnlocalizedName(block.getUnlocalizedName());

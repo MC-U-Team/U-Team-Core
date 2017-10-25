@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.*;
  * 
  * @author HyCraftHD
  * @date 16.08.2017
- *
+ * 
  */
 @Mod(modid = UCoreConstants.MODID, name = UCoreConstants.NAME, version = UCoreConstants.VERSION, acceptedMinecraftVersions = UCoreConstants.MCVERSION)
 public class UCoreMain {
