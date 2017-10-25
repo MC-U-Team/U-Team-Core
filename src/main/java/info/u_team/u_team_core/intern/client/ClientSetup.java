@@ -84,4 +84,9 @@ public class ClientSetup {
 		return map;
 	}
 	
+	private String getCpu() {
+		 Processor[] aprocessor = (new SystemInfo()).getHardware().getProcessors();
+         cpu = String.format("%dx %s", new Object[] {Integer.valueOf(aprocessor.length), aprocessor[0]}).replaceAll("\\s+", " ");
+	}
+	
 }
