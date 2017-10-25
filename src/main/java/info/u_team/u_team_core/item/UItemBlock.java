@@ -15,7 +15,7 @@ public class UItemBlock extends ItemBlock {
 	
 	public UItemBlock(UBlock block) {
 		super(block);
-		setRegistryName(block.getRegistryName());
+		this.setUnlocalizedName(block.getUnlocalizedName());
 	}
 	
 }

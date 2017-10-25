@@ -34,7 +34,7 @@ public class BlockUtil {
 	}
 	
 	public static ResourceLocation getRegistryName(Block block) {
-		return block.getRegistryName();
+		return (ResourceLocation) Block.blockRegistry.getNameForObject(block);
 	}
 	
 	public static String getModID(Block block) {
