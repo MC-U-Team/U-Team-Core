@@ -35,6 +35,10 @@ jar {
     	"Implementation-Version": project.version,
 		"Built-On": minecraft.version
 	)
+	
+	manifest {
+    	attributes("FMLCorePlugin": "info.u_team.u_team_core.intern.libaryloader.LibaryLoader", "FMLCorePluginContainsFMLMod": "true")
+	}
 }
 
 dependencies {
