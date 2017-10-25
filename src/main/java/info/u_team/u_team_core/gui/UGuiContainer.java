@@ -1,12 +1,15 @@
 package info.u_team.u_team_core.gui;
 
-import static info.u_team.u_team_core.render.GLTG.*;
+import static info.u_team.u_team_core.render.GLTG.data;
+import static info.u_team.u_team_core.render.GLTG.getGLTG;
+import static info.u_team.u_team_core.render.GLTG.vertex;
 
 import info.u_team.u_team_core.container.UContainer;
-import info.u_team.u_team_core.render.*;
+import info.u_team.u_team_core.render.GLExtent;
+import info.u_team.u_team_core.render.GLTG;
+import info.u_team.u_team_core.render.GuiRescourceLocation;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.math.Vec2f;
 
 /**
  * Gui API<br>
@@ -30,7 +33,7 @@ public class UGuiContainer extends GuiContainer {
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		Vec2f size = gltg.setTexture(background);
+		GLExtent size = gltg.setTexture(background);
 		GlStateManager.translate((width - size.x) / 2, (height - size.y) / 2, 0);
 		gltg.drawManual(data(vertex(0, 0, 0), vertex(size.x, 0, 0), vertex(size.x, size.y, 0), vertex(0, size.y, 0)), null, data(vertex(0, 0), vertex(1, 0), vertex(1, 1), vertex(0, 1)), null);
 	}
