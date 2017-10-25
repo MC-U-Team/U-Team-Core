@@ -8,6 +8,13 @@ import org.apache.commons.io.FileUtils;
 
 import info.u_team.u_team_core.util.io.FileUtil;
 
+/**
+ * Libary downloader
+ * 
+ * @author HyCraftHD
+ * @date 25.10.2017
+ *
+ */
 public class Downloader {
 	
 	private File path;

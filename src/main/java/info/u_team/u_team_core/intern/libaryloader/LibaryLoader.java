@@ -5,6 +5,13 @@ import java.util.Map;
 import net.minecraft.launchwrapper.LaunchClassLoader;
 import net.minecraftforge.fml.relauncher.*;
 
+/**
+ * Libary loader as coremod to inject libaries into classloader
+ * 
+ * @author HyCraftHD
+ * @date 25.10.2017
+ *
+ */
 public class LibaryLoader implements IFMLLoadingPlugin, IFMLCallHook {
 	
 	@Override

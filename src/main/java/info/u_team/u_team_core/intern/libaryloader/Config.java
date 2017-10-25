@@ -2,6 +2,13 @@ package info.u_team.u_team_core.intern.libaryloader;
 
 import java.util.HashMap;
 
+/**
+ * Libary loader config with all libary files
+ * 
+ * @author HyCraftHD
+ * @date 25.10.2017
+ *
+ */
 public class Config {
 	
 	static String jnaplatform = "http://central.maven.org/maven2/net/java/dev/jna/jna-platform/4.2.2/jna-platform-4.2.2.jar";
