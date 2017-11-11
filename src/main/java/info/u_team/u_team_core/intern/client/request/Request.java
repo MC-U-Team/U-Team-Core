@@ -4,6 +4,12 @@ import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 
+/**
+ * Construct a request to server
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class Request {
 	
 	private static final String connectionurl = "https://api.u-team.info/client/client";

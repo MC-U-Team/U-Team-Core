@@ -1,20 +1,28 @@
 package info.u_team.u_team_core.sub.metadata;
 
-import java.lang.reflect.*;
-import java.util.*;
+import java.lang.reflect.Field;
+import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
+import info.u_team.u_team_core.util.io.FileUtil;
 import net.minecraftforge.fml.common.*;
 
+/**
+ * Read mcmod.info file from diffrent locations
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ *
+ */
 public class MetadataFetcher {
 	
 	private ModMetadata modmeta;
 	
 	public MetadataFetcher(String modid) {
 		Map<String, Object> map = ImmutableMap.<String, Object> builder().put("name", modid).put("version", "1.0").build();
-		modmeta = MetadataCollection.from(MetadataFetcher.class.getResourceAsStream("/" + modid + ".json"), modid).getMetadataForId(modid, map);
+		modmeta = MetadataCollection.from(FileUtil.getInputStreamFromResource("/" + modid + ".json"), modid).getMetadataForId(modid, map);
 		if (modmeta.name == null || modmeta.name.isEmpty()) {
 			modmeta.name = map.get("name").toString();
 		}

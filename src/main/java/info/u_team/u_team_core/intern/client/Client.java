@@ -9,13 +9,18 @@ import info.u_team.u_team_core.intern.client.request.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Session;
 
+/**
+ * Client class track data and send it to server
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class Client {
 	
 	private boolean auth = false;
 	
 	public Client() {
 		CookieHandler.setDefault(new CookieManager()); // We need this to keep the PHPSESSION cookie
-		System.setProperty("http.agent", "Chrome"); // We need this to let cloudflare accept out request
 	}
 	
 	// public send data methods
@@ -52,13 +57,13 @@ public class Client {
 			if (!auth) {
 				auth();
 			}
-		} catch (ClientAuthentificationException ex) {
+		} catch (ClientAuthenticationException ex) {
 			ex.printStackTrace();
 		}
 		return auth;
 	}
 	
-	private void auth() throws ClientAuthentificationException {
+	private void auth() throws ClientAuthenticationException {
 		try {
 			byte[] token = new byte[20];
 			new Random().nextBytes(token);
@@ -76,7 +81,7 @@ public class Client {
 			createPostRequest(RequestMode.AUTH, hashmap);
 			auth = true;
 		} catch (Exception ex) {
-			throw new ClientAuthentificationException("Client authentification failed.", ex);
+			throw new ClientAuthenticationException("Client authentification failed.", ex);
 		}
 	}
 	

@@ -1,20 +1,21 @@
 package test;
 
-import java.io.*;
-
 import info.u_team.u_team_core.block.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.generation.GeneratableRegistry;
 import info.u_team.u_team_core.generation.ore.*;
+import info.u_team.u_team_core.generation.schematic.*;
 import info.u_team.u_team_core.item.UItem;
-import info.u_team.u_team_core.schematic.*;
 import info.u_team.u_team_core.sub.USubMod;
 import info.u_team.u_team_core.tileentity.UTileEntity;
+import info.u_team.u_team_core.util.registry.ClientRegistry;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod;
@@ -52,12 +53,21 @@ public class TestMod extends USubMod {
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 		
+		// Noside
+		
+		ClientRegistry.registerModel(item, 0, new ModelResourceLocation(new ResourceLocation("stick"), "inventory"));
+		ClientRegistry.registerModel(block, 0, new ModelResourceLocation(new ResourceLocation("stone"), "inventory"));
+		ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new ResourceLocation("bedrock"), "inventory"));
+		
 		GeneratableOre ore1 = new GeneratableOre(Blocks.LAPIS_ORE.getDefaultState(), new GenerationOreCenterSpread(Blocks.AIR, 7, 1, 170, 16));
 		
 		GeneratableOre ore2 = new GeneratableOre(Blocks.DIAMOND_ORE.getDefaultState(), new GenerationOreMinMax(Blocks.AIR, 8, 1, 120, 136));
 		
+		GeneratableSchematic schematic = new GeneratableSchematic(new GenerationSchematicSurfaceChunk(this.getClass().getResource("/test.uschematic"), 1));
+		
 		GeneratableRegistry.addFirst(0, ore1);
 		GeneratableRegistry.addLast(0, ore2);
+		GeneratableRegistry.addLast(0, schematic);
 	}
 	
 	@EventHandler
@@ -88,46 +98,52 @@ public class TestMod extends USubMod {
 					throw new CommandException("Only players can use this command!");
 				}
 				
-				if (args.length == 1) {
-					int count = 0;
-					try {
-						count = Integer.valueOf(args[0]);
-					} catch (Exception ex) {
-						throw new CommandException("Arg 1 must be an int!", ex);
-					}
-					if (count == 0) {
-						throw new CommandException("Arg 1 must be > 0");
-					}
-					
-					BlockPos pos = player.getPosition();
-					
-					SchematicSaveRegion region = new SchematicSaveRegion(world, pos.add(-count, 0, -count), pos.add(count, 0, count));
-					try {
-						SchematicWriter saver = new SchematicWriter(region, new File("savefile.nbt"));
-						saver.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-					
-				} else if (args.length == 2) {
-					boolean center = false, rotate = false;
-					try {
-						center = Boolean.valueOf(args[0]);
-						rotate = Boolean.valueOf(args[1]);
-					} catch (Exception ex) {
-						throw new CommandException("Arg 1 and Arg 2 must be an boolean!", ex);
-					}
-					
-					BlockPos pos = player.getPosition();
-					
-					SchematicLoadRegion region = new SchematicLoadRegion(world, pos);
-					try {
-						SchematicReader reader = new SchematicReader(region, new File("savefile.nbt"));
-						reader.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
+				BlockPos pos = player.getPosition();
+				
+				// world.markBlockRangeForRenderUpdate(pos.subtract(new BlockPos(30, 30, 30)), pos.add(new BlockPos(30, 30, 30)));
+				//
+				// System.out.println("marked");
+				
+				// if (args.length == 1) {
+				// int count = 0;
+				// try {
+				// count = Integer.valueOf(args[0]);
+				// } catch (Exception ex) {
+				// throw new CommandException("Arg 1 must be an int!", ex);
+				// }
+				// if (count == 0) {
+				// throw new CommandException("Arg 1 must be > 0");
+				// }
+				//
+				// BlockPos pos = player.getPosition();
+				//
+				// USchematicSaveRegion region = new USchematicSaveRegion(world, pos.add(-count, 0, -count), pos.add(count, 0, count));
+				// try {
+				// USchematicWriter saver = new USchematicWriter(region, new File("savefile.nbt"));
+				// saver.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
+				// } catch (IOException e) {
+				// e.printStackTrace();
+				// }
+				//
+				// } else if (args.length == 2) {
+				// boolean center = false, rotate = false;
+				// try {
+				// center = Boolean.valueOf(args[0]);
+				// rotate = Boolean.valueOf(args[1]);
+				// } catch (Exception ex) {
+				// throw new CommandException("Arg 1 and Arg 2 must be an boolean!", ex);
+				// }
+				//
+				// BlockPos pos = player.getPosition();
+				//
+				// USchematicLoadRegion region = new USchematicLoadRegion(world, pos).center().rotate(USchematicRotation.ROTATION_270);
+				// try {
+				// USchematicReader reader = new USchematicReader(region, new File("savefile.nbt"));
+				// reader.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
+				// } catch (IOException e) {
+				// e.printStackTrace();
+				// }
+				// }
 				
 			}
 		});

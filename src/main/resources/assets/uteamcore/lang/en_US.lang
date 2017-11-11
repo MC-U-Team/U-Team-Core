@@ -1,0 +1,9 @@
+client.privacy=By using this mod you accept the privacy policy![newline][newline]We collect some user data from our mod to improve UTeamCore[newline]by knowing what we can support and where the biggest problems[newline]are. We promise we won't do anything bad with this data, but if[newline]you want to opt out then feel free to toggle it off in the[newline]config (.minecraft/config/uteamcore.cfg).[newline][newline]What do we collect?[newline][newline]- Your uuid[newline]- Your playtime[newline]- Country[newline]- PC specifics like cpu, gpu and operating system[newline]- Software like java, minecraft and forge version[newline]- Installed minecraft mods
+client.privacy.decline=You must accept our privacy policy in order to use UTeamCore![newline]Program will exit.
+
+command.uschematic.usage=/uschematic <save | load> ...
+command.uschematic.usage.save=/uschematic <save> <path> <x1> <y1> <z1> <x2> <y2> <z2>
+command.uschematic.usage.load=/uschematic <load> <path> <rotation in 0/90/180/270> <center in true/false> [<x> <y> <z>]
+command.uschematic.success.save=Successfully saved region <%s to %s> under file %s.uschematic in %s ms.
+command.uschematic.success.load=Successfully loaded file %s.uschematic to location %s in %s ms. 
+command.uschematic.error=Error while %s region: %s

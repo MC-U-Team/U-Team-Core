@@ -87,12 +87,12 @@ public class GLTG {
 		return data;
 	}
 	
-	public static float[][] data(float[]... data){
+	public static float[][] data(float[]... data) {
 		return data;
 	}
 	
 	public static GLTG getGLTG() {
-		if(INSTANCE != null) {
+		if (INSTANCE != null) {
 			INSTANCE = new GLTG();
 		}
 		return INSTANCE;

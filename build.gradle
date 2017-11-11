@@ -10,7 +10,7 @@ buildscript {
 
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "0.8.0-beta"
+version = "1.0.0"
 group= "info.u_team.u_team_core"
 archivesBaseName = "u_team_core"
 
@@ -29,10 +29,19 @@ minecraft {
 
 jar {
     from "LICENSE"
+    
+    manifest.mainAttributes(
+       	"Implementation-Title": "U Team Core",
+    	"Implementation-Version": project.version,
+		"Built-On": minecraft.version
+	)
 }
 
 dependencies {
 }
 
 processResources {
+	from(sourceSets.main.resources.srcDirs) {
+        exclude '*'
+	}
 }

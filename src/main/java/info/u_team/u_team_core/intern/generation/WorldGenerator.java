@@ -9,6 +9,12 @@ import net.minecraft.world.chunk.*;
 import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+/**
+ * Internal world generator for Generation API
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class WorldGenerator {
 	
 	public WorldGenerator() {

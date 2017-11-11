@@ -4,13 +4,20 @@ import net.minecraft.nbt.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class SchematicSaveRegion {
+/**
+ * Schematic API<br>
+ * -> Save Region
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
+public class USchematicSaveRegion {
 	
 	private World world;
 	private BlockPos min, max;
 	private int sizex, sizey, sizez, count;
 	
-	public SchematicSaveRegion(World world, BlockPos pos1, BlockPos pos2) {
+	public USchematicSaveRegion(World world, BlockPos pos1, BlockPos pos2) {
 		this.world = world;
 		min = new BlockPos(Math.min(pos1.getX(), pos2.getX()), Math.min(pos1.getY(), pos2.getY()), Math.min(pos1.getZ(), pos2.getZ()));
 		max = new BlockPos(Math.max(pos1.getX(), pos2.getX()), Math.max(pos1.getY(), pos2.getY()), Math.max(pos1.getZ(), pos2.getZ()));
@@ -67,7 +74,7 @@ public class SchematicSaveRegion {
 			for (int z = min.getZ(); z <= max.getZ(); z++) {
 				for (int y = min.getY(); y <= max.getY(); y++) {
 					BlockPos pos = new BlockPos(x, y, z);
-					SchematicEntry entry = new SchematicEntry(world, pos);
+					USchematicEntry entry = new USchematicEntry(world, pos);
 					list.appendTag(entry.getTag());
 				}
 			}

@@ -8,6 +8,13 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.block.state.pattern.BlockMatcher;
 import net.minecraft.init.Blocks;
 
+/**
+ * Generation API<br>
+ * -> Abstract Ore Generation
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public abstract class AbstractGenerationOre implements IGeneration {
 	
 	protected int veinsize, count;

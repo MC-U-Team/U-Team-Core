@@ -7,6 +7,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenerator;
 
+/**
+ * Generation API<br>
+ * -> Ore Generation Center Spread
+ * 
+ * @author HyCraftHD
+ * @date 21.10.2017
+ */
 public class GenerationOreCenterSpread extends AbstractGenerationOre {
 	
 	protected int centerheight, spread;
