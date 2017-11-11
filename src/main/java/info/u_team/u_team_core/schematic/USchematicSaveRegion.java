@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.schematic;
 
 import net.minecraft.nbt.*;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**

@@ -9,8 +9,7 @@ import info.u_team.u_team_core.schematic.*;
 import info.u_team.u_team_core.util.io.FileUtil;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class CommandUSchematic extends CommandBase {
@@ -33,7 +32,7 @@ public class CommandUSchematic extends CommandBase {
 	}
 	
 	@Override
-	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
 		World world = player.getEntityWorld();
 		if (args.length > 0) {
@@ -52,7 +51,7 @@ public class CommandUSchematic extends CommandBase {
 					USchematicWriter writer = new USchematicWriter(region, file);
 					writer.finished((success, seconds) -> {
 						if (success) {
-							notifyCommandListener(player, this, lang + "success.save", pos1, pos2, name, seconds);
+							notifyOperators(player, this, lang + "success.save", pos1, pos2, name, seconds);
 						}
 					}).start();
 					
@@ -85,7 +84,7 @@ public class CommandUSchematic extends CommandBase {
 					USchematicReader reader = new USchematicReader(region, file);
 					reader.finished((success, seconds) -> {
 						if (success) {
-							notifyCommandListener(player, this, lang + "success.load", name, pos, seconds);
+							notifyOperators(player, this, lang + "success.load", name, pos, seconds);
 						}
 					}).start();
 				} catch (Exception ex) {
@@ -100,8 +99,9 @@ public class CommandUSchematic extends CommandBase {
 		}
 	}
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, new String[] { "save", "load" });
 		} else {
@@ -109,9 +109,9 @@ public class CommandUSchematic extends CommandBase {
 				if (args.length == 2) {
 					return getListOfStringsMatchingLastWord(args, "name");
 				} else if (args.length >= 3 && args.length <= 5) {
-					return getTabCompletionCoordinate(args, 2, pos);
+					return func_175771_a(args, 2, pos);
 				} else if (args.length >= 5 && args.length <= 8) {
-					return getTabCompletionCoordinate(args, 5, pos);
+					return func_175771_a(args, 5, pos);
 				}
 			} else if (args[0].equalsIgnoreCase("load")) {
 				if (args.length == 2) {
@@ -124,11 +124,11 @@ public class CommandUSchematic extends CommandBase {
 				} else if (args.length == 4) {
 					return Lists.newArrayList("true", "false");
 				} else if (args.length >= 1 && args.length <= 7) {
-					return getTabCompletionCoordinate(args, 4, pos);
+					return func_175771_a(args, 4, pos);
 				}
 			}
 		}
-		return super.getTabCompletionOptions(server, sender, args, pos);
+		return super.addTabCompletionOptions(sender, args, pos);
 	}
 	
 	private String stripName(String name) {
@@ -154,5 +154,4 @@ public class CommandUSchematic extends CommandBase {
 			return USchematicRotation.ROTATION_0;
 		}
 	}
-	
 }

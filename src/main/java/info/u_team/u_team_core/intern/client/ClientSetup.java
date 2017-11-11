@@ -3,11 +3,11 @@ package info.u_team.u_team_core.intern.client;
 import java.util.*;
 import java.util.concurrent.*;
 
-import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.*;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.launchwrapper.Launch;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.*;
@@ -44,11 +44,11 @@ public class ClientSetup {
 		country = System.getProperty("user.country");
 		language = System.getProperty("user.language");
 		
-		cpu = OpenGlHelper.getCpu();
+		cpu = OpenGlHelper.func_183029_j();
 		system = System.getProperty("os.name");
-		display = Display.getWidth() + "x" + Display.getHeight() + " " + GlStateManager.glGetString(7936);
-		graphicscard = GlStateManager.glGetString(7937);
-		graphicsdriver = GlStateManager.glGetString(7938);
+		display = Display.getWidth() + "x" + Display.getHeight() + " " + GL11.glGetString(7936);
+		graphicscard = GL11.glGetString(7937);
+		graphicsdriver = GL11.glGetString(7938);
 		
 		javaversion = System.getProperty("java.version");
 		javabit = "" + (Minecraft.getMinecraft().isJava64bit() ? 64 : 32);

@@ -3,7 +3,7 @@ package info.u_team.u_team_core.intern.generation;
 import java.util.Random;
 
 import info.u_team.u_team_core.generation.GeneratableRegistry;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.*;
 import net.minecraftforge.fml.common.IWorldGenerator;
@@ -25,18 +25,18 @@ public class WorldGenerator {
 	private class WorldGeneratorFirst implements IWorldGenerator {
 		
 		@Override
-		public void generate(Random random, int x, int y, World world, IChunkGenerator generator, IChunkProvider provider) {
+		public void generate(Random random, int x, int y, World world, IChunkProvider generator, IChunkProvider chunkProvider) {
 			BlockPos chunkpos = new BlockPos(x * 16, 0, y * 16);
-			GeneratableRegistry.generateFirst(world.provider.getDimension(), world, random, chunkpos);
+			GeneratableRegistry.generateFirst(world.provider.getDimensionId(), world, random, chunkpos);
 		}
 	}
 	
 	private class WorldGeneratorLast implements IWorldGenerator {
 		
 		@Override
-		public void generate(Random random, int x, int y, World world, IChunkGenerator generator, IChunkProvider provider) {
+		public void generate(Random random, int x, int y, World world, IChunkProvider generator, IChunkProvider provider) {
 			BlockPos chunkpos = new BlockPos(x * 16, 0, y * 16);
-			GeneratableRegistry.generateLast(world.provider.getDimension(), world, random, chunkpos);
+			GeneratableRegistry.generateLast(world.provider.getDimensionId(), world, random, chunkpos);
 		}
 	}
 }

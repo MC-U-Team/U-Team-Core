@@ -4,14 +4,15 @@ import info.u_team.u_team_core.sub.USub;
 import info.u_team.u_team_core.util.stack.*;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.*;
+import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.client.resources.model.*;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.registry.*;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
@@ -24,8 +25,8 @@ import net.minecraftforge.fml.relauncher.*;
 @SideOnly(Side.CLIENT)
 public class ClientRegistry {
 	
-	public static <T extends Entity> void registerEntityRenderer(Class<T> clazz, IRenderFactory<? super T> rendererFactory) {
-		RenderingRegistry.registerEntityRenderingHandler(clazz, rendererFactory);
+	public static void registerEntityRenderingHandler(Class<? extends Entity> clazz, Render<? extends Entity> renderer) {
+		RenderingRegistry.registerEntityRenderingHandler(clazz, renderer);
 	}
 	
 	public static void registerKeybinding(KeyBinding key) {
@@ -65,7 +66,7 @@ public class ClientRegistry {
 		ModelBakery.registerItemVariants(item, res);
 	}
 	
-	public static <T extends TileEntity> void registerSpecialTileEntityRenderer(Class<T> clazz, TileEntitySpecialRenderer<? super T> renderer) {
+	public static <T extends TileEntity> void registerSpecialTileEntityRenderer(Class<T> clazz, TileEntitySpecialRenderer<T> renderer) {
 		net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntitySpecialRenderer(clazz, renderer);
 	}
 	
