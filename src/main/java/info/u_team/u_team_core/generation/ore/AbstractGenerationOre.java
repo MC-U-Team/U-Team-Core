@@ -5,7 +5,7 @@ import com.google.common.base.Predicate;
 import info.u_team.u_team_core.generation.IGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockMatcher;
+import net.minecraft.block.state.pattern.BlockHelper;
 import net.minecraft.init.Blocks;
 
 /**
@@ -27,11 +27,11 @@ public abstract class AbstractGenerationOre implements IGeneration {
 	}
 	
 	public AbstractGenerationOre(int veinsize, int count, Block block) {
-		this(veinsize, count, BlockMatcher.forBlock(block));
+		this(veinsize, count, BlockHelper.forBlock(block));
 	}
 	
 	public AbstractGenerationOre(int veinsize, int count) {
-		this(veinsize, count, Blocks.STONE);
+		this(veinsize, count, Blocks.stone);
 	}
 	
 	public void setPredicate(Predicate<IBlockState> predicate) { // maybe useful for changes in generation without creating a new instance

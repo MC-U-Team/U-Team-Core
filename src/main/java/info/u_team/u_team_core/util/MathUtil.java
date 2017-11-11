@@ -2,7 +2,7 @@ package info.u_team.u_team_core.util;
 
 import java.util.Random;
 
-import net.minecraft.util.math.*;
+import net.minecraft.util.*;
 
 /**
  * Math utility
@@ -63,6 +63,10 @@ public class MathUtil {
 	
 	public static double getAverage(long... numbers) {
 		return MathHelper.average(numbers);
+	}
+	
+	public static BlockPos subtract(Vec3i vec1, Vec3i vec2) {
+		return new BlockPos(vec1.getX() - vec2.getX(), vec1.getY() - vec2.getY(), vec1.getZ() - vec2.getZ());
 	}
 	
 }

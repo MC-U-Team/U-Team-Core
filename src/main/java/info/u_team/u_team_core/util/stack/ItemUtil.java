@@ -38,7 +38,7 @@ public class ItemUtil {
 	}
 	
 	public static ResourceLocation getRegistryName(Item item) {
-		return item.getRegistryName();
+		return (ResourceLocation) Item.itemRegistry.getNameForObject(item);
 	}
 	
 	public static String getModID(Item item) {

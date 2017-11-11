@@ -4,8 +4,7 @@ import net.minecraft.block.BlockAir;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.*;
+import net.minecraft.util.*;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 
@@ -55,10 +54,10 @@ public class WorldUtil {
 		return base;
 	}
 	
-	public static RayTraceResult rayTraceServerSide(EntityPlayer player, double range) {
-		Vec3d vec3 = new Vec3d(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ);
-		Vec3d vec31 = player.getLookVec();
-		Vec3d vec32 = vec3.addVector(vec31.xCoord * range, vec31.yCoord * range, vec31.zCoord * range);
-		return player.worldObj.rayTraceBlocks(vec3, vec32, true, false, true);
+	public MovingObjectPosition rayTrace(EntityPlayer player, double range) {
+		Vec3 playervec = new Vec3(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ);
+		Vec3 lookvec = player.getLookVec();
+		Vec3 finalvec = playervec.addVector(lookvec.xCoord * range, lookvec.yCoord * range, lookvec.zCoord * range);
+		return player.worldObj.rayTraceBlocks(playervec, finalvec, true, false, true);
 	}
 }

@@ -2,7 +2,7 @@ package info.u_team.u_team_core.generation;
 
 import java.util.*;
 
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**

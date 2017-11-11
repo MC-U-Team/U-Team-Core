@@ -3,8 +3,8 @@ package info.u_team.u_team_core.intern.updatechecker;
 import java.util.*;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
-import net.minecraft.util.text.*;
-import net.minecraft.util.text.event.*;
+import net.minecraft.event.*;
+import net.minecraft.util.*;
 import net.minecraftforge.common.ForgeVersion;
 import net.minecraftforge.fml.common.*;
 
@@ -39,21 +39,21 @@ public class UpdateChecker {
 		});
 	}
 	
-	public List<ITextComponent> createChat() {
+	public List<IChatComponent> createChat() {
 		
-		List<ITextComponent> list = new ArrayList<>();
+		List<IChatComponent> list = new ArrayList<>();
 		
 		results.forEach((modid, result) -> {
 			if (result.getState() == UpdateState.NEEDUPDATE) {
 				
 				ModContainer container = Loader.instance().getIndexedModList().get(modid);
 				
-				ITextComponent component = new TextComponentString("\u00a7eNew version (\u00a77" + result.getNewVersion() + "\u00a7e) for\u00a7a " + container.getName() + " \u00a7eis available for Minecraft " + ForgeVersion.mcVersion + "!\n\u00a7bDownload at: \u00a7a" + result.getDownload());
-				Style style = component.getStyle();
-				style.setColor(TextFormatting.YELLOW);
-				style.setHoverEvent(new HoverEvent(net.minecraft.util.text.event.HoverEvent.Action.SHOW_TEXT, new TextComponentString("\u00a7cClick to download.")));
-				style.setClickEvent(new ClickEvent(net.minecraft.util.text.event.ClickEvent.Action.OPEN_URL, result.getDownload()));
-				component.setStyle(style);
+				IChatComponent component = new ChatComponentText("\u00a7eNew version (\u00a77" + result.getNewVersion() + "\u00a7e) for\u00a7a " + container.getName() + " \u00a7eis available for Minecraft " + ForgeVersion.mcVersion + "!\n\u00a7bDownload at: \u00a7a" + result.getDownload());
+				ChatStyle style = component.getChatStyle();
+				style.setColor(EnumChatFormatting.YELLOW);
+				style.setChatHoverEvent(new HoverEvent(net.minecraft.event.HoverEvent.Action.SHOW_TEXT, new ChatComponentText("\u00a7cClick to download.")));
+				style.setChatClickEvent(new ClickEvent(net.minecraft.event.ClickEvent.Action.OPEN_URL, result.getDownload()));
+				component.setChatStyle(style);
 				
 				list.add(component);
 			}
