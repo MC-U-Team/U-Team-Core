@@ -49,11 +49,11 @@ public class UpdateChecker {
 				ModContainer container = Loader.instance().getIndexedModList().get(modid);
 				
 				ITextComponent component = new TextComponentString("\u00a7eNew version (\u00a77" + result.getNewVersion() + "\u00a7e) for\u00a7a " + container.getName() + " \u00a7eis available for Minecraft " + ForgeVersion.mcVersion + "!\n\u00a7bDownload at: \u00a7a" + result.getDownload());
-				Style style = component.getStyle();
+				Style style = component.getChatStyle();
 				style.setColor(TextFormatting.YELLOW);
-				style.setHoverEvent(new HoverEvent(net.minecraft.util.text.event.HoverEvent.Action.SHOW_TEXT, new TextComponentString("\u00a7cClick to download.")));
-				style.setClickEvent(new ClickEvent(net.minecraft.util.text.event.ClickEvent.Action.OPEN_URL, result.getDownload()));
-				component.setStyle(style);
+				style.setChatHoverEvent(new HoverEvent(net.minecraft.util.text.event.HoverEvent.Action.SHOW_TEXT, new TextComponentString("\u00a7cClick to download.")));
+				style.setChatClickEvent(new ClickEvent(net.minecraft.util.text.event.ClickEvent.Action.OPEN_URL, result.getDownload()));
+				component.setChatStyle(style);
 				
 				list.add(component);
 			}
