@@ -28,7 +28,7 @@ public class WorldUtil {
 	}
 	
 	public static boolean isNight(World w) {
-		WorldServer server = FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[0];
+		WorldServer server = FMLCommonHandler.instance().getMinecraftServerInstance().worlds[0];
 		return !server.isDaytime();
 	}
 	
@@ -41,7 +41,7 @@ public class WorldUtil {
 				if (expect != null && entitylivingbase.getUniqueID().equals(expect.getUniqueID())) {
 					continue;
 				}
-				if (entitylivingbase instanceof EntityArmorStand || entitylivingbase.isEntityInvulnerable(DamageSource.generic)) {
+				if (entitylivingbase instanceof EntityArmorStand || entitylivingbase.isEntityInvulnerable(DamageSource.GENERIC)) {
 					continue;
 				}
 				double d2 = entitylivingbase.getPosition().distanceSq(pos);
@@ -58,7 +58,7 @@ public class WorldUtil {
 	public static RayTraceResult rayTraceServerSide(EntityPlayer player, double range) {
 		Vec3d vec3 = new Vec3d(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ);
 		Vec3d vec31 = player.getLookVec();
-		Vec3d vec32 = vec3.addVector(vec31.xCoord * range, vec31.yCoord * range, vec31.zCoord * range);
-		return player.worldObj.rayTraceBlocks(vec3, vec32, true, false, true);
+		Vec3d vec32 = vec3.addVector(vec31.x * range, vec31.y * range, vec31.z * range);
+		return player.world.rayTraceBlocks(vec3, vec32, true, false, true);
 	}
 }
