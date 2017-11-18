@@ -18,12 +18,12 @@ public class CommandUSchematic extends CommandBase {
 	private String lang = "command.uschematic.";
 	
 	@Override
-	public String getCommandName() {
+	public String getName() {
 		return "uschematic";
 	}
 	
 	@Override
-	public String getCommandUsage(ICommandSender sender) {
+	public String getUsage(ICommandSender sender) {
 		return lang + "usage";
 	}
 	
@@ -39,7 +39,7 @@ public class CommandUSchematic extends CommandBase {
 		if (args.length > 0) {
 			if (args[0].equalsIgnoreCase("save")) {
 				if (args.length != 8) {
-					throw new WrongUsageException(getCommandUsage(sender) + ".save");
+					throw new WrongUsageException(getUsage(sender) + ".save");
 				}
 				try {
 					String name = stripName(args[1]);
@@ -62,7 +62,7 @@ public class CommandUSchematic extends CommandBase {
 				}
 			} else if (args[0].equalsIgnoreCase("load")) {
 				if (args.length != 4 && args.length != 7) {
-					throw new WrongUsageException(getCommandUsage(sender) + ".load");
+					throw new WrongUsageException(getUsage(sender) + ".load");
 				}
 				try {
 					String name = stripName(args[1]);
@@ -93,15 +93,15 @@ public class CommandUSchematic extends CommandBase {
 					throw new CommandException(lang + "error", "loading", ex.getClass().getName());
 				}
 			} else {
-				throw new WrongUsageException(getCommandUsage(sender));
+				throw new WrongUsageException(getUsage(sender));
 			}
 		} else {
-			throw new WrongUsageException(getCommandUsage(sender));
+			throw new WrongUsageException(getUsage(sender));
 		}
 	}
 	
 	@Override
-	public List<String> getTabCompletionOptions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, BlockPos pos) {
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, new String[] { "save", "load" });
 		} else {
@@ -128,7 +128,7 @@ public class CommandUSchematic extends CommandBase {
 				}
 			}
 		}
-		return super.getTabCompletionOptions(server, sender, args, pos);
+		return super.getTabCompletions(server, sender, args, pos);
 	}
 	
 	private String stripName(String name) {

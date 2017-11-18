@@ -9,6 +9,7 @@ import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Block API<br>
@@ -116,7 +117,7 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 		} else {
 			name = USub.getID() + ":" + name;
 		}
-		TileEntity.addMapping(tileentity, name);
+		GameRegistry.registerTileEntity(tileentity, name);
 		this.tileentity = tileentity;
 	}
 	
