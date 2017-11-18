@@ -7,6 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GlStateManager;
 
 /**
  * Draw class for a higher level drawing
@@ -27,9 +28,9 @@ public class GLTG {
 		this.log = UCoreConstants.LOGGER;
 	}
 	
-	public GLExtent setTexture(GuiRescourceLocation location) {
+	public GLSize setTexture(GuiRescourceLocation location) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(location);
-		return new GLExtent(GL11.glGetTexLevelParameterf(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH), GL11.glGetTexLevelParameterf(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT));
+		return new GLSize(GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH),GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT));
 	}
 	
 	public void drawManual(@Nonnull float[][] vertex, float[][] color, float[][] tex, float[][] normal) {
