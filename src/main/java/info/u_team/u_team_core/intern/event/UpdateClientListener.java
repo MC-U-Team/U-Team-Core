@@ -23,11 +23,11 @@ public class UpdateClientListener {
 	@SubscribeEvent
 	public void on(RenderGameOverlayEvent event) {
 		if (!show) {
-			if (!minecraft.inGameHasFocus || minecraft.thePlayer == null) {
+			if (!minecraft.inGameHasFocus || minecraft.player == null) {
 				return;
 			}
 			show = true;
-			UpdateCheckerRegistry.getChecker().createChat().forEach(component -> minecraft.thePlayer.addChatComponentMessage(component));
+			UpdateCheckerRegistry.getChecker().createChat().forEach(component -> minecraft.player.sendMessage(component));
 		}
 	}
 }

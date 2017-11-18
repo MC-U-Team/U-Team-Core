@@ -7,7 +7,7 @@ import info.u_team.u_team_core.sub.USub;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.*;
 
 /**
  * Block API<br>
@@ -53,8 +53,8 @@ public class UBlock extends Block {
 	}
 	
 	private final void register() {
-		GameRegistry.register(this);
-		GameRegistry.register(uitemblock);
+		ForgeRegistries.BLOCKS.register(this);
+		ForgeRegistries.ITEMS.register(uitemblock);
 	}
 	
 	public Item getItem() {
