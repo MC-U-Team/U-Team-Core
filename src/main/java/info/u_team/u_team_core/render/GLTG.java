@@ -7,7 +7,6 @@ import org.lwjgl.opengl.GL11;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
 
 /**
  * Draw class for a higher level drawing
