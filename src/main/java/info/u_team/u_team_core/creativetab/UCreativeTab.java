@@ -3,7 +3,7 @@ package info.u_team.u_team_core.creativetab;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
@@ -42,20 +42,11 @@ public class UCreativeTab extends CreativeTabs {
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public Item getTabIconItem() {
+	public ItemStack getTabIconItem() {
 		if (item == null) {
-			return Items.ACACIA_BOAT;
+			return new ItemStack(Items.ACACIA_BOAT);
 		}
-		return item;
-	}
-	
-	@SideOnly(Side.CLIENT)
-	@Override
-	public int getIconItemDamage() {
-		if (item == null) {
-			return 0;
-		}
-		return metadata;
+		return new ItemStack(item, 1, metadata);
 	}
 	
 }

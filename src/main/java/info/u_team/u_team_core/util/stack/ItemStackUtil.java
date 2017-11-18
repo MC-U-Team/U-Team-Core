@@ -16,6 +16,6 @@ public class ItemStackUtil {
 			return (ItemStack) obj;
 		}
 		Item item = ItemUtil.from(obj);
-		return item != null ? new ItemStack(item) : null;
+		return item != null ? new ItemStack(item) : ItemStack.EMPTY;
 	}
 }

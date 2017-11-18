@@ -38,7 +38,7 @@ public class GenerationSchematicSurfaceChunk extends AbstractGenerationSchematic
 	@Override
 	public void generate(WorldGenerator generator, World world, Random random, BlockPos chunkpos) {
 		if (random.nextFloat() <= chanceperchunk) {
-			BlockPos blockpos = world.getTopSolidOrLiquidBlock(chunkpos.add(random.nextInt(16), 0, random.nextInt(16)));
+			BlockPos blockpos = world.getTopSolidOrLiquidBlock(chunkpos.add(random.nextInt(16), 0, random.nextInt(16))).add(8, 0, 8);
 			generator.generate(world, random, blockpos);
 		}
 	}
