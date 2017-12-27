@@ -5,8 +5,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.*;
-import net.minecraft.world.*;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraft.world.World;
 
 /**
  * World utility
