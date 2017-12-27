@@ -6,8 +6,7 @@ import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraft.world.World;
 
 /**
  * World utility
@@ -27,9 +26,8 @@ public class WorldUtil {
 		return true;
 	}
 	
-	public static boolean isNight(World w) {
-		WorldServer server = FMLCommonHandler.instance().getMinecraftServerInstance().worldServers[0];
-		return !server.isDaytime();
+	public static boolean isNight(World world) {
+		return !world.isDaytime();
 	}
 	
 	public static EntityLivingBase getClosestPlayerExpect(World world, EntityLivingBase expect, BlockPos pos, double distance) {
