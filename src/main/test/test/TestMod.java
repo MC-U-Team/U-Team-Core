@@ -42,10 +42,10 @@ public class TestMod extends USubMod {
 		tab = new UCreativeTab("test");
 		
 		item = new UItem("testitem", tab);
-		block = new UBlock(Material.ROCK, "testblock", tab);
+		// block = new UBlock(Material.ROCK, "testblock", tab);
 		tab.setIcon(block);
 		
-		blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
+		// blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
 		
 	}
 	

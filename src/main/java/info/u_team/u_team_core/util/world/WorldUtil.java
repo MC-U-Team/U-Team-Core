@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 public class WorldUtil {
 	
 	public static boolean isBlockOver(World world, BlockPos blockpos) {
-		for (int i = 0; i <= 256; i++) {
+		for (int i = 0; i <= 256 - blockpos.getY(); i++) {
 			if (!(world.getBlockState(blockpos.up(i)).getBlock() instanceof BlockAir)) {
 				return false;
 			}

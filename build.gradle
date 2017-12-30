@@ -2,17 +2,28 @@ buildscript {
     repositories {
         jcenter()
         maven { url = "http://files.minecraftforge.net/maven" }
+        maven { url = "https://plugins.gradle.org/m2/" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT'
+        classpath "net.minecraftforge.gradle:ForgeGradle:2.2-SNAPSHOT"
+        classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.0.9"
     }
 }
 
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: "net.minecraftforge.gradle.forge"
+apply plugin: "com.matthewprenger.cursegradle"
 
-version = "1.0.0"
-group= "info.u_team.u_team_core"
-archivesBaseName = "u_team_core"
+
+ext.buildProps = file "build.properties"
+
+buildProps.withReader {
+    def prop = new Properties()
+    prop.load(it)
+    ext.config = new ConfigSlurper().parse prop
+}
+
+version = config.mod.version
+archivesBaseName = config.mod.modid
 
 sourceCompatibility = targetCompatibility = "1.8"
 
@@ -21,20 +32,24 @@ compileJava {
 }
 
 minecraft {
-    version = "1.9.4-12.17.0.1976"
+    version = config.forge.version
     runDir = "run"
-    mappings = "snapshot_20160518"
+    mappings = config.forge.mappings
     makeObfSourceJar = false
 }
 
 jar {
     from "LICENSE"
     
+    archiveName = archivesBaseName + "-" + minecraft.version + "-v" + version + ".jar"
+    
     manifest.mainAttributes(
-       	"Implementation-Title": "U Team Core",
-    	"Implementation-Version": project.version,
+       	"Implementation-Title": config.mod.name,
+    	"Implementation-Version": version,
 		"Built-On": minecraft.version
 	)
+	
+    exclude ("test/**")
 }
 
 dependencies {
@@ -42,6 +57,18 @@ dependencies {
 
 processResources {
 	from(sourceSets.main.resources.srcDirs) {
-        exclude '*'
+        exclude "*"
 	}
+}
+
+curseforge {
+	apiKey = project.properties["token"]
+  	project {
+    	id = config.curse.id
+    	releaseType = config.curse.type
+
+    	mainArtifact(jar) {
+      		displayName = config.curse.display + "-" + minecraft.version + "-" + version
+    	}
+  	}
 }
