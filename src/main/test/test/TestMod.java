@@ -42,10 +42,10 @@ public class TestMod extends USubMod {
 		tab = new UCreativeTab("test");
 		
 		item = new UItem("testitem", tab);
-		block = new UBlock(Material.rock, "testblock", tab);
+		// block = new UBlock(Material.ROCK, "testblock", tab);
 		tab.setIcon(block);
 		
-		blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.rock, "testtile", tab);
+		// blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
 		
 	}
 	
@@ -59,11 +59,11 @@ public class TestMod extends USubMod {
 		ClientRegistry.registerModel(block, 0, new ModelResourceLocation(new ResourceLocation("stone"), "inventory"));
 		ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new ResourceLocation("bedrock"), "inventory"));
 		
-		GeneratableOre ore1 = new GeneratableOre(Blocks.lapis_ore.getDefaultState(), new GenerationOreCenterSpread(Blocks.air, 7, 1, 170, 16));
+		GeneratableOre ore1 = new GeneratableOre(Blocks.LAPIS_ORE.getDefaultState(), new GenerationOreCenterSpread(Blocks.AIR, 7, 1, 170, 16));
 		
-		GeneratableOre ore2 = new GeneratableOre(Blocks.diamond_ore.getDefaultState(), new GenerationOreMinMax(Blocks.air, 8, 1, 120, 136));
+		GeneratableOre ore2 = new GeneratableOre(Blocks.DIAMOND_ORE.getDefaultState(), new GenerationOreMinMax(Blocks.AIR, 8, 1, 120, 136));
 		
-		GeneratableSchematic schematic = new GeneratableSchematic(new GenerationSchematicSurfaceChunk(this.getClass().getResource("/test.uschematic"), 0.2F));
+		GeneratableSchematic schematic = new GeneratableSchematic(new GenerationSchematicSurfaceChunk(this.getClass().getResource("/test.uschematic"), 1));
 		
 		GeneratableRegistry.addFirst(0, ore1);
 		GeneratableRegistry.addLast(0, ore2);

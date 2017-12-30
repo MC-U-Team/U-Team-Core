@@ -6,8 +6,7 @@ import net.minecraft.entity.item.EntityArmorStand;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.*;
-import net.minecraft.world.*;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraft.world.World;
 
 /**
  * World utility
@@ -19,7 +18,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 public class WorldUtil {
 	
 	public static boolean isBlockOver(World world, BlockPos blockpos) {
-		for (int i = 0; i <= 256; i++) {
+		for (int i = 0; i <= 256 - blockpos.getY(); i++) {
 			if (!(world.getBlockState(blockpos.up(i)).getBlock() instanceof BlockAir)) {
 				return false;
 			}

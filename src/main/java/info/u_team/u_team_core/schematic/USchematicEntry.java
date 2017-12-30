@@ -27,7 +27,7 @@ public class USchematicEntry {
 		IBlockState state = world.getBlockState(pos);
 		Block block = state.getBlock();
 		
-		registryname = Block.blockRegistry.getNameForObject(block);
+		registryname = Block.REGISTRY.getNameForObject(block);
 		meta = block.getMetaFromState(state);
 		
 		TileEntity tileentity = world.getTileEntity(pos);
@@ -46,12 +46,13 @@ public class USchematicEntry {
 	}
 	
 	public void setBlock(World world, BlockPos pos) {
-		Block block = Block.blockRegistry.getObject(registryname);
+		Block block = Block.REGISTRY.getObject(registryname);
 		if (block == null) {
 			UCoreConstants.LOGGER.warn("Block registryname " + registryname + " in schematic was not found in minecraft!? Mods missing?");
-			block = Blocks.air;
+			block = Blocks.AIR;
 		}
 		
+		@SuppressWarnings("deprecation")
 		IBlockState state = block.getStateFromMeta(meta);
 		world.setBlockState(pos, state);
 		

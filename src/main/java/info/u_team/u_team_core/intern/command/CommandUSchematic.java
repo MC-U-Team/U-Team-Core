@@ -52,7 +52,7 @@ public class CommandUSchematic extends CommandBase {
 					USchematicWriter writer = new USchematicWriter(region, file);
 					writer.finished((success, seconds) -> {
 						if (success) {
-							notifyOperators(player, this, lang + "success.save", pos1, pos2, name, seconds);
+							notifyCommandListener(player, this, lang + "success.save", pos1, pos2, name, seconds);
 						}
 					}).start();
 					
@@ -85,7 +85,7 @@ public class CommandUSchematic extends CommandBase {
 					USchematicReader reader = new USchematicReader(region, file);
 					reader.finished((success, seconds) -> {
 						if (success) {
-							notifyOperators(player, this, lang + "success.load", name, pos, seconds);
+							notifyCommandListener(player, this, lang + "success.load", name, pos, seconds);
 						}
 					}).start();
 				} catch (Exception ex) {
