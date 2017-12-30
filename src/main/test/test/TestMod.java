@@ -42,10 +42,10 @@ public class TestMod extends USubMod {
 		tab = new UCreativeTab("test");
 		
 		item = new UItem("testitem", tab);
-		block = new UBlock(Material.ROCK, "testblock", tab);
+		// block = new UBlock(Material.ROCK, "testblock", tab);
 		tab.setIcon(block);
 		
-		blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
+		// blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
 		
 	}
 	
@@ -80,19 +80,19 @@ public class TestMod extends USubMod {
 		event.registerServerCommand(new CommandBase() {
 			
 			@Override
-			public String getCommandUsage(ICommandSender sender) {
+			public String getUsage(ICommandSender sender) {
 				return "Usage";
 			}
 			
 			@Override
-			public String getCommandName() {
+			public String getName() {
 				return "test";
 			}
 			
 			@Override
 			public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 				
-				World world = server.worldServers[0];
+				World world = server.worlds[0];
 				EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
 				if (player == null) {
 					throw new CommandException("Only players can use this command!");

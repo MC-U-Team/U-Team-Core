@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 public class WorldUtil {
 	
 	public static boolean isBlockOver(World world, BlockPos blockpos) {
-		for (int i = 0; i <= 256; i++) {
+		for (int i = 0; i <= 256 - blockpos.getY(); i++) {
 			if (!(world.getBlockState(blockpos.up(i)).getBlock() instanceof BlockAir)) {
 				return false;
 			}
@@ -57,6 +57,6 @@ public class WorldUtil {
 		Vec3d vec3 = new Vec3d(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ);
 		Vec3d vec31 = player.getLookVec();
 		Vec3d vec32 = vec3.addVector(vec31.xCoord * range, vec31.yCoord * range, vec31.zCoord * range);
-		return player.worldObj.rayTraceBlocks(vec3, vec32, true, false, true);
+		return player.world.rayTraceBlocks(vec3, vec32, true, false, true);
 	}
 }

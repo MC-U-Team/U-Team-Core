@@ -10,9 +10,9 @@ import net.minecraft.util.ResourceLocation;
  * @date 21.10.2017
  *
  */
-public class GuiRescourceLocation extends ResourceLocation {
+public class GuiResourceLocation extends ResourceLocation {
 	
-	public GuiRescourceLocation(String texture_name) {
+	public GuiResourceLocation(String texture_name) {
 		super(USub.getID(), "textures/gui/" + texture_name);
 	}
 	

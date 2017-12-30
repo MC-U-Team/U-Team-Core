@@ -15,5 +15,4 @@ public class UTileEntity extends TileEntity {
 	
 	public UTileEntity() {
 	}
-	
 }
