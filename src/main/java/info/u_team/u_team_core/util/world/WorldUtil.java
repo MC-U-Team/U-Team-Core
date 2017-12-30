@@ -57,6 +57,6 @@ public class WorldUtil {
 		Vec3d vec3 = new Vec3d(player.posX, player.posY + (double) player.getEyeHeight(), player.posZ);
 		Vec3d vec31 = player.getLookVec();
 		Vec3d vec32 = vec3.addVector(vec31.xCoord * range, vec31.yCoord * range, vec31.zCoord * range);
-		return player.worldObj.rayTraceBlocks(vec3, vec32, true, false, true);
+		return player.world.rayTraceBlocks(vec3, vec32, true, false, true);
 	}
 }
