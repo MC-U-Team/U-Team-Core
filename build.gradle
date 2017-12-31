@@ -48,8 +48,29 @@ jar {
     	"Implementation-Version": version,
 		"Built-On": minecraft.version
 	)
+	
+    exclude ("test/**")
+}
+
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    
+    from "LICENSE"
+    
+    archiveName = archivesBaseName + "-" + minecraft.version + "-v" + version + "-dev.jar"
+    
+    manifest.mainAttributes(
+       	"Implementation-Title": config.mod.name,
+    	"Implementation-Version": version,
+		"Built-On": minecraft.version
+	)
 		
     exclude ("test/**")
+}
+
+artifacts {
+    archives deobfJar
+    archives jar
 }
 
 dependencies {
@@ -69,6 +90,11 @@ curseforge {
 
     	mainArtifact(jar) {
       		displayName = config.curse.display + "-" + minecraft.version + "-" + version
+    	}
+    	
+    	addArtifact(deobfJar) {
+    		displayName = config.curse.display + "-" + minecraft.version + "-" + version + "-dev"
+    		 changelog = "Mappings: " + config.forge.mappings
     	}
   	}
 }
