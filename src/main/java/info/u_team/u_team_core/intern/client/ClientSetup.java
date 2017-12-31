@@ -44,7 +44,7 @@ public class ClientSetup {
 		country = System.getProperty("user.country");
 		language = System.getProperty("user.language");
 		
-		cpu = OpenGlHelper.func_183029_j();
+		cpu = OpenGlHelper.getCpu();
 		system = System.getProperty("os.name");
 		display = Display.getWidth() + "x" + Display.getHeight() + " " + GL11.glGetString(7936);
 		graphicscard = GL11.glGetString(7937);

@@ -39,12 +39,12 @@ public class BufferEntry {
 	}
 	
 	public BufferEntry tex(float u, float v) {
-		this.buffer.func_181673_a(u, v);
+		this.buffer.tex(u, v);
 		return this;
 	}
 	
 	public BufferEntry color(float r, float b, float g, float a) {
-		this.buffer.func_181666_a(r, g, b, a);
+		this.buffer.color(r, g, b, a);
 		return this;
 	}
 	
@@ -60,30 +60,30 @@ public class BufferEntry {
 		VertexFormat v = null;
 		switch (format) {
 		case POS_COLOR:
-			v = DefaultVertexFormats.field_181706_f;
+			v = DefaultVertexFormats.POSITION_COLOR;
 			break;
 		case POS_TEX:
-			v = DefaultVertexFormats.field_181707_g;
+			v = DefaultVertexFormats.POSITION_TEX;
 			break;
 		case POS_TEX_COLOR:
-			v = DefaultVertexFormats.field_181707_g;
+			v = DefaultVertexFormats.POSITION_TEX_COLOR;
 			break;
 		case POS_TEX_COLOR_NORMAL:
-			v = DefaultVertexFormats.field_181711_k;
+			v = DefaultVertexFormats.POSITION_TEX_COLOR_NORMAL;
 			break;
 		case POS_TEX_NORMAL:
-			v = DefaultVertexFormats.field_181704_d;
+			v = DefaultVertexFormats.POSITION_TEX_NORMAL;
 			break;
 		}
 		if (v == null) {
 			UCoreConstants.LOGGER.error("Somthing went wrong with the draw start (Wrong vertex Format)");
 		}
-		this.buffer.func_181668_a(GL11.GL_POLYGON_BIT, v);
+		this.buffer.begin(GL11.GL_POLYGON_BIT, v);
 		return this;
 	}
 	
 	public void end() {
-		this.buffer.func_181675_d();
+		this.buffer.endVertex();
 	}
 	
 	public void endDraw() {

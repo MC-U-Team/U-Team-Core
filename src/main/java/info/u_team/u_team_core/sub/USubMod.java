@@ -21,11 +21,6 @@ public abstract class USubMod {
 	
 	protected Logger logger;
 	
-	@Deprecated // Use USubMod(String modid, String name, String version)
-	public USubMod(String modid) {
-		this(modid, null, null);
-	}
-	
 	public USubMod(String modid, String name, String version) {
 		this(modid, name, version, null);
 	}

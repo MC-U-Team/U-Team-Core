@@ -65,8 +65,4 @@ public class MathUtil {
 		return MathHelper.average(numbers);
 	}
 	
-	public static BlockPos subtract(Vec3i vec1, Vec3i vec2) {
-		return new BlockPos(vec1.getX() - vec2.getX(), vec1.getY() - vec2.getY(), vec1.getZ() - vec2.getZ());
-	}
-	
 }
