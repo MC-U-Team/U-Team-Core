@@ -6,7 +6,7 @@ import info.u_team.u_team_core.item.UItemBlock;
 import info.u_team.u_team_core.sub.USub;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.common.registry.*;
 
 /**
@@ -21,19 +21,19 @@ public class UBlock extends Block {
 	
 	private UItemBlock uitemblock = null;
 	
-	public UBlock(Material material, String name) {
-		this(material, name, null, UItemBlock.class);
+	public UBlock(String name, Material material) {
+		this(name, material, null, UItemBlock.class);
 	}
 	
-	public UBlock(Material material, String name, Class<? extends UItemBlock> itemblock) {
-		this(material, name, null, itemblock);
+	public UBlock(String name, Material material, Class<? extends UItemBlock> itemblock) {
+		this(name, material, null, itemblock);
 	}
 	
-	public UBlock(Material material, String name, UCreativeTab tab) {
-		this(material, name, tab, UItemBlock.class);
+	public UBlock(String name, Material material, UCreativeTab tab) {
+		this(name, material, tab, UItemBlock.class);
 	}
 	
-	public UBlock(Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
+	public UBlock(String name, Material material, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
 		super(material);
 		
 		setRegistryName(USub.getID(), name);

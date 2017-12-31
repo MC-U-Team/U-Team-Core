@@ -19,11 +19,11 @@ import net.minecraft.client.renderer.GlStateManager;
 public class UGuiContainer extends GuiContainer {
 	
 	private GLTG gltg;
-	private GuiRescourceLocation background;
+	private GuiResourceLocation background;
 	
-	public UGuiContainer(UContainer inventorySlotsIn, GuiRescourceLocation background) {
-		super(inventorySlotsIn);
-		gltg = getGLTG();
+	public UGuiContainer(UContainer container, GuiResourceLocation background) {
+		super(container);
+		this.gltg = getGLTG();
 		this.background = background;
 	}
 	
