@@ -6,7 +6,6 @@ import info.u_team.u_team_core.sub.USub;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -19,27 +18,24 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class UBlock extends Block {
 	
-	private String name, modid;
 	private Class<? extends UItemBlock> uitemblock = null;
 	
-	public UBlock(Material material, String name) {
-		this(material, name, null, UItemBlock.class);
+	public UBlock(String name, Material material) {
+		this(name, material, null, UItemBlock.class);
 	}
 	
-	public UBlock(Material material, String name, Class<? extends UItemBlock> itemblock) {
-		this(material, name, null, itemblock);
+	public UBlock(String name, Material material, Class<? extends UItemBlock> itemblock) {
+		this(name, material, null, itemblock);
 	}
 	
-	public UBlock(Material material, String name, UCreativeTab tab) {
-		this(material, name, tab, UItemBlock.class);
+	public UBlock(String name, Material material, UCreativeTab tab) {
+		this(name, material, tab, UItemBlock.class);
 	}
 	
-	public UBlock(Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
+	public UBlock(String name, Material material, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
 		super(material);
 		
-		this.modid = USub.getID();
-		this.name = name;
-		
+		setRegistryName(USub.getID(), name);
 		setUnlocalizedName(name);
 		
 		if (tab != null) {
@@ -52,15 +48,11 @@ public class UBlock extends Block {
 	}
 	
 	private final void register() {
-		GameRegistry.registerBlock(this, uitemblock, name);
+		GameRegistry.registerBlock(this, uitemblock);
 	}
 	
 	public Item getItem() {
 		return Item.getItemFromBlock(this);
-	}
-	
-	public ResourceLocation getRegistryNameResourceLocation() {
-		return new ResourceLocation(modid, name);
 	}
 	
 }

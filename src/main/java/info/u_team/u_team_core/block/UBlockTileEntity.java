@@ -1,13 +1,13 @@
 package info.u_team.u_team_core.block;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
-import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.item.UItemBlock;
-import info.u_team.u_team_core.sub.USub;
-import info.u_team.u_team_core.tileentity.UTileEntity;
+import info.u_team.u_team_core.tileentity.UTileEntityProvider;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 /**
@@ -21,123 +21,36 @@ import net.minecraft.world.World;
 
 public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 	
-	private Class<? extends UTileEntity> tileentity = null;
-	private String tileentityname = null;
-	private Object[] objts = null;
+	private UTileEntityProvider provider;
 	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name) {
-		super(material, name);
-		register(tileentity);
-		this.tileentityname = tileentityname;
+	public UBlockTileEntity(String name, Material material, UTileEntityProvider provider) {
+		this(name, material, null, UItemBlock.class, provider);
 	}
 	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, Class<? extends UItemBlock> itemblock) {
-		super(material, name, itemblock);
-		register(tileentity);
-		this.tileentityname = tileentityname;
+	public UBlockTileEntity(String name, Material material, Class<? extends UItemBlock> itemblock, UTileEntityProvider provider) {
+		this(name, material, null, itemblock, provider);
 	}
 	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, UCreativeTab tab) {
-		super(material, name, tab);
-		register(tileentity);
-		this.tileentityname = tileentityname;
+	public UBlockTileEntity(String name, Material material, UCreativeTab tab, UTileEntityProvider provider) {
+		this(name, material, tab, UItemBlock.class, provider);
 	}
 	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
-		super(material, name, tab, itemblock);
-		register(tileentity);
-		this.tileentityname = tileentityname;
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, Material material, String name) {
-		super(material, name);
-		register(tileentity);
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, Material material, String name, Class<? extends UItemBlock> itemblock) {
-		super(material, name, itemblock);
-		register(tileentity);
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, Material material, String name, UCreativeTab tab) {
-		super(material, name, tab);
-		register(tileentity);
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
-		super(material, name, tab, itemblock);
-		register(tileentity);
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, Object... objects) {
-		this(tileentity, tileentityname, material, name);
-		this.objts = objects;
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, Class<? extends UItemBlock> itemblock, Object... objects) {
-		this(tileentity, tileentityname, material, name, itemblock);
-		this.objts = objects;
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, UCreativeTab tab, Object... objects) {
-		this(tileentity, tileentityname, material, name, tab);
-		this.objts = objects;
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, String tileentityname, Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock, Object... objects) {
-		this(tileentity, tileentityname, material, name, tab, itemblock);
-		this.objts = objects;
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, Material material, String name, Object... objects) {
-		this(tileentity, material, name);
-		this.objts = objects;
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, Material material, String name, Class<? extends UItemBlock> itemblock, Object... objects) {
-		this(tileentity, material, name, itemblock);
-		this.objts = objects;
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, Material material, String name, UCreativeTab tab, Object... objects) {
-		this(tileentity, material, name, tab);
-		this.objts = objects;
-	}
-	
-	public UBlockTileEntity(Class<? extends UTileEntity> tileentity, Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock, Object... objects) {
-		this(tileentity, material, name, tab, itemblock);
-		this.objts = objects;
-	}
-	
-	private final void register(Class<? extends UTileEntity> tileentity) {
-		String name = tileentityname;
-		if (name == null) {
-			name = tileentity.getName();
-		} else {
-			name = USub.getID() + ":" + name;
-		}
-		TileEntity.addMapping(tileentity, name);
-		this.tileentity = tileentity;
+	public UBlockTileEntity(String name, Material material, UCreativeTab tab, Class<? extends UItemBlock> itemblock, UTileEntityProvider provider) {
+		super(name, material, tab, itemblock);
+		this.provider = provider;
+		this.isBlockContainer = true;
 	}
 	
 	@Override
-	public TileEntity createNewTileEntity(World worldIn, int meta) {
-		try {
-			if (objts == null) {
-				return tileentity.newInstance();
-			} else {
-				Class<?>[] classes = new Class<?>[objts.length];
-				int i = 0;
-				for (Object ob : objts) {
-					classes[i] = ob.getClass();
-					i++;
-				}
-				tileentity.getConstructor(classes).newInstance(objts);
-			}
-		} catch (Exception ex) {
-			UCoreConstants.LOGGER.error("Couldn't create tileentity object.", ex);
-		}
-		return null;
+	public boolean onBlockEventReceived(World worldIn, BlockPos pos, IBlockState state, int id, int param) {
+		super.onBlockEventReceived(worldIn, pos, state, id, param);
+		TileEntity tileentity = worldIn.getTileEntity(pos);
+		return tileentity == null ? false : tileentity.receiveClientEvent(id, param);
+	}
+	
+	@Override
+	public TileEntity createNewTileEntity(World world, int meta) {
+		return provider.create(world, meta);
 	}
 	
 }

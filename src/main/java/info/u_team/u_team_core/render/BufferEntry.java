@@ -34,7 +34,7 @@ public class BufferEntry {
 	}
 	
 	public BufferEntry vertex(float x, float y, float z) {
-		this.buffer.pos(x, y, z);
+		this.buffer.putPosition(x, y, z);
 		return this;
 	}
 	
@@ -49,7 +49,7 @@ public class BufferEntry {
 	}
 	
 	public BufferEntry normal(float x, float y, float z) {
-		this.buffer.normal(x, y, z);
+		this.buffer.putNormal(x, y, z);
 		return this;
 	}
 	

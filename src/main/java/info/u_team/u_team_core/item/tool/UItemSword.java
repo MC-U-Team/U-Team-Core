@@ -1,27 +1,18 @@
-package info.u_team.u_team_core.item;
+package info.u_team.u_team_core.item.tool;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.sub.USub;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-/**
- * Item API<br>
- * -> Basic Item
- * 
- * @date 17.08.2017
- * @author MrTroble
- *
- */
-
-public class UItem extends Item {
+public class UItemSword extends ItemSword {
 	
-	public UItem(String name) {
-		this(name, null);
+	public UItemSword(String name, ToolMaterial material) {
+		this(name, null, material);
 	}
 	
-	public UItem(String name, UCreativeTab tab) {
-		super();
+	public UItemSword(String name, UCreativeTab tab, ToolMaterial material) {
+		super(material);
 		
 		setRegistryName(USub.getID(), name);
 		setUnlocalizedName(name);

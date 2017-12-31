@@ -99,9 +99,8 @@ public class CommandUSchematic extends CommandBase {
 		}
 	}
 	
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
-	public List addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
+	public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
 		if (args.length == 1) {
 			return getListOfStringsMatchingLastWord(args, new String[] { "save", "load" });
 		} else {
