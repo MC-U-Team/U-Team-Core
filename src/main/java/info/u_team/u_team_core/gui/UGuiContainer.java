@@ -1,13 +1,9 @@
 package info.u_team.u_team_core.gui;
 
-import static info.u_team.u_team_core.render.GLTG.data;
-import static info.u_team.u_team_core.render.GLTG.getGLTG;
-import static info.u_team.u_team_core.render.GLTG.vertex;
+import static info.u_team.u_team_core.render.GLTG.*;
 
 import info.u_team.u_team_core.container.UContainer;
-import info.u_team.u_team_core.render.GLSize;
-import info.u_team.u_team_core.render.GLTG;
-import info.u_team.u_team_core.render.GuiRescourceLocation;
+import info.u_team.u_team_core.render.*;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.client.renderer.GlStateManager;
 
@@ -23,11 +19,11 @@ import net.minecraft.client.renderer.GlStateManager;
 public class UGuiContainer extends GuiContainer {
 	
 	private GLTG gltg;
-	private GuiRescourceLocation background;
+	private GuiResourceLocation background;
 	
-	public UGuiContainer(UContainer inventorySlotsIn, GuiRescourceLocation background) {
-		super(inventorySlotsIn);
-		gltg = getGLTG();
+	public UGuiContainer(UContainer container, GuiResourceLocation background) {
+		super(container);
+		this.gltg = getGLTG();
 		this.background = background;
 	}
 	

@@ -22,19 +22,19 @@ public class UBlock extends Block {
 	private String name, modid;
 	private Class<? extends UItemBlock> uitemblock = null;
 	
-	public UBlock(Material material, String name) {
-		this(material, name, null, UItemBlock.class);
+	public UBlock(String name, Material material) {
+		this(name, material, null, UItemBlock.class);
 	}
 	
-	public UBlock(Material material, String name, Class<? extends UItemBlock> itemblock) {
-		this(material, name, null, itemblock);
+	public UBlock(String name, Material material, Class<? extends UItemBlock> itemblock) {
+		this(name, material, null, itemblock);
 	}
 	
-	public UBlock(Material material, String name, UCreativeTab tab) {
-		this(material, name, tab, UItemBlock.class);
+	public UBlock(String name, Material material, UCreativeTab tab) {
+		this(name, material, tab, UItemBlock.class);
 	}
 	
-	public UBlock(Material material, String name, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
+	public UBlock(String name, Material material, UCreativeTab tab, Class<? extends UItemBlock> itemblock) {
 		super(material);
 		
 		this.modid = USub.getID();

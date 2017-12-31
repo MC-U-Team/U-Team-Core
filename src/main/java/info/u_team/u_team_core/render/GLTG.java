@@ -27,7 +27,7 @@ public class GLTG {
 		this.log = UCoreConstants.LOGGER;
 	}
 	
-	public GLSize setTexture(GuiRescourceLocation location) {
+	public GLSize setTexture(GuiResourceLocation location) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(location);
 		return new GLSize(GL11.glGetTexLevelParameterf(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH), GL11.glGetTexLevelParameterf(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT));
 	}

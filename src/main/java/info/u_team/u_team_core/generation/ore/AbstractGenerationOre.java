@@ -5,7 +5,7 @@ import com.google.common.base.Predicate;
 import info.u_team.u_team_core.generation.IGeneration;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.block.state.pattern.BlockHelper;
+import net.minecraft.block.state.pattern.*;
 import net.minecraft.init.Blocks;
 
 /**

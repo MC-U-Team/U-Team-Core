@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.item;
+package info.u_team.u_team_core.item.armor;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 
@@ -12,8 +12,8 @@ import info.u_team.u_team_core.creativetab.UCreativeTab;
  */
 public class UItemLeggings extends UItemArmor {
 	
-	public UItemLeggings(ArmorMaterial material, String name, UCreativeTab tab) {
-		super(material, 2, "leggings", name, tab);
+	public UItemLeggings(String name, UCreativeTab tab, ArmorMaterial material) {
+		super(name, tab, material, 2, "leggings");
 	}
 	
 }

@@ -2,7 +2,7 @@ package info.u_team.u_team_core.item;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.sub.USub;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemFood;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -19,19 +19,19 @@ public class UItemFood extends ItemFood {
 	
 	private String name, modid;
 	
-	public UItemFood(int amount, String name) {
-		this(amount, name, null);
+	public UItemFood(String name, int amount) {
+		this(name, null, amount);
 	}
 	
-	public UItemFood(int amount, String name, UCreativeTab tab) {
-		this(amount, 0.6F, name, tab);
+	public UItemFood(String name, UCreativeTab tab, int amount) {
+		this(name, tab, amount, 0.6F);
 	}
 	
-	public UItemFood(int amount, float saturation, String name) {
-		this(amount, saturation, name, null);
+	public UItemFood(String name, int amount, float saturation) {
+		this(name, null, amount, saturation);
 	}
 	
-	public UItemFood(int amount, float saturation, String name, UCreativeTab tab) {
+	public UItemFood(String name, UCreativeTab tab, int amount, float saturation) {
 		super(amount, saturation, false);
 		
 		this.modid = USub.getID();

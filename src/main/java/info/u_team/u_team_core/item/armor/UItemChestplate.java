@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.item;
+package info.u_team.u_team_core.item.armor;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 
@@ -12,8 +12,8 @@ import info.u_team.u_team_core.creativetab.UCreativeTab;
  */
 public class UItemChestplate extends UItemArmor {
 	
-	public UItemChestplate(ArmorMaterial material, String name, UCreativeTab tab) {
-		super(material, 1, "chestplate", name, tab);
+	public UItemChestplate(String name, UCreativeTab tab, ArmorMaterial material) {
+		super(name, tab, material, 1, "chestplate");
 	}
 	
 }

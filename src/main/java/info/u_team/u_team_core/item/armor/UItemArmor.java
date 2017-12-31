@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.item;
+package info.u_team.u_team_core.item.armor;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.sub.USub;
@@ -19,40 +19,46 @@ import net.minecraftforge.fml.relauncher.*;
 
 public class UItemArmor extends ItemArmor {
 	
-	private String name, modid, typename, texturepath;
+	private String name, modid;
+	private String typename;
 	
-	public UItemArmor(ArmorMaterial material, int type, String typename, String name) {
-		this(material, type, typename, name, null);
+	private String texturepath;
+	
+	public UItemArmor(String name, ArmorMaterial material, int type, String typename) {
+		this(name, null, material, type, typename);
 	}
 	
-	public UItemArmor(ArmorMaterial material, int type, String typename, String name, UCreativeTab tab) {
+	public UItemArmor(String name, UCreativeTab tab, ArmorMaterial material, int type, String typename) {
 		super(material, -1, type);
 		
 		this.modid = USub.getID();
 		this.name = name;
 		this.typename = typename;
-		this.texturepath = modid + ":textures/models/armor/" + name;
 		setUnlocalizedName(name + "_" + typename);
+		texturepath = USub.getID() + ":textures/models/armor/" + name;
 		
 		if (tab != null) {
 			setCreativeTab(tab);
 		}
 		
 		register();
+		
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-		if (slot < 0 || slot > 3) {
-			return null;
-		}
-		
-		if (slot == 2) {
+		if (slot == 0 || slot == 1 || slot == 3) {
+			return texturepath + "_1.png";
+		} else if (slot == 2) {
 			return texturepath + "_2.png";
 		} else {
-			return texturepath + "_1.png";
+			return null;
 		}
+	}
+	
+	public void setTexturepath(String texturepath) {
+		this.texturepath = texturepath;
 	}
 	
 	private final void register() {
@@ -63,7 +69,4 @@ public class UItemArmor extends ItemArmor {
 		return new ResourceLocation(modid, name + "_" + typename);
 	}
 	
-	public void setTexturePath(String texturepath) {
-		this.texturepath = texturepath;
-	}
 }

@@ -17,7 +17,7 @@ public class CommandUSchematic extends CommandBase {
 	private String lang = "command.uschematic.";
 	
 	@Override
-	public String getName() {
+	public String getCommandName() {
 		return "uschematic";
 	}
 	
@@ -32,7 +32,7 @@ public class CommandUSchematic extends CommandBase {
 	}
 	
 	@Override
-	public void execute(ICommandSender sender, String[] args) throws CommandException {
+	public void processCommand(ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayerMP player = getCommandSenderAsPlayer(sender);
 		World world = player.getEntityWorld();
 		if (args.length > 0) {
@@ -42,8 +42,8 @@ public class CommandUSchematic extends CommandBase {
 				}
 				try {
 					String name = stripName(args[1]);
-					BlockPos pos1 = func_175757_a(sender, args, 2, false);
-					BlockPos pos2 = func_175757_a(sender, args, 5, false);
+					BlockPos pos1 = parseBlockPos(sender, args, 2, false);
+					BlockPos pos2 = parseBlockPos(sender, args, 5, false);
 					
 					File file = new File(getSchematicPath(), name + ".uschematic");
 					
@@ -72,7 +72,7 @@ public class CommandUSchematic extends CommandBase {
 					if (args.length == 4) {
 						pos = player.getPosition();
 					} else {
-						pos = func_175757_a(sender, args, 4, false);
+						pos = parseBlockPos(sender, args, 4, false);
 					}
 					
 					File file = new File(getSchematicPath(), name + ".uschematic");
