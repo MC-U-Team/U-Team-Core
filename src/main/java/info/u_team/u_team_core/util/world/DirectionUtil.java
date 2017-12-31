@@ -73,20 +73,20 @@ public class DirectionUtil {
 		return null;
 	}
 	
-	public static BlockPos getPosfromFacing(EnumFacing face, BlockPos p) {
+	public static BlockPos getPosfromFacing(EnumFacing face, BlockPos pos) {
 		switch (face) {
 		case DOWN:
-			return p.down();
+			return pos.down();
 		case EAST:
-			return p.east();
+			return pos.east();
 		case NORTH:
-			return p.north();
+			return pos.north();
 		case SOUTH:
-			return p.south();
+			return pos.south();
 		case UP:
-			return p.up();
+			return pos.up();
 		case WEST:
-			return p.west();
+			return pos.west();
 		default:
 			break;
 		}
