@@ -6,7 +6,7 @@ import info.u_team.u_team_core.intern.updatechecker.UpdateChecker;
  * Update API<br>
  * -> Update checker registry
  * 
- * Jsonformat: { "mcversion":{ "version": "newest mod version", "download": "Downloadlink" } }
+ * Jsonformat: <code>{ "mcversion":{ "version": "newest mod version", "download": "Downloadlink" } }</code>
  * 
  * @author HyCraftHD
  * @date 21.10.2017
