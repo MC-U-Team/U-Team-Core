@@ -7,7 +7,6 @@ import info.u_team.u_team_core.generation.ore.*;
 import info.u_team.u_team_core.generation.schematic.*;
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.sub.USubMod;
-import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_core.util.registry.ClientRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
@@ -42,7 +41,7 @@ public class TestMod extends USubMod {
 		tab = new UCreativeTab("test");
 		
 		item = new UItem("testitem", tab);
-		// block = new UBlock(Material.ROCK, "testblock", tab);
+		block = new UBlock("testblock", Material.CACTUS, tab);
 		tab.setIcon(block);
 		
 		// blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
@@ -57,7 +56,7 @@ public class TestMod extends USubMod {
 		
 		ClientRegistry.registerModel(item, 0, new ModelResourceLocation(new ResourceLocation("stick"), "inventory"));
 		ClientRegistry.registerModel(block, 0, new ModelResourceLocation(new ResourceLocation("stone"), "inventory"));
-		ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new ResourceLocation("bedrock"), "inventory"));
+		//ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new ResourceLocation("bedrock"), "inventory"));
 		
 		GeneratableOre ore1 = new GeneratableOre(Blocks.LAPIS_ORE.getDefaultState(), new GenerationOreCenterSpread(Blocks.AIR, 7, 1, 170, 16));
 		
