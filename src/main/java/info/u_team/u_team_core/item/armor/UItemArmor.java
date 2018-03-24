@@ -34,7 +34,7 @@ public class UItemArmor extends ItemArmor {
 		this.modid = USub.getID();
 		this.name = name;
 		this.typename = typename;
-		setUnlocalizedName(name + "_" + typename);
+		setUnlocalizedName(USub.getID() + ":" + name + "_" + typename);
 		texturepath = USub.getID() + ":textures/models/armor/" + name;
 		
 		if (tab != null) {

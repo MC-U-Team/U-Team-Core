@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.creativetab;
 
+import info.u_team.u_team_core.sub.USub;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
@@ -20,7 +21,7 @@ public class UCreativeTab extends CreativeTabs {
 	private int metadata = 0;
 	
 	public UCreativeTab(String label) {
-		super(label);
+		super(USub.getID() + ":" + label);
 	}
 	
 	public void setIcon(Block block) {

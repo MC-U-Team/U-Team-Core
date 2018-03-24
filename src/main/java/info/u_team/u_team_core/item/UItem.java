@@ -28,7 +28,7 @@ public class UItem extends Item {
 		
 		this.modid = USub.getID();
 		this.name = name;
-		setUnlocalizedName(name);
+		setUnlocalizedName(USub.getID() + ":" + name);
 		
 		if (tab != null) {
 			setCreativeTab(tab);

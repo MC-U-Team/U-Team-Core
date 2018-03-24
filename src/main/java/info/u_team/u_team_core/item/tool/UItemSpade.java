@@ -19,7 +19,7 @@ public class UItemSpade extends ItemSpade {
 		
 		this.modid = USub.getID();
 		this.name = name;
-		setUnlocalizedName(name);
+		setUnlocalizedName(USub.getID() + ":" + name);
 		
 		if (tab != null) {
 			setCreativeTab(tab);
