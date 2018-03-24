@@ -32,7 +32,7 @@ public class UItemFood extends ItemFood {
 		super(amount, saturation, false);
 		
 		setRegistryName(USub.getID(), name);
-		setUnlocalizedName(name);
+		setUnlocalizedName(USub.getID() + ":" + name);
 		
 		if (tab != null) {
 			setCreativeTab(tab);
