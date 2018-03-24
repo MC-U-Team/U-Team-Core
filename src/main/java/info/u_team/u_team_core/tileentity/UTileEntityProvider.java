@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Block API<br>
- * -> TileEntitie Holder
+ * -> TileEntity Holder
  * 
  * @author HyCraftHD
  * @date 21.01.2018
