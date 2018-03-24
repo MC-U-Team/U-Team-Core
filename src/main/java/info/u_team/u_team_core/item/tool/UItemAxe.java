@@ -30,7 +30,7 @@ public class UItemAxe extends CustomItemAxe {
 		super(material, damage, speed);
 		
 		setRegistryName(USub.getID(), name);
-		setUnlocalizedName(name);
+		setUnlocalizedName(USub.getID() + ":" + name);
 		
 		if (tab != null) {
 			setCreativeTab(tab);

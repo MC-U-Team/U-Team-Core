@@ -29,7 +29,7 @@ public class UItemArmor extends ItemArmor {
 		super(material, -1, type);
 		
 		setRegistryName(USub.getID(), name + "_" + typename);
-		setUnlocalizedName(name + "_" + typename);
+		setUnlocalizedName(USub.getID() + ":" + name + "_" + typename);
 		texturepath = USub.getID() + ":textures/models/armor/" + name;
 		
 		if (tab != null) {
