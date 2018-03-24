@@ -15,7 +15,7 @@ public class UItemHoe extends ItemHoe {
 		super(material);
 		
 		setRegistryName(USub.getID(), name);
-		setUnlocalizedName(name);
+		setUnlocalizedName(USub.getID() + ":" + name);
 		
 		if (tab != null) {
 			setCreativeTab(tab);
