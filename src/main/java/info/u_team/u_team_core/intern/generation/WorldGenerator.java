@@ -26,7 +26,7 @@ public class WorldGenerator {
 		
 		@Override
 		public void generate(Random random, int x, int y, World world, IChunkProvider generator, IChunkProvider chunkProvider) {
-			BlockPos chunkpos = new BlockPos(x * 16, 0, y * 16);
+			BlockPos chunkpos = new BlockPos(x * 16, 0, y * 16).add(8, 0, 8); // shift position to center
 			GeneratableRegistry.generateFirst(world.provider.getDimensionId(), world, random, chunkpos);
 		}
 	}
@@ -35,7 +35,7 @@ public class WorldGenerator {
 		
 		@Override
 		public void generate(Random random, int x, int y, World world, IChunkProvider generator, IChunkProvider provider) {
-			BlockPos chunkpos = new BlockPos(x * 16, 0, y * 16);
+			BlockPos chunkpos = new BlockPos(x * 16, 0, y * 16).add(8, 0, 8); // shift position to center
 			GeneratableRegistry.generateLast(world.provider.getDimensionId(), world, random, chunkpos);
 		}
 	}

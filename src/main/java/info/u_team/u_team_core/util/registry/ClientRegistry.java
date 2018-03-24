@@ -2,7 +2,6 @@ package info.u_team.u_team_core.util.registry;
 
 import info.u_team.u_team_core.util.stack.*;
 import net.minecraft.block.Block;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.client.resources.model.*;
@@ -10,6 +9,7 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -48,7 +48,7 @@ public class ClientRegistry {
 	}
 	
 	public static void registerModel(Item item, int meta, ModelResourceLocation location) {
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(item, meta, location);
+		ModelLoader.setCustomModelResourceLocation(item, meta, location);
 	}
 	
 	public static void registerModel(Block block, int meta, ModelResourceLocation location) {

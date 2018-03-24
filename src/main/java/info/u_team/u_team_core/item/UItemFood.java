@@ -36,7 +36,7 @@ public class UItemFood extends ItemFood {
 		
 		this.modid = USub.getID();
 		this.name = name;
-		setUnlocalizedName(name);
+		setUnlocalizedName(USub.getID() + ":" + name);
 		
 		if (tab != null) {
 			setCreativeTab(tab);
