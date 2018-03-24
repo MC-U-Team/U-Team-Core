@@ -20,7 +20,7 @@ public class UpdateCheckerRegistry {
 		checker.addMod(modid, url);
 	}
 	
-	public static void getResult(String modid) { // Only usable after init int postinit
+	public static void getResult(String modid) { // Only usable after init or postinit
 		checker.getResult(modid);
 	}
 	
