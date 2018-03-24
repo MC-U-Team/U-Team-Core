@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 /**
  * Block API<br>
- * -> TileEntitie Holder
+ * -> TileEntity Holder
  * 
  * @author HyCraftHD
  * @date 21.01.2018
