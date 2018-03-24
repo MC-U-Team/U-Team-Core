@@ -15,7 +15,7 @@ public class UItemPickaxe extends ItemPickaxe {
 		super(material);
 		
 		setRegistryName(USub.getID(), name);
-		setUnlocalizedName(name);
+		setUnlocalizedName(USub.getID() + ":" + name);
 		
 		if (tab != null) {
 			setCreativeTab(tab);
