@@ -9,6 +9,7 @@ import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.item.tool.UItemSword;
 import info.u_team.u_team_core.sub.USubMod;
 import info.u_team.u_team_core.util.registry.ClientRegistry;
+import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.command.*;
 import net.minecraft.init.Blocks;
@@ -40,7 +41,7 @@ public class TestMod extends USubMod {
 		tab = new UCreativeTab("test");
 		
 		item = new UItem("testitem", tab);
-		// block = new UBlock(Material.ROCK, "testblock", tab);
+		block = new UBlock("testblock", Material.iron);
 		tab.setIcon(block);
 		
 		sword = new UItemSword("test", EnumHelper.addToolMaterial("test", 1, 22, 2, 55, 10));
@@ -58,7 +59,7 @@ public class TestMod extends USubMod {
 		ClientRegistry.registerModel(sword, 0, new ModelResourceLocation(new ResourceLocation("diamond"), "inventory"));
 		
 		ClientRegistry.registerModel(block, 0, new ModelResourceLocation(new ResourceLocation("stone"), "inventory"));
-		ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new ResourceLocation("bedrock"), "inventory"));
+		//ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new ResourceLocation("bedrock"), "inventory"));
 		
 		GeneratableOre ore1 = new GeneratableOre(Blocks.lapis_ore.getDefaultState(), new GenerationOreCenterSpread(Blocks.air, 7, 1, 170, 16));
 		

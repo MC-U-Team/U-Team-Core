@@ -2,7 +2,7 @@ package info.u_team.u_team_core.item.tool;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.sub.USub;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemAxe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 

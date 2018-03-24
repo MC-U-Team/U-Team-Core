@@ -3,8 +3,7 @@ package info.u_team.u_team_core.render;
 import org.lwjgl.opengl.GL11;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.*;
 
 /**
  * Entry for the MC standard VertexBuffer
