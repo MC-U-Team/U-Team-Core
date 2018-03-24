@@ -52,7 +52,6 @@ public class USchematicEntry {
 			block = Blocks.AIR;
 		}
 		
-		@SuppressWarnings("deprecation")
 		IBlockState state = block.getStateFromMeta(meta);
 		world.setBlockState(pos, state);
 		
