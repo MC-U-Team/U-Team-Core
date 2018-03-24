@@ -30,7 +30,7 @@ public class UItemSword extends ItemSword {
 		super(material);
 		
 		setRegistryName(USub.getID(), name);
-		setUnlocalizedName(name);
+		setUnlocalizedName(USub.getID() + ":" + name);
 		this.speedmodifier = speedmodifier;
 		
 		if (tab != null) {

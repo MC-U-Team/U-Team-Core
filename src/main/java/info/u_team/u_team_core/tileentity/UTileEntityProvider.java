@@ -4,16 +4,31 @@ import info.u_team.u_team_core.intern.UCoreConstants;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+/**
+ * Block API<br>
+ * -> TileEntitie Holder
+ * 
+ * @author HyCraftHD
+ * @date 21.01.2018
+ *
+ */
+
 public class UTileEntityProvider {
 	
-	private Class<? extends UTileEntity> tileentity;
+	private Class<? extends TileEntity> tileentity;
 	private Object objects[];
 	
-	public UTileEntityProvider(String name, Class<? extends UTileEntity> tileentity, Object... objects) {
+	public UTileEntityProvider(String name, Class<? extends TileEntity> tileentity, Object... objects) {
+		this(name, true, tileentity, objects);
+	}
+	
+	public UTileEntityProvider(String name, boolean shouldRegister, Class<? extends TileEntity> tileentity, Object... objects) {
 		this.tileentity = tileentity;
 		this.objects = objects;
 		
-		TileEntity.addMapping(tileentity, name);
+		if (shouldRegister) {
+			TileEntity.addMapping(tileentity, name);
+		}
 	}
 	
 	public TileEntity create(World world, int meta) {
