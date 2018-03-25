@@ -54,12 +54,12 @@ public class TestMod extends USubMod {
 		
 		// Noside
 		
-		ClientRegistry.registerModel(item, 0, new ModelResourceLocation(new ResourceLocation("stick"), "inventory"));
-		ClientRegistry.registerModel(sword, 0, new ModelResourceLocation(new ResourceLocation("diamond"), "inventory"));
-		
-		ClientRegistry.registerModel(block, 0, new ModelResourceLocation(new ResourceLocation("stone"), "inventory"));
-		ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new ResourceLocation("bedrock"), "inventory"));
-		
+//		ClientRegistry.registerModel(item, 0, new ModelResourceLocation(new ResourceLocation("stick"), "inventory"));
+//		ClientRegistry.registerModel(sword, 0, new ModelResourceLocation(new ResourceLocation("diamond"), "inventory"));
+//		
+//		ClientRegistry.registerModel(block, 0, new ModelResourceLocation(new ResourceLocation("stone"), "inventory"));
+//		ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new ResourceLocation("bedrock"), "inventory"));
+//		
 		GeneratableOre ore1 = new GeneratableOre(Blocks.lapis_ore.getDefaultState(), new GenerationOreCenterSpread(Blocks.air, 7, 1, 170, 16));
 		
 		GeneratableOre ore2 = new GeneratableOre(Blocks.diamond_ore.getDefaultState(), new GenerationOreMinMax(Blocks.air, 8, 1, 120, 136));
