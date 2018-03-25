@@ -10,8 +10,7 @@
  */
 package info.u_team.u_team_core.repack.org.slf4j.helpers;
 
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.*;
 
 import info.u_team.u_team_core.repack.org.slf4j.*;
 

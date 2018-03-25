@@ -11,7 +11,6 @@
 package info.u_team.u_team_core.repack.org.slf4j.helpers;
 
 import java.util.*;
-import java.util.Map;
 
 import info.u_team.u_team_core.repack.org.slf4j.spi.MDCAdapter;
 

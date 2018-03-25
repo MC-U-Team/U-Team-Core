@@ -11,7 +11,6 @@
 package info.u_team.u_team_core.repack.org.slf4j.helpers;
 
 import info.u_team.u_team_core.repack.org.slf4j.*;
-import info.u_team.u_team_core.repack.org.slf4j.helpers.NOPLogger;
 
 /**
  * NOPLoggerFactory is an trivial implementation of {@link ILoggerFactory} which always returns the unique instance of NOPLogger.

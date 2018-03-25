@@ -10,8 +10,7 @@
  */
 package info.u_team.u_team_core.repack.org.slf4j.helpers;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
+import java.lang.reflect.*;
 import java.util.Queue;
 
 import info.u_team.u_team_core.repack.org.slf4j.*;

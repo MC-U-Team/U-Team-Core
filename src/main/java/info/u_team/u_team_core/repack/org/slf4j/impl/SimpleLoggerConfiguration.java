@@ -1,13 +1,8 @@
 package info.u_team.u_team_core.repack.org.slf4j.impl;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.PrintStream;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+import java.io.*;
+import java.security.*;
+import java.text.*;
 import java.util.Properties;
 
 import info.u_team.u_team_core.repack.org.slf4j.helpers.Util;

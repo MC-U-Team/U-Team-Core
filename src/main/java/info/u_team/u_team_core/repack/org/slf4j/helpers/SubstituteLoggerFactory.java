@@ -10,10 +10,7 @@
  */
 package info.u_team.u_team_core.repack.org.slf4j.helpers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.LinkedBlockingQueue;
 
 import info.u_team.u_team_core.repack.org.slf4j.*;

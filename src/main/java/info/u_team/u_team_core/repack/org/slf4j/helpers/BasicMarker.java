@@ -10,8 +10,7 @@
  */
 package info.u_team.u_team_core.repack.org.slf4j.helpers;
 
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 import info.u_team.u_team_core.repack.org.slf4j.Marker;
