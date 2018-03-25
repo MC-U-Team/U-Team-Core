@@ -1,4 +1,4 @@
- package info.u_team.u_team_core;
+package info.u_team.u_team_core;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.intern.proxy.CommonProxy;
