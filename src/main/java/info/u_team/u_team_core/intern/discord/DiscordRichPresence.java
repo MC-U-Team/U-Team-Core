@@ -7,6 +7,13 @@ import info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.RichPresence;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 
+/**
+ * Discord rich presence
+ * 
+ * @author HyCraftHD
+ * @date 24.03.2018
+ *
+ */
 public class DiscordRichPresence {
 	
 	private static IPCClient client = new IPCClient(427196986064764928L);

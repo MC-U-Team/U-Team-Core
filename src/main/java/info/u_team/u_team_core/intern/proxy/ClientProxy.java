@@ -27,13 +27,17 @@ public class ClientProxy extends CommonProxy {
 	
 	public void preinit(FMLPreInitializationEvent event) {
 		super.preinit(event);
-		DiscordRichPresence.start();
 		Config.init(event.getSuggestedConfigurationFile());
 		new MetadataFetcher(UCoreConstants.MODID).setName(UCoreConstants.NAME).setVersion(UCoreConstants.VERSION).applyMetadata(event.getModMetadata());
 		UpdateCheckerRegistry.addMod(UCoreConstants.MODID, "https://api.u-team.info/update/uteamcore.json");
 		
 		boolean privacypolicyshow = Config.getPrivacyPolicyShow();
 		boolean trackclientdata = Config.getTrackClientData();
+		boolean discordrichpresence = Config.getDiscordRichPresenceEnabled();
+		
+		if (discordrichpresence) {
+			DiscordRichPresence.start();
+		}
 		
 		if (privacypolicyshow) {
 			int value = JOptionPane.showConfirmDialog(null, I18n.format("client.privacy").replace("[newline]", "\n"), "Privacy policy", JOptionPane.INFORMATION_MESSAGE);
@@ -53,7 +57,10 @@ public class ClientProxy extends CommonProxy {
 		super.init(event);
 		UpdateCheckerRegistry.getChecker().start();
 		MinecraftForge.EVENT_BUS.register(new UpdateClientListener());
-		MinecraftForge.EVENT_BUS.register(new UpdateDiscordRichPresenceEvent());
+		
+		if (Config.getDiscordRichPresenceEnabled()) {
+			MinecraftForge.EVENT_BUS.register(new UpdateDiscordRichPresenceEvent());
+		}
 	}
 	
 	public void postinit(FMLPostInitializationEvent event) {
