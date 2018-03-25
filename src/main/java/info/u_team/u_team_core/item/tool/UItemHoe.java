@@ -3,7 +3,7 @@ package info.u_team.u_team_core.item.tool;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.sub.USub;
 import net.minecraft.item.ItemHoe;
-import net.minecraftforge.fml.common.registry.*;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class UItemHoe extends ItemHoe {
 	

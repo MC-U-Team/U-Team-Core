@@ -5,7 +5,8 @@ import javax.swing.JOptionPane;
 import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.intern.client.ClientSetup;
 import info.u_team.u_team_core.intern.config.Config;
-import info.u_team.u_team_core.intern.event.UpdateClientListener;
+import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
+import info.u_team.u_team_core.intern.event.*;
 import info.u_team.u_team_core.sub.metadata.MetadataFetcher;
 import info.u_team.u_team_core.updatechecker.UpdateCheckerRegistry;
 import net.minecraft.client.resources.I18n;
@@ -32,6 +33,11 @@ public class ClientProxy extends CommonProxy {
 		
 		boolean privacypolicyshow = Config.getPrivacyPolicyShow();
 		boolean trackclientdata = Config.getTrackClientData();
+		boolean discordrichpresence = Config.getDiscordRichPresenceEnabled();
+		
+		if (discordrichpresence) {
+			DiscordRichPresence.start();
+		}
 		
 		if (privacypolicyshow) {
 			int value = JOptionPane.showConfirmDialog(null, I18n.format("client.privacy").replace("[newline]", "\n"), "Privacy policy", JOptionPane.INFORMATION_MESSAGE);
@@ -51,6 +57,10 @@ public class ClientProxy extends CommonProxy {
 		super.init(event);
 		UpdateCheckerRegistry.getChecker().start();
 		MinecraftForge.EVENT_BUS.register(new UpdateClientListener());
+		
+		if (Config.getDiscordRichPresenceEnabled()) {
+			MinecraftForge.EVENT_BUS.register(new UpdateDiscordRichPresenceEvent());
+		}
 	}
 	
 	public void postinit(FMLPostInitializationEvent event) {

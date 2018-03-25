@@ -8,7 +8,7 @@ import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemSword;
-import net.minecraftforge.fml.common.registry.*;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class UItemSword extends ItemSword {
 	

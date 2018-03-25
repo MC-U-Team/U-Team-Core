@@ -5,7 +5,7 @@ import info.u_team.u_team_core.sub.USub;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
-import net.minecraftforge.fml.common.registry.*;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
