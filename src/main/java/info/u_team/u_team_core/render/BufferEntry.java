@@ -4,8 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
 import net.minecraft.client.renderer.*;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.client.renderer.vertex.*;
 
 /**
  * Entry for the MC standard VertexBuffer
