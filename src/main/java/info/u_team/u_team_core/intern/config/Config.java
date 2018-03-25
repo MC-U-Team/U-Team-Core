@@ -19,6 +19,12 @@ public class Config {
 		return value;
 	}
 	
+	public static boolean getDiscordRichPresenceEnabled() {
+		boolean value = configuration.get("discord", "EnableRichPresence", true, "If you have discord installed, then it's cool to show some details about your game ;)").getBoolean();
+		configuration.save();
+		return value;
+	}
+	
 	public static boolean getPrivacyPolicyShow() {
 		boolean value = configuration.get("client", "PrivacyPolicyShow", true, "Show privacy policy on startup.").getBoolean();
 		configuration.save();

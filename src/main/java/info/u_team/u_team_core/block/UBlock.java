@@ -6,8 +6,8 @@ import info.u_team.u_team_core.item.UItemBlock;
 import info.u_team.u_team_core.sub.USub;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.item.*;
-import net.minecraftforge.fml.common.registry.*;
+import net.minecraft.item.Item;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 /**
  * Block API<br>

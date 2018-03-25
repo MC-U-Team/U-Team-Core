@@ -30,7 +30,7 @@ public class GLTG {
 	
 	public GLSize setTexture(GuiResourceLocation location) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(location);
-		return new GLSize(GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH),GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT));
+		return new GLSize(GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH), GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT));
 	}
 	
 	public void drawManual(@Nonnull float[][] vertex, float[][] color, float[][] tex, float[][] normal) {
