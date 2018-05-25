@@ -16,4 +16,3 @@ gradle.properties
 eclipse
 run
 libs
-*.groovy
