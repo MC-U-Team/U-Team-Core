@@ -13,7 +13,7 @@ public final class UCoreConstants {
 	
 	public static final String MODID = "uteamcore";
 	public static final String NAME = "UTeam Core";
-	public static final String VERSION = "1.1.1";
+	public static final String VERSION = "@VERSION@";
 	public static final String MCVERSION = "1.11.2";
 	
 	public static final String COMMONPROXY = "info.u_team.u_team_core.intern.proxy.CommonProxy";
