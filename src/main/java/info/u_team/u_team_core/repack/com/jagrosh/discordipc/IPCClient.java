@@ -6,7 +6,10 @@
  * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ *
+ * Modifications Copyright (C) 2018 https://U-Team.info
  */
+
 package info.u_team.u_team_core.repack.com.jagrosh.discordipc;
 
 import java.io.*;
@@ -444,6 +447,8 @@ public final class IPCClient implements Closeable {
 					case UNKNOWN:
 						LOGGER.debug("Reading thread encountered an event with an unknown type: " + json.getString("evt"));
 						break;
+					default:
+						break;
 					}
 					if (listener != null && json.has("cmd") && json.getString("cmd").equals("DISPATCH")) {
 						try {
@@ -461,6 +466,8 @@ public final class IPCClient implements Closeable {
 								JSONObject u = data.getJSONObject("user");
 								User user = new User(u.getString("username"), u.getString("discriminator"), Long.parseLong(u.getString("id")), u.optString("avatar", null));
 								listener.onActivityJoinRequest(this, data.optString("secret", null), user);
+								break;
+							default:
 								break;
 							}
 						} catch (Exception e) {
