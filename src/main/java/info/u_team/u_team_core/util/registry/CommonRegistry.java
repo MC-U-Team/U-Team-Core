@@ -2,7 +2,7 @@ package info.u_team.u_team_core.util.registry;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.*;
-import net.minecraftforge.fml.common.IFuelHandler;
+import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.network.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -21,6 +21,7 @@ public class CommonRegistry {
 	
 	public static void registerEventHandler(Object object) {
 		MinecraftForge.EVENT_BUS.register(object);
+		FMLCommonHandler.instance().bus().register(object);
 	}
 	
 	public static void registerFuelHandler(IFuelHandler fueldhandler) {
