@@ -2,9 +2,6 @@ package test;
 
 import info.u_team.u_team_core.block.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
-import info.u_team.u_team_core.generation.GeneratableRegistry;
-import info.u_team.u_team_core.generation.ore.*;
-import info.u_team.u_team_core.generation.schematic.*;
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.item.tool.UItemSword;
 import info.u_team.u_team_core.sub.USubMod;
@@ -12,7 +9,6 @@ import info.u_team.u_team_core.util.registry.ClientRegistry;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.command.*;
-import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
@@ -60,16 +56,16 @@ public class TestMod extends USubMod {
 		
 		ClientRegistry.registerModel(block, 0, new ModelResourceLocation(new ResourceLocation("stone"), "inventory"));
 		// ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new ResourceLocation("bedrock"), "inventory"));
-		
-		GeneratableOre ore1 = new GeneratableOre(Blocks.lapis_ore.getDefaultState(), new GenerationOreCenterSpread(Blocks.air, 7, 1, 170, 16));
-		
-		GeneratableOre ore2 = new GeneratableOre(Blocks.diamond_ore.getDefaultState(), new GenerationOreMinMax(Blocks.air, 8, 1, 120, 136));
-		
-		GeneratableSchematic schematic = new GeneratableSchematic(new GenerationSchematicSurfaceChunk(this.getClass().getResource("/test.uschematic"), 1));
-		
-		GeneratableRegistry.addFirst(0, ore1);
-		GeneratableRegistry.addLast(0, ore2);
-		GeneratableRegistry.addLast(0, schematic);
+//		
+//		GeneratableOre ore1 = new GeneratableOre(Blocks.lapis_ore.getDefaultState(), new GenerationOreCenterSpread(Blocks.air, 7, 1, 170, 16));
+//		
+//		GeneratableOre ore2 = new GeneratableOre(Blocks.diamond_ore.getDefaultState(), new GenerationOreMinMax(Blocks.air, 8, 1, 120, 136));
+//		
+//		GeneratableSchematic schematic = new GeneratableSchematic(new GenerationSchematicSurfaceChunk(this.getClass().getResource("/test.uschematic"), 1));
+//		
+//		GeneratableRegistry.addFirst(0, ore1);
+//		GeneratableRegistry.addLast(0, ore2);
+//		GeneratableRegistry.addLast(0, schematic);
 	}
 	
 	@EventHandler
