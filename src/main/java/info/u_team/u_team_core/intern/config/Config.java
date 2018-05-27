@@ -2,37 +2,42 @@ package info.u_team.u_team_core.intern.config;
 
 import java.io.File;
 
-import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.*;
 
 public class Config {
 	
 	private static Configuration configuration;
 	
+	private static Property client_trackclientdata, client_showeula;
+	private static Property discord_enablerichpresence;
+	
 	public static void init(File file) {
 		configuration = new Configuration(file);
 		configuration.load();
+		
+		client_trackclientdata = configuration.get("client", "TrackClientData", true, "Track playtime, pc specifics and software like java, mc and forge version, as well as installed mods.");
+		client_showeula = configuration.get("client", "EulaShow", true, "Show eula on startup.");
+		
+		discord_enablerichpresence = configuration.get("discord", "EnableRichPresence", true, "If you have discord installed, then it's cool to show some details about your game ;)");
+		
+		configuration.save();
 	}
 	
 	public static boolean getTrackClientData() {
-		boolean value = configuration.get("client", "TrackClientData", true, "Track playtime, pc specifics and software like java, mc and forge version, as well as installed mods.").getBoolean();
-		configuration.save();
-		return value;
+		return client_trackclientdata.getBoolean();
 	}
 	
 	public static boolean getDiscordRichPresenceEnabled() {
-		boolean value = configuration.get("discord", "EnableRichPresence", true, "If you have discord installed, then it's cool to show some details about your game ;)").getBoolean();
-		configuration.save();
-		return value;
+		return discord_enablerichpresence.getBoolean();
 	}
 	
-	public static boolean getPrivacyPolicyShow() {
-		boolean value = configuration.get("client", "PrivacyPolicyShow", true, "Show privacy policy on startup.").getBoolean();
-		configuration.save();
-		return value;
+	public static boolean getEulaShow() {
+		return client_showeula.getBoolean();
 	}
 	
-	public static void setPrivacyPolicyShow(boolean value) {
-		configuration.get("client", "PrivacyPolicyShow", true, "Show privacy policy on startup.").set(value);
+	public static void setEulaShow(boolean value) {
+		client_showeula.set(value);
 		configuration.save();
 	}
+	
 }
