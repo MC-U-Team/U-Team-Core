@@ -4,6 +4,13 @@ import java.io.File;
 
 import net.minecraftforge.common.config.*;
 
+/**
+ * This class manages our config file
+ * 
+ * @author HyCraftHD
+ * @date 28.05.2018
+ *
+ */
 public class Config {
 	
 	private static Configuration configuration;
