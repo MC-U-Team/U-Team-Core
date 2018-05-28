@@ -25,6 +25,8 @@ public class Request {
 		connection.setRequestMethod("POST");
 		connection.setRequestProperty("User-Agent", "U-Team-Core Client");
 		connection.setDoOutput(true);
+		connection.setConnectTimeout(5000);
+		connection.setReadTimeout(5000);
 		
 		OutputStream out = connection.getOutputStream();
 		out.write(postrequest.getBytes(StandardCharsets.UTF_8));
