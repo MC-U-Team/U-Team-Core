@@ -24,6 +24,8 @@ apply plugin: "com.matthewprenger.cursegradle"
 
 getBuildNumber()
 
+println config.buildnumber
+
 version = "${config.mod.version}-${config.buildnumber}"
 archivesBaseName = config.mod.filename
 
