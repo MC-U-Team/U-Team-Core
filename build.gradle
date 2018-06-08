@@ -39,7 +39,7 @@ minecraft {
     mappings = config.forge.mapping
     makeObfSourceJar = false
 	
-	replace "@VERSION@", "${config.mod.version}.${config.buildnumber}"
+	replace "@VERSION@", "${project.version}"
 }
 
 jar {
@@ -56,8 +56,6 @@ jar {
 	manifest {
     	attributes("FMLCorePlugin": "info.u_team.u_team_core.intern.libaryloader.LibaryLoader", "FMLCorePluginContainsFMLMod": "true")
 	}
-	
-    exclude ("test/")
 }
 
 task deobfJar(type: Jar) {
@@ -76,8 +74,6 @@ task deobfJar(type: Jar) {
 	manifest {
     	attributes("FMLCorePlugin": "info.u_team.u_team_core.intern.libaryloader.LibaryLoader", "FMLCorePluginContainsFMLMod": "true")
 	}
-	
-    exclude ("test/")
 }
 
 artifacts {
@@ -99,9 +95,8 @@ dependencies {
 
 processResources {
 	from(sourceSets.main.java.srcDirs) {
-		include "*"
-		exclude "*.java"
-		exclude "*.class"
+		include "**/*"
+		exclude "**/*.java"
 	}
 }
 
