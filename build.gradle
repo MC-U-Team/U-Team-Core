@@ -24,7 +24,7 @@ apply plugin: "com.matthewprenger.cursegradle"
 
 getBuildNumber()
 
-version = "${config.mod.version}-${config.buildnumber}"
+version = "${config.mod.version}.${config.buildnumber}"
 archivesBaseName = config.mod.filename
 
 sourceCompatibility = targetCompatibility = "1.8"
@@ -39,7 +39,7 @@ minecraft {
     mappings = config.forge.mapping
     makeObfSourceJar = false
 	
-	replace "@VERSION@", "${config.mod.version}-${config.buildnumber}"
+	replace "@VERSION@", "${config.mod.version}.${config.buildnumber}"
 }
 
 jar {
@@ -85,12 +85,22 @@ artifacts {
     archives jar
 }
 
+sourceSets {
+    main {
+    	resources {
+    		srcDir "src/main/test" 
+    	}
+   	}
+}
+
 dependencies {
 }
 
 processResources {
-	from(sourceSets.main.resources.srcDirs) {
-        exclude "*"
+	from(sourceSets.main.java.srcDirs) {
+		include "*"
+		exclude "*.java"
+		exclude "*.class"
 	}
 }
 
@@ -112,7 +122,7 @@ curseforge {
     	
     	addArtifact(deobfJar) {
     		displayName = "${config.curse.display}-${minecraft.version}-${version}-dev"
-    		changelog = "Mappings: " + config.forge.mappings
+    		changelog = "Mappings: " + config.forge.mapping
     	}
   	}
 }
