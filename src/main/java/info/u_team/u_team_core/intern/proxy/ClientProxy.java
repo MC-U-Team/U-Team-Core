@@ -5,7 +5,6 @@ import info.u_team.u_team_core.intern.config.Config;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
 import info.u_team.u_team_core.intern.event.UpdateDiscordRichPresenceEvent;
 import info.u_team.u_team_core.sub.metadata.MetadataFetcher;
-import info.u_team.u_team_core.updatechecker.UpdateCheckerRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.*;
@@ -24,7 +23,6 @@ public class ClientProxy extends CommonProxy {
 		super.preinit(event);
 		Config.init(event.getSuggestedConfigurationFile());
 		new MetadataFetcher(UCoreConstants.MODID).setName(UCoreConstants.NAME).setVersion(UCoreConstants.VERSION).applyMetadata(event.getModMetadata());
-		UpdateCheckerRegistry.addMod(UCoreConstants.MODID, "https://api.u-team.info/update/uteamcore.json");
 		
 		if (Config.getDiscordRichPresenceEnabled()) {
 			DiscordRichPresence.start();
@@ -33,7 +31,6 @@ public class ClientProxy extends CommonProxy {
 	
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
-		UpdateCheckerRegistry.getChecker().start();
 		
 		if (Config.getDiscordRichPresenceEnabled()) {
 			MinecraftForge.EVENT_BUS.register(new UpdateDiscordRichPresenceEvent());
