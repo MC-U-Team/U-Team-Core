@@ -16,12 +16,11 @@ import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.util.*;
 
-import org.slf4j.*;
-
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.*;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.Packet.OpCode;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import info.u_team.u_team_core.repack.org.json.*;
+import info.u_team.u_team_core.repack.org.slf4j.*;
 
 /**
  * Represents a Discord IPC Client that can send and receive Rich Presence data.
