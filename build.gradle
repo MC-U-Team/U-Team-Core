@@ -87,7 +87,7 @@ artifacts {
 
 sourceSets {
     main {
-    	resources {
+    	test {
     		srcDir "src/main/test" 
     	}
    	}
