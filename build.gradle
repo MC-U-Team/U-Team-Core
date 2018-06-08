@@ -89,8 +89,9 @@ sourceSets {
     main {
 		java
 		resources
-		test
    	}
+   	test.java.srcDirs = "src/main/test"
+   	test.resources.srcDirs = "src/main/test"
 }
 
 dependencies {
