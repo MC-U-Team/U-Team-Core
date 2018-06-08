@@ -25,7 +25,7 @@ apply plugin: "com.matthewprenger.cursegradle"
 getBuildNumber()
 
 version = "${config.mod.version}.${config.buildnumber}"
-archivesBaseName = config.mod.filename
+archivesBaseName = "${config.mod.filename}-${config.forge.mcversion}"
 
 sourceCompatibility = targetCompatibility = "1.8"
 
@@ -43,10 +43,10 @@ minecraft {
 }
 
 jar {
+	classifier = ""
+
     from "LICENSE"
-    
-    archiveName = "${project.archivesBaseName}-${minecraft.version}-v${project.version}.jar"
-    
+       
     manifest.mainAttributes(
        	"Implementation-Title": config.mod.name,
     	"Implementation-Version": version,
@@ -59,21 +59,20 @@ jar {
 }
 
 task deobfJar(type: Jar) {
+	classifier = "dev"
+
     from sourceSets.main.output
-    
-    //from "LICENSE"
-    
-   	//archiveName = "${project.archivesBaseName}-${project.minecraft.version}-v${project.version}-dev.jar"
-    
-    //manifest.mainAttributes(
-    //   	"Implementation-Title": config.mod.name,
-    //	"Implementation-Version": version,
-	//	"Built-On": minecraft.version
-	//)
+    from "LICENSE"
+        
+    manifest.mainAttributes(
+       	"Implementation-Title": config.mod.name,
+    	"Implementation-Version": version,
+		"Built-On": minecraft.version
+	)
 	
-	//manifest {
-    //	attributes("FMLCorePlugin": "info.u_team.u_team_core.intern.libaryloader.LibaryLoader", "FMLCorePluginContainsFMLMod": "true")
-	//}
+	manifest {
+    	attributes("FMLCorePlugin": "info.u_team.u_team_core.intern.libaryloader.LibaryLoader", "FMLCorePluginContainsFMLMod": "true")
+	}
 }
 
 artifacts {
