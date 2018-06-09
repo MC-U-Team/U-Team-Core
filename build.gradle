@@ -76,6 +76,7 @@ sourceSets {
    	repack {
    		java
    		resources
+   		compileClasspath += sourceSets.main.output
    	}
    	main {
 		java
