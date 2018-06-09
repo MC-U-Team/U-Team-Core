@@ -73,31 +73,21 @@ artifacts {
 }
 
 sourceSets {
-   	repack {
-   		java
-   		resources
-   		compileClasspath += sourceSets.main.output
-   	}
    	main {
+		java {
+			srcDirs += "src/repack/java"
+		}
+		resources {
+			srcDirs += "src/repack/resources"
+		}
+   	}
+   	test {
 		java
 		resources
-		compileClasspath += sourceSets.repack.output
-   	}
-   	
-   	test {
-   		java
-   		resources
    	}
 }
 
 dependencies {
-}
-
-processResources {
-	from(sourceSets.main.java.srcDirs) {
-		include "**/*"
-		exclude "**/*.java"
-	}
 }
 
 curseforge {
