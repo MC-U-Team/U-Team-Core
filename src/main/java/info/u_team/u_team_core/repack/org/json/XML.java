@@ -3,19 +3,32 @@ package info.u_team.u_team_core.repack.org.json;
 /*
  * Copyright (c) 2015 JSON.org
  * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  * 
- * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
  * 
  * The Software shall be used for Good, not Evil.
  * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
  */
 import java.io.*;
 import java.util.Iterator;
 
 /**
- * This provides static methods to convert an XML text into a JSONObject, and to covert a JSONObject into an XML text.
+ * This provides static methods to convert an XML text into a JSONObject, and to
+ * covert a JSONObject into an XML text.
  * 
  * @author JSON.org
  * @version 2016-08-10
@@ -51,11 +64,13 @@ public class XML {
 	public static final Character SLASH = '/';
 	
 	/**
-	 * Creates an iterator for navigating Code Points in a string instead of characters. Once Java7 support is dropped, this can be replaced with <code>
+	 * Creates an iterator for navigating Code Points in a string instead of
+	 * characters. Once Java7 support is dropped, this can be replaced with <code>
 	 * string.codePoints()
 	 * </code> which is available in Java8 and above.
 	 * 
-	 * @see <a href= "http://stackoverflow.com/a/21791059/6030888">http://stackoverflow.com/a/21791059/6030888</a>
+	 * @see <a href=
+	 *      "http://stackoverflow.com/a/21791059/6030888">http://stackoverflow.com/a/21791059/6030888</a>
 	 */
 	private static Iterable<Integer> codePointIterator(final String string) {
 		return new Iterable<Integer>() {
@@ -148,7 +163,8 @@ public class XML {
 		 * 
 		 * any Unicode character, excluding the surrogate blocks, FFFE, and FFFF.
 		 */
-		// isISOControl is true when (cp >= 0 && cp <= 0x1F) || (cp >= 0x7F && cp <= 0x9F)
+		// isISOControl is true when (cp >= 0 && cp <= 0x1F) || (cp >= 0x7F && cp <=
+		// 0x9F)
 		// all ISO control characters are out of range except tabs and new lines
 		return (Character.isISOControl(cp) && cp != 0x9 && cp != 0xA && cp != 0xD) || !(
 		// valid the range of acceptable characters that aren't control
@@ -187,7 +203,8 @@ public class XML {
 	}
 	
 	/**
-	 * Throw an exception if the string contains whitespace. Whitespace is not allowed in tagNames and attributes.
+	 * Throw an exception if the string contains whitespace. Whitespace is not
+	 * allowed in tagNames and attributes.
 	 * 
 	 * @param string
 	 *            A string.
@@ -377,7 +394,8 @@ public class XML {
 	 *            String to convert
 	 * @return JSON value of this string or the string
 	 */
-	// To maintain compatibility with the Android API, this method is a direct copy of
+	// To maintain compatibility with the Android API, this method is a direct copy
+	// of
 	// the one in JSONObject. Changes made here should be reflected there.
 	public static Object stringToValue(String string) {
 		if (string.equals("")) {
@@ -394,7 +412,8 @@ public class XML {
 		}
 		
 		/*
-		 * If it might be a number, try converting it. If a number cannot be produced, then the value will just be a string.
+		 * If it might be a number, try converting it. If a number cannot be produced,
+		 * then the value will just be a string.
 		 */
 		
 		char initial = string.charAt(0);
@@ -423,7 +442,14 @@ public class XML {
 	}
 	
 	/**
-	 * Convert a well-formed (but not necessarily valid) XML string into a JSONObject. Some information may be lost in this transformation because JSON is a data format and XML is a document format. XML uses elements, attributes, and content text, while JSON uses unordered collections of name/value pairs and arrays of values. JSON does not does not like to distinguish between elements and attributes. Sequences of similar elements are represented as JSONArrays. Content text may be placed in a "content" member. Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+	 * Convert a well-formed (but not necessarily valid) XML string into a
+	 * JSONObject. Some information may be lost in this transformation because JSON
+	 * is a data format and XML is a document format. XML uses elements, attributes,
+	 * and content text, while JSON uses unordered collections of name/value pairs
+	 * and arrays of values. JSON does not does not like to distinguish between
+	 * elements and attributes. Sequences of similar elements are represented as
+	 * JSONArrays. Content text may be placed in a "content" member. Comments,
+	 * prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
 	 * 
 	 * @param string
 	 *            The source string.
@@ -436,7 +462,14 @@ public class XML {
 	}
 	
 	/**
-	 * Convert a well-formed (but not necessarily valid) XML into a JSONObject. Some information may be lost in this transformation because JSON is a data format and XML is a document format. XML uses elements, attributes, and content text, while JSON uses unordered collections of name/value pairs and arrays of values. JSON does not does not like to distinguish between elements and attributes. Sequences of similar elements are represented as JSONArrays. Content text may be placed in a "content" member. Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+	 * Convert a well-formed (but not necessarily valid) XML into a JSONObject. Some
+	 * information may be lost in this transformation because JSON is a data format
+	 * and XML is a document format. XML uses elements, attributes, and content
+	 * text, while JSON uses unordered collections of name/value pairs and arrays of
+	 * values. JSON does not does not like to distinguish between elements and
+	 * attributes. Sequences of similar elements are represented as JSONArrays.
+	 * Content text may be placed in a "content" member. Comments, prologs, DTDs,
+	 * and <code>&lt;[ [ ]]></code> are ignored.
 	 *
 	 * @param reader
 	 *            The XML source reader.
@@ -449,14 +482,23 @@ public class XML {
 	}
 	
 	/**
-	 * Convert a well-formed (but not necessarily valid) XML into a JSONObject. Some information may be lost in this transformation because JSON is a data format and XML is a document format. XML uses elements, attributes, and content text, while JSON uses unordered collections of name/value pairs and arrays of values. JSON does not does not like to distinguish between elements and attributes. Sequences of similar elements are represented as JSONArrays. Content text may be placed in a "content" member. Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+	 * Convert a well-formed (but not necessarily valid) XML into a JSONObject. Some
+	 * information may be lost in this transformation because JSON is a data format
+	 * and XML is a document format. XML uses elements, attributes, and content
+	 * text, while JSON uses unordered collections of name/value pairs and arrays of
+	 * values. JSON does not does not like to distinguish between elements and
+	 * attributes. Sequences of similar elements are represented as JSONArrays.
+	 * Content text may be placed in a "content" member. Comments, prologs, DTDs,
+	 * and <code>&lt;[ [ ]]></code> are ignored.
 	 *
-	 * All values are converted as strings, for 1, 01, 29.0 will not be coerced to numbers but will instead be the exact value as seen in the XML document.
+	 * All values are converted as strings, for 1, 01, 29.0 will not be coerced to
+	 * numbers but will instead be the exact value as seen in the XML document.
 	 *
 	 * @param reader
 	 *            The XML source reader.
 	 * @param keepStrings
-	 *            If true, then values will not be coerced into boolean or numeric values and will instead be left as strings
+	 *            If true, then values will not be coerced into boolean or numeric
+	 *            values and will instead be left as strings
 	 * @return A JSONObject containing the structured data from the XML string.
 	 * @throws JSONException
 	 *             Thrown if there is an errors while parsing the string
@@ -474,14 +516,23 @@ public class XML {
 	}
 	
 	/**
-	 * Convert a well-formed (but not necessarily valid) XML string into a JSONObject. Some information may be lost in this transformation because JSON is a data format and XML is a document format. XML uses elements, attributes, and content text, while JSON uses unordered collections of name/value pairs and arrays of values. JSON does not does not like to distinguish between elements and attributes. Sequences of similar elements are represented as JSONArrays. Content text may be placed in a "content" member. Comments, prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
+	 * Convert a well-formed (but not necessarily valid) XML string into a
+	 * JSONObject. Some information may be lost in this transformation because JSON
+	 * is a data format and XML is a document format. XML uses elements, attributes,
+	 * and content text, while JSON uses unordered collections of name/value pairs
+	 * and arrays of values. JSON does not does not like to distinguish between
+	 * elements and attributes. Sequences of similar elements are represented as
+	 * JSONArrays. Content text may be placed in a "content" member. Comments,
+	 * prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
 	 * 
-	 * All values are converted as strings, for 1, 01, 29.0 will not be coerced to numbers but will instead be the exact value as seen in the XML document.
+	 * All values are converted as strings, for 1, 01, 29.0 will not be coerced to
+	 * numbers but will instead be the exact value as seen in the XML document.
 	 * 
 	 * @param string
 	 *            The source string.
 	 * @param keepStrings
-	 *            If true, then values will not be coerced into boolean or numeric values and will instead be left as strings
+	 *            If true, then values will not be coerced into boolean or numeric
+	 *            values and will instead be left as strings
 	 * @return A JSONObject containing the structured data from the XML string.
 	 * @throws JSONException
 	 *             Thrown if there is an errors while parsing the string

@@ -1,16 +1,26 @@
 /*
  * Copyright 2017 John Grosh (john.a.grosh@gmail.com).
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 package info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities;
 
 /**
- * A encapsulation of a Discord User's data provided when a {@link info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCListener IPCListener} fires {@link info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCListener#onActivityJoinRequest(info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient, String, User) onActivityJoinRequest}.
+ * A encapsulation of a Discord User's data provided when a
+ * {@link info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCListener
+ * IPCListener} fires
+ * {@link info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCListener#onActivityJoinRequest(info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient, String, User)
+ * onActivityJoinRequest}.
  *
  * @author John Grosh (john.a.grosh@gmail.com)
  */
@@ -114,7 +124,8 @@ public class User {
 	}
 	
 	/**
-	 * Gets the Users avatar URL, or their {@link DefaultAvatar} avatar URL if they do not have a custom avatar set on their account.
+	 * Gets the Users avatar URL, or their {@link DefaultAvatar} avatar URL if they
+	 * do not have a custom avatar set on their account.
 	 *
 	 * @return The Users effective avatar URL.
 	 */
@@ -126,7 +137,9 @@ public class User {
 	 * Gets whether or not this User is a bot.
 	 * <p>
 	 *
-	 * While, at the time of writing this documentation, bots cannot use Rich Presence features, there may be a time in the future where they have such an ability.
+	 * While, at the time of writing this documentation, bots cannot use Rich
+	 * Presence features, there may be a time in the future where they have such an
+	 * ability.
 	 *
 	 * @return False
 	 */
@@ -165,7 +178,8 @@ public class User {
 	}
 	
 	/**
-	 * Constants representing one of five different default avatars a {@link User} can have.
+	 * Constants representing one of five different default avatars a {@link User}
+	 * can have.
 	 */
 	public enum DefaultAvatar {
 		BLURPLE("6debd47ed13483642cf09e832ed0bc1b"),

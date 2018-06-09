@@ -1,11 +1,17 @@
 /*
  * Copyright 2017 John Grosh (john.a.grosh@gmail.com).
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  */
 package info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities;
 
@@ -14,7 +20,8 @@ import java.time.OffsetDateTime;
 import info.u_team.u_team_core.repack.org.json.*;
 
 /**
- * An encapsulation of all data needed to properly construct a JSON RichPresence payload.
+ * An encapsulation of all data needed to properly construct a JSON RichPresence
+ * payload.
  *
  * <p>
  * These can be built using {@link RichPresence.Builder}.
@@ -58,10 +65,12 @@ public class RichPresence {
 	}
 	
 	/**
-	 * Constructs a {@link JSONObject} representing a payload to send to discord to update a user's Rich Presence.
+	 * Constructs a {@link JSONObject} representing a payload to send to discord to
+	 * update a user's Rich Presence.
 	 *
 	 * <p>
-	 * This is purely internal, and should not ever need to be called outside of the library.
+	 * This is purely internal, and should not ever need to be called outside of the
+	 * library.
 	 *
 	 * @return A JSONObject payload for updating a user's Rich Presence.
 	 */
@@ -73,7 +82,9 @@ public class RichPresence {
 	 * A chain builder for a {@link RichPresence} object.
 	 *
 	 * <p>
-	 * An accurate description of each field and it's functions can be found <a href="https://discordapp.com/developers/docs/rich-presence/how-to#updating-presence-update-presence-payload-fields">here</a>
+	 * An accurate description of each field and it's functions can be found
+	 * <a href=
+	 * "https://discordapp.com/developers/docs/rich-presence/how-to#updating-presence-update-presence-payload-fields">here</a>
 	 */
 	public static class Builder {
 		
@@ -155,10 +166,13 @@ public class RichPresence {
 		}
 		
 		/**
-		 * Sets the key of the uploaded image for the large profile artwork, as well as the text tooltip shown when a cursor hovers over it.
+		 * Sets the key of the uploaded image for the large profile artwork, as well as
+		 * the text tooltip shown when a cursor hovers over it.
 		 *
 		 * <p>
-		 * These can be configured in the <a href="https://discordapp.com/developers/applications/me">applications</a> page on the discord website.
+		 * These can be configured in the
+		 * <a href="https://discordapp.com/developers/applications/me">applications</a>
+		 * page on the discord website.
 		 *
 		 * @param largeImageKey
 		 *            A key to an image to display.
@@ -177,7 +191,9 @@ public class RichPresence {
 		 * Sets the key of the uploaded image for the large profile artwork.
 		 *
 		 * <p>
-		 * These can be configured in the <a href="https://discordapp.com/developers/applications/me">applications</a> page on the discord website.
+		 * These can be configured in the
+		 * <a href="https://discordapp.com/developers/applications/me">applications</a>
+		 * page on the discord website.
 		 *
 		 * @param largeImageKey
 		 *            A key to an image to display.
@@ -189,10 +205,13 @@ public class RichPresence {
 		}
 		
 		/**
-		 * Sets the key of the uploaded image for the small profile artwork, as well as the text tooltip shown when a cursor hovers over it.
+		 * Sets the key of the uploaded image for the small profile artwork, as well as
+		 * the text tooltip shown when a cursor hovers over it.
 		 *
 		 * <p>
-		 * These can be configured in the <a href="https://discordapp.com/developers/applications/me">applications</a> page on the discord website.
+		 * These can be configured in the
+		 * <a href="https://discordapp.com/developers/applications/me">applications</a>
+		 * page on the discord website.
 		 *
 		 * @param smallImageKey
 		 *            A key to an image to display.
@@ -211,7 +230,9 @@ public class RichPresence {
 		 * Sets the key of the uploaded image for the small profile artwork.
 		 *
 		 * <p>
-		 * These can be configured in the <a href="https://discordapp.com/developers/applications/me">applications</a> page on the discord website.
+		 * These can be configured in the
+		 * <a href="https://discordapp.com/developers/applications/me">applications</a>
+		 * page on the discord website.
 		 *
 		 * @param smallImageKey
 		 *            A key to an image to display.
@@ -286,10 +307,12 @@ public class RichPresence {
 		}
 		
 		/**
-		 * Marks the {@link #setMatchSecret(String) matchSecret} as a game session with a specific beginning and end.
+		 * Marks the {@link #setMatchSecret(String) matchSecret} as a game session with
+		 * a specific beginning and end.
 		 *
 		 * @param instance
-		 *            Whether or not the {@code matchSecret} is a game with a specific beginning and end.
+		 *            Whether or not the {@code matchSecret} is a game with a specific
+		 *            beginning and end.
 		 *
 		 * @return This Builder.
 		 */

@@ -10,7 +10,8 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
- * This class has methods that are only run by the client. To run common things you need to run super method of {@link CommonProxy}
+ * This class has methods that are only run by the client. To run common things
+ * you need to run super method of {@link CommonProxy}
  * 
  * @author HyCraftHD
  * @date 16.08.2017

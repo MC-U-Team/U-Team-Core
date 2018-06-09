@@ -8,7 +8,8 @@ import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscor
 import info.u_team.u_team_core.repack.org.json.JSONObject;
 
 /**
- * When discord connection is disrupted we are trying to reconnect with this listener
+ * When discord connection is disrupted we are trying to reconnect with this
+ * listener
  * 
  * @author HyCraftHD
  * @date 25.05.2018

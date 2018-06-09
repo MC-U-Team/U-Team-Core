@@ -15,12 +15,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
 
-@Mod(modid = "test", name = "test", version = "1.0.0")
+@Mod(modid = "test", name = "TestMod", version = "1.0.0", updateJSON = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json")
 public class TestMod extends USubMod {
-	
-	public TestMod() {
-		super("test", "TestMod", "1.0.0");
-	}
 	
 	public static UCreativeTab tab;
 	
@@ -41,7 +37,8 @@ public class TestMod extends USubMod {
 		tab.setIcon(block);
 		
 		sword = new UItemSword("test", EnumHelper.addToolMaterial("test", 1, 22, 2, 55, 10));
-		// blocktile = new UBlockTileEntity(UTileEntity.class, "testtile", Material.ROCK, "testtile", tab);
+		// blocktile = new UBlockTileEntity(UTileEntity.class, "testtile",
+		// Material.ROCK, "testtile", tab);
 		
 	}
 	
@@ -55,17 +52,23 @@ public class TestMod extends USubMod {
 		ClientRegistry.registerModel(sword, 0, new ModelResourceLocation(new ResourceLocation("diamond"), "inventory"));
 		
 		ClientRegistry.registerModel(block, 0, new ModelResourceLocation(new ResourceLocation("stone"), "inventory"));
-		// ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new ResourceLocation("bedrock"), "inventory"));
-//		
-//		GeneratableOre ore1 = new GeneratableOre(Blocks.lapis_ore.getDefaultState(), new GenerationOreCenterSpread(Blocks.air, 7, 1, 170, 16));
-//		
-//		GeneratableOre ore2 = new GeneratableOre(Blocks.diamond_ore.getDefaultState(), new GenerationOreMinMax(Blocks.air, 8, 1, 120, 136));
-//		
-//		GeneratableSchematic schematic = new GeneratableSchematic(new GenerationSchematicSurfaceChunk(this.getClass().getResource("/test.uschematic"), 1));
-//		
-//		GeneratableRegistry.addFirst(0, ore1);
-//		GeneratableRegistry.addLast(0, ore2);
-//		GeneratableRegistry.addLast(0, schematic);
+		// ClientRegistry.registerModel(blocktile, 0, new ModelResourceLocation(new
+		// ResourceLocation("bedrock"), "inventory"));
+		//
+		// GeneratableOre ore1 = new GeneratableOre(Blocks.lapis_ore.getDefaultState(),
+		// new GenerationOreCenterSpread(Blocks.air, 7, 1, 170, 16));
+		//
+		// GeneratableOre ore2 = new
+		// GeneratableOre(Blocks.diamond_ore.getDefaultState(), new
+		// GenerationOreMinMax(Blocks.air, 8, 1, 120, 136));
+		//
+		// GeneratableSchematic schematic = new GeneratableSchematic(new
+		// GenerationSchematicSurfaceChunk(this.getClass().getResource("/test.uschematic"),
+		// 1));
+		//
+		// GeneratableRegistry.addFirst(0, ore1);
+		// GeneratableRegistry.addLast(0, ore2);
+		// GeneratableRegistry.addLast(0, schematic);
 	}
 	
 	@EventHandler
@@ -98,7 +101,8 @@ public class TestMod extends USubMod {
 				//
 				// BlockPos pos = player.getPosition();
 				
-				// world.markBlockRangeForRenderUpdate(pos.subtract(new BlockPos(30, 30, 30)), pos.add(new BlockPos(30, 30, 30)));
+				// world.markBlockRangeForRenderUpdate(pos.subtract(new BlockPos(30, 30, 30)),
+				// pos.add(new BlockPos(30, 30, 30)));
 				//
 				// System.out.println("marked");
 				
@@ -115,10 +119,13 @@ public class TestMod extends USubMod {
 				//
 				// BlockPos pos = player.getPosition();
 				//
-				// USchematicSaveRegion region = new USchematicSaveRegion(world, pos.add(-count, 0, -count), pos.add(count, 0, count));
+				// USchematicSaveRegion region = new USchematicSaveRegion(world, pos.add(-count,
+				// 0, -count), pos.add(count, 0, count));
 				// try {
-				// USchematicWriter saver = new USchematicWriter(region, new File("savefile.nbt"));
-				// saver.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
+				// USchematicWriter saver = new USchematicWriter(region, new
+				// File("savefile.nbt"));
+				// saver.finished((success, time) -> System.out.println("No error: " + success +
+				// " - in " + time + " ms")).start();
 				// } catch (IOException e) {
 				// e.printStackTrace();
 				// }
@@ -134,10 +141,13 @@ public class TestMod extends USubMod {
 				//
 				// BlockPos pos = player.getPosition();
 				//
-				// USchematicLoadRegion region = new USchematicLoadRegion(world, pos).center().rotate(USchematicRotation.ROTATION_270);
+				// USchematicLoadRegion region = new USchematicLoadRegion(world,
+				// pos).center().rotate(USchematicRotation.ROTATION_270);
 				// try {
-				// USchematicReader reader = new USchematicReader(region, new File("savefile.nbt"));
-				// reader.finished((success, time) -> System.out.println("No error: " + success + " - in " + time + " ms")).start();
+				// USchematicReader reader = new USchematicReader(region, new
+				// File("savefile.nbt"));
+				// reader.finished((success, time) -> System.out.println("No error: " + success
+				// + " - in " + time + " ms")).start();
 				// } catch (IOException e) {
 				// e.printStackTrace();
 				// }

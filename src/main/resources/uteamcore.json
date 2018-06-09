@@ -8,7 +8,6 @@
 			"MrTroble"
 		],
 		"credits": "Team U-Team",
-		"logoFile": "assets/uteamcore/logo.png",
-		"updateJSON": "https://api.u-team.info/update/uteamcore.json"
+		"logoFile": "assets/uteamcore/logo.png"
 	}
 ]

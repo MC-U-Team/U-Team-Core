@@ -1,7 +1,5 @@
 package info.u_team.u_team_core.sub;
 
-import org.apache.logging.log4j.Logger;
-
 import info.u_team.u_team_core.sub.metadata.MetadataFetcher;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.event.*;

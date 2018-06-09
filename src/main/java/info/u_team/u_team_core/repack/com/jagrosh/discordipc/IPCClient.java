@@ -1,11 +1,17 @@
 /*
  * Copyright 2017 John Grosh (john.a.grosh@gmail.com).
  *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
  *
  * http://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
  *
  * Modifications Copyright (C) 2018 https://U-Team.info
  */
@@ -16,31 +22,41 @@ import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.util.*;
 
+import org.apache.logging.log4j.*;
+
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.*;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.Packet.OpCode;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import info.u_team.u_team_core.repack.org.json.*;
-import info.u_team.u_team_core.repack.org.slf4j.*;
 
 /**
  * Represents a Discord IPC Client that can send and receive Rich Presence data.
  * <p>
  *
- * The ID provided should be the <b>client ID of the particular application providing Rich Presence</b>, which can be found <a href=https://discordapp.com/developers/applications/me>here</a>.
+ * The ID provided should be the <b>client ID of the particular application
+ * providing Rich Presence</b>, which can be found <a
+ * href=https://discordapp.com/developers/applications/me>here</a>.
  * <p>
  *
- * When initially created using {@link #IPCClient(long)} the client will be inactive awaiting a call to {@link #connect(DiscordBuild...)}.<br>
- * After the call, this client can send and receive Rich Presence data to and from discord via {@link #sendRichPresence(RichPresence)} and {@link #setListener(IPCListener)} respectively.
+ * When initially created using {@link #IPCClient(long)} the client will be
+ * inactive awaiting a call to {@link #connect(DiscordBuild...)}.<br>
+ * After the call, this client can send and receive Rich Presence data to and
+ * from discord via {@link #sendRichPresence(RichPresence)} and
+ * {@link #setListener(IPCListener)} respectively.
  * <p>
  *
- * Please be mindful that the client created is initially unconnected, and calling any methods that exchange data between this client and Discord before a call to {@link #connect(DiscordBuild...)} will cause an {@link IllegalStateException} to be thrown.<br>
- * This also means that the IPCClient cannot tell whether the client ID provided is valid or not before a handshake.
+ * Please be mindful that the client created is initially unconnected, and
+ * calling any methods that exchange data between this client and Discord before
+ * a call to {@link #connect(DiscordBuild...)} will cause an
+ * {@link IllegalStateException} to be thrown.<br>
+ * This also means that the IPCClient cannot tell whether the client ID provided
+ * is valid or not before a handshake.
  *
  * @author John Grosh (john.a.grosh@gmail.com)
  */
 public final class IPCClient implements Closeable {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(IPCClient.class);
+	private static final Logger LOGGER = LogManager.getLogger(IPCClient.class.getSimpleName()); // Changed Logger to Log4J
 	private final int version = 1;
 	private final long clientId;
 	private final HashMap<String, Callback> callbacks = new HashMap<>();
@@ -55,7 +71,8 @@ public final class IPCClient implements Closeable {
 	 * This is initially unconnected to Discord.
 	 *
 	 * @param clientId
-	 *            The Rich Presence application's client ID, which can be found <a href=https://discordapp.com/developers/applications/me>here</a>
+	 *            The Rich Presence application's client ID, which can be found <a
+	 *            href=https://discordapp.com/developers/applications/me>here</a>
 	 */
 	public IPCClient(long clientId) {
 		this.clientId = clientId;
@@ -69,7 +86,8 @@ public final class IPCClient implements Closeable {
 	 * Setting this {@code null} will remove the currently active one.
 	 * <p>
 	 *
-	 * This can be set safely before a call to {@link #connect(DiscordBuild...)} is made.
+	 * This can be set safely before a call to {@link #connect(DiscordBuild...)} is
+	 * made.
 	 *
 	 * @param listener
 	 *            The {@link IPCListener} to set for this IPCClient.
@@ -84,7 +102,8 @@ public final class IPCClient implements Closeable {
 	 * Opens the connection between the IPCClient and Discord.
 	 * <p>
 	 *
-	 * <b>This must be called before any data is exchanged between the IPCClient and Discord.</b>
+	 * <b>This must be called before any data is exchanged between the IPCClient and
+	 * Discord.</b>
 	 *
 	 * @param preferredOrder
 	 *            the priority order of client builds to connect to
@@ -92,7 +111,8 @@ public final class IPCClient implements Closeable {
 	 * @throws IllegalStateException
 	 *             There is an open connection on this IPCClient.
 	 * @throws NoDiscordClientException
-	 *             No client of the provided {@link DiscordBuild build type}(s) was found.
+	 *             No client of the provided {@link DiscordBuild build type}(s) was
+	 *             found.
 	 */
 	public void connect(DiscordBuild... preferredOrder) throws NoDiscordClientException {
 		checkConnected(false);
@@ -144,7 +164,8 @@ public final class IPCClient implements Closeable {
 				if (open[cb.ordinal()] != null) {
 					pipe = open[cb.ordinal()];
 					open[cb.ordinal()] = null;
-					if (cb == DiscordBuild.ANY) // if we pulled this from the 'any' slot, we need to figure out which build it was
+					if (cb == DiscordBuild.ANY) // if we pulled this from the 'any' slot, we need to figure out which build it
+												// was
 					{
 						for (int k = 0; k < open.length; k++) {
 							if (open[k] == pipe) {
@@ -189,7 +210,8 @@ public final class IPCClient implements Closeable {
 	 * Sends a {@link RichPresence} to the Discord client.
 	 * <p>
 	 *
-	 * This is where the IPCClient will officially display a Rich Presence in the Discord client.
+	 * This is where the IPCClient will officially display a Rich Presence in the
+	 * Discord client.
 	 * <p>
 	 *
 	 * Sending this again will overwrite the last provided {@link RichPresence}.
@@ -210,7 +232,8 @@ public final class IPCClient implements Closeable {
 	 * Sends a {@link RichPresence} to the Discord client.
 	 * <p>
 	 *
-	 * This is where the IPCClient will officially display a Rich Presence in the Discord client.
+	 * This is where the IPCClient will officially display a Rich Presence in the
+	 * Discord client.
 	 * <p>
 	 *
 	 * Sending this again will overwrite the last provided {@link RichPresence}.
@@ -233,7 +256,9 @@ public final class IPCClient implements Closeable {
 	
 	/**
 	 * Adds an event {@link Event} to this IPCClient.<br>
-	 * If the provided {@link Event} is added more than once, it does nothing. Once added, there is no way to remove the subscription other than {@link #close() closing} the connection and creating a new one.
+	 * If the provided {@link Event} is added more than once, it does nothing. Once
+	 * added, there is no way to remove the subscription other than {@link #close()
+	 * closing} the connection and creating a new one.
 	 *
 	 * @param sub
 	 *            The event {@link Event} to add.
@@ -247,7 +272,9 @@ public final class IPCClient implements Closeable {
 	
 	/**
 	 * Adds an event {@link Event} to this IPCClient.<br>
-	 * If the provided {@link Event} is added more than once, it does nothing. Once added, there is no way to remove the subscription other than {@link #close() closing} the connection and creating a new one.
+	 * If the provided {@link Event} is added more than once, it does nothing. Once
+	 * added, there is no way to remove the subscription other than {@link #close()
+	 * closing} the connection and creating a new one.
 	 *
 	 * @param sub
 	 *            The event {@link Event} to add.
@@ -293,10 +320,13 @@ public final class IPCClient implements Closeable {
 	 * Gets the IPCClient's {@link DiscordBuild}.
 	 * <p>
 	 *
-	 * This is always the first specified DiscordBuild when making a call to {@link #connect(DiscordBuild...)}, or the first one found if none or {@link DiscordBuild#ANY} is specified.
+	 * This is always the first specified DiscordBuild when making a call to
+	 * {@link #connect(DiscordBuild...)}, or the first one found if none or
+	 * {@link DiscordBuild#ANY} is specified.
 	 * <p>
 	 *
-	 * Note that specifying ANY doesn't mean that this will return ANY. In fact this method should <b>never</b> return the value ANY.
+	 * Note that specifying ANY doesn't mean that this will return ANY. In fact this
+	 * method should <b>never</b> return the value ANY.
 	 *
 	 * @return The {@link DiscordBuild} of this IPCClient.
 	 */
@@ -314,7 +344,8 @@ public final class IPCClient implements Closeable {
 		 * Status for when the IPCClient has been created.
 		 * <p>
 		 *
-		 * All IPCClients are created starting with this status, and it never returns for the lifespan of the client.
+		 * All IPCClients are created starting with this status, and it never returns
+		 * for the lifespan of the client.
 		 */
 		CREATED,
 		
@@ -330,8 +361,10 @@ public final class IPCClient implements Closeable {
 		 * Status for when the IPCClient is connected with Discord.
 		 * <p>
 		 *
-		 * This is only present when the connection is healthy, stable, and reading good data without exception.<br>
-		 * If the environment becomes out of line with these principles in any way, the IPCClient in question will become {@link Status#DISCONNECTED}.
+		 * This is only present when the connection is healthy, stable, and reading good
+		 * data without exception.<br>
+		 * If the environment becomes out of line with these principles in any way, the
+		 * IPCClient in question will become {@link Status#DISCONNECTED}.
 		 */
 		CONNECTED,
 		
@@ -339,28 +372,37 @@ public final class IPCClient implements Closeable {
 		 * Status for when the IPCClient has received an {@link OpCode#CLOSE}.
 		 * <p>
 		 *
-		 * This signifies that the reading thread has safely and normally shut and the client is now inactive.
+		 * This signifies that the reading thread has safely and normally shut and the
+		 * client is now inactive.
 		 */
 		CLOSED,
 		
 		/**
-		 * Status for when the IPCClient has unexpectedly disconnected, either because of an exception, and/or due to bad data.
+		 * Status for when the IPCClient has unexpectedly disconnected, either because
+		 * of an exception, and/or due to bad data.
 		 * <p>
 		 *
-		 * When the status of an IPCClient becomes this, a call to {@link IPCListener#onDisconnect(IPCClient, Throwable)} will be made if one has been provided to the IPCClient.
+		 * When the status of an IPCClient becomes this, a call to
+		 * {@link IPCListener#onDisconnect(IPCClient, Throwable)} will be made if one
+		 * has been provided to the IPCClient.
 		 * <p>
 		 *
-		 * Note that the IPCClient will be inactive with this status, after which a call to {@link #connect(DiscordBuild...)} can be made to "reconnect" the IPCClient.
+		 * Note that the IPCClient will be inactive with this status, after which a call
+		 * to {@link #connect(DiscordBuild...)} can be made to "reconnect" the
+		 * IPCClient.
 		 */
 		DISCONNECTED
 	}
 	
 	/**
-	 * Constants representing events that can be subscribed to using {@link #subscribe(Event)}.
+	 * Constants representing events that can be subscribed to using
+	 * {@link #subscribe(Event)}.
 	 * <p>
 	 *
-	 * Each event corresponds to a different function as a component of the Rich Presence.<br>
-	 * A full breakdown of each is available <a href=https://discordapp.com/developers/docs/rich-presence/how-to>here</a>.
+	 * Each event corresponds to a different function as a component of the Rich
+	 * Presence.<br>
+	 * A full breakdown of each is available <a
+	 * href=https://discordapp.com/developers/docs/rich-presence/how-to>here</a>.
 	 */
 	public enum Event {
 		NULL(false), // used for confirmation
@@ -370,7 +412,8 @@ public final class IPCClient implements Closeable {
 		ACTIVITY_SPECTATE(true),
 		ACTIVITY_JOIN_REQUEST(true),
 		/**
-		 * A backup key, only important if the IPCClient receives an unknown event type in a JSON payload.
+		 * A backup key, only important if the IPCClient receives an unknown event type
+		 * in a JSON payload.
 		 */
 		UNKNOWN(false);
 		
@@ -398,10 +441,12 @@ public final class IPCClient implements Closeable {
 	// Private methods
 	
 	/**
-	 * Makes sure that the client is connected (or not) depending on if it should for the current state.
+	 * Makes sure that the client is connected (or not) depending on if it should
+	 * for the current state.
 	 *
 	 * @param connected
-	 *            Whether to check in the context of the IPCClient being connected or not.
+	 *            Whether to check in the context of the IPCClient being connected
+	 *            or not.
 	 */
 	private void checkConnected(boolean connected) {
 		if (connected && status != Status.CONNECTED)
@@ -411,7 +456,8 @@ public final class IPCClient implements Closeable {
 	}
 	
 	/**
-	 * Initializes this IPCClient's {@link IPCClient#readThread readThread} and calls the first {@link #read()}.
+	 * Initializes this IPCClient's {@link IPCClient#readThread readThread} and
+	 * calls the first {@link #read()}.
 	 */
 	private void startReading() {
 		readThread = new Thread(() -> {
@@ -521,7 +567,8 @@ public final class IPCClient implements Closeable {
 	}
 	
 	/**
-	 * Blocks until reading a {@link Packet} or until the read thread encounters bad data.
+	 * Blocks until reading a {@link Packet} or until the read thread encounters bad
+	 * data.
 	 *
 	 * @return A valid {@link Packet}.
 	 *
