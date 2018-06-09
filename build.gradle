@@ -73,14 +73,16 @@ artifacts {
 }
 
 sourceSets {
-    main {
-		java
-		resources
-   	}
    	repack {
    		java
    		resources
    	}
+   	main {
+		java
+		resources
+		compileClasspath += sourceSets.repack.output
+   	}
+   	
    	test {
    		java
    		resources
