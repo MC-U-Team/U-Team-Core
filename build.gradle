@@ -49,7 +49,7 @@ jar {
        
     manifest.mainAttributes(
        	"Implementation-Title": config.mod.name,
-    	"Implementation-Version": version,
+    	"Implementation-Version": project.version,
 		"Built-On": minecraft.version
 	)
 }
@@ -62,7 +62,7 @@ task deobfJar(type: Jar) {
         
     manifest.mainAttributes(
        	"Implementation-Title": config.mod.name,
-    	"Implementation-Version": version,
+    	"Implementation-Version": project.version,
 		"Built-On": minecraft.version
 	)
 }
@@ -76,9 +76,14 @@ sourceSets {
     main {
 		java
 		resources
+		repack
    	}
-   	test.java.srcDirs += "src/main/test"
-   	test.resources.srcDirs += "src/main/test"
+   	test {
+   		java
+   		resources
+   	}
+   //	test.java.srcDirs += "src/main/test"
+   //	test.resources.srcDirs += "src/main/test"
 }
 
 dependencies {
