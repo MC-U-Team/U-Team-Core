@@ -76,7 +76,10 @@ sourceSets {
     main {
 		java
 		resources
-		repack
+   	}
+   	repack {
+   		java
+   		resources
    	}
    	test {
    		java
