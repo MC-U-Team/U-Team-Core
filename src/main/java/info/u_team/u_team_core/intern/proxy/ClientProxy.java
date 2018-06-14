@@ -26,7 +26,7 @@ public class ClientProxy extends CommonProxy {
 		super.preinit(event);
 		Config.init(event.getSuggestedConfigurationFile());
 		new MetadataFetcher(UCoreConstants.MODID).setName(UCoreConstants.NAME).setVersion(UCoreConstants.VERSION).applyMetadata(event.getModMetadata());
-		UpdateCheckerRegistry.addMod(UCoreConstants.MODID, "https://api.u-team.info/update/uteamcore.json");
+		UpdateCheckerRegistry.addMod(UCoreConstants.MODID, "http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json");
 		
 		if (Config.getDiscordRichPresenceEnabled()) {
 			DiscordRichPresence.start();
