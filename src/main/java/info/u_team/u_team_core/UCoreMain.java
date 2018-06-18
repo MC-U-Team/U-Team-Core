@@ -1,6 +1,7 @@
 package info.u_team.u_team_core;
 
 import static info.u_team.u_team_core.intern.UCoreConstants.*;
+
 import info.u_team.u_team_core.intern.proxy.CommonProxy;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Mod.*;
