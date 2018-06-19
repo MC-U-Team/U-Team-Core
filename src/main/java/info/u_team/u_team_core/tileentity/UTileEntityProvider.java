@@ -23,6 +23,7 @@ public class UTileEntityProvider {
 		this(name, true, tileentity, objects);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public UTileEntityProvider(String name, boolean shouldRegister, Class<? extends TileEntity> tileentity, Object... objects) {
 		this.tileentity = tileentity;
 		this.objects = objects;
