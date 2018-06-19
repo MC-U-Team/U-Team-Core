@@ -1,19 +1,21 @@
 package info.u_team.u_team_core;
 
-import info.u_team.u_team_core.intern.UCoreConstants;
+import static info.u_team.u_team_core.intern.UCoreConstants.*;
+
 import info.u_team.u_team_core.intern.proxy.CommonProxy;
 import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Mod.*;
 import net.minecraftforge.fml.common.event.*;
 
 /**
- * This is the main class of this utility mod and represents the mod in forge. It is used to listen to events and setup everything nessesary.
+ * This is the main class of this utility mod and represents the mod in forge.
+ * It is used to listen to events and setup everything nessesary.
  * 
  * @author HyCraftHD
  * @date 16.08.2017
  *
  */
-@Mod(modid = UCoreConstants.MODID, name = UCoreConstants.NAME, version = UCoreConstants.VERSION, acceptedMinecraftVersions = UCoreConstants.MCVERSION)
+@Mod(modid = MODID, name = NAME, version = VERSION, acceptedMinecraftVersions = MCVERSION, dependencies = DEPENDENCIES, updateJSON = UPDATEURL)
 public class UCoreMain {
 	
 	// instance setup and other variables
@@ -23,7 +25,7 @@ public class UCoreMain {
 	
 	private static UCoreMain instance = new UCoreMain();
 	
-	@SidedProxy(serverSide = UCoreConstants.COMMONPROXY, clientSide = UCoreConstants.CLIENTPROXY)
+	@SidedProxy(serverSide = COMMONPROXY, clientSide = CLIENTPROXY)
 	private static CommonProxy proxy;
 	
 	// getter and setter
