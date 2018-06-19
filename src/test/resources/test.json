@@ -1,0 +1,11 @@
+[
+	{
+		"modid": "test",
+		"description": "Testmod",
+		"url": "https://example.com",
+		"authorList": [
+			"Test"
+		],
+		"credits": "Test"
+	}
+]
