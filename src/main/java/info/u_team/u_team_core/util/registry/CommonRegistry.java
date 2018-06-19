@@ -15,6 +15,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * @date 23.10.2017
  *
  */
+@SuppressWarnings("deprecation")
 public class CommonRegistry {
 	
 	public static void registerEventHandler(Object object) {
