@@ -7,8 +7,9 @@ import info.u_team.u_team_core.item.tool.UItemSword;
 import info.u_team.u_team_core.sub.USubMod;
 import info.u_team.u_team_core.util.registry.ClientRegistry;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.command.*;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
@@ -33,7 +34,7 @@ public class TestMod extends USubMod {
 		tab = new UCreativeTab("test");
 		
 		item = new UItem("testitem", tab);
-		block = new UBlock("testblock", Material.iron);
+		block = new UBlock("testblock", Material.IRON);
 		tab.setIcon(block);
 		
 		sword = new UItemSword("test", EnumHelper.addToolMaterial("test", 1, 22, 2, 55, 10));
@@ -91,7 +92,7 @@ public class TestMod extends USubMod {
 			}
 			
 			@Override
-			public void processCommand(ICommandSender sender, String[] args) throws CommandException {
+			public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 				
 				// World world = server.worldServers[0];
 				// EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
