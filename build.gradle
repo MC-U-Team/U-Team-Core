@@ -24,8 +24,8 @@ apply plugin: "com.matthewprenger.cursegradle"
 
 getBuildNumber()
 
-version = "${config.mod.version}-${config.buildnumber}"
-archivesBaseName = config.mod.filename
+version = "${config.mod.version}.${config.buildnumber}"
+archivesBaseName = "${config.mod.filename}-${config.forge.mcversion}"
 
 sourceCompatibility = targetCompatibility = "1.8"
 
@@ -39,37 +39,32 @@ minecraft {
     mappings = config.forge.mapping
     makeObfSourceJar = false
 	
-	replace "@VERSION@", "${config.mod.version}-${config.buildnumber}"
+	replace "@VERSION@", "${project.version}"
 }
 
 jar {
+	classifier = ""
+
     from "LICENSE"
-    
-    archiveName = "${archivesBaseName}-${minecraft.version}-v${version}.jar"
-    
+       
     manifest.mainAttributes(
        	"Implementation-Title": config.mod.name,
-    	"Implementation-Version": version,
+    	"Implementation-Version": project.version,
 		"Built-On": minecraft.version
 	)
-		
-    exclude ("test/")
 }
 
 task deobfJar(type: Jar) {
+	classifier = "dev"
+
     from sourceSets.main.output
-    
     from "LICENSE"
-    
-   	archiveName = "${archivesBaseName}-${minecraft.version}-v${version}-dev.jar"
-    
+        
     manifest.mainAttributes(
        	"Implementation-Title": config.mod.name,
-    	"Implementation-Version": version,
+    	"Implementation-Version": project.version,
 		"Built-On": minecraft.version
 	)
-
-    exclude ("test/")
 }
 
 artifacts {
@@ -77,13 +72,22 @@ artifacts {
     archives jar
 }
 
-dependencies {
+sourceSets {
+   	main {
+		java {
+			srcDirs += "src/repack/java"
+		}
+		resources {
+			srcDirs += "src/repack/resources"
+		}
+   	}
+   	test {
+		java
+		resources
+   	}
 }
 
-processResources {
-	from(sourceSets.main.resources.srcDirs) {
-        exclude "*"
-	}
+dependencies {
 }
 
 curseforge {
