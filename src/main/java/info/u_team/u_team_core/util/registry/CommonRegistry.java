@@ -15,12 +15,14 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * @date 23.10.2017
  *
  */
+@SuppressWarnings("deprecation")
 public class CommonRegistry {
 	
 	public static void registerEventHandler(Object object) {
 		MinecraftForge.EVENT_BUS.register(object);
 	}
 	
+	@Deprecated
 	public static void registerFuelHandler(IFuelHandler fueldhandler) {
 		GameRegistry.registerFuelHandler(fueldhandler);
 	}
