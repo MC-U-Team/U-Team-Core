@@ -7,8 +7,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
 
-@Mod(modid = "test", name = "TestMod", version = "1.0.0", updateJSON = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json")
-public class TestMod extends USubMod {
+@Mod(modid = "test2", name = "TestMod2", version = "1.0.0", updateJSON = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json")
+public class TestMod2 extends USubMod {
 
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
