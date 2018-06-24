@@ -15,44 +15,24 @@ import net.minecraft.client.renderer.vertex.*;
  */
 
 public class BufferEntry {
-	
-	private static BufferEntry INSTANCE;
-	
-	public static BufferEntry getBufferEntry() {
-		if (INSTANCE == null)
-			INSTANCE = new BufferEntry();
-		return INSTANCE;
+			
+	public static void vertex(float x, float y, float z) {
+		Tessellator.getInstance().getBuffer().pos(x, y, z);
 	}
 	
-	private Tessellator tesllator;
-	private BufferBuilder buffer;
-	
-	public BufferEntry() {
-		this.tesllator = Tessellator.getInstance();
-		this.buffer = this.tesllator.getBuffer();
+	public static void tex(float u, float v) {
+		Tessellator.getInstance().getBuffer().tex(u, v);
 	}
 	
-	public BufferEntry vertex(float x, float y, float z) {
-		this.buffer.pos(x, y, z);
-		return this;
+	public static void color(float r, float b, float g, float a) {
+		Tessellator.getInstance().getBuffer().color(r, g, b, a);
 	}
 	
-	public BufferEntry tex(float u, float v) {
-		this.buffer.tex(u, v);
-		return this;
+	public static void normal(float x, float y, float z) {
+		Tessellator.getInstance().getBuffer().normal(x, y, z);
 	}
 	
-	public BufferEntry color(float r, float b, float g, float a) {
-		this.buffer.color(r, g, b, a);
-		return this;
-	}
-	
-	public BufferEntry normal(float x, float y, float z) {
-		this.buffer.normal(x, y, z);
-		return this;
-	}
-	
-	public BufferEntry start(@Nonnull DrawFormat format) {
+	public static void start(@Nonnull DrawFormat format) {
 		if (format == null) {
 			UCoreConstants.LOGGER.error("DrawFormar is null in BufferEntry.start()");
 		}
@@ -77,15 +57,14 @@ public class BufferEntry {
 		if (v == null) {
 			UCoreConstants.LOGGER.error("Somthing went wrong with the draw start (Wrong vertex Format)");
 		}
-		this.buffer.begin(7, v);
-		return this;
+		Tessellator.getInstance().getBuffer().begin(7, v);
 	}
 	
-	public void end() {
-		this.buffer.endVertex();
+	public static void end() {
+		Tessellator.getInstance().getBuffer().endVertex();
 	}
 	
-	public void endDraw() {
-		this.tesllator.draw();
+	public static void endDraw() {
+		Tessellator.getInstance().draw();
 	}
 }

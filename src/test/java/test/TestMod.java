@@ -1,23 +1,30 @@
 package test;
 
 import info.u_team.u_team_core.block.*;
+import info.u_team.u_team_core.container.UContainer;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
+import info.u_team.u_team_core.gui.UGuiContainer;
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.item.tool.UItemSword;
 import info.u_team.u_team_core.sub.USubMod;
 import info.u_team.u_team_core.util.registry.ClientRegistry;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.gui.inventory.GuiFurnace;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.command.*;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
+import net.minecraftforge.fml.common.network.*;
 
 @Mod(modid = "test", name = "TestMod", version = "1.0.0", updateJSON = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json")
-public class TestMod extends USubMod {
+public class TestMod extends USubMod implements IGuiHandler{
 	
 	public static UCreativeTab tab;
 	
@@ -41,6 +48,7 @@ public class TestMod extends USubMod {
 		// blocktile = new UBlockTileEntity(UTileEntity.class, "testtile",
 		// Material.ROCK, "testtile", tab);
 		
+		NetworkRegistry.INSTANCE.registerGuiHandler("test", this);
 	}
 	
 	@EventHandler
@@ -156,6 +164,16 @@ public class TestMod extends USubMod {
 				
 			}
 		});
+	}
+
+	@Override
+	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		return new UContainer();
+	}
+
+	@Override
+	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
+		return new UGuiContainer(new UContainer(), new ResourceLocation("textures/gui/container/furnace.png"));
 	}
 	
 }

@@ -2,7 +2,10 @@ package info.u_team.u_team_core.item;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.sub.USub;
-import net.minecraft.item.Item;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.*;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 /**
@@ -31,6 +34,12 @@ public class UItem extends Item {
 		}
 		
 		register();
+	}
+	
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+		playerIn.openGui("test", 0, worldIn, 0, 0, 0);
+		return super.onItemRightClick(worldIn, playerIn, handIn);
 	}
 	
 	private final void register() {
