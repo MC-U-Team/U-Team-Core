@@ -13,10 +13,9 @@ import net.minecraftforge.fml.common.event.*;
 public class CommonProxy {
 	
 	public void preinit(FMLPreInitializationEvent event) {
-		System.setProperty("http.agent", "Chrome"); // We need this to let cloudflare accept our requests
-		
 		CommonRegistry.registerEventHandler(BlockRegistry.class);
 		CommonRegistry.registerEventHandler(ItemRegistry.class);
+		CommonRegistry.registerEventHandler(EntityRegistry.class);
 	}
 	
 	public void init(FMLInitializationEvent event) {
