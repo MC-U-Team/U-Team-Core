@@ -17,7 +17,7 @@ public final class UCoreConstants {
 	public static final String NAME = "UTeam Core";
 	public static final String VERSION = "@VERSION@"; // Version is replaced when compiling
 	public static final String MCVERSION = ForgeVersion.mcVersion; // Because this field is final, it will be set to the final value when compiling
-	public static final String DEPENDENCIES = "";
+	public static final String DEPENDENCIES = "required:forge@[14.23.4.2705,)";
 	public static final String UPDATEURL = "https://api.u-team.info/update/uteamcore.json";
 	
 	public static final String COMMONPROXY = "info.u_team.u_team_core.intern.proxy.CommonProxy";
