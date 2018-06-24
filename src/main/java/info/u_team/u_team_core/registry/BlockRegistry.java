@@ -4,7 +4,7 @@ import static info.u_team.u_team_core.registry.ItemRegistry.items;
 
 import java.util.*;
 
-import info.u_team.u_team_core.block.IUBlock;
+import info.u_team.u_team_core.api.IUBlock;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

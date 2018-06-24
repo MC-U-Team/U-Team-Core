@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.model;
+package info.u_team.u_team_core.api;
 
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
