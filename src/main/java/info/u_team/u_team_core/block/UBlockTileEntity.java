@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.block;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
-import info.u_team.u_team_core.item.UItemBlock;
 import info.u_team.u_team_core.tileentity.UTileEntityProvider;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
@@ -24,27 +23,17 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 	private UTileEntityProvider provider;
 	
 	public UBlockTileEntity(String name, Material material, UTileEntityProvider provider) {
-		this(name, material, null, UItemBlock.class, provider);
-	}
-	
-	public UBlockTileEntity(String name, Material material, Class<? extends UItemBlock> itemblock, UTileEntityProvider provider) {
-		this(name, material, null, itemblock, provider);
+		this(name, material, null, provider);
 	}
 	
 	public UBlockTileEntity(String name, Material material, UCreativeTab tab, UTileEntityProvider provider) {
-		this(name, material, tab, UItemBlock.class, provider);
-	}
-	
-	public UBlockTileEntity(String name, Material material, UCreativeTab tab, Class<? extends UItemBlock> itemblock, UTileEntityProvider provider) {
-		super(name, material, tab, itemblock);
+		super(name, material, tab);
 		this.provider = provider;
 		this.hasTileEntity = true;
 	}
 	
-	@SuppressWarnings("deprecation")
 	@Override
 	public boolean eventReceived(IBlockState state, World world, BlockPos pos, int id, int param) {
-		super.eventReceived(state, world, pos, id, param);
 		TileEntity tileentity = world.getTileEntity(pos);
 		return tileentity == null ? false : tileentity.receiveClientEvent(id, param);
 	}

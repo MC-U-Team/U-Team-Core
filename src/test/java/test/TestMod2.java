@@ -1,42 +1,21 @@
 package test;
 
-import info.u_team.u_team_core.block.*;
-import info.u_team.u_team_core.container.UContainer;
-import info.u_team.u_team_core.creativetab.UCreativeTab;
-import info.u_team.u_team_core.gui.UGuiContainer;
-import info.u_team.u_team_core.item.UItem;
-import info.u_team.u_team_core.item.tool.UItemSword;
 import info.u_team.u_team_core.sub.USubMod;
 import net.minecraft.command.*;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.common.network.*;
 
-@Mod(modid = "test", name = "TestMod", version = "1.0.0", updateJSON = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json")
-public class TestMod extends USubMod implements IGuiHandler{
-	
-	public static UCreativeTab tab;
-	
-	public static UBlock block;
-	public static UItem item;
-	
-	public static UItemSword sword;
-	
-	public static UBlockTileEntity blocktile;
-	
+@Mod(modid = "test2", name = "TestMod2", version = "1.0.0", updateJSON = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json")
+public class TestMod2 extends USubMod {
+
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 		super.preinit(event);
 		Blocks.init();
-		
-		NetworkRegistry.INSTANCE.registerGuiHandler("test", this);
 	}
-	
+
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
@@ -126,16 +105,6 @@ public class TestMod extends USubMod implements IGuiHandler{
 
 			}
 		});
-	}
-
-	@Override
-	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return new UContainer();
-	}
-
-	@Override
-	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-		return new UGuiContainer(new UContainer(), new ResourceLocation("textures/gui/container/furnace.png"));
 	}
 
 }
