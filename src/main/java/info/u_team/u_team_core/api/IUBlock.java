@@ -10,12 +10,10 @@ import net.minecraft.item.Item;
  * @date 24.06.2018
  *
  */
-public interface IUBlock {
+public interface IUBlock extends IURegistry {
 	
 	public Item getItem();
 	
 	public UItemBlock getItemBlock();
-	
-	public String getName();
 	
 }

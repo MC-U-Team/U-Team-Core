@@ -3,7 +3,6 @@ package info.u_team.u_team_core.intern.proxy;
 import info.u_team.u_team_core.intern.command.CommandUSchematic;
 import info.u_team.u_team_core.intern.generation.WorldGenerator;
 import info.u_team.u_team_core.registry.*;
-import info.u_team.u_team_core.util.registry.CommonRegistry;
 import net.minecraftforge.fml.common.event.*;
 
 /**

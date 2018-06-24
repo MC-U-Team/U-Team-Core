@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.util.registry;
+package info.u_team.u_team_core.registry;
 
 import info.u_team.u_team_core.util.stack.*;
 import net.minecraft.block.Block;
