@@ -1,6 +1,9 @@
 [
 	{
 		"modid": "uteamcore",
+		"name": "U Team Core",
+		"version": "${version}",
+		"mcversion": "${mcversion}",
 		"description": "This libary contains many useful modding stuff!",
 		"url": "https://u-team.info",
 		"authorList": [

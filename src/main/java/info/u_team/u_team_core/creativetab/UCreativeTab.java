@@ -1,10 +1,10 @@
 package info.u_team.u_team_core.creativetab;
 
-import info.u_team.u_team_core.sub.USub;
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
@@ -20,8 +20,12 @@ public class UCreativeTab extends CreativeTabs {
 	private Item item = null;
 	private int metadata = 0;
 	
-	public UCreativeTab(String label) {
-		super(USub.getID() + ":" + label);
+	public UCreativeTab(String modid, String name) {
+		this(new ResourceLocation(modid, name));
+	}
+	
+	public UCreativeTab(ResourceLocation location) {
+		super(location.toString());
 	}
 	
 	public void setIcon(Block block) {
