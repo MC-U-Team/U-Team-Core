@@ -4,7 +4,9 @@ import info.u_team.u_team_core.intern.UCoreConstants;
 import info.u_team.u_team_core.intern.config.Config;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
 import info.u_team.u_team_core.intern.event.UpdateDiscordRichPresenceEvent;
+import info.u_team.u_team_core.registry.ModelRegistry;
 import info.u_team.u_team_core.sub.metadata.MetadataFetcher;
+import info.u_team.u_team_core.util.registry.CommonRegistry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.*;
@@ -23,6 +25,9 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void preinit(FMLPreInitializationEvent event) {
 		super.preinit(event);
+		
+		CommonRegistry.registerEventHandler(ModelRegistry.class);
+		
 		Config.init(event.getSuggestedConfigurationFile());
 		new MetadataFetcher(UCoreConstants.MODID).setName(UCoreConstants.NAME).setVersion(UCoreConstants.VERSION).applyMetadata(event.getModMetadata());
 		
