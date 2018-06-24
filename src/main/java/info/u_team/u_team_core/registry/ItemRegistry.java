@@ -14,7 +14,12 @@ public class ItemRegistry {
 	
 	public static <T extends Item & IUItem> void register(String modid, T item) {
 		item.setRegistryName(modid, item.getName());
+		item.setUnlocalizedName(modid + ":" + item.getName());
 		items.add(item);
+	}
+	
+	public static <T extends Item & IUItem> void register(String modid, Collection<T> list) {
+		list.forEach(item -> register(modid, item));
 	}
 	
 	@SubscribeEvent

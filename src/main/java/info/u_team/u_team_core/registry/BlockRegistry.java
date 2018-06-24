@@ -16,8 +16,14 @@ public class BlockRegistry {
 	
 	public static <T extends Block & IUBlock> void register(String modid, T block) {
 		block.setRegistryName(modid, block.getName());
+		block.setUnlocalizedName(modid + ":" + block.getName());
 		blocks.add(block);
 		items.add(block.getItemBlock());
+		
+	}
+	
+	public static <T extends Block & IUBlock> void register(String modid, Collection<T> list) {
+		list.forEach(block -> register(modid, block));
 	}
 	
 	@SubscribeEvent
