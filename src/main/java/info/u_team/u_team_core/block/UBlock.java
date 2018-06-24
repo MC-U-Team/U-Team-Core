@@ -2,11 +2,10 @@ package info.u_team.u_team_core.block;
 
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.item.UItemBlock;
+import info.u_team.u_team_core.model.IModelProvider;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
-import net.minecraftforge.fml.common.FMLCommonHandler;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
@@ -17,7 +16,7 @@ import net.minecraftforge.fml.relauncher.*;
  * @author MrTroble, HyCraftHD
  */
 
-public class UBlock extends Block {
+public class UBlock extends Block implements IModelProvider {
 	
 	protected String name;
 	
@@ -39,19 +38,14 @@ public class UBlock extends Block {
 		return Item.getItemFromBlock(this);
 	}
 	
-	protected UItemBlock getItemBlock() {
+	public UItemBlock getItemBlock() {
 		return new UItemBlock(this);
 	}
 	
-	public void registerCommon(String modid) {
-		ForgeRegistries.BLOCKS.register(this);
-		ForgeRegistries.ITEMS.register(getItemBlock());
-		if (FMLCommonHandler.instance().getSide().isClient()) {
-			registerClient(modid);
-		}
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModel() {
+		setModel(getItem(), 0, getRegistryName());
 	}
 	
-	@SideOnly(Side.CLIENT)
-	public void registerClient(String modid) {
-	}
 }
