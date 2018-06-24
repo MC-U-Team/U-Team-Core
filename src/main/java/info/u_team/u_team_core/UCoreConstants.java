@@ -2,8 +2,6 @@ package info.u_team.u_team_core;
 
 import org.apache.logging.log4j.*;
 
-import net.minecraftforge.common.ForgeVersion;
-
 /**
  * This class defines important constants
  * 
@@ -15,8 +13,8 @@ public final class UCoreConstants {
 	
 	public static final String MODID = "uteamcore";
 	public static final String NAME = "UTeam Core";
-	public static final String VERSION = "@VERSION@"; // Version is replaced when compiling
-	public static final String MCVERSION = ForgeVersion.mcVersion; // Because this field is final, it will be set to the final value when compiling
+	public static final String VERSION = "${version}"; // Version is replaced when compiling
+	public static final String MCVERSION = "${mcversion}"; // Version is replaced when compiling
 	public static final String DEPENDENCIES = "required:forge@[14.23.4.2705,)";
 	public static final String UPDATEURL = "https://api.u-team.info/update/uteamcore.json";
 	
