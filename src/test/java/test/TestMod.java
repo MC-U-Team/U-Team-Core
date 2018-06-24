@@ -21,7 +21,7 @@ public class TestMod {
 	
 	public static final UItem item = new UItem("testitem", tab);
 	
-	public static final UEntityEntry entity = new UEntityEntry(EntityEntryBuilder.create().entity(EntityTest.class).id(new ResourceLocation("test", "testentityrofl"), 0).name("testentity").egg(0xFFFFFF, 0xAAAAAA).tracker(64, 20, false));
+	public static final UEntityEntry entity = new UEntityEntry(EntityEntryBuilder.create().entity(EntityTest.class).id(new ResourceLocation("test", "testentity"), 0).name("testentity").egg(0xFFFFFF, 0xAAAAAA).tracker(64, 20, false));
 	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
