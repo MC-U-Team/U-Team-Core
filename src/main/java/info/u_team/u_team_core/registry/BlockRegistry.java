@@ -6,6 +6,7 @@ import java.util.*;
 
 import info.u_team.u_team_core.api.IUBlock;
 import net.minecraft.block.Block;
+import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -14,15 +15,19 @@ public class BlockRegistry {
 	
 	static List<Block> blocks = new ArrayList<>();
 	
-	public static <T extends Block & IUBlock> void register(String modid, T block) {
-		block.setRegistryName(modid, block.getName());
-		block.setUnlocalizedName(modid + ":" + block.getName());
+	public static void register(String modid, Block block) {
+		if (block instanceof IUBlock) {
+			IUBlock iublock = (IUBlock) block;
+			block.setRegistryName(modid, iublock.getName());
+			block.setUnlocalizedName(modid + ":" + iublock.getName());
+			items.add(iublock.getItemBlock());
+		} else {
+			items.add(new ItemBlock(block));
+		}
 		blocks.add(block);
-		items.add(block.getItemBlock());
-		
 	}
 	
-	public static <T extends Block & IUBlock> void register(String modid, Collection<T> list) {
+	public static void register(String modid, Collection<Block> list) {
 		list.forEach(block -> register(modid, block));
 	}
 	

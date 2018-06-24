@@ -18,7 +18,7 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.*;
 
 @Mod(modid = "test", name = "TestMod", version = "1.0.0", updateJSON = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json")
-public class TestMod extends USubMod implements IGuiHandler{
+public class TestMod extends USubMod implements IGuiHandler {
 	
 	public static UCreativeTab tab;
 	
@@ -32,7 +32,6 @@ public class TestMod extends USubMod implements IGuiHandler{
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 		super.preinit(event);
-		Blocks.init();
 		
 		NetworkRegistry.INSTANCE.registerGuiHandler("test", this);
 	}
@@ -41,29 +40,29 @@ public class TestMod extends USubMod implements IGuiHandler{
 	public void init(FMLInitializationEvent event) {
 		super.init(event);
 	}
-
+	
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {
 		super.postinit(event);
 	}
-
+	
 	@EventHandler
 	public void server(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandBase() {
-
+			
 			@Override
 			public String getUsage(ICommandSender sender) {
 				return "Usage";
 			}
-
+			
 			@Override
 			public String getName() {
 				return "test";
 			}
-
+			
 			@Override
 			public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
-
+				
 				// World world = server.worldServers[0];
 				// EntityPlayer player = (EntityPlayer) sender.getCommandSenderEntity();
 				// if (player == null) {
@@ -71,12 +70,12 @@ public class TestMod extends USubMod implements IGuiHandler{
 				// }
 				//
 				// BlockPos pos = player.getPosition();
-
+				
 				// world.markBlockRangeForRenderUpdate(pos.subtract(new BlockPos(30, 30, 30)),
 				// pos.add(new BlockPos(30, 30, 30)));
 				//
 				// System.out.println("marked");
-
+				
 				// if (args.length == 1) {
 				// int count = 0;
 				// try {
@@ -123,19 +122,19 @@ public class TestMod extends USubMod implements IGuiHandler{
 				// e.printStackTrace();
 				// }
 				// }
-
+				
 			}
 		});
 	}
-
+	
 	@Override
 	public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new UContainer();
 	}
-
+	
 	@Override
 	public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
 		return new UGuiContainer(new UContainer(), new ResourceLocation("textures/gui/container/furnace.png"));
 	}
-
+	
 }

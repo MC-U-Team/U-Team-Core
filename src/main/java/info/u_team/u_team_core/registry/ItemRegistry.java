@@ -12,13 +12,16 @@ public class ItemRegistry {
 	
 	static List<Item> items = new ArrayList<>();
 	
-	public static <T extends Item & IUItem> void register(String modid, T item) {
-		item.setRegistryName(modid, item.getName());
-		item.setUnlocalizedName(modid + ":" + item.getName());
+	public static void register(String modid, Item item) {
+		if (item instanceof IUItem) {
+			IUItem iuitem = (IUItem) item;
+			item.setRegistryName(modid, iuitem.getName());
+			item.setUnlocalizedName(modid + ":" + iuitem.getName());
+		}
 		items.add(item);
 	}
 	
-	public static <T extends Item & IUItem> void register(String modid, Collection<T> list) {
+	public static void register(String modid, Collection<Item> list) {
 		list.forEach(item -> register(modid, item));
 	}
 	
