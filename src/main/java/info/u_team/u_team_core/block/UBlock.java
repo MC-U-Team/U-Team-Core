@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.*;
  * @author MrTroble, HyCraftHD
  */
 
-public class UBlock extends Block implements IModelProvider {
+public class UBlock extends Block implements IUBlock, IModelProvider {
 	
 	protected String name;
 	
@@ -34,12 +34,19 @@ public class UBlock extends Block implements IModelProvider {
 		}
 	}
 	
+	@Override
 	public Item getItem() {
 		return Item.getItemFromBlock(this);
 	}
 	
+	@Override
 	public UItemBlock getItemBlock() {
 		return new UItemBlock(this);
+	}
+	
+	@Override
+	public String getName() {
+		return name;
 	}
 	
 	@SideOnly(Side.CLIENT)
