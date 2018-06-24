@@ -3,7 +3,7 @@ package info.u_team.u_team_core.render;
 import javax.annotation.Nonnull;
 
 import info.u_team.u_team_core.intern.UCoreConstants;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.*;
 
 /**
@@ -15,7 +15,7 @@ import net.minecraft.client.renderer.vertex.*;
  */
 
 public class BufferEntry {
-			
+	
 	public static void vertex(float x, float y, float z) {
 		Tessellator.getInstance().getBuffer().pos(x, y, z);
 	}

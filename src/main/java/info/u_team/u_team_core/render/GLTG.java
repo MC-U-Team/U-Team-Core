@@ -2,10 +2,8 @@ package info.u_team.u_team_core.render;
 
 import javax.annotation.Nonnull;
 
-import org.apache.logging.log4j.Logger;
 import org.lwjgl.opengl.GL11;
 
-import info.u_team.u_team_core.intern.UCoreConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
@@ -17,7 +15,7 @@ import net.minecraft.util.ResourceLocation;
  * @date 17.9.2017
  *
  */
-public class GLTG {	
+public class GLTG {
 	
 	public static GLSize setTexture(ResourceLocation location) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(location);
@@ -69,5 +67,5 @@ public class GLTG {
 	public static float[][] data(float[]... data) {
 		return data;
 	}
-		
+	
 }
