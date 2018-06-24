@@ -1,11 +1,10 @@
 package info.u_team.u_team_core.item.armor;
 
+import info.u_team.u_team_core.api.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
-import info.u_team.u_team_core.sub.USub;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.*;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.*;
 
 /**
@@ -17,9 +16,9 @@ import net.minecraftforge.fml.relauncher.*;
  *
  */
 
-public class UItemArmor extends ItemArmor {
+public class UItemArmor extends ItemArmor implements IUItem, IModelProvider {
 	
-	private String texturepath;
+	protected String name;
 	
 	public UItemArmor(String name, ArmorMaterial material, EntityEquipmentSlot type, String typename) {
 		this(name, null, material, type, typename);
@@ -28,15 +27,11 @@ public class UItemArmor extends ItemArmor {
 	public UItemArmor(String name, UCreativeTab tab, ArmorMaterial material, EntityEquipmentSlot type, String typename) {
 		super(material, -1, type);
 		
-		setRegistryName(USub.getID(), name + "_" + typename);
-		setUnlocalizedName(USub.getID() + ":" + name + "_" + typename);
-		texturepath = USub.getID() + ":textures/models/armor/" + name;
+		this.name = name + "_" + typename;
 		
 		if (tab != null) {
 			setCreativeTab(tab);
 		}
-		
-		register();
 		
 	}
 	
@@ -44,20 +39,23 @@ public class UItemArmor extends ItemArmor {
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
 		if (slot == EntityEquipmentSlot.HEAD || slot == EntityEquipmentSlot.CHEST || slot == EntityEquipmentSlot.FEET) {
-			return texturepath + "_1.png";
+			return getRegistryName().getResourceDomain() + ":textures/models/armor/" + name + "_1.png";
 		} else if (slot == EntityEquipmentSlot.LEGS) {
-			return texturepath + "_2.png";
+			return getRegistryName().getResourceDomain() + ":textures/models/armor/" + name + "_2.png";
 		} else {
 			return null;
 		}
 	}
 	
-	public void setTexturepath(String texturepath) {
-		this.texturepath = texturepath;
+	@Override
+	public String getName() {
+		return name;
 	}
 	
-	private final void register() {
-		ForgeRegistries.ITEMS.register(this);
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModel() {
+		setModel(this, 0, getRegistryName());
 	}
 	
 }

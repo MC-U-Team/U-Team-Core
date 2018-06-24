@@ -2,15 +2,17 @@ package info.u_team.u_team_core.item.tool;
 
 import com.google.common.collect.Multimap;
 
+import info.u_team.u_team_core.api.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
-import info.u_team.u_team_core.sub.USub;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemSword;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.relauncher.*;
 
-public class UItemSword extends ItemSword {
+public class UItemSword extends ItemSword implements IUItem, IModelProvider {
+	
+	protected String name;
 	
 	protected double speedmodifier;
 	
@@ -29,15 +31,13 @@ public class UItemSword extends ItemSword {
 	public UItemSword(String name, UCreativeTab tab, ToolMaterial material, double speedmodifier) {
 		super(material);
 		
-		setRegistryName(USub.getID(), name);
-		setUnlocalizedName(USub.getID() + ":" + name);
+		this.name = name;
 		this.speedmodifier = speedmodifier;
 		
 		if (tab != null) {
 			setCreativeTab(tab);
 		}
 		
-		register();
 	}
 	
 	@Override
@@ -51,7 +51,14 @@ public class UItemSword extends ItemSword {
 		return multimap;
 	}
 	
-	private final void register() {
-		ForgeRegistries.ITEMS.register(this);
+	@Override
+	public String getName() {
+		return name;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModel() {
+		setModel(this, 0, getRegistryName());
 	}
 }

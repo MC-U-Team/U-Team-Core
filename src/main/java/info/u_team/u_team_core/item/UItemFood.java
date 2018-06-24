@@ -1,9 +1,9 @@
 package info.u_team.u_team_core.item;
 
+import info.u_team.u_team_core.api.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
-import info.u_team.u_team_core.sub.USub;
 import net.minecraft.item.ItemFood;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.relauncher.*;
 
 /**
  * Item API<br>
@@ -14,7 +14,9 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
  *
  */
 
-public class UItemFood extends ItemFood {
+public class UItemFood extends ItemFood implements IUItem, IModelProvider {
+	
+	protected String name;
 	
 	public UItemFood(String name, int amount) {
 		this(name, null, amount);
@@ -31,17 +33,22 @@ public class UItemFood extends ItemFood {
 	public UItemFood(String name, UCreativeTab tab, int amount, float saturation) {
 		super(amount, saturation, false);
 		
-		setRegistryName(USub.getID(), name);
-		setUnlocalizedName(USub.getID() + ":" + name);
+		this.name = name;
 		
 		if (tab != null) {
 			setCreativeTab(tab);
 		}
 		
-		register();
 	}
 	
-	private final void register() {
-		ForgeRegistries.ITEMS.register(this);
+	@Override
+	public String getName() {
+		return name;
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerModel() {
+		setModel(this, 0, getRegistryName());
 	}
 }
