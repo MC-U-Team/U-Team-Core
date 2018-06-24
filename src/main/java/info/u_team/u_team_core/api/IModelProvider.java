@@ -6,6 +6,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.*;
 
+/**
+ * Models can now be registered directly in items with this interface
+ * 
+ * @author HyCraftHD
+ * @date 24.06.2018
+ *
+ */
 public interface IModelProvider {
 	
 	@SideOnly(Side.CLIENT)

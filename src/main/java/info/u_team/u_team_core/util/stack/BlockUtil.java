@@ -38,13 +38,11 @@ public class BlockUtil {
 	}
 	
 	public static String getModID(Block block) {
-		ResourceLocation loc = getRegistryName(block);
-		return loc != null ? loc.getResourceDomain() : null;
+		return getRegistryName(block).getResourceDomain();
 	}
 	
 	public static String getName(Block block) {
-		ResourceLocation loc = getRegistryName(block);
-		return loc != null ? loc.getResourcePath() : null;
+		return getRegistryName(block).getResourcePath();
 		
 	}
 	

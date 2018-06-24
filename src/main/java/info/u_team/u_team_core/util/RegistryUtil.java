@@ -6,6 +6,13 @@ import java.util.*;
 import info.u_team.u_team_core.intern.UCoreConstants;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+/**
+ * Registry utility
+ * 
+ * @author HyCraftHD
+ * @date 24.06.2018
+ *
+ */
 public class RegistryUtil {
 	
 	@SuppressWarnings("unchecked")

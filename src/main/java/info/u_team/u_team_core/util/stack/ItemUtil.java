@@ -42,13 +42,11 @@ public class ItemUtil {
 	}
 	
 	public static String getModID(Item item) {
-		ResourceLocation loc = getRegistryName(item);
-		return loc != null ? loc.getResourceDomain() : null;
+		return getRegistryName(item).getResourceDomain();
 	}
 	
 	public static String getName(Item item) {
-		ResourceLocation loc = getRegistryName(item);
-		return loc != null ? loc.getResourcePath() : null;
+		return getRegistryName(item).getResourcePath();
 	}
 	
 }
