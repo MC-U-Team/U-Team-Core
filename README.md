@@ -1,1 +1,1 @@
-# U-Team-Core 1.10.2
+# U-Team-Core 1.12.2
