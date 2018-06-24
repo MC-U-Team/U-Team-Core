@@ -1,7 +1,5 @@
 package info.u_team.u_team_core.render;
 
-import javax.annotation.Nonnull;
-
 import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.Minecraft;
@@ -22,7 +20,7 @@ public class GLTG {
 		return new GLSize(GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_WIDTH), GlStateManager.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D, 0, GL11.GL_TEXTURE_HEIGHT));
 	}
 	
-	public static void drawManual(@Nonnull float[][] vertex, float[][] color, float[][] tex, float[][] normal) {
+	public static void drawManual(float[][] vertex, float[][] color, float[][] tex, float[][] normal) {
 		DrawFormat form;
 		if (color == null) {
 			if (normal == null) {
