@@ -2,7 +2,7 @@ package info.u_team.u_team_core.render;
 
 import javax.annotation.Nonnull;
 
-import info.u_team.u_team_core.intern.UCoreConstants;
+import info.u_team.u_team_core.UCoreConstants;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.*;
 

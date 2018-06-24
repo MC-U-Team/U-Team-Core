@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.google.common.collect.ImmutableMap;
 
-import info.u_team.u_team_core.intern.UCoreConstants;
+import info.u_team.u_team_core.UCoreConstants;
 import info.u_team.u_team_core.util.io.FileUtil;
 import net.minecraftforge.fml.common.*;
 

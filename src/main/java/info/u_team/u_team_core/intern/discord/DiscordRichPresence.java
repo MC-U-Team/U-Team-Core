@@ -2,7 +2,7 @@ package info.u_team.u_team_core.intern.discord;
 
 import java.time.OffsetDateTime;
 
-import info.u_team.u_team_core.intern.UCoreConstants;
+import info.u_team.u_team_core.UCoreConstants;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.RichPresence.Builder;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;

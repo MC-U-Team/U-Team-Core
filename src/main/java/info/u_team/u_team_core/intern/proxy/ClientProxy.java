@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.intern.proxy;
 
-import info.u_team.u_team_core.intern.UCoreConstants;
+import info.u_team.u_team_core.UCoreConstants;
 import info.u_team.u_team_core.intern.config.Config;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
 import info.u_team.u_team_core.intern.event.UpdateDiscordRichPresenceEvent;

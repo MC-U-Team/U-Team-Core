@@ -2,7 +2,7 @@ package info.u_team.u_team_core.intern.discord;
 
 import java.util.*;
 
-import info.u_team.u_team_core.intern.UCoreConstants;
+import info.u_team.u_team_core.UCoreConstants;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.*;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import info.u_team.u_team_core.repack.org.json.JSONObject;

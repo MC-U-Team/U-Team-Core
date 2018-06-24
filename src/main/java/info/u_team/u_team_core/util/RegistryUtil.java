@@ -3,7 +3,7 @@ package info.u_team.u_team_core.util;
 import java.lang.reflect.Field;
 import java.util.*;
 
-import info.u_team.u_team_core.intern.UCoreConstants;
+import info.u_team.u_team_core.UCoreConstants;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 /**

@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.sub;
 
-import info.u_team.u_team_core.intern.UCoreConstants;
+import info.u_team.u_team_core.UCoreConstants;
 
 /**
  * Holds the current sub modid
