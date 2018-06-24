@@ -2,6 +2,7 @@ package info.u_team.u_team_core.tileentity;
 
 import info.u_team.u_team_core.UCoreConstants;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -19,17 +20,16 @@ public class UTileEntityProvider {
 	private Class<? extends TileEntity> tileentity;
 	private Object objects[];
 	
-	public UTileEntityProvider(String name, Class<? extends TileEntity> tileentity, Object... objects) {
-		this(name, true, tileentity, objects);
+	public UTileEntityProvider(ResourceLocation location, Class<? extends TileEntity> tileentity, Object... objects) {
+		this(location, true, tileentity, objects);
 	}
 	
-	@SuppressWarnings("deprecation")
-	public UTileEntityProvider(String name, boolean shouldRegister, Class<? extends TileEntity> tileentity, Object... objects) {
+	public UTileEntityProvider(ResourceLocation location, boolean shouldRegister, Class<? extends TileEntity> tileentity, Object... objects) {
 		this.tileentity = tileentity;
 		this.objects = objects;
 		
 		if (shouldRegister) {
-			GameRegistry.registerTileEntity(tileentity, name);
+			GameRegistry.registerTileEntity(tileentity, location);
 		}
 	}
 	
