@@ -180,6 +180,7 @@ uploadArchives {
 			pom {
 				groupId = project.group
 				artifactId = project.archivesBaseName
+				version = project.version
 				project {
 					name project.archivesBaseName
 					packaging "jar"
