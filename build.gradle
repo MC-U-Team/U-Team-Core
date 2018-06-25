@@ -30,7 +30,7 @@ archivesBaseName = "${config.mod.filename}-${config.forge.mcversion}"
 version = "${config.mod.version}.${config.buildnumber}" + getAppendix();
 
 def getAppendix() {
-	if(mod.version.snapshot) {
+	if(config.mod.version.snapshot) {
 		return "-SNAPSHOT"
 	} else {
 		return ""
