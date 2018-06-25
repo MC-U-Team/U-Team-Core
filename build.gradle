@@ -21,11 +21,21 @@ info()
 
 apply plugin: "net.minecraftforge.gradle.forge"
 apply plugin: "com.matthewprenger.cursegradle"
+apply plugin: "maven"
 
 getBuildNumber()
 
-version = "${config.mod.version}.${config.buildnumber}"
+group = "info.u-team"
 archivesBaseName = "${config.mod.filename}-${config.forge.mcversion}"
+version = "${config.mod.version}.${config.buildnumber}" + getAppendix();
+
+def getAppendix() {
+	if(mod.version.snapshot) {
+		return "-SNAPSHOT"
+	} else {
+		return ""
+	}
+}
 
 sourceCompatibility = targetCompatibility = "1.8"
 
@@ -44,16 +54,20 @@ minecraft {
 	replaceIn "info/u_team/u_team_core/UCoreConstants.java"
 }
 
+def normalManifest = {
+	 manifest.mainAttributes(
+       	"Implementation-Title": config.mod.name,
+    	"Implementation-Version": project.version,
+		"Built-On": minecraft.version
+	)
+}
+
 jar {
 	classifier = ""
 
     from "LICENSE"
        
-    manifest.mainAttributes(
-       	"Implementation-Title": config.mod.name,
-    	"Implementation-Version": project.version,
-		"Built-On": minecraft.version
-	)
+   	normalManifest()
 }
 
 task deobfJar(type: Jar) {
@@ -62,15 +76,27 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
     from "LICENSE"
         
-    manifest.mainAttributes(
-       	"Implementation-Title": config.mod.name,
-    	"Implementation-Version": project.version,
-		"Built-On": minecraft.version
-	)
+    normalManifest()
+}
+
+task sourcesJar(type: Jar) {
+    classifier = "sources"
+    
+    from sourceSets.main.allJava
+    from "LICENSE"
+}
+
+task docJar(type: Jar) {
+    classifier = "javadoc"
+    
+    from javadoc
+    from "LICENSE"
 }
 
 artifacts {
     archives deobfJar
+    archives sourcesJar
+    archives docJar
     archives jar
 }
 
@@ -106,12 +132,12 @@ processResources {
 }
 
 compileJava {
-    options.encoding = 'UTF-8'
+    options.encoding = "UTF-8"
     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
 }
 
 curseforge {
-	apiKey = project.properties["token"]
+	apiKey = project.getProperty("token")
 	
 	tasks.curseforge.dependsOn build
 	tasks.curseforge.dependsOn setBuildNumber
@@ -131,4 +157,55 @@ curseforge {
     		changelog = "Mappings: " + config.forge.mapping
     	}
   	}
+}
+
+uploadArchives {
+
+	tasks.uploadArchives.dependsOn build
+	tasks.uploadArchives.dependsOn setBuildNumber
+
+	repositories {
+		mavenDeployer {
+			if (project.hasProperty("mavenpass")) {
+				repository(url: "https://repo.u-team.info") {
+					authentication(userName: "maven", password: project.getProperty("mavenpass"))
+				}
+			}
+			pom {
+				groupId = project.group
+				artifactId = project.archivesBaseName
+				project {
+					name project.archivesBaseName
+					packaging "jar"
+					description "U-Team-Core"
+						url "https://github.com/MC-U-Team/U-Team-Core"
+					scm {
+						url "https://github.com/MC-U-Team/U-Team-Core"
+						connection "scm:git:git://github.com/MC-U-Team/U-Team-Core.git"
+						developerConnection "scm:git:git@github.com:MC-U-Team/U-Team-Core.git"
+					}
+					issueManagement {
+						system "github"
+						url "https://github.com/MC-U-Team/U-Team-Core/issues"
+					}
+					licenses {
+						license {
+							name "Apache License 2.0"
+							url "https://github.com/MC-U-Team/U-Team-Core/blob/1.12.2/LICENSE"
+							distribution "repo"
+						}
+					}
+
+					developers {
+						developer {
+							name "HyCraftHD"
+						}
+						developer {
+							name "MrTroble"
+						}
+					}
+				}
+			}
+		}
+	}
 }
