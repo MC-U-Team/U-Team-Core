@@ -55,8 +55,8 @@ minecraft {
 }
 
 def normalManifest = {
-	 manifest.mainAttributes(
-       	"Implementation-Title": config.mod.name,
+	attributes(
+		"Implementation-Title": config.mod.name,
     	"Implementation-Version": project.version,
 		"Built-On": minecraft.version
 	)
@@ -67,7 +67,7 @@ jar {
 
     from "LICENSE"
        
-   	normalManifest()
+   	manifest normalManifest
 }
 
 task deobfJar(type: Jar) {
@@ -76,7 +76,7 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
     from "LICENSE"
         
-    normalManifest()
+    manifest normalManifest
 }
 
 task sourcesJar(type: Jar) {
