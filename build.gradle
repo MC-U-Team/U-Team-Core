@@ -168,7 +168,7 @@ curseforge {
 uploadArchives {
 
 	tasks.uploadArchives.dependsOn build
-	//tasks.uploadArchives.dependsOn setBuildNumber
+	tasks.uploadArchives.dependsOn setBuildNumber
 
 	repositories {
 		mavenDeployer {
