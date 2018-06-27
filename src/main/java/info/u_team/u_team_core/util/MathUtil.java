@@ -65,4 +65,8 @@ public class MathUtil {
 		return MathHelper.average(numbers);
 	}
 	
+	public static boolean isInRange(int number, int min, int max) {
+		return number >= min && number <= max;
+	}
+	
 }
