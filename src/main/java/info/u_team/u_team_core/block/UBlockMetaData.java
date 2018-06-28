@@ -60,6 +60,11 @@ public class UBlockMetaData extends UBlock {
 	}
 	
 	@Override
+	public int damageDropped(IBlockState state) {
+		return getMetaFromState(state);
+	}
+	
+	@Override
 	public UItemBlock getItemBlock() {
 		return new UItemBlockMetaData(this, list);
 	}
