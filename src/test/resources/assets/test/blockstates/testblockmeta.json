@@ -1,0 +1,13 @@
+{
+	"variants": {
+		"meta=first": {
+			"model": "test:testblockmeta/first"
+		},
+		"meta=second": {
+			"model": "test:testblockmeta/second"
+		},
+		"meta=third": {
+			"model": "test:testblockmeta/third"
+		}
+	}
+}
