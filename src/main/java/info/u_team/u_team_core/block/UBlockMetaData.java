@@ -115,6 +115,11 @@ public class UBlockMetaData extends UBlock {
 		public boolean equals(Object obj) {
 			return getName().equals(((MetaType) obj).getName());
 		}
+		
+		@Override
+		public String toString() {
+			return getName();
+		}
 	}
 	
 }

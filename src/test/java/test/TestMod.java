@@ -1,13 +1,13 @@
 package test;
 
-import info.u_team.u_team_core.api.IUMetaType;
 import info.u_team.u_team_core.block.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.entity.UEntityEntry;
 import info.u_team.u_team_core.item.*;
 import info.u_team.u_team_core.registry.*;
+import info.u_team.u_team_core.util.NonNullListUtil;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
@@ -24,45 +24,9 @@ public class TestMod {
 	
 	public static final UEntityEntry entity = new UEntityEntry(EntityEntryBuilder.create().entity(EntityTest.class).id(new ResourceLocation("test", "testentity"), 0).name("testentity").egg(0xFFFFFF, 0xAAAAAA).tracker(64, 20, false));
 	
-	public static final UItemMetaData itemmeta = new UItemMetaData("testitemmeta", tab, NonNullList.<IUMetaType> from(new IUMetaType() {
-		
-		@Override
-		public String getName() {
-			return "default";
-		}
-	}, new IUMetaType() {
-		
-		@Override
-		public String getName() {
-			return "firstitem";
-		}
-	}, new IUMetaType() {
-		
-		@Override
-		public String getName() {
-			return "seconditem";
-		}
-	}));
+	public static final UItemMetaData itemmeta = new UItemMetaData("testitemmeta", tab, NonNullListUtil.createMeta("first", "second", "third"));
 	
-	public static final UBlockMetaData blockmeta = new UBlockMetaData("testblockmeta", Material.ROCK, tab, NonNullList.<IUMetaType> from(new IUMetaType() {
-		
-		@Override
-		public String getName() {
-			return "default";
-		}
-	}, new IUMetaType() {
-		
-		@Override
-		public String getName() {
-			return "firstblock";
-		}
-	}, new IUMetaType() {
-		
-		@Override
-		public String getName() {
-			return "secondblock";
-		}
-	}));
+	public static final UBlockMetaData blockmeta = new UBlockMetaData("testblockmeta", Material.ROCK, tab, NonNullListUtil.createMeta("first", "second", "third"));
 	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
