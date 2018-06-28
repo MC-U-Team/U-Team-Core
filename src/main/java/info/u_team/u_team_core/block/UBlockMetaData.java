@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.block;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import info.u_team.u_team_core.api.IUMetaType;
 import info.u_team.u_team_core.creativetab.UCreativeTab;

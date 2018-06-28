@@ -28,10 +28,12 @@ public class PropertyList<T extends IUMetaType & Comparable<T>> extends Property
 		}
 	}
 	
+	@Override
 	public Collection<T> getAllowedValues() {
 		return this.allowedValues;
 	}
 	
+	@Override
 	public Optional<T> parseValue(String value) {
 		return Optional.<T> fromNullable(this.nameToValue.get(value));
 	}
@@ -39,10 +41,12 @@ public class PropertyList<T extends IUMetaType & Comparable<T>> extends Property
 	/**
 	 * Get the name for the given value.
 	 */
+	@Override
 	public String getName(T value) {
 		return value.getName();
 	}
 	
+	@Override
 	public boolean equals(Object p_equals_1_) {
 		if (this == p_equals_1_) {
 			return true;
@@ -54,6 +58,7 @@ public class PropertyList<T extends IUMetaType & Comparable<T>> extends Property
 		}
 	}
 	
+	@Override
 	public int hashCode() {
 		int i = super.hashCode();
 		i = 31 * i + this.allowedValues.hashCode();

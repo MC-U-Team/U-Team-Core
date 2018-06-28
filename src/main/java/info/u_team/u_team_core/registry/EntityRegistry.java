@@ -2,7 +2,7 @@ package info.u_team.u_team_core.registry;
 
 import java.util.*;
 
-import info.u_team.u_team_core.api.*;
+import info.u_team.u_team_core.api.IUEntityEntry;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;

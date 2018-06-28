@@ -5,7 +5,7 @@ import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.util.*;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.NonNullList;
 
 /**
  * Item API<br>
