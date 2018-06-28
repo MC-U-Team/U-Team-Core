@@ -2,7 +2,7 @@ package info.u_team.u_team_core.block;
 
 import java.util.*;
 
-import info.u_team.u_team_core.api.IUMetaType;
+import info.u_team.u_team_core.api.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.item.*;
 import info.u_team.u_team_core.property.PropertyList;
@@ -22,8 +22,7 @@ public class UBlockMetaData extends UBlock {
 	
 	private NonNullList<IUMetaType> list;
 	
-	public PropertyList<MetaType> test;
-	
+	public PropertyList<MetaType> property;
 	private BlockStateContainer blockstate;
 	
 	private List<MetaType> types = new ArrayList<>();
@@ -40,8 +39,8 @@ public class UBlockMetaData extends UBlock {
 			types.add(new MetaType(list.get(i), i));
 		}
 		
-		test = PropertyList.create("meta", MetaType.class, types);
-		blockstate = new BlockStateContainer(this, test);
+		property = PropertyList.create("meta", MetaType.class, types);
+		blockstate = new BlockStateContainer(this, property);
 		setDefaultState(blockstate.getBaseState());
 	}
 	
@@ -52,12 +51,12 @@ public class UBlockMetaData extends UBlock {
 	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState().withProperty(test, types.get(meta));
+		return getDefaultState().withProperty(property, types.get(meta));
 	}
 	
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		return state.getValue(test).getMeta();
+		return state.getValue(property).getMeta();
 	}
 	
 	@Override
@@ -72,7 +71,22 @@ public class UBlockMetaData extends UBlock {
 		}
 	}
 	
-	public static class MetaType implements IUMetaType, Comparable<MetaType> {
+	public List<MetaType> getTypes() {
+		return types;
+	}
+	
+	public NonNullList<IUMetaType> getList() {
+		return list;
+	}
+	
+	/**
+	 * Block API<br>
+	 * -> Metadata Blocks (Wrapper)
+	 * 
+	 * @date 28.06.2018
+	 * @author HyCraftHD
+	 */
+	public static class MetaType implements IUPropertyList, Comparable<MetaType> {
 		
 		private IUMetaType wrapped;
 		

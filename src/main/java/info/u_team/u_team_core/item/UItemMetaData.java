@@ -59,4 +59,8 @@ public class UItemMetaData extends UItem {
 		}
 	}
 	
+	public NonNullList<IUMetaType> getList() {
+		return list;
+	}
+	
 }
