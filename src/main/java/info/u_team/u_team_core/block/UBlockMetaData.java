@@ -9,7 +9,6 @@ import info.u_team.u_team_core.property.PropertyList;
 import info.u_team.u_team_core.util.CustomResourceLocation;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.*;
-import net.minecraft.util.NonNullList;
 
 /**
  * Block API<br>
@@ -20,20 +19,21 @@ import net.minecraft.util.NonNullList;
  */
 public class UBlockMetaData extends UBlock {
 	
-	private NonNullList<IUMetaType> list;
+	private List<IUMetaType> list;
 	
 	public PropertyList<MetaType> property;
 	private BlockStateContainer blockstate;
 	
-	private List<MetaType> types = new ArrayList<>();
+	private List<MetaType> types;
 	
-	public UBlockMetaData(String name, Material material, NonNullList<IUMetaType> list) {
+	public UBlockMetaData(String name, Material material, List<IUMetaType> list) {
 		this(name, material, null, list);
 	}
 	
-	public UBlockMetaData(String name, Material material, UCreativeTab tab, NonNullList<IUMetaType> list) {
+	public UBlockMetaData(String name, Material material, UCreativeTab tab, List<IUMetaType> list) {
 		super(name, material, tab);
 		this.list = list;
+		types = new ArrayList<>();
 		
 		for (int i = 0; i < list.size(); i++) {
 			types.add(new MetaType(list.get(i), i));
@@ -80,7 +80,7 @@ public class UBlockMetaData extends UBlock {
 		return types;
 	}
 	
-	public NonNullList<IUMetaType> getList() {
+	public List<IUMetaType> getList() {
 		return list;
 	}
 	

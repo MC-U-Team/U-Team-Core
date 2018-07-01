@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.item;
 
+import java.util.List;
+
 import info.u_team.u_team_core.api.IUMetaType;
 import info.u_team.u_team_core.block.UBlock;
 import info.u_team.u_team_core.util.MathUtil;
@@ -9,9 +11,9 @@ import net.minecraft.util.NonNullList;
 
 public class UItemBlockMetaData extends UItemBlock {
 	
-	private NonNullList<IUMetaType> list;
+	private List<IUMetaType> list;
 	
-	public UItemBlockMetaData(UBlock block, NonNullList<IUMetaType> list) {
+	public UItemBlockMetaData(UBlock block, List<IUMetaType> list) {
 		super(block);
 		setHasSubtypes(true);
 		this.list = list;

@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.item;
 
+import java.util.List;
+
 import info.u_team.u_team_core.api.IUMetaType;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.util.*;
@@ -17,13 +19,13 @@ import net.minecraft.util.NonNullList;
  */
 public class UItemMetaData extends UItem {
 	
-	private NonNullList<IUMetaType> list;
+	private List<IUMetaType> list;
 	
-	public UItemMetaData(String name, NonNullList<IUMetaType> list) {
+	public UItemMetaData(String name, List<IUMetaType> list) {
 		this(name, null, list);
 	}
 	
-	public UItemMetaData(String name, UCreativeTab tab, NonNullList<IUMetaType> list) {
+	public UItemMetaData(String name, UCreativeTab tab, List<IUMetaType> list) {
 		super(name, tab);
 		this.list = list;
 		setHasSubtypes(true);
@@ -59,7 +61,7 @@ public class UItemMetaData extends UItem {
 		}
 	}
 	
-	public NonNullList<IUMetaType> getList() {
+	public List<IUMetaType> getList() {
 		return list;
 	}
 	
