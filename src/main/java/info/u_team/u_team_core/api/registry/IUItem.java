@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.api;
+package info.u_team.u_team_core.api.registry;
 
 /**
  * Mark a block as uitem for registry things

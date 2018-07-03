@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.entity;
 
-import info.u_team.u_team_core.api.IUEntityEntry;
+import info.u_team.u_team_core.api.registry.IUEntityEntry;
 import net.minecraftforge.fml.common.registry.*;
 
 public class UEntityEntry implements IUEntityEntry {

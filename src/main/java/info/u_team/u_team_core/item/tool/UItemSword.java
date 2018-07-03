@@ -3,6 +3,7 @@ package info.u_team.u_team_core.item.tool;
 import com.google.common.collect.Multimap;
 
 import info.u_team.u_team_core.api.*;
+import info.u_team.u_team_core.api.registry.IUItem;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
