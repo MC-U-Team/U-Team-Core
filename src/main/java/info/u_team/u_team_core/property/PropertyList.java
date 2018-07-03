@@ -5,10 +5,10 @@ import java.util.*;
 import com.google.common.base.Optional;
 import com.google.common.collect.*;
 
-import info.u_team.u_team_core.api.*;
+import info.u_team.u_team_core.api.IPropertyList;
 import net.minecraft.block.properties.PropertyHelper;
 
-public class PropertyList<T extends IUPropertyList & Comparable<T>> extends PropertyHelper<T> {
+public class PropertyList<T extends IPropertyList & Comparable<T>> extends PropertyHelper<T> {
 	
 	private final ImmutableSet<T> values;
 	private final Map<String, T> map = Maps.<String, T> newHashMap();
@@ -46,8 +46,8 @@ public class PropertyList<T extends IUPropertyList & Comparable<T>> extends Prop
 		if (this == object) {
 			return true;
 		} else if (object instanceof PropertyList && super.equals(object)) {
-			PropertyList<?> propertyenum = (PropertyList<?>) object;
-			return values.equals(propertyenum.values) && map.equals(propertyenum.map);
+			PropertyList<?> property = (PropertyList<?>) object;
+			return values.equals(property.values) && map.equals(property.map);
 		} else {
 			return false;
 		}
@@ -61,7 +61,11 @@ public class PropertyList<T extends IUPropertyList & Comparable<T>> extends Prop
 		return i;
 	}
 	
-	public static <T extends IUPropertyList & Comparable<T>> PropertyList<T> create(String name, Class<T> clazz, Collection<T> values) {
+	public static <T extends IPropertyList & Comparable<T>> PropertyList<T> create(String name, Class<T> clazz, @SuppressWarnings("unchecked") T... values) {
+		return create(name, clazz, Lists.newArrayList(values));
+	}
+	
+	public static <T extends IPropertyList & Comparable<T>> PropertyList<T> create(String name, Class<T> clazz, Collection<T> values) {
 		return new PropertyList<T>(name, clazz, values);
 	}
 }

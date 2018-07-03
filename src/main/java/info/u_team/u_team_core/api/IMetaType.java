@@ -7,8 +7,11 @@ package info.u_team.u_team_core.api;
  * @date 26.06.2018
  *
  */
-public interface IUMetaType {
+public interface IMetaType extends IPropertyList {
 	
+	@Override
 	public String getName();
+	
+	public int getMetadata();
 	
 }

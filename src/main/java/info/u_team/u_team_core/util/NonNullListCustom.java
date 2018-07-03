@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.util;
 
-import java.util.*;
+import java.util.List;
 
 import javax.annotation.Nullable;
 

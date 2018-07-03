@@ -1,11 +1,11 @@
 package test;
 
+import info.u_team.u_team_core.api.IMetaType;
 import info.u_team.u_team_core.block.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.entity.UEntityEntry;
 import info.u_team.u_team_core.item.*;
 import info.u_team.u_team_core.registry.*;
-import info.u_team.u_team_core.util.NonNullListUtil;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
@@ -24,9 +24,35 @@ public class TestMod {
 	
 	public static final UEntityEntry entity = new UEntityEntry(EntityEntryBuilder.create().entity(EntityTest.class).id(new ResourceLocation("test", "testentity"), 0).name("testentity").egg(0xFFFFFF, 0xAAAAAA).tracker(64, 20, false));
 	
-	public static final UItemMetaData itemmeta = new UItemMetaData("testitemmeta", tab, NonNullListUtil.createMeta("first", "second", "third"));
+	public static final UItemMetaData itemmeta = new UItemMetaData("testitemmeta", tab, EnumTest.values());
 	
-	public static final UBlockMetaData blockmeta = new UBlockMetaData("testblockmeta", Material.ROCK, tab, NonNullListUtil.createMeta("first", "second", "third"));
+	public static final UBlockMetaData blockmeta = new UBlockMetaData("testblockmeta", Material.ROCK, tab, EnumTest.values());
+	
+	public static enum EnumTest implements IMetaType {
+		
+		FIRST(0, "first"),
+		SECOND(1, "second"),
+		THIRD(2, "third");
+		
+		private int meta;
+		private String name;
+		
+		private EnumTest(int meta, String name) {
+			this.meta = meta;
+			this.name = name;
+		}
+		
+		@Override
+		public String getName() {
+			return name;
+		}
+		
+		@Override
+		public int getMetadata() {
+			return meta;
+		}
+		
+	}
 	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {

@@ -1,8 +1,6 @@
 package info.u_team.u_team_core.item;
 
-import java.util.List;
-
-import info.u_team.u_team_core.api.IUMetaType;
+import info.u_team.u_team_core.api.IMetaType;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.util.*;
 import net.minecraft.creativetab.CreativeTabs;
@@ -19,13 +17,13 @@ import net.minecraft.util.NonNullList;
  */
 public class UItemMetaData extends UItem {
 	
-	private List<IUMetaType> list;
+	private IMetaType[] list;
 	
-	public UItemMetaData(String name, List<IUMetaType> list) {
+	public UItemMetaData(String name, IMetaType[] list) {
 		this(name, null, list);
 	}
 	
-	public UItemMetaData(String name, UCreativeTab tab, List<IUMetaType> list) {
+	public UItemMetaData(String name, UCreativeTab tab, IMetaType[] list) {
 		super(name, tab);
 		this.list = list;
 		setHasSubtypes(true);
@@ -34,8 +32,8 @@ public class UItemMetaData extends UItem {
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
 		int metadata = stack.getMetadata();
-		if (MathUtil.isInRange(metadata, 0, list.size() - 1)) {
-			return getUnlocalizedName() + "." + list.get(stack.getMetadata()).getName();
+		if (MathUtil.isInRange(metadata, 0, list.length - 1)) {
+			return getUnlocalizedName() + "." + list[metadata].getName();
 		}
 		return getUnlocalizedName();
 	}
@@ -48,20 +46,20 @@ public class UItemMetaData extends UItem {
 	@Override
 	public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
 		if (isInCreativeTab(tab)) {
-			for (int i = 0; i < list.size(); i++) {
-				items.add(new ItemStack(this, 1, i));
+			for (int i = 0; i < list.length; i++) {
+				items.add(new ItemStack(this, 1, list[i].getMetadata()));
 			}
 		}
 	}
 	
 	@Override
 	public void registerModel() {
-		for (int i = 0; i < list.size(); i++) {
-			setModel(this, i, new CustomResourceLocation(getRegistryName(), "/" + list.get(i).getName()));
+		for (int i = 0; i < list.length; i++) {
+			setModel(this, i, new CustomResourceLocation(getRegistryName(), "/" + list[i].getName()));
 		}
 	}
 	
-	public List<IUMetaType> getList() {
+	public IMetaType[] getList() {
 		return list;
 	}
 	
