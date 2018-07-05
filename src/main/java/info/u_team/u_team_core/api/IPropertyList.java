@@ -5,7 +5,6 @@ package info.u_team.u_team_core.api;
  * 
  * @author HyCraftHD
  * @date 05.07.2018
- *
  */
 public interface IPropertyList {
 	

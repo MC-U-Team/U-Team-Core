@@ -10,7 +10,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * 
  * @author HyCraftHD
  * @date 23.10.2017
- *
  */
 public class CommonRegistry {
 	

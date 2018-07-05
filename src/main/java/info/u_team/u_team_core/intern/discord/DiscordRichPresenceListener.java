@@ -13,7 +13,6 @@ import info.u_team.u_team_core.repack.org.json.JSONObject;
  * 
  * @author HyCraftHD
  * @date 25.05.2018
- *
  */
 public class DiscordRichPresenceListener implements IPCListener {
 	

@@ -8,7 +8,6 @@ import net.minecraft.item.Item;
  * 
  * @author HyCraftHD
  * @date 24.06.2018
- *
  */
 public interface IUBlock extends IURegistry {
 	

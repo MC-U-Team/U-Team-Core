@@ -7,7 +7,6 @@ import net.minecraftforge.fml.common.registry.EntityEntry;
  * 
  * @author HyCraftHD
  * @date 05.07.2018
- *
  */
 public interface IUEntityEntry extends IURegistry {
 	

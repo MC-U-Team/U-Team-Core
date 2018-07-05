@@ -7,7 +7,6 @@ import org.apache.logging.log4j.*;
  * 
  * @author HyCraftHD
  * @date 16.08.2017
- *
  */
 public final class UCoreConstants {
 	

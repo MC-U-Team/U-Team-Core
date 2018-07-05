@@ -8,7 +8,6 @@ import net.minecraftforge.common.*;
  * 
  * @author HyCraftHD
  * @date 23.10.2017
- *
  */
 public class CommonForgeHooks extends ForgeHooks {
 	

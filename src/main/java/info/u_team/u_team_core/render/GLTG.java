@@ -11,7 +11,6 @@ import net.minecraft.util.ResourceLocation;
  * 
  * @author MrTroble
  * @date 17.9.2017
- *
  */
 
 public class GLTG {

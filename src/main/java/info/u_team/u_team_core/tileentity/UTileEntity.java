@@ -9,7 +9,6 @@ import net.minecraft.tileentity.TileEntity;
  * 
  * @date 17.08.2017
  * @author MrTroble
- *
  */
 
 public abstract class UTileEntity extends TileEntity {

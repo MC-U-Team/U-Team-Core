@@ -12,7 +12,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * 
  * @author HyCraftHD
  * @date 21.01.2018
- *
  */
 
 public class UTileEntityProvider {

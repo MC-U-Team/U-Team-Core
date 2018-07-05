@@ -11,7 +11,6 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
  * 
  * @author HyCraftHD
  * @date 24.06.2018
- *
  */
 public class RegistryUtil {
 	

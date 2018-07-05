@@ -12,7 +12,6 @@ import net.minecraftforge.fml.relauncher.*;
  * 
  * @date 05.07.2018
  * @author HyCraftHD
- *
  */
 
 public class UItemPickaxe extends ItemPickaxe implements IUItem, IModelProvider {

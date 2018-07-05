@@ -8,7 +8,6 @@ import net.minecraftforge.fml.relauncher.*;
  * 
  * @author HyCraftHD
  * @date 23.10.2017
- *
  */
 @SideOnly(Side.CLIENT)
 public class ClientForgeHooks extends ForgeHooksClient {

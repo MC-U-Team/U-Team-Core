@@ -14,7 +14,6 @@ import net.minecraftforge.fml.common.Loader;
  * 
  * @author HyCraftHD
  * @date 24.03.2018
- *
  */
 public class DiscordRichPresence {
 	

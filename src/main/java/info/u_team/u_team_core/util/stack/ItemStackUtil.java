@@ -7,7 +7,6 @@ import net.minecraft.item.*;
  * 
  * @author HyCraftHD
  * @date 21.10.2017
- *
  */
 public class ItemStackUtil {
 	

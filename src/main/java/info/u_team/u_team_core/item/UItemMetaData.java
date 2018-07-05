@@ -13,7 +13,6 @@ import net.minecraft.util.NonNullList;
  * 
  * @date 26.06.2018
  * @author HyCraftHD
- *
  */
 public class UItemMetaData extends UItem {
 	

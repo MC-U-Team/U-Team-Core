@@ -8,7 +8,6 @@ import net.minecraft.util.math.*;
  * 
  * @author HyCraftHD
  * @date 21.10.2017
- *
  */
 public class WorldUtil {
 	

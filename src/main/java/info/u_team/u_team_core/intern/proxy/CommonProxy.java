@@ -8,7 +8,6 @@ import net.minecraftforge.fml.common.event.*;
  * 
  * @author HyCraftHD
  * @date 16.08.2017
- *
  */
 public class CommonProxy {
 	

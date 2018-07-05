@@ -14,7 +14,6 @@ import net.minecraftforge.fml.relauncher.*;
  * 
  * @author HyCraftHD
  * @date 16.08.2017
- *
  */
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {

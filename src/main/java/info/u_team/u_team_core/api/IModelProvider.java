@@ -11,7 +11,6 @@ import net.minecraftforge.fml.relauncher.*;
  * 
  * @author HyCraftHD
  * @date 24.06.2018
- *
  */
 public interface IModelProvider {
 	

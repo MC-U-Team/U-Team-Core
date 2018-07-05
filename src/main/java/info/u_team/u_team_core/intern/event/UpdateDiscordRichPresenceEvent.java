@@ -15,7 +15,6 @@ import net.minecraftforge.fml.relauncher.*;
  * 
  * @author HyCraftHD
  * @date 24.03.2018
- *
  */
 @SideOnly(Side.CLIENT)
 public class UpdateDiscordRichPresenceEvent {

@@ -15,7 +15,6 @@ import net.minecraft.world.World;
  * 
  * @date 17.08.2017
  * @author MrTroble, HyCraftHD
- *
  */
 
 public class UBlockTileEntity extends UBlock implements ITileEntityProvider {

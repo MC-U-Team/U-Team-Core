@@ -9,7 +9,6 @@ import net.minecraftforge.common.config.*;
  * 
  * @author HyCraftHD
  * @date 28.05.2018
- *
  */
 public class Config {
 	

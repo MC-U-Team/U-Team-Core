@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
  * 
  * @author HyCraftHD
  * @date 21.10.2017
- *
  */
 public class FileUtil {
 	

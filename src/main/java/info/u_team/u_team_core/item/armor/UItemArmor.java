@@ -14,7 +14,6 @@ import net.minecraftforge.fml.relauncher.*;
  * 
  * @date 27.12.17
  * @author HyCraftHD
- *
  */
 
 public class UItemArmor extends ItemArmor implements IUItem, IModelProvider {

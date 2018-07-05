@@ -14,7 +14,6 @@ import net.minecraftforge.registries.IForgeRegistry;
  * 
  * @date 05.07.2018
  * @author HyCraftHD
- *
  */
 
 public class EntityRegistry {

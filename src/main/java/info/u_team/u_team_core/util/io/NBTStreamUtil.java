@@ -9,7 +9,6 @@ import net.minecraft.nbt.*;
  * 
  * @author HyCraftHD
  * @date 21.10.2017
- *
  */
 public class NBTStreamUtil {
 	

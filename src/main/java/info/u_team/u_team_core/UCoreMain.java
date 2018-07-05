@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.event.*;
  * 
  * @author HyCraftHD
  * @date 16.08.2017
- *
  */
 @Mod(modid = MODID, name = NAME, version = VERSION, acceptedMinecraftVersions = MCVERSION, dependencies = DEPENDENCIES, updateJSON = UPDATEURL)
 public class UCoreMain {

@@ -11,7 +11,6 @@ import net.minecraft.util.NonNullList;
  * 
  * @author HyCraftHD
  * @date 05.07.2018
- *
  */
 
 public class NonNullListCustom<E> extends NonNullList<E> {

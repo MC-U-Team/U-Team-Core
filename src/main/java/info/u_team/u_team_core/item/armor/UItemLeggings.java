@@ -9,7 +9,6 @@ import net.minecraft.inventory.EntityEquipmentSlot;
  * 
  * @date 27.12.17
  * @author HyCraftHD
- *
  */
 public class UItemLeggings extends UItemArmor {
 	

@@ -5,7 +5,6 @@ package info.u_team.u_team_core.render;
  * 
  * @author MrTroble
  * @date 17.9.2017
- *
  */
 
 public enum DrawFormat {
