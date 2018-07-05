@@ -8,6 +8,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.registries.IForgeRegistry;
 
+/**
+ * Entity API<br>
+ * -> Registry
+ * 
+ * @date 05.07.2018
+ * @author HyCraftHD
+ *
+ */
+
 public class EntityRegistry {
 	
 	static List<EntityEntry> entities = new ArrayList<>();

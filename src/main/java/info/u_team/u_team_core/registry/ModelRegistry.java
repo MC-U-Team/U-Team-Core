@@ -8,6 +8,15 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.*;
 
+/**
+ * Model API<br>
+ * -> Registry
+ * 
+ * @date 05.07.2018
+ * @author HyCraftHD
+ *
+ */
+
 @SideOnly(Side.CLIENT)
 public class ModelRegistry {
 	

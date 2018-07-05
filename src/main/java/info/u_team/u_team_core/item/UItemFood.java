@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.item;
 
-import info.u_team.u_team_core.api.*;
+import info.u_team.u_team_core.api.IModelProvider;
 import info.u_team.u_team_core.api.registry.IUItem;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import net.minecraft.item.ItemFood;

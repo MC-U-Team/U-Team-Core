@@ -8,6 +8,14 @@ import com.google.common.collect.*;
 import info.u_team.u_team_core.api.IPropertyList;
 import net.minecraft.block.properties.PropertyHelper;
 
+/**
+ * Property list used for block states (like an enum but needs only an array)
+ * 
+ * @date 05.07.2018
+ * @author HyCraftHD
+ *
+ */
+
 public class PropertyList<T extends IPropertyList & Comparable<T>> extends PropertyHelper<T> {
 	
 	private final ImmutableSet<T> values;

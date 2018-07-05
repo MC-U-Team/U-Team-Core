@@ -1,10 +1,19 @@
 package info.u_team.u_team_core.item.tool;
 
-import info.u_team.u_team_core.api.*;
+import info.u_team.u_team_core.api.IModelProvider;
 import info.u_team.u_team_core.api.registry.IUItem;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import net.minecraft.item.ItemAxe;
 import net.minecraftforge.fml.relauncher.*;
+
+/**
+ * Item API<br>
+ * -> Basic Axe
+ * 
+ * @date 05.07.2018
+ * @author HyCraftHD
+ *
+ */
 
 public class UItemAxe extends ItemAxe implements IUItem, IModelProvider {
 	

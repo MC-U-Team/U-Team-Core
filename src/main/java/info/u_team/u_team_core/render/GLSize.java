@@ -7,6 +7,7 @@ package info.u_team.u_team_core.render;
  * @date 18.11.2017
  *
  */
+
 public class GLSize {
 	
 	public final float x, y;

@@ -11,6 +11,15 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
+/**
+ * Block API<br>
+ * -> Registry
+ * 
+ * @date 05.07.2018
+ * @author HyCraftHD
+ *
+ */
+
 public class BlockRegistry {
 	
 	static List<Block> blocks = new ArrayList<>();

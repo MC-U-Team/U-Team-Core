@@ -2,7 +2,7 @@ package info.u_team.u_team_core.item.tool;
 
 import com.google.common.collect.Multimap;
 
-import info.u_team.u_team_core.api.*;
+import info.u_team.u_team_core.api.IModelProvider;
 import info.u_team.u_team_core.api.registry.IUItem;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -10,6 +10,15 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemSword;
 import net.minecraftforge.fml.relauncher.*;
+
+/**
+ * Item API<br>
+ * -> Basic Sword
+ * 
+ * @date 05.07.2018
+ * @author HyCraftHD
+ *
+ */
 
 public class UItemSword extends ItemSword implements IUItem, IModelProvider {
 	

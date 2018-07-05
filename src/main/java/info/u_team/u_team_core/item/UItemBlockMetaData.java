@@ -7,6 +7,14 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
+/**
+ * ItemBlock API<br>
+ * -> Metadata ItemBlock
+ * 
+ * @date 26.06.2018
+ * @author HyCraftHD
+ *
+ */
 public class UItemBlockMetaData extends UItemBlock {
 	
 	private IMetaType[] list;

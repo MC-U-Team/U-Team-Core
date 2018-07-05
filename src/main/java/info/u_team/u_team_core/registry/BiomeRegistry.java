@@ -8,6 +8,15 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.IForgeRegistry;
 
+/**
+ * Biome API<br>
+ * -> Registry
+ * 
+ * @date 05.07.2018
+ * @author HyCraftHD
+ *
+ */
+
 public class BiomeRegistry {
 	
 	static List<Biome> biomes = new ArrayList<>();

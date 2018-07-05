@@ -7,7 +7,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
- * Block API<br>
+ * TileEntity API<br>
  * -> TileEntity Holder
  * 
  * @author HyCraftHD
