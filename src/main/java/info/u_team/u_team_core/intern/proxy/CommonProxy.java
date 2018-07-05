@@ -16,6 +16,7 @@ public class CommonProxy {
 		CommonRegistry.registerEventHandler(BlockRegistry.class);
 		CommonRegistry.registerEventHandler(ItemRegistry.class);
 		CommonRegistry.registerEventHandler(EntityRegistry.class);
+		CommonRegistry.registerEventHandler(BiomeRegistry.class);
 	}
 	
 	public void init(FMLInitializationEvent event) {
