@@ -18,6 +18,7 @@ package info.u_team.u_team_core.registry;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.IWorldGenerator;
 import net.minecraftforge.fml.common.network.*;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -39,5 +40,9 @@ public class CommonRegistry {
 	
 	public static void registerSmelting(ItemStack input, ItemStack output, float xp) {
 		GameRegistry.addSmelting(input, output, xp);
+	}
+	
+	public static void registerWorldGeneration(IWorldGenerator generator, int weight) {
+		GameRegistry.registerWorldGenerator(generator, weight);
 	}
 }
