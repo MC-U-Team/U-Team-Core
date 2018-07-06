@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*-*****************************************************************************
  * Copyright 2018 U-Team
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -13,6 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
+
 package info.u_team.u_team_core.entity;
 
 import info.u_team.u_team_core.api.registry.IUEntityEntry;

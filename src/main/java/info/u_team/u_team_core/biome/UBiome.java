@@ -1,4 +1,4 @@
-/*******************************************************************************
+/*-*****************************************************************************
  * Copyright 2018 U-Team
  * 
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
@@ -13,6 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  ******************************************************************************/
+
 package info.u_team.u_team_core.biome;
 
 import info.u_team.u_team_core.api.registry.IUBiome;
@@ -29,8 +30,8 @@ public class UBiome extends Biome implements IUBiome {
 	
 	protected String name;
 	
-	public UBiome(String name) {
-		super(new BiomeProperties(name));
+	public UBiome(String name, BiomeProperties properties) {
+		super(properties);
 		this.name = name;
 	}
 	
