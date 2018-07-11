@@ -34,6 +34,12 @@ public class CommonRegistry {
 		MinecraftForge.EVENT_BUS.register(object);
 	}
 	
+	public static void registerEventHandler(Object... objects) {
+		for (Object object : objects) {
+			MinecraftForge.EVENT_BUS.register(object);
+		}
+	}
+	
 	public static void registerGuiHandler(Object mod, IGuiHandler handler) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(mod, handler);
 	}
