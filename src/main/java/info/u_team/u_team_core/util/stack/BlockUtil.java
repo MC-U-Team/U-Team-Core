@@ -53,11 +53,11 @@ public class BlockUtil {
 	}
 	
 	public static String getModID(Block block) {
-		return getRegistryName(block).getResourceDomain();
+		return getRegistryName(block).getNamespace();
 	}
 	
 	public static String getName(Block block) {
-		return getRegistryName(block).getResourcePath();
+		return getRegistryName(block).getPath();
 		
 	}
 	

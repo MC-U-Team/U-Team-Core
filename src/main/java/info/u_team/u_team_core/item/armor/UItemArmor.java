@@ -55,9 +55,9 @@ public class UItemArmor extends ItemArmor implements IUItem, IModelProvider {
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
 		if (slot == EntityEquipmentSlot.HEAD || slot == EntityEquipmentSlot.CHEST || slot == EntityEquipmentSlot.FEET) {
-			return getRegistryName().getResourceDomain() + ":textures/models/armor/" + name + "_1.png";
+			return getRegistryName().getNamespace() + ":textures/models/armor/" + name + "_1.png";
 		} else if (slot == EntityEquipmentSlot.LEGS) {
-			return getRegistryName().getResourceDomain() + ":textures/models/armor/" + name + "_2.png";
+			return getRegistryName().getNamespace() + ":textures/models/armor/" + name + "_2.png";
 		} else {
 			return null;
 		}

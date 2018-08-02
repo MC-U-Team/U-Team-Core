@@ -63,7 +63,7 @@ public class UCreativeTab extends CreativeTabs {
 	
 	@SideOnly(Side.CLIENT)
 	@Override
-	public ItemStack getTabIconItem() {
+	public ItemStack createIcon() {
 		if (item == null) {
 			return new ItemStack(Items.ACACIA_BOAT);
 		}

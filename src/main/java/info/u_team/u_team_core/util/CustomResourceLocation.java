@@ -33,7 +33,7 @@ public class CustomResourceLocation extends ResourceLocation {
 	}
 	
 	public CustomResourceLocation(ResourceLocation location, String appendix) {
-		super(location.getResourceDomain(), location.getResourcePath() + appendix);
+		super(location.getNamespace(), location.getPath() + appendix);
 	}
 	
 }

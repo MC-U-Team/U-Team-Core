@@ -40,7 +40,7 @@ public class ItemRegistry {
 		if (item instanceof IUItem) {
 			IUItem iuitem = (IUItem) item;
 			item.setRegistryName(modid, iuitem.getName());
-			item.setUnlocalizedName(modid + ":" + iuitem.getName());
+			item.setTranslationKey(modid + ":" + iuitem.getName());
 		}
 		items.add(item);
 	}

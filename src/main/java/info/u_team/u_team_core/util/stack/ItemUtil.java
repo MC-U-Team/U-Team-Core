@@ -57,11 +57,11 @@ public class ItemUtil {
 	}
 	
 	public static String getModID(Item item) {
-		return getRegistryName(item).getResourceDomain();
+		return getRegistryName(item).getNamespace();
 	}
 	
 	public static String getName(Item item) {
-		return getRegistryName(item).getResourcePath();
+		return getRegistryName(item).getPath();
 	}
 	
 }

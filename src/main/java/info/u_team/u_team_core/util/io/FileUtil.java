@@ -37,7 +37,7 @@ public class FileUtil {
 	}
 	
 	public static InputStream getInputStreamFromResource(ResourceLocation resource) {
-		return getInputStreamFromResource("/assets/" + resource.getResourceDomain() + "/" + resource.getResourcePath());
+		return getInputStreamFromResource("/assets/" + resource.getNamespace() + "/" + resource.getPath());
 	}
 	
 	public static File[] getFilesInDirectionary(File file) throws Exception {

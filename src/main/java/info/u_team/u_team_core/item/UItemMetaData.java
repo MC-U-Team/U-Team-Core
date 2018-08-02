@@ -45,12 +45,12 @@ public class UItemMetaData extends UItem {
 	}
 	
 	@Override
-	public String getUnlocalizedName(ItemStack stack) {
+	public String getTranslationKey(ItemStack stack) {
 		int metadata = stack.getMetadata();
 		if (MathUtil.isInRange(metadata, 0, list.length - 1)) {
-			return getUnlocalizedName() + "." + list[metadata].getName();
+			return getTranslationKey() + "." + list[metadata].getName();
 		}
-		return getUnlocalizedName();
+		return getTranslationKey();
 	}
 	
 	@Override

@@ -43,7 +43,7 @@ public class BlockRegistry {
 		if (block instanceof IUBlock) {
 			IUBlock iublock = (IUBlock) block;
 			block.setRegistryName(modid, iublock.getName());
-			block.setUnlocalizedName(modid + ":" + iublock.getName());
+			block.setTranslationKey(modid + ":" + iublock.getName());
 			items.add(iublock.getItemBlock());
 		} else {
 			items.add(new ItemBlock(block));
