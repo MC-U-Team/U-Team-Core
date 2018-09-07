@@ -20,7 +20,7 @@ import info.u_team.u_team_core.registry.*;
 import net.minecraftforge.fml.common.event.*;
 
 /**
- * This class has methods that are only run by the server.
+ * This class has methods that are run by the server and the client.
  * 
  * @author HyCraftHD
  * @date 16.08.2017
