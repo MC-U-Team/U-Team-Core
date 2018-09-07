@@ -16,33 +16,27 @@
 
 package info.u_team.u_team_core.intern.config;
 
-import java.io.File;
-
-import net.minecraftforge.common.config.*;
+import info.u_team.u_team_core.UCoreConstants;
+import net.minecraftforge.common.config.Config;
+import net.minecraftforge.common.config.Config.*;
 
 /**
- * This class manages our config file
+ * This class manages our config file on the client
  * 
  * @author HyCraftHD
- * @date 28.05.2018
+ * @date 08.09.2018
  */
-public class Config {
+@Config(modid = UCoreConstants.MODID, name = UCoreConstants.MODID + "/client", category = "")
+public class ClientConfig {
 	
-	private static Configuration configuration;
+	public static Discord discord = new Discord();
 	
-	private static Property discord_enablerichpresence;
-	
-	public static void init(File file) {
-		configuration = new Configuration(file);
-		configuration.load();
+	public static class Discord {
 		
-		discord_enablerichpresence = configuration.get("discord", "EnableRichPresence", true, "If you have discord installed, then it's cool to show some details about your game ;)");
+		@Comment("If you have discord installed it will show your some details about your game as rich presence")
+		@Name("Discord Rich Presence")
+		public boolean discord_richpresence = true;
 		
-		configuration.save();
-	}
-	
-	public static boolean getDiscordRichPresenceEnabled() {
-		return discord_enablerichpresence.getBoolean();
 	}
 	
 }
