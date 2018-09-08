@@ -19,6 +19,9 @@ package info.u_team.u_team_core.intern.event;
 import info.u_team.u_team_core.UCoreConstants;
 import info.u_team.u_team_core.intern.config.ClientConfig;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
+import info.u_team.u_team_core.intern.discord.DiscordRichPresence.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.world.WorldProvider;
 import net.minecraftforge.common.config.Config.Type;
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent.OnConfigChangedEvent;
@@ -38,12 +41,24 @@ public class EventHandlerConfigChange {
 	public static void onConfigChangedEvent(OnConfigChangedEvent event) {
 		if (event.getModID().equals(UCoreConstants.MODID)) {
 			ConfigManager.sync(UCoreConstants.MODID, Type.INSTANCE);
-			
-			if (!ClientConfig.discord.discord_richpresence && DiscordRichPresence.isEnabled()) {
-				DiscordRichPresence.stop();
-			} else if (ClientConfig.discord.discord_richpresence && !DiscordRichPresence.isEnabled()) {
-				DiscordRichPresence.start();
+			checkDiscord();
+		}
+	}
+	
+	private static void checkDiscord() {
+		if (!ClientConfig.discord.discord_richpresence && DiscordRichPresence.isEnabled()) {
+			DiscordRichPresence.stop();
+		} else if (ClientConfig.discord.discord_richpresence && !DiscordRichPresence.isEnabled()) {
+			Minecraft minecraft = Minecraft.getMinecraft();
+			State state;
+			if (minecraft.world != null) {
+				WorldProvider provider = minecraft.world.provider;
+				state = DiscordRichPresence.getStateFromDimension(provider);
+			} else {
+				state = new State(EnumState.MENU);
 			}
+			DiscordRichPresence.current = state;
+			DiscordRichPresence.start();
 		}
 	}
 }

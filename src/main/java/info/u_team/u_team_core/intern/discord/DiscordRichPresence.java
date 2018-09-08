@@ -42,7 +42,7 @@ public class DiscordRichPresence {
 	private static boolean isEnabled = false;
 	
 	private static OffsetDateTime time = OffsetDateTime.now();
-	private static State current = new State(EnumState.MENU);
+	public static State current = new State(EnumState.MENU);
 	
 	private static int errorcount = 0;
 	
@@ -90,32 +90,24 @@ public class DiscordRichPresence {
 	}
 	
 	public static void setIdling() {
-		setState(EnumState.MENU);
+		setState(new State(EnumState.MENU));
 	}
 	
 	public static void setDimension(WorldProvider provider) {
+		setState(getStateFromDimension(provider));
+	}
+	
+	public static State getStateFromDimension(WorldProvider provider) {
 		switch (provider.getDimension()) {
 		case -1:
-			setState(EnumState.NETHER);
-			break;
+			return new State(EnumState.NETHER);
 		case 0:
-			setState(EnumState.OVERWORLD);
-			break;
+			return new State(EnumState.OVERWORLD);
 		case 1:
-			setState(EnumState.END);
-			break;
+			return new State(EnumState.END);
 		default:
-			setState(EnumState.DIM, provider.getDimensionType().getName());
-			break;
+			return new State(EnumState.DIM, provider.getDimensionType().getName());
 		}
-	}
-	
-	public static void setState(EnumState state) {
-		setState(new State(state));
-	}
-	
-	public static void setState(EnumState state, String replace) {
-		setState(new State(state, replace));
 	}
 	
 	public static void setState(State state) {
