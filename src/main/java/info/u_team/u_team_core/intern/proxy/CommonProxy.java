@@ -16,6 +16,7 @@
 
 package info.u_team.u_team_core.intern.proxy;
 
+import info.u_team.u_team_core.intern.command.CommandPing;
 import info.u_team.u_team_core.registry.*;
 import net.minecraftforge.fml.common.event.*;
 
@@ -38,6 +39,7 @@ public class CommonProxy {
 	}
 	
 	public void serverstart(FMLServerStartingEvent event) {
+		event.registerServerCommand(new CommandPing());
 	}
 	
 }
