@@ -550,7 +550,7 @@ public final class IPCClient implements Closeable {
 	 * @param callback
 	 *            callback for the response
 	 */
-	private void send(OpCode op, JSONObject data, Callback callback) {
+	private void send(OpCode op, JSONObject data, Callback callback)  {
 		try {
 			String nonce = generateNonce();
 			Packet p = new Packet(op, data.put("nonce", nonce));
@@ -561,8 +561,9 @@ public final class IPCClient implements Closeable {
 			if (listener != null)
 				listener.onPacketSent(this, p);
 		} catch (IOException ex) {
-			LOGGER.error("Encountered an IOException while sending a packet and disconnected!");
+			LOGGER.debug("Encountered an IOException while sending a packet and disconnected!");
 			status = Status.DISCONNECTED;
+			throw new RuntimeException(ex);
 		}
 	}
 	

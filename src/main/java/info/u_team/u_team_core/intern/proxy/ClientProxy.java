@@ -16,6 +16,8 @@
 
 package info.u_team.u_team_core.intern.proxy;
 
+import info.u_team.u_team_core.intern.config.ClientConfig;
+import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
 import info.u_team.u_team_core.intern.event.EventHandlerConfigChange;
 import info.u_team.u_team_core.registry.*;
 import net.minecraftforge.fml.common.event.*;
@@ -35,6 +37,9 @@ public class ClientProxy extends CommonProxy {
 	public void preinit(FMLPreInitializationEvent event) {
 		super.preinit(event);
 		CommonRegistry.registerEventHandler(ModelRegistry.class, EventHandlerConfigChange.class);
+		if (ClientConfig.discord.discord_richpresence) {
+			DiscordRichPresence.start();
+		}
 	}
 	
 	@Override

@@ -34,6 +34,10 @@ public class CommonRegistry {
 		MinecraftForge.EVENT_BUS.register(object);
 	}
 	
+	public static void unregisterEventHandler(Object object) {
+		MinecraftForge.EVENT_BUS.unregister(object);
+	}
+	
 	public static void registerEventHandler(Object... objects) {
 		for (Object object : objects) {
 			MinecraftForge.EVENT_BUS.register(object);

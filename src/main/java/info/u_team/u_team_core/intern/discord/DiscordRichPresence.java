@@ -17,8 +17,11 @@
 package info.u_team.u_team_core.intern.discord;
 
 import java.time.OffsetDateTime;
+import java.util.*;
 
 import info.u_team.u_team_core.UCoreConstants;
+import info.u_team.u_team_core.intern.event.EventHandlerUpdateDiscordRichPresence;
+import info.u_team.u_team_core.registry.CommonRegistry;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.RichPresence.Builder;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
@@ -26,83 +29,154 @@ import net.minecraft.world.WorldProvider;
 import net.minecraftforge.fml.common.Loader;
 
 /**
- * Discord rich presence
+ * Using ipc client to connect with discord and using it's rich presence. This
+ * class handles auto reconnection and failures
  * 
  * @author HyCraftHD
- * @date 24.03.2018
+ * @date 08.09.2018
  */
 public class DiscordRichPresence {
 	
 	private static IPCClient client = new IPCClient(427196986064764928L);
 	
-	private static State current = null;
+	private static boolean isEnabled = false;
+	
+	private static OffsetDateTime time = OffsetDateTime.now();
+	private static State current = new State(EnumState.MENU);
+	
+	private static int errorcount = 0;
+	
+	private static Timer timer = new Timer("Discord Rich Presence Timer Thread");
+	
+	private static TimerTask task;
 	
 	static {
-		Runtime.getRuntime().addShutdownHook(new Thread() {
-			
-			@Override
-			public void run() {
-				client.close();
-			}
-		});
-		client.setListener(new DiscordRichPresenceListener());
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			stop();
+		}));
 	}
 	
 	public static void start() {
 		try {
 			client.connect();
+			timer.schedule(task = new TimerTask() {
+				
+				@Override
+				public void run() {
+					setState(current);
+				}
+			}, 1000, 1000 * 120);
+			CommonRegistry.registerEventHandler(EventHandlerUpdateDiscordRichPresence.class);
+			isEnabled = true;
+			UCoreConstants.LOGGER.info("Discord client found and connected.");
 		} catch (NoDiscordClientException ex) {
-			UCoreConstants.LOGGER.info("No discord client is present.");
+			UCoreConstants.LOGGER.info("Discord client was not found.");
 		}
-		setIdling();
+	}
+	
+	public static void stop() {
+		if (task != null) {
+			task.cancel();
+			task = null;
+		}
+		try {
+			client.close();
+		} catch (Exception ex) {
+		}
+		errorcount = 0;
+		CommonRegistry.unregisterEventHandler(EventHandlerUpdateDiscordRichPresence.class);
+		isEnabled = false;
+		UCoreConstants.LOGGER.info("Discord client closed.");
 	}
 	
 	public static void setIdling() {
-		setState(State.MENU);
+		setState(EnumState.MENU);
 	}
 	
 	public static void setDimension(WorldProvider provider) {
 		switch (provider.getDimension()) {
 		case -1:
-			setState(State.NETHER);
+			setState(EnumState.NETHER);
 			break;
 		case 0:
-			setState(State.OVERWORLD);
+			setState(EnumState.OVERWORLD);
 			break;
 		case 1:
-			setState(State.END);
+			setState(EnumState.END);
 			break;
 		default:
-			setState(State.DIM, provider.getDimensionType().getName());
+			setState(EnumState.DIM, provider.getDimensionType().getName());
 			break;
 		}
+	}
+	
+	public static void setState(EnumState state) {
+		setState(new State(state));
+	}
+	
+	public static void setState(EnumState state, String replace) {
+		setState(new State(state, replace));
 	}
 	
 	public static void setState(State state) {
-		setState(state, "");
-	}
-	
-	public static void setState(State state, String replace) {
-		if (state == current && (state != State.DIM && current != State.DIM)) {
-			return;
-		}
 		current = state;
+		Builder builder = new Builder();
+		builder.setDetails(UCoreConstants.MCVERSION + " with " + Loader.instance().getModList().size() + " Mods");
+		builder.setState(state.getState().getMessage(state.getReplace()));
+		builder.setStartTimestamp(time);
+		builder.setLargeImage(state.getState().getImageKey(), state.getState().getImageName(state.getReplace()));
+		if (state.getState().equals(EnumState.MENU)) {
+			builder.setSmallImage("uteamcore", "U-Team Core");
+		}
 		try {
-			Builder builder = new Builder();
-			builder.setDetails("Minecraft " + UCoreConstants.MCVERSION + " with " + Loader.instance().getModList().size() + " Mods");
-			builder.setState(state.getMessage(replace));
-			builder.setStartTimestamp(OffsetDateTime.now());
-			builder.setLargeImage(state.getImageKey(), state.getImageName(replace));
-			if (state == State.MENU) {
-				builder.setSmallImage("uteamcore", "U Team Core");
-			}
 			client.sendRichPresence(builder.build());
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			try {
+				client.connect();
+				errorcount = 0;
+				client.sendRichPresence(builder.build());
+			} catch (Exception ex2) {
+				try {
+					client.close();
+				} catch (Exception ex3) {
+				}
+				errorcount++;
+				if (errorcount > 10) {
+					UCoreConstants.LOGGER.info("Discord rich presence stopped cause connection is not working.");
+					stop();
+				}
+			}
 		}
 	}
 	
-	public static enum State {
+	public static boolean isEnabled() {
+		return isEnabled;
+	}
+	
+	public static class State {
+		
+		private EnumState state;
+		private String replace;
+		
+		public State(EnumState state) {
+			this(state, "");
+		}
+		
+		public State(EnumState state, String replace) {
+			this.state = state;
+			this.replace = replace;
+		}
+		
+		public EnumState getState() {
+			return state;
+		}
+		
+		public String getReplace() {
+			return replace;
+		}
+	}
+	
+	public static enum EnumState {
 		MENU("Idling in menu", "Minecraft", "minecraft"),
 		OVERWORLD("Dimension: Overworld", "Overworld", "world_overworld"),
 		NETHER("Dimension: Nether", "Nether", "world_nether"),
@@ -111,7 +185,7 @@ public class DiscordRichPresence {
 		
 		private String message, imagename, imagekey;
 		
-		private State(String message, String imagename, String imagekey) {
+		private EnumState(String message, String imagename, String imagekey) {
 			this.message = message;
 			this.imagename = imagename;
 			this.imagekey = imagekey;
@@ -128,7 +202,5 @@ public class DiscordRichPresence {
 		public String getImageKey() {
 			return imagekey;
 		}
-		
 	}
-	
 }

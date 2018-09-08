@@ -33,17 +33,17 @@ import net.minecraftforge.fml.relauncher.*;
  * @date 24.03.2018
  */
 @SideOnly(Side.CLIENT)
-public class UpdateDiscordRichPresenceEvent {
+public class EventHandlerUpdateDiscordRichPresence {
 	
 	@SubscribeEvent
-	public void on(InitGuiEvent.Pre event) {
+	public static void on(InitGuiEvent.Pre event) {
 		if (event.getGui() instanceof GuiMainMenu || event.getGui() instanceof GuiWorldSelection || event.getGui() instanceof GuiMultiplayer) {
 			DiscordRichPresence.setIdling();
 		}
 	}
 	
 	@SubscribeEvent
-	public void on(EntityJoinWorldEvent event) {
+	public static void on(EntityJoinWorldEvent event) {
 		if (event.getEntity() instanceof EntityPlayerSP) {
 			EntityPlayer player = (EntityPlayer) event.getEntity();
 			if (player.getUniqueID().equals(Minecraft.getMinecraft().player.getUniqueID())) {
