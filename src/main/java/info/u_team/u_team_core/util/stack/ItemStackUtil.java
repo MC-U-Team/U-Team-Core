@@ -33,4 +33,8 @@ public class ItemStackUtil {
 		Item item = ItemUtil.from(obj);
 		return item != null ? new ItemStack(item) : ItemStack.EMPTY;
 	}
+	
+	public static boolean areItemStacksEqualIgnoreAmount(ItemStack a, ItemStack b) {
+		return ItemStack.areItemsEqual(a, b) && ItemStack.areItemStackTagsEqual(a, b);
+	}
 }
