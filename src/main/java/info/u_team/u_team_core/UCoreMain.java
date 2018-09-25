@@ -40,19 +40,13 @@ public class UCoreMain {
 	
 	private static UCoreMain instance = new UCoreMain();
 	
-	@SidedProxy(serverSide = COMMONPROXY, clientSide = CLIENTPROXY)
-	private static CommonProxy proxy;
-	
-	// getter and setter
-	
 	@InstanceFactory
 	public static UCoreMain getInstance() {
 		return instance;
 	}
 	
-	public CommonProxy getProxy() {
-		return proxy;
-	}
+	@SidedProxy(serverSide = COMMONPROXY, clientSide = CLIENTPROXY)
+	private static CommonProxy proxy;
 	
 	// fml events
 	
