@@ -38,7 +38,7 @@ import net.minecraftforge.fml.relauncher.*;
 public class EventHandlerConfigChange {
 	
 	@SubscribeEvent
-	public static void onConfigChangedEvent(OnConfigChangedEvent event) {
+	public static void on(OnConfigChangedEvent event) {
 		if (event.getModID().equals(UCoreConstants.MODID)) {
 			ConfigManager.sync(UCoreConstants.MODID, Type.INSTANCE);
 			checkDiscord();
