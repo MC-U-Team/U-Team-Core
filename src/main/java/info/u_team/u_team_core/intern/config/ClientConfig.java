@@ -19,7 +19,6 @@ package info.u_team.u_team_core.intern.config;
 import info.u_team.u_team_core.UCoreConstants;
 import net.minecraftforge.common.config.Config;
 import net.minecraftforge.common.config.Config.*;
-import net.minecraftforge.fml.relauncher.*;
 
 /**
  * This class manages our config file on the client
@@ -27,13 +26,13 @@ import net.minecraftforge.fml.relauncher.*;
  * @author HyCraftHD
  * @date 08.09.2018
  */
-@SideOnly(Side.CLIENT)
 @Config(modid = UCoreConstants.MODID, name = UCoreConstants.MODID + "/client", category = "")
 public class ClientConfig {
-
+	
 	public static Discord discord = new Discord();
 	
 	public static class Discord {
+		
 		@Comment("If you have discord installed it will show your some details about your game as rich presence")
 		@Name("Discord Rich Presence")
 		public boolean discord_richpresence = true;
