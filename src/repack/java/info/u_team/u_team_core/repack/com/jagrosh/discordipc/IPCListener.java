@@ -1,17 +1,12 @@
 /*
- * Copyright 2017 John Grosh (john.a.grosh@gmail.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * Copyright 2017 John Grosh (john.a.grosh@gmail.com). Licensed under the Apache
+ * License, Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
+ * or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 package info.u_team.u_team_core.repack.com.jagrosh.discordipc;
 
@@ -22,7 +17,6 @@ import info.u_team.u_team_core.repack.org.json.JSONObject;
  * An implementable listener used to handle events caught by an
  * {@link IPCClient}.
  * <p>
- *
  * Can be attached to an IPCClient using
  * {@link IPCClient#setListener(IPCListener)}.
  *
@@ -82,7 +76,6 @@ public interface IPCListener {
 	 * Fired whenever a RichPresence activity informs us that a user has clicked a
 	 * "ask to join" button.
 	 * <p>
-	 *
 	 * As opposed to {@link #onActivityJoin(IPCClient, String)}, this also provides
 	 * packaged {@link User} data.
 	 *

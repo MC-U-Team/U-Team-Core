@@ -29,7 +29,6 @@ import net.minecraftforge.fml.relauncher.*;
  * @date 27.12.17
  * @author HyCraftHD
  */
-
 public class UItemFood extends ItemFood implements IUItem, IModelProvider {
 	
 	protected String name;

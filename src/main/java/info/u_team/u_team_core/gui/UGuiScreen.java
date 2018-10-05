@@ -25,7 +25,6 @@ import net.minecraft.client.gui.GuiScreen;
  * @date 17.08.2017
  * @author MrTroble
  */
-
 public class UGuiScreen extends GuiScreen {
 	
 }

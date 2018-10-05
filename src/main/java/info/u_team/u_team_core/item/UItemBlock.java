@@ -26,7 +26,6 @@ import net.minecraft.item.ItemBlock;
  * @date 17.08.2017
  * @author MrTroble
  */
-
 public class UItemBlock extends ItemBlock {
 	
 	public UItemBlock(UBlock block) {

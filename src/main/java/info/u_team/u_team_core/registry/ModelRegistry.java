@@ -31,7 +31,6 @@ import net.minecraftforge.fml.relauncher.*;
  * @date 05.07.2018
  * @author HyCraftHD
  */
-
 @SideOnly(Side.CLIENT)
 public class ModelRegistry {
 	

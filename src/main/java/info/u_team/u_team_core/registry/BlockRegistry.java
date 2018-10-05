@@ -34,7 +34,6 @@ import net.minecraftforge.registries.IForgeRegistry;
  * @date 05.07.2018
  * @author HyCraftHD
  */
-
 public class BlockRegistry {
 	
 	static List<Block> blocks = new ArrayList<>();

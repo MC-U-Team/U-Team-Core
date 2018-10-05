@@ -44,6 +44,12 @@ public class CommonRegistry {
 		}
 	}
 	
+	public static void unregisterEventHandler(Object... objects) {
+		for (Object object : objects) {
+			MinecraftForge.EVENT_BUS.unregister(object);
+		}
+	}
+	
 	public static void registerGuiHandler(Object mod, IGuiHandler handler) {
 		NetworkRegistry.INSTANCE.registerGuiHandler(mod, handler);
 	}

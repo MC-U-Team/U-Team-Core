@@ -16,10 +16,11 @@
 
 package info.u_team.u_team_core.intern.command;
 
+import info.u_team.u_team_core.UCoreConstants;
 import net.minecraft.command.*;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.TextComponentTranslation;
 
 /**
  * Little useful command on servers to check your ping. It's using the players
@@ -49,11 +50,10 @@ public class CommandPing extends CommandBase {
 	@Override
 	public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
 		if (!(sender instanceof EntityPlayerMP)) {
-			sender.sendMessage(new TextComponentTranslation("uteamcore:command.onlyplayer"));
-			return;
+			throw new CommandException(UCoreConstants.MODID + ":command.onlyplayer");
 		}
 		EntityPlayerMP player = (EntityPlayerMP) sender;
-		player.sendMessage(new TextComponentTranslation("uteamcore:command.ping", player.ping));
+		player.sendMessage(new TextComponentTranslation(UCoreConstants.MODID + ":command.ping", player.ping));
 	}
 	
 }

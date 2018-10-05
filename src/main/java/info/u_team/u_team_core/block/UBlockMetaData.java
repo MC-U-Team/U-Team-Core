@@ -40,8 +40,6 @@ public class UBlockMetaData extends UBlock {
 	public final PropertyList<MetaTypeWrapper> property;
 	private BlockStateContainer blockstate;
 	
-	// private List<MetaType> types;
-	
 	public UBlockMetaData(String name, Material material, IMetaType[] list) {
 		this(name, material, null, list);
 	}

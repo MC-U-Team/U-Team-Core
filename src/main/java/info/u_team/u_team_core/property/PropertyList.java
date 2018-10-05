@@ -30,7 +30,6 @@ import net.minecraft.block.properties.PropertyHelper;
  * @date 05.07.2018
  * @author HyCraftHD
  */
-
 public class PropertyList<T extends IPropertyList & Comparable<T>> extends PropertyHelper<T> {
 	
 	private final ImmutableSet<T> values;

@@ -1,17 +1,12 @@
 /*
- * Copyright 2017 John Grosh (john.a.grosh@gmail.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+ * Copyright 2017 John Grosh (john.a.grosh@gmail.com). Licensed under the Apache
+ * License, Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
+ * or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 package info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities;
 
@@ -136,7 +131,6 @@ public class User {
 	/**
 	 * Gets whether or not this User is a bot.
 	 * <p>
-	 *
 	 * While, at the time of writing this documentation, bots cannot use Rich
 	 * Presence features, there may be a time in the future where they have such an
 	 * ability.
@@ -150,7 +144,6 @@ public class User {
 	/**
 	 * Gets the User as a discord formatted mention.
 	 * <p>
-	 *
 	 * {@code <@SNOWFLAKE_ID> }
 	 *
 	 * @return A discord formatted mention of this User.

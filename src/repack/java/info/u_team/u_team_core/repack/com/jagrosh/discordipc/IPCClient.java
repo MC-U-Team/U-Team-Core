@@ -1,19 +1,13 @@
 /*
- * Copyright 2017 John Grosh (john.a.grosh@gmail.com).
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
- *
- * Modifications Copyright (C) 2018 https://U-Team.info
+ * Copyright 2017 John Grosh (john.a.grosh@gmail.com). Licensed under the Apache
+ * License, Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
+ * or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License. Modifications
+ * Copyright (C) 2018 https://U-Team.info
  */
 
 package info.u_team.u_team_core.repack.com.jagrosh.discordipc;
@@ -32,19 +26,16 @@ import info.u_team.u_team_core.repack.org.json.*;
 /**
  * Represents a Discord IPC Client that can send and receive Rich Presence data.
  * <p>
- *
  * The ID provided should be the <b>client ID of the particular application
  * providing Rich Presence</b>, which can be found <a
  * href=https://discordapp.com/developers/applications/me>here</a>.
  * <p>
- *
  * When initially created using {@link #IPCClient(long)} the client will be
  * inactive awaiting a call to {@link #connect(DiscordBuild...)}.<br>
  * After the call, this client can send and receive Rich Presence data to and
  * from discord via {@link #sendRichPresence(RichPresence)} and
  * {@link #setListener(IPCListener)} respectively.
  * <p>
- *
  * Please be mindful that the client created is initially unconnected, and
  * calling any methods that exchange data between this client and Discord before
  * a call to {@link #connect(DiscordBuild...)} will cause an
@@ -81,17 +72,14 @@ public final class IPCClient implements Closeable {
 	/**
 	 * Sets this IPCClient's {@link IPCListener} to handle received events.
 	 * <p>
-	 *
 	 * A single IPCClient can only have one of these set at any given time.<br>
 	 * Setting this {@code null} will remove the currently active one.
 	 * <p>
-	 *
 	 * This can be set safely before a call to {@link #connect(DiscordBuild...)} is
 	 * made.
 	 *
 	 * @param listener
 	 *            The {@link IPCListener} to set for this IPCClient.
-	 *
 	 * @see IPCListener
 	 */
 	public void setListener(IPCListener listener) {
@@ -101,13 +89,11 @@ public final class IPCClient implements Closeable {
 	/**
 	 * Opens the connection between the IPCClient and Discord.
 	 * <p>
-	 *
 	 * <b>This must be called before any data is exchanged between the IPCClient and
 	 * Discord.</b>
 	 *
 	 * @param preferredOrder
 	 *            the priority order of client builds to connect to
-	 *
 	 * @throws IllegalStateException
 	 *             There is an open connection on this IPCClient.
 	 * @throws NoDiscordClientException
@@ -209,19 +195,15 @@ public final class IPCClient implements Closeable {
 	/**
 	 * Sends a {@link RichPresence} to the Discord client.
 	 * <p>
-	 *
 	 * This is where the IPCClient will officially display a Rich Presence in the
 	 * Discord client.
 	 * <p>
-	 *
 	 * Sending this again will overwrite the last provided {@link RichPresence}.
 	 *
 	 * @param presence
 	 *            The {@link RichPresence} to send.
-	 *
 	 * @throws IllegalStateException
 	 *             If a connection was not made prior to invoking this method.
-	 *
 	 * @see RichPresence
 	 */
 	public void sendRichPresence(RichPresence presence) {
@@ -231,21 +213,17 @@ public final class IPCClient implements Closeable {
 	/**
 	 * Sends a {@link RichPresence} to the Discord client.
 	 * <p>
-	 *
 	 * This is where the IPCClient will officially display a Rich Presence in the
 	 * Discord client.
 	 * <p>
-	 *
 	 * Sending this again will overwrite the last provided {@link RichPresence}.
 	 *
 	 * @param presence
 	 *            The {@link RichPresence} to send.
 	 * @param callback
 	 *            A {@link Callback} to handle success or error
-	 *
 	 * @throws IllegalStateException
 	 *             If a connection was not made prior to invoking this method.
-	 *
 	 * @see RichPresence
 	 */
 	public void sendRichPresence(RichPresence presence, Callback callback) {
@@ -262,7 +240,6 @@ public final class IPCClient implements Closeable {
 	 *
 	 * @param sub
 	 *            The event {@link Event} to add.
-	 *
 	 * @throws IllegalStateException
 	 *             If a connection was not made prior to invoking this method.
 	 */
@@ -280,7 +257,6 @@ public final class IPCClient implements Closeable {
 	 *            The event {@link Event} to add.
 	 * @param callback
 	 *            The {@link Callback} to handle success or failure
-	 *
 	 * @throws IllegalStateException
 	 *             If a connection was not made prior to invoking this method.
 	 */
@@ -319,12 +295,10 @@ public final class IPCClient implements Closeable {
 	/**
 	 * Gets the IPCClient's {@link DiscordBuild}.
 	 * <p>
-	 *
 	 * This is always the first specified DiscordBuild when making a call to
 	 * {@link #connect(DiscordBuild...)}, or the first one found if none or
 	 * {@link DiscordBuild#ANY} is specified.
 	 * <p>
-	 *
 	 * Note that specifying ANY doesn't mean that this will return ANY. In fact this
 	 * method should <b>never</b> return the value ANY.
 	 *
@@ -343,7 +317,6 @@ public final class IPCClient implements Closeable {
 		/**
 		 * Status for when the IPCClient has been created.
 		 * <p>
-		 *
 		 * All IPCClients are created starting with this status, and it never returns
 		 * for the lifespan of the client.
 		 */
@@ -352,7 +325,6 @@ public final class IPCClient implements Closeable {
 		/**
 		 * Status for when the IPCClient is attempting to connect.
 		 * <p>
-		 *
 		 * This will become set whenever the #connect() method is called.
 		 */
 		CONNECTING,
@@ -360,7 +332,6 @@ public final class IPCClient implements Closeable {
 		/**
 		 * Status for when the IPCClient is connected with Discord.
 		 * <p>
-		 *
 		 * This is only present when the connection is healthy, stable, and reading good
 		 * data without exception.<br>
 		 * If the environment becomes out of line with these principles in any way, the
@@ -371,7 +342,6 @@ public final class IPCClient implements Closeable {
 		/**
 		 * Status for when the IPCClient has received an {@link OpCode#CLOSE}.
 		 * <p>
-		 *
 		 * This signifies that the reading thread has safely and normally shut and the
 		 * client is now inactive.
 		 */
@@ -381,12 +351,10 @@ public final class IPCClient implements Closeable {
 		 * Status for when the IPCClient has unexpectedly disconnected, either because
 		 * of an exception, and/or due to bad data.
 		 * <p>
-		 *
 		 * When the status of an IPCClient becomes this, a call to
 		 * {@link IPCListener#onDisconnect(IPCClient, Throwable)} will be made if one
 		 * has been provided to the IPCClient.
 		 * <p>
-		 *
 		 * Note that the IPCClient will be inactive with this status, after which a call
 		 * to {@link #connect(DiscordBuild...)} can be made to "reconnect" the
 		 * IPCClient.
@@ -398,7 +366,6 @@ public final class IPCClient implements Closeable {
 	 * Constants representing events that can be subscribed to using
 	 * {@link #subscribe(Event)}.
 	 * <p>
-	 *
 	 * Each event corresponds to a different function as a component of the Rich
 	 * Presence.<br>
 	 * A full breakdown of each is available <a
@@ -550,7 +517,7 @@ public final class IPCClient implements Closeable {
 	 * @param callback
 	 *            callback for the response
 	 */
-	private void send(OpCode op, JSONObject data, Callback callback)  {
+	private void send(OpCode op, JSONObject data, Callback callback) {
 		try {
 			String nonce = generateNonce();
 			Packet p = new Packet(op, data.put("nonce", nonce));
@@ -572,7 +539,6 @@ public final class IPCClient implements Closeable {
 	 * data.
 	 *
 	 * @return A valid {@link Packet}.
-	 *
 	 * @throws IOException
 	 *             If the pipe breaks.
 	 * @throws JSONException
@@ -624,7 +590,6 @@ public final class IPCClient implements Closeable {
 	 *
 	 * @param i
 	 *            Index to try getting the IPC at.
-	 *
 	 * @return The IPC location.
 	 */
 	private static String getIPC(int i) {

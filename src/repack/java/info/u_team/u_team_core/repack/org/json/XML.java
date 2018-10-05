@@ -1,27 +1,21 @@
 package info.u_team.u_team_core.repack.org.json;
 
 /*
- * Copyright (c) 2015 JSON.org
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * The Software shall be used for Good, not Evil.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * Copyright (c) 2015 JSON.org Permission is hereby granted, free of charge, to
+ * any person obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to permit
+ * persons to whom the Software is furnished to do so, subject to the following
+ * conditions: The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software. The Software
+ * shall be used for Good, not Evil. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+ * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 import java.io.*;
 import java.util.Iterator;
@@ -157,11 +151,9 @@ public class XML {
 	 */
 	private static boolean mustEscape(int cp) {
 		/*
-		 * Valid range from https://www.w3.org/TR/REC-xml/#charsets
-		 * 
-		 * #x9 | #xA | #xD | [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF]
-		 * 
-		 * any Unicode character, excluding the surrogate blocks, FFFE, and FFFF.
+		 * Valid range from https://www.w3.org/TR/REC-xml/#charsets #x9 | #xA | #xD |
+		 * [#x20-#xD7FF] | [#xE000-#xFFFD] | [#x10000-#x10FFFF] any Unicode character,
+		 * excluding the surrogate blocks, FFFE, and FFFF.
 		 */
 		// isISOControl is true when (cp >= 0 && cp <= 0x1F) || (cp >= 0x7F && cp <=
 		// 0x9F)
@@ -489,10 +481,9 @@ public class XML {
 	 * values. JSON does not does not like to distinguish between elements and
 	 * attributes. Sequences of similar elements are represented as JSONArrays.
 	 * Content text may be placed in a "content" member. Comments, prologs, DTDs,
-	 * and <code>&lt;[ [ ]]></code> are ignored.
-	 *
-	 * All values are converted as strings, for 1, 01, 29.0 will not be coerced to
-	 * numbers but will instead be the exact value as seen in the XML document.
+	 * and <code>&lt;[ [ ]]></code> are ignored. All values are converted as
+	 * strings, for 1, 01, 29.0 will not be coerced to numbers but will instead be
+	 * the exact value as seen in the XML document.
 	 *
 	 * @param reader
 	 *            The XML source reader.
@@ -523,10 +514,9 @@ public class XML {
 	 * and arrays of values. JSON does not does not like to distinguish between
 	 * elements and attributes. Sequences of similar elements are represented as
 	 * JSONArrays. Content text may be placed in a "content" member. Comments,
-	 * prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored.
-	 * 
-	 * All values are converted as strings, for 1, 01, 29.0 will not be coerced to
-	 * numbers but will instead be the exact value as seen in the XML document.
+	 * prologs, DTDs, and <code>&lt;[ [ ]]></code> are ignored. All values are
+	 * converted as strings, for 1, 01, 29.0 will not be coerced to numbers but will
+	 * instead be the exact value as seen in the XML document.
 	 * 
 	 * @param string
 	 *            The source string.

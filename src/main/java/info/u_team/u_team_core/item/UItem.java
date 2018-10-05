@@ -29,7 +29,6 @@ import net.minecraftforge.fml.relauncher.*;
  * @date 17.08.2017
  * @author MrTroble
  */
-
 public class UItem extends Item implements IUItem, IModelProvider {
 	
 	protected String name;

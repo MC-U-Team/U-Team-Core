@@ -29,7 +29,6 @@ import net.minecraftforge.fml.relauncher.*;
  * @date 05.07.2018
  * @author HyCraftHD
  */
-
 public class UItemAxe extends ItemAxe implements IUItem, IModelProvider {
 	
 	protected String name;

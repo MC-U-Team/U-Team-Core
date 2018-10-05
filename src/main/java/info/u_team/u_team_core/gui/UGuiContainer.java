@@ -31,7 +31,6 @@ import net.minecraft.util.ResourceLocation;
  * @date 17.08.2017
  * @author MrTroble
  */
-
 public class UGuiContainer extends GuiContainer {
 	
 	private ResourceLocation background;

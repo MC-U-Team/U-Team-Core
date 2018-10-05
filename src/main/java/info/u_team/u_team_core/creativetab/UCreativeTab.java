@@ -30,7 +30,6 @@ import net.minecraftforge.fml.relauncher.*;
  * @author MrTroble, HyCraftHD
  * @date 17.08.2017
  */
-
 public class UCreativeTab extends CreativeTabs {
 	
 	private Item item = null;

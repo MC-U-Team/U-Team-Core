@@ -14,20 +14,14 @@
  * the License.
  ******************************************************************************/
 
-package info.u_team.u_team_core.render;
+package info.u_team.u_team_core.api.registry;
 
 /**
- * Gl Size
+ * Mark a sound as usound for registry things
  * 
- * @author MrTroble
- * @date 18.11.2017
+ * @author HyCraftHD
+ * @date 05.10.2018
  */
-public class GLSize {
+public interface IUSoundEvent extends IURegistry {
 	
-	public final float x, y;
-	
-	public GLSize(float x, float y) {
-		this.x = x;
-		this.y = y;
-	}
 }

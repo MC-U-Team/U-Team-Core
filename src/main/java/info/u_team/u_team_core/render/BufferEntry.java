@@ -28,7 +28,6 @@ import net.minecraft.client.renderer.vertex.*;
  * @author MrTroble
  * @date 17.9.2017
  */
-
 public class BufferEntry {
 	
 	public static void vertex(float x, float y, float z) {

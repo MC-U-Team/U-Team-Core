@@ -3,27 +3,21 @@ package info.u_team.u_team_core.repack.org.json;
 import java.io.*;
 
 /*
- * Copyright (c) 2002 JSON.org
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * The Software shall be used for Good, not Evil.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * Copyright (c) 2002 JSON.org Permission is hereby granted, free of charge, to
+ * any person obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to permit
+ * persons to whom the Software is furnished to do so, subject to the following
+ * conditions: The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software. The Software
+ * shall be used for Good, not Evil. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+ * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 /**
@@ -424,7 +418,6 @@ public class JSONTokener {
 	 * 
 	 * @throws JSONException
 	 *             If syntax error.
-	 *
 	 * @return An object.
 	 */
 	public Object nextValue() throws JSONException {
@@ -446,10 +439,8 @@ public class JSONTokener {
 		/*
 		 * Handle unquoted text. This could be the values true, false, or null, or it
 		 * can be a number. An implementation (such as this one) is allowed to also
-		 * accept non-standard forms.
-		 *
-		 * Accumulate characters until we reach the end of the text or a formatting
-		 * character.
+		 * accept non-standard forms. Accumulate characters until we reach the end of
+		 * the text or a formatting character.
 		 */
 		
 		StringBuilder sb = new StringBuilder();

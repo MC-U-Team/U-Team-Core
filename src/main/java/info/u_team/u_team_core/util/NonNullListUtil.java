@@ -24,7 +24,6 @@ import java.util.*;
  * @author HyCraftHD
  * @date 05.07.2018
  */
-
 public class NonNullListUtil {
 	
 	public static <E> NonNullListCustom<E> create() {

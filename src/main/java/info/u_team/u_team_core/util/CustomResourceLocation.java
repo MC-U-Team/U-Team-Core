@@ -25,7 +25,6 @@ import net.minecraft.util.ResourceLocation;
  * @author HyCraftHD
  * @date 21.10.2017
  */
-
 public class CustomResourceLocation extends ResourceLocation {
 	
 	public CustomResourceLocation(String domain, String patch) {

@@ -34,7 +34,6 @@ import net.minecraftforge.fml.relauncher.*;
  * @date 05.07.2018
  * @author HyCraftHD
  */
-
 public class UItemSword extends ItemSword implements IUItem, IModelProvider {
 	
 	protected String name;

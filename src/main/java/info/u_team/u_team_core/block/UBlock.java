@@ -32,7 +32,6 @@ import net.minecraftforge.fml.relauncher.*;
  * @date 17.08.2017
  * @author MrTroble, HyCraftHD
  */
-
 public class UBlock extends Block implements IUBlock, IModelProvider {
 	
 	protected String name;

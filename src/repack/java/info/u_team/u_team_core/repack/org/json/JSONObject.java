@@ -1,27 +1,21 @@
 package info.u_team.u_team_core.repack.org.json;
 
 /*
- * Copyright (c) 2002 JSON.org
- * 
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- * 
- * The above copyright notice and this permission notice shall be included in
- * all copies or substantial portions of the Software.
- * 
- * The Software shall be used for Good, not Evil.
- * 
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
+ * Copyright (c) 2002 JSON.org Permission is hereby granted, free of charge, to
+ * any person obtaining a copy of this software and associated documentation
+ * files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish,
+ * distribute, sublicense, and/or sell copies of the Software, and to permit
+ * persons to whom the Software is furnished to do so, subject to the following
+ * conditions: The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software. The Software
+ * shall be used for Good, not Evil. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
+ * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+ * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
+ * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 import java.io.*;
 import java.lang.annotation.Annotation;
@@ -452,11 +446,9 @@ public class JSONObject {
 	 * there is already an object stored under the key then a JSONArray is stored
 	 * under the key to hold all of the accumulated values. If there is already a
 	 * JSONArray, then the new value is appended to it. In contrast, the put method
-	 * replaces the previous value.
-	 *
-	 * If only one value is accumulated that is not a JSONArray, then the result
-	 * will be the same as using put. But if multiple values are accumulated, then
-	 * the result will be like append.
+	 * replaces the previous value. If only one value is accumulated that is not a
+	 * JSONArray, then the result will be the same as using put. But if multiple
+	 * values are accumulated, then the result will be like append.
 	 *
 	 * @param key
 	 *            A key string.
@@ -888,7 +880,6 @@ public class JSONObject {
 	 * also modify the JSONObject. Use with caution.
 	 *
 	 * @see Set#iterator()
-	 * 
 	 * @return An iterator of the keys.
 	 */
 	public Iterator<String> keys() {
@@ -900,7 +891,6 @@ public class JSONObject {
 	 * the JSONObject. Use with caution.
 	 *
 	 * @see Map#keySet()
-	 *
 	 * @return A keySet.
 	 */
 	public Set<String> keySet() {
@@ -911,12 +901,10 @@ public class JSONObject {
 	 * Get a set of entries of the JSONObject. These are raw values and may not
 	 * match what is returned by the JSONObject get* and opt* functions. Modifying
 	 * the returned EntrySet or the Entry objects contained therein will modify the
-	 * backing JSONObject. This does not return a clone or a read-only view.
-	 * 
-	 * Use with caution.
+	 * backing JSONObject. This does not return a clone or a read-only view. Use
+	 * with caution.
 	 *
 	 * @see Map#entrySet()
-	 *
 	 * @return An Entry Set
 	 */
 	protected Set<Entry<String, Object>> entrySet() {
@@ -1425,7 +1413,6 @@ public class JSONObject {
 	 * bean can not be recursive.
 	 *
 	 * @see JSONObject#JSONObject(Object)
-	 *
 	 * @param bean
 	 *            the bean
 	 */
@@ -1512,7 +1499,6 @@ public class JSONObject {
 	 *
 	 * @param <A>
 	 *            type of the annotation
-	 *
 	 * @param m
 	 *            method to check
 	 * @param annotationClass
@@ -1564,7 +1550,6 @@ public class JSONObject {
 	 *
 	 * @param <A>
 	 *            type of the annotation
-	 *
 	 * @param m
 	 *            method to check
 	 * @param annotationClass
@@ -2234,7 +2219,6 @@ public class JSONObject {
 	
 	/**
 	 * Make a pretty-printed JSON text of this JSONObject.
-	 * 
 	 * <p>
 	 * If <code>indentFactor > 0</code> and the {@link JSONObject} has only one key,
 	 * then the object will be output on a single line:
@@ -2242,7 +2226,6 @@ public class JSONObject {
 	 * <pre>
 	 * {@code {"key": 1}}
 	 * </pre>
-	 * 
 	 * <p>
 	 * If an object has 2 or more keys, then it will be output across multiple
 	 * lines: <code><pre>{
@@ -2279,7 +2262,6 @@ public class JSONObject {
 	 * method will be called. If the value is a MAP, then a JSONObject will be made
 	 * from it and its toJSONString method will be called. Otherwise, the value's
 	 * toString method will be called, and the result will be quoted.
-	 *
 	 * <p>
 	 * Warning: This method assumes that the data structure is acyclical.
 	 *
@@ -2412,7 +2394,6 @@ public class JSONObject {
 	
 	/**
 	 * Write the contents of the JSONObject as JSON text to a writer.
-	 * 
 	 * <p>
 	 * If <code>indentFactor > 0</code> and the {@link JSONObject} has only one key,
 	 * then the object will be output on a single line:
@@ -2420,7 +2401,6 @@ public class JSONObject {
 	 * <pre>
 	 * {@code {"key": 1}}
 	 * </pre>
-	 * 
 	 * <p>
 	 * If an object has 2 or more keys, then it will be output across multiple
 	 * lines: <code><pre>{
