@@ -16,10 +16,14 @@
 
 package info.u_team.u_team_core.intern.proxy;
 
+import com.google.common.collect.Maps;
+
 import info.u_team.u_team_core.intern.config.ClientConfig;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
 import info.u_team.u_team_core.intern.event.EventHandlerConfigChange;
 import info.u_team.u_team_core.registry.*;
+import net.minecraft.client.Minecraft;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.relauncher.*;
 
@@ -50,6 +54,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void postinit(FMLPostInitializationEvent event) {
 		super.postinit(event);
+		Minecraft.getMinecraft().gameSettings.soundLevels = Maps.newEnumMap(SoundCategory.class); // Fix sound categories in game settings when modified with enum helper
 	}
 	
 	@Override

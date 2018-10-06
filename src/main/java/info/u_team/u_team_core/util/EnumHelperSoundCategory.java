@@ -16,25 +16,23 @@
 
 package info.u_team.u_team_core.util;
 
-import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.common.util.EnumHelper;
 
 /**
- * Extended EnumHelper that support adding custom particles to minecraft
+ * Extended EnumHelper that support adding custom sound categories to minecraft
  * 
  * @author HyCraftHD
- * @date 09.09.2018
+ * @date 05.10.2018
  */
-public class EnumHelperParticle extends EnumHelper {
+public class EnumHelperSoundCategory extends EnumHelper {
 	
-	private static Class<?>[][] clientTypes = { { EnumParticleTypes.class, String.class, int.class, boolean.class, int.class } };
+	private static Class<?>[][] clientTypes = { { SoundCategory.class, String.class } };
 	
-	public static EnumParticleTypes addParticle(String name, int id, boolean ignoreRange) {
-		return addEnum(EnumParticleTypes.class, name, name, id, ignoreRange, 0);
-	}
-	
-	public static EnumParticleTypes addParticle(String name, int id, boolean ignoreRange, int arguments) {
-		return addEnum(EnumParticleTypes.class, name, name, id, ignoreRange, arguments);
+	public static SoundCategory addSoundCategory(String name) {
+		SoundCategory category = addEnum(SoundCategory.class, name, name);
+		SoundCategory.SOUND_CATEGORIES.put(category.getName(), category);
+		return category;
 	}
 	
 	private static <T extends Enum<?>> T addEnum(Class<T> enumType, String enumName, Object... paramValues) {

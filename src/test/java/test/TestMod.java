@@ -6,8 +6,13 @@ import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.entity.UEntityEntry;
 import info.u_team.u_team_core.item.*;
 import info.u_team.u_team_core.registry.*;
+import info.u_team.u_team_core.util.EnumHelperSoundCategory;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.command.*;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.*;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
@@ -27,6 +32,8 @@ public class TestMod {
 	public static final UItemMetaData itemmeta = new UItemMetaData("testitemmeta", tab, EnumTest.values());
 	
 	public static final UBlockMetaData blockmeta = new UBlockMetaData("testblockmeta", Material.ROCK, tab, EnumTest.values());
+	
+	public static final SoundCategory category = EnumHelperSoundCategory.addSoundCategory("test");
 	
 	public static enum EnumTest implements IMetaType {
 		
@@ -71,6 +78,31 @@ public class TestMod {
 	
 	@EventHandler
 	public void postinit(FMLPostInitializationEvent event) {
+	}
+	
+	@EventHandler
+	public void postinit(FMLServerStartingEvent event) {
+		event.registerServerCommand(new CommandBase() {
+			
+			@Override
+			public String getUsage(ICommandSender sender) {
+				return "/test";
+			}
+			
+			@Override
+			public String getName() {
+				return "test";
+			}
+			
+			@Override
+			public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+				if (sender instanceof EntityPlayerMP) {
+					EntityPlayerMP player = (EntityPlayerMP) sender;
+					System.out.println("test");
+					player.getEntityWorld().playSound(null, player.getPosition(), SoundEvents.BLOCK_ANVIL_BREAK, category, 1.0F, 1.0F);
+				}
+			}
+		});
 	}
 	
 }
