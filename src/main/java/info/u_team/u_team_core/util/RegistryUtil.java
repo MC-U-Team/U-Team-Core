@@ -20,6 +20,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 
 import info.u_team.u_team_core.UCoreConstants;
+import info.u_team.u_team_core.api.registry.IUEntityEntry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 /**
@@ -41,6 +42,20 @@ public class RegistryUtil {
 			}
 		} catch (Exception ex) {
 			UCoreConstants.LOGGER.error("Failed fetching registry entries for class {}", init, ex);
+		}
+		return list;
+	}
+	
+	public static List<IUEntityEntry> getEntityRegistryEntries(Class<?> init) {
+		List<IUEntityEntry> list = new ArrayList<>();
+		try {
+			for (Field field : init.getDeclaredFields()) {
+				if (IUEntityEntry.class.isAssignableFrom(field.getType())) {
+					list.add((IUEntityEntry) field.get(null));
+				}
+			}
+		} catch (Exception ex) {
+			UCoreConstants.LOGGER.error("Failed fetching entity registry entries for class {}", init, ex);
 		}
 		return list;
 	}

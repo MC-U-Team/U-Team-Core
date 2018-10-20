@@ -6,7 +6,7 @@ import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.entity.UEntityEntry;
 import info.u_team.u_team_core.item.*;
 import info.u_team.u_team_core.registry.*;
-import info.u_team.u_team_core.util.EnumHelperSoundCategory;
+import info.u_team.u_team_core.util.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -28,6 +28,7 @@ public class TestMod {
 	public static final UItem item = new UItem("testitem", tab);
 	
 	public static final UEntityEntry entity = new UEntityEntry(EntityEntryBuilder.create().entity(EntityTest.class).id(new ResourceLocation("test", "testentity"), 0).name("testentity").egg(0xFFFFFF, 0xAAAAAA).tracker(64, 20, false));
+	public static final UEntityEntry entity2 = new UEntityEntry(EntityEntryBuilder.create().entity(EntityTest.class).id(new ResourceLocation("test", "testentity2"), 0).name("testentity2").egg(0xFFFFFF, 0xAAAAAA).tracker(64, 20, false));
 	
 	public static final UItemMetaData itemmeta = new UItemMetaData("testitemmeta", tab, EnumTest.values());
 	
@@ -66,7 +67,9 @@ public class TestMod {
 		tab.setIcon(block);
 		BlockRegistry.register("test", block);
 		ItemRegistry.register("test", item);
-		EntityRegistry.register("test", entity);
+		// EntityRegistry.register("test", entity);
+		
+		EntityRegistry.register("test", RegistryUtil.getEntityRegistryEntries(TestMod.class));
 		
 		ItemRegistry.register("test", itemmeta);
 		BlockRegistry.register("test", blockmeta);
