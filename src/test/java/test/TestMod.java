@@ -5,14 +5,17 @@ import info.u_team.u_team_core.block.*;
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.entity.UEntityEntry;
 import info.u_team.u_team_core.item.*;
+import info.u_team.u_team_core.item.armor.*;
 import info.u_team.u_team_core.registry.*;
 import info.u_team.u_team_core.util.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
+import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
@@ -62,6 +65,19 @@ public class TestMod {
 		
 	}
 	
+	public static final ArmorMaterial testarmor = EnumHelper.addArmorMaterial("test", "test:test", 100, new int[] { 2, 5, 6, 2 }, 10, SoundEvents.AMBIENT_CAVE, 0F);
+	
+	public static final UItemArmor[] testarmorarry = createArmor(testarmor, "test");
+	
+	private static UItemArmor[] createArmor(ArmorMaterial material, String name) {
+		UItemArmor[] armor = new UItemArmor[4];
+		armor[0] = new UItemHelmet(name, tab, material);
+		armor[1] = new UItemChestplate(name, tab, material);
+		armor[2] = new UItemLeggings(name, tab, material);
+		armor[3] = new UItemBoots(name, tab, material);
+		return armor;
+	}
+	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 		tab.setIcon(block);
@@ -73,6 +89,10 @@ public class TestMod {
 		
 		ItemRegistry.register("test", itemmeta);
 		BlockRegistry.register("test", blockmeta);
+		
+		for (UItemArmor armor : testarmorarry) {
+			ItemRegistry.register("test", armor);
+		}
 	}
 	
 	@EventHandler
