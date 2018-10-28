@@ -21,6 +21,7 @@ import static info.u_team.u_team_core.registry.ItemRegistry.items;
 import java.util.*;
 
 import info.u_team.u_team_core.api.registry.IUBlock;
+import info.u_team.u_team_core.item.UItemBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
@@ -43,7 +44,11 @@ public class BlockRegistry {
 			IUBlock iublock = (IUBlock) block;
 			block.setRegistryName(modid, iublock.getName());
 			block.setTranslationKey(modid + ":" + iublock.getName());
-			items.add(iublock.getItemBlock());
+			
+			UItemBlock itemblock = iublock.getItemBlock();
+			if (itemblock != null) {
+				items.add(itemblock);
+			}
 		} else {
 			items.add(new ItemBlock(block));
 		}
