@@ -32,5 +32,4 @@ public class UItemBlock extends ItemBlock {
 		super(block);
 		setRegistryName(block.getRegistryName());
 	}
-	
 }
