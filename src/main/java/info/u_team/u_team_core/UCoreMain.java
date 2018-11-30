@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.event.*;
 
 /**
  * This is the main class of this utility mod and represents the mod in forge.
- * It is used to listen to events and setup everything nessesary.
+ * It is used to listen to events and setup everything necessary.
  * 
  * @author HyCraftHD
  * @date 16.08.2017
