@@ -35,4 +35,11 @@ public class NonNullListUtil {
 		return new NonNullListCustom<>(Arrays.asList(elements), defaultelement);
 	}
 	
+	@SuppressWarnings("unchecked")
+	public static <E> NonNullListCustom<E> withSize(int size, E fill) {
+		Object[] objects = new Object[size];
+		Arrays.fill(objects, fill);
+		return new NonNullListCustom<E>(Arrays.asList((E[]) objects), fill);
+	}
+	
 }
