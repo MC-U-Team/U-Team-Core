@@ -28,6 +28,9 @@ import net.minecraftforge.fml.common.event.*;
  */
 public class CommonProxy {
 	
+	public void construct(FMLConstructionEvent event) {
+	}
+	
 	public void preinit(FMLPreInitializationEvent event) {
 		CommonRegistry.registerEventHandler(BlockRegistry.class, ItemRegistry.class, EntityRegistry.class, BiomeRegistry.class, SoundRegistry.class);
 	}

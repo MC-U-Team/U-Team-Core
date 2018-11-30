@@ -38,12 +38,17 @@ import net.minecraftforge.fml.relauncher.*;
 public class ClientProxy extends CommonProxy {
 	
 	@Override
-	public void preinit(FMLPreInitializationEvent event) {
-		super.preinit(event);
-		CommonRegistry.registerEventHandler(ModelRegistry.class, EventHandlerConfigChange.class);
+	public void construct(FMLConstructionEvent event) {
+		super.construct(event);
 		if (ClientConfig.discord.discord_richpresence) {
 			DiscordRichPresence.start();
 		}
+	}
+	
+	@Override
+	public void preinit(FMLPreInitializationEvent event) {
+		super.preinit(event);
+		CommonRegistry.registerEventHandler(ModelRegistry.class, EventHandlerConfigChange.class);
 	}
 	
 	@Override
