@@ -17,6 +17,7 @@
 package info.u_team.u_team_core.util.stack;
 
 import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * ItemStack utility
@@ -36,5 +37,32 @@ public class ItemStackUtil {
 	
 	public static boolean areItemStacksEqualIgnoreAmount(ItemStack a, ItemStack b) {
 		return ItemStack.areItemsEqual(a, b) && ItemStack.areItemStackTagsEqual(a, b);
+	}
+	
+	public static NBTTagCompound getOrCreateCompound(ItemStack stack) {
+		NBTTagCompound compound;
+		if (stack.hasTagCompound()) {
+			compound = stack.getTagCompound();
+		} else {
+			compound = new NBTTagCompound();
+			stack.setTagCompound(compound);
+		}
+		return compound;
+	}
+	
+	public static void removeCompound(ItemStack stack) {
+		stack.setTagCompound(null);
+	}
+	
+	public static NBTTagCompound getOrCreateSubCompound(ItemStack stack, String key) {
+		return stack.getOrCreateSubCompound(key);
+	}
+	
+	public static NBTTagCompound getSubCompound(ItemStack stack, String key) {
+		return stack.getSubCompound(key);
+	}
+	
+	public static void removeSubCompound(ItemStack stack, String key) {
+		stack.removeSubCompound(key);
 	}
 }
