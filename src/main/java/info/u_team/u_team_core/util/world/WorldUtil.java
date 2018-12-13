@@ -28,9 +28,9 @@ import net.minecraft.util.math.*;
 public class WorldUtil {
 	
 	public static RayTraceResult rayTraceServerSide(EntityPlayer player, double range) {
-		Vec3d vec3 = new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ);
-		Vec3d vec31 = player.getLookVec();
-		Vec3d vec32 = vec3.add(vec31.x * range, vec31.y * range, vec31.z * range);
-		return player.world.rayTraceBlocks(vec3, vec32, true, false, true);
+		Vec3d playerVector = new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+		Vec3d lookVector = player.getLookVec();
+		Vec3d locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
+		return player.world.rayTraceBlocks(playerVector, locationVector, true, false, true);
 	}
 }
