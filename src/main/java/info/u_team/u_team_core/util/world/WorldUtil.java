@@ -28,9 +28,13 @@ import net.minecraft.util.math.*;
 public class WorldUtil {
 	
 	public static RayTraceResult rayTraceServerSide(EntityPlayer player, double range) {
+		return rayTraceServerSide(player, range, true, false, true);
+	}
+	
+	public static RayTraceResult rayTraceServerSide(EntityPlayer player, double range, boolean stopOnLiquid, boolean ignoreBlockWithoutBoundingBox, boolean returnLastUncollidableBlock) {
 		Vec3d playerVector = new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ);
 		Vec3d lookVector = player.getLookVec();
 		Vec3d locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
-		return player.world.rayTraceBlocks(playerVector, locationVector, true, false, true);
+		return player.world.rayTraceBlocks(playerVector, locationVector, stopOnLiquid, ignoreBlockWithoutBoundingBox, returnLastUncollidableBlock);
 	}
 }
