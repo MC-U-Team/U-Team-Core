@@ -42,7 +42,7 @@ public class DiscordRichPresence {
 	private static boolean isEnabled = false;
 	
 	private static OffsetDateTime time = OffsetDateTime.now();
-	public static State current = new State(EnumState.MENU);
+	public static State current = new State(EnumState.STARTUP);
 	
 	private static int errorcount = 0;
 	
@@ -117,7 +117,7 @@ public class DiscordRichPresence {
 		builder.setState(state.getState().getMessage(state.getReplace()));
 		builder.setStartTimestamp(time);
 		builder.setLargeImage(state.getState().getImageKey(), state.getState().getImageName(state.getReplace()));
-		if (state.getState().equals(EnumState.MENU)) {
+		if (state.getState() == EnumState.MENU || state.getState() == EnumState.STARTUP) {
 			builder.setSmallImage("uteamcore", "U-Team Core");
 		}
 		try {
@@ -169,6 +169,7 @@ public class DiscordRichPresence {
 	}
 	
 	public static enum EnumState {
+		STARTUP("Starting Minecraft", "Minecraft", "minecraft"),
 		MENU("Idling in menu", "Minecraft", "minecraft"),
 		OVERWORLD("Dimension: Overworld", "Overworld", "world_overworld"),
 		NETHER("Dimension: Nether", "Nether", "world_nether"),
