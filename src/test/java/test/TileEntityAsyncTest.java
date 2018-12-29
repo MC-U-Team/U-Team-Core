@@ -1,5 +1,7 @@
 package test;
 
+import java.util.Random;
+
 import info.u_team.u_team_core.tileentity.UTileEntityAsyncUpdate;
 import info.u_team.u_team_core.util.MathUtil;
 import net.minecraft.init.Blocks;
@@ -24,8 +26,23 @@ public class TileEntityAsyncTest extends UTileEntityAsyncUpdate {
 			loc = pos.add(0, 3, 0);
 		}
 		
-		world.setBlockState(loc, Blocks.STAINED_GLASS.getStateFromMeta(5));
-		loc = loc.add(MathUtil.getRandomNumberInRange(-1, 1), MathUtil.getRandomNumberInRange(0, 1), MathUtil.getRandomNumberInRange(-1, 1));
+		System.out.println(loc);
+		
+		if (!world.isAirBlock(loc) && world.getBlockState(loc) != Blocks.DIAMOND_BLOCK.getDefaultState()) {
+			loc = world.getTopSolidOrLiquidBlock(loc).add(0, 2, 0);
+		}
+		if (loc.getY() > 250) {
+			loc = loc.add(MathUtil.getRandomNumberInRange(16, 16), -200, MathUtil.getRandomNumberInRange(-16, 16));
+		}
+		
+		world.getMinecraftServer().addScheduledTask(() -> {
+			world.setBlockState(loc, Blocks.DIAMOND_BLOCK.getDefaultState());
+		});
+		
+		int y = new Random().nextInt(3);
+		y = y == 0 ? y = -1 : y % 2;
+		
+		loc = loc.add(MathUtil.getRandomNumberInRange(-1, 1), y, MathUtil.getRandomNumberInRange(-1, 1));
 		
 		TileEntity tile = world.getTileEntity(pos.add(0, 1, 0));
 		if (tile != null) {
@@ -43,7 +60,7 @@ public class TileEntityAsyncTest extends UTileEntityAsyncUpdate {
 	
 	@Override
 	public int getUpdateRate() {
-		return 250;
+		return 50;
 	}
 	
 	@Override
