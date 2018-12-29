@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
+import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = "test", name = "TestMod", version = "1.0.0")
 public class TestMod {
@@ -81,6 +82,12 @@ public class TestMod {
 	
 	public static UBlock asyncTeTest = new UBlockTileEntity("asyncte", Material.ROCK, new UTileEntityProvider(new ResourceLocation("test", "asyncte"), TileEntityAsyncTest.class));
 	
+	public static UBlock syncedTeTest = new BlockTileEntityTest("syncedte");
+	
+	@EventHandler
+	public void preinit(FMLConstructionEvent event) {
+	}
+	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 		tab.setIcon(block);
@@ -98,11 +105,16 @@ public class TestMod {
 		}
 		
 		BlockRegistry.register("test", asyncTeTest);
+		BlockRegistry.register("test", syncedTeTest);
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
 		asyncTeTest.setCreativeTab(tab);
+		
+		if (event.getSide() == Side.CLIENT) {
+			ClientRegistry.registerSpecialTileEntityRenderer(TileEntityTest.class, new TileEntitySpecialRenderTest());
+		}
 	}
 	
 	@EventHandler

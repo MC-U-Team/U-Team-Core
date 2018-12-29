@@ -16,15 +16,19 @@
 
 package info.u_team.u_team_core.tileentity;
 
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraftforge.fml.relauncher.*;
 
 /**
  * TileEntity API<br>
  * -> Basic TileEntity
  * 
  * @date 17.08.2017
- * @author MrTroble
+ * @author MrTroble, HyCraftHD
  */
 public abstract class UTileEntity extends TileEntity {
 	
@@ -44,4 +48,43 @@ public abstract class UTileEntity extends TileEntity {
 	public abstract void readNBT(NBTTagCompound compound);
 	
 	public abstract void writeNBT(NBTTagCompound compound);
+	
+	// synchronization server client
+	public void sendChangesToClient() {
+		world.markBlockRangeForRenderUpdate(pos, pos);
+		IBlockState state = world.getBlockState(pos);
+		world.notifyBlockUpdate(pos, state, state, 3);
+		world.scheduleBlockUpdate(pos, blockType, 0, 0);
+		markDirty();
+	}
+	
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		return new SPacketUpdateTileEntity(this.pos, -1, getUpdateTag());
+	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
+		handleUpdateTag(packet.getNbtCompound());
+	}
+	
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		NBTTagCompound compound = new NBTTagCompound();
+		getServerSyncData(compound);
+		return compound;
+	}
+	
+	@Override
+	public void handleUpdateTag(NBTTagCompound compound) {
+		handleClientSyncData(compound);
+	}
+	
+	public void getServerSyncData(NBTTagCompound compound) {
+	}
+	
+	public void handleClientSyncData(NBTTagCompound compound) {
+	}
+	
 }
