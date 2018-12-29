@@ -28,9 +28,6 @@ import net.minecraft.tileentity.TileEntity;
  */
 public abstract class UTileEntity extends TileEntity {
 	
-	public UTileEntity() {
-	}
-	
 	@Override
 	public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 		super.writeToNBT(compound);

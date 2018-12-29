@@ -7,6 +7,7 @@ import info.u_team.u_team_core.entity.UEntityEntry;
 import info.u_team.u_team_core.item.*;
 import info.u_team.u_team_core.item.armor.*;
 import info.u_team.u_team_core.registry.*;
+import info.u_team.u_team_core.tileentity.UTileEntityProvider;
 import info.u_team.u_team_core.util.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.command.*;
@@ -21,7 +22,7 @@ import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 
-@Mod(modid = "test", name = "TestMod", version = "1.0.0", updateJSON = "http://files.minecraftforge.net/maven/net/minecraftforge/forge/promotions_slim.json")
+@Mod(modid = "test", name = "TestMod", version = "1.0.0")
 public class TestMod {
 	
 	public static final UCreativeTab tab = new UCreativeTab("test", "tab");
@@ -78,6 +79,8 @@ public class TestMod {
 		return armor;
 	}
 	
+	public static UBlock asyncTeTest = new UBlockTileEntity("asyncte", Material.ROCK, new UTileEntityProvider(new ResourceLocation("test", "asyncte"), TileEntityAsyncTest.class));
+	
 	@EventHandler
 	public void preinit(FMLPreInitializationEvent event) {
 		tab.setIcon(block);
@@ -93,10 +96,13 @@ public class TestMod {
 		for (UItemArmor armor : testarmorarry) {
 			ItemRegistry.register("test", armor);
 		}
+		
+		BlockRegistry.register("test", asyncTeTest);
 	}
 	
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
+		asyncTeTest.setCreativeTab(tab);
 	}
 	
 	@EventHandler
