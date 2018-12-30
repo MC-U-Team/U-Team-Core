@@ -20,7 +20,11 @@ public class BlockTileEntityTest extends UBlockTileEntity {
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		if (worldIn.isRemote)
 			return false;
-		((TileEntityTest) worldIn.getTileEntity(pos)).save();
+		if (playerIn.isSneaking()) {
+			((TileEntityTest) worldIn.getTileEntity(pos)).save();
+		} else {
+			playerIn.openGui("test", 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
+		}
 		return true;
 	}
 	

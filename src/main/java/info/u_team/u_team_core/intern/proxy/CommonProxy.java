@@ -17,6 +17,7 @@
 package info.u_team.u_team_core.intern.proxy;
 
 import info.u_team.u_team_core.intern.command.CommandPing;
+import info.u_team.u_team_core.intern.network.NetworkHandler;
 import info.u_team.u_team_core.registry.*;
 import info.u_team.u_team_core.tileentity.UTileEntityAsyncUpdate;
 import net.minecraftforge.fml.common.event.*;
@@ -38,6 +39,7 @@ public class CommonProxy {
 	}
 	
 	public void init(FMLInitializationEvent event) {
+		NetworkHandler.init();
 	}
 	
 	public void postinit(FMLPostInitializationEvent event) {

@@ -112,6 +112,8 @@ public class TestMod {
 	public void init(FMLInitializationEvent event) {
 		asyncTeTest.setCreativeTab(tab);
 		
+		CommonRegistry.registerGuiHandler("test", new GuiHandlerTest());
+		
 		if (event.getSide() == Side.CLIENT) {
 			ClientRegistry.registerSpecialTileEntityRenderer(TileEntityTest.class, new TileEntitySpecialRenderTest());
 		}

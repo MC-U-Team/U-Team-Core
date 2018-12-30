@@ -49,7 +49,7 @@ public abstract class UTileEntity extends TileEntity {
 	
 	public abstract void writeNBT(NBTTagCompound compound);
 	
-	// synchronization server client
+	// synchronization server -> client
 	public void sendChangesToClient() {
 		world.markBlockRangeForRenderUpdate(pos, pos);
 		IBlockState state = world.getBlockState(pos);
@@ -84,6 +84,7 @@ public abstract class UTileEntity extends TileEntity {
 	public void getServerSyncData(NBTTagCompound compound) {
 	}
 	
+	@SideOnly(Side.CLIENT)
 	public void handleClientSyncData(NBTTagCompound compound) {
 	}
 	
