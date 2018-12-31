@@ -17,11 +17,10 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.*;
 import net.minecraftforge.common.util.EnumHelper;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.*;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
-import net.minecraftforge.fml.relauncher.Side;
 
 @Mod(modid = "test", name = "TestMod", version = "1.0.0")
 public class TestMod {
@@ -84,6 +83,9 @@ public class TestMod {
 	
 	public static UBlock syncedTeTest = new BlockTileEntityTest("syncedte");
 	
+	@SidedProxy(clientSide = "test.ClientProxyTest", serverSide = "test.CommonProxyTest")
+	public static CommonProxyTest proxy;
+	
 	@EventHandler
 	public void preinit(FMLConstructionEvent event) {
 	}
@@ -114,9 +116,7 @@ public class TestMod {
 		
 		CommonRegistry.registerGuiHandler("test", new GuiHandlerTest());
 		
-		if (event.getSide() == Side.CLIENT) {
-			ClientRegistry.registerSpecialTileEntityRenderer(TileEntityTest.class, new TileEntitySpecialRenderTest());
-		}
+		proxy.init();
 	}
 	
 	@EventHandler

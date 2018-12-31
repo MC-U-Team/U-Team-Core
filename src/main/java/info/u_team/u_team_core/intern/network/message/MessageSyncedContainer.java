@@ -98,7 +98,7 @@ public class MessageSyncedContainer implements IMessage {
 			TileEntity tileentity = world.getTileEntity(pos);
 			if (tileentity instanceof ISyncedContainerTileEntity) {
 				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
-				minecraft.addScheduledTask(() -> synced.handleClientSyncContainerData(compound));
+				minecraft.addScheduledTask(() -> synced.handleFromServerSyncContainerData(compound));
 			}
 		}
 		
@@ -111,7 +111,7 @@ public class MessageSyncedContainer implements IMessage {
 			TileEntity tileentity = world.getTileEntity(pos);
 			if (tileentity instanceof ISyncedContainerTileEntity) {
 				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
-				server.addScheduledTask(() -> synced.handleServerSyncContainerData(compound));
+				server.addScheduledTask(() -> synced.handleFromClientSyncContainerData(compound));
 			}
 		}
 	}

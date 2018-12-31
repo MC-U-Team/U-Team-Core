@@ -1,7 +1,9 @@
 package test;
 
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraftforge.fml.relauncher.*;
 
+@SideOnly(Side.CLIENT)
 public class TileEntitySpecialRenderTest extends TileEntitySpecialRenderer<TileEntityTest> {
 	
 	@Override

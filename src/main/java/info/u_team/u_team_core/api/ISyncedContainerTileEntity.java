@@ -39,10 +39,10 @@ public interface ISyncedContainerTileEntity {
 	@SideOnly(Side.CLIENT)
 	public void getClientSyncContainerData(NBTTagCompound compound);
 	
-	public void handleClientSyncContainerData(NBTTagCompound compound);
+	public void handleFromClientSyncContainerData(NBTTagCompound compound);
 	
 	@SideOnly(Side.CLIENT)
-	public void handleServerSyncContainerData(NBTTagCompound compound);
+	public void handleFromServerSyncContainerData(NBTTagCompound compound);
 	
 	public default void syncServerToClient(EntityPlayerMP player, BlockPos pos) {
 		NBTTagCompound compound = new NBTTagCompound();

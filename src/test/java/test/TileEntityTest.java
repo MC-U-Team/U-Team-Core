@@ -152,8 +152,8 @@ public class TileEntityTest extends UTileEntity implements IInventory, ITickable
 	}
 	
 	@Override
-	public void handleClientSyncContainerData(NBTTagCompound compound) {
-		clientTestInteger = compound.getInteger("int");
+	public void handleFromClientSyncContainerData(NBTTagCompound compound) {
+		serverTestInteger = compound.getInteger("test");
 	}
 	
 	// TODO
@@ -163,8 +163,8 @@ public class TileEntityTest extends UTileEntity implements IInventory, ITickable
 	}
 	
 	@Override
-	public void handleServerSyncContainerData(NBTTagCompound compound) {
-		serverTestInteger = compound.getInteger("test");
+	public void handleFromServerSyncContainerData(NBTTagCompound compound) {
+		clientTestInteger = compound.getInteger("int");
 	}
 	
 }
