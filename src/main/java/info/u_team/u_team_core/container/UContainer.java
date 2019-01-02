@@ -34,14 +34,13 @@ public class UContainer extends Container {
 	}
 	
 	public void appendPlayerInventory(InventoryPlayer inventory, int x, int y) {
-		int startIndex = inventorySlots.size();
 		for (int height = 0; height < 4; height++) {
 			for (int width = 0; width < 9; width++) {
 				if (height == 3) {
-					addSlotToContainer(new Slot(inventory, startIndex + width, width * 18 + x, height * 18 + 4 + y));
+					addSlotToContainer(new Slot(inventory, width, width * 18 + x, height * 18 + 4 + y));
 					continue;
 				}
-				addSlotToContainer(new Slot(inventory, startIndex + (width + height * 9 + 9), width * 18 + x, height * 18 + y));
+				addSlotToContainer(new Slot(inventory, width + height * 9 + 9, width * 18 + x, height * 18 + y));
 			}
 		}
 	}
