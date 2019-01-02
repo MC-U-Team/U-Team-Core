@@ -50,35 +50,47 @@ public abstract class UTileEntity extends TileEntity {
 	public abstract void writeNBT(NBTTagCompound compound);
 	
 	// synchronization server -> client
-	public void sendChangesToClient() {
-		world.markBlockRangeForRenderUpdate(pos, pos);
-		IBlockState state = world.getBlockState(pos);
-		world.notifyBlockUpdate(pos, state, state, 3);
-		world.scheduleBlockUpdate(pos, blockType, 0, 0);
-		markDirty();
+	// https://mcforge.readthedocs.io/en/latest/tileentities/tileentity/#synchronizing-the-data-to-the-client
+	
+	// synchronization on chunk load
+	
+	@Override
+	public NBTTagCompound getUpdateTag() {
+		NBTTagCompound compound = super.getUpdateTag();
+		getChunkLoadServerSyncData(compound);
+		return compound;
 	}
+	
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void handleUpdateTag(NBTTagCompound compound) {
+		super.handleUpdateTag(compound);
+		handleChunkLoadClientSyncData(compound);
+	}
+	
+	private void getChunkLoadServerSyncData(NBTTagCompound compound) {
+	}
+	
+	@SideOnly(Side.CLIENT)
+	private void handleChunkLoadClientSyncData(NBTTagCompound compound) {
+	}
+	
+	// synchronization on block update
 	
 	@Override
 	public SPacketUpdateTileEntity getUpdatePacket() {
-		return new SPacketUpdateTileEntity(this.pos, -1, getUpdateTag());
+		NBTTagCompound compound = new NBTTagCompound();
+		getServerSyncData(compound);
+		if (!compound.isEmpty()) {
+			return new SPacketUpdateTileEntity(pos, -1, compound);
+		}
+		return null;
 	}
 	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
-		handleUpdateTag(packet.getNbtCompound());
-	}
-	
-	@Override
-	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound compound = new NBTTagCompound();
-		getServerSyncData(compound);
-		return compound;
-	}
-	
-	@Override
-	public void handleUpdateTag(NBTTagCompound compound) {
-		handleClientSyncData(compound);
+		handleClientSyncData(packet.getNbtCompound());
 	}
 	
 	public void getServerSyncData(NBTTagCompound compound) {
@@ -88,4 +100,12 @@ public abstract class UTileEntity extends TileEntity {
 	public void handleClientSyncData(NBTTagCompound compound) {
 	}
 	
+	public void sendChangesToClient() {
+		sendChangesToClient(2);
+	}
+	
+	public void sendChangesToClient(int flags) {
+		IBlockState state = world.getBlockState(pos);
+		world.notifyBlockUpdate(pos, state, state, flags);
+	}
 }
