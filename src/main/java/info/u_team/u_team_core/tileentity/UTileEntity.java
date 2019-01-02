@@ -68,11 +68,11 @@ public abstract class UTileEntity extends TileEntity {
 		handleChunkLoadClientSyncData(compound);
 	}
 	
-	private void getChunkLoadServerSyncData(NBTTagCompound compound) {
+	public void getChunkLoadServerSyncData(NBTTagCompound compound) {
 	}
 	
 	@SideOnly(Side.CLIENT)
-	private void handleChunkLoadClientSyncData(NBTTagCompound compound) {
+	public void handleChunkLoadClientSyncData(NBTTagCompound compound) {
 	}
 	
 	// synchronization on block update
