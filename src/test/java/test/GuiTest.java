@@ -2,14 +2,18 @@ package test;
 
 import java.io.IOException;
 
-import info.u_team.u_team_core.gui.UGuiContainer;
+import info.u_team.u_team_core.gui.*;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.client.config.GuiSlider;
 
-public class GuiTest extends UGuiContainer {
+public class GuiTest extends UGuiContainerTileEntity {
 	
 	private TileEntityTest tile;
+	
+	private GuiSlider slider;
 	
 	public GuiTest(InventoryPlayer playerinv, TileEntityTest tile) {
 		super(new ContainerTest(playerinv, tile), new ResourceLocation("textures/gui/container/furnace.png"));
@@ -20,6 +24,10 @@ public class GuiTest extends UGuiContainer {
 	public void initGui() {
 		super.initGui();
 		buttonList.add(new GuiButton(0, 60, 30, "Increase"));
+		
+		buttonList.add(slider = new GuiSlider(1, 20, 20, 200, 20, "test", " t", 0, 10000, 0, false, true, slider -> {
+			
+		}));
 	}
 	
 	@Override
@@ -44,6 +52,14 @@ public class GuiTest extends UGuiContainer {
 		// int i = (this.width - this.xSize) / 2;
 		// int j = (this.height - this.ySize) / 2;
 		// this.drawTexturedModalRect(i, j, 0, 0, this.xSize, this.ySize);
+	}
+	
+	@Override
+	public void handleServerDataOnFirstArrival(NBTTagCompound compound) {
+		int test = compound.getInteger("int");
+		System.out.println("SLIDER  " + test);
+		slider.setValue(test);
+		slider.updateSlider();
 	}
 	
 }

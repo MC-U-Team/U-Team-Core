@@ -20,8 +20,10 @@ import java.io.IOException;
 
 import info.u_team.u_team_core.UCoreConstants;
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
+import info.u_team.u_team_core.gui.UGuiContainerTileEntity;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.PacketBuffer;
@@ -30,7 +32,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.simpleimpl.*;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.*;
 
 /**
  * Custom message for container and tileentity synchronization
@@ -89,6 +91,7 @@ public class MessageSyncedContainer implements IMessage {
 			return null;
 		}
 		
+		@SideOnly(Side.CLIENT)
 		private void handleClient(BlockPos pos, NBTTagCompound compound, MessageContext ctx) {
 			Minecraft minecraft = Minecraft.getMinecraft();
 			WorldClient world = minecraft.world;
@@ -99,6 +102,11 @@ public class MessageSyncedContainer implements IMessage {
 			if (tileentity instanceof ISyncedContainerTileEntity) {
 				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
 				minecraft.addScheduledTask(() -> synced.handleFromServerSyncContainerData(compound));
+			}
+			GuiScreen gui = minecraft.currentScreen;
+			if (gui instanceof UGuiContainerTileEntity) {
+				UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
+				minecraft.addScheduledTask(() -> guicontainer.handleServerData(compound));
 			}
 		}
 		

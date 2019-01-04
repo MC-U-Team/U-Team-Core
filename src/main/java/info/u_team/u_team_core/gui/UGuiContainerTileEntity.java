@@ -16,37 +16,38 @@
 
 package info.u_team.u_team_core.gui;
 
-import info.u_team.u_team_core.container.UContainer;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
+import info.u_team.u_team_core.container.UContainerTileEntity;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.relauncher.*;
 
 /**
  * Gui API<br>
- * -> Gui Container
+ * -> Gui Container TileEntity
  * 
- * @date 17.08.2017
- * @author MrTroble
+ * @date 04.01.2019
+ * @author HyCraftHD
  */
-@SideOnly(Side.CLIENT)
-public class UGuiContainer extends GuiContainer {
+public class UGuiContainerTileEntity extends UGuiContainer {
 	
-	protected final ResourceLocation background;
+	protected final TileEntity tileentity;
 	
-	public UGuiContainer(UContainer container, ResourceLocation background) {
-		super(container);
-		this.background = background;
+	protected boolean handleNextSync;
+	
+	public UGuiContainerTileEntity(UContainerTileEntity container, ResourceLocation background) {
+		super(container, background);
+		tileentity = container.getTileentity();
+		handleNextSync = true;
 	}
 	
-	@Override
-	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.getTextureManager().bindTexture(background);
-		int xStart = (width - xSize) / 2;
-		int yStart = (height - ySize) / 2;
-		
-		drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
-		
+	public void handleServerData(NBTTagCompound compound) {
+		if (handleNextSync) {
+			handleNextSync = false;
+			handleServerDataOnFirstArrival(compound);
+		}
 	}
+	
+	public void handleServerDataOnFirstArrival(NBTTagCompound compound) {
+	}
+	
 }

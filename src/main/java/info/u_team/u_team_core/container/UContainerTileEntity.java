@@ -40,6 +40,10 @@ public class UContainerTileEntity extends UContainer {
 		this.tileentity = tileentity;
 	}
 	
+	public TileEntity getTileentity() {
+		return tileentity;
+	}
+	
 	// Sync
 	
 	@Override

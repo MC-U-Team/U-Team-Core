@@ -140,15 +140,17 @@ public class TileEntityTest extends UTileEntity implements IInventory, ITickable
 			return;
 		if (random.nextInt(5) == 0) {
 			serverTestInteger++;
-			System.out.println(serverTestInteger);
+			System.out.println("SERVER: " + serverTestInteger);
 			this.markDirty();
 			
 		}
 	}
 	
+	
+	@SideOnly(Side.CLIENT)
 	@Override
-	public void getServerSyncContainerData(NBTTagCompound compound) {
-		compound.setInteger("int", serverTestInteger);
+	public void getClientSyncContainerData(NBTTagCompound compound) {
+		compound.setInteger("test", clientTestInteger);
 	}
 	
 	@Override
@@ -157,11 +159,13 @@ public class TileEntityTest extends UTileEntity implements IInventory, ITickable
 	}
 	
 	// TODO
+	
 	@Override
-	public void getClientSyncContainerData(NBTTagCompound compound) {
-		compound.setInteger("test", clientTestInteger);
+	public void getServerSyncContainerData(NBTTagCompound compound) {
+		compound.setInteger("int", serverTestInteger);
 	}
 	
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void handleFromServerSyncContainerData(NBTTagCompound compound) {
 		clientTestInteger = compound.getInteger("int");
