@@ -51,7 +51,7 @@ public class UCoreMain {
 	// fml events
 	
 	@EventHandler
-	public void preinit(FMLConstructionEvent event) {
+	public void construct(FMLConstructionEvent event) {
 		proxy.construct(event);
 	}
 	
