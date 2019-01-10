@@ -16,14 +16,18 @@
 
 package info.u_team.u_team_core.block;
 
+import org.apache.commons.lang3.tuple.Pair;
+
 import info.u_team.u_team_core.creativetab.UCreativeTab;
 import info.u_team.u_team_core.tileentity.UTileEntityProvider;
 import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
+import net.minecraft.world.chunk.Chunk;
 
 /**
  * Block API<br>
@@ -55,6 +59,32 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 	@Override
 	public TileEntity createNewTileEntity(World world, int meta) {
 		return provider.create(world, meta);
+	}
+	
+	public boolean openContainer(Object mod, int gui, World world, BlockPos pos, EntityPlayer player) {
+		if (world.isRemote)
+			// Need to return true here, cause else it will create two instances of our gui
+			// which may cause bugs. The method onBlockActivated must return this value
+			// correctly!
+			return true;
+		if (!isTileEntityFromProvider(world, pos).getLeft()) {
+			return false;
+		}
+		if (player.isSneaking()) {
+			return false;
+		}
+		player.openGui(mod, gui, world, pos.getX(), pos.getY(), pos.getZ());
+		return true;
+	}
+	
+	public TileEntity getTileEntitySave(IBlockAccess world, BlockPos pos) {
+		return world instanceof ChunkCache ? ((ChunkCache) world).getTileEntity(pos, Chunk.EnumCreateEntityType.CHECK) : world.getTileEntity(pos); // Get tileentity without forcing to create one if its a chunkcache
+	}
+	
+	public Pair<Boolean, TileEntity> isTileEntityFromProvider(IBlockAccess world, BlockPos pos) {
+		TileEntity tileentity = world.getTileEntity(pos);
+		boolean isValid = tileentity != null && provider.getTileEntityClass().isAssignableFrom(tileentity.getClass());
+		return Pair.of(isValid, tileentity);
 	}
 	
 }

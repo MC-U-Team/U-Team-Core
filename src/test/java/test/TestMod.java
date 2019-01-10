@@ -83,6 +83,8 @@ public class TestMod {
 	
 	public static UBlock syncedTeTest = new BlockTileEntityTest("syncedte");
 	
+	public static UBlock testTeBuggy = new BlockTileEntityTestBuggy("testtebuggy");
+	
 	@SidedProxy(clientSide = "test.ClientProxyTest", serverSide = "test.CommonProxyTest")
 	public static CommonProxyTest proxy;
 	
@@ -108,6 +110,7 @@ public class TestMod {
 		
 		BlockRegistry.register("test", asyncTeTest);
 		BlockRegistry.register("test", syncedTeTest);
+		BlockRegistry.register("test", testTeBuggy);
 	}
 	
 	@EventHandler

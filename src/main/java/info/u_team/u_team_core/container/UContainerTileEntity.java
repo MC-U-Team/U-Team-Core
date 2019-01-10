@@ -49,8 +49,12 @@ public class UContainerTileEntity extends UContainer {
 	@Override
 	public void addListener(IContainerListener listener) {
 		super.addListener(listener);
-		if (listener instanceof EntityPlayerMP && tileentity instanceof ISyncedContainerTileEntity && lastCompound != null) {
+		if (listener instanceof EntityPlayerMP && tileentity instanceof ISyncedContainerTileEntity) {
 			ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
+			if (lastCompound == null) {
+				lastCompound = new NBTTagCompound();
+				synced.getServerSyncContainerData(lastCompound);
+			}
 			synced.sendMessageToClient((EntityPlayerMP) listener, tileentity.getPos(), lastCompound);
 		}
 	}

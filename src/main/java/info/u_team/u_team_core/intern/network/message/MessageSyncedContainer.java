@@ -103,11 +103,13 @@ public class MessageSyncedContainer implements IMessage {
 				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
 				minecraft.addScheduledTask(() -> synced.handleFromServerSyncContainerData(compound));
 			}
-			GuiScreen gui = minecraft.currentScreen;
-			if (gui instanceof UGuiContainerTileEntity) {
-				UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
-				minecraft.addScheduledTask(() -> guicontainer.handleServerData(compound));
-			}
+			minecraft.addScheduledTask(() -> {
+				GuiScreen gui = minecraft.currentScreen;
+				if (gui instanceof UGuiContainerTileEntity) {
+					UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
+					minecraft.addScheduledTask(() -> guicontainer.handleServerData(compound)); // Send it to gui the next tick (This might not be the best method)
+				}
+			});
 		}
 		
 		private void handleServer(BlockPos pos, NBTTagCompound compound, MessageContext ctx) {

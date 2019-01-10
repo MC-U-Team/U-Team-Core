@@ -31,8 +31,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  */
 public class UTileEntityProvider {
 	
-	private Class<? extends TileEntity> tileentity;
-	private Object objects[];
+	private final Class<? extends TileEntity> tileentity;
+	private final Object objects[];
 	
 	public UTileEntityProvider(ResourceLocation location, Class<? extends TileEntity> tileentity, Object... objects) {
 		this(location, true, tileentity, objects);
@@ -45,6 +45,10 @@ public class UTileEntityProvider {
 		if (shouldRegister) {
 			GameRegistry.registerTileEntity(tileentity, location);
 		}
+	}
+	
+	public Class<? extends TileEntity> getTileEntityClass() {
+		return tileentity;
 	}
 	
 	public TileEntity create(World world, int meta) {
