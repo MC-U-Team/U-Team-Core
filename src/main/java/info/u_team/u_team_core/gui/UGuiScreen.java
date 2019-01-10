@@ -17,6 +17,7 @@
 package info.u_team.u_team_core.gui;
 
 import net.minecraft.client.gui.GuiScreen;
+import net.minecraftforge.fml.relauncher.*;
 
 /**
  * Gui API<br>
@@ -25,6 +26,7 @@ import net.minecraft.client.gui.GuiScreen;
  * @date 17.08.2017
  * @author MrTroble
  */
+@SideOnly(Side.CLIENT)
 public class UGuiScreen extends GuiScreen {
 	
 }

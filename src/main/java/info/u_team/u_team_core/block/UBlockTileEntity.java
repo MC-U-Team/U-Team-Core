@@ -62,6 +62,10 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 	}
 	
 	public boolean openContainer(Object mod, int gui, World world, BlockPos pos, EntityPlayer player) {
+		return openContainer(mod, gui, world, pos, player, false);
+	}
+	
+	public boolean openContainer(Object mod, int gui, World world, BlockPos pos, EntityPlayer player, boolean canOpenSneak) {
 		if (world.isRemote)
 			// Need to return true here, cause else it will create two instances of our gui
 			// which may cause bugs. The method onBlockActivated must return this value
@@ -70,8 +74,8 @@ public class UBlockTileEntity extends UBlock implements ITileEntityProvider {
 		if (!isTileEntityFromProvider(world, pos).getLeft()) {
 			return false;
 		}
-		if (player.isSneaking()) {
-			return false;
+		if (!canOpenSneak && player.isSneaking()) {
+			return true;
 		}
 		player.openGui(mod, gui, world, pos.getX(), pos.getY(), pos.getZ());
 		return true;

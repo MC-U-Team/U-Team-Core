@@ -20,6 +20,7 @@ import info.u_team.u_team_core.container.UContainerTileEntity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.*;
 
 /**
  * Gui API<br>
@@ -28,6 +29,7 @@ import net.minecraft.util.ResourceLocation;
  * @date 04.01.2019
  * @author HyCraftHD
  */
+@SideOnly(Side.CLIENT)
 public class UGuiContainerTileEntity extends UGuiContainer {
 	
 	protected final TileEntity tileentity;
@@ -38,6 +40,10 @@ public class UGuiContainerTileEntity extends UGuiContainer {
 		super(container, background);
 		tileentity = container.getTileentity();
 		handleNextSync = true;
+	}
+	
+	// This might be buggy cause initGui might not have run already
+	public void handleServerDataInstant(NBTTagCompound compound) {
 	}
 	
 	public void handleServerData(NBTTagCompound compound) {

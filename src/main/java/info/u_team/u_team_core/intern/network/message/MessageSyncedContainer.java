@@ -107,6 +107,7 @@ public class MessageSyncedContainer implements IMessage {
 				GuiScreen gui = minecraft.currentScreen;
 				if (gui instanceof UGuiContainerTileEntity) {
 					UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
+					guicontainer.handleServerDataInstant(compound);
 					minecraft.addScheduledTask(() -> guicontainer.handleServerData(compound)); // Send it to gui the next tick (This might not be the best method)
 				}
 			});
