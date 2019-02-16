@@ -12,7 +12,7 @@ import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscor
 import net.minecraft.world.dimension.Dimension;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.versions.forge.ForgeVersion;
+import net.minecraftforge.versions.mcp.MCPVersion;
 
 @OnlyIn(Dist.CLIENT)
 public class DiscordRichPresence {
@@ -31,10 +31,7 @@ public class DiscordRichPresence {
 	private static TimerTask task;
 	
 	static {
-		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-			System.out.println("----------------------------------------------------");
-			stop();
-		}));
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> stop(), "Discord Rich Presence Stop Thread"));
 	}
 	
 	public static void start() {
@@ -94,7 +91,7 @@ public class DiscordRichPresence {
 	public static void setState(State state) {
 		current = state;
 		Builder builder = new Builder();
-		builder.setDetails(ForgeVersion.getVersion() + " with " + ModList.get().size() + " Mods");
+		builder.setDetails(MCPVersion.getMCVersion() + " with " + ModList.get().size() + " Mods");
 		builder.setState(state.getState().getMessage(state.getReplace()));
 		builder.setStartTimestamp(time);
 		builder.setLargeImage(state.getState().getImageKey(), state.getState().getImageName(state.getReplace()));

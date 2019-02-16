@@ -148,6 +148,10 @@ curseforge {
     	releaseType = config.curse.type
 
 		addGameVersion config.forge.mcversion
+		
+		options {
+		    forgeGradleIntegration = false
+		}
 
     	mainArtifact(jar) {
       		displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}"
