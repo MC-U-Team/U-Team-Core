@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.intern.proxy;
 
+import info.u_team.u_team_core.intern.config.ClientConfig;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
 import net.minecraftforge.api.distmarker.*;
 
@@ -7,7 +8,9 @@ import net.minecraftforge.api.distmarker.*;
 public class ClientProxy {
 	
 	public static void setup() {
-		DiscordRichPresence.start();
+		if (ClientConfig.getInstance().discordRichPresence.get()) {
+			DiscordRichPresence.start();
+		}
 	}
 	
 }
