@@ -11,9 +11,13 @@ public class UBlock extends Block implements IUBlock {
 	protected final ItemBlock itemblock;
 	
 	public UBlock(String name, Properties properties) {
+		this(name, null, properties);
+	}
+	
+	public UBlock(String name, ItemGroup group, Properties properties) {
 		super(properties);
 		this.name = name;
-		this.itemblock = new ItemBlock(this, new Item.Properties());
+		this.itemblock = new ItemBlock(this, group == null ? new Item.Properties() : new Item.Properties().group(group));
 	}
 	
 	public UBlock(String name, Properties properties, ItemBlock itemblock) {

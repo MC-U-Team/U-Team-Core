@@ -7,24 +7,36 @@ credits="Team U-Team"
 authors="HyCraftHD, MrTroble"
 
 [[mods]]
-modId="uteamcore"
-version="2.3.0-beta"
-displayName="U Team Core"
-updateJSONURL="https://api.u-team.info/update/uteamcore.json"
-description='''
-This libary contains many useful modding stuff!
-'''
-
-[[dependencies.uteamcore]]
-    modId="forge"
-    mandatory=true
-    versionRange="[25,)"
-    ordering="NONE"
-    side="BOTH"
-
-[[dependencies.uteamcore]]
-    modId="minecraft"
-    mandatory=true
-    versionRange="[1.13.2]"
-    ordering="NONE"
-    side="BOTH"
+	modId="uteamcore"
+	version="${jarVersion}"
+	displayName="U Team Core"
+	updateJSONURL="https://api.u-team.info/update/uteamcore.json"
+	description="This libary contains many useful modding stuff!"
+	
+	[[dependencies.uteamcore]]
+	    modId="forge"
+	    mandatory=true
+	    versionRange="[25,)"
+	    ordering="NONE"
+	    side="BOTH"
+	
+	[[dependencies.uteamcore]]
+	    modId="minecraft"
+	    mandatory=true
+	    versionRange="[1.13.2]"
+	    ordering="NONE"
+	    side="BOTH"
+    
+    
+[[mods]]
+	modId="uteamtest"
+	version="1.0.0"
+	displayName="U Team Test"
+	description="This is just a test mod to test uteamcore"
+	
+	[[dependencies.uteamtest]]
+	    modId="uteamcore"
+	    mandatory=true
+	    versionRange="jarVersion"
+	    ordering="NONE"
+	    side="BOTH"

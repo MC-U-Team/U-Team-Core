@@ -9,9 +9,10 @@ import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.IForgeRegistry;
 
-@EventBusSubscriber(modid = UCoreMain.modid)
+@EventBusSubscriber(modid = UCoreMain.modid, bus = Bus.MOD)
 public class BlockRegistry {
 	
 	static List<Block> blocks = new ArrayList<>();

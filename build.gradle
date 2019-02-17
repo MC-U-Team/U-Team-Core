@@ -54,10 +54,12 @@ minecraft {
             //properties "forge.logging.console.level": "debug"
             workingDirectory project.file("run").canonicalPath
             source sourceSets.main
+			source sourceSets.test
         }
         server = {
             workingDirectory project.file("run").canonicalPath
             source sourceSets.main
+			source sourceSets.test
         }
     }
 }
