@@ -18,10 +18,9 @@ public class ItemRegistry {
 	public static void register(String modid, Item item) {
 		if (item instanceof IUItem) {
 			IUItem iuitem = (IUItem) item;
-			item.setRegistryName(modid, iuitem.getName());
+			item.setRegistryName(modid, iuitem.getEntryName());
 		}
 		items.add(item);
-		
 	}
 	
 	public static void register(String modid, Collection<Item> list) {
