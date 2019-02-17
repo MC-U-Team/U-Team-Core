@@ -2,13 +2,13 @@ modLoader="javafml"
 loaderVersion="[25,)"
 issueTrackerURL="https://github.com/MC-U-Team/U-Team-Core/issues"
 displayURL="https://u-team.info/mods/uteamcore"
-#logoFile="logo.png" We cant use the logo, cause the image will not be rescaled
+#logoFile="logo.png" #We cant use the logo, cause the image will not be rescaled
 credits="Team U-Team"
 authors="HyCraftHD, MrTroble"
 
 [[mods]]
 	modId="uteamcore"
-	version="${jarVersion}"
+	version="${file.jarVersion}"
 	displayName="U Team Core"
 	updateJSONURL="https://api.u-team.info/update/uteamcore.json"
 	description="This libary contains many useful modding stuff!"
@@ -37,6 +37,6 @@ authors="HyCraftHD, MrTroble"
 	[[dependencies.uteamtest]]
 	    modId="uteamcore"
 	    mandatory=true
-	    versionRange="jarVersion"
+	    versionRange="${file.jarVersion}"
 	    ordering="NONE"
 	    side="BOTH"

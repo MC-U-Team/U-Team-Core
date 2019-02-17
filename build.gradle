@@ -66,10 +66,14 @@ minecraft {
 
 def normalManifest = {
 	attributes(
+		"Specification-Title": config.mod.name,
+        "Specification-Vendor": "Team UTeam",
+        "Specification-Version": "25.0",
+		"Built-On": config.forge.mcversion,
 		"Implementation-Title": config.mod.name,
     	"Implementation-Version": project.version,
-		"Built-On": config.forge.mcversion,
-		//"FMLAT": "uteamcore_at.cfg"
+		"Implementation-Vendor": "Team UTeam",
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
 	)
 }
 
