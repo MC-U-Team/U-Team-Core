@@ -12,9 +12,9 @@ public class TestMod {
 	public static final String modid = "uteamtest";
 	
 	public TestMod() {
+		System.out.println("HALLL DIES IST EIN START VON EINEM TEST! -----------------------------------------------------------------");
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
 		CommonProxy.construct();
-		System.out.println("----------------------------------TEST MOAD ABOUNT TO LOAD ------------------------------");
 	}
 	
 	@SubscribeEvent
