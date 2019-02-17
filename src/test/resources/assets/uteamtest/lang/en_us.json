@@ -1,5 +1,6 @@
 {
 	"itemGroup.uteamtest:group": "UTeamTest Tab",
 	"item.uteamtest.basicitem": "Basic Item",
+	"item.uteamtest.basicitem.outofrange": "\u00A74Out of range",
 	"block.uteamtest.basicblock": "Basic Block"
 }
