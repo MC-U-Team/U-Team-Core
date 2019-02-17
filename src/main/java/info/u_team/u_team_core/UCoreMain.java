@@ -16,7 +16,6 @@ public class UCoreMain {
 	public static final Logger logger = LogManager.getLogger("UTeamCore");
 	
 	public UCoreMain() {
-		System.out.println("................................................................................................");
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
 		CommonProxy.construct();
 	}

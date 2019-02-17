@@ -14,7 +14,7 @@ public class BlockBasic extends UBlock {
 	
 	@Override
 	protected ItemBlock createItemBlock(ItemGroup group) {
-		return new ItemBlock(this, new Item.Properties().rarity(EnumRarity.UNCOMMON).group(TestItemGroups.group));
+		return new ItemBlock(this, new Item.Properties().rarity(EnumRarity.UNCOMMON).group(group));
 	}
 	
 }
