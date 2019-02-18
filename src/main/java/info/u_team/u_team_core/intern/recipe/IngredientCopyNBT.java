@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import com.google.gson.JsonObject;
 
+import info.u_team.u_team_core.intern.init.UCoreRecipes;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
@@ -30,6 +31,10 @@ public class IngredientCopyNBT extends Ingredient {
 	@Override
 	public boolean isSimple() {
 		return false;
+	}
+	
+	public IIngredientSerializer<? extends Ingredient> getSerializer() {
+		return UCoreRecipes.INGREDIENT_COPY_NBT;
 	}
 	
 	public static class Serializer implements IIngredientSerializer<IngredientCopyNBT> {
