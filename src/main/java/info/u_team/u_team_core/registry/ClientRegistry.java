@@ -14,40 +14,12 @@ public class ClientRegistry {
 		RenderingRegistry.registerEntityRenderingHandler(clazz, rendererFactory);
 	}
 	
-	public static void registerKeybinding(KeyBinding key) {
-		net.minecraftforge.fml.client.registry.ClientRegistry.registerKeyBinding(key);
-	}
-	
-	// public static void registerModel(Item item) {
-	// registerModel(item, 0);
-	// }
-	//
-	// public static void registerModel(Block block) {
-	// registerModel(block, 0);
-	// }
-	//
-	// public static void registerModel(Item item, int meta) {
-	// registerModel(item, meta, new ModelResourceLocation(item.getRegistryName(),
-	// "inventory"));
-	// }
-	//
-	// public static void registerModel(Block block, int meta) {
-	// registerModel(block, meta, new ModelResourceLocation(block.getRegistryName(),
-	// "inventory"));
-	// }
-	//
-	// public static void registerModel(Item item, int meta, ModelResourceLocation
-	// location) {
-	// ModelLoader.setCustomModelResourceLocation(item, meta, location);
-	// }
-	//
-	// public static void registerModel(Block block, int meta, ModelResourceLocation
-	// location) {
-	// registerModel(Item.getItemFromBlock(block), meta, location);
-	// }
-	
 	public static <T extends TileEntity> void registerSpecialTileEntityRenderer(Class<T> clazz, TileEntityRenderer<? super T> renderer) {
 		net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntitySpecialRenderer(clazz, renderer);
+	}
+	
+	public static void registerKeybinding(KeyBinding key) {
+		net.minecraftforge.fml.client.registry.ClientRegistry.registerKeyBinding(key);
 	}
 	
 }
