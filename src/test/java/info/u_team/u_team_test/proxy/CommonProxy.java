@@ -7,6 +7,7 @@ public class CommonProxy {
 	public static void construct() {
 		TestItems.construct();
 		TestBlocks.construct();
+		TestGuis.contruct();
 	}
 	
 	public static void setup() {
