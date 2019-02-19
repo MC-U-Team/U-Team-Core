@@ -50,16 +50,29 @@ minecraft {
     mappings channel: config.forge.mapping_channel, version: config.forge.mapping
     runs {
         client = {
-            //properties "forge.logging.markers": "SCAN,REGISTRIES,REGISTRYDUMP"
-            //properties "forge.logging.console.level": "debug"
             workingDirectory project.file("run").canonicalPath
-            source sourceSets.main
-			source sourceSets.test
+			
+			mods {
+                uteamcore {
+                    source sourceSets.main
+                }
+				
+				uteamtest {
+                    source sourceSets.test
+                }
+            }
         }
         server = {
             workingDirectory project.file("run").canonicalPath
-            source sourceSets.main
-			source sourceSets.test
+            mods {
+                uteamcore {
+                    source sourceSets.main
+                }
+				
+				uteamtest {
+                    source sourceSets.test
+                }
+            }
         }
     }
 }

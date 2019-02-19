@@ -26,17 +26,3 @@ authors="HyCraftHD, MrTroble"
 	    versionRange="[1.13.2]"
 	    ordering="NONE"
 	    side="BOTH"
-    
-    
-[[mods]]
-	modId="uteamtest"
-	version="1.0.0"
-	displayName="U Team Test"
-	description="This is just a test mod to test uteamcore"
-	
-	[[dependencies.uteamtest]]
-	    modId="uteamcore"
-	    mandatory=true
-	    versionRange="${file.jarVersion}"
-	    ordering="NONE"
-	    side="BOTH"
