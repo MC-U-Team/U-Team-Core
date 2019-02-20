@@ -2,7 +2,7 @@ package info.u_team.u_team_core.tileentity;
 
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.*;
 import net.minecraft.world.IInteractionObject;
 
 public abstract class UTileEntityContainer extends UTileEntity implements IInteractionObject {
@@ -12,18 +12,18 @@ public abstract class UTileEntityContainer extends UTileEntity implements IInter
 	}
 	
 	@Override
+	public boolean hasCustomName() {
+		return false;
+	}
+	
+	@Override
 	public ITextComponent getCustomName() {
 		return null;
 	}
 	
 	@Override
 	public ITextComponent getName() {
-		return null;
-	}
-	
-	@Override
-	public boolean hasCustomName() {
-		return false;
+		return new TextComponentString(getType().getRegistryName().toString());
 	}
 	
 	@Override
