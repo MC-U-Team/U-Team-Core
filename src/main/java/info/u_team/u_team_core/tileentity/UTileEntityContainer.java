@@ -5,9 +5,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IInteractionObject;
 
-public abstract class UTileEntityGui extends UTileEntity implements IInteractionObject {
+public abstract class UTileEntityContainer extends UTileEntity implements IInteractionObject {
 	
-	public UTileEntityGui(TileEntityType<?> type) {
+	public UTileEntityContainer(TileEntityType<?> type) {
 		super(type);
 	}
 	

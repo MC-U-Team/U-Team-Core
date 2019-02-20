@@ -4,6 +4,7 @@ import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.api.registry.IUBlock;
+import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.RegistryEvent;
@@ -33,6 +34,10 @@ public class BlockRegistry {
 	
 	public static void register(String modid, Collection<Block> list) {
 		list.forEach(block -> register(modid, block));
+	}
+	
+	public static void register(String modid, Class<?> clazz) {
+		register(modid, RegistryUtil.getRegistryEntries(Block.class, clazz));
 	}
 	
 	@SubscribeEvent

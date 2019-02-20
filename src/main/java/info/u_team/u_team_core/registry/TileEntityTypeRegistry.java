@@ -4,7 +4,8 @@ import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.api.registry.IUTileEntityType;
-import net.minecraft.tileentity.*;
+import info.u_team.u_team_core.util.RegistryUtil;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -26,6 +27,11 @@ public class TileEntityTypeRegistry {
 	
 	public static void register(String modid, Collection<TileEntityType<?>> list) {
 		list.forEach(tileentitytype -> register(modid, tileentitytype));
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static void register(String modid, Class<?> clazz) {
+		register(modid, (TileEntityType<?>) RegistryUtil.getRegistryEntries(TileEntityType.class, clazz));
 	}
 	
 	@SubscribeEvent

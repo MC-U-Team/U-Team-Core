@@ -1,9 +1,13 @@
 package info.u_team.u_team_test.container;
 
+import java.util.List;
+
 import info.u_team.u_team_core.container.UContainer;
 import info.u_team.u_team_test.tileentity.TileEntityTileEntity;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.*;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 
 public class ContainerTileEntity extends UContainer {
 	
@@ -11,11 +15,11 @@ public class ContainerTileEntity extends UContainer {
 		
 		IInventory inventoryBasic = tileentity;
 		
-		System.out.println(inventorySlots);
-		System.out.println(inventoryItemStacks);
-		
-		System.out.println(inventorySlots.size());
-		System.out.println(inventoryItemStacks.size());
+		// System.out.println(inventorySlots);
+		// System.out.println(inventoryItemStacks);
+		//
+		// System.out.println(inventorySlots.size());
+		// System.out.println(inventoryItemStacks.size());
 		
 		for (int height = 0; height < 2; height++) {
 			for (int width = 0; width < 9; width++) {
@@ -25,6 +29,27 @@ public class ContainerTileEntity extends UContainer {
 		
 		appendPlayerInventory(inventoryPlayer, 5, 80);
 		
+	}
+	
+	@Override
+	public void setAll(List<ItemStack> p_190896_1_) {
+		System.out.println("SET STACKS ON CLIENT");
+		
+		System.out.println(p_190896_1_);
+		System.out.println(p_190896_1_.size());
+		
+		super.setAll(p_190896_1_);
+	}
+	
+	@Override
+	public NonNullList<ItemStack> getInventory() {
+		System.out.println("GET STACKS ON SERVER");
+		NonNullList<ItemStack> stacks = super.getInventory();
+		
+		System.out.println(stacks);
+		System.out.println(stacks.size());
+		
+		return stacks;
 	}
 	
 }

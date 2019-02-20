@@ -4,7 +4,6 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import info.u_team.u_team_core.UCoreMain;
-import net.minecraft.tileentity.*;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class RegistryUtil {
@@ -19,11 +18,6 @@ public class RegistryUtil {
 			}
 			return null;
 		}).collect(Collectors.toList());
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static List<TileEntityType<?>> getRegistryEntriesTileEntity(Class<?> init) {
-		return getRegistryEntries(TileEntityType.class, init);
 	}
 	
 }

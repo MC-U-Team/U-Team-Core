@@ -33,6 +33,7 @@ public class IngredientCopyNBT extends Ingredient {
 		return false;
 	}
 	
+	@Override
 	public IIngredientSerializer<? extends Ingredient> getSerializer() {
 		return UCoreRecipes.INGREDIENT_COPY_NBT;
 	}

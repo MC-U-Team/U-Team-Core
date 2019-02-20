@@ -50,30 +50,37 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 		
 	}
 	
+	@Override
 	public ResourceLocation getId() {
 		return this.id;
 	}
 	
+	@Override
 	public IRecipeSerializer<?> getSerializer() {
 		return UCoreRecipes.CRAFTING_SPECIAL_COPY_NBT;
 	}
 	
+	@Override
 	public String getGroup() {
 		return this.group;
 	}
 	
+	@Override
 	public ItemStack getRecipeOutput() {
 		return this.recipeOutput;
 	}
 	
+	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		return this.recipeItems;
 	}
 	
+	@Override
 	public boolean canFit(int width, int height) {
 		return width >= this.recipeWidth && height >= this.recipeHeight;
 	}
 	
+	@Override
 	public boolean matches(IInventory inv, World worldIn) {
 		for (int i = 0; i <= inv.getWidth() - this.recipeWidth; ++i) {
 			for (int j = 0; j <= inv.getHeight() - this.recipeHeight; ++j) {
@@ -111,6 +118,7 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 		return true;
 	}
 	
+	@Override
 	public ItemStack getCraftingResult(IInventory inv) {
 		ItemStack nbtstack = getNBTStack(inv);
 		NBTTagCompound compound = !nbtstack.isEmpty() ? nbtstack.getTag() : null;
@@ -285,7 +293,7 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 		
 		for (Entry<String, JsonElement> entry : json.entrySet()) {
 			if (entry.getKey().length() != 1) {
-				throw new JsonSyntaxException("Invalid key entry: '" + (String) entry.getKey() + "' is an invalid symbol (must be 1 character only).");
+				throw new JsonSyntaxException("Invalid key entry: '" + entry.getKey() + "' is an invalid symbol (must be 1 character only).");
 			}
 			
 			if (" ".equals(entry.getKey())) {
@@ -323,6 +331,7 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 			this.name = new ResourceLocation(name);
 		}
 		
+		@Override
 		public RecipeShapedCopyNBT read(ResourceLocation recipeId, JsonObject json) {
 			String s = JsonUtils.getString(json, "group", "");
 			Map<String, Ingredient> map = RecipeShapedCopyNBT.deserializeKey(JsonUtils.getJsonObject(json, "key"));
@@ -339,6 +348,7 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 			return name;
 		}
 		
+		@Override
 		public RecipeShapedCopyNBT read(ResourceLocation recipeId, PacketBuffer buffer) {
 			int i = buffer.readVarInt();
 			int j = buffer.readVarInt();
@@ -354,6 +364,7 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 			return new RecipeShapedCopyNBT(recipeId, s, i, j, nonnulllist, itemstack);
 		}
 		
+		@Override
 		public void write(PacketBuffer buffer, RecipeShapedCopyNBT recipe) {
 			buffer.writeVarInt(recipe.recipeWidth);
 			buffer.writeVarInt(recipe.recipeHeight);

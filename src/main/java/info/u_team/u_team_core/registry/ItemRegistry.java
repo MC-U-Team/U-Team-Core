@@ -4,6 +4,7 @@ import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.api.registry.IUItem;
+import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,6 +27,10 @@ public class ItemRegistry {
 	
 	public static void register(String modid, Collection<Item> list) {
 		list.forEach(item -> register(modid, item));
+	}
+	
+	public static void register(String modid, Class<?> clazz) {
+		register(modid, RegistryUtil.getRegistryEntries(Item.class, clazz));
 	}
 	
 	@SubscribeEvent

@@ -2,7 +2,6 @@ package info.u_team.u_team_core.block;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import info.u_team.u_team_test.tileentity.TileEntityTileEntity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.ItemGroup;
@@ -60,7 +59,9 @@ public class UBlockTileEntity extends UBlock {
 		}
 		
 		NetworkHooks.openGui(playermp, (IInteractionObject) tileentity, buf -> buf.writeBlockPos(pos));
-		playermp.sendAllContents(playermp.openContainer, ((TileEntityTileEntity)tileentity).getItems()); //not indended i think. Should be changed ? New forge version? //TODO
+		// playermp.sendAllContents(playermp.openContainer,
+		// ((TileEntityTileEntity)tileentity).getItems()); //not indended i think.
+		// Should be changed ? New forge version? //TODO
 		return true;
 	}
 	
