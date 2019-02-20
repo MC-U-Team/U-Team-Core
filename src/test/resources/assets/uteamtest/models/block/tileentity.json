@@ -1,0 +1,12 @@
+{
+	"parent": "block/cube",
+	"textures": {
+		"particle": "uteamtest:block/tileentity",
+		"down": "uteamtest:block/tileentity",
+		"up": "uteamtest:block/tileentity",
+		"north": "uteamtest:block/tileentity_front",
+		"east": "uteamtest:block/tileentity",
+		"south": "uteamtest:block/tileentity",
+		"west": "uteamtest:block/tileentity"
+	}
+}

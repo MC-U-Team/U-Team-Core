@@ -59,9 +59,7 @@ public class UBlockTileEntity extends UBlock {
 		}
 		
 		NetworkHooks.openGui(playermp, (IInteractionObject) tileentity, buf -> buf.writeBlockPos(pos));
-		// playermp.sendAllContents(playermp.openContainer,
-		// ((TileEntityTileEntity)tileentity).getItems()); //not indended i think.
-		// Should be changed ? New forge version? //TODO
+		playermp.sendAllContents(playermp.openContainer, playermp.openContainer.getInventory()); // not indended i think. Should be changed ? New forge version? //TODO
 		return true;
 	}
 	

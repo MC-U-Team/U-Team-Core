@@ -1,0 +1,27 @@
+{
+	"variants": {
+		"facing=north": {
+			"model": "uteamtest:block/tileentity"
+		},
+		"facing=south": {
+			"model": "uteamtest:block/tileentity",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "uteamtest:block/tileentity",
+			"y": 270
+		},
+		"facing=east": {
+			"model": "uteamtest:block/tileentity",
+			"y": 90
+		},
+		"facing=down": {
+			"model": "uteamtest:block/tileentity",
+			"x": 90
+		},
+		"facing=up": {
+			"model": "uteamtest:block/tileentity",
+			"x": 270
+		}
+	}
+}
