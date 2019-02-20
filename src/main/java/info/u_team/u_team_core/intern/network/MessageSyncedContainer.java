@@ -44,11 +44,12 @@ public class MessageSyncedContainer {
 		
 		public static void handle(MessageSyncedContainer message, Supplier<NetworkEvent.Context> ctxSupplier) {
 			Context ctx = ctxSupplier.get();
-			if (ctx.getDirection().getLogicalSide() == LogicalSide.CLIENT) {
+			if (ctx.getDirection().getLogicalSide() == LogicalSide.SERVER) {
 				handleClient(message.pos, message.compound, ctx);
 			} else {
 				handleServer(message.pos, message.compound, ctx);
 			}
+			ctx.setPacketHandled(true);
 		}
 		
 		@OnlyIn(Dist.CLIENT)

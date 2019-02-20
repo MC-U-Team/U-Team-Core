@@ -2,6 +2,8 @@ package info.u_team.u_team_test.tileentity;
 
 import java.util.Iterator;
 
+import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
+import info.u_team.u_team_core.tileentity.UTileEntityContainer;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.ContainerTileEntity;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
@@ -9,11 +11,10 @@ import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.util.*;
-import net.minecraft.util.text.*;
+import net.minecraftforge.api.distmarker.*;
 
-public class TileEntityTileEntity extends TileEntityLockableLoot implements IInventory {
+public class TileEntityTileEntity extends UTileEntityContainer implements IInventory, ISyncedContainerTileEntity, ITickable {
 	
 	private NonNullList<ItemStack> list;
 	
@@ -22,40 +23,51 @@ public class TileEntityTileEntity extends TileEntityLockableLoot implements IInv
 		list = NonNullList.withSize(18, ItemStack.EMPTY);
 	}
 	
+	private int value;
+	
+	public int valueClient;
+	
+	@Override
+	public void getServerSyncContainerData(NBTTagCompound compound) {
+		compound.setInt("value", value);
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void handleFromServerSyncContainerData(NBTTagCompound compound) {
+		valueClient = compound.getInt("value");
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void getClientSyncContainerData(NBTTagCompound compound) {
+		compound.setInt("value", valueClient);
+	}
+	
+	@Override
+	public void handleFromClientSyncContainerData(NBTTagCompound compound) {
+		value = compound.getInt("value");
+	}
+	
+	private int time;
+	
+	public void tick() {
+		if (time < 20) {
+			time++;
+			return;
+		}
+		time = 0;
+		value++;
+	}
+	
 	@Override
 	public Container createContainer(InventoryPlayer inventoryPlayer, EntityPlayer player) {
 		return new ContainerTileEntity(inventoryPlayer, this);
 	}
 	
-	// @Override
-	// public ResourceLocation getGui() {
-	// return new ResourceLocation(TestMod.modid, "tileentity");
-	// }
-	
 	@Override
-	public ITextComponent getName() {
-		return new TextComponentString("tileentity");
-	}
-	
-	@Override
-	public String getGuiID() {
-		return new ResourceLocation(TestMod.modid, "tileentity").toString();
-	}
-	
-	@Override
-	public NonNullList<ItemStack> getItems() {
-		return list;
-	}
-	
-	@Override
-	protected void setItems(NonNullList<ItemStack> items) {
-		list = NonNullList.withSize(list.size(), ItemStack.EMPTY);
-		
-		for (int i = 0; i < items.size(); i++) {
-			if (i < list.size()) {
-				this.getItems().set(i, list.get(i));
-			}
-		}
+	public ResourceLocation getGui() {
+		return new ResourceLocation(TestMod.modid, "tileentity");
 	}
 	
 	@Override
@@ -74,19 +86,6 @@ public class TileEntityTileEntity extends TileEntityLockableLoot implements IInv
 		System.out.println(compound);
 		return compound;
 	}
-	
-	// @Override
-	// public NBTTagCompound getUpdateTag() {
-	// NBTTagCompound compound = super.getUpdateTag();
-	// writeNBT(compound);
-	// return compound;
-	// }
-	//
-	// @Override
-	// public void handleUpdateTag(NBTTagCompound compound) {
-	// super.handleUpdateTag(compound);
-	// readNBT(compound);
-	// }
 	
 	@Override
 	public void clear() {

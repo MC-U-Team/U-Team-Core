@@ -13,7 +13,7 @@ public class UCoreNetwork {
 	public static final SimpleChannel network = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMain.modid, "network"), () -> protocol, protocol::equals, protocol::equals);
 	
 	public static void construct() {
-		network.registerMessage(0, MessageSyncedContainer.class, MessageSyncedContainer::encode, MessageSyncedContainer::decode, MessageSyncedContainer.Handler::handle);
+		network.registerMessage(1, MessageSyncedContainer.class, MessageSyncedContainer::encode, MessageSyncedContainer::decode, MessageSyncedContainer.Handler::handle);
 	}
 	
 }
