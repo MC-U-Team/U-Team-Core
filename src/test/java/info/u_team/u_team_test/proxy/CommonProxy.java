@@ -1,17 +1,24 @@
 package info.u_team.u_team_test.proxy;
 
+import info.u_team.u_team_core.api.IModProxy;
 import info.u_team.u_team_test.init.*;
 
-public class CommonProxy {
+public class CommonProxy implements IModProxy {
 	
-	public static void construct() {
+	@Override
+	public void construct() {
 		TestItems.construct();
 		TestBlocks.construct();
-		TestGuis.contruct();
+		TestTileEntityTypes.construct();
 	}
 	
-	public static void setup() {
+	@Override
+	public void setup() {
 		TestItemGroups.setup();
+	}
+	
+	@Override
+	public void complete() {
 	}
 	
 }

@@ -1,11 +1,17 @@
 package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_test.gui.GuiTileEntity;
+import info.u_team.u_team_test.tileentity.TileEntityTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.*;
 
+@OnlyIn(Dist.CLIENT)
 public class TestGuis {
 	
 	public static void contruct() {
@@ -13,9 +19,16 @@ public class TestGuis {
 			return (openContainer) -> {
 				ResourceLocation location = openContainer.getId();
 				
-				if (location.toString().equals("uteamtest:test")) {
+				if (location.toString().equals("uteamtest:tileentity")) {
 					EntityPlayerSP player = Minecraft.getInstance().player;
-					return new GuiTileEntity(player.inventory);
+					World world = player.getEntityWorld();
+					
+					BlockPos pos = openContainer.getAdditionalData().readBlockPos();
+					TileEntity tileentity = world.getTileEntity(pos);
+					if (tileentity instanceof TileEntityTileEntity) {
+						TileEntityTileEntity tileentitytilentity = (TileEntityTileEntity) tileentity;
+						return new GuiTileEntity(player.inventory, tileentitytilentity);
+					}
 				}
 				return null;
 			};
