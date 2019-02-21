@@ -2,6 +2,8 @@ package info.u_team.u_team_core.intern.network;
 
 import java.util.function.Supplier;
 
+import javax.sound.midi.Synthesizer;
+
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import info.u_team.u_team_core.gui.UGuiContainerTileEntity;
 import net.minecraft.client.Minecraft;
@@ -64,14 +66,26 @@ public class MessageSyncedContainer {
 				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
 				minecraft.addScheduledTask(() -> synced.handleFromServerSyncContainerData(compound));
 			}
-			minecraft.addScheduledTask(() -> {
-				GuiScreen gui = minecraft.currentScreen;
-				if (gui instanceof UGuiContainerTileEntity) {
-					UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
-					guicontainer.handleServerDataInstant(compound);
-					minecraft.addScheduledTask(() -> guicontainer.handleServerData(compound)); // Send it to gui the next tick (This might not be the best method)
-				}
-			});
+			
+			GuiScreen gui = minecraft.currentScreen;
+			
+			System.out.println(minecraft.player.openContainer);
+			
+			if (gui instanceof UGuiContainerTileEntity) {
+				UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
+				guicontainer.handleServerData(compound);
+			}
+			
+			// minecraft.addScheduledTask(() -> {
+			// GuiScreen gui = minecraft.currentScreen;
+			// if (gui instanceof UGuiContainerTileEntity) {
+			// UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
+			// guicontainer.handleServerDataInstant(compound);
+			// guicontainer.handleServerData(compound);
+			// //minecraft.addScheduledTask(() -> guicontainer.handleServerData(compound));
+			// // Send it to gui the next tick (This might not be the best method)
+			// }
+			// });
 		}
 		
 		private static void handleServer(BlockPos pos, NBTTagCompound compound, Context ctx) {

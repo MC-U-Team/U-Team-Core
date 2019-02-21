@@ -21,10 +21,6 @@ public class TestGuis {
 				
 				if (location.toString().equals("uteamtest:tileentity")) {
 					
-					System.out.println("NEW ID: " + openContainer.getWindowId());
-					
-					System.out.println("OUR ID: "+ Minecraft.getInstance().player.openContainer.windowId);
-					
 					EntityPlayerSP player = Minecraft.getInstance().player;
 					World world = player.getEntityWorld();
 					

@@ -23,36 +23,38 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 		list = NonNullList.withSize(18, ItemStack.EMPTY);
 	}
 	
-	private int value;
-	
-	public int valueClient;
+	public int cooldown, value;
 	
 	@Override
 	public void getServerSyncContainerData(NBTTagCompound compound) {
 		compound.setInt("value", value);
+		compound.setInt("cooldown", cooldown);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleFromServerSyncContainerData(NBTTagCompound compound) {
-		valueClient = compound.getInt("value");
+		value = compound.getInt("value");
+		cooldown = compound.getInt("cooldown");
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void getClientSyncContainerData(NBTTagCompound compound) {
-		compound.setInt("value", valueClient);
+		compound.setInt("value", value);
+		compound.setInt("cooldown", cooldown);
 	}
 	
 	@Override
 	public void handleFromClientSyncContainerData(NBTTagCompound compound) {
 		value = compound.getInt("value");
+		cooldown = compound.getInt("cooldown");
 	}
 	
 	private int time;
 	
 	public void tick() {
-		if (time < 20) {
+		if (time < cooldown) {
 			time++;
 			return;
 		}
@@ -71,20 +73,17 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	}
 	
 	@Override
-	public void read(NBTTagCompound compound) {
-		super.read(compound);
-		System.out.println(Thread.currentThread().getName() + " : READ NBT HAS BEED CALLED!");
-		System.out.println(compound);
+	public void readNBT(NBTTagCompound compound) {
 		ItemStackHelper.loadAllItems(compound, list);
+		value = compound.getInt("value");
+		cooldown = compound.getInt("cooldown");
 	}
 	
 	@Override
-	public NBTTagCompound write(NBTTagCompound compound) {
-		super.write(compound);
+	public void writeNBT(NBTTagCompound compound) {
 		ItemStackHelper.saveAllItems(compound, list);
-		System.out.println(Thread.currentThread().getName() + " : WRITE NBT HAS BEED CALLED!");
-		System.out.println(compound);
-		return compound;
+		compound.setInt("value", value);
+		compound.setInt("cooldown", cooldown);
 	}
 	
 	@Override
