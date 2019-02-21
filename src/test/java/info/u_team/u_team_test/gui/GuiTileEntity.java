@@ -17,10 +17,8 @@ public class GuiTileEntity extends UGuiContainerTileEntity {
 	
 	private TileEntityTileEntity tileentity;
 	
-	private GuiSlider slider;
-	
-	public GuiTileEntity(InventoryPlayer inventoryPlayer, TileEntityTileEntity tileentity) {
-		super(new ContainerTileEntity(inventoryPlayer, tileentity), new ResourceLocation(TestMod.modid, "textures/gui/tileentity.png"));
+	public GuiTileEntity(InventoryPlayer inventoryPlayer, TileEntityTileEntity tileentity, NBTTagCompound firstNBT) {
+		super(new ContainerTileEntity(inventoryPlayer, tileentity), new ResourceLocation(TestMod.modid, "textures/gui/tileentity.png"), firstNBT);
 		this.inventoryPlayer = inventoryPlayer;
 		this.tileentity = tileentity;
 		
@@ -29,9 +27,7 @@ public class GuiTileEntity extends UGuiContainerTileEntity {
 	}
 	
 	@Override
-	protected void initGui() {
-		super.initGui();
-		
+	public void initGui(NBTTagCompound compound) {
 		addButton(new GuiButtonExt(0, guiLeft + xSize / 2 - 25, guiTop + 3, 50, 15, "Add 100") {
 			
 			@Override
@@ -43,11 +39,15 @@ public class GuiTileEntity extends UGuiContainerTileEntity {
 			}
 		});
 		
-		addButton(slider = new GuiSlider(1, guiLeft + 7, guiTop + 19, 161, 20, "Cooldown", " Ticks", 0, 100, 0, false, true, action -> {
-			System.out.println("sync to server");
-			tileentity.cooldown = slider.getValueInt();
-			tileentity.syncClientToServer(tileentity.getPos());
-		}));
+		addButton(new GuiSlider(1, guiLeft + 7, guiTop + 19, 161, 20, "Cooldown: ", " Ticks", 0, 100, compound.getInt("cooldown"), false, true) {
+			
+			@Override
+			public void onRelease(double mouseX, double mouseY) {
+				super.onRelease(mouseX, mouseY);
+				tileentity.cooldown = this.getValueInt();
+				tileentity.syncClientToServer(tileentity.getPos());
+			}
+		});
 	}
 	
 	@Override
@@ -55,12 +55,6 @@ public class GuiTileEntity extends UGuiContainerTileEntity {
 		fontRenderer.drawString("" + tileentity.value, xSize / 2 + 32, 6, 4210752);
 		fontRenderer.drawString("Tile Entity", 8, 6, 4210752);
 		fontRenderer.drawString(inventoryPlayer.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
-	}
-	
-	@Override
-	public void handleServerDataOnFirstArrival(NBTTagCompound compound) {
-		slider.setValue(compound.getInt("cooldown"));
-		slider.updateSlider();
 	}
 	
 }

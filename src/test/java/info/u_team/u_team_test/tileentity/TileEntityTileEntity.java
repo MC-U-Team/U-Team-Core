@@ -26,40 +26,46 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	public int cooldown, value;
 	
 	@Override
-	public void getServerSyncContainerData(NBTTagCompound compound) {
+	public void writeOnContainerSyncServer(NBTTagCompound compound) {
 		compound.setInt("value", value);
 		compound.setInt("cooldown", cooldown);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void handleFromServerSyncContainerData(NBTTagCompound compound) {
+	public void readOnContainerSyncClient(NBTTagCompound compound) {
 		value = compound.getInt("value");
 		cooldown = compound.getInt("cooldown");
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void getClientSyncContainerData(NBTTagCompound compound) {
+	public void writeOnContainerSyncClient(NBTTagCompound compound) {
 		compound.setInt("value", value);
 		compound.setInt("cooldown", cooldown);
 	}
 	
 	@Override
-	public void handleFromClientSyncContainerData(NBTTagCompound compound) {
+	public void readOnContainerSyncServer(NBTTagCompound compound) {
 		value = compound.getInt("value");
-		cooldown = compound.getInt("cooldown");
+		cooldown = Math.min(compound.getInt("cooldown"), 100);
+		markDirty();
 	}
 	
-	private int time;
+	private int timer;
 	
 	public void tick() {
-		if (time < cooldown) {
-			time++;
+		if (world.isRemote) {
 			return;
 		}
-		time = 0;
+		
+		if (timer < cooldown) {
+			timer++;
+			return;
+		}
+		timer = 0;
 		value++;
+		markDirty();
 	}
 	
 	@Override

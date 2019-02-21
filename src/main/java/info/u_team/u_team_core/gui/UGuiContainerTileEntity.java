@@ -11,26 +11,28 @@ public class UGuiContainerTileEntity extends UGuiContainer {
 	
 	protected final TileEntity tileentity;
 	
-	protected boolean handleNextSync;
+	protected NBTTagCompound initNBT;
 	
 	public UGuiContainerTileEntity(UContainerTileEntity container, ResourceLocation background) {
+		this(container, background, null);
+	}
+	
+	public UGuiContainerTileEntity(UContainerTileEntity container, ResourceLocation background, NBTTagCompound firstNBT) {
 		super(container, background);
 		tileentity = container.getTileentity();
-		handleNextSync = true;
+		initNBT = firstNBT;
 	}
 	
-	// This might be buggy cause initGui might not have run already
-	public void handleServerDataInstant(NBTTagCompound compound) {
+	@Override
+	protected void initGui() {
+		super.initGui();
+		initGui(initNBT);
 	}
 	
-	public void handleServerData(NBTTagCompound compound) {
-		if (handleNextSync) {
-			handleNextSync = false;
-			handleServerDataOnFirstArrival(compound);
-		}
+	public void initGui(NBTTagCompound compound) {
 	}
 	
-	public void handleServerDataOnFirstArrival(NBTTagCompound compound) {
+	public void handleServerNBT(NBTTagCompound compound) {
+		initNBT = compound;
 	}
-	
 }

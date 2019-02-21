@@ -29,7 +29,7 @@ public class UContainerTileEntity extends UContainer {
 			ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
 			if (lastCompound == null) {
 				lastCompound = new NBTTagCompound();
-				synced.getServerSyncContainerData(lastCompound);
+				synced.writeOnContainerSyncServer(lastCompound);
 			}
 			synced.sendMessageToClient((EntityPlayerMP) listener, tileentity.getPos(), lastCompound);
 		}
@@ -42,7 +42,7 @@ public class UContainerTileEntity extends UContainer {
 			ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
 			
 			NBTTagCompound compound = new NBTTagCompound();
-			synced.getServerSyncContainerData(compound);
+			synced.writeOnContainerSyncServer(compound);
 			if (compound.equals(lastCompound)) {
 				return;
 			}

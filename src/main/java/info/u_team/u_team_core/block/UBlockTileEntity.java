@@ -2,9 +2,11 @@ package info.u_team.u_team_core.block;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
@@ -58,9 +60,22 @@ public class UBlockTileEntity extends UBlock {
 			return true;
 		}
 		
-		NetworkHooks.openGui(playermp, (IInteractionObject) tileentity, buf -> buf.writeBlockPos(pos));
-//		playermp.sendAllContents(playermp.openContainer, playermp.openContainer.getInventory()); // not indended i think. Should be changed ? New forge version? //TODO
+		NBTTagCompound compound = null;
+		if (tileentity instanceof ISyncedContainerTileEntity) {
+			compound = new NBTTagCompound();
+			((ISyncedContainerTileEntity) tileentity).writeOnGuiOpenServer(compound);
+		}
+		
+		final NBTTagCompound finalCompound = compound;
+		NetworkHooks.openGui(playermp, (IInteractionObject) tileentity, buf -> {
+			buf.writeBlockPos(pos);
+			if (finalCompound != null) {
+				buf.writeCompoundTag(finalCompound);
+			}
+		});
+		playermp.sendAllContents(playermp.openContainer, playermp.openContainer.getInventory()); // not indended i think. Should be changed ? New forge version? //TODO
 		return true;
+		
 	}
 	
 	public Pair<Boolean, TileEntity> isTileEntityFromProvider(IBlockReader world, BlockPos pos) {
