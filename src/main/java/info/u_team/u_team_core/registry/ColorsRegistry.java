@@ -9,12 +9,14 @@ import info.u_team.u_team_core.UCoreMain;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.color.*;
 import net.minecraft.util.IItemProvider;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = UCoreMain.modid, bus = Bus.MOD)
+@OnlyIn(Dist.CLIENT)
+@EventBusSubscriber(modid = UCoreMain.modid, bus = Bus.MOD, value = Dist.CLIENT)
 public class ColorsRegistry {
 	
 	static List<Pair<IBlockColor, Block[]>> blocks = new ArrayList<>();

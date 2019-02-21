@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.registry;
+package info.u_team.u_team_core.registry.util;
 
 import net.minecraftforge.common.MinecraftForge;
 

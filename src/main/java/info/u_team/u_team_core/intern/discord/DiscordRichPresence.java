@@ -5,7 +5,7 @@ import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.intern.event.EventHandlerUpdateDiscordRichPresence;
-import info.u_team.u_team_core.registry.CommonRegistry;
+import info.u_team.u_team_core.registry.util.CommonRegistry;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.RichPresence.Builder;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
