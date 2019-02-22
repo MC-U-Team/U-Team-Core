@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @OnlyIn(Dist.CLIENT)
-@EventBusSubscriber(modid = UCoreMain.modid, bus = Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = UCoreMain.modid, bus = Bus.FORGE, value = Dist.CLIENT)
 public class ColorsRegistry {
 	
 	static List<Pair<IBlockColor, Block[]>> blocks = new ArrayList<>();
