@@ -3,7 +3,7 @@ package info.u_team.u_team_core.registry;
 import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.api.registry.IUItem;
+import info.u_team.u_team_core.api.registry.IURegistry;
 import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.item.Item;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,8 +18,8 @@ public class ItemRegistry {
 	static List<Item> items = new ArrayList<>();
 	
 	public static void register(String modid, Item item) {
-		if (item instanceof IUItem) {
-			IUItem iuitem = (IUItem) item;
+		if (item instanceof IURegistry) {
+			IURegistry iuitem = (IURegistry) item;
 			item.setRegistryName(modid, iuitem.getEntryName());
 		}
 		items.add(item);

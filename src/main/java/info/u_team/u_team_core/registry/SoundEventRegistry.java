@@ -3,7 +3,7 @@ package info.u_team.u_team_core.registry;
 import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.api.registry.*;
+import info.u_team.u_team_core.api.registry.IURegistry;
 import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,8 +18,8 @@ public class SoundEventRegistry {
 	static List<SoundEvent> soundevents = new ArrayList<>();
 	
 	public static void register(String modid, SoundEvent soundevent) {
-		if (soundevent instanceof IUSoundEvent) {
-			IUSoundEvent iusoundevent = (IUSoundEvent) soundevent;
+		if (soundevent instanceof IURegistry) {
+			IURegistry iusoundevent = (IURegistry) soundevent;
 			soundevent.setRegistryName(modid, iusoundevent.getEntryName());
 		}
 		soundevents.add(soundevent);

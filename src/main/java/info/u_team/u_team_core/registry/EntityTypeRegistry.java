@@ -3,7 +3,7 @@ package info.u_team.u_team_core.registry;
 import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.api.registry.IUEntityType;
+import info.u_team.u_team_core.api.registry.IURegistry;
 import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,8 +18,8 @@ public class EntityTypeRegistry {
 	static List<EntityType<?>> tileentitytypes = new ArrayList<>();
 	
 	public static void register(String modid, EntityType<?> entitytype) {
-		if (entitytype instanceof IUEntityType) {
-			IUEntityType iuentitytype = (IUEntityType) entitytype;
+		if (entitytype instanceof IURegistry) {
+			IURegistry iuentitytype = (IURegistry) entitytype;
 			entitytype.setRegistryName(modid, iuentitytype.getEntryName());
 		}
 		tileentitytypes.add(entitytype);

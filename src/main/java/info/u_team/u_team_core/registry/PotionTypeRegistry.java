@@ -3,7 +3,7 @@ package info.u_team.u_team_core.registry;
 import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.api.registry.IUPotion;
+import info.u_team.u_team_core.api.registry.IURegistry;
 import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.potion.PotionType;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,8 +18,8 @@ public class PotionTypeRegistry {
 	static List<PotionType> potiontypes = new ArrayList<>();
 	
 	public static void register(String modid, PotionType potiontype) {
-		if (potiontype instanceof IUPotion) {
-			IUPotion iupotiontype = (IUPotion) potiontype;
+		if (potiontype instanceof IURegistry) {
+			IURegistry iupotiontype = (IURegistry) potiontype;
 			potiontype.setRegistryName(modid, iupotiontype.getEntryName());
 		}
 		potiontypes.add(potiontype);

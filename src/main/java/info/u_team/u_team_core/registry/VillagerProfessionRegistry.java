@@ -3,7 +3,7 @@ package info.u_team.u_team_core.registry;
 import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.api.registry.IUPotion;
+import info.u_team.u_team_core.api.registry.IURegistry;
 import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -18,8 +18,8 @@ public class VillagerProfessionRegistry {
 	static List<VillagerProfession> villagerprofessions = new ArrayList<>();
 	
 	public static void register(String modid, VillagerProfession villagerprofession) {
-		if (villagerprofession instanceof IUPotion) {
-			IUPotion iuvillagerprofession = (IUPotion) villagerprofession;
+		if (villagerprofession instanceof IURegistry) {
+			IURegistry iuvillagerprofession = (IURegistry) villagerprofession;
 			villagerprofession.setRegistryName(modid, iuvillagerprofession.getEntryName());
 		}
 		villagerprofessions.add(villagerprofession);
