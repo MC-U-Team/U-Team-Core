@@ -8,7 +8,7 @@ import net.minecraft.tileentity.TileEntityType;
 
 public class TestTileEntityTypes {
 	
-	public static final TileEntityType<TileEntityTileEntity> tileentity = new UTileEntityType<>("tileentity", TileEntityTileEntity::new);
+	public static final TileEntityType<TileEntityTileEntity> tileentity = UTileEntityType.Builder.create("tileentity", TileEntityTileEntity::new).build();
 	
 	public static void construct() {
 		TileEntityTypeRegistry.register(TestMod.modid, TestTileEntityTypes.class);

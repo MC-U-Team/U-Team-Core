@@ -16,6 +16,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void setup() {
 		super.setup();
+		TestModels.setup();
 	}
 	
 	@Override
