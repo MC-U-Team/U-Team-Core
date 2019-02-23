@@ -11,5 +11,6 @@
 	"death.attack.radiation": "%1$s dies of radiation",
 	"item.minecraft.potion.effect.radiation": "Potion of Radiation",
 	"item.minecraft.splash_potion.effect.radiation": "Splash Potion of Radiation",
-	"item.minecraft.lingering_potion.effect.radiation": "Lingering Potion of Radiation"
+	"item.minecraft.lingering_potion.effect.radiation": "Lingering Potion of Radiation",
+	"entity.minecraft.villager.radiation": "Radiated Trader"
 }
