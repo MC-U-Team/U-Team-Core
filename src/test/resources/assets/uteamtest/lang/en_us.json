@@ -6,5 +6,7 @@
 	"block.uteamtest.basicblock": "Basic Block",
 	"block.uteamtest.tileentity": "Tile Entity Block",
 	"entity.uteamtest.better_enderpearl": "Better Enderpearl",
-	"enchantment.uteamtest.auto_smelt": "Auto Smelt"
+	"enchantment.uteamtest.auto_smelt": "Auto Smelt",
+	"effect.uteamtest.radiation": "Radiation",
+	"death.attack.radiation": "%1$s dies of radiation"
 }
