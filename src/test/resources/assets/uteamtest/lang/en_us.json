@@ -3,7 +3,8 @@
 	"item.uteamtest.basicitem": "Basic Item",
 	"item.uteamtest.basicitem.outofrange": "\u00A74Out of range",
 	"item.uteamtest.better_enderpearl": "Better Enderpearl",
-	"entity.uteamtest.better_enderpearl": "Better Enderpearl",
 	"block.uteamtest.basicblock": "Basic Block",
-	"block.uteamtest.tileentity": "Tile Entity Block"
+	"block.uteamtest.tileentity": "Tile Entity Block",
+	"entity.uteamtest.better_enderpearl": "Better Enderpearl",
+	"enchantment.uteamtest.auto_smelt": "Auto Smelt"
 }

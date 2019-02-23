@@ -12,6 +12,7 @@ public class CommonProxy implements IModProxy {
 		TestTileEntityTypes.construct();
 		TestEntityTypes.construct();
 		TestSounds.construct();
+		TestEnchantments.construct();
 	}
 	
 	@Override

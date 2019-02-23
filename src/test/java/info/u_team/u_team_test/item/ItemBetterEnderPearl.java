@@ -18,7 +18,7 @@ public class ItemBetterEnderPearl extends UItem {
 	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		
-		world.playSound(null, player.posX, player.posY, player.posZ, TestSounds.better_enderpearl_use, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 0.8F));
+		world.playSound(null, player.posX, player.posY, player.posZ, TestSounds.better_enderpearl_use, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 1.5F));
 		
 		if (!world.isRemote) {
 			EntityBetterEnderPearl pearl = new EntityBetterEnderPearl(world, player);
@@ -26,7 +26,7 @@ public class ItemBetterEnderPearl extends UItem {
 			world.spawnEntity(pearl);
 		}
 		
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+		return new ActionResult<>(EnumActionResult.SUCCESS, stack);
 	}
 	
 }
