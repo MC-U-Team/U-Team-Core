@@ -8,7 +8,11 @@ public class UPotionType extends PotionType implements IUPotion {
 	protected final String name;
 	
 	public UPotionType(String name, PotionEffect... effects) {
-		super(effects);
+		this(name, name, effects);
+	}
+	
+	public UPotionType(String name, String basename, PotionEffect... effects) {
+		super(basename, effects);
 		this.name = name;
 	}
 	

@@ -8,5 +8,8 @@
 	"entity.uteamtest.better_enderpearl": "Better Enderpearl",
 	"enchantment.uteamtest.auto_smelt": "Auto Smelt",
 	"effect.uteamtest.radiation": "Radiation",
-	"death.attack.radiation": "%1$s dies of radiation"
+	"death.attack.radiation": "%1$s dies of radiation",
+	"item.minecraft.potion.effect.radiation": "Potion of Radiation",
+	"item.minecraft.splash_potion.effect.radiation": "Splash Potion of Radiation",
+	"item.minecraft.lingering_potion.effect.radiation": "Lingering Potion of Radiation"
 }
