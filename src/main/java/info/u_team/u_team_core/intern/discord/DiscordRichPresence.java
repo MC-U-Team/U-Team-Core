@@ -9,7 +9,7 @@ import info.u_team.u_team_core.registry.util.CommonRegistry;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.RichPresence.Builder;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
-import net.minecraft.world.dimension.Dimension;
+import net.minecraft.world.dimension.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.versions.mcp.MCPVersion;
@@ -84,7 +84,7 @@ public class DiscordRichPresence {
 		case 1:
 			return new State(EnumState.END);
 		default:
-			return new State(EnumState.DIM, dimension.getType().getRegistryName().toString());
+			return new State(EnumState.DIM, DimensionType.func_212678_a(dimension.getType()).getPath());
 		}
 	}
 	
