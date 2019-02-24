@@ -3,7 +3,6 @@ package info.u_team.u_team_core.registry;
 import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.api.registry.IURegistry;
 import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,11 +17,7 @@ public class BiomeRegistry {
 	static List<Biome> biomes = new ArrayList<>();
 	
 	public static void register(String modid, Biome biome) {
-		if (biome instanceof IURegistry) {
-			IURegistry iubiome = (IURegistry) biome;
-			biome.setRegistryName(modid, iubiome.getEntryName());
-		}
-		biomes.add(biome);
+		BaseRegistry.register(modid, biome, biomes);
 	}
 	
 	public static void register(String modid, Collection<Biome> list) {

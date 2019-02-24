@@ -20,12 +20,12 @@ public class BlockRegistry {
 	
 	public static void register(String modid, Block block) {
 		if (block instanceof IUBlock) {
-			IUBlock iublock = (IUBlock) block;
-			block.setRegistryName(modid, iublock.getEntryName());
+			IUBlock ublock = (IUBlock) block;
+			block.setRegistryName(modid, ublock.getEntryName());
 			
-			ItemBlock itemblock = iublock.getItemBlock();
-			itemblock.setRegistryName(block.getRegistryName());
+			ItemBlock itemblock = ublock.getItemBlock();
 			if (itemblock != null) {
+				itemblock.setRegistryName(block.getRegistryName());
 				ItemRegistry.items.add(itemblock);
 			}
 		}

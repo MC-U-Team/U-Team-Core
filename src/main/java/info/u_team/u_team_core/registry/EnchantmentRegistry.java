@@ -3,7 +3,6 @@ package info.u_team.u_team_core.registry;
 import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.api.registry.IURegistry;
 import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,11 +17,7 @@ public class EnchantmentRegistry {
 	static List<Enchantment> enchantments = new ArrayList<>();
 	
 	public static void register(String modid, Enchantment enchantment) {
-		if (enchantment instanceof IURegistry) {
-			IURegistry iuenchantment = (IURegistry) enchantment;
-			enchantment.setRegistryName(modid, iuenchantment.getEntryName());
-		}
-		enchantments.add(enchantment);
+		BaseRegistry.register(modid, enchantment, enchantments);
 	}
 	
 	public static void register(String modid, Collection<Enchantment> list) {

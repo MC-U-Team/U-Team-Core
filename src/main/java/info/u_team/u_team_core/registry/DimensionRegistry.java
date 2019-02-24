@@ -3,7 +3,6 @@ package info.u_team.u_team_core.registry;
 import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.api.registry.IURegistry;
 import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraftforge.common.ModDimension;
 import net.minecraftforge.event.RegistryEvent;
@@ -18,11 +17,7 @@ public class DimensionRegistry {
 	static List<ModDimension> dimensions = new ArrayList<>();
 	
 	public static void register(String modid, ModDimension dimension) {
-		if (dimension instanceof IURegistry) {
-			IURegistry iudimension = (IURegistry) dimension;
-			dimension.setRegistryName(modid, iudimension.getEntryName());
-		}
-		dimensions.add(dimension);
+		BaseRegistry.register(modid, dimension, dimensions);
 	}
 	
 	public static void register(String modid, Collection<ModDimension> list) {
