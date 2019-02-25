@@ -49,6 +49,7 @@ sourceCompatibility = targetCompatibility = "1.8"
 minecraft {
     mappings channel: config.forge.mapping_channel, version: config.forge.mapping
     accessTransformer = file("$rootDir/src/main/resources/META-INF/accesstransformer.cfg")
+   
     runs {
         client = {
             workingDirectory project.file("run").canonicalPath
@@ -95,7 +96,7 @@ jar {
 	classifier = ""
 
     from "LICENSE"
-       
+
    	manifest normalManifest
 }
 
@@ -133,8 +134,30 @@ task testJar(type: Jar) {
 
     from sourceSets.test.output
     from "LICENSE"
-        
+               
+   	afterEvaluate {
+	    reobf.create("testJar");
+	    reobfTestJar.dependsOn createMcpToSrg
+	    reobfTestJar.setMappings(createMcpToSrg.getOutput())
+	}
+                
     manifest normalManifest
+}
+
+task testDeobfJar(type: Jar) {
+	classifier = "testdev"
+
+    from sourceSets.test.output
+    from "LICENSE"
+                      
+    manifest normalManifest
+}
+
+task testSourcesJar(type: Jar) {
+    classifier = "testsources"
+    
+    from sourceSets.test.allJava
+    from "LICENSE"
 }
 
 artifacts {
@@ -143,6 +166,8 @@ artifacts {
     archives docJar
     archives jar
     archives testJar
+    archives testDeobfJar
+    archives testSourcesJar
 }
 
 sourceSets {
