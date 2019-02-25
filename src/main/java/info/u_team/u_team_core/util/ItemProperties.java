@@ -23,21 +23,33 @@ public class ItemProperties extends Properties {
 		containerItem = properties.containerItem;
 		group = properties.group;
 		rarity = properties.rarity;
-		canRepair = getValueCanRepair(properties);
-		toolClasses = Maps.newHashMap(getValueToolClasses(properties));
-		teisr = getValueTeisr(properties);
+		setValueCanRepair(getValueCanRepair(properties));
+		setValueToolClasses(Maps.newHashMap(getValueToolClasses(properties)));
+		setValueTeisr(getValueTeisr(properties));
 	}
 	
 	private boolean getValueCanRepair(Properties properties) {
 		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "canRepair");
 	}
 	
+	private void setValueCanRepair(boolean value) {
+		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "canRepair");
+	}
+	
 	private Map<ToolType, Integer> getValueToolClasses(Properties properties) {
 		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "toolClasses");
 	}
 	
+	private void setValueToolClasses(Map<ToolType, Integer> value) {
+		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "toolClasses");
+	}
+	
 	private Supplier<Callable<TileEntityItemStackRenderer>> getValueTeisr(Properties properties) {
 		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "teisr");
+	}
+	
+	private void setValueTeisr(Supplier<Callable<TileEntityItemStackRenderer>> value) {
+		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "teisr");
 	}
 	
 	public int getMaxStackSize() {
