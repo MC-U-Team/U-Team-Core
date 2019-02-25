@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.item.tool;
 
 import info.u_team.u_team_core.api.IToolMaterial;
+import info.u_team.u_team_core.util.ItemProperties;
 import net.minecraft.item.Item.Properties;
 import net.minecraft.item.ItemGroup;
 
@@ -11,7 +12,7 @@ public class ToolSetCreator {
 	}
 	
 	public static ToolSet create(String name, ItemGroup group, Properties properties, IToolMaterial material) {
-		return new ToolSet(new UItemAxe(name + "_axe", group, properties, material), new UItemHoe(name + "_hoe", group, properties, material), new UItemPickaxe(name + "_pickaxe", group, properties, material), new UItemSpade(name + "_shovel", group, properties, material), new UItemSword(name + "_sword", group, properties, material));
+		return new ToolSet(new UItemAxe(name + "_axe", group, new ItemProperties(properties), material), new UItemHoe(name + "_hoe", group, new ItemProperties(properties), material), new UItemPickaxe(name + "_pickaxe", group, new ItemProperties(properties), material), new UItemSpade(name + "_shovel", group, new ItemProperties(properties), material), new UItemSword(name + "_sword", group, new ItemProperties(properties), material));
 	}
 	
 }
