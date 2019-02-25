@@ -8,8 +8,7 @@ public class USoundEvent extends SoundEvent implements IUSoundEvent {
 	protected final String name;
 	
 	public USoundEvent(ResourceLocation resource) {
-		super(resource);
-		name = resource.getPath();
+		this(resource.getPath(), resource);
 	}
 	
 	public USoundEvent(String name, ResourceLocation resource) {
