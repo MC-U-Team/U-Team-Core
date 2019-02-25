@@ -35,10 +35,12 @@ public class UVillagerProfession extends VillagerProfession implements IUVillage
 		return name;
 	}
 	
+	@Override
 	public ResourceLocation getSkin() {
 		return texturenormal;
 	}
 	
+	@Override
 	public ResourceLocation getZombieSkin() {
 		return texturezombie;
 	}

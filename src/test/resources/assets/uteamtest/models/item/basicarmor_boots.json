@@ -1,0 +1,6 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "uteamtest:item/basicarmor_boots"
+	}
+}

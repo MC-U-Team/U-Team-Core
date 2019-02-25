@@ -26,7 +26,7 @@ public class TileEntityTypeRegistry {
 	
 	@SuppressWarnings("unchecked")
 	public static void register(String modid, Class<?> clazz) {
-		register(modid, (Collection<TileEntityType<?>>) RegistryUtil.getRegistryEntries(TileEntityType.class, clazz));
+		register(modid, (List<TileEntityType<?>>) RegistryUtil.getRegistryEntries(TileEntityType.class, clazz));
 	}
 	
 	@SubscribeEvent

@@ -26,7 +26,7 @@ public class EntityTypeRegistry {
 	
 	@SuppressWarnings("unchecked")
 	public static void register(String modid, Class<?> clazz) {
-		register(modid, (Collection<EntityType<?>>) RegistryUtil.getRegistryEntries(EntityType.class, clazz));
+		register(modid, (List<EntityType<?>>) RegistryUtil.getRegistryEntries(EntityType.class, clazz));
 	}
 	
 	@SubscribeEvent

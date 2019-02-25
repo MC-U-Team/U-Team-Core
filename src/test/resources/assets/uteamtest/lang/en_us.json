@@ -14,5 +14,9 @@
 	"item.minecraft.splash_potion.effect.radiation": "Splash Potion of Radiation",
 	"item.minecraft.lingering_potion.effect.radiation": "Lingering Potion of Radiation",
 	"entity.minecraft.villager.radiation": "Radiated Trader",
-	"biome.uteamtest.basic": "Basic"
+	"biome.uteamtest.basic": "Basic",
+	"item.uteamtest.basicarmor_helmet": "Basic Helmet",
+	"item.uteamtest.basicarmor_chestplate": "Basic Chestplate",
+	"item.uteamtest.basicarmor_leggings": "Basic Leggings",
+	"item.uteamtest.basicarmor_boots": "Basic Boots"
 }

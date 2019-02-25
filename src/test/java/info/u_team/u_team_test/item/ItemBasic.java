@@ -37,7 +37,6 @@ public class ItemBasic extends UItem {
 			stack.damageItem(1, player);
 			
 		}
-		
 		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
 	}
 }

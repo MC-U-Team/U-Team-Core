@@ -54,6 +54,7 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	
 	private int timer;
 	
+	@Override
 	public void tick() {
 		if (world.isRemote) {
 			return;
@@ -145,7 +146,7 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 				return true;
 			}
 			
-			lvt_2_1_ = (ItemStack) var1.next();
+			lvt_2_1_ = var1.next();
 		} while (lvt_2_1_.isEmpty());
 		
 		return false;
@@ -167,7 +168,7 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	
 	@Override
 	public ItemStack removeStackFromSlot(int var1) {
-		ItemStack lvt_2_1_ = (ItemStack) this.list.get(var1);
+		ItemStack lvt_2_1_ = this.list.get(var1);
 		if (lvt_2_1_.isEmpty()) {
 			return ItemStack.EMPTY;
 		} else {

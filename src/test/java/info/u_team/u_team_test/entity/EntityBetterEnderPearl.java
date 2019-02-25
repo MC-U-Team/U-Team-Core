@@ -107,6 +107,7 @@ public class EntityBetterEnderPearl extends EntityThrowable {
 		
 	}
 	
+	@Override
 	public void tick() {
 		EntityLivingBase entitylivingbase = this.getThrower();
 		if (entitylivingbase != null && entitylivingbase instanceof EntityPlayer && !entitylivingbase.isAlive()) {

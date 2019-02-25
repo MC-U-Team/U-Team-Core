@@ -8,16 +8,19 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class RegistryUtil {
 	
-	@SuppressWarnings("unchecked")
 	public static <T extends IForgeRegistryEntry<T>> List<T> getRegistryEntries(Class<T> clazz, Class<?> init) {
+		return getClassEntries(clazz, init);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> List<T> getClassEntries(Class<T> clazz, Class<?> init) {
 		return Arrays.asList(init.getDeclaredFields()).stream().filter(field -> clazz.isAssignableFrom(field.getType())).map(field -> {
 			try {
 				return (T) field.get(null);
 			} catch (Exception ex) {
-				UCoreMain.logger.error("Failed fetching registry entries for class {}", init, ex);
+				UCoreMain.logger.error("Failed fetching field entries for class {}", init, ex);
 			}
 			return null;
 		}).collect(Collectors.toList());
 	}
-	
 }
