@@ -96,6 +96,7 @@ jar {
 	classifier = ""
 
     from "LICENSE"
+    from "LICENSE-DEPENDENCIES"
 
    	manifest normalManifest
 }
@@ -105,6 +106,7 @@ task deobfJar(type: Jar) {
 
     from sourceSets.main.output
     from "LICENSE"
+    from "LICENSE-DEPENDENCIES"
         
     manifest normalManifest
 }
@@ -114,6 +116,7 @@ task sourcesJar(type: Jar) {
     
     from sourceSets.main.allJava
     from "LICENSE"
+    from "LICENSE-DEPENDENCIES"
 }
 
 task docJar(type: Jar) {
@@ -121,6 +124,7 @@ task docJar(type: Jar) {
     
     from javadoc
     from "LICENSE"
+    from "LICENSE-DEPENDENCIES"
     
     tasks.withType(Javadoc) {
 		options.addStringOption('Xdoclint:none', '-quiet')
