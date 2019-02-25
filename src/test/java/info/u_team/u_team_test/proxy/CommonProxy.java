@@ -18,7 +18,8 @@ public class CommonProxy implements IModProxy {
 		TestVillagerProfessions.construct();
 		TestBiomes.construct();
 		TestDimensions.construct();
-		TestArmors.construct();
+		TestArmorSets.construct();
+		TestToolSets.construct();
 	}
 	
 	@Override

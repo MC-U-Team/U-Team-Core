@@ -18,5 +18,10 @@
 	"item.uteamtest.basicarmor_helmet": "Basic Helmet",
 	"item.uteamtest.basicarmor_chestplate": "Basic Chestplate",
 	"item.uteamtest.basicarmor_leggings": "Basic Leggings",
-	"item.uteamtest.basicarmor_boots": "Basic Boots"
+	"item.uteamtest.basicarmor_boots": "Basic Boots",
+	"item.uteamtest.basictool_axe": "Basic Axe",
+	"item.uteamtest.basictool_hoe": "Basic Hoe",
+	"item.uteamtest.basictool_pickaxe": "Basic Pickaxe",
+	"item.uteamtest.basictool_shovel": "Basic Shovel",
+	"item.uteamtest.basictool_sword": "Basic Sword"
 }
