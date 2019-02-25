@@ -143,6 +143,7 @@ task testJar(type: Jar) {
 	    reobf.create("testJar");
 	    reobfTestJar.dependsOn createMcpToSrg
 	    reobfTestJar.setMappings(createMcpToSrg.getOutput())
+	    reobfTestJar.setClasspath(reobfTestJar.getClasspath().plus(files(jar)))   
 	}
                 
     manifest normalManifest
