@@ -73,7 +73,6 @@ public class UBlockTileEntity extends UBlock {
 				buf.writeCompoundTag(finalCompound);
 			}
 		});
-		playermp.sendAllContents(playermp.openContainer, playermp.openContainer.getInventory()); // not indended i think. Should be changed ? New forge version? //TODO
 		return true;
 		
 	}
