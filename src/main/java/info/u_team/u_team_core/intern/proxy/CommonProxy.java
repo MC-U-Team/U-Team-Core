@@ -13,6 +13,7 @@ public class CommonProxy implements IModProxy {
 		ModLoadingContext.get().registerConfig(Type.CLIENT, ClientConfig.config);
 		UCoreRecipes.construct();
 		UCoreNetwork.construct();
+		UCoreCommands.construct();
 	}
 	
 	@Override

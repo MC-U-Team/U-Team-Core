@@ -13,8 +13,8 @@ public class UCoreRecipes {
 	public static final IIngredientSerializer<IngredientCopyNBT> INGREDIENT_COPY_NBT = new IngredientCopyNBT.Serializer();
 	
 	public static void construct() {
-		RecipeSerializers.register(CRAFTING_SPECIAL_COPY_NBT);
-		CraftingHelper.register(new ResourceLocation(UCoreMain.modid, "copy_nbt"), INGREDIENT_COPY_NBT);
+		//RecipeSerializers.register(CRAFTING_SPECIAL_COPY_NBT);
+		//CraftingHelper.register(new ResourceLocation(UCoreMain.modid, "copy_nbt"), INGREDIENT_COPY_NBT);
 	}
 	
 }
