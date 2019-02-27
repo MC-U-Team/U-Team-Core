@@ -45,7 +45,7 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 		this.recipeOutput = recipeOutputIn;
 		
 		if (recipeItems.stream().filter(ingredient -> ingredient instanceof IngredientCopyNBT).count() != 1) {
-			throw new IllegalArgumentException("In recipe " + id + " must be one usefulbackpacks:copy_nbt ingredient.");
+			throw new IllegalArgumentException("In recipe " + id + " must be one uteamcore:copy_nbt ingredient.");
 		}
 		
 	}
