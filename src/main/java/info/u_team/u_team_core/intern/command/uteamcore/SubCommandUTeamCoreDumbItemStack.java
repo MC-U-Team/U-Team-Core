@@ -5,7 +5,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.text.TextComponentString;
 
 public class SubCommandUTeamCoreDumbItemStack {
@@ -22,9 +23,12 @@ public class SubCommandUTeamCoreDumbItemStack {
 			throw new CommandException(new TextComponentString(ex.getMessage()));
 		}
 		ItemStack stack = player.getHeldItemMainhand();
-		source.sendFeedback(new TextComponentString("Item: " + stack.getItem().getRegistryName()), true);
-		source.sendFeedback(new TextComponentString("Nbt: "), true);
-		source.sendFeedback(stack.getTag() == null ? new TextComponentString("None") : stack.getTag().toFormattedComponent(), true);
+		Item item = stack.getItem();
+		NBTTagCompound compound = stack.getTag();
+		source.sendFeedback(new TextComponentString("Item: " + item.getRegistryName() + " (" + item + ")"), true);
+		if (compound != null) {
+			source.sendFeedback(new TextComponentString("NBT: ").appendSibling(compound.toFormattedComponent()), true);
+		}
 		return 0;
 	}
 }
