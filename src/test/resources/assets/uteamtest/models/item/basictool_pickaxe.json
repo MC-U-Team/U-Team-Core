@@ -1,6 +1,6 @@
 {
-    "parent": "item/handheld",
-    "textures": {
-        "layer0": "uteamtest:item/basictool_pickaxe"
-    }
+	"parent": "item/handheld",
+	"textures": {
+		"layer0": "uteamtest:item/basictool_pickaxe"
+	}
 }

@@ -5,7 +5,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.*;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.item.*;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.math.BlockPos;
@@ -21,7 +21,15 @@ public class UBlockTileEntity extends UBlock {
 	}
 	
 	public UBlockTileEntity(String name, ItemGroup group, Properties properties, TileEntityType<?> tileentitytype) {
-		super(name, group, properties);
+		this(name, group, properties, null, tileentitytype);
+	}
+	
+	public UBlockTileEntity(String name, Properties properties, Item.Properties itemblockproperties, TileEntityType<?> tileentitytype) {
+		this(name, null, properties, itemblockproperties, tileentitytype);
+	}
+	
+	public UBlockTileEntity(String name, ItemGroup group, Properties properties, Item.Properties itemblockproperties, TileEntityType<?> tileentitytype) {
+		super(name, group, properties, itemblockproperties);
 		this.tileentitytype = tileentitytype;
 	}
 	

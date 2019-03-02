@@ -8,30 +8,28 @@ public class UBlock extends Block implements IUBlock {
 	
 	protected final String name;
 	
-	protected ItemBlock itemblock;
+	protected final ItemBlock itemblock;
 	
 	public UBlock(String name, Properties properties) {
-		this(name, properties, true);
-	}
-	
-	public UBlock(String name, Properties properties, boolean shouldCreateItemBlock) {
-		this(name, null, properties, shouldCreateItemBlock);
+		this(name, null, properties);
 	}
 	
 	public UBlock(String name, ItemGroup group, Properties properties) {
-		this(name, group, properties, true);
+		this(name, group, properties, null);
 	}
 	
-	public UBlock(String name, ItemGroup group, Properties properties, boolean shouldCreateItemBlock) {
+	public UBlock(String name, Properties properties, Item.Properties itemblockproperties) {
+		this(name, null, properties, itemblockproperties);
+	}
+	
+	public UBlock(String name, ItemGroup group, Properties properties, Item.Properties itemblockproperties) {
 		super(properties);
 		this.name = name;
-		if (shouldCreateItemBlock) {
-			itemblock = createItemBlock(group);
-		}
+		itemblock = createItemBlock(itemblockproperties == null ? new Item.Properties().group(group) : group == null ? itemblockproperties : itemblockproperties.group(group));
 	}
 	
-	protected ItemBlock createItemBlock(ItemGroup group) {
-		return new ItemBlock(this, group == null ? new Item.Properties() : new Item.Properties().group(group));
+	protected ItemBlock createItemBlock(Item.Properties itemblockproperties) {
+		return new ItemBlock(this, itemblockproperties);
 	}
 	
 	@Override

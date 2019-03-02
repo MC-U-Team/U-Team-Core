@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.intern.event;
 
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
+import info.u_team.u_team_core.intern.discord.DiscordRichPresence.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.gui.*;
@@ -16,7 +17,10 @@ public class EventHandlerUpdateDiscordRichPresence {
 	@SubscribeEvent
 	public static void on(InitGuiEvent.Pre event) {
 		if (event.getGui() instanceof GuiMainMenu || event.getGui() instanceof GuiWorldSelection || event.getGui() instanceof GuiMultiplayer) {
-			DiscordRichPresence.setIdling();
+			State state = DiscordRichPresence.getCurrent();
+			if (state == null || state.getState() != EnumState.MENU) {
+				DiscordRichPresence.setIdling();
+			}
 		}
 	}
 	

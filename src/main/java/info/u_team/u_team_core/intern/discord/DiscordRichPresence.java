@@ -123,6 +123,10 @@ public class DiscordRichPresence {
 		return isEnabled;
 	}
 	
+	public static State getCurrent() {
+		return current;
+	}
+	
 	public static class State {
 		
 		private EnumState state;
