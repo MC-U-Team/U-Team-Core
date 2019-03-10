@@ -27,8 +27,8 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	
 	@Override
 	public void writeOnContainerSyncServer(NBTTagCompound compound) {
-		compound.setInt("value", value);
-		compound.setInt("cooldown", cooldown);
+		compound.putInt("value", value);
+		compound.putInt("cooldown", cooldown);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
@@ -41,8 +41,8 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void writeOnContainerSyncClient(NBTTagCompound compound) {
-		compound.setInt("value", value);
-		compound.setInt("cooldown", cooldown);
+		compound.putInt("value", value);
+		compound.putInt("cooldown", cooldown);
 	}
 	
 	@Override
@@ -89,8 +89,8 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	@Override
 	public void writeNBT(NBTTagCompound compound) {
 		ItemStackHelper.saveAllItems(compound, list);
-		compound.setInt("value", value);
-		compound.setInt("cooldown", cooldown);
+		compound.putInt("value", value);
+		compound.putInt("cooldown", cooldown);
 	}
 	
 	@Override
