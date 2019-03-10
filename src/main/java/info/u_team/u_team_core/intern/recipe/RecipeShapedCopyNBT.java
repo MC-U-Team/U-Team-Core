@@ -2,6 +2,7 @@ package info.u_team.u_team_core.intern.recipe;
 
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.stream.Stream;
 
 import com.google.common.annotations.VisibleForTesting;
 import com.google.common.collect.*;
@@ -356,12 +357,30 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 			NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i * j, Ingredient.EMPTY);
 			
 			for (int k = 0; k < nonnulllist.size(); ++k) {
-				Ingredient ingredient = Ingredient.fromBuffer(buffer);
-				nonnulllist.set(k, ingredient);
+				try {
+					Ingredient ingredient = fromBuffer(buffer);
+					nonnulllist.set(k, ingredient);
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 			
 			ItemStack itemstack = buffer.readItemStack();
 			return new RecipeShapedCopyNBT(recipeId, s, i, j, nonnulllist, itemstack);
+		}
+		
+		// FIX INGREDIENT NETWORK TRANSFER. Forge Issues should be fixed in some time
+		// #5577
+		private static Ingredient fromBuffer(PacketBuffer buffer) {
+			buffer.markReaderIndex();
+			int i = buffer.readVarInt();
+			if (i == -1) {
+				// buffer.resetReaderIndex();
+				return net.minecraftforge.common.crafting.CraftingHelper.getIngredient(buffer.readResourceLocation(), buffer);
+			}
+			return Ingredient.fromItemListStream(Stream.generate(() -> {
+				return new Ingredient.SingleItemList(buffer.readItemStack());
+			}).limit((long) i));
 		}
 		
 		@Override
