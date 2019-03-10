@@ -43,7 +43,7 @@ public class MessageSyncedContainer {
 		public static void handle(MessageSyncedContainer message, Supplier<NetworkEvent.Context> ctxSupplier) {
 			Context ctx = ctxSupplier.get();
 			ctx.enqueueWork(() -> {
-				if (ctx.getDirection().getLogicalSide() == LogicalSide.SERVER) {
+				if (ctx.getDirection().getOriginationSide() == LogicalSide.SERVER) {
 					handleClient(message.pos, message.compound, ctx);
 				} else {
 					handleServer(message.pos, message.compound, ctx);
