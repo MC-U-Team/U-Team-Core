@@ -71,7 +71,7 @@ public class EntityBetterEnderPearl extends EntityThrowable {
 		}
 		
 		for (int i = 0; i < 32; ++i) {
-			this.world.spawnParticle(Particles.PORTAL, this.posX, this.posY + this.rand.nextDouble() * 2.0D, this.posZ, this.rand.nextGaussian(), 0.0D, this.rand.nextGaussian());
+			this.world.addParticle(Particles.PORTAL, this.posX, this.posY + this.rand.nextDouble() * 2.0D, this.posZ, this.rand.nextGaussian(), 0.0D, this.rand.nextGaussian());
 		}
 		
 		if (!this.world.isRemote) {

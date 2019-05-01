@@ -72,15 +72,15 @@ public class UPotion extends Potion implements IUPotion {
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderInventoryEffect(int x, int y, PotionEffect effect, Minecraft mc) {
-		bindTexture(mc.getTextureManager());
+	public void renderInventoryEffect(PotionEffect effect, Gui gui, int x, int y, float z) {
+		bindTexture(Minecraft.getInstance().getTextureManager());
 		Gui.drawScaledCustomSizeModalRect(x + 6, y + 7, 0, 0, texturesize, texturesize, 18, 18, texturesize, texturesize);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void renderHUDEffect(int x, int y, PotionEffect effect, Minecraft mc, float alpha) {
-		bindTexture(mc.getTextureManager());
+	public void renderHUDEffect(PotionEffect effect, net.minecraft.client.gui.Gui gui, int x, int y, float z, float alpha) {
+		bindTexture(Minecraft.getInstance().getTextureManager());
 		Gui.drawScaledCustomSizeModalRect(x + 3, y + 3, 0, 0, texturesize, texturesize, 18, 18, texturesize, texturesize);
 	}
 	

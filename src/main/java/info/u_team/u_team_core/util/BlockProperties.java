@@ -17,7 +17,7 @@ public class BlockProperties extends Properties {
 		lightValue = properties.lightValue;
 		resistance = properties.resistance;
 		hardness = properties.hardness;
-		needsRandomTick = properties.needsRandomTick;
+		ticksRandomly = properties.ticksRandomly;
 		slipperiness = properties.slipperiness;
 		variableOpacity = properties.variableOpacity;
 	}
@@ -50,8 +50,8 @@ public class BlockProperties extends Properties {
 		return hardness;
 	}
 	
-	public boolean isNeedsRandomTick() {
-		return needsRandomTick;
+	public boolean isTickRandomly() {
+		return ticksRandomly;
 	}
 	
 	public float getSlipperiness() {

@@ -36,7 +36,7 @@ public class TestDimensions {
 	@SuppressWarnings("deprecation")
 	@SubscribeEvent
 	public static void on(RegisterDimensionsEvent event) {
-		if (!DimensionManager.getRegistry().func_212607_c(basic.getRegistryName())) { // How do we know when the dimension needs to be registered??
+		if (!DimensionManager.getRegistry().containsKey(basic.getRegistryName())) { // How do we know when the dimension needs to be registered??
 			DimensionManager.registerDimension(basic.getRegistryName(), basic, null);
 		}
 	}
@@ -55,7 +55,7 @@ public class TestDimensions {
 		
 		static ArgumentBuilder<CommandSource, ?> register() {
 			return Commands.literal("teleport").requires(cs -> cs.hasPermissionLevel(2)) // permission
-					.then(Commands.argument("targets", EntityArgument.entities()).then(Commands.argument("dim", DimensionArgument.func_212595_a()).then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(ctx -> execute(ctx.getSource(), EntityArgument.getEntitiesAllowingNone(ctx, "targets"), DimensionArgument.func_212592_a(ctx, "dim"), BlockPosArgument.getBlockPos(ctx, "pos")))).executes(ctx -> execute(ctx.getSource(), EntityArgument.getEntitiesAllowingNone(ctx, "targets"), DimensionArgument.func_212592_a(ctx, "dim"), new BlockPos(ctx.getSource().getPos())))));
+					.then(Commands.argument("targets", EntityArgument.entities()).then(Commands.argument("dim", DimensionArgument.getDimension()).then(Commands.argument("pos", BlockPosArgument.blockPos()).executes(ctx -> execute(ctx.getSource(), EntityArgument.getEntitiesAllowingNone(ctx, "targets"), DimensionArgument.func_212592_a(ctx, "dim"), BlockPosArgument.getBlockPos(ctx, "pos")))).executes(ctx -> execute(ctx.getSource(), EntityArgument.getEntitiesAllowingNone(ctx, "targets"), DimensionArgument.func_212592_a(ctx, "dim"), new BlockPos(ctx.getSource().getPos())))));
 		}
 		
 		private static int execute(CommandSource sender, Collection<? extends Entity> entities, DimensionType dim, BlockPos pos) throws CommandSyntaxException {

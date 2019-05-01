@@ -300,7 +300,7 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 				throw new JsonSyntaxException("Invalid key entry: ' ' is a reserved symbol.");
 			}
 			
-			Ingredient ingredient = Ingredient.fromJson(entry.getValue());
+			Ingredient ingredient = Ingredient.deserialize(entry.getValue());
 			
 			map.put(entry.getKey(), ingredient);
 		}
@@ -312,7 +312,7 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 	public static ItemStack deserializeItem(JsonObject p_199798_0_) {
 		String s = JsonUtils.getString(p_199798_0_, "item");
 		@SuppressWarnings("deprecation")
-		Item item = IRegistry.field_212630_s.func_212608_b(new ResourceLocation(s));
+		Item item = IRegistry.ITEM.get(new ResourceLocation(s));
 		if (item == null) {
 			throw new JsonSyntaxException("Unknown item '" + s + "'");
 		} else if (p_199798_0_.has("data")) {
@@ -356,7 +356,7 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 			NonNullList<Ingredient> nonnulllist = NonNullList.withSize(i * j, Ingredient.EMPTY);
 			
 			for (int k = 0; k < nonnulllist.size(); ++k) {
-				nonnulllist.set(k, Ingredient.fromBuffer(buffer));
+				nonnulllist.set(k, Ingredient.read(buffer));
 			}
 			
 			ItemStack itemstack = buffer.readItemStack();
@@ -370,7 +370,7 @@ public class RecipeShapedCopyNBT implements IRecipe, net.minecraftforge.common.c
 			buffer.writeString(recipe.group);
 			
 			for (Ingredient ingredient : recipe.recipeItems) {
-				ingredient.writeToBuffer(buffer);
+				ingredient.write(buffer);
 			}
 			
 			buffer.writeItemStack(recipe.recipeOutput);

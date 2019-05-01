@@ -84,7 +84,7 @@ public class DiscordRichPresence {
 		case 1:
 			return new State(EnumState.END);
 		default:
-			return new State(EnumState.DIM, DimensionType.func_212678_a(dimension.getType()).getPath());
+			return new State(EnumState.DIM, DimensionType.getKey(dimension.getType()).getPath());
 		}
 	}
 	
