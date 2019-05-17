@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.13.2-2.3.3.105] - 2019-05-17
 ### Added
+- Introduced a changelog to this project
 - New active gui button with colored background
 - Progress bar gui element
 
