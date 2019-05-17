@@ -17,16 +17,16 @@ import net.minecraftforge.versions.mcp.MCPVersion;
 @OnlyIn(Dist.CLIENT)
 public class DiscordRichPresence {
 	
-	private static IPCClient client = new IPCClient(427196986064764928L);
+	private static final IPCClient client = new IPCClient(427196986064764928L);
 	
 	private static boolean isEnabled = false;
 	
-	private static OffsetDateTime time = OffsetDateTime.now();
+	private static final OffsetDateTime time = OffsetDateTime.now();
 	public static State current = new State(EnumState.STARTUP);
 	
 	private static int errorcount = 0;
 	
-	private static Timer timer = new Timer("Discord Rich Presence Timer Thread");
+	private static final Timer timer = new Timer("Discord Rich Presence Timer Thread");
 	
 	private static TimerTask task;
 	
