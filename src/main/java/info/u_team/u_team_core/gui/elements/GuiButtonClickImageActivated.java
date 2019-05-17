@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.gui.elements;
 
-import info.u_team.u_team_core.gui.elements.GuiButtonClickImage;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiButtonClickImageActivated extends GuiButtonClickImage {

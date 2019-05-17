@@ -24,7 +24,6 @@ public class UGuiContainer extends GuiContainer {
 		int yStart = (height - ySize) / 2;
 		
 		drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
-		
 	}
 	
 }
