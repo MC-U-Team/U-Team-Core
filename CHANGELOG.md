@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.13.2-2.3.4.106] - 2019-05-22
+### Added
+- Added colored button
+- Added better GuiSlider with scaling font
+- Added scaling font render
+- Added scrolling font render
+
 ## [1.13.2-2.3.3.105] - 2019-05-17
 ### Added
 - Introduced a changelog to this project
