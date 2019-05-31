@@ -1,6 +1,9 @@
 package test;
 
+import java.io.IOException;
+
 import info.u_team.u_team_core.gui.UGuiContainerTileEntity;
+import net.minecraft.client.gui.GuiButton;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
@@ -48,6 +51,11 @@ public class GuiTestBuggy extends UGuiContainerTileEntity {
 		System.out.println(this);
 		slider.setValue(test);
 		slider.updateSlider();
+	}
+	
+	@Override
+	protected void actionPerformed(GuiButton button) throws IOException {
+		super.actionPerformed(button);
 	}
 	
 }
