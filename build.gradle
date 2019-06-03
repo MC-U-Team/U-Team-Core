@@ -240,21 +240,21 @@ uploadArchives {
 				project {
 					name project.archivesBaseName
 					packaging "jar"
-					description "U-Team-Core"
-						url "https://github.com/MC-U-Team/U-Team-Core"
+					description "${config.maven.github_name}"
+						url "https://github.com/MC-U-Team/${config.maven.github_name}"
 					scm {
-						url "https://github.com/MC-U-Team/U-Team-Core"
-						connection "scm:git:git://github.com/MC-U-Team/U-Team-Core.git"
-						developerConnection "scm:git:git@github.com:MC-U-Team/U-Team-Core.git"
+						url "https://github.com/MC-U-Team/${config.maven.github_name}"
+						connection "scm:git:git://github.com/MC-U-Team/${config.maven.github_name}.git"
+						developerConnection "scm:git:git@github.com:MC-U-Team/${config.maven.github_name}.git"
 					}
 					issueManagement {
 						system "github"
-						url "https://github.com/MC-U-Team/U-Team-Core/issues"
+						url "https://github.com/MC-U-Team/${config.maven.github_name}/issues"
 					}
 					licenses {
 						license {
 							name "Apache License 2.0"
-							url "https://github.com/MC-U-Team/U-Team-Core/blob/1.13.2/LICENSE"
+							url "https://github.com/MC-U-Team/${config.maven.github_name}/blob/${config.forge.mcversion}/LICENSE"
 							distribution "repo"
 						}
 					}
