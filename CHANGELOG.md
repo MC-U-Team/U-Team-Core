@@ -2,6 +2,7 @@
 All notable changes to this project will be documented in this file.
 
 ## [1.13.2-2.3.5.109] - 2019-06-03
+### Changed
 - Fix dependency versions
 
 ## [1.13.2-2.3.5.108] - 2019-06-03
