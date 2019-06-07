@@ -1,7 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.13.2-2.4.0.110] - 2019-06-07
+### Changed
+- Item groups now use the normal "." notation instead of ":". The localization must be changed from "itemGroup.modid:name" to "itemGroup.modid.name".
+
 ## [1.13.2-2.3.5.109] - 2019-06-03
+### Changed
 - Fix dependency versions
 
 ## [1.13.2-2.3.5.108] - 2019-06-03
