@@ -8,12 +8,12 @@ public class UItemGroup extends ItemGroup {
 	
 	private IItemProvider provider;
 	
-	public UItemGroup(String modid, String name) {
-		this(new ResourceLocation(modid, name));
+	public UItemGroup(ResourceLocation location) {
+		this(location.getNamespace(), location.getPath());
 	}
 	
-	public UItemGroup(ResourceLocation location) {
-		super(location.toString());
+	public UItemGroup(String modid, String name) {
+		super(modid + "." + name);
 	}
 	
 	public void setIcon(IItemProvider provider) {
