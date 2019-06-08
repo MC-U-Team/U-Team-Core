@@ -3,6 +3,7 @@ package info.u_team.u_team_core.util;
 import net.minecraft.block.Block.Properties;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.*;
+import net.minecraft.util.ResourceLocation;
 
 public class BlockProperties extends Properties {
 	
@@ -19,7 +20,7 @@ public class BlockProperties extends Properties {
 		hardness = properties.hardness;
 		ticksRandomly = properties.ticksRandomly;
 		slipperiness = properties.slipperiness;
-//		field_222381_j = properties.field_222381_j;
+		field_222381_j = properties.field_222381_j;
 		variableOpacity = properties.variableOpacity;
 	}
 	
@@ -57,6 +58,10 @@ public class BlockProperties extends Properties {
 	
 	public float getSlipperiness() {
 		return slipperiness;
+	}
+	
+	public ResourceLocation getField_222381_j() {
+		return field_222381_j;
 	}
 	
 	public boolean isVariableOpacity() {

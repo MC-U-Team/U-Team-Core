@@ -23,7 +23,7 @@ public class ItemProperties extends Properties {
 		containerItem = properties.containerItem;
 		group = properties.group;
 		field_208104_e = properties.field_208104_e;
-		// field_221541_f = properties.field_221541_f;
+		field_221541_f = properties.field_221541_f;
 		setValueCanRepair(getValueCanRepair(properties));
 		setValueToolClasses(Maps.newHashMap(getValueToolClasses(properties)));
 		setValueTeisr(getValueTeisr(properties));
@@ -71,6 +71,10 @@ public class ItemProperties extends Properties {
 	
 	public Rarity getRarity() {
 		return field_208104_e;
+	}
+	
+	public Food getFood() {
+		return field_221541_f;
 	}
 	
 	public boolean isCanRepair() {
