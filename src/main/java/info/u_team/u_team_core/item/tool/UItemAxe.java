@@ -6,7 +6,7 @@ import info.u_team.u_team_core.api.registry.IUItem;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ToolType;
 
-public class UItemAxe extends ItemAxe implements IUItem {
+public class UItemAxe extends AxeItem implements IUItem {
 	
 	protected final String name;
 	

@@ -1,9 +1,9 @@
 package info.u_team.u_team_core.tileentity;
 
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.block.BlockState;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.*;
 import net.minecraftforge.api.distmarker.*;
 
@@ -14,22 +14,22 @@ public abstract class UTileEntity extends TileEntity {
 	}
 	
 	@Override
-	public void read(NBTTagCompound compound) {
+	public void read(CompoundNBT compound) {
 		super.read(compound);
 		readNBT(compound);
 	}
 	
 	@Override
-	public NBTTagCompound write(NBTTagCompound compound) {
+	public CompoundNBT write(CompoundNBT compound) {
 		super.write(compound);
 		writeNBT(compound);
 		return compound;
 	}
 	
-	public void readNBT(NBTTagCompound compound) {
+	public void readNBT(CompoundNBT compound) {
 	}
 	
-	public void writeNBT(NBTTagCompound compound) {
+	public void writeNBT(CompoundNBT compound) {
 	}
 	
 	// sync server -> client
@@ -37,49 +37,49 @@ public abstract class UTileEntity extends TileEntity {
 	// synchronization on chunk load
 	
 	@Override
-	public NBTTagCompound getUpdateTag() {
-		NBTTagCompound compound = super.write(new NBTTagCompound());
+	public CompoundNBT getUpdateTag() {
+		CompoundNBT compound = super.write(new CompoundNBT());
 		writeOnChunkLoadServer(compound);
 		return compound;
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void handleUpdateTag(NBTTagCompound compound) {
+	public void handleUpdateTag(CompoundNBT compound) {
 		super.read(compound);
 		readOnChunkLoadClient(compound);
 	}
 	
-	public void writeOnChunkLoadServer(NBTTagCompound compound) {
+	public void writeOnChunkLoadServer(CompoundNBT compound) {
 	}
 	
 	@OnlyIn(Dist.CLIENT)
-	public void readOnChunkLoadClient(NBTTagCompound compound) {
+	public void readOnChunkLoadClient(CompoundNBT compound) {
 	}
 	
 	// synchronization on block update
 	
 	@Override
-	public SPacketUpdateTileEntity getUpdatePacket() {
-		NBTTagCompound compound = new NBTTagCompound();
+	public SUpdateTileEntityPacket getUpdatePacket() {
+		CompoundNBT compound = new CompoundNBT();
 		writeOnUpdateServer(compound);
 		if (!compound.isEmpty()) {
-			return new SPacketUpdateTileEntity(pos, -1, compound);
+			return new SUpdateTileEntityPacket(pos, -1, compound);
 		}
 		return null;
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
+	public void onDataPacket(NetworkManager manager, SUpdateTileEntityPacket packet) {
 		readOnUpdateClient(packet.getNbtCompound());
 	}
 	
-	public void writeOnUpdateServer(NBTTagCompound compound) {
+	public void writeOnUpdateServer(CompoundNBT compound) {
 	}
 	
 	@OnlyIn(Dist.CLIENT)
-	public void readOnUpdateClient(NBTTagCompound compound) {
+	public void readOnUpdateClient(CompoundNBT compound) {
 	}
 	
 	public void sendChangesToClient() {
@@ -87,7 +87,7 @@ public abstract class UTileEntity extends TileEntity {
 	}
 	
 	public void sendChangesToClient(int flags) {
-		IBlockState state = getBlockState();
+		final BlockState state = getBlockState();
 		world.notifyBlockUpdate(pos, state, state, flags);
 	}
 	

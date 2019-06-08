@@ -6,7 +6,7 @@ import info.u_team.u_team_core.api.registry.IUItem;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ToolType;
 
-public class UItemPickaxe extends ItemPickaxe implements IUItem {
+public class UItemPickaxe extends PickaxeItem implements IUItem {
 	
 	protected final String name;
 	

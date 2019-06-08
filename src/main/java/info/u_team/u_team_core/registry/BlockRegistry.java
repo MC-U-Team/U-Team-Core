@@ -6,7 +6,7 @@ import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.api.registry.IUBlock;
 import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.block.Block;
-import net.minecraft.item.ItemBlock;
+import net.minecraft.item.BlockItem;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -23,7 +23,7 @@ public class BlockRegistry {
 			IUBlock ublock = (IUBlock) block;
 			block.setRegistryName(modid, ublock.getEntryName());
 			
-			ItemBlock itemblock = ublock.getItemBlock();
+			BlockItem itemblock = ublock.getItemBlock();
 			if (itemblock != null) {
 				itemblock.setRegistryName(block.getRegistryName());
 				ItemRegistry.items.add(itemblock);

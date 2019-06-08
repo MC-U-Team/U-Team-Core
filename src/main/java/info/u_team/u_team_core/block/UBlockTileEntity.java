@@ -3,10 +3,11 @@ package info.u_team.u_team_core.block;
 import org.apache.commons.lang3.tuple.Pair;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
-import net.minecraft.block.state.IBlockState;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.*;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.*;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
@@ -34,48 +35,48 @@ public class UBlockTileEntity extends UBlock {
 	}
 	
 	@Override
-	public boolean hasTileEntity(IBlockState state) {
+	public boolean hasTileEntity(BlockState state) {
 		return true;
 	}
 	
 	@Override
-	public TileEntity createTileEntity(IBlockState state, IBlockReader world) {
+	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
 		return tileentitytype.create();
 	}
 	
-	public boolean openContainer(World world, BlockPos pos, EntityPlayer player) {
+	public boolean openContainer(World world, BlockPos pos, ServerPlayerEntity player) {
 		return openContainer(world, pos, player, false);
 	}
 	
-	public boolean openContainer(World world, BlockPos pos, EntityPlayer player, boolean canOpenSneak) {
-		if (world.isRemote || !(player instanceof EntityPlayerMP)) {
+	public boolean openContainer(World world, BlockPos pos, ServerPlayerEntity player, boolean canOpenSneak) {
+		if (world.isRemote || !(player instanceof ServerPlayerEntity)) {
 			// Need to return true here, cause else it will create two instances of our gui
 			// which may cause bugs. The method onBlockActivated must return this value
 			// correctly!
 			return true;
 		}
-		EntityPlayerMP playermp = (EntityPlayerMP) player;
+		ServerPlayerEntity playermp = (ServerPlayerEntity) player;
 		Pair<Boolean, TileEntity> pair = isTileEntityFromProvider(world, pos);
 		if (!pair.getLeft()) {
 			return false;
 		}
 		TileEntity tileentity = pair.getRight();
 		
-		if (!(tileentity instanceof IInteractionObject)) {
+		if (!(tileentity instanceof INamedContainerProvider)) {
 			return false;
 		}
 		if (!canOpenSneak && playermp.isSneaking()) {
 			return true;
 		}
 		
-		NBTTagCompound compound = null;
+		CompoundNBT compound = null;
 		if (tileentity instanceof ISyncedContainerTileEntity) {
-			compound = new NBTTagCompound();
+			compound = new CompoundNBT();
 			((ISyncedContainerTileEntity) tileentity).writeOnGuiOpenServer(compound);
 		}
 		
-		final NBTTagCompound finalCompound = compound;
-		NetworkHooks.openGui(playermp, (IInteractionObject) tileentity, buf -> {
+		final CompoundNBT finalCompound = compound;
+		NetworkHooks.openGui(playermp, (INamedContainerProvider) tileentity, buf -> {
 			buf.writeBlockPos(pos);
 			if (finalCompound != null) {
 				buf.writeCompoundTag(finalCompound);

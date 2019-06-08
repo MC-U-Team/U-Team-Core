@@ -5,7 +5,7 @@ import info.u_team.u_team_core.api.IToolMaterial.Tools;
 import info.u_team.u_team_core.api.registry.IUItem;
 import net.minecraft.item.*;
 
-public class UItemHoe extends ItemHoe implements IUItem {
+public class UItemHoe extends HoeItem implements IUItem {
 	
 	protected final String name;
 	

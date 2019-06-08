@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.Maps;
 
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
+import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.*;
 import net.minecraft.item.Item.Properties;
 import net.minecraftforge.common.ToolType;
@@ -22,7 +22,8 @@ public class ItemProperties extends Properties {
 		maxDamage = properties.maxDamage;
 		containerItem = properties.containerItem;
 		group = properties.group;
-		rarity = properties.rarity;
+		field_208104_e = properties.field_208104_e;
+		// field_221541_f = properties.field_221541_f;
 		setValueCanRepair(getValueCanRepair(properties));
 		setValueToolClasses(Maps.newHashMap(getValueToolClasses(properties)));
 		setValueTeisr(getValueTeisr(properties));
@@ -44,11 +45,11 @@ public class ItemProperties extends Properties {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "toolClasses");
 	}
 	
-	private Supplier<Callable<TileEntityItemStackRenderer>> getValueTeisr(Properties properties) {
+	private Supplier<Callable<ItemStackTileEntityRenderer>> getValueTeisr(Properties properties) {
 		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "teisr");
 	}
 	
-	private void setValueTeisr(Supplier<Callable<TileEntityItemStackRenderer>> value) {
+	private void setValueTeisr(Supplier<Callable<ItemStackTileEntityRenderer>> value) {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "teisr");
 	}
 	
@@ -68,8 +69,8 @@ public class ItemProperties extends Properties {
 		return group;
 	}
 	
-	public EnumRarity getRarity() {
-		return rarity;
+	public Rarity getRarity() {
+		return field_208104_e;
 	}
 	
 	public boolean isCanRepair() {
@@ -80,7 +81,7 @@ public class ItemProperties extends Properties {
 		return getValueToolClasses(this);
 	}
 	
-	public Supplier<Callable<TileEntityItemStackRenderer>> getTeisr() {
+	public Supplier<Callable<ItemStackTileEntityRenderer>> getTeisr() {
 		return getValueTeisr(this);
 	}
 }

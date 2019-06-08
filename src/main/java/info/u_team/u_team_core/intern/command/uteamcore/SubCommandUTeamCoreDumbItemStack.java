@@ -4,10 +4,10 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.command.*;
-import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.StringTextComponent;
 
 public class SubCommandUTeamCoreDumbItemStack {
 	
@@ -16,18 +16,19 @@ public class SubCommandUTeamCoreDumbItemStack {
 	}
 	
 	private static int execute(CommandSource source) throws CommandException {
-		EntityPlayerMP player = null;
+		
+		ServerPlayerEntity player = null;
 		try {
 			player = source.asPlayer();
 		} catch (CommandSyntaxException ex) {
-			throw new CommandException(new TextComponentString(ex.getMessage()));
+			throw new CommandException(new StringTextComponent(ex.getMessage()));
 		}
 		ItemStack stack = player.getHeldItemMainhand();
 		Item item = stack.getItem();
-		NBTTagCompound compound = stack.getTag();
-		source.sendFeedback(new TextComponentString("Item: " + item.getRegistryName() + " (" + item + ")"), true);
+		CompoundNBT compound = stack.getTag();
+		source.sendFeedback(new StringTextComponent("Item: " + item.getRegistryName() + " (" + item + ")"), true);
 		if (compound != null) {
-			source.sendFeedback(new TextComponentString("NBT: ").appendSibling(compound.toFormattedComponent()), true);
+			source.sendFeedback(new StringTextComponent("NBT: ").appendSibling(compound.toFormattedComponent()), true);
 		}
 		return 0;
 	}

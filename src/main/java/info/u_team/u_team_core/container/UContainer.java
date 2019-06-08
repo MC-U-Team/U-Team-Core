@@ -1,16 +1,20 @@
 package info.u_team.u_team_core.container;
 
 import net.minecraft.entity.player.*;
-import net.minecraft.inventory.*;
+import net.minecraft.inventory.container.*;
 
 public class UContainer extends Container {
 	
+	public UContainer(ContainerType<?> type, int id) {
+		super(type, id);
+	}
+	
 	@Override
-	public boolean canInteractWith(EntityPlayer player) {
+	public boolean canInteractWith(PlayerEntity playerIn) {
 		return true;
 	}
 	
-	public void appendPlayerInventory(InventoryPlayer inventory, int x, int y) {
+	public void appendPlayerInventory(PlayerInventory inventory, int x, int y) {
 		for (int height = 0; height < 4; height++) {
 			for (int width = 0; width < 9; width++) {
 				if (height == 3) {
@@ -21,4 +25,5 @@ public class UContainer extends Container {
 			}
 		}
 	}
+	
 }

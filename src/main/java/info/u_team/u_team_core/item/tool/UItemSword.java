@@ -5,7 +5,7 @@ import info.u_team.u_team_core.api.IToolMaterial.Tools;
 import info.u_team.u_team_core.api.registry.IUItem;
 import net.minecraft.item.*;
 
-public class UItemSword extends ItemSword implements IUItem {
+public class UItemSword extends SwordItem implements IUItem {
 	
 	protected final String name;
 	

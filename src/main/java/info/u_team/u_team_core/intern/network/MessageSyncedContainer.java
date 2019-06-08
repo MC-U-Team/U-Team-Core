@@ -5,9 +5,9 @@ import java.util.function.Supplier;
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import info.u_team.u_team_core.gui.UGuiContainerTileEntity;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -20,9 +20,9 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
 public class MessageSyncedContainer {
 	
 	private BlockPos pos;
-	private NBTTagCompound compound;
+	private CompoundNBT compound;
 	
-	public MessageSyncedContainer(BlockPos pos, NBTTagCompound compound) {
+	public MessageSyncedContainer(BlockPos pos, CompoundNBT compound) {
 		this.pos = pos;
 		this.compound = compound;
 	}
@@ -34,7 +34,7 @@ public class MessageSyncedContainer {
 	
 	public static MessageSyncedContainer decode(PacketBuffer buf) {
 		BlockPos pos = buf.readBlockPos();
-		NBTTagCompound compound = buf.readCompoundTag();
+		CompoundNBT compound = buf.readCompoundTag();
 		return new MessageSyncedContainer(pos, compound);
 	}
 	
@@ -53,7 +53,7 @@ public class MessageSyncedContainer {
 		}
 		
 		@OnlyIn(Dist.CLIENT)
-		private static void handleClient(BlockPos pos, NBTTagCompound compound, Context ctx) {
+		private static void handleClient(BlockPos pos, CompoundNBT compound, Context ctx) {
 			Minecraft minecraft = Minecraft.getInstance();
 			World world = minecraft.world;
 			if (!world.isBlockLoaded(pos)) {
@@ -65,15 +65,15 @@ public class MessageSyncedContainer {
 				synced.readOnContainerSyncClient(compound);
 			}
 			
-			GuiScreen gui = minecraft.currentScreen;
+			Screen gui = minecraft.field_71462_r;
 			if (gui instanceof UGuiContainerTileEntity) {
 				UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
 				guicontainer.handleServerNBT(compound);
 			}
 		}
 		
-		private static void handleServer(BlockPos pos, NBTTagCompound compound, Context ctx) {
-			EntityPlayerMP player = ctx.getSender();
+		private static void handleServer(BlockPos pos, CompoundNBT compound, Context ctx) {
+			ServerPlayerEntity player = ctx.getSender();
 			World world = player.getServerWorld();
 			if (!world.isBlockLoaded(pos)) {
 				return;

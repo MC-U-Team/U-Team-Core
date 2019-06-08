@@ -1,29 +1,32 @@
 package info.u_team.u_team_core.gui;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+
 import info.u_team.u_team_core.container.UContainer;
-import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
-public class UGuiContainer extends GuiContainer {
+public class UGuiContainer extends ContainerScreen<UContainer> {
 	
 	protected final ResourceLocation background;
 	
-	public UGuiContainer(UContainer container, ResourceLocation background) {
-		super(container);
+	public UGuiContainer(UContainer container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background) {
+		super(container, playerInventory, title);
 		this.background = background;
 	}
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		mc.getTextureManager().bindTexture(background);
+		minecraft.getTextureManager().bindTexture(background);
 		int xStart = (width - xSize) / 2;
 		int yStart = (height - ySize) / 2;
 		
-		drawTexturedModalRect(xStart, yStart, 0, 0, xSize, ySize);
+		blit(xStart, yStart, 0, 0, xSize, ySize);
 	}
 	
 }

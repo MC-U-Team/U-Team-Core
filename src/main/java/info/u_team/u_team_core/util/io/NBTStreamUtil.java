@@ -6,12 +6,12 @@ import net.minecraft.nbt.*;
 
 public class NBTStreamUtil {
 	
-	public static NBTTagCompound readNBTFromFile(File file) throws IOException {
+	public static CompoundNBT readNBTFromFile(File file) throws IOException {
 		return readNBTFromStream(new FileInputStream(file));
 	}
 	
-	public static NBTTagCompound readNBTFromStream(InputStream stream) throws IOException {
-		NBTTagCompound tag;
+	public static CompoundNBT readNBTFromStream(InputStream stream) throws IOException {
+		CompoundNBT tag;
 		try {
 			tag = CompressedStreamTools.readCompressed(stream);
 		} finally {
@@ -20,11 +20,11 @@ public class NBTStreamUtil {
 		return tag;
 	}
 	
-	public static void writeNBTToFile(NBTTagCompound tag, File file) throws IOException {
+	public static void writeNBTToFile(CompoundNBT tag, File file) throws IOException {
 		writeNBTToStream(tag, new FileOutputStream(file));
 	}
 	
-	public static void writeNBTToStream(NBTTagCompound tag, OutputStream stream) throws IOException {
+	public static void writeNBTToStream(CompoundNBT tag, OutputStream stream) throws IOException {
 		try {
 			CompressedStreamTools.writeCompressed(tag, stream);
 		} finally {

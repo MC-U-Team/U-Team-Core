@@ -19,6 +19,7 @@ public class BlockProperties extends Properties {
 		hardness = properties.hardness;
 		ticksRandomly = properties.ticksRandomly;
 		slipperiness = properties.slipperiness;
+//		field_222381_j = properties.field_222381_j;
 		variableOpacity = properties.variableOpacity;
 	}
 	

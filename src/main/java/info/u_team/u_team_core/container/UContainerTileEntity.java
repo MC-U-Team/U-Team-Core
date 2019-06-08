@@ -1,18 +1,20 @@
 package info.u_team.u_team_core.container;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.inventory.IContainerListener;
-import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.command.impl.TagCommand;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.*;
+import net.minecraft.nbt.*;
 import net.minecraft.tileentity.TileEntity;
 
 public class UContainerTileEntity extends UContainer {
 	
 	protected final TileEntity tileentity;
 	
-	private NBTTagCompound lastCompound;
+	private CompoundNBT lastCompound;
 	
-	public UContainerTileEntity(TileEntity tileentity) {
+	public UContainerTileEntity(ContainerType<?> type, int id, TileEntity tileentity) {
+		super(type, id);
 		this.tileentity = tileentity;
 	}
 	
@@ -25,13 +27,13 @@ public class UContainerTileEntity extends UContainer {
 	@Override
 	public void addListener(IContainerListener listener) {
 		super.addListener(listener);
-		if (listener instanceof EntityPlayerMP && tileentity instanceof ISyncedContainerTileEntity) {
+		if (listener instanceof ServerPlayerEntity && tileentity instanceof ISyncedContainerTileEntity) {
 			ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
 			if (lastCompound == null) {
-				lastCompound = new NBTTagCompound();
+				lastCompound = new CompoundNBT();
 				synced.writeOnContainerSyncServer(lastCompound);
 			}
-			synced.sendMessageToClient((EntityPlayerMP) listener, tileentity.getPos(), lastCompound);
+			synced.sendMessageToClient((ServerPlayerEntity) listener, tileentity.getPos(), lastCompound);
 		}
 	}
 	
@@ -41,7 +43,7 @@ public class UContainerTileEntity extends UContainer {
 		if (tileentity instanceof ISyncedContainerTileEntity) {
 			ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
 			
-			NBTTagCompound compound = new NBTTagCompound();
+			CompoundNBT compound = new CompoundNBT();
 			synced.writeOnContainerSyncServer(compound);
 			if (compound.equals(lastCompound)) {
 				return;

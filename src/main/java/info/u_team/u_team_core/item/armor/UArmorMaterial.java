@@ -2,7 +2,7 @@ package info.u_team.u_team_core.item.armor;
 
 import java.util.function.Supplier;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.*;
@@ -27,12 +27,12 @@ public class UArmorMaterial implements IArmorMaterial {
 	}
 	
 	@Override
-	public int getDurability(EntityEquipmentSlot slot) {
+	public int getDurability(EquipmentSlotType slot) {
 		return durability[slot.getIndex()];
 	}
 	
 	@Override
-	public int getDamageReductionAmount(EntityEquipmentSlot slot) {
+	public int getDamageReductionAmount(EquipmentSlotType slot) {
 		return armorpoints[slot.getIndex()];
 	}
 	

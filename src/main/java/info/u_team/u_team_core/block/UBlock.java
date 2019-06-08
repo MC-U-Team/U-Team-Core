@@ -8,7 +8,7 @@ public class UBlock extends Block implements IUBlock {
 	
 	protected final String name;
 	
-	protected final ItemBlock itemblock;
+	protected final BlockItem itemblock;
 	
 	public UBlock(String name, Properties properties) {
 		this(name, null, properties);
@@ -28,8 +28,8 @@ public class UBlock extends Block implements IUBlock {
 		itemblock = createItemBlock(itemblockproperties == null ? new Item.Properties().group(group) : group == null ? itemblockproperties : itemblockproperties.group(group));
 	}
 	
-	protected ItemBlock createItemBlock(Item.Properties itemblockproperties) {
-		return new ItemBlock(this, itemblockproperties);
+	protected BlockItem createItemBlock(Item.Properties itemblockproperties) {
+		return new BlockItem(this, itemblockproperties);
 	}
 	
 	@Override
@@ -38,7 +38,7 @@ public class UBlock extends Block implements IUBlock {
 	}
 	
 	@Override
-	public ItemBlock getItemBlock() {
+	public BlockItem getItemBlock() {
 		return itemblock;
 	}
 	

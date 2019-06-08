@@ -7,7 +7,7 @@ public abstract class UBiome extends Biome implements IUBiome {
 	
 	protected final String name;
 	
-	public UBiome(String name, BiomeBuilder biomeBuilder) {
+	public UBiome(String name, Builder biomeBuilder) {
 		super(biomeBuilder);
 		this.name = name;
 	}
