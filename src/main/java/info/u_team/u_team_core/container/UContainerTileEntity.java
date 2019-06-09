@@ -1,10 +1,9 @@
 package info.u_team.u_team_core.container;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
-import net.minecraft.command.impl.TagCommand;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.*;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 
 public class UContainerTileEntity extends UContainer {
@@ -49,7 +48,7 @@ public class UContainerTileEntity extends UContainer {
 				return;
 			}
 			lastCompound = compound;
-			listeners.stream().filter(listener -> listener instanceof EntityPlayerMP).map(listener -> (EntityPlayerMP) listener).forEach(player -> {
+			listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity) listener).forEach(player -> {
 				synced.sendMessageToClient(player, tileentity.getPos(), compound);
 			});
 		}
