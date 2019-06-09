@@ -4,11 +4,11 @@ import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.util.RegistryUtil;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.common.registry.VillagerRegistry.VillagerProfession;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @EventBusSubscriber(modid = UCoreMain.modid, bus = Bus.MOD)
