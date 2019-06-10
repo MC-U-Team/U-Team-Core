@@ -1,14 +1,14 @@
-package info.u_team.u_team_core.potion;
+package info.u_team.u_team_core.effect;
 
 import info.u_team.u_team_core.api.registry.IUPotion;
 import net.minecraft.potion.*;
 
-public class UPotion extends Potion implements IUPotion {
+public class UEffect extends Effect implements IUPotion {
 	
 	protected final String name;
 	
-	public UPotion(String name, EffectInstance... effects) {
-		super(name, effects);
+	public UEffect(String name, EffectType type, int liquidColor) {
+		super(type, liquidColor);
 		this.name = name;
 	}
 	
@@ -16,4 +16,5 @@ public class UPotion extends Potion implements IUPotion {
 	public String getEntryName() {
 		return name;
 	}
+	
 }
