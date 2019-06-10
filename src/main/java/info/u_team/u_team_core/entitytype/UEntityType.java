@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.entitytype;
 
-import java.util.function.Function;
+import java.util.function.*;
 
 import info.u_team.u_team_core.api.registry.IUEntityType;
 import net.minecraft.entity.*;
@@ -11,8 +11,8 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IUEn
 	
 	protected final String name;
 	
-	public UEntityType(String name, Class<? extends T> clazz, Function<? super World, ? extends T> factory, boolean serializable, boolean summonable, boolean useVanillaSpawning, Function<SpawnEntity, Entity> customSpawnCallback, boolean hasCustomTracking, int range, int updateFreq, boolean sendVelocityUpdates) {
-		super(clazz, factory, serializable, summonable, null, useVanillaSpawning, customSpawnCallback, hasCustomTracking, range, updateFreq, sendVelocityUpdates);
+	public UEntityType(String name, IFactory<T> factory, EntityClassification classification, boolean serializable, boolean summonable, boolean immuneToFire, EntitySize size, Predicate<EntityType<?>> velocityUpdateSupplier, ToIntFunction<EntityType<?>> trackingRangeSupplier, ToIntFunction<EntityType<?>> updatetervalSupplier, BiFunction<SpawnEntity, World, T> customClientFactory) {
+		super(factory, classification, serializable, summonable, immuneToFire, null, size, velocityUpdateSupplier, trackingRangeSupplier, updatetervalSupplier, customClientFactory);
 		this.name = name;
 	}
 	
@@ -24,53 +24,74 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IUEn
 	public static class Builder<T extends Entity> {
 		
 		private final String name;
-		private final Class<? extends T> entityClass;
-		private final Function<? super World, ? extends T> factory;
-		
+		private final IFactory<T> factory;
+		private final EntityClassification classification;
 		private boolean serializable = true;
 		private boolean summonable = true;
-		private Function<SpawnEntity, Entity> customSpawnCallback = null;
-		private boolean hasCustomTracking = false;
-		private int trackingRange;
-		private int updateFrequency;
-		private boolean sendVelocityUpdates;
+		private boolean immuneToFire;
+		private Predicate<EntityType<?>> velocityUpdateSupplier = type -> true;
+		private ToIntFunction<EntityType<?>> trackingRangeSupplier = type -> 5;
+		private ToIntFunction<EntityType<?>> updateIntervalSupplier = type -> 3;
+		private BiFunction<SpawnEntity, World, T> customClientFactory;
 		
-		private Builder(String name, Class<? extends T> entityClass, Function<? super World, ? extends T> factory) {
+		private EntitySize size = EntitySize.flexible(0.6F, 1.8F);
+		
+		private Builder(String name, IFactory<T> factory, EntityClassification classification) {
 			this.name = name;
-			this.entityClass = entityClass;
 			this.factory = factory;
+			this.classification = classification;
 		}
 		
-		public static <T extends Entity> Builder<T> create(String name, Class<? extends T> entityClass, Function<? super World, ? extends T> factory) {
-			return new Builder<>(name, entityClass, factory);
+		public static <T extends Entity> Builder<T> create(String name, IFactory<T> factory, EntityClassification classification) {
+			return new Builder<>(name, factory, classification);
+		}
+		
+		public static <T extends Entity> Builder<T> create(String name, EntityClassification classification) {
+			return new Builder<>(name, (type, world) -> null, classification);
+		}
+		
+		public Builder<T> size(float width, float height) {
+			this.size = EntitySize.flexible(width, height);
+			return this;
 		}
 		
 		public Builder<T> disableSummoning() {
-			summonable = false;
+			this.summonable = false;
 			return this;
 		}
 		
 		public Builder<T> disableSerialization() {
-			serializable = false;
+			this.serializable = false;
 			return this;
 		}
 		
-		public Builder<T> customSpawning(Function<SpawnEntity, Entity> function, boolean useVanillaSpawning) {
-			customSpawnCallback = function;
+		public Builder<T> immuneToFire() {
+			this.immuneToFire = true;
 			return this;
 		}
 		
-		public Builder<T> tracker(int range, int updateFrequency, boolean sendVelocityUpdates) {
-			this.hasCustomTracking = true;
-			this.trackingRange = range;
-			this.updateFrequency = updateFrequency;
-			this.sendVelocityUpdates = sendVelocityUpdates;
+		public Builder<T> setUpdateInterval(int interval) {
+			this.updateIntervalSupplier = t -> interval;
 			return this;
 		}
 		
-		public UEntityType<T> build() {
-			return new UEntityType<>(name, entityClass, factory, serializable, summonable, false, customSpawnCallback, hasCustomTracking, trackingRange, updateFrequency, sendVelocityUpdates);
+		public Builder<T> setTrackingRange(int range) {
+			this.trackingRangeSupplier = t -> range;
+			return this;
+		}
+		
+		public Builder<T> setShouldReceiveVelocityUpdates(boolean value) {
+			this.velocityUpdateSupplier = t -> value;
+			return this;
+		}
+		
+		public Builder<T> setCustomClientFactory(BiFunction<SpawnEntity, World, T> customClientFactory) {
+			this.customClientFactory = customClientFactory;
+			return this;
+		}
+		
+		public EntityType<T> build() {
+			return new UEntityType<>(name, factory, classification, serializable, summonable, immuneToFire, size, velocityUpdateSupplier, trackingRangeSupplier, updateIntervalSupplier, customClientFactory);
 		}
 	}
-	
 }

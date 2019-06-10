@@ -3,7 +3,7 @@ package info.u_team.u_team_core.potiontype;
 import info.u_team.u_team_core.api.registry.IUPotion;
 import net.minecraft.potion.*;
 
-public class UPotionType extends PotionType implements IUPotion {
+public class UPotionType extends Effect implements IUPotion {
 	
 	protected final String name;
 	

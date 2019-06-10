@@ -10,8 +10,8 @@ public class GuiSliderBetterFont extends GuiSlider {
 	
 	protected float scale;
 	
-	public GuiSliderBetterFont(int id, int xPos, int yPos, int width, int height, String prefix, String suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr, float scale, ISlider par) {
-		super(id, xPos, yPos, width, height, prefix, suf, minVal, maxVal, currentVal, showDec, drawStr, par);
+	public GuiSliderBetterFont(int xPos, int yPos, int width, int height, String prefix, String suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr, float scale, IPressable pressable, ISlider slider) {
+		super(xPos, yPos, width, height, prefix, suf, minVal, maxVal, currentVal, showDec, drawStr,pressable, slider);
 		this.scale = scale;
 	}
 	
