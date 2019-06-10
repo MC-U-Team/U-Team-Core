@@ -9,6 +9,7 @@ import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
+import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.DamageSource;
@@ -17,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.network.FMLPlayMessages.SpawnEntity;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class EntityBetterEnderPearl extends ProjectileItemEntity {
 	
@@ -24,6 +26,7 @@ public class EntityBetterEnderPearl extends ProjectileItemEntity {
 	
 	public EntityBetterEnderPearl(SpawnEntity packet, World world) {
 		this(TestEntityTypes.better_enderpearl, world);
+		System.out.println(packet);
 	}
 	
 	public EntityBetterEnderPearl(EntityType<? extends EntityBetterEnderPearl> type, World world) {
@@ -134,5 +137,10 @@ public class EntityBetterEnderPearl extends ProjectileItemEntity {
 	@Override
 	protected Item func_213885_i() {
 		return TestItems.better_enderpearl;
+	}
+	
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }
