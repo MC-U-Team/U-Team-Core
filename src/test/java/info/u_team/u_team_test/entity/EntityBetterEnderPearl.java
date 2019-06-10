@@ -5,7 +5,6 @@ import javax.annotation.Nullable;
 import info.u_team.u_team_test.init.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.*;
-import net.minecraft.entity.item.EnderPearlEntity;
 import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.entity.player.*;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
@@ -17,10 +16,15 @@ import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.fml.network.FMLPlayMessages.SpawnEntity;
 
 public class EntityBetterEnderPearl extends ProjectileItemEntity {
 	
 	private LivingEntity thrower;
+	
+	public EntityBetterEnderPearl(SpawnEntity packet, World world) {
+		this(TestEntityTypes.better_enderpearl, world);
+	}
 	
 	public EntityBetterEnderPearl(EntityType<? extends EntityBetterEnderPearl> type, World world) {
 		super(type, world);

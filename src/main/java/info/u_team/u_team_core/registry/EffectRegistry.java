@@ -12,12 +12,12 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.IForgeRegistry;
 
 @EventBusSubscriber(modid = UCoreMain.modid, bus = Bus.MOD)
-public class PotionTypeRegistry {
+public class EffectRegistry {
 	
-	static List<Effect> potiontypes = new ArrayList<>();
+	static List<Effect> effects = new ArrayList<>();
 	
-	public static void register(String modid, Effect potiontype) {
-		BaseRegistry.register(modid, potiontype, potiontypes);
+	public static void register(String modid, Effect effect) {
+		BaseRegistry.register(modid, effect, effects);
 	}
 	
 	public static void register(String modid, Collection<Effect> list) {
@@ -31,6 +31,6 @@ public class PotionTypeRegistry {
 	@SubscribeEvent
 	public static void event(RegistryEvent.Register<Effect> event) {
 		IForgeRegistry<Effect> registry = event.getRegistry();
-		potiontypes.forEach(registry::register);
+		effects.forEach(registry::register);
 	}
 }
