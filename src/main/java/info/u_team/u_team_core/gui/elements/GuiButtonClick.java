@@ -6,12 +6,12 @@ public class GuiButtonClick extends GuiButtonExt {
 	
 	private Runnable runnable;
 	
-	public GuiButtonClick(int xPos, int yPos, String displayString) {
-		super(-1, xPos, yPos, displayString);
+	public GuiButtonClick(int xPos, int yPos, int width, int height, String displayString) {
+		super(xPos, yPos, width, height, displayString, button -> {});
 	}
 	
-	public GuiButtonClick(int xPos, int yPos, int width, int height, String displayString) {
-		super(-1, xPos, yPos, width, height, displayString);
+	public GuiButtonClick(int xPos, int yPos, int width, int height, String displayString, IPressable pressable) {
+		super(xPos, yPos, width, height, displayString, pressable);
 	}
 	
 	public void setClickAction(Runnable runnable) {
@@ -19,7 +19,8 @@ public class GuiButtonClick extends GuiButtonExt {
 	}
 	
 	@Override
-	public void onClick(double mouseX, double mouseY) {
+	public void onPress() {
+		super.onPress();
 		if (runnable != null) {
 			runnable.run();
 		}

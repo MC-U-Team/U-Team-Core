@@ -2,8 +2,7 @@ package info.u_team.u_team_core.gui.elements;
 
 import org.lwjgl.opengl.GL11;
 
-import info.u_team.u_team_core.gui.elements.GuiButtonClick;
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 
 public class GuiButtonClickActivated extends GuiButtonClick {
 	
@@ -25,12 +24,12 @@ public class GuiButtonClickActivated extends GuiButtonClick {
 	}
 	
 	@Override
-	public void render(int mouseX, int mouseY, float partial) {
+	public void renderButton(int mouseX, int mouseY, float partial) {
 		if (active) {
 			GlStateManager.color4f(1F, 1F, 1F, 1F);
 			color(activeColor);
 		}
-		super.render(mouseX, mouseY, partial);
+		super.renderButton(mouseX, mouseY, partial);
 	}
 	
 	protected void color(int color) {

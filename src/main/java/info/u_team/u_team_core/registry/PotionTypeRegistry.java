@@ -4,7 +4,7 @@ import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.util.RegistryUtil;
-import net.minecraft.potion.*;
+import net.minecraft.potion.Effect;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;

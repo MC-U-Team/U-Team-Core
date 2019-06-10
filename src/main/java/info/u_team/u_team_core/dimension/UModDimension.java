@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.dimension;
 
-import java.util.function.*;
+import java.util.function.BiFunction;
 
 import info.u_team.u_team_core.api.registry.IUModDimension;
 import net.minecraft.world.World;
