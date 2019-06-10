@@ -7,7 +7,7 @@ import info.u_team.u_team_core.gui.UGuiContainerTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.*;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -65,7 +65,7 @@ public class MessageSyncedContainer {
 				synced.readOnContainerSyncClient(compound);
 			}
 			
-			Screen gui = minecraft.field_71462_r;
+			Screen gui = minecraft.currentScreen;
 			if (gui instanceof UGuiContainerTileEntity) {
 				UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
 				guicontainer.handleServerNBT(compound);
