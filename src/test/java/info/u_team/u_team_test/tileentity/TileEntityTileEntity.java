@@ -4,14 +4,15 @@ import java.util.Iterator;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import info.u_team.u_team_core.tileentity.UTileEntityContainer;
-import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.ContainerTileEntity;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
+import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.*;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.*;
 
 public class TileEntityTileEntity extends UTileEntityContainer implements IInventory, ISyncedContainerTileEntity, ITickable {
@@ -26,27 +27,27 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	public int cooldown, value;
 	
 	@Override
-	public void writeOnContainerSyncServer(NBTTagCompound compound) {
+	public void writeOnContainerSyncServer(CompoundNBT compound) {
 		compound.putInt("value", value);
 		compound.putInt("cooldown", cooldown);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void readOnContainerSyncClient(NBTTagCompound compound) {
+	public void readOnContainerSyncClient(CompoundNBT compound) {
 		value = compound.getInt("value");
 		cooldown = compound.getInt("cooldown");
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void writeOnContainerSyncClient(NBTTagCompound compound) {
+	public void writeOnContainerSyncClient(CompoundNBT compound) {
 		compound.putInt("value", value);
 		compound.putInt("cooldown", cooldown);
 	}
 	
 	@Override
-	public void readOnContainerSyncServer(NBTTagCompound compound) {
+	public void readOnContainerSyncServer(CompoundNBT compound) {
 		value = compound.getInt("value");
 		cooldown = Math.min(compound.getInt("cooldown"), 100);
 		markDirty();
@@ -70,24 +71,19 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	}
 	
 	@Override
-	public Container createContainer(InventoryPlayer inventoryPlayer, EntityPlayer player) {
-		return new ContainerTileEntity(inventoryPlayer, this);
+	public Container createMenu(int var1, PlayerInventory inventoryPlayer, PlayerEntity var3) {
+		return new ContainerTileEntity(null, var1, inventoryPlayer, this);
 	}
 	
 	@Override
-	public ResourceLocation getGui() {
-		return new ResourceLocation(TestMod.modid, "tileentity");
-	}
-	
-	@Override
-	public void readNBT(NBTTagCompound compound) {
+	public void readNBT(CompoundNBT compound) {
 		ItemStackHelper.loadAllItems(compound, list);
 		value = compound.getInt("value");
 		cooldown = compound.getInt("cooldown");
 	}
 	
 	@Override
-	public void writeNBT(NBTTagCompound compound) {
+	public void writeNBT(CompoundNBT compound) {
 		ItemStackHelper.saveAllItems(compound, list);
 		compound.putInt("value", value);
 		compound.putInt("cooldown", cooldown);
@@ -99,7 +95,7 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	}
 	
 	@Override
-	public void closeInventory(EntityPlayer var1) {
+	public void closeInventory(PlayerEntity var1) {
 	}
 	
 	@Override
@@ -109,16 +105,6 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 			this.markDirty();
 		}
 		return lvt_3_1_;
-	}
-	
-	@Override
-	public int getField(int var1) {
-		return 0;
-	}
-	
-	@Override
-	public int getFieldCount() {
-		return 0;
 	}
 	
 	@Override
@@ -158,12 +144,12 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	}
 	
 	@Override
-	public boolean isUsableByPlayer(EntityPlayer var1) {
+	public boolean isUsableByPlayer(PlayerEntity var1) {
 		return true;
 	}
 	
 	@Override
-	public void openInventory(EntityPlayer var1) {
+	public void openInventory(PlayerEntity var1) {
 	}
 	
 	@Override
@@ -178,11 +164,6 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	}
 	
 	@Override
-	public void setField(int var1, int var2) {
-		
-	}
-	
-	@Override
 	public void setInventorySlotContents(int var1, ItemStack var2) {
 		this.list.set(var1, var2);
 		if (!var2.isEmpty() && var2.getCount() > this.getInventoryStackLimit()) {
@@ -190,7 +171,5 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 		}
 		
 		this.markDirty();
-		
 	}
-	
 }

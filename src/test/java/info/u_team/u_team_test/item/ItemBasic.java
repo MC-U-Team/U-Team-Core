@@ -8,35 +8,36 @@ import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceResult.Type;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 
 public class ItemBasic extends UItem {
 	
 	public ItemBasic(String name) {
-		super(name, TestItemGroups.group, new Properties().rarity(EnumRarity.EPIC).defaultMaxDamage(10));
+		super(name, TestItemGroups.group, new Properties().rarity(Rarity.EPIC).defaultMaxDamage(10));
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand) {
+	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		
 		if (!world.isRemote) {
 			RayTraceResult raytrace = WorldUtil.rayTraceServerSide(player, 50);
 			
-			if (raytrace.type == Type.MISS) {
-				player.sendStatusMessage(new TextComponentTranslation("item.uteamtest.basicitem.outofrange"), true);
-				return new ActionResult<ItemStack>(EnumActionResult.FAIL, stack);
+			if (raytrace.getType() == Type.MISS) {
+				player.sendStatusMessage(new StringTextComponent("item.uteamtest.basicitem.outofrange"), true);
+				return new ActionResult<>(ActionResultType.FAIL, stack);
 			}
 			
-			BlockPos pos = raytrace.getBlockPos();
+			Vec3d pos = raytrace.getHitVec();
 			
-			EntityPlayerMP playermp = (EntityPlayerMP) player;
+			ServerPlayerEntity playermp = (ServerPlayerEntity) player;
 			playermp.connection.setPlayerLocation(pos.getX(), pos.getY() + 1, pos.getZ(), playermp.rotationYaw, playermp.rotationPitch);
 			
-			stack.damageItem(1, player);
+			stack.damageItem(1, player, (test) -> {
+			});
 			
 		}
-		return new ActionResult<ItemStack>(EnumActionResult.SUCCESS, stack);
+		return new ActionResult<ItemStack>(ActionResultType.SUCCESS, stack);
 	}
 }

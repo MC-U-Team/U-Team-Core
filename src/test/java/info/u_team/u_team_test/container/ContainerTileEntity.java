@@ -1,14 +1,20 @@
 package info.u_team.u_team_test.container;
 
 import info.u_team.u_team_core.container.UContainerTileEntity;
+import info.u_team.u_team_test.init.TestContainers;
 import info.u_team.u_team_test.tileentity.TileEntityTileEntity;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.*;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.container.*;
 
 public class ContainerTileEntity extends UContainerTileEntity {
 	
-	public ContainerTileEntity(InventoryPlayer inventoryPlayer, TileEntityTileEntity tileentity) {
-		super(tileentity);
+	public ContainerTileEntity(int id, PlayerInventory inventoryPlayer) {
+		this(TestContainers.type, id, inventoryPlayer, null);
+	}
+	
+	public ContainerTileEntity(ContainerType<?> type, int id, PlayerInventory inventoryPlayer, TileEntityTileEntity tileentity) {
+		super(type, id, tileentity);
 		
 		IInventory inventoryBasic = tileentity;
 		

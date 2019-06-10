@@ -4,7 +4,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.*;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
@@ -44,11 +44,11 @@ public class UBlockTileEntity extends UBlock {
 		return tileentitytype.create();
 	}
 	
-	public boolean openContainer(World world, BlockPos pos, ServerPlayerEntity player) {
+	public boolean openContainer(World world, BlockPos pos, PlayerEntity player) {
 		return openContainer(world, pos, player, false);
 	}
 	
-	public boolean openContainer(World world, BlockPos pos, ServerPlayerEntity player, boolean canOpenSneak) {
+	public boolean openContainer(World world, BlockPos pos, PlayerEntity player, boolean canOpenSneak) {
 		if (world.isRemote || !(player instanceof ServerPlayerEntity)) {
 			// Need to return true here, cause else it will create two instances of our gui
 			// which may cause bugs. The method onBlockActivated must return this value

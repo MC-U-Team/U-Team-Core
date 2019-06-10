@@ -13,9 +13,8 @@ public class CommonProxy implements IModProxy {
 		TestEntityTypes.construct();
 		TestSounds.construct();
 		TestEnchantments.construct();
-		TestPotions.construct();
+		TestEffects.construct();
 		TestPotionTypes.construct();
-		TestVillagerProfessions.construct();
 		TestBiomes.construct();
 		TestDimensions.construct();
 		TestArmorSets.construct();

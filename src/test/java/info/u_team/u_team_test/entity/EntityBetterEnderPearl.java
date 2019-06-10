@@ -2,13 +2,15 @@ package info.u_team.u_team_test.entity;
 
 import javax.annotation.Nullable;
 
-import info.u_team.u_team_test.init.TestEntityTypes;
+import info.u_team.u_team_test.init.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.*;
-import net.minecraft.entity.monster.EntityEndermite;
+import net.minecraft.entity.item.EnderPearlEntity;
+import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.entity.player.*;
-import net.minecraft.entity.projectile.EntityThrowable;
-import net.minecraft.init.Particles;
+import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.item.Item;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.*;
@@ -16,15 +18,15 @@ import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.api.distmarker.*;
 
-public class EntityBetterEnderPearl extends EntityThrowable {
+public class EntityBetterEnderPearl extends ProjectileItemEntity {
 	
-	private EntityLivingBase thrower;
+	private LivingEntity thrower;
 	
-	public EntityBetterEnderPearl(World world) {
-		super(TestEntityTypes.better_enderpearl, world);
+	public EntityBetterEnderPearl(EntityType<? extends EntityBetterEnderPearl> type, World world) {
+		super(type, world);
 	}
 	
-	public EntityBetterEnderPearl(World world, EntityLivingBase thrower) {
+	public EntityBetterEnderPearl(World world, LivingEntity thrower) {
 		super(TestEntityTypes.better_enderpearl, thrower, world);
 		this.thrower = thrower;
 	}
@@ -39,67 +41,66 @@ public class EntityBetterEnderPearl extends EntityThrowable {
 		return 0.05F;
 	}
 	
-	@Override
 	protected void onImpact(RayTraceResult result) {
-		EntityLivingBase entitylivingbase = this.getThrower();
-		if (result.entity != null) {
-			if (result.entity == thrower) {
+		LivingEntity livingentity = this.getThrower();
+		if (result.getType() == RayTraceResult.Type.ENTITY) {
+			Entity entity = ((EntityRayTraceResult) result).getEntity();
+			if (entity == this.thrower) {
 				return;
 			}
 			
-			result.entity.attackEntityFrom(DamageSource.causeThrownDamage(this, entitylivingbase), 0.0F);
+			entity.attackEntityFrom(DamageSource.causeThrownDamage(this, livingentity), 0.0F);
 		}
 		
-		if (result.type == RayTraceResult.Type.BLOCK) {
-			BlockPos blockpos = result.getBlockPos();
+		if (result.getType() == RayTraceResult.Type.BLOCK) {
+			BlockPos blockpos = ((BlockRayTraceResult) result).getPos();
 			TileEntity tileentity = this.world.getTileEntity(blockpos);
-			if (tileentity instanceof TileEntityEndGateway) {
-				TileEntityEndGateway tileentityendgateway = (TileEntityEndGateway) tileentity;
-				if (entitylivingbase != null) {
-					if (entitylivingbase instanceof EntityPlayerMP) {
-						CriteriaTriggers.ENTER_BLOCK.trigger((EntityPlayerMP) entitylivingbase, this.world.getBlockState(blockpos));
+			if (tileentity instanceof EndGatewayTileEntity) {
+				EndGatewayTileEntity endgatewaytileentity = (EndGatewayTileEntity) tileentity;
+				if (livingentity != null) {
+					if (livingentity instanceof ServerPlayerEntity) {
+						CriteriaTriggers.ENTER_BLOCK.trigger((ServerPlayerEntity) livingentity, this.world.getBlockState(blockpos));
 					}
 					
-					tileentityendgateway.teleportEntity(entitylivingbase);
+					endgatewaytileentity.teleportEntity(livingentity);
 					this.remove();
 					return;
 				}
 				
-				tileentityendgateway.teleportEntity(this);
+				endgatewaytileentity.teleportEntity(this);
 				return;
 			}
 		}
 		
 		for (int i = 0; i < 32; ++i) {
-			this.world.addParticle(Particles.PORTAL, this.posX, this.posY + this.rand.nextDouble() * 2.0D, this.posZ, this.rand.nextGaussian(), 0.0D, this.rand.nextGaussian());
+			this.world.addParticle(ParticleTypes.PORTAL, this.posX, this.posY + this.rand.nextDouble() * 2.0D, this.posZ, this.rand.nextGaussian(), 0.0D, this.rand.nextGaussian());
 		}
 		
 		if (!this.world.isRemote) {
-			if (entitylivingbase instanceof EntityPlayerMP) {
-				EntityPlayerMP entityplayermp = (EntityPlayerMP) entitylivingbase;
-				if (entityplayermp.connection.getNetworkManager().isChannelOpen() && entityplayermp.world == this.world && !entityplayermp.isPlayerSleeping()) {
-					
-					net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(entityplayermp, this.posX, this.posY, this.posZ, 5.0F);
-					if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) { // Don't indent to lower patch size
+			if (livingentity instanceof ServerPlayerEntity) {
+				ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) livingentity;
+				if (serverplayerentity.connection.getNetworkManager().isChannelOpen() && serverplayerentity.world == this.world && !serverplayerentity.isSleeping()) {
+					net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(serverplayerentity, this.posX, this.posY, this.posZ, 5.0F);
+					if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) {
 						if (this.rand.nextFloat() < 0.05F && this.world.getGameRules().getBoolean("doMobSpawning")) {
-							EntityEndermite entityendermite = new EntityEndermite(this.world);
-							entityendermite.setSpawnedByPlayer(true);
-							entityendermite.setLocationAndAngles(entitylivingbase.posX, entitylivingbase.posY, entitylivingbase.posZ, entitylivingbase.rotationYaw, entitylivingbase.rotationPitch);
-							this.world.spawnEntity(entityendermite);
+							EndermiteEntity endermiteentity = EntityType.ENDERMITE.create(this.world);
+							endermiteentity.setSpawnedByPlayer(true);
+							endermiteentity.setLocationAndAngles(livingentity.posX, livingentity.posY, livingentity.posZ, livingentity.rotationYaw, livingentity.rotationPitch);
+							this.world.addEntity(endermiteentity);
 						}
 						
-						if (entitylivingbase.isPassenger()) {
-							entitylivingbase.stopRiding();
+						if (livingentity.isPassenger()) {
+							livingentity.stopRiding();
 						}
 						
-						entitylivingbase.setPositionAndUpdate(event.getTargetX(), event.getTargetY(), event.getTargetZ());
-						entitylivingbase.fallDistance = 0.0F;
-						entitylivingbase.attackEntityFrom(DamageSource.FALL, event.getAttackDamage());
+						livingentity.setPositionAndUpdate(event.getTargetX(), event.getTargetY(), event.getTargetZ());
+						livingentity.fallDistance = 0.0F;
+						livingentity.attackEntityFrom(DamageSource.FALL, event.getAttackDamage());
 					}
 				}
-			} else if (entitylivingbase != null) {
-				entitylivingbase.setPositionAndUpdate(this.posX, this.posY, this.posZ);
-				entitylivingbase.fallDistance = 0.0F;
+			} else if (livingentity != null) {
+				livingentity.setPositionAndUpdate(this.posX, this.posY, this.posZ);
+				livingentity.fallDistance = 0.0F;
 			}
 			
 			this.remove();
@@ -107,10 +108,9 @@ public class EntityBetterEnderPearl extends EntityThrowable {
 		
 	}
 	
-	@Override
 	public void tick() {
-		EntityLivingBase entitylivingbase = this.getThrower();
-		if (entitylivingbase != null && entitylivingbase instanceof EntityPlayer && !entitylivingbase.isAlive()) {
+		LivingEntity livingentity = this.getThrower();
+		if (livingentity != null && livingentity instanceof PlayerEntity && !livingentity.isAlive()) {
 			this.remove();
 		} else {
 			super.tick();
@@ -118,13 +118,17 @@ public class EntityBetterEnderPearl extends EntityThrowable {
 		
 	}
 	
-	@Override
 	@Nullable
-	public Entity changeDimension(DimensionType type, net.minecraftforge.common.util.ITeleporter teleporter) {
-		if (this.thrower.dimension != type) {
-			this.thrower = null;
+	public Entity changeDimension(DimensionType destination) {
+		if (this.field_70192_c.dimension != destination) {
+			this.field_70192_c = null;
 		}
 		
-		return super.changeDimension(type, teleporter);
+		return super.changeDimension(destination);
+	}
+	
+	@Override
+	protected Item func_213885_i() {
+		return TestItems.better_enderpearl;
 	}
 }

@@ -5,22 +5,20 @@ import java.util.List;
 import info.u_team.u_team_core.enchantment.UEnchantment;
 import info.u_team.u_team_core.registry.util.CommonRegistry;
 import net.minecraft.enchantment.*;
-import net.minecraft.entity.item.EntityXPOrb;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.item.ExperienceOrbEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.*;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.FurnaceRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.math.*;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.common.crafting.VanillaRecipeTypes;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class EnchantmentAutoSmelt extends UEnchantment {
 	
 	public EnchantmentAutoSmelt(String name) {
-		super(name, Rarity.COMMON, EnumEnchantmentType.DIGGER, new EntityEquipmentSlot[] { EntityEquipmentSlot.MAINHAND });
+		super(name, Rarity.COMMON, EnchantmentType.DIGGER, new EquipmentSlotType[] { EquipmentSlotType.MAINHAND });
 		CommonRegistry.registerEventHandler(this);
 	}
 	
@@ -29,7 +27,7 @@ public class EnchantmentAutoSmelt extends UEnchantment {
 		if (event.isSilkTouching()) {
 			return;
 		}
-		EntityPlayer player = event.getHarvester();
+		PlayerEntity player = event.getHarvester();
 		if (player == null) {
 			return;
 		}
@@ -48,16 +46,19 @@ public class EnchantmentAutoSmelt extends UEnchantment {
 		List<ItemStack> drops = event.getDrops();
 		for (int i = 0; i < drops.size(); i++) {
 			ItemStack drop = drops.get(i);
-			InventoryBasic inventory = new InventoryBasic(new TextComponentString("drop"), 1);
+			Inventory inventory = new Inventory(1);
 			inventory.setInventorySlotContents(0, drop);
-			FurnaceRecipe recipe = world.getRecipeManager().getRecipe(inventory, world, VanillaRecipeTypes.SMELTING);
-			if (recipe != null) {
+			
+			final int index = i;
+			
+			world.getRecipeManager().getRecipe(IRecipeType.SMELTING, inventory, world).ifPresent(recipe -> {
 				ItemStack newDrop = recipe.getCraftingResult(inventory);
 				if (newDrop != null && !newDrop.isEmpty()) {
-					drops.set(i, newDrop);
+					drops.set(index, newDrop);
 					BlockPos pos = event.getPos();
 					int amount = drop.getCount();
-					float exp = recipe.getExperience();
+					recipe.getIcon();
+					float exp = recipe.func_222138_b();
 					
 					if (exp == 0.0F) {
 						amount = 0;
@@ -71,12 +72,12 @@ public class EnchantmentAutoSmelt extends UEnchantment {
 					}
 					
 					while (amount > 0) {
-						int split = EntityXPOrb.getXPSplit(amount);
+						int split = ExperienceOrbEntity.getXPSplit(amount);
 						amount -= split;
-						world.spawnEntity(new EntityXPOrb(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, split));
+						world.addEntity(new ExperienceOrbEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, split));
 					}
 				}
-			}
+			});
 		}
 	}
 }
