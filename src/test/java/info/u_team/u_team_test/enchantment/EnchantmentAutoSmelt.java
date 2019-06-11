@@ -58,7 +58,7 @@ public class EnchantmentAutoSmelt extends UEnchantment {
 					BlockPos pos = event.getPos();
 					int amount = drop.getCount();
 					recipe.getIcon();
-					float exp = recipe.func_222138_b();
+					float exp = recipe.getExperience();
 					
 					if (exp == 0.0F) {
 						amount = 0;

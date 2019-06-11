@@ -65,7 +65,7 @@ public class MessageSyncedContainer {
 				synced.readOnContainerSyncClient(compound);
 			}
 			
-			Screen gui = minecraft.field_71462_r;
+			Screen gui = minecraft.currentScreen;
 			if (gui instanceof UGuiContainerTileEntity) {
 				UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
 				guicontainer.handleServerNBT(compound);

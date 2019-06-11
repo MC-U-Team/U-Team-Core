@@ -127,8 +127,8 @@ public class EntityBetterEnderPearl extends ProjectileItemEntity {
 	
 	@Nullable
 	public Entity changeDimension(DimensionType destination) {
-		if (this.field_70192_c.dimension != destination) {
-			this.field_70192_c = null;
+		if (this.owner.dimension != destination) {
+			this.owner = null;
 		}
 		
 		return super.changeDimension(destination);

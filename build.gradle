@@ -39,7 +39,7 @@ def getAppendix() {
 sourceCompatibility = targetCompatibility = "1.8"
 
 minecraft {
-    mappings channel: config.forge.mapping_channel, version: "20190609-1.14.2"
+    mappings channel: config.forge.mapping_channel, version: "20190611-1.14.2"
     accessTransformer = file("$rootDir/src/main/resources/META-INF/accesstransformer.cfg")
    
     runs {

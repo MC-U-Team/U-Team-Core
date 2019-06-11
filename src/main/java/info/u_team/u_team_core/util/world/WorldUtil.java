@@ -22,6 +22,6 @@ public class WorldUtil {
 	}
 	
 	public static <T extends WorldSavedData> T getSaveData(ServerWorld world, String name, Supplier<T> function) {
-		return world.getSavedData().func_215752_a(function, name);
+		return world.getSavedData().getOrCreate(function, name);
 	}
 }

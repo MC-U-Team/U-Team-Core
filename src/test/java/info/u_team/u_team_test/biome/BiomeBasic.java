@@ -18,9 +18,9 @@ public class BiomeBasic extends UBiome {
 		this.addStructure(Feature.VILLAGE, new VillageConfig("village/desert/town_centers", 6));
 		DefaultBiomeFeatures.addCarvers(this);
 		DefaultBiomeFeatures.func_222295_c(this);
-		DefaultBiomeFeatures.func_222335_f(this);
+		DefaultBiomeFeatures.addMonsterRooms(this);
 		DefaultBiomeFeatures.func_222326_g(this);
-		DefaultBiomeFeatures.func_222288_h(this);
+		DefaultBiomeFeatures.addDefaultOres(this);
 		DefaultBiomeFeatures.func_222282_l(this);
 		DefaultBiomeFeatures.func_222342_U(this);
 		DefaultBiomeFeatures.func_222348_W(this);

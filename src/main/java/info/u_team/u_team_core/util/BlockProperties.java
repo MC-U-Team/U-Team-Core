@@ -20,7 +20,7 @@ public class BlockProperties extends Properties {
 		hardness = properties.hardness;
 		ticksRandomly = properties.ticksRandomly;
 		slipperiness = properties.slipperiness;
-		field_222381_j = properties.field_222381_j;
+		lootTable = properties.lootTable;
 		variableOpacity = properties.variableOpacity;
 	}
 	
@@ -61,7 +61,7 @@ public class BlockProperties extends Properties {
 	}
 	
 	public ResourceLocation getLootTable() {
-		return field_222381_j;
+		return lootTable;
 	}
 	
 	public boolean isVariableOpacity() {
