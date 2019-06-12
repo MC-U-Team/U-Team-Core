@@ -20,14 +20,14 @@ public class BiomeBasic extends UBiome {
 		DefaultBiomeFeatures.func_222295_c(this);
 		DefaultBiomeFeatures.addMonsterRooms(this);
 		DefaultBiomeFeatures.func_222326_g(this);
-		DefaultBiomeFeatures.addDefaultOres(this);
+		DefaultBiomeFeatures.addOres(this);
 		DefaultBiomeFeatures.func_222282_l(this);
 		DefaultBiomeFeatures.func_222342_U(this);
 		DefaultBiomeFeatures.func_222348_W(this);
 		DefaultBiomeFeatures.func_222334_S(this);
 		DefaultBiomeFeatures.func_222315_Z(this);
 		DefaultBiomeFeatures.func_222292_ad(this);
-		DefaultBiomeFeatures.func_222337_am(this);
+		DefaultBiomeFeatures.addSprings(this);
 		DefaultBiomeFeatures.func_222281_af(this);
 		DefaultBiomeFeatures.func_222297_ap(this);
 		this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.RABBIT, 4, 2, 3));
