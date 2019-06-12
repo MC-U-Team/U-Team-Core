@@ -22,6 +22,10 @@ public class EnchantmentAutoSmelt extends UEnchantment {
 		CommonRegistry.registerEventHandler(this);
 	}
 	
+	/**
+	 * {@link IClearable}
+	 * @param event
+	 */
 	@SubscribeEvent
 	public void on(HarvestDropsEvent event) {
 		if (event.isSilkTouching()) {
