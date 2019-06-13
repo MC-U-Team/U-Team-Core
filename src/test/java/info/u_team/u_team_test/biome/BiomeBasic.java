@@ -17,9 +17,9 @@ public class BiomeBasic extends UBiome {
 		super(name, (new Builder()).surfaceBuilder(SurfaceBuilder.SHATTERED_SAVANNA, new SurfaceBuilderConfig(TestBlocks.basic.getDefaultState(), Blocks.END_STONE.getDefaultState(), TestBlocks.basic.getDefaultState())).precipitation(RainType.RAIN).category(Category.PLAINS).depth(0.125F).scale(0.05F).temperature(1.0F).downfall(1.0F).waterColor(4159204).waterFogColor(329011).parent((String) null));
 		this.addStructure(Feature.VILLAGE, new VillageConfig("village/desert/town_centers", 6));
 		DefaultBiomeFeatures.addCarvers(this);
-		DefaultBiomeFeatures.func_222295_c(this);
+		DefaultBiomeFeatures.addStructures(this);
 		DefaultBiomeFeatures.addMonsterRooms(this);
-		DefaultBiomeFeatures.func_222326_g(this);
+		DefaultBiomeFeatures.addStoneVariants(this);
 		DefaultBiomeFeatures.addOres(this);
 		DefaultBiomeFeatures.func_222282_l(this);
 		DefaultBiomeFeatures.func_222342_U(this);
