@@ -8,7 +8,7 @@ import net.minecraft.item.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceResult.Type;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 
 public class ItemBasic extends UItem {
@@ -25,7 +25,7 @@ public class ItemBasic extends UItem {
 			RayTraceResult raytrace = WorldUtil.rayTraceServerSide(player, 50);
 			
 			if (raytrace.getType() == Type.MISS) {
-				player.sendStatusMessage(new StringTextComponent("item.uteamtest.basicitem.outofrange"), true);
+				player.sendStatusMessage(new TranslationTextComponent("item.uteamtest.basicitem.outofrange"), true);
 				return new ActionResult<>(ActionResultType.FAIL, stack);
 			}
 			
@@ -34,8 +34,7 @@ public class ItemBasic extends UItem {
 			ServerPlayerEntity playermp = (ServerPlayerEntity) player;
 			playermp.connection.setPlayerLocation(pos.getX(), pos.getY() + 1, pos.getZ(), playermp.rotationYaw, playermp.rotationPitch);
 			
-			stack.damageItem(1, player, (test) -> {
-			});
+			stack.damageItem(1, player, (test) -> {});
 			
 		}
 		return new ActionResult<ItemStack>(ActionResultType.SUCCESS, stack);
