@@ -9,7 +9,8 @@ import java.util.*;
 import java.util.stream.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
+import info.u_team.u_team_core.api.registry.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 /**
@@ -19,6 +20,54 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
  *
  */
 public class BaseRegistryUtil {
+	
+	/**
+	 * This method is caller sensitive! It use the current stack trace to get the caller class. If this is not what you want
+	 * use {@link BaseRegistryUtil#getAllRegistryEntriesAndApplyNames(modid, classType, init)}. <br>
+	 * 
+	 * Returns all not excluded static fields of a class which extends the passed classType. Also search for
+	 * {@link IUArrayRegistryType} fields with the given classType The classType must be a subclass of
+	 * {@link IForgeRegistryEntry}. If the entry implements {@link IURegistryType} the
+	 * {@link IForgeRegistryEntry#setRegistryName(ResourceLocation)} is executed to set the registry name.
+	 * 
+	 * With {@link Exclude} you can exclude fields from this list.
+	 * 
+	 * @see BaseRegistryUtil#getAllClassEntries(classType)
+	 * 
+	 * @param <T> Type of the {@link IForgeRegistryEntry} to search for
+	 * @param modid The mod identifier to apply the names
+	 * @param classType Class of the {@link IForgeRegistryEntry} to search for
+	 * @return List of all found and matching entries with applied names if possible
+	 */
+	public static <T extends IForgeRegistryEntry<T>> List<T> getAllRegistryEntriesAndApplyNames(String modid, Class<T> classType) {
+		return getAllRegistryEntriesAndApplyNames(modid, classType, getCallerClass());
+	}
+	
+	/**
+	 * Returns all not excluded static fields of a class which extends the passed classType. Also search for
+	 * {@link IUArrayRegistryType} fields with the given classType The classType must be a subclass of
+	 * {@link IForgeRegistryEntry}. If the entry implements {@link IURegistryType} the
+	 * {@link IForgeRegistryEntry#setRegistryName(ResourceLocation)} is executed to set the registry name.
+	 * 
+	 * With {@link Exclude} you can exclude fields from this list.
+	 * 
+	 * @see BaseRegistryUtil#getAllClassEntries(classType, init)
+	 * 
+	 * @param <T> Type of the {@link IForgeRegistryEntry} to search for
+	 * @param modid The mod identifier to apply the names
+	 * @param classType Class of the {@link IForgeRegistryEntry} to search for
+	 * @param init Class where to search for entries
+	 * @return List of all found and matching entries with applied names if possible
+	 */
+	public static <T extends IForgeRegistryEntry<T>> List<T> getAllRegistryEntriesAndApplyNames(String modid, Class<T> classType, Class<?> init) {
+		final List<T> list = getAllClassEntries(classType, init);
+		list.parallelStream() //
+				.filter(entry -> entry instanceof IURegistryType) //
+				.forEach(entry -> entry.setRegistryName(new ResourceLocation(modid, ((IURegistryType) entry).getEntryName())));
+		return list;
+	}
+	
+	// Base methods which does not require IForgeRegistryEntry
 	
 	/**
 	 * This method is caller sensitive! It use the current stack trace to get the caller class. If this is not what you want
@@ -125,7 +174,7 @@ public class BaseRegistryUtil {
 	 */
 	public static <T> List<T> getClassEntriesFromArrayType(Class<T> classType, Class<?> init) {
 		return applyDefault(IUArrayRegistryType.class, Stream.of(init.getDeclaredFields())) //
-				.filter(arrayRegistryType -> arrayRegistryType.getArray().getClass().getComponentType().isAssignableFrom(classType)) //
+				.filter(arrayRegistryType -> arrayRegistryType.getArray().getClass().getComponentType().isAssignableFrom(classType)) // Exclude all array entries that are not a subclass
 				.collect(() -> new ArrayList<>(), (list, arrayRegistryType) -> addGenericArrayElements(list, classType, arrayRegistryType.getArray()), (list, otherList) -> list.addAll(otherList));
 	}
 	
@@ -141,9 +190,9 @@ public class BaseRegistryUtil {
 	 */
 	private static <T> Stream<T> applyDefault(Class<T> classCast, Stream<Field> stream) {
 		return stream.parallel() //
-				.filter(field -> Modifier.isStatic(field.getModifiers())) //
-				.filter(field -> field.getDeclaredAnnotation(Exclude.class) == null) //
-				.filter(field -> classCast.isAssignableFrom(field.getType())) //
+				.filter(field -> Modifier.isStatic(field.getModifiers())) // Exclude all non static fields
+				.filter(field -> field.getDeclaredAnnotation(Exclude.class) == null) // Exclude all fields annotated with Exclude
+				.filter(field -> classCast.isAssignableFrom(field.getType())) // Exclude all fields that are not a subclass
 				.map(field -> getStaticField(classCast, field));
 	}
 	
