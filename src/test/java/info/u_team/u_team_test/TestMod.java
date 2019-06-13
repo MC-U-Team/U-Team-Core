@@ -16,6 +16,7 @@ public class TestMod {
 	private static final IModProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 	
 	public TestMod() {
+		MyTest.setup();
 		System.out.println("--------------------------------------- LOADING TEST MOD ---------------------------------------");
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
 		proxy.construct();
