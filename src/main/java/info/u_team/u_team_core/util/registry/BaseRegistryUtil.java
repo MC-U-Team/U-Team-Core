@@ -10,28 +10,28 @@ import java.util.stream.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class BaseRegistryUtil {
 	
 	@SuppressWarnings("unchecked")
-	public static <T> List<T> getClassEntriesFromArrayRegistryType(Class<T> classType, Class<?> init) {
-		return Stream.of(init.getDeclaredFields()) //
-				.parallel() //
-				.filter(field -> field.getDeclaredAnnotation(Exclude.class) == null) //
-				.filter(field -> IUArrayRegistryType.class.isAssignableFrom(field.getType())) //
-				.map(field -> getStaticField(IUArrayRegistryType.class, field)) //
+	public static <T> List<T> getClassEntriesFromArrayType(Class<T> classType, Class<?> init) {
+		return applyDefault(IUArrayRegistryType.class, Stream.of(init.getDeclaredFields())) //
 				.filter(arrayRegistryType -> arrayRegistryType.getArray().getClass().getComponentType().isAssignableFrom(classType)) //
 				.collect(() -> new ArrayList<>(), (list, arrayRegistryType) -> list.addAll(Arrays.asList((T[]) arrayRegistryType.getArray())), (list, otherList) -> list.addAll(otherList));
 	}
 	
 	public static <T> List<T> getClassEntries(Class<T> classType, Class<?> init) {
-		return Stream.of(init.getDeclaredFields()) //
-				.parallel() //
-				.filter(field -> field.getDeclaredAnnotation(Exclude.class) == null) //
-				.filter(field -> classType.isAssignableFrom(field.getType())) //
-				.map(field -> getStaticField(classType, field)) //
+		return applyDefault(classType, Stream.of(init.getDeclaredFields())) //
 				.collect(Collectors.toList());
 	}
+	
+//	private static <T extends IForgeRegistryEntry<T>> void test() {
+//		IUArrayRegistryType<IForgeRegistryEntry> test = null;
+//		test.getArray();
+//	}
+	
+	// Internal methods
 	
 	private static <T> Stream<T> applyDefault(Class<T> castClass, Stream<Field> stream) {
 		return stream.parallel() //

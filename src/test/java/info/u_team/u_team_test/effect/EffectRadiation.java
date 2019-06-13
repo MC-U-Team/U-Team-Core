@@ -2,18 +2,17 @@ package info.u_team.u_team_test.effect;
 
 import java.util.Random;
 
-import info.u_team.u_team_core.effect.UEffect;
 import info.u_team.u_team_test.init.TestDamageSources;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.EffectType;
+import net.minecraft.potion.*;
 
-public class EffectRadiation extends UEffect {
+public class EffectRadiation extends Effect {
 	
 	private final Random random;
 	
 	public EffectRadiation(String name) {
-		super(name, EffectType.HARMFUL, 0x0B7A14);
+		super(EffectType.HARMFUL, 0x0B7A14);
 		random = new Random();
 	}
 	

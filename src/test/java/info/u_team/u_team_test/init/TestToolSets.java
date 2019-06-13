@@ -2,8 +2,6 @@ package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_core.api.IToolMaterial;
 import info.u_team.u_team_core.item.tool.*;
-import info.u_team.u_team_core.util.registry.ToolSetRegistry;
-import info.u_team.u_team_test.TestMod;
 import net.minecraft.item.Item.Properties;
 import net.minecraft.item.crafting.Ingredient;
 
@@ -14,7 +12,7 @@ public class TestToolSets {
 	public static final ToolSet basictool = ToolSetCreator.create("basictool", TestItemGroups.group, new Properties(), basic);
 	
 	public static void construct() {
-		ToolSetRegistry.register(TestMod.modid, TestToolSets.class);
+//		ToolSetRegistry.register(TestMod.modid, TestToolSets.class);
 	}
 	
 }

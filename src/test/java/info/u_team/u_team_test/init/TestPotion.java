@@ -1,7 +1,5 @@
 package info.u_team.u_team_test.init;
 
-import info.u_team.u_team_core.util.registry.PotionRegistry;
-import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.potion.PotionRadiation;
 
 public class TestPotion {
@@ -11,7 +9,7 @@ public class TestPotion {
 	public static final PotionRadiation radiation_extreme = new PotionRadiation("radiation_extreme", 1200, 2);
 	
 	public static void construct() {
-		PotionRegistry.register(TestMod.modid, TestPotion.class);
+//		PotionRegistry.register(TestMod.modid, TestPotion.class);
 	}
 	
 }

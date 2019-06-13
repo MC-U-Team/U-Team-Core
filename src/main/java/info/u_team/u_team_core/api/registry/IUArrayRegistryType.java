@@ -10,7 +10,7 @@ import net.minecraftforge.registries.*;
 public interface IUArrayRegistryType<T extends IForgeRegistryEntry<T>> {
 	
 	/**
-	 * Must always returns the same registry type array.
+	 * Must always returns the same registry type array copy. Because of mutability this array must be copied.
 	 * 
 	 * @return Array of {@link IForgeRegistryEntry}
 	 */
