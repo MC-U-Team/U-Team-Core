@@ -1,9 +1,9 @@
 package info.u_team.u_team_core.item;
 
-import info.u_team.u_team_core.api.registry.IUItem;
+import info.u_team.u_team_core.api.registry.IURegistryType;
 import net.minecraft.item.*;
 
-public class UItem extends Item implements IUItem {
+public class UItem extends Item implements IURegistryType {
 	
 	protected final String name;
 	

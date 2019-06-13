@@ -3,7 +3,7 @@ package info.u_team.u_team_core.item.tool;
 import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
 import net.minecraft.item.Item;
 
-public class ToolSet implements IUArrayRegistryType {
+public class ToolSet implements IUArrayRegistryType<Item> {
 	
 	private final UItemAxe axe;
 	private final UItemHoe hoe;
@@ -20,7 +20,7 @@ public class ToolSet implements IUArrayRegistryType {
 	}
 	
 	@Override
-	public Item[] getItemArray() {
+	public Item[] getArray() {
 		return new Item[] { axe, hoe, pickaxe, spade, sword };
 	}
 	

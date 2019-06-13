@@ -3,7 +3,7 @@ package info.u_team.u_team_core.item.armor;
 import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
 import net.minecraft.item.Item;
 
-public class ArmorSet implements IUArrayRegistryType {
+public class ArmorSet implements IUArrayRegistryType<Item> {
 	
 	private final UItemHelmet helmet;
 	private final UItemChestplate chestplate;
@@ -18,7 +18,7 @@ public class ArmorSet implements IUArrayRegistryType {
 	}
 	
 	@Override
-	public Item[] getItemArray() {
+	public Item[] getArray() {
 		return new Item[] { helmet, chestplate, leggings, boots };
 	}
 	

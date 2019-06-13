@@ -8,7 +8,7 @@ public class UBlock extends Block implements IUBlockRegistryType {
 	
 	protected final String name;
 	
-	protected final BlockItem itemblock;
+	protected final BlockItem blockItem;
 	
 	public UBlock(String name, Properties properties) {
 		this(name, null, properties);
@@ -18,18 +18,18 @@ public class UBlock extends Block implements IUBlockRegistryType {
 		this(name, group, properties, null);
 	}
 	
-	public UBlock(String name, Properties properties, Item.Properties itemblockproperties) {
-		this(name, null, properties, itemblockproperties);
+	public UBlock(String name, Properties properties, Item.Properties blockItemProperties) {
+		this(name, null, properties, blockItemProperties);
 	}
 	
-	public UBlock(String name, ItemGroup group, Properties properties, Item.Properties itemblockproperties) {
+	public UBlock(String name, ItemGroup group, Properties properties, Item.Properties blockItemProperties) {
 		super(properties);
 		this.name = name;
-		itemblock = createItemBlock(itemblockproperties == null ? new Item.Properties().group(group) : group == null ? itemblockproperties : itemblockproperties.group(group));
+		blockItem = createBlockItem(blockItemProperties == null ? new Item.Properties().group(group) : group == null ? blockItemProperties : blockItemProperties.group(group));
 	}
 	
-	protected BlockItem createItemBlock(Item.Properties itemblockproperties) {
-		return new BlockItem(this, itemblockproperties);
+	protected BlockItem createBlockItem(Item.Properties blockItemProperties) {
+		return new BlockItem(this, blockItemProperties);
 	}
 	
 	@Override
@@ -38,8 +38,7 @@ public class UBlock extends Block implements IUBlockRegistryType {
 	}
 	
 	@Override
-	public BlockItem getItemBlock() {
-		return itemblock;
+	public BlockItem getBlockItem() {
+		return blockItem;
 	}
-	
 }

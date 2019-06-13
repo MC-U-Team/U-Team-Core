@@ -2,12 +2,12 @@ package info.u_team.u_team_core.dimension;
 
 import java.util.function.BiFunction;
 
-import info.u_team.u_team_core.api.registry.IUModDimension;
+import info.u_team.u_team_core.api.registry.*;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.*;
 import net.minecraftforge.common.ModDimension;
 
-public class UModDimension extends ModDimension implements IUModDimension {
+public class UModDimension extends ModDimension implements IURegistryType {
 	
 	protected final String name;
 	

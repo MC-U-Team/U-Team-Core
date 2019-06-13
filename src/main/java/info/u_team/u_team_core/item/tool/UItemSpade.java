@@ -2,11 +2,11 @@ package info.u_team.u_team_core.item.tool;
 
 import info.u_team.u_team_core.api.IToolMaterial;
 import info.u_team.u_team_core.api.IToolMaterial.Tools;
-import info.u_team.u_team_core.api.registry.IUItem;
+import info.u_team.u_team_core.api.registry.IURegistryType;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ToolType;
 
-public class UItemSpade extends ShovelItem implements IUItem {
+public class UItemSpade extends ShovelItem implements IURegistryType {
 	
 	protected final String name;
 	

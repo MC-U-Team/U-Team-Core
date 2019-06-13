@@ -1,14 +1,14 @@
 package info.u_team.u_team_core.item.armor;
 
-import info.u_team.u_team_core.api.registry.IUItem;
+import info.u_team.u_team_core.api.registry.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class UItemArmor extends ArmorItem implements IUItem {
+public class UItemArmor extends ArmorItem implements IURegistryType {
 	
-	protected final String type_name;
+	protected final String typeName;
 	
 	protected final String name;
 	
@@ -18,13 +18,13 @@ public class UItemArmor extends ArmorItem implements IUItem {
 	
 	public UItemArmor(String name, ItemGroup group, Properties properties, IArmorMaterial material, EquipmentSlotType slot) {
 		super(material, slot, group == null ? properties : properties.group(group));
-		this.type_name = name + "_" + getTypeString(slot);
+		this.typeName = name + "_" + getTypeString(slot);
 		this.name = name;
 	}
 	
 	@Override
 	public String getEntryName() {
-		return type_name;
+		return typeName;
 	}
 	
 	@OnlyIn(Dist.CLIENT)
@@ -50,5 +50,4 @@ public class UItemArmor extends ArmorItem implements IUItem {
 			return "invalid";
 		}
 	}
-	
 }

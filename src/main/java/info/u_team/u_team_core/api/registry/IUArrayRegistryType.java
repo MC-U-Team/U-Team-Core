@@ -7,13 +7,13 @@ import net.minecraftforge.registries.*;
  * Implement this in your class which holds {@link IForgeRegistryEntry} entries so the {@link BaseRegistryUtil} can
  * register them all.
  */
-public interface IUArrayRegistryType {
+public interface IUArrayRegistryType<T extends IForgeRegistryEntry<T>> {
 	
 	/**
 	 * Must always returns the same registry type array.
 	 * 
 	 * @return Array of {@link IForgeRegistryEntry}
 	 */
-	<T extends IForgeRegistryEntry<T>> T[] getArray();
+	T[] getArray();
 	
 }
