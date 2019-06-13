@@ -6,6 +6,7 @@ import net.minecraft.inventory.container.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 
+@Deprecated
 public class UContainerTileEntity extends UContainer {
 	
 	protected final TileEntity tileentity;

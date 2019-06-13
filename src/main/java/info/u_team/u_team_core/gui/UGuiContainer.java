@@ -2,19 +2,19 @@ package info.u_team.u_team_core.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 
-import info.u_team.u_team_core.container.UContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
-public class UGuiContainer extends ContainerScreen<UContainer> {
+public class UGuiContainer<T extends Container> extends ContainerScreen<T> {
 	
 	protected final ResourceLocation background;
 	
-	public UGuiContainer(UContainer container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background) {
+	public UGuiContainer(T container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background) {
 		super(container, playerInventory, title);
 		this.background = background;
 	}
@@ -28,5 +28,4 @@ public class UGuiContainer extends ContainerScreen<UContainer> {
 		
 		blit(xStart, yStart, 0, 0, xSize, ySize);
 	}
-	
 }

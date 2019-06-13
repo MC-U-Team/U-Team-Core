@@ -10,7 +10,7 @@ public class UContainer extends Container {
 	}
 	
 	@Override
-	public boolean canInteractWith(PlayerEntity playerIn) {
+	public boolean canInteractWith(PlayerEntity player) {
 		return true;
 	}
 	

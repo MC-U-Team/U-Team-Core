@@ -8,8 +8,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
 
+@Deprecated
 @OnlyIn(Dist.CLIENT)
-public class UGuiContainerTileEntity extends UGuiContainer {
+public class UGuiContainerTileEntity extends UGuiContainer<UContainerTileEntity> {
 	
 	protected final TileEntity tileentity;
 	
