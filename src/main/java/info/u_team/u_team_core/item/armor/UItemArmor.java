@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.item.armor;
 
-import info.u_team.u_team_core.api.registry.*;
+import info.u_team.u_team_core.api.registry.IURegistryType;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;

@@ -2,7 +2,7 @@ package info.u_team.u_team_core.dimension;
 
 import java.util.function.BiFunction;
 
-import info.u_team.u_team_core.api.registry.*;
+import info.u_team.u_team_core.api.registry.IURegistryType;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.*;
 import net.minecraftforge.common.ModDimension;
