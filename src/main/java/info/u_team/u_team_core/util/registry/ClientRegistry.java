@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.registry;
+package info.u_team.u_team_core.util.registry;
 
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.settings.KeyBinding;

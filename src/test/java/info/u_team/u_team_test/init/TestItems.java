@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.init;
 
-import info.u_team.u_team_core.registry.ItemRegistry;
+import info.u_team.u_team_core.util.registry.ItemRegistry;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.item.*;
 import net.minecraft.item.Item;

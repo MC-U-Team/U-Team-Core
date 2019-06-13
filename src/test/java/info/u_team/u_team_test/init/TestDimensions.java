@@ -1,7 +1,7 @@
 package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_core.dimension.UModDimension;
-import info.u_team.u_team_core.registry.DimensionRegistry;
+import info.u_team.u_team_core.util.registry.DimensionRegistry;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.dimension.DimensionBasic;
 import net.minecraftforge.common.*;

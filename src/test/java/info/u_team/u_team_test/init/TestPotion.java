@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.init;
 
-import info.u_team.u_team_core.registry.PotionRegistry;
+import info.u_team.u_team_core.util.registry.PotionRegistry;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.potion.PotionRadiation;
 

@@ -1,9 +1,9 @@
 package info.u_team.u_team_core.item.tool;
 
-import info.u_team.u_team_core.api.registry.IItemRegistryType;
+import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
 import net.minecraft.item.Item;
 
-public class ToolSet implements IItemRegistryType {
+public class ToolSet implements IUArrayRegistryType {
 	
 	private final UItemAxe axe;
 	private final UItemHoe hoe;

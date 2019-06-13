@@ -2,7 +2,7 @@ package info.u_team.u_team_test.init;
 
 import java.awt.Color;
 
-import info.u_team.u_team_core.registry.ColorsRegistry;
+import info.u_team.u_team_core.util.registry.ColorsRegistry;
 import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)

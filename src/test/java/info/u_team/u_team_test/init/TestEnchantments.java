@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.init;
 
-import info.u_team.u_team_core.registry.EnchantmentRegistry;
+import info.u_team.u_team_core.util.registry.EnchantmentRegistry;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.enchantment.EnchantmentAutoSmelt;
 import net.minecraft.enchantment.Enchantment;

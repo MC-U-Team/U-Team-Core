@@ -1,9 +1,9 @@
 package info.u_team.u_team_core.item.armor;
 
-import info.u_team.u_team_core.api.registry.IItemRegistryType;
+import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
 import net.minecraft.item.Item;
 
-public class ArmorSet implements IItemRegistryType {
+public class ArmorSet implements IUArrayRegistryType {
 	
 	private final UItemHelmet helmet;
 	private final UItemChestplate chestplate;

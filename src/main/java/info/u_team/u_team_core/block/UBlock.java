@@ -1,10 +1,10 @@
 package info.u_team.u_team_core.block;
 
-import info.u_team.u_team_core.api.registry.IUBlock;
+import info.u_team.u_team_core.api.registry.IUBlockRegistryType;
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
 
-public class UBlock extends Block implements IUBlock {
+public class UBlock extends Block implements IUBlockRegistryType {
 	
 	protected final String name;
 	

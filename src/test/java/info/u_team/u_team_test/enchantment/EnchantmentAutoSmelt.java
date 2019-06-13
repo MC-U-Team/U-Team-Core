@@ -3,7 +3,7 @@ package info.u_team.u_team_test.enchantment;
 import java.util.List;
 
 import info.u_team.u_team_core.enchantment.UEnchantment;
-import info.u_team.u_team_core.registry.EventRegistry;
+import info.u_team.u_team_core.util.registry.EventRegistry;
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
