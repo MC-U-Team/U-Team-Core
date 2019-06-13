@@ -3,7 +3,7 @@ package info.u_team.u_team_test.enchantment;
 import java.util.List;
 
 import info.u_team.u_team_core.enchantment.UEnchantment;
-import info.u_team.u_team_core.registry.util.CommonRegistry;
+import info.u_team.u_team_core.registry.EventRegistry;
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,7 +19,7 @@ public class EnchantmentAutoSmelt extends UEnchantment {
 	
 	public EnchantmentAutoSmelt(String name) {
 		super(name, Rarity.COMMON, EnchantmentType.DIGGER, new EquipmentSlotType[] { EquipmentSlotType.MAINHAND });
-		CommonRegistry.registerEventHandler(this);
+		EventRegistry.registerEventHandler(this);
 	}
 	
 	/**

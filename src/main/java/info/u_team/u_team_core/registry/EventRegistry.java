@@ -1,8 +1,8 @@
-package info.u_team.u_team_core.registry.util;
+package info.u_team.u_team_core.registry;
 
 import net.minecraftforge.common.MinecraftForge;
 
-public class CommonRegistry {
+public class EventRegistry {
 	
 	public static void registerEventHandler(Object object) {
 		MinecraftForge.EVENT_BUS.register(object);
@@ -23,5 +23,4 @@ public class CommonRegistry {
 			MinecraftForge.EVENT_BUS.unregister(object);
 		}
 	}
-	
 }

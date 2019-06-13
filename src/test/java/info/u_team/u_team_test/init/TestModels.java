@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.init;
 
-import info.u_team.u_team_core.registry.util.ClientRegistry;
+import info.u_team.u_team_core.registry.ClientRegistry;
 import info.u_team.u_team_test.entity.EntityBetterEnderPearl;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.SpriteRenderer;

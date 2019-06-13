@@ -5,7 +5,7 @@ import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.intern.event.EventHandlerUpdateDiscordRichPresence;
-import info.u_team.u_team_core.registry.util.CommonRegistry;
+import info.u_team.u_team_core.registry.EventRegistry;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.RichPresence.Builder;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
@@ -44,7 +44,7 @@ public class DiscordRichPresence {
 					setState(current);
 				}
 			}, 1000, 1000 * 120);
-			CommonRegistry.registerEventHandler(EventHandlerUpdateDiscordRichPresence.class);
+			EventRegistry.registerEventHandler(EventHandlerUpdateDiscordRichPresence.class);
 			isEnabled = true;
 			UCoreMain.logger.info("Discord client found and connected.");
 		} catch (NoDiscordClientException ex) {
@@ -62,7 +62,7 @@ public class DiscordRichPresence {
 		} catch (Exception ex) {
 		}
 		errorcount = 0;
-		CommonRegistry.unregisterEventHandler(EventHandlerUpdateDiscordRichPresence.class);
+		EventRegistry.unregisterEventHandler(EventHandlerUpdateDiscordRichPresence.class);
 		isEnabled = false;
 		UCoreMain.logger.info("Discord client closed.");
 	}

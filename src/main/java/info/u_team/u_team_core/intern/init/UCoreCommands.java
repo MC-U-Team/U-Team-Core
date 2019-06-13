@@ -1,14 +1,14 @@
 package info.u_team.u_team_core.intern.init;
 
 import info.u_team.u_team_core.intern.command.CommandUTeamCore;
-import info.u_team.u_team_core.registry.util.CommonRegistry;
+import info.u_team.u_team_core.registry.EventRegistry;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
 public class UCoreCommands {
 	
 	public static void construct() {
-		CommonRegistry.registerEventHandler(UCoreCommands.class);
+		EventRegistry.registerEventHandler(UCoreCommands.class);
 	}
 	
 	@SubscribeEvent
