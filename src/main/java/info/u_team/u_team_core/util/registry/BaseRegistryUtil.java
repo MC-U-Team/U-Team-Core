@@ -13,6 +13,7 @@ import info.u_team.u_team_core.api.registry.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.*;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 /**
@@ -33,7 +34,7 @@ public class BaseRegistryUtil {
 	public static List<BlockItem> getBlockItems(List<Block> blocks) {
 		return blocks.parallelStream().filter(block -> block instanceof IUBlockRegistryType).map(block -> {
 			final BlockItem blockItem = ((IUBlockRegistryType) block).getBlockItem();
-			blockItem.setRegistryName(block.getRegistryName());
+			executeWithModContainer(block.getRegistryName().getNamespace(), () -> blockItem.setRegistryName(block.getRegistryName()));
 			return blockItem;
 		}).collect(Collectors.toList());
 	}
@@ -80,7 +81,7 @@ public class BaseRegistryUtil {
 		final List<T> list = getAllClassEntries(classType, init);
 		list.parallelStream() //
 				.filter(entry -> entry instanceof IURegistryType) //
-				.forEach(entry -> entry.setRegistryName(new ResourceLocation(modid, ((IURegistryType) entry).getEntryName())));
+				.forEach(entry -> executeWithModContainer(modid, () -> entry.setRegistryName(new ResourceLocation(modid, ((IURegistryType) entry).getEntryName()))));
 		return list;
 	}
 	
@@ -257,6 +258,25 @@ public class BaseRegistryUtil {
 			UCoreMain.logger.error("Failed the get caller class.", ex);
 		}
 		return null;
+	}
+	
+	/**
+	 * Sets the active mod to the modid if possible. Then calls the run method and resets the modid. This method must be is
+	 * synchronized.
+	 * 
+	 * @param modid Mod that should be active
+	 * @param runnable The code that should be executed with the mod container
+	 */
+	private static synchronized void executeWithModContainer(String modid, Runnable runnable) {
+		final ModLoadingContext context = ModLoadingContext.get();
+		final ModContainer activeContainer = context.getActiveContainer();
+		final Object extention = context.extension();
+		
+		ModList.get().getModContainerById(modid).ifPresent(newContainer -> {
+			context.setActiveContainer(newContainer, extention); // Set mod container to current modid
+		});
+		runnable.run();
+		context.setActiveContainer(activeContainer, extention); // Reset mod container
 	}
 	
 	/**
