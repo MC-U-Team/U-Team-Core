@@ -72,7 +72,7 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	
 	@Override
 	public Container createMenu(int var1, PlayerInventory inventoryPlayer, PlayerEntity var3) {
-		return new ContainerTileEntity(null, var1, inventoryPlayer, this);
+		return new ContainerTileEntity(var1, inventoryPlayer, this);
 	}
 	
 	@Override

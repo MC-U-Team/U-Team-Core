@@ -4,6 +4,7 @@ import info.u_team.u_team_core.block.UBlockTileEntity;
 import info.u_team.u_team_test.init.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.player.*;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
@@ -18,7 +19,7 @@ public class BlockTileEntity extends UBlockTileEntity {
 	public static final DirectionProperty facing = BlockStateProperties.FACING;
 	
 	public BlockTileEntity(String name) {
-		super(name, TestItemGroups.group, Properties.create(Material.ROCK).hardnessAndResistance(2F).sound(SoundType.GROUND).slipperiness(0.8F).lightValue(1), TestTileEntityTypes.tileentity);
+		super(name, TestItemGroups.group, Properties.create(Material.ROCK).hardnessAndResistance(2F).sound(SoundType.GROUND).slipperiness(0.8F).lightValue(1), () -> TestTileEntityTypes.tileentity);
 		setDefaultState(getDefaultState().with(facing, Direction.NORTH));
 	}
 	
@@ -29,6 +30,8 @@ public class BlockTileEntity extends UBlockTileEntity {
 	
 	@Override
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
+		if (world.isRemote)
+			System.out.println(ScreenManager.isMissingScreen());
 		return openContainer(world, pos, player, true);
 	}
 	

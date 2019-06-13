@@ -1,54 +1,40 @@
 package info.u_team.u_team_test.gui;
 
-import info.u_team.u_team_core.gui.UGuiContainerTileEntity;
+import com.mojang.blaze3d.platform.GlStateManager;
+
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.ContainerTileEntity;
-import info.u_team.u_team_test.init.TestContainers;
-import info.u_team.u_team_test.tileentity.TileEntityTileEntity;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fml.client.config.GuiButtonExt;
 
 @OnlyIn(Dist.CLIENT)
-public class GuiTileEntity extends UGuiContainerTileEntity {
+public class GuiTileEntity extends ContainerScreen<ContainerTileEntity> {
 	
 	private PlayerInventory inventoryPlayer;
 	
-	private TileEntityTileEntity tileentity;
-	
-	public GuiTileEntity(int id, PlayerInventory inventoryPlayer, TileEntityTileEntity tileentity, CompoundNBT firstNBT) {
-		super(new ContainerTileEntity(TestContainers.type,id, inventoryPlayer, tileentity), inventoryPlayer, inventoryPlayer.getName(), new ResourceLocation(TestMod.modid, "textures/gui/tileentity.png"), firstNBT);
-		this.inventoryPlayer = inventoryPlayer;
-		this.tileentity = tileentity;
+	public GuiTileEntity(ContainerTileEntity container, PlayerInventory inventory, ITextComponent text) {
+		super(container, inventory, text);
 		xSize = 176;
 		ySize = 173;
 	}
 	
 	@Override
-	public void initGui(CompoundNBT compound) {
-		addButton(new GuiButtonExt(guiLeft + xSize / 2 - 25, guiTop + 3, 50, 15, "Add 100", button -> {
-			tileentity.value += 100;
-			tileentity.syncClientToServer(tileentity.getPos());
-		}));
-		
-//		addButton(new GuiSlider(1, guiLeft + 7, guiTop + 19, 161, 20, "Cooldown: ", " Ticks", 0, 100, compound.getInt("cooldown"), false, true) {
-//			
-//			@Override
-//			public void onRelease(double mouseX, double mouseY) {
-//				super.onRelease(mouseX, mouseY);
-//				tileentity.cooldown = this.getValueInt();
-//				tileentity.syncClientToServer(tileentity.getPos());
-//			}
-//		});
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		font.drawString(title.getFormattedText(), 8, 6, 4210752);
+//		font.drawString(inventoryPlayer.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		font.drawString("" + tileentity.value, xSize / 2 + 32, 6, 4210752);
-		font.drawString("Tile Entity", 8, 6, 4210752);
-		font.drawString(inventoryPlayer.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
+	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
+		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		minecraft.getTextureManager().bindTexture(new ResourceLocation(TestMod.modid, "textures/gui/tileentity.png"));
+		int xStart = (width - xSize) / 2;
+		int yStart = (height - ySize) / 2;
+		
+		blit(xStart, yStart, 0, 0, xSize, ySize);
 	}
 	
 }

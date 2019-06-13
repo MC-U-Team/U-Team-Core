@@ -10,6 +10,7 @@ public class ClientProxy extends CommonProxy {
 	public void construct() {
 		super.construct();
 		TestColors.construct();
+		TestGuis.construct();
 	}
 	
 	@Override

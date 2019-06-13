@@ -1,11 +1,13 @@
 package info.u_team.u_team_core.block;
 
+import java.util.function.Supplier;
+
 import org.apache.commons.lang3.tuple.Pair;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.*;
-import net.minecraft.inventory.container.INamedContainerProvider;
+import net.minecraft.inventory.container.*;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.*;
@@ -15,21 +17,21 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class UBlockTileEntity extends UBlock {
 	
-	protected final TileEntityType<?> tileentitytype;
+	protected final Supplier<TileEntityType<?>> tileentitytype;
 	
-	public UBlockTileEntity(String name, Properties properties, TileEntityType<?> tileentitytype) {
+	public UBlockTileEntity(String name, Properties properties, Supplier<TileEntityType<?>> tileentitytype) {
 		this(name, null, properties, tileentitytype);
 	}
 	
-	public UBlockTileEntity(String name, ItemGroup group, Properties properties, TileEntityType<?> tileentitytype) {
+	public UBlockTileEntity(String name, ItemGroup group, Properties properties, Supplier<TileEntityType<?>> tileentitytype) {
 		this(name, group, properties, null, tileentitytype);
 	}
 	
-	public UBlockTileEntity(String name, Properties properties, Item.Properties itemblockproperties, TileEntityType<?> tileentitytype) {
+	public UBlockTileEntity(String name, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileentitytype) {
 		this(name, null, properties, itemblockproperties, tileentitytype);
 	}
 	
-	public UBlockTileEntity(String name, ItemGroup group, Properties properties, Item.Properties itemblockproperties, TileEntityType<?> tileentitytype) {
+	public UBlockTileEntity(String name, ItemGroup group, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileentitytype) {
 		super(name, group, properties, itemblockproperties);
 		this.tileentitytype = tileentitytype;
 	}
@@ -41,7 +43,7 @@ public class UBlockTileEntity extends UBlock {
 	
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return tileentitytype.create();
+		return tileentitytype.get().create();
 	}
 	
 	public boolean openContainer(World world, BlockPos pos, PlayerEntity player) {
@@ -75,6 +77,11 @@ public class UBlockTileEntity extends UBlock {
 			((ISyncedContainerTileEntity) tileentity).writeOnGuiOpenServer(compound);
 		}
 		
+		 Container c = ((INamedContainerProvider)tileentity).createMenu(playermp.currentWindowId, player.inventory, player);
+	        ContainerType<?> type = c.getType();
+	        System.out.println(type.getRegistryName());
+		
+		
 		final CompoundNBT finalCompound = compound;
 		NetworkHooks.openGui(playermp, (INamedContainerProvider) tileentity, buf -> {
 			buf.writeBlockPos(pos);
@@ -88,7 +95,7 @@ public class UBlockTileEntity extends UBlock {
 	
 	public Pair<Boolean, TileEntity> isTileEntityFromProvider(IBlockReader world, BlockPos pos) {
 		TileEntity tileentity = world.getTileEntity(pos);
-		boolean isValid = tileentity != null && tileentitytype == tileentity.getType();
+		boolean isValid = tileentity != null && tileentitytype.get() == tileentity.getType();
 		return Pair.of(isValid, tileentity);
 	}
 	
