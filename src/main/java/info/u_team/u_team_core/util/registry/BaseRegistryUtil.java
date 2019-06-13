@@ -10,6 +10,8 @@ import java.util.stream.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.api.registry.*;
+import net.minecraft.block.Block;
+import net.minecraft.item.BlockItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
@@ -20,6 +22,21 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
  *
  */
 public class BaseRegistryUtil {
+	
+	/**
+	 * Returns block items where the block implements {@link IUBlockRegistryType}. The registry name of the item block is
+	 * set to the block's name.
+	 * 
+	 * @param blocks List with blocks. The registry names must be set
+	 * @return List with block items
+	 */
+	public static List<BlockItem> getBlockItems(List<Block> blocks) {
+		return blocks.parallelStream().filter(block -> block instanceof IUBlockRegistryType).map(block -> {
+			final BlockItem blockItem = ((IUBlockRegistryType) block).getBlockItem();
+			blockItem.setRegistryName(block.getRegistryName());
+			return blockItem;
+		}).collect(Collectors.toList());
+	}
 	
 	/**
 	 * This method is caller sensitive! It use the current stack trace to get the caller class. If this is not what you want
@@ -229,7 +246,7 @@ public class BaseRegistryUtil {
 	
 	/**
 	 * Caller sensitive! This method gets the caller class if this is the first method call to this class. Can be only used
-	 * in this class from other methods.
+	 * in this class from other methods which are called directly from an other class.
 	 * 
 	 * @return Caller class
 	 */
