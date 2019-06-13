@@ -21,7 +21,7 @@ public class WorldUtil {
 		return player.world.rayTraceBlocks(new RayTraceContext(playerVector, locationVector, blockMode, fluidMode, player));
 	}
 	
-	public static <T extends WorldSavedData> T getSaveData(ServerWorld world, String name, Supplier<T> function) {
-		return world.getSavedData().getOrCreate(function, name);
+	public static <T extends WorldSavedData> T getSaveData(ServerWorld world, String name, Supplier<T> defaultData) {
+		return world.getSavedData().getOrCreate(defaultData, name);
 	}
 }
