@@ -4,8 +4,6 @@ import java.time.OffsetDateTime;
 import java.util.*;
 
 import info.u_team.u_team_core.UCoreMain;
-import info.u_team.u_team_core.intern.event.EventHandlerUpdateDiscordRichPresence;
-import info.u_team.u_team_core.registry.EventRegistry;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.RichPresence.Builder;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
@@ -22,13 +20,12 @@ public class DiscordRichPresence {
 	private static boolean isEnabled = false;
 	
 	private static final OffsetDateTime time = OffsetDateTime.now();
-	public static State current = new State(EnumState.STARTUP);
+	public static State currentState = new State(EnumState.STARTUP);
 	
-	private static int errorcount = 0;
+	private static int errorCount = 0;
 	
 	private static final Timer timer = new Timer("Discord Rich Presence Timer Thread");
-	
-	private static TimerTask task;
+	private static TimerTask timerTask;
 	
 	static {
 		Runtime.getRuntime().addShutdownHook(new Thread(() -> stop(), "Discord Rich Presence Stop Thread"));
@@ -37,14 +34,13 @@ public class DiscordRichPresence {
 	public static void start() {
 		try {
 			client.connect();
-			timer.schedule(task = new TimerTask() {
+			timer.schedule(timerTask = new TimerTask() {
 				
 				@Override
 				public void run() {
-					setState(current);
+					setState(currentState);
 				}
 			}, 1000, 1000 * 120);
-			EventRegistry.registerEventHandler(EventHandlerUpdateDiscordRichPresence.class);
 			isEnabled = true;
 			UCoreMain.logger.info("Discord client found and connected.");
 		} catch (NoDiscordClientException ex) {
@@ -53,16 +49,15 @@ public class DiscordRichPresence {
 	}
 	
 	public static void stop() {
-		if (task != null) {
-			task.cancel();
-			task = null;
+		if (timerTask != null) {
+			timerTask.cancel();
+			timerTask = null;
 		}
 		try {
 			client.close();
 		} catch (Exception ex) {
 		}
-		errorcount = 0;
-		EventRegistry.unregisterEventHandler(EventHandlerUpdateDiscordRichPresence.class);
+		errorCount = 0;
 		isEnabled = false;
 		UCoreMain.logger.info("Discord client closed.");
 	}
@@ -89,7 +84,7 @@ public class DiscordRichPresence {
 	}
 	
 	public static void setState(State state) {
-		current = state;
+		currentState = state;
 		Builder builder = new Builder();
 		builder.setDetails(MCPVersion.getMCVersion() + " with " + ModList.get().size() + " Mods");
 		builder.setState(state.getState().getMessage(state.getReplace()));
@@ -103,15 +98,15 @@ public class DiscordRichPresence {
 		} catch (Exception ex) {
 			try {
 				client.connect();
-				errorcount = 0;
+				errorCount = 0;
 				client.sendRichPresence(builder.build());
 			} catch (Exception ex2) {
 				try {
 					client.close();
 				} catch (Exception ex3) {
 				}
-				errorcount++;
-				if (errorcount > 10) {
+				errorCount++;
+				if (errorCount > 10) {
 					UCoreMain.logger.info("Discord rich presence stopped cause connection is not working.");
 					stop();
 				}
@@ -124,7 +119,7 @@ public class DiscordRichPresence {
 	}
 	
 	public static State getCurrent() {
-		return current;
+		return currentState;
 	}
 	
 	public static class State {
