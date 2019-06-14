@@ -41,6 +41,41 @@ public class BaseRegistryUtil {
 	
 	/**
 	 * This method is caller sensitive! It use the current stack trace to get the caller class. If this is not what you want
+	 * use {@link BaseRegistryUtil#getAllGenericRegistryEntriesAndApplyNames(modid, classType, init)}. <br>
+	 * 
+	 * This method is for generic registry entries. For usage please look at see also.
+	 * 
+	 * @see BaseRegistryUtil#getAllRegistryEntriesAndApplyNames(modid, classType, init)
+	 * 
+	 * @param <C> Also kind of the same as <T>. Because of generic classes this is not save.
+	 * @param <T> Type of the {@link IForgeRegistryEntry} to search for
+	 * @param modid The mod identifier to apply the names
+	 * @param classType Class of the {@link IForgeRegistryEntry} to search for
+	 * @return List of all found and matching entries with applied names if possible
+	 */
+	public static <C, T extends IForgeRegistryEntry<T>> List<C> getAllGenericRegistryEntriesAndApplyNames(String modid, Class<C> classType) {
+		return getAllGenericRegistryEntriesAndApplyNames(modid, classType, getCallerClass());
+	}
+	
+	/**
+	 * This method is for generic registry entries. For usage please look at see also.
+	 * 
+	 * @see BaseRegistryUtil#getAllRegistryEntriesAndApplyNames(modid, classType, init)
+	 * 
+	 * @param <C> Also kind of the same as <T>. Because of generic classes this is not save.
+	 * @param <T> Type of the {@link IForgeRegistryEntry} to search for
+	 * @param modid The mod identifier to apply the names
+	 * @param classType Class of the {@link IForgeRegistryEntry} to search for
+	 * @param init Class where to search for entries
+	 * @return List of all found and matching entries with applied names if possible
+	 */
+	@SuppressWarnings("unchecked")
+	public static <C, T extends IForgeRegistryEntry<T>> List<C> getAllGenericRegistryEntriesAndApplyNames(String modid, Class<C> classType, Class<?> init) {
+		return (List<C>) getAllRegistryEntriesAndApplyNames(modid, (Class<T>) classType, init);
+	}
+	
+	/**
+	 * This method is caller sensitive! It use the current stack trace to get the caller class. If this is not what you want
 	 * use {@link BaseRegistryUtil#getAllRegistryEntriesAndApplyNames(modid, classType, init)}. <br>
 	 * 
 	 * Returns all not excluded static fields of a class which extends the passed classType. Also search for
@@ -268,7 +303,7 @@ public class BaseRegistryUtil {
 	 * @param runnable The code that should be executed with the mod container
 	 */
 	private static synchronized void executeWithModContainer(String modid, Runnable runnable) {
-		final ModLoadingContext context = ModLoadingContext.get();
+		final ModLoadingContext context = ModLoadingContext.get(); // We should not need thread safety because of ThreadLocal used here, but to be 100% sure we synchronize the method
 		final ModContainer activeContainer = context.getActiveContainer();
 		final Object extention = context.extension();
 		
