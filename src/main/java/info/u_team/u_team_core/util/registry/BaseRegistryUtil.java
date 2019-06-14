@@ -17,7 +17,8 @@ import net.minecraftforge.fml.*;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 /**
- * With some utility methods you can fetch static {@link IForgeRegistryEntry} fields from a class.
+ * With some utility methods you can fetch static fields from a class. Special support for {@link IForgeRegistryEntry}
+ * fields
  * 
  * @author HyCraftHD
  *
