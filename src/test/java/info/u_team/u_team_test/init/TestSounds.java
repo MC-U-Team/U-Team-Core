@@ -1,14 +1,22 @@
 package info.u_team.u_team_test.init;
 
+import info.u_team.u_team_core.soundevent.USoundEvent;
+import info.u_team.u_team_core.util.registry.BaseRegistryUtil;
 import info.u_team.u_team_test.TestMod;
-import net.minecraft.util.*;
+import net.minecraft.util.SoundEvent;
+import net.minecraftforge.event.RegistryEvent.Register;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
+@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
 public class TestSounds {
 	
-	public static final SoundEvent better_enderpearl_use = new SoundEvent(new ResourceLocation(TestMod.modid, "better_enderpearl_use"));
+	public static final SoundEvent better_enderpearl_use = new USoundEvent("better_enderpearl_use");
 	
-	public static void construct() {
-//		SoundEventRegistry.register(TestMod.modid, TestSounds.class);
+	@SubscribeEvent
+	public static void register(Register<SoundEvent> event) {
+		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.modid, SoundEvent.class).forEach(event.getRegistry()::register);
 	}
 	
 }

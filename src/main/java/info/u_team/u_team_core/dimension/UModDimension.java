@@ -11,7 +11,7 @@ public class UModDimension extends ModDimension implements IURegistryType {
 	
 	protected final String name;
 	
-	protected final BiFunction<World, DimensionType, ? extends Dimension> function;
+	private final BiFunction<World, DimensionType, ? extends Dimension> function;
 	
 	public UModDimension(String name, BiFunction<World, DimensionType, ? extends Dimension> function) {
 		this.name = name;

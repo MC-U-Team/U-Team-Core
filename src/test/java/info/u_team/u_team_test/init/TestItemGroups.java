@@ -2,9 +2,10 @@ package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_core.itemgroup.UItemGroup;
 import info.u_team.u_team_test.TestMod;
+import net.minecraft.item.ItemGroup;
 
 public class TestItemGroups {
 	
-	public static final UItemGroup group = new UItemGroup(TestMod.modid, "group", () -> TestBlocks.basic);
+	public static final ItemGroup group = new UItemGroup(TestMod.modid, "group", () -> TestBlocks.basic);
 	
 }

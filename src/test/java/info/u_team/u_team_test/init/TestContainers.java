@@ -18,6 +18,5 @@ public class TestContainers {
 	@SubscribeEvent
 	public static void register(Register<ContainerType<?>> event) {
 		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(TestMod.modid, ContainerType.class).forEach(event.getRegistry()::register);
-		event.getRegistry().getValues().forEach(c -> System.out.println(c));
 	}
 }
