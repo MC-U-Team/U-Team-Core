@@ -35,7 +35,7 @@ public class BaseRegistryUtil {
 	public static List<BlockItem> getBlockItems(List<Block> blocks) {
 		return blocks.parallelStream() //
 				.filter(block -> block instanceof IUBlockRegistryType) //
-				.filter(block -> ((IUBlockRegistryType) block).getBlockItem() != null) //
+				.filter(block -> ((IUBlockRegistryType) block).getBlockItem() != null) // Check if block item is not null
 				.map(block -> {
 					final BlockItem blockItem = ((IUBlockRegistryType) block).getBlockItem();
 					executeWithModContainer(block.getRegistryName().getNamespace(), () -> blockItem.setRegistryName(block.getRegistryName()));

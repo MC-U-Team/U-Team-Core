@@ -11,7 +11,7 @@ public interface IUBlockRegistryType extends IURegistryType {
 	
 	/**
 	 * Must return the same block item instance every time you call this method. The registry name will be set to the name
-	 * from the block.
+	 * from the block. Can return null for no block item.
 	 * 
 	 * @return Block item instance
 	 */
