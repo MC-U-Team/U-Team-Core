@@ -14,11 +14,11 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 
-public class BlockTileEntity extends UBlockTileEntity {
+public class BasicTileEntityBlock extends UBlockTileEntity {
 	
 	public static final DirectionProperty facing = BlockStateProperties.FACING;
 	
-	public BlockTileEntity(String name) {
+	public BasicTileEntityBlock(String name) {
 		super(name, TestItemGroups.group, Properties.create(Material.ROCK).hardnessAndResistance(2F).sound(SoundType.GROUND).slipperiness(0.8F).lightValue(1), () -> TestTileEntityTypes.tileentity);
 		setDefaultState(getDefaultState().with(facing, Direction.NORTH));
 	}

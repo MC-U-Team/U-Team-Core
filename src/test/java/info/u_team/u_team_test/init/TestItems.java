@@ -15,11 +15,11 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
 public class TestItems {
 	
-	public static final Item basic = new ItemBasic("basicitem");
+	public static final Item basic = new BasicItem("basicitem");
 	
-	public static final Item better_enderpearl = new ItemBetterEnderPearl("better_enderpearl");
+	public static final Item better_enderpearl = new BetterEnderPearlItem("better_enderpearl");
 	
-	public static final Item basicfood = new ItemBasicFood("basicfood");
+	public static final Item basicfood = new BasicFoodItem("basicfood");
 	
 	public static final ToolSet basictool = ToolSetCreator.create("basictool", TestItemGroups.group, new Properties(), TestToolMaterial.basic);
 	public static final ArmorSet basicarmor = ArmorSetCreator.create("basicarmor", TestItemGroups.group, new Properties(), TestArmorMaterial.basic);

@@ -11,9 +11,9 @@ import net.minecraft.util.math.RayTraceResult.Type;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 
-public class ItemBasic extends UItem {
+public class BasicItem extends UItem {
 	
-	public ItemBasic(String name) {
+	public BasicItem(String name) {
 		super(name, TestItemGroups.group, new Properties().rarity(Rarity.EPIC).defaultMaxDamage(10));
 	}
 	

@@ -5,13 +5,13 @@ import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 import net.minecraft.inventory.container.*;
 
-public class ContainerTileEntity extends Container {
+public class BasicContainer extends Container {
 	
-	public ContainerTileEntity(int id, PlayerInventory inventoryPlayer) {
+	public BasicContainer(int id, PlayerInventory inventoryPlayer) {
 		this(id, inventoryPlayer, new Inventory(18));
 	}
 	
-	public ContainerTileEntity(int id, PlayerInventory inventoryPlayer, IInventory tileentity) {
+	public BasicContainer(int id, PlayerInventory inventoryPlayer, IInventory tileentity) {
 		super(TestContainers.type, id);
 		
 		IInventory inventoryBasic = tileentity;

@@ -20,20 +20,20 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.network.FMLPlayMessages.SpawnEntity;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class EntityBetterEnderPearl extends ProjectileItemEntity {
+public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	private LivingEntity thrower;
 	
-	public EntityBetterEnderPearl(SpawnEntity packet, World world) {
+	public BetterEnderPearlEntity(SpawnEntity packet, World world) {
 		this(TestEntityTypes.better_enderpearl, world);
 		System.out.println(packet);
 	}
 	
-	public EntityBetterEnderPearl(EntityType<? extends EntityBetterEnderPearl> type, World world) {
+	public BetterEnderPearlEntity(EntityType<? extends BetterEnderPearlEntity> type, World world) {
 		super(type, world);
 	}
 	
-	public EntityBetterEnderPearl(World world, LivingEntity thrower) {
+	public BetterEnderPearlEntity(World world, LivingEntity thrower) {
 		super(TestEntityTypes.better_enderpearl, thrower, world);
 		this.thrower = thrower;
 	}

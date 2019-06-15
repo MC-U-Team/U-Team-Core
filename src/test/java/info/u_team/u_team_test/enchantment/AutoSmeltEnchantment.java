@@ -10,21 +10,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class EnchantmentAutoSmelt extends Enchantment {
+public class AutoSmeltEnchantment extends Enchantment {
 	
-	public EnchantmentAutoSmelt(String name) {
+	public AutoSmeltEnchantment(String name) {
 		super(Rarity.COMMON, EnchantmentType.DIGGER, new EquipmentSlotType[] { EquipmentSlotType.MAINHAND });
-//		EventRegistry.registerEventHandler(this);
+		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
-	/**
-	 * {@link IClearable}
-	 * 
-	 * @param event
-	 */
 	@SubscribeEvent
 	public void on(HarvestDropsEvent event) {
 		if (event.isSilkTouching()) {

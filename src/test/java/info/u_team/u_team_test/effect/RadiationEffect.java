@@ -8,11 +8,11 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectType;
 
-public class EffectRadiation extends UEffect {
+public class RadiationEffect extends UEffect {
 	
 	private final Random random;
 	
-	public EffectRadiation(String name) {
+	public RadiationEffect(String name) {
 		super(name, EffectType.HARMFUL, 0x0B7A14);
 		random = new Random();
 	}

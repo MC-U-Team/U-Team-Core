@@ -6,9 +6,9 @@ import net.minecraft.world.biome.provider.*;
 import net.minecraft.world.dimension.*;
 import net.minecraft.world.gen.*;
 
-public class DimensionBasic extends OverworldDimension {
+public class BasicDimension extends OverworldDimension {
 	
-	public DimensionBasic(World world, DimensionType type) {
+	public BasicDimension(World world, DimensionType type) {
 		super(world, type);
 	}
 	

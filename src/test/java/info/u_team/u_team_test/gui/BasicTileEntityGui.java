@@ -3,7 +3,7 @@ package info.u_team.u_team_test.gui;
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import info.u_team.u_team_test.TestMod;
-import info.u_team.u_team_test.container.ContainerTileEntity;
+import info.u_team.u_team_test.container.BasicContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
@@ -11,11 +11,11 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
-public class GuiTileEntity extends ContainerScreen<ContainerTileEntity> {
+public class BasicTileEntityGui extends ContainerScreen<BasicContainer> {
 	
 	private PlayerInventory inventoryPlayer;
 	
-	public GuiTileEntity(ContainerTileEntity container, PlayerInventory inventory, ITextComponent text) {
+	public BasicTileEntityGui(BasicContainer container, PlayerInventory inventory, ITextComponent text) {
 		super(container, inventory, text);
 		xSize = 176;
 		ySize = 173;

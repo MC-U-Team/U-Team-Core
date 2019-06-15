@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import info.u_team.u_team_core.tileentity.UTileEntityContainer;
-import info.u_team.u_team_test.container.ContainerTileEntity;
+import info.u_team.u_team_test.container.BasicContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.player.*;
@@ -15,11 +15,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.api.distmarker.*;
 
-public class TileEntityTileEntity extends UTileEntityContainer implements IInventory, ISyncedContainerTileEntity, ITickable {
+public class BasicTileEntityTileEntity extends UTileEntityContainer implements IInventory, ISyncedContainerTileEntity, ITickable {
 	
 	private NonNullList<ItemStack> list;
 	
-	public TileEntityTileEntity() {
+	public BasicTileEntityTileEntity() {
 		super(TestTileEntityTypes.tileentity);
 		list = NonNullList.withSize(18, ItemStack.EMPTY);
 	}
@@ -72,7 +72,7 @@ public class TileEntityTileEntity extends UTileEntityContainer implements IInven
 	
 	@Override
 	public Container createMenu(int var1, PlayerInventory inventoryPlayer, PlayerEntity var3) {
-		return new ContainerTileEntity(var1, inventoryPlayer, this);
+		return new BasicContainer(var1, inventoryPlayer, this);
 	}
 	
 	@Override

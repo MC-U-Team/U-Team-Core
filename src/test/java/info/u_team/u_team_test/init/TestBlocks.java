@@ -15,9 +15,9 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
 public class TestBlocks {
 	
-	public static final BlockBasic basic = new BlockBasic("basicblock");
+	public static final BasicBlock basic = new BasicBlock("basicblock");
 	
-	public static final BlockTileEntity tileentity = new BlockTileEntity("tileentity");
+	public static final BasicTileEntityBlock tileentity = new BasicTileEntityBlock("tileentity");
 	
 	@SubscribeEvent
 	public static void register(Register<Block> event) {
