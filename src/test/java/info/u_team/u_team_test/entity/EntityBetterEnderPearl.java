@@ -38,10 +38,10 @@ public class EntityBetterEnderPearl extends ProjectileItemEntity {
 		this.thrower = thrower;
 	}
 	
-	@OnlyIn(Dist.CLIENT)
-	public EntityBetterEnderPearl(World world, double x, double y, double z) {
-		super(TestEntityTypes.better_enderpearl, x, y, z, world);
-	}
+//	@OnlyIn(Dist.CLIENT)
+//	public EntityBetterEnderPearl(World world, double x, double y, double z) {
+//		super(TestEntityTypes.better_enderpearl, x, y, z, world);
+//	}
 	
 	@Override
 	protected float getGravityVelocity() {
