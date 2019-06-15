@@ -3,7 +3,7 @@ package info.u_team.u_team_core.api.registry;
 import net.minecraft.item.BlockItem;
 
 /**
- * This can be implemented in blocks to register them easier.
+ * This can be implemented in blocks to register them easier and get the block item.
  * 
  * @see IURegistryType
  */

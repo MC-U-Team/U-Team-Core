@@ -18,7 +18,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 /**
  * With some utility methods you can fetch static fields from a class. Special support for {@link IForgeRegistryEntry}
- * fields
+ * fields.
  * 
  * @author HyCraftHD
  *
@@ -33,11 +33,15 @@ public class BaseRegistryUtil {
 	 * @return List with block items
 	 */
 	public static List<BlockItem> getBlockItems(List<Block> blocks) {
-		return blocks.parallelStream().filter(block -> block instanceof IUBlockRegistryType).map(block -> {
-			final BlockItem blockItem = ((IUBlockRegistryType) block).getBlockItem();
-			executeWithModContainer(block.getRegistryName().getNamespace(), () -> blockItem.setRegistryName(block.getRegistryName()));
-			return blockItem;
-		}).collect(Collectors.toList());
+		return blocks.parallelStream() //
+				.filter(block -> block instanceof IUBlockRegistryType) //
+				.filter(block -> ((IUBlockRegistryType) block).getBlockItem() != null) //
+				.map(block -> {
+					final BlockItem blockItem = ((IUBlockRegistryType) block).getBlockItem();
+					executeWithModContainer(block.getRegistryName().getNamespace(), () -> blockItem.setRegistryName(block.getRegistryName()));
+					return blockItem;
+				}) //
+				.collect(Collectors.toList());
 	}
 	
 	/**
