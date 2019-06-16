@@ -24,7 +24,7 @@ public class ClientConfig {
 	
 	private ClientConfig(Builder builder) {
 		builder.comment("Client configuration settings").push("client");
-		discordRichPresence = builder.comment("If you have discord installed it will show your some details about your game as rich presence").translation("uteamcore:configgui.discordRichPresence").define("discordRichPresence", true);
+		discordRichPresence = builder.comment("If you have discord installed it will show your some details about your game as rich presence").define("discordRichPresence", true);
 		builder.pop();
 	}
 	

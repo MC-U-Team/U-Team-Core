@@ -15,23 +15,23 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public class UBlockTileEntity extends UBlock {
+public class UTileEntityBlock extends UBlock {
 	
 	protected final Supplier<TileEntityType<?>> tileentitytype;
 	
-	public UBlockTileEntity(String name, Properties properties, Supplier<TileEntityType<?>> tileentitytype) {
+	public UTileEntityBlock(String name, Properties properties, Supplier<TileEntityType<?>> tileentitytype) {
 		this(name, null, properties, tileentitytype);
 	}
 	
-	public UBlockTileEntity(String name, ItemGroup group, Properties properties, Supplier<TileEntityType<?>> tileentitytype) {
+	public UTileEntityBlock(String name, ItemGroup group, Properties properties, Supplier<TileEntityType<?>> tileentitytype) {
 		this(name, group, properties, null, tileentitytype);
 	}
 	
-	public UBlockTileEntity(String name, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileentitytype) {
+	public UTileEntityBlock(String name, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileentitytype) {
 		this(name, null, properties, itemblockproperties, tileentitytype);
 	}
 	
-	public UBlockTileEntity(String name, ItemGroup group, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileentitytype) {
+	public UTileEntityBlock(String name, ItemGroup group, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileentitytype) {
 		super(name, group, properties, itemblockproperties);
 		this.tileentitytype = tileentitytype;
 	}

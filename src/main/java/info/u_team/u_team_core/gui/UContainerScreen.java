@@ -10,12 +10,16 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
-public class UGuiContainer<T extends Container> extends ContainerScreen<T> {
+public class UContainerScreen<T extends Container> extends ContainerScreen<T> {
 	
-	protected final ResourceLocation background;
+	protected ResourceLocation background;
 	
-	public UGuiContainer(T container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background) {
+	public UContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background) {
 		super(container, playerInventory, title);
+		this.background = background;
+	}
+	
+	public void setBackground(ResourceLocation background) {
 		this.background = background;
 	}
 	

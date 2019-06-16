@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 
 import net.minecraft.client.gui.FontRenderer;
 
-public class RenderScalingText {
+public class ScalingTextRender {
 	
 	protected final Supplier<FontRenderer> fontRenderSupplier;
 	
@@ -20,7 +20,7 @@ public class RenderScalingText {
 	protected boolean shadow;
 	protected float scale;
 	
-	public RenderScalingText(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier) {
+	public ScalingTextRender(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier) {
 		this.fontRenderSupplier = fontRenderSupplier;
 		this.textSupplier = textSupplier;
 		this.scale = 1;

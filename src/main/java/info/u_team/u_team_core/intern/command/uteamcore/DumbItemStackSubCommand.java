@@ -9,23 +9,24 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.StringTextComponent;
 
-public class SubCommandUTeamCoreDumbItemStack {
+public class DumbItemStackSubCommand {
 	
 	public static ArgumentBuilder<CommandSource, ?> register() {
 		return Commands.literal("dumbstack").executes(ctx -> execute(ctx.getSource()));
 	}
 	
 	private static int execute(CommandSource source) throws CommandException {
-		
-		ServerPlayerEntity player = null;
+		final ServerPlayerEntity player;
 		try {
 			player = source.asPlayer();
 		} catch (CommandSyntaxException ex) {
 			throw new CommandException(new StringTextComponent(ex.getMessage()));
 		}
-		ItemStack stack = player.getHeldItemMainhand();
-		Item item = stack.getItem();
-		CompoundNBT compound = stack.getTag();
+		
+		final ItemStack stack = player.getHeldItemMainhand();
+		final Item item = stack.getItem();
+		final CompoundNBT compound = stack.getTag();
+		
 		source.sendFeedback(new StringTextComponent("Item: " + item.getRegistryName() + " (" + item + ")"), true);
 		if (compound != null) {
 			source.sendFeedback(new StringTextComponent("NBT: ").appendSibling(compound.toFormattedComponent()), true);

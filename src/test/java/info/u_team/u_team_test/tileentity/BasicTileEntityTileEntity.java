@@ -3,7 +3,7 @@ package info.u_team.u_team_test.tileentity;
 import java.util.Iterator;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
-import info.u_team.u_team_core.tileentity.UTileEntityContainer;
+import info.u_team.u_team_core.tileentity.UContainerTileEntity;
 import info.u_team.u_team_test.container.BasicContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.client.renderer.texture.ITickable;
@@ -16,7 +16,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
 
-public class BasicTileEntityTileEntity extends UTileEntityContainer implements IInventory, ISyncedContainerTileEntity, ITickable {
+public class BasicTileEntityTileEntity extends UContainerTileEntity implements IInventory, ISyncedContainerTileEntity, ITickable {
 	
 	private NonNullList<ItemStack> list;
 	

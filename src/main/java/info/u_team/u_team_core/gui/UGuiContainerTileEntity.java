@@ -10,7 +10,7 @@ import net.minecraftforge.api.distmarker.*;
 
 @Deprecated
 @OnlyIn(Dist.CLIENT)
-public class UGuiContainerTileEntity extends UGuiContainer<UContainerTileEntity> {
+public class UGuiContainerTileEntity extends UContainerScreen<UContainerTileEntity> {
 	
 	protected final TileEntity tileentity;
 	

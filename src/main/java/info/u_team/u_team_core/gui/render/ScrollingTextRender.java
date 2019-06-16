@@ -8,7 +8,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.math.MathHelper;
 
-public class RenderScrollingText extends RenderScalingText {
+public class ScrollingTextRender extends ScalingTextRender {
 	
 	protected int width;
 	protected float stepSize;
@@ -19,7 +19,7 @@ public class RenderScrollingText extends RenderScalingText {
 	protected long lastTime = 0;
 	protected State state = State.WAITING;
 	
-	public RenderScrollingText(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier) {
+	public ScrollingTextRender(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier) {
 		super(fontRenderSupplier, textSupplier);
 		width = 100;
 		stepSize = 1;
