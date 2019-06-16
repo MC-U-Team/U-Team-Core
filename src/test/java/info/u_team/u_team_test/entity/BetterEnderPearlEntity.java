@@ -16,18 +16,11 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.*;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
-import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fml.network.FMLPlayMessages.SpawnEntity;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	private LivingEntity thrower;
-	
-	public BetterEnderPearlEntity(SpawnEntity packet, World world) {
-		this(TestEntityTypes.better_enderpearl, world);
-		System.out.println(packet);
-	}
 	
 	public BetterEnderPearlEntity(EntityType<? extends BetterEnderPearlEntity> type, World world) {
 		super(type, world);
@@ -37,11 +30,6 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 		super(TestEntityTypes.better_enderpearl, thrower, world);
 		this.thrower = thrower;
 	}
-	
-//	@OnlyIn(Dist.CLIENT)
-//	public EntityBetterEnderPearl(World world, double x, double y, double z) {
-//		super(TestEntityTypes.better_enderpearl, x, y, z, world);
-//	}
 	
 	@Override
 	protected float getGravityVelocity() {

@@ -13,6 +13,7 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
 
 public class BasicTileEntityTileEntity extends UTileEntityContainer implements IInventory, ISyncedContainerTileEntity, ITickable {
@@ -171,5 +172,10 @@ public class BasicTileEntityTileEntity extends UTileEntityContainer implements I
 		}
 		
 		this.markDirty();
+	}
+	
+	@Override
+	public ITextComponent getDisplayName() {
+		return null;
 	}
 }
