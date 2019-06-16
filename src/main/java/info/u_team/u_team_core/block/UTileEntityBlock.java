@@ -7,7 +7,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.*;
-import net.minecraft.inventory.container.*;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.*;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 
 public class UTileEntityBlock extends UBlock {
 	
-	protected final Supplier<TileEntityType<?>> tileentitytype;
+	protected final Supplier<TileEntityType<?>> tileEntityType;
 	
 	public UTileEntityBlock(String name, Properties properties, Supplier<TileEntityType<?>> tileentitytype) {
 		this(name, null, properties, tileentitytype);
@@ -33,7 +33,7 @@ public class UTileEntityBlock extends UBlock {
 	
 	public UTileEntityBlock(String name, ItemGroup group, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileentitytype) {
 		super(name, group, properties, itemblockproperties);
-		this.tileentitytype = tileentitytype;
+		this.tileEntityType = tileentitytype;
 	}
 	
 	@Override
@@ -43,7 +43,7 @@ public class UTileEntityBlock extends UBlock {
 	
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-		return tileentitytype.get().create();
+		return tileEntityType.get().create();
 	}
 	
 	public boolean openContainer(World world, BlockPos pos, PlayerEntity player) {
@@ -57,7 +57,7 @@ public class UTileEntityBlock extends UBlock {
 			// correctly!
 			return true;
 		}
-		ServerPlayerEntity playermp = (ServerPlayerEntity) player;
+		ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
 		Pair<Boolean, TileEntity> pair = isTileEntityFromProvider(world, pos);
 		if (!pair.getLeft()) {
 			return false;
@@ -67,7 +67,7 @@ public class UTileEntityBlock extends UBlock {
 		if (!(tileentity instanceof INamedContainerProvider)) {
 			return false;
 		}
-		if (!canOpenSneak && playermp.isSneaking()) {
+		if (!canOpenSneak && serverPlayer.isSneaking()) {
 			return true;
 		}
 		
@@ -77,13 +77,8 @@ public class UTileEntityBlock extends UBlock {
 			((ISyncedContainerTileEntity) tileentity).writeOnGuiOpenServer(compound);
 		}
 		
-		 Container c = ((INamedContainerProvider)tileentity).createMenu(playermp.currentWindowId, player.inventory, player);
-	        ContainerType<?> type = c.getType();
-	        System.out.println(type.getRegistryName());
-		
-		
 		final CompoundNBT finalCompound = compound;
-		NetworkHooks.openGui(playermp, (INamedContainerProvider) tileentity, buf -> {
+		NetworkHooks.openGui(serverPlayer, (INamedContainerProvider) tileentity, buf -> {
 			buf.writeBlockPos(pos);
 			if (finalCompound != null) {
 				buf.writeCompoundTag(finalCompound);
@@ -95,7 +90,7 @@ public class UTileEntityBlock extends UBlock {
 	
 	public Pair<Boolean, TileEntity> isTileEntityFromProvider(IBlockReader world, BlockPos pos) {
 		TileEntity tileentity = world.getTileEntity(pos);
-		boolean isValid = tileentity != null && tileentitytype.get() == tileentity.getType();
+		boolean isValid = tileentity != null && tileEntityType.get() == tileentity.getType();
 		return Pair.of(isValid, tileentity);
 	}
 	

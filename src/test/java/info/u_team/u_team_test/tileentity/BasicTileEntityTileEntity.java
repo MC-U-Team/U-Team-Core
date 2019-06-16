@@ -4,28 +4,33 @@ import java.util.Iterator;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import info.u_team.u_team_core.tileentity.UContainerTileEntity;
-import info.u_team.u_team_test.container.BasicContainer;
+import info.u_team.u_team_test.container.BasicTileEntityContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
-import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
 
-public class BasicTileEntityTileEntity extends UContainerTileEntity implements IInventory, ISyncedContainerTileEntity, ITickable {
+public class BasicTileEntityTileEntity extends UContainerTileEntity implements IInventory, ISyncedContainerTileEntity, ITickableTileEntity {
 	
-	private NonNullList<ItemStack> list;
+	private final NonNullList<ItemStack> list;
+	
+	public int cooldown, value;
 	
 	public BasicTileEntityTileEntity() {
 		super(TestTileEntityTypes.tileentity);
 		list = NonNullList.withSize(18, ItemStack.EMPTY);
 	}
 	
-	public int cooldown, value;
+	@Override
+	public Container createMenu(int windowid, PlayerInventory playerInventory, PlayerEntity player) {
+		return new BasicTileEntityContainer(windowid, playerInventory, this);
+	}
 	
 	@Override
 	public void writeOnContainerSyncServer(CompoundNBT compound) {
@@ -69,11 +74,6 @@ public class BasicTileEntityTileEntity extends UContainerTileEntity implements I
 		timer = 0;
 		value++;
 		markDirty();
-	}
-	
-	@Override
-	public Container createMenu(int var1, PlayerInventory inventoryPlayer, PlayerEntity var3) {
-		return new BasicContainer(var1, inventoryPlayer, this);
 	}
 	
 	@Override
