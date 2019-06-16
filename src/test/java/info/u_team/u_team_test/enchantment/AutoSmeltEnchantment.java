@@ -2,6 +2,7 @@ package info.u_team.u_team_test.enchantment;
 
 import java.util.List;
 
+import info.u_team.u_team_core.enchantment.UEnchantment;
 import net.minecraft.enchantment.*;
 import net.minecraft.entity.item.ExperienceOrbEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,10 +15,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
-public class AutoSmeltEnchantment extends Enchantment {
+public class AutoSmeltEnchantment extends UEnchantment {
 	
 	public AutoSmeltEnchantment(String name) {
-		super(Rarity.COMMON, EnchantmentType.DIGGER, new EquipmentSlotType[] { EquipmentSlotType.MAINHAND });
+		super(name, Rarity.COMMON, EnchantmentType.DIGGER, new EquipmentSlotType[] { EquipmentSlotType.MAINHAND });
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	

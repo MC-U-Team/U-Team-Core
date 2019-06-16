@@ -39,9 +39,9 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 	
 	public static class UBuilder<T extends Entity> {
 		
-		private static final Method defaultVelocitySupplierMethod = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultVelocitySupplier", EntityType.class);
-		private static final Method defaultTrackingRangeSupplierMethod = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultTrackingRangeSupplier", EntityType.class);
-		private static final Method defaultUpdateIntervalSupplierMethod = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultUpdateIntervalSupplier", EntityType.class);
+		private static final Method defaultVelocitySupplierMethod = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultVelocitySupplier");
+		private static final Method defaultTrackingRangeSupplierMethod = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultTrackingRangeSupplier");
+		private static final Method defaultUpdateIntervalSupplierMethod = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultUpdateIntervalSupplier");
 		
 		private final String name;
 		private final IFactory<T> factory;
@@ -103,8 +103,8 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 			return this;
 		}
 		
-		public UBuilder<T> setCustomClientFactory(BiFunction<EntityType<T>, World, T> customClientFactory) {
-			this.clientFactory = customClientFactory;
+		public UBuilder<T> setCustomClientFactory(BiFunction<EntityType<T>, World, T> clientFactory) {
+			this.clientFactory = clientFactory;
 			return this;
 		}
 		
@@ -137,7 +137,7 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 		@SuppressWarnings("unchecked")
 		private <D> D getPrivateDefaultValue(EntityType<?> type, Method method) {
 			try {
-				return (D) method.invoke(type, type);
+				return (D) method.invoke(type);
 			} catch (Exception ex) {
 				UCoreMain.logger.error("Could not get default values for entity type {}.", name, ex);
 			}

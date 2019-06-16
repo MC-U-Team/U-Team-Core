@@ -13,7 +13,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @EventBusSubscriber(modid = UCoreMain.modid, value = Dist.CLIENT)
-public class EventHandlerUpdateDiscordRichPresence {
+public class UpdateDiscordEventHandler {
 	
 	@SubscribeEvent
 	public static void on(InitGuiEvent.Pre event) {
