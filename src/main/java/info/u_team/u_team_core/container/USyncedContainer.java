@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.container;
 
-import info.u_team.u_team_core.api.sync.ISyncedDataMethods;
+import info.u_team.u_team_core.api.sync.ISyncedData;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.api.distmarker.*;
@@ -12,7 +12,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
  * @author HyCraftHD
  *
  */
-public abstract class USyncedContainer extends UContainer implements ISyncedDataMethods {
+public abstract class USyncedContainer extends UContainer implements ISyncedData {
 	
 	/**
 	 * This is the server constructor for the container.

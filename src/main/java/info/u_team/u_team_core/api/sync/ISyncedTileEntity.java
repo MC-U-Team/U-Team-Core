@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.*;
  * @author HyCraftHD
  *
  */
-public interface ISyncedTileEntity extends INamedContainerProvider, ISyncedDataMethods {
+public interface ISyncedTileEntity extends INamedContainerProvider, ISyncedData {
 	
 	/**
 	 * Collect data here that should be sent to the client side when the container will be opened. The data comes to the

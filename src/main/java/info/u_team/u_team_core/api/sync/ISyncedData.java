@@ -15,7 +15,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
  * @author HyCraftHD
  *
  */
-public interface ISyncedDataMethods {
+public interface ISyncedData {
 	
 	/**
 	 * This method is called on the server side. Data can be written to the packet buffer. The data will receive the client
