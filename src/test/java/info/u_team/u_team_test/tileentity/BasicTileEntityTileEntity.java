@@ -15,6 +15,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.*;
+import net.minecraftforge.api.distmarker.*;
 
 public class BasicTileEntityTileEntity extends UTileEntity implements IInventory, ISyncedContainerTileEntity, ITickableTileEntity {
 	
@@ -34,6 +35,7 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInventory
 		buffer.writeString(data);
 	}
 	
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleInitialDataBuffer(PacketBuffer buffer) {
 		final String data = buffer.readString();
@@ -47,7 +49,7 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInventory
 	
 	@Override
 	public ITextComponent getDisplayName() {
-		return new StringTextComponent("Basic inventory");
+		return new StringTextComponent("Tile Entity");
 	}
 	
 	// @Override

@@ -8,7 +8,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class UCoreNetwork {
 	
-	public static final String protocol = "1";
+	public static final String protocol = "1.14.2-1";
 	
 	public static final SimpleChannel network = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMain.modid, "network"), () -> protocol, protocol::equals, protocol::equals);
 	

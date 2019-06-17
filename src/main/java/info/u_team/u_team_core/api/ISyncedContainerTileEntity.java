@@ -35,7 +35,7 @@ public interface ISyncedContainerTileEntity extends INamedContainerProvider {
 	 * Override method here so we can make sure the container is an instance of {@link USyncedTileEntityContainer}
 	 */
 	USyncedTileEntityContainer<?> createMenu(int id, PlayerInventory playerInventory, PlayerEntity player);
-	
+		
 	// // Server -> Client
 	//
 	// // Write on Server

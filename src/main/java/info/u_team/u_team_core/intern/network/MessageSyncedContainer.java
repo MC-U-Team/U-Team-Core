@@ -1,87 +1,63 @@
 package info.u_team.u_team_core.intern.network;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
+import info.u_team.u_team_core.container.USyncedContainer;
+import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.network.NetworkEvent;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 
 public class MessageSyncedContainer {
 	
-	private BlockPos pos;
-	private CompoundNBT compound;
+	private PacketBuffer buffer;
 	
-	public MessageSyncedContainer(BlockPos pos, CompoundNBT compound) {
-		this.pos = pos;
-		this.compound = compound;
+	public MessageSyncedContainer(PacketBuffer buffer) {
+		this.buffer = buffer;
 	}
 	
-	public static void encode(MessageSyncedContainer msg, PacketBuffer buf) {
-		buf.writeBlockPos(msg.pos);
-		buf.writeCompoundTag(msg.compound);
+	public static void encode(MessageSyncedContainer message, PacketBuffer sendBuffer) {
+		sendBuffer.writeBytes(message.buffer);
 	}
 	
-	public static MessageSyncedContainer decode(PacketBuffer buf) {
-		BlockPos pos = buf.readBlockPos();
-		CompoundNBT compound = buf.readCompoundTag();
-		return new MessageSyncedContainer(pos, compound);
+	public static MessageSyncedContainer decode(PacketBuffer sendBuffer) {
+		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+		buffer.readBytes(sendBuffer);
+		return new MessageSyncedContainer(buffer);
 	}
 	
 	public static class Handler {
 		
-		public static void handle(MessageSyncedContainer message, Supplier<NetworkEvent.Context> ctxSupplier) {
+		public static void handle(MessageSyncedContainer message, Supplier<Context> ctxSupplier) {
 			Context ctx = ctxSupplier.get();
 			ctx.enqueueWork(() -> {
 				if (ctx.getDirection().getOriginationSide() == LogicalSide.SERVER) {
-					handleClient(message.pos, message.compound, ctx);
+					handleClient(message.buffer, ctx);
 				} else {
-					handleServer(message.pos, message.compound, ctx);
+					handleServer(message.buffer, ctx);
 				}
 			});
 			ctx.setPacketHandled(true);
 		}
 		
 		@OnlyIn(Dist.CLIENT)
-		private static void handleClient(BlockPos pos, CompoundNBT compound, Context ctx) {
-//			Minecraft minecraft = Minecraft.getInstance();
-//			World world = minecraft.world;
-//			if (!world.isBlockLoaded(pos)) {
-//				return;
-//			}
-//			TileEntity tileentity = world.getTileEntity(pos);
-//			if (tileentity instanceof ISyncedContainerTileEntity) {
-//				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
-//				synced.readOnContainerSyncClient(compound);
-//			}
-//			
-//			Screen gui = minecraft.currentScreen;
-//			if (gui instanceof UGuiContainerTileEntity) {
-//				UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
-//				guicontainer.handleServerNBT(compound);
-//			}
+		private static void handleClient(PacketBuffer buffer, Context ctx) {
+			getSyncedContainer(Minecraft.getInstance().player.openContainer).ifPresent(container -> container.handleFromServer(buffer));
 		}
 		
-		private static void handleServer(BlockPos pos, CompoundNBT compound, Context ctx) {
-//			ServerPlayerEntity player = ctx.getSender();
-//			World world = player.getServerWorld();
-//			if (!world.isBlockLoaded(pos)) {
-//				return;
-//			}
-//			TileEntity tileentity = world.getTileEntity(pos);
-//			if (tileentity instanceof ISyncedContainerTileEntity) {
-//				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
-//				synced.readOnContainerSyncServer(compound);
-//			}
+		private static void handleServer(PacketBuffer buffer, Context ctx) {
+			getSyncedContainer(ctx.getSender().openContainer).ifPresent(container -> container.handleFromServer(buffer));
+		}
+		
+		private static final Optional<USyncedContainer> getSyncedContainer(Container container) {
+			if (container == null || !(container instanceof USyncedContainer)) {
+				return Optional.empty();
+			}
+			return Optional.of((USyncedContainer) container);
 		}
 	}
 }
