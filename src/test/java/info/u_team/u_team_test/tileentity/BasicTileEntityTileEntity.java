@@ -2,7 +2,7 @@ package info.u_team.u_team_test.tileentity;
 
 import java.util.Iterator;
 
-import info.u_team.u_team_core.api.sync.ISyncedTileEntity;
+import info.u_team.u_team_core.api.sync.IAutoSyncedTileEntity;
 import info.u_team.u_team_core.container.USyncedTileEntityContainer;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
@@ -17,7 +17,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class BasicTileEntityTileEntity extends UTileEntity implements IInventory, ISyncedTileEntity, ITickableTileEntity {
+public class BasicTileEntityTileEntity extends UTileEntity implements IInventory, IAutoSyncedTileEntity, ITickableTileEntity {
 	
 	private final NonNullList<ItemStack> list;
 	
@@ -26,17 +26,6 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInventory
 	public BasicTileEntityTileEntity() {
 		super(TestTileEntityTypes.tileentity);
 		list = NonNullList.withSize(18, ItemStack.EMPTY);
-	}
-	
-	@Override
-	public void sendInitialDataBuffer(PacketBuffer buffer) {
-		sendToClient(buffer);
-	}
-	
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void handleInitialDataBuffer(PacketBuffer buffer) {
-		handleFromServer(buffer);
 	}
 	
 	@Override
@@ -75,33 +64,6 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInventory
 		cooldown = Math.min(buffer.readInt(), 100);
 		markDirty();
 	}
-	
-	// @Override
-	// public void writeOnContainerSyncServer(CompoundNBT compound) {
-	// compound.putInt("value", value);
-	// compound.putInt("cooldown", cooldown);
-	// }
-	//
-	// @OnlyIn(Dist.CLIENT)
-	// @Override
-	// public void readOnContainerSyncClient(CompoundNBT compound) {
-	// value = compound.getInt("value");
-	// cooldown = compound.getInt("cooldown");
-	// }
-	//
-	// @OnlyIn(Dist.CLIENT)
-	// @Override
-	// public void writeOnContainerSyncClient(CompoundNBT compound) {
-	// compound.putInt("value", value);
-	// compound.putInt("cooldown", cooldown);
-	// }
-	//
-	// @Override
-	// public void readOnContainerSyncServer(CompoundNBT compound) {
-	// value = compound.getInt("value");
-	// cooldown = Math.min(compound.getInt("cooldown"), 100);
-	// markDirty();
-	// }
 	
 	private int timer;
 	
