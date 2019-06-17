@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.container;
 
-import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
+import info.u_team.u_team_core.api.*;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.*;
@@ -12,18 +12,20 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 /**
- * A synchronized tile entity container with custom packets an a tile entity that implements
- * {@link ISyncedContainerTileEntity}
+ * A synchronized tile entity container with custom packets an a tile entity that implements {@link ISyncedTileEntity}
  * 
  * @author HyCraftHD
  *
  * @param <T> Tile entity
  */
-public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedContainerTileEntity> extends USyncedContainer {
+public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedTileEntity> extends USyncedContainer {
 	
 	protected final PlayerInventory playerInventory;
 	protected final T tileEntity;
 	
+	/**
+	 * Only used if the tile entity is an instance of {@link IAutoSyncedTileEntity}.
+	 */
 	private PacketBuffer lastBuffer;
 	
 	/**
@@ -93,17 +95,17 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedC
 	
 	/**
 	 * This methods reads a position from the {@link PacketBuffer} and then tries to find a matching client tile entity.
-	 * This method is only client sided. If the tile entity does not exist or does not implement
-	 * {@link ISyncedContainerTileEntity} an {@link IllegalStateException} is thrown.
+	 * This method is only client sided. If the tile entity does not exist or does not implement {@link ISyncedTileEntity}
+	 * an {@link IllegalStateException} is thrown.
 	 * 
 	 * @param buffer Packet buffer with the read index at a {@link BlockPos}
-	 * @return A tile entity that implements {@link ISyncedContainerTileEntity}
+	 * @return A tile entity that implements {@link ISyncedTileEntity}
 	 */
 	@SuppressWarnings("unchecked")
 	@OnlyIn(Dist.CLIENT)
 	private T getClientTileEntity(PacketBuffer buffer) {
 		TileEntity tile = Minecraft.getInstance().world.getTileEntity(buffer.readBlockPos());
-		if (tile == null || !(tile instanceof ISyncedContainerTileEntity)) {
+		if (tile == null || !(tile instanceof ISyncedTileEntity)) {
 			throw new IllegalStateException("The client tile entity must be present.");
 		}
 		return (T) tile;
@@ -126,34 +128,39 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedC
 	
 	/**
 	 * Is called when a new container listener is added to this container. We extend this method so it will send us the sync
-	 * data when we open the container.
+	 * data when we open the container if the tile entity implements {@link IAutoSyncedTileEntity}.
 	 */
 	@Override
 	public void addListener(IContainerListener listener) {
 		super.addListener(listener);
-		if (listener instanceof ServerPlayerEntity) {
-			if (lastBuffer == null) {
-				lastBuffer = new PacketBuffer(Unpooled.buffer());
-				sendToClient(lastBuffer);
+		if (tileEntity instanceof IAutoSyncedTileEntity) {
+			if (listener instanceof ServerPlayerEntity) {
+				if (lastBuffer == null) {
+					lastBuffer = new PacketBuffer(Unpooled.buffer());
+					sendToClient(lastBuffer);
+				}
+				sendDataToClient((ServerPlayerEntity) listener, lastBuffer);
 			}
-			sendDataToClient((ServerPlayerEntity) listener, lastBuffer);
 		}
 	}
 	
 	/**
 	 * This method is called every tick and when changes take place. This method will send to all players that have this
-	 * container open the sync data if the buffer has changed.
+	 * container open the sync data if the buffer has changed and if the tile entity implements
+	 * {@link IAutoSyncedTileEntity}.
 	 */
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-		sendToClient(buffer);
-		if (buffer.equals(lastBuffer)) {
-			return;
+		if (tileEntity instanceof IAutoSyncedTileEntity) {
+			PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+			sendToClient(buffer);
+			if (buffer.equals(lastBuffer)) {
+				return;
+			}
+			lastBuffer = buffer;
+			listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity) listener).forEach(player -> sendDataToClient(player, buffer));
 		}
-		lastBuffer = buffer;
-		listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity) listener).forEach(player -> sendDataToClient(player, buffer));
 	}
 	
 	/**
