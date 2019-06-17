@@ -24,6 +24,8 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedC
 	protected final PlayerInventory playerInventory;
 	protected final T tileEntity;
 	
+	private PacketBuffer lastBuffer;
+	
 	/**
 	 * This is the server constructor for the container. The {@link #init()} is called.
 	 * 
@@ -122,10 +124,10 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedC
 		return tileEntity;
 	}
 	
-	// Testing
-	
-	private PacketBuffer lastBuffer;
-	
+	/**
+	 * Is called when a new container listener is added to this container. We extend this method so it will send us the sync
+	 * data when we open the container.
+	 */
 	@Override
 	public void addListener(IContainerListener listener) {
 		super.addListener(listener);
@@ -133,11 +135,15 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedC
 			if (lastBuffer == null) {
 				lastBuffer = new PacketBuffer(Unpooled.buffer());
 				sendToClient(lastBuffer);
-				sendDataToClient((ServerPlayerEntity) listener, lastBuffer);
 			}
+			sendDataToClient((ServerPlayerEntity) listener, lastBuffer);
 		}
 	}
 	
+	/**
+	 * This method is called every tick and when changes take place. This method will send to all players that have this
+	 * container open the sync data if the buffer has changed.
+	 */
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
@@ -147,28 +153,46 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedC
 			return;
 		}
 		lastBuffer = buffer;
-		listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity) listener).forEach(player -> {
-			sendDataToClient(player, buffer);
-		});
+		listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity) listener).forEach(player -> sendDataToClient(player, buffer));
 	}
 	
+	/**
+	 * Calls the method on the tile entity. <br>
+	 * <br>
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void sendToClient(PacketBuffer buffer) {
 		tileEntity.sendToClient(buffer);
 	}
 	
+	/**
+	 * Calls the method on the tile entity. <br>
+	 * <br>
+	 * {@inheritDoc}
+	 */
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleFromServer(PacketBuffer buffer) {
 		tileEntity.handleFromServer(buffer);
 	}
 	
+	/**
+	 * Calls the method on the tile entity. <br>
+	 * <br>
+	 * {@inheritDoc}
+	 */
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void sendToServer(PacketBuffer buffer) {
 		tileEntity.sendToServer(buffer);
 	}
 	
+	/**
+	 * Calls the method on the tile entity. <br>
+	 * <br>
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void handleFromClient(PacketBuffer buffer) {
 		tileEntity.handleFromClient(buffer);
