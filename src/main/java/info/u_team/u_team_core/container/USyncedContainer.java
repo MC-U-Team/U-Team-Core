@@ -2,8 +2,7 @@ package info.u_team.u_team_core.container;
 
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.MessageSyncedContainer;
-import io.netty.buffer.Unpooled;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.api.distmarker.*;
@@ -53,16 +52,16 @@ public abstract class USyncedContainer extends UContainer {
 	public void handleFromClient(PacketBuffer buffer) {
 	}
 	
-	public void sendDataToClient(ServerPlayerEntity player) {
-		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-		sendToClient(buffer);
+	public void sendDataToClient(ServerPlayerEntity player, PacketBuffer buffer) {
+//		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+//		sendToClient(buffer);
 		UCoreNetwork.network.send(PacketDistributor.PLAYER.with(() -> player), new MessageSyncedContainer(buffer));
 	}
 	
 	@OnlyIn(Dist.CLIENT)
-	public void sendDataToServer() {
-		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-		sendToServer(buffer);
+	public void sendDataToServer(PacketBuffer buffer) {
+//		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+//		sendToServer(buffer);
 		UCoreNetwork.network.send(PacketDistributor.SERVER.noArg(), new MessageSyncedContainer(buffer));
 	}
 }

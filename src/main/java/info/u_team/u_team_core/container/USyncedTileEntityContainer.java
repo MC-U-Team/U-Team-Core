@@ -1,13 +1,15 @@
 package info.u_team.u_team_core.container;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
+import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.container.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 /**
  * A synchronized tile entity container with custom packets an a tile entity that implements
@@ -110,5 +112,67 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedC
 	 * last constructor boolean to false and then call this method your self in all constructors.
 	 */
 	protected abstract void init();
+	
+	/**
+	 * Gets the tile entity
+	 * 
+	 * @return tile entity
+	 */
+	public T getTileEntity() {
+		return tileEntity;
+	}
+	
+	// Testing
+	
+	private PacketBuffer lastBuffer;
+	
+	@Override
+	public void addListener(IContainerListener listener) {
+		super.addListener(listener);
+		if (listener instanceof ServerPlayerEntity) {
+			if (lastBuffer == null) {
+				lastBuffer = new PacketBuffer(Unpooled.buffer());
+				sendToClient(lastBuffer);
+				sendDataToClient((ServerPlayerEntity) listener, lastBuffer);
+			}
+		}
+	}
+	
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+		sendToClient(buffer);
+		if (buffer.equals(lastBuffer)) {
+			return;
+		}
+		lastBuffer = buffer;
+		listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity) listener).forEach(player -> {
+			sendDataToClient(player, buffer);
+		});
+	}
+
+	
+	@Override
+	public void sendToClient(PacketBuffer buffer) {
+		tileEntity.sendToClient(buffer);
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void handleFromServer(PacketBuffer buffer) {
+		tileEntity.handleFromServer(buffer);
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void sendToServer(PacketBuffer buffer) {
+		tileEntity.sendToServer(buffer);
+	}
+	
+	@Override
+	public void handleFromClient(PacketBuffer buffer) {
+		tileEntity.handleFromClient(buffer);
+	}
 	
 }

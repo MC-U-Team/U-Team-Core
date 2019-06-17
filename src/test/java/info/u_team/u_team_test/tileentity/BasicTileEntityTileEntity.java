@@ -30,16 +30,13 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInventory
 	
 	@Override
 	public void sendInitialDataBuffer(PacketBuffer buffer) {
-		final String data = "HELLO WORLD";
-		System.out.println("SEND DATA: " + data);
-		buffer.writeString(data);
+		sendToClient(buffer);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleInitialDataBuffer(PacketBuffer buffer) {
-		final String data = buffer.readString();
-		System.out.println("RECEIVE DATA: " + data);
+		handleFromServer(buffer);
 	}
 	
 	@Override
@@ -50,6 +47,33 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInventory
 	@Override
 	public ITextComponent getDisplayName() {
 		return new StringTextComponent("Tile Entity");
+	}
+	
+	@Override
+	public void sendToClient(PacketBuffer buffer) {
+		buffer.writeInt(value);
+		buffer.writeInt(cooldown);
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void handleFromServer(PacketBuffer buffer) {
+		value = buffer.readInt();
+		cooldown = buffer.readInt();
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void sendToServer(PacketBuffer buffer) {
+		buffer.writeInt(value);
+		buffer.writeInt(cooldown);
+	}
+	
+	@Override
+	public void handleFromClient(PacketBuffer buffer) {
+		value = buffer.readInt();
+		cooldown = Math.min(buffer.readInt(), 100);
+		markDirty();
 	}
 	
 	// @Override

@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.container.USyncedContainer;
-import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.network.PacketBuffer;
@@ -25,9 +24,7 @@ public class MessageSyncedContainer {
 	}
 	
 	public static MessageSyncedContainer decode(PacketBuffer sendBuffer) {
-		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-		buffer.readBytes(sendBuffer);
-		return new MessageSyncedContainer(buffer);
+		return new MessageSyncedContainer(new PacketBuffer(sendBuffer.copy()));
 	}
 	
 	public static class Handler {
