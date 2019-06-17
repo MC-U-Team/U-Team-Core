@@ -1,9 +1,17 @@
 package info.u_team.u_team_core.gui.elements;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.config.*;
 
+/**
+ * A button that fixes vanilla not drawing the continuous border if the button is smaller than 20 The code is adapted
+ * from the 1.13.2 GuiButtonExt.
+ * 
+ * @author HyCraftHD
+ *
+ */
 public class UButton extends Button {
 	
 	public UButton(int x, int y, int width, int height, String displayString, IPressable pessable) {
@@ -12,21 +20,21 @@ public class UButton extends Button {
 	
 	@Override
 	public void renderButton(int mouseX, int mouseY, float partialTicks) {
-		Minecraft mc = Minecraft.getInstance();
-		int k = this.getYImage(isHovered());
-		GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, this.x, this.y, 0, 46 + k * 20, this.width, this.height, 200, 20, 2, 3, 2, 2, alpha);
-		this.renderBg(mc, mouseX, mouseY);
+		final Minecraft minecraft = Minecraft.getInstance();
+		final FontRenderer fontRenderer = minecraft.fontRenderer;
 		
-		int color = getFGColor();
+		String message = getMessage();
 		
-		String buttonText = this.getMessage();
-		int strWidth = mc.fontRenderer.getStringWidth(buttonText);
-		int ellipsisWidth = mc.fontRenderer.getStringWidth("...");
+		GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, this.width, this.height, 200, 20, 2, 3, 2, 2, alpha);
+		renderBg(minecraft, mouseX, mouseY);
 		
-		if (strWidth > width - 6 && strWidth > ellipsisWidth)
-			buttonText = mc.fontRenderer.trimStringToWidth(buttonText, width - 6 - ellipsisWidth).trim() + "...";
+		int messageWidth = fontRenderer.getStringWidth(message);
+		int ellipsisWidth = fontRenderer.getStringWidth("...");
 		
-		this.drawCenteredString(mc.fontRenderer, buttonText, this.x + this.width / 2, this.y + (this.height - 8) / 2, color);
+		if (messageWidth > width - 6 && messageWidth > ellipsisWidth) {
+			message = fontRenderer.trimStringToWidth(message, width - 6 - ellipsisWidth).trim() + "...";
+		}
+		
+		drawCenteredString(fontRenderer, message, x + width / 2, y + (height - 8) / 2, getFGColor());
 	}
-	
 }

@@ -40,6 +40,13 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 	}
 	
 	@Override
+	public void render(int mouseX, int mouseY, float partialTicks) {
+		renderBackground();
+		super.render(mouseX, mouseY, partialTicks);
+		renderHoveredToolTip(mouseX, mouseY);
+	}
+	
+	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
 		font.drawString("" + container.getTileEntity().value, xSize / 2 + 32, 6, 4210752);
 		font.drawString(title.getFormattedText(), 8, 6, 4210752);
