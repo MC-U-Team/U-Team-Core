@@ -1,10 +1,12 @@
 /*
- * Copyright 2017 John Grosh (john.a.grosh@gmail.com). Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
- * either express or implied. See the License for the specific language governing permissions and limitations under the
- * License.
+ * Copyright 2017 John Grosh (john.a.grosh@gmail.com). Licensed under the Apache
+ * License, Version 2.0 (the "License"); you may not use this file except in
+ * compliance with the License. You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law
+ * or agreed to in writing, software distributed under the License is
+ * distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied. See the License for the specific language
+ * governing permissions and limitations under the License.
  */
 package info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities;
 
@@ -13,7 +15,8 @@ import java.time.OffsetDateTime;
 import info.u_team.u_team_core.repack.org.json.*;
 
 /**
- * An encapsulation of all data needed to properly construct a JSON RichPresence payload.
+ * An encapsulation of all data needed to properly construct a JSON RichPresence
+ * payload.
  * <p>
  * These can be built using {@link RichPresence.Builder}.
  *
@@ -56,9 +59,11 @@ public class RichPresence {
 	}
 	
 	/**
-	 * Constructs a {@link JSONObject} representing a payload to send to discord to update a user's Rich Presence.
+	 * Constructs a {@link JSONObject} representing a payload to send to discord to
+	 * update a user's Rich Presence.
 	 * <p>
-	 * This is purely internal, and should not ever need to be called outside of the library.
+	 * This is purely internal, and should not ever need to be called outside of the
+	 * library.
 	 *
 	 * @return A JSONObject payload for updating a user's Rich Presence.
 	 */
@@ -69,7 +74,8 @@ public class RichPresence {
 	/**
 	 * A chain builder for a {@link RichPresence} object.
 	 * <p>
-	 * An accurate description of each field and it's functions can be found <a href=
+	 * An accurate description of each field and it's functions can be found
+	 * <a href=
 	 * "https://discordapp.com/developers/docs/rich-presence/how-to#updating-presence-update-presence-payload-fields">here</a>
 	 */
 	public static class Builder {
@@ -102,7 +108,8 @@ public class RichPresence {
 		/**
 		 * Sets the state of the user's current party.
 		 *
-		 * @param state The state of the user's current party.
+		 * @param state
+		 *            The state of the user's current party.
 		 * @return This Builder.
 		 */
 		public Builder setState(String state) {
@@ -113,7 +120,8 @@ public class RichPresence {
 		/**
 		 * Sets details of what the player is currently doing.
 		 *
-		 * @param details The details of what the player is currently doing.
+		 * @param details
+		 *            The details of what the player is currently doing.
 		 * @return This Builder.
 		 */
 		public Builder setDetails(String details) {
@@ -124,7 +132,8 @@ public class RichPresence {
 		/**
 		 * Sets the time that the player started a match or activity.
 		 *
-		 * @param startTimestamp The time the player started a match or activity.
+		 * @param startTimestamp
+		 *            The time the player started a match or activity.
 		 * @return This Builder.
 		 */
 		public Builder setStartTimestamp(OffsetDateTime startTimestamp) {
@@ -135,7 +144,8 @@ public class RichPresence {
 		/**
 		 * Sets the time that the player's current activity will end.
 		 *
-		 * @param endTimestamp The time the player's activity will end.
+		 * @param endTimestamp
+		 *            The time the player's activity will end.
 		 * @return This Builder.
 		 */
 		public Builder setEndTimestamp(OffsetDateTime endTimestamp) {
@@ -144,14 +154,17 @@ public class RichPresence {
 		}
 		
 		/**
-		 * Sets the key of the uploaded image for the large profile artwork, as well as the text tooltip shown when a cursor
-		 * hovers over it.
+		 * Sets the key of the uploaded image for the large profile artwork, as well as
+		 * the text tooltip shown when a cursor hovers over it.
 		 * <p>
-		 * These can be configured in the <a href="https://discordapp.com/developers/applications/me">applications</a> page on
-		 * the discord website.
+		 * These can be configured in the
+		 * <a href="https://discordapp.com/developers/applications/me">applications</a>
+		 * page on the discord website.
 		 *
-		 * @param largeImageKey A key to an image to display.
-		 * @param largeImageText Text displayed when a cursor hovers over the large image.
+		 * @param largeImageKey
+		 *            A key to an image to display.
+		 * @param largeImageText
+		 *            Text displayed when a cursor hovers over the large image.
 		 * @return This Builder.
 		 */
 		public Builder setLargeImage(String largeImageKey, String largeImageText) {
@@ -163,10 +176,12 @@ public class RichPresence {
 		/**
 		 * Sets the key of the uploaded image for the large profile artwork.
 		 * <p>
-		 * These can be configured in the <a href="https://discordapp.com/developers/applications/me">applications</a> page on
-		 * the discord website.
+		 * These can be configured in the
+		 * <a href="https://discordapp.com/developers/applications/me">applications</a>
+		 * page on the discord website.
 		 *
-		 * @param largeImageKey A key to an image to display.
+		 * @param largeImageKey
+		 *            A key to an image to display.
 		 * @return This Builder.
 		 */
 		public Builder setLargeImage(String largeImageKey) {
@@ -174,14 +189,17 @@ public class RichPresence {
 		}
 		
 		/**
-		 * Sets the key of the uploaded image for the small profile artwork, as well as the text tooltip shown when a cursor
-		 * hovers over it.
+		 * Sets the key of the uploaded image for the small profile artwork, as well as
+		 * the text tooltip shown when a cursor hovers over it.
 		 * <p>
-		 * These can be configured in the <a href="https://discordapp.com/developers/applications/me">applications</a> page on
-		 * the discord website.
+		 * These can be configured in the
+		 * <a href="https://discordapp.com/developers/applications/me">applications</a>
+		 * page on the discord website.
 		 *
-		 * @param smallImageKey A key to an image to display.
-		 * @param smallImageText Text displayed when a cursor hovers over the small image.
+		 * @param smallImageKey
+		 *            A key to an image to display.
+		 * @param smallImageText
+		 *            Text displayed when a cursor hovers over the small image.
 		 * @return This Builder.
 		 */
 		public Builder setSmallImage(String smallImageKey, String smallImageText) {
@@ -193,10 +211,12 @@ public class RichPresence {
 		/**
 		 * Sets the key of the uploaded image for the small profile artwork.
 		 * <p>
-		 * These can be configured in the <a href="https://discordapp.com/developers/applications/me">applications</a> page on
-		 * the discord website.
+		 * These can be configured in the
+		 * <a href="https://discordapp.com/developers/applications/me">applications</a>
+		 * page on the discord website.
 		 *
-		 * @param smallImageKey A key to an image to display.
+		 * @param smallImageKey
+		 *            A key to an image to display.
 		 * @return This Builder.
 		 */
 		public Builder setSmallImage(String smallImageKey) {
@@ -210,9 +230,12 @@ public class RichPresence {
 		 * The {@code partySize} is the current size of the player's party. <br>
 		 * The {@code partyMax} is the maximum number of player's allowed in the party.
 		 *
-		 * @param partyId The ID of the player's party.
-		 * @param partySize The current size of the player's party.
-		 * @param partyMax The maximum number of player's allowed in the party.
+		 * @param partyId
+		 *            The ID of the player's party.
+		 * @param partySize
+		 *            The current size of the player's party.
+		 * @param partyMax
+		 *            The maximum number of player's allowed in the party.
 		 * @return This Builder.
 		 */
 		public Builder setParty(String partyId, int partySize, int partyMax) {
@@ -225,7 +248,8 @@ public class RichPresence {
 		/**
 		 * Sets the unique hashed string for Spectate and Join.
 		 *
-		 * @param matchSecret The unique hashed string for Spectate and Join.
+		 * @param matchSecret
+		 *            The unique hashed string for Spectate and Join.
 		 * @return This Builder.
 		 */
 		public Builder setMatchSecret(String matchSecret) {
@@ -236,7 +260,8 @@ public class RichPresence {
 		/**
 		 * Sets the unique hashed string for chat invitations and Ask to Join.
 		 *
-		 * @param joinSecret The unique hashed string for chat invitations and Ask to Join.
+		 * @param joinSecret
+		 *            The unique hashed string for chat invitations and Ask to Join.
 		 * @return This Builder.
 		 */
 		public Builder setJoinSecret(String joinSecret) {
@@ -247,7 +272,8 @@ public class RichPresence {
 		/**
 		 * Sets the unique hashed string for Spectate button.
 		 *
-		 * @param spectateSecret The unique hashed string for Spectate button.
+		 * @param spectateSecret
+		 *            The unique hashed string for Spectate button.
 		 * @return This Builder.
 		 */
 		public Builder setSpectateSecret(String spectateSecret) {
@@ -256,9 +282,12 @@ public class RichPresence {
 		}
 		
 		/**
-		 * Marks the {@link #setMatchSecret(String) matchSecret} as a game session with a specific beginning and end.
+		 * Marks the {@link #setMatchSecret(String) matchSecret} as a game session with
+		 * a specific beginning and end.
 		 *
-		 * @param instance Whether or not the {@code matchSecret} is a game with a specific beginning and end.
+		 * @param instance
+		 *            Whether or not the {@code matchSecret} is a game with a specific
+		 *            beginning and end.
 		 * @return This Builder.
 		 */
 		public Builder setInstance(boolean instance) {
