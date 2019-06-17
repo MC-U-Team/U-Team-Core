@@ -1,10 +1,10 @@
 package info.u_team.u_team_core.container;
 
-import info.u_team.u_team_core.api.*;
 import info.u_team.u_team_core.api.sync.*;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.*;
+import net.minecraft.inventory.*;
 import net.minecraft.inventory.container.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
@@ -55,7 +55,7 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 		this.playerInventory = playerInventory;
 		this.tileEntity = tileEntity;
 		if (init) {
-			init();
+			init(true);
 		}
 	}
 	
@@ -90,7 +90,7 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 		this.tileEntity = getClientTileEntity(buffer);
 		tileEntity.handleInitialDataBuffer(buffer);
 		if (init) {
-			init();
+			init(false);
 		}
 	}
 	
@@ -115,8 +115,22 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 	/**
 	 * Is called after the server and client constructor. If you want to use your own fields in the init method, set the
 	 * last constructor boolean to false and then call this method your self in all constructors.
+	 *
+	 * @param server True if its the server side false otherwise
 	 */
-	protected abstract void init();
+	protected abstract void init(boolean server);
+	
+	/**
+	 * On the server side just returns the inventory. On the client side this method returns a new instance of
+	 * {@link Inventory} with the same size as the passed inventory.
+	 * 
+	 * @param server True if is the server side false otherwise
+	 * @param inventory Inventory to decide on
+	 * @return The passed inventory on the server side of a new one on the client side
+	 */
+	protected IInventory getInventoryOnDist(boolean server, IInventory inventory) {
+		return server ? inventory : new Inventory(inventory.getSizeInventory());
+	}
 	
 	/**
 	 * Gets the tile entity
@@ -140,7 +154,7 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 					lastBuffer = new PacketBuffer(Unpooled.buffer());
 					sendToClient(lastBuffer);
 				}
-				sendDataToClient((ServerPlayerEntity) listener, lastBuffer);
+				sendDataToClient((ServerPlayerEntity) listener, new PacketBuffer(lastBuffer.copy()));
 			}
 		}
 	}
@@ -160,7 +174,7 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 				return;
 			}
 			lastBuffer = buffer;
-			listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity) listener).forEach(player -> sendDataToClient(player, buffer));
+			listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity) listener).forEach(player -> sendDataToClient(player, new PacketBuffer(lastBuffer.copy())));
 		}
 	}
 	
