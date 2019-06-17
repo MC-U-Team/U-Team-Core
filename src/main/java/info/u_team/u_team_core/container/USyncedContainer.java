@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.container;
 
-import info.u_team.u_team_core.api.ISyncedDataMethods;
+import info.u_team.u_team_core.api.sync.ISyncedDataMethods;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.api.distmarker.*;

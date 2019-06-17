@@ -2,7 +2,7 @@ package info.u_team.u_team_test.tileentity;
 
 import java.util.Iterator;
 
-import info.u_team.u_team_core.api.ISyncedTileEntity;
+import info.u_team.u_team_core.api.sync.ISyncedTileEntity;
 import info.u_team.u_team_core.container.USyncedTileEntityContainer;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;

@@ -3,7 +3,7 @@ package info.u_team.u_team_core.block;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.api.ISyncedTileEntity;
+import info.u_team.u_team_core.api.sync.ISyncedTileEntity;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.*;

@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.api;
+package info.u_team.u_team_core.api.sync;
 
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.MessageSyncedContainer;
