@@ -1,8 +1,7 @@
 package info.u_team.u_team_core.block;
 
+import java.util.Optional;
 import java.util.function.Supplier;
-
-import org.apache.commons.lang3.tuple.Pair;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
 import net.minecraft.block.BlockState;
@@ -52,33 +51,34 @@ public class UTileEntityBlock extends UBlock {
 	
 	public boolean openContainer(World world, BlockPos pos, PlayerEntity player, boolean canOpenSneak) {
 		if (world.isRemote || !(player instanceof ServerPlayerEntity)) {
-			// Need to return true here, cause else it will create two instances of our gui
-			// which may cause bugs. The method onBlockActivated must return this value
-			// correctly!
 			return true;
 		}
-		ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-		Pair<Boolean, TileEntity> pair = isTileEntityFromProvider(world, pos);
-		if (!pair.getLeft()) {
-			return false;
-		}
-		TileEntity tileentity = pair.getRight();
 		
-		if (!(tileentity instanceof INamedContainerProvider)) {
+		final ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+		Optional<TileEntity> tileEntityOptional = isTileEntityFromType(world, pos);
+		
+		if (!tileEntityOptional.isPresent()) {
 			return false;
 		}
+		
+		final TileEntity tileEntity = tileEntityOptional.get();
+		
+		if (!(tileEntity instanceof INamedContainerProvider)) {
+			return false;
+		}
+		
 		if (!canOpenSneak && serverPlayer.isSneaking()) {
 			return true;
 		}
 		
 		CompoundNBT compound = null;
-		if (tileentity instanceof ISyncedContainerTileEntity) {
+		if (tileEntity instanceof ISyncedContainerTileEntity) {
 			compound = new CompoundNBT();
-			((ISyncedContainerTileEntity) tileentity).writeOnGuiOpenServer(compound);
+			((ISyncedContainerTileEntity) tileEntity).writeOnGuiOpenServer(compound);
 		}
 		
 		final CompoundNBT finalCompound = compound;
-		NetworkHooks.openGui(serverPlayer, (INamedContainerProvider) tileentity, buf -> {
+		NetworkHooks.openGui(serverPlayer, (INamedContainerProvider) tileEntity, buf -> {
 			buf.writeBlockPos(pos);
 			if (finalCompound != null) {
 				buf.writeCompoundTag(finalCompound);
@@ -88,10 +88,22 @@ public class UTileEntityBlock extends UBlock {
 		
 	}
 	
-	public Pair<Boolean, TileEntity> isTileEntityFromProvider(IBlockReader world, BlockPos pos) {
-		TileEntity tileentity = world.getTileEntity(pos);
-		boolean isValid = tileentity != null && tileEntityType.get() == tileentity.getType();
-		return Pair.of(isValid, tileentity);
+	/**
+	 * Return an optional with a tile entity if the tile entity at this position exists and is the same tile entity type as
+	 * this block creates. This method is unchecked with a generic attribute.
+	 * 
+	 * @param <T> Tile entity
+	 * @param world World
+	 * @param pos Position of the tile entity
+	 * @return Optional with tile entity or empty
+	 */
+	@SuppressWarnings("unchecked")
+	public <T extends TileEntity> Optional<T> isTileEntityFromType(IBlockReader world, BlockPos pos) {
+		final TileEntity tileEntity = world.getTileEntity(pos);
+		if (tileEntity == null || tileEntityType.get() != tileEntity.getType()) {
+			return Optional.empty();
+		}
+		return Optional.of((T) tileEntity);
 	}
 	
 }
