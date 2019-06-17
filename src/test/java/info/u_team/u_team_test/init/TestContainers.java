@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
 public class TestContainers {
 	
-	public static final ContainerType<BasicTileEntityContainer> type = new UContainerType<BasicTileEntityContainer>("container", BasicTileEntityContainer::new);
+	public static final ContainerType<BasicTileEntityContainer> type = new UContainerType<>("container", BasicTileEntityContainer::new);
 	
 	@SubscribeEvent
 	public static void register(Register<ContainerType<?>> event) {

@@ -3,7 +3,6 @@ package info.u_team.u_team_core.intern.network;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
-import info.u_team.u_team_core.gui.UGuiContainerTileEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -54,35 +53,35 @@ public class MessageSyncedContainer {
 		
 		@OnlyIn(Dist.CLIENT)
 		private static void handleClient(BlockPos pos, CompoundNBT compound, Context ctx) {
-			Minecraft minecraft = Minecraft.getInstance();
-			World world = minecraft.world;
-			if (!world.isBlockLoaded(pos)) {
-				return;
-			}
-			TileEntity tileentity = world.getTileEntity(pos);
-			if (tileentity instanceof ISyncedContainerTileEntity) {
-				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
-				synced.readOnContainerSyncClient(compound);
-			}
-			
-			Screen gui = minecraft.currentScreen;
-			if (gui instanceof UGuiContainerTileEntity) {
-				UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
-				guicontainer.handleServerNBT(compound);
-			}
+//			Minecraft minecraft = Minecraft.getInstance();
+//			World world = minecraft.world;
+//			if (!world.isBlockLoaded(pos)) {
+//				return;
+//			}
+//			TileEntity tileentity = world.getTileEntity(pos);
+//			if (tileentity instanceof ISyncedContainerTileEntity) {
+//				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
+//				synced.readOnContainerSyncClient(compound);
+//			}
+//			
+//			Screen gui = minecraft.currentScreen;
+//			if (gui instanceof UGuiContainerTileEntity) {
+//				UGuiContainerTileEntity guicontainer = (UGuiContainerTileEntity) gui;
+//				guicontainer.handleServerNBT(compound);
+//			}
 		}
 		
 		private static void handleServer(BlockPos pos, CompoundNBT compound, Context ctx) {
-			ServerPlayerEntity player = ctx.getSender();
-			World world = player.getServerWorld();
-			if (!world.isBlockLoaded(pos)) {
-				return;
-			}
-			TileEntity tileentity = world.getTileEntity(pos);
-			if (tileentity instanceof ISyncedContainerTileEntity) {
-				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
-				synced.readOnContainerSyncServer(compound);
-			}
+//			ServerPlayerEntity player = ctx.getSender();
+//			World world = player.getServerWorld();
+//			if (!world.isBlockLoaded(pos)) {
+//				return;
+//			}
+//			TileEntity tileentity = world.getTileEntity(pos);
+//			if (tileentity instanceof ISyncedContainerTileEntity) {
+//				ISyncedContainerTileEntity synced = (ISyncedContainerTileEntity) tileentity;
+//				synced.readOnContainerSyncServer(compound);
+//			}
 		}
 	}
 }

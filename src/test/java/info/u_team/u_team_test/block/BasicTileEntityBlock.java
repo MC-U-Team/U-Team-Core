@@ -4,7 +4,6 @@ import info.u_team.u_team_core.block.UTileEntityBlock;
 import info.u_team.u_team_test.init.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
@@ -30,8 +29,6 @@ public class BasicTileEntityBlock extends UTileEntityBlock {
 	
 	@Override
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult hit) {
-		if (world.isRemote)
-			System.out.println(ScreenManager.isMissingScreen());
 		return openContainer(world, pos, player, true);
 	}
 	

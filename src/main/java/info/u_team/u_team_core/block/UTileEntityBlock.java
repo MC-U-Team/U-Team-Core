@@ -4,11 +4,12 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
+import io.netty.buffer.Unpooled;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
@@ -71,18 +72,14 @@ public class UTileEntityBlock extends UBlock {
 			return true;
 		}
 		
-		CompoundNBT compound = null;
+		final PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
 		if (tileEntity instanceof ISyncedContainerTileEntity) {
-			compound = new CompoundNBT();
-			((ISyncedContainerTileEntity) tileEntity).writeOnGuiOpenServer(compound);
+			((ISyncedContainerTileEntity) tileEntity).sendInitialDataBuffer(buffer);
 		}
 		
-		final CompoundNBT finalCompound = compound;
 		NetworkHooks.openGui(serverPlayer, (INamedContainerProvider) tileEntity, buf -> {
 			buf.writeBlockPos(pos);
-			if (finalCompound != null) {
-				buf.writeCompoundTag(finalCompound);
-			}
+			buf.writeBytes(buffer);
 		});
 		return true;
 		

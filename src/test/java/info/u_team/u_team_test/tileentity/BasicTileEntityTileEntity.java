@@ -3,20 +3,20 @@ package info.u_team.u_team_test.tileentity;
 import java.util.Iterator;
 
 import info.u_team.u_team_core.api.ISyncedContainerTileEntity;
-import info.u_team.u_team_core.tileentity.UContainerTileEntity;
+import info.u_team.u_team_core.container.USyncedTileEntityContainer;
+import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraftforge.api.distmarker.*;
+import net.minecraft.util.text.*;
 
-public class BasicTileEntityTileEntity extends UContainerTileEntity implements IInventory, ISyncedContainerTileEntity, ITickableTileEntity {
+public class BasicTileEntityTileEntity extends UTileEntity implements IInventory, ISyncedContainerTileEntity, ITickableTileEntity {
 	
 	private final NonNullList<ItemStack> list;
 	
@@ -28,36 +28,54 @@ public class BasicTileEntityTileEntity extends UContainerTileEntity implements I
 	}
 	
 	@Override
-	public Container createMenu(int windowid, PlayerInventory playerInventory, PlayerEntity player) {
+	public void sendInitialDataBuffer(PacketBuffer buffer) {
+		final String data = "HELLO WORLD";
+		System.out.println("SEND DATA: " + data);
+		buffer.writeString(data);
+	}
+	
+	@Override
+	public void handleInitialDataBuffer(PacketBuffer buffer) {
+		final String data = buffer.readString();
+		System.out.println("RECEIVE DATA: " + data);
+	}
+	
+	@Override
+	public USyncedTileEntityContainer<?> createMenu(int windowid, PlayerInventory playerInventory, PlayerEntity player) {
 		return new BasicTileEntityContainer(windowid, playerInventory, this);
 	}
 	
 	@Override
-	public void writeOnContainerSyncServer(CompoundNBT compound) {
-		compound.putInt("value", value);
-		compound.putInt("cooldown", cooldown);
+	public ITextComponent getDisplayName() {
+		return new StringTextComponent("Basic inventory");
 	}
 	
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void readOnContainerSyncClient(CompoundNBT compound) {
-		value = compound.getInt("value");
-		cooldown = compound.getInt("cooldown");
-	}
-	
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void writeOnContainerSyncClient(CompoundNBT compound) {
-		compound.putInt("value", value);
-		compound.putInt("cooldown", cooldown);
-	}
-	
-	@Override
-	public void readOnContainerSyncServer(CompoundNBT compound) {
-		value = compound.getInt("value");
-		cooldown = Math.min(compound.getInt("cooldown"), 100);
-		markDirty();
-	}
+	// @Override
+	// public void writeOnContainerSyncServer(CompoundNBT compound) {
+	// compound.putInt("value", value);
+	// compound.putInt("cooldown", cooldown);
+	// }
+	//
+	// @OnlyIn(Dist.CLIENT)
+	// @Override
+	// public void readOnContainerSyncClient(CompoundNBT compound) {
+	// value = compound.getInt("value");
+	// cooldown = compound.getInt("cooldown");
+	// }
+	//
+	// @OnlyIn(Dist.CLIENT)
+	// @Override
+	// public void writeOnContainerSyncClient(CompoundNBT compound) {
+	// compound.putInt("value", value);
+	// compound.putInt("cooldown", cooldown);
+	// }
+	//
+	// @Override
+	// public void readOnContainerSyncServer(CompoundNBT compound) {
+	// value = compound.getInt("value");
+	// cooldown = Math.min(compound.getInt("cooldown"), 100);
+	// markDirty();
+	// }
 	
 	private int timer;
 	
@@ -172,10 +190,5 @@ public class BasicTileEntityTileEntity extends UContainerTileEntity implements I
 		}
 		
 		this.markDirty();
-	}
-	
-	@Override
-	public ITextComponent getDisplayName() {
-		return null;
 	}
 }
