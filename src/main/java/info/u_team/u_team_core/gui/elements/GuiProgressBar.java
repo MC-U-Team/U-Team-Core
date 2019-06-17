@@ -48,10 +48,11 @@ public class GuiProgressBar extends AbstractGui implements IGuiEventListener, IR
 	
 	public void onClick(double mouseX, double mouseY) {
 		if (click != null) {
-			click.accept((double) (mouseX - x) / width);
+			click.accept((mouseX - x) / width);
 		}
 	}
 	
+	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		if (button == 0) {
 			if (isPressable(mouseX, mouseY)) {
@@ -64,7 +65,7 @@ public class GuiProgressBar extends AbstractGui implements IGuiEventListener, IR
 	}
 	
 	protected boolean isPressable(double mouseX, double mouseY) {
-		return enabled && visible && mouseX >= (double) this.x && mouseY >= (double) this.y && mouseX < (double) (this.x + this.width) && mouseY < (double) (this.y + this.height);
+		return enabled && visible && mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 	}
 	
 	public void playPressSound(SoundHandler soundHandler) {

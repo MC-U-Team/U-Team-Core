@@ -151,7 +151,6 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedC
 			sendDataToClient(player, buffer);
 		});
 	}
-
 	
 	@Override
 	public void sendToClient(PacketBuffer buffer) {

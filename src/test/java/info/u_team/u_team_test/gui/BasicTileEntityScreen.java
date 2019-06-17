@@ -10,7 +10,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fml.client.config.*;
+import net.minecraftforge.fml.client.config.GuiSlider;
 
 @OnlyIn(Dist.CLIENT)
 public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityContainer> {

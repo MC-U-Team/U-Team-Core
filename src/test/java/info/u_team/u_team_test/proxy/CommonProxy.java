@@ -6,19 +6,19 @@ public class CommonProxy implements IModProxy {
 	
 	@Override
 	public void construct() {
-//		TestItems.construct();
-//		TestBlocks.construct();
-//		TestTileEntityTypes.construct();
-//		TestEntityTypes.construct();
-//		TestSounds.construct();
-//		TestEnchantments.construct();
-//		TestEffects.construct();
-//		TestPotion.construct();
-//		TestBiomes.construct();
-//		TestDimensions.construct();
-//		TestArmorSets.construct();
-//		TestToolSets.construct();
-//		TestContainers.construct();
+		// TestItems.construct();
+		// TestBlocks.construct();
+		// TestTileEntityTypes.construct();
+		// TestEntityTypes.construct();
+		// TestSounds.construct();
+		// TestEnchantments.construct();
+		// TestEffects.construct();
+		// TestPotion.construct();
+		// TestBiomes.construct();
+		// TestDimensions.construct();
+		// TestArmorSets.construct();
+		// TestToolSets.construct();
+		// TestContainers.construct();
 	}
 	
 	@Override

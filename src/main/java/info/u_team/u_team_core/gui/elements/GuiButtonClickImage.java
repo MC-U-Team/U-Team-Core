@@ -44,7 +44,7 @@ public class GuiButtonClickImage extends GuiButtonClick {
 			}
 			Minecraft.getInstance().getTextureManager().bindTexture(resource);
 			blit(x + 2, y + 2, 0, 0, 1, 1, width - 4, height - 4, 1, 1);
-//			Gui.drawScaledCustomSizeModalRect(x + 2, y + 2, 0, 0, 1, 1, width - 4, height - 4, 1, 1);
+			// Gui.drawScaledCustomSizeModalRect(x + 2, y + 2, 0, 0, 1, 1, width - 4, height - 4, 1, 1);
 		}
 	}
 	

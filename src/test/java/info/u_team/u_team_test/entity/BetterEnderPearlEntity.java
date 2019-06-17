@@ -36,6 +36,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 		return 0.05F;
 	}
 	
+	@Override
 	protected void onImpact(RayTraceResult result) {
 		LivingEntity livingentity = this.getThrower();
 		if (result.getType() == RayTraceResult.Type.ENTITY) {
@@ -103,6 +104,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 		
 	}
 	
+	@Override
 	public void tick() {
 		LivingEntity livingentity = this.getThrower();
 		if (livingentity != null && livingentity instanceof PlayerEntity && !livingentity.isAlive()) {
@@ -113,6 +115,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 		
 	}
 	
+	@Override
 	@Nullable
 	public Entity changeDimension(DimensionType destination) {
 		if (this.owner.dimension != destination) {

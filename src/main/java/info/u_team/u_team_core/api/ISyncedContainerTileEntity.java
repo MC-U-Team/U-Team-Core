@@ -31,7 +31,6 @@ public interface ISyncedContainerTileEntity extends INamedContainerProvider {
 	@OnlyIn(Dist.CLIENT)
 	void handleInitialDataBuffer(PacketBuffer buffer);
 	
-	
 	void sendToClient(PacketBuffer buffer);
 	
 	@OnlyIn(Dist.CLIENT)
@@ -45,8 +44,9 @@ public interface ISyncedContainerTileEntity extends INamedContainerProvider {
 	/**
 	 * Override method here so we can make sure the container is an instance of {@link USyncedTileEntityContainer}
 	 */
+	@Override
 	USyncedTileEntityContainer<?> createMenu(int id, PlayerInventory playerInventory, PlayerEntity player);
-		
+	
 	// // Server -> Client
 	//
 	// // Write on Server

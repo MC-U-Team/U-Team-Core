@@ -3,7 +3,7 @@ package info.u_team.u_team_core.gui.elements;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraftforge.fml.client.config.*;
+import net.minecraftforge.fml.client.config.GuiUtils;
 
 /**
  * A button that fixes vanilla not drawing the continuous border if the button is smaller than 20 The code is adapted

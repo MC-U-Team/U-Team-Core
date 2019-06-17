@@ -53,15 +53,15 @@ public abstract class USyncedContainer extends UContainer {
 	}
 	
 	public void sendDataToClient(ServerPlayerEntity player, PacketBuffer buffer) {
-//		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-//		sendToClient(buffer);
+		// PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+		// sendToClient(buffer);
 		UCoreNetwork.network.send(PacketDistributor.PLAYER.with(() -> player), new MessageSyncedContainer(buffer));
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	public void sendDataToServer(PacketBuffer buffer) {
-//		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-//		sendToServer(buffer);
+		// PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+		// sendToServer(buffer);
 		UCoreNetwork.network.send(PacketDistributor.SERVER.noArg(), new MessageSyncedContainer(buffer));
 	}
 }
