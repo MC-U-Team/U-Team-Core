@@ -11,15 +11,15 @@ import net.minecraftforge.api.distmarker.*;
 public class UArmorMaterial implements IArmorMaterial {
 	
 	private final int[] durability;
-	private final int[] armorpoints;
+	private final int[] armorPoints;
 	private final int enchantability;
 	private final SoundEvent soundevent;
 	private final float toughness;
 	private final LazyLoadBase<Ingredient> repair;
 	
-	public UArmorMaterial(int[] durability, int[] armorpoints, int enchantability, SoundEvent soundevent, float toughness, Supplier<Ingredient> ingredient) {
+	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, SoundEvent soundevent, float toughness, Supplier<Ingredient> ingredient) {
 		this.durability = durability;
-		this.armorpoints = armorpoints;
+		this.armorPoints = armorPoints;
 		this.enchantability = enchantability;
 		this.soundevent = soundevent;
 		this.toughness = toughness;
@@ -33,7 +33,7 @@ public class UArmorMaterial implements IArmorMaterial {
 	
 	@Override
 	public int getDamageReductionAmount(EquipmentSlotType slot) {
-		return armorpoints[slot.getIndex()];
+		return armorPoints[slot.getIndex()];
 	}
 	
 	@Override

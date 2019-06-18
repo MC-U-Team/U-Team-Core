@@ -8,22 +8,22 @@ import net.minecraft.util.LazyLoadBase;
 
 public class UToolMaterial implements IToolMaterial {
 	
-	private final int[] additionaldamage;
+	private final int[] additionalDamage;
 	private final float[] speed;
 	private final int harvestlevel;
 	private final int durability;
 	private final float efficiency;
-	private final float basedamage;
+	private final float baseDamage;
 	private final int enchantability;
 	private final LazyLoadBase<Ingredient> repair;
 	
-	public UToolMaterial(int[] additionaldamage, float[] speed, int harvestlevel, int durability, float efficiency, float basedamage, int enchantability, Supplier<Ingredient> ingredient) {
-		this.additionaldamage = additionaldamage;
+	public UToolMaterial(int[] additionalDamage, float[] speed, int harvestlevel, int durability, float efficiency, float baseDamage, int enchantability, Supplier<Ingredient> ingredient) {
+		this.additionalDamage = additionalDamage;
 		this.speed = speed;
 		this.harvestlevel = harvestlevel;
 		this.durability = durability;
 		this.efficiency = efficiency;
-		this.basedamage = basedamage;
+		this.baseDamage = baseDamage;
 		this.enchantability = enchantability;
 		this.repair = new LazyLoadBase<>(ingredient);
 	}
@@ -40,7 +40,7 @@ public class UToolMaterial implements IToolMaterial {
 	
 	@Override
 	public float getAttackDamage() {
-		return basedamage;
+		return baseDamage;
 	}
 	
 	@Override
@@ -60,7 +60,7 @@ public class UToolMaterial implements IToolMaterial {
 	
 	@Override
 	public int getAdditionalDamage(Tools tools) {
-		return additionaldamage[tools.getIndex()];
+		return additionalDamage[tools.getIndex()];
 	}
 	
 	@Override

@@ -168,7 +168,7 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
 		if (tileEntity instanceof IAutoSyncedTileEntity) {
-			PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+			final PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
 			sendToClient(buffer);
 			if (buffer.equals(lastBuffer)) {
 				return;
