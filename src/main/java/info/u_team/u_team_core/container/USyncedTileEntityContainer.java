@@ -88,7 +88,7 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 		super(type, id, buffer);
 		this.playerInventory = playerInventory;
 		this.tileEntity = getClientTileEntity(buffer);
-		tileEntity.handleInitialDataBuffer(buffer);
+		tileEntity.handleInitialDataBuffer(new PacketBuffer(Unpooled.wrappedBuffer(buffer.readByteArray(32592)))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
 		if (init) {
 			init(false);
 		}

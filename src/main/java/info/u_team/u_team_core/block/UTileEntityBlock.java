@@ -77,9 +77,10 @@ public class UTileEntityBlock extends UBlock {
 			((ISyncedTileEntity) tileEntity).sendInitialDataBuffer(buffer);
 		}
 		
-		NetworkHooks.openGui(serverPlayer, (INamedContainerProvider) tileEntity, buf -> {
-			buf.writeBlockPos(pos);
-			buf.writeBytes(buffer);
+		NetworkHooks.openGui(serverPlayer, (INamedContainerProvider) tileEntity, extraData -> {
+			extraData.writeBlockPos(pos);
+			extraData.writeVarInt(buffer.readableBytes());
+			extraData.writeBytes(buffer);
 		});
 		return true;
 		

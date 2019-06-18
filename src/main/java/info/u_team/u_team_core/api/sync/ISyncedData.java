@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.api.sync;
 
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
-import info.u_team.u_team_core.intern.network.MessageSyncedContainer;
+import info.u_team.u_team_core.intern.network.SyncedContainerMessage;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -66,19 +66,19 @@ public interface ISyncedData {
 	 * @param player Server player
 	 */
 	default void sendDataToClient(ServerPlayerEntity player) {
-		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+		final PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
 		sendToClient(buffer);
 		sendDataToClient(player, buffer);
 	}
 	
 	/**
-	 * This method sends a new {@link MessageSyncedContainer} with a buffer on the uteamcore network channel to a client.
+	 * This method sends a new {@link SyncedContainerMessage} with a buffer on the uteamcore network channel to a client.
 	 * 
 	 * @param player Server player
 	 * @param buffer Data
 	 */
 	default void sendDataToClient(ServerPlayerEntity player, PacketBuffer buffer) {
-		UCoreNetwork.network.send(PacketDistributor.PLAYER.with(() -> player), new MessageSyncedContainer(buffer));
+		UCoreNetwork.network.send(PacketDistributor.PLAYER.with(() -> player), new SyncedContainerMessage(buffer));
 	}
 	
 	/**
@@ -87,18 +87,18 @@ public interface ISyncedData {
 	 */
 	@OnlyIn(Dist.CLIENT)
 	default void sendDataToServer() {
-		PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+		final PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
 		sendToServer(buffer);
 		sendDataToServer(buffer);
 	}
 	
 	/**
-	 * This method sends a new {@link MessageSyncedContainer} with a buffer on the uteamcore network channel to the server
+	 * This method sends a new {@link SyncedContainerMessage} with a buffer on the uteamcore network channel to the server
 	 * 
 	 * @param buffer Data
 	 */
 	@OnlyIn(Dist.CLIENT)
 	default void sendDataToServer(PacketBuffer buffer) {
-		UCoreNetwork.network.send(PacketDistributor.SERVER.noArg(), new MessageSyncedContainer(buffer));
+		UCoreNetwork.network.send(PacketDistributor.SERVER.noArg(), new SyncedContainerMessage(buffer));
 	}
 }

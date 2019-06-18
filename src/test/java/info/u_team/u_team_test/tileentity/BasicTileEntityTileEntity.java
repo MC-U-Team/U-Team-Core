@@ -39,16 +39,6 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInventory
 	}
 	
 	@Override
-	public void sendInitialDataBuffer(PacketBuffer buffer) {
-		IAutoSyncedTileEntity.super.sendInitialDataBuffer(buffer);
-	}
-	
-	@Override
-	public void handleInitialDataBuffer(PacketBuffer buffer) {
-		IAutoSyncedTileEntity.super.handleInitialDataBuffer(buffer);
-	}
-	
-	@Override
 	public void sendToClient(PacketBuffer buffer) {
 		buffer.writeInt(value);
 		buffer.writeInt(cooldown);
