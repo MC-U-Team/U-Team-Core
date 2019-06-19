@@ -7,7 +7,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.api.distmarker.*;
 
 public class BasicTileEntityContainer extends USyncedTileEntityContainer<BasicTileEntityTileEntity> {
 	
