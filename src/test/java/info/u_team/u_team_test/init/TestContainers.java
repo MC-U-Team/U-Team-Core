@@ -10,13 +10,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestContainers {
 	
-	public static final ContainerType<BasicTileEntityContainer> type = new UContainerType<>("container", BasicTileEntityContainer::new);
+	public static final ContainerType<BasicTileEntityContainer> BASIC = new UContainerType<>("basic", BasicTileEntityContainer::new);
 	
 	@SubscribeEvent
 	public static void register(Register<ContainerType<?>> event) {
-		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(TestMod.modid, ContainerType.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(TestMod.MODID, ContainerType.class).forEach(event.getRegistry()::register);
 	}
 }

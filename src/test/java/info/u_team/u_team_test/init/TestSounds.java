@@ -9,14 +9,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestSounds {
 	
-	public static final SoundEvent better_enderpearl_use = new USoundEvent("better_enderpearl_use");
+	public static final SoundEvent BETTER_ENDERPEARL_USE = new USoundEvent("better_enderpearl_use");
 	
 	@SubscribeEvent
 	public static void register(Register<SoundEvent> event) {
-		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.modid, SoundEvent.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.MODID, SoundEvent.class).forEach(event.getRegistry()::register);
 	}
 	
 }

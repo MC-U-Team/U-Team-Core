@@ -16,7 +16,7 @@ import net.minecraftforge.fml.client.config.GuiSlider;
 public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityContainer> {
 	
 	public BasicTileEntityScreen(BasicTileEntityContainer container, PlayerInventory playerInventory, ITextComponent text) {
-		super(container, playerInventory, text, new ResourceLocation(TestMod.modid, "textures/gui/tileentity.png"));
+		super(container, playerInventory, text, new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png"));
 		xSize = 176;
 		ySize = 173;
 	}

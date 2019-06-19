@@ -9,16 +9,16 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestPotion {
 	
-	public static final Potion radiation = new RadiationPotion("radiation", 1200, 0);
-	public static final Potion radiation_long = new RadiationPotion("radiation_long", 2400, 1);
-	public static final Potion radiation_extreme = new RadiationPotion("radiation_extreme", 1200, 2);
+	public static final Potion RADIATION = new RadiationPotion("radiation", 1200, 0);
+	public static final Potion RADIATION_LONG = new RadiationPotion("radiation_long", 2400, 1);
+	public static final Potion RADIATION_EXTREME = new RadiationPotion("radiation_extreme", 1200, 2);
 	
 	@SubscribeEvent
 	public static void register(Register<Potion> event) {
-		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.modid, Potion.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.MODID, Potion.class).forEach(event.getRegistry()::register);
 	}
 	
 }

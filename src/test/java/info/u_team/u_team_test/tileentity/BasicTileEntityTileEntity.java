@@ -24,7 +24,7 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInventory
 	public int cooldown, value;
 	
 	public BasicTileEntityTileEntity() {
-		super(TestTileEntityTypes.tileentity);
+		super(TestTileEntityTypes.BASIC);
 		list = NonNullList.withSize(18, ItemStack.EMPTY);
 	}
 	

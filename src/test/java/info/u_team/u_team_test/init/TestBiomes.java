@@ -9,13 +9,13 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestBiomes {
 	
-	public static final Biome basic = new BasicBiome("basic");
+	public static final Biome BASIC = new BasicBiome("basic");
 	
 	@SubscribeEvent
 	public static void register(Register<Biome> event) {
-		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.modid, Biome.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.MODID, Biome.class).forEach(event.getRegistry()::register);
 	}
 }

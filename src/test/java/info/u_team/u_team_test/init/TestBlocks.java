@@ -12,16 +12,16 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestBlocks {
 	
-	public static final BasicBlock basic = new BasicBlock("basicblock");
+	public static final BasicBlock BASIC = new BasicBlock("basicblock");
 	
-	public static final BasicTileEntityBlock tileentity = new BasicTileEntityBlock("tileentity");
+	public static final BasicTileEntityBlock BASIC_TILEENTITY = new BasicTileEntityBlock("tileentity");
 	
 	@SubscribeEvent
 	public static void register(Register<Block> event) {
-		entries = BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.modid, Block.class);
+		entries = BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.MODID, Block.class);
 		entries.forEach(event.getRegistry()::register);
 	}
 	

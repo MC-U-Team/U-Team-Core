@@ -27,7 +27,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	}
 	
 	public BetterEnderPearlEntity(World world, LivingEntity thrower) {
-		super(TestEntityTypes.better_enderpearl, thrower, world);
+		super(TestEntityTypes.BETTER_ENDERPEARL, thrower, world);
 		this.thrower = thrower;
 	}
 	
@@ -127,7 +127,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	@Override
 	protected Item func_213885_i() {
-		return TestItems.better_enderpearl;
+		return TestItems.BETTER_ENDERPEARL;
 	}
 	
 	@Override

@@ -12,21 +12,21 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestItems {
 	
-	public static final Item basic = new BasicItem("basicitem");
+	public static final Item BASIC = new BasicItem("basicitem");
 	
-	public static final Item better_enderpearl = new BetterEnderPearlItem("better_enderpearl");
+	public static final Item BETTER_ENDERPEARL = new BetterEnderPearlItem("better_enderpearl");
 	
-	public static final Item basicfood = new BasicFoodItem("basicfood");
+	public static final Item BASIC_FOOD = new BasicFoodItem("basicfood");
 	
-	public static final ToolSet basictool = ToolSetCreator.create("basictool", TestItemGroups.group, new Properties(), TestToolMaterial.basic);
-	public static final ArmorSet basicarmor = ArmorSetCreator.create("basicarmor", TestItemGroups.group, new Properties(), TestArmorMaterial.basic);
+	public static final ToolSet BASIC_TOOL = ToolSetCreator.create("basictool", TestItemGroups.GROUP, new Properties(), TestToolMaterial.BASIC);
+	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create("basicarmor", TestItemGroups.GROUP, new Properties(), TestArmorMaterial.BASIC);
 	
 	@SubscribeEvent
 	public static void registerBlockItem(Register<Item> event) {
-		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.modid, Item.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.MODID, Item.class).forEach(event.getRegistry()::register);
 	}
 	
 }

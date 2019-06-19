@@ -6,6 +6,6 @@ import net.minecraft.item.crafting.Ingredient;
 
 public class TestArmorMaterial {
 	
-	public static final IArmorMaterial basic = new UArmorMaterialVanilla(20, new int[] { 5, 6, 8, 2 }, 20, TestSounds.better_enderpearl_use, 1, () -> Ingredient.fromItems(TestItems.basic));
+	public static final IArmorMaterial BASIC = new UArmorMaterialVanilla(20, new int[] { 5, 6, 8, 2 }, 20, TestSounds.BETTER_ENDERPEARL_USE, 1, () -> Ingredient.fromItems(TestItems.BASIC));
 	
 }

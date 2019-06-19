@@ -10,14 +10,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestTileEntityTypes {
 	
-	public static final TileEntityType<BasicTileEntityTileEntity> tileentity = UTileEntityType.UBuilder.create("tileentity", BasicTileEntityTileEntity::new, TestBlocks.tileentity).build();
+	public static final TileEntityType<BasicTileEntityTileEntity> BASIC = UTileEntityType.UBuilder.create("tileentity", BasicTileEntityTileEntity::new, TestBlocks.BASIC_TILEENTITY).build();
 	
 	@SubscribeEvent
 	public static void register(Register<TileEntityType<?>> event) {
-		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(TestMod.modid, TileEntityType.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(TestMod.MODID, TileEntityType.class).forEach(event.getRegistry()::register);
 	}
 	
 }

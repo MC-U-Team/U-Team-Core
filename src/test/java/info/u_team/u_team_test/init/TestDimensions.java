@@ -9,14 +9,14 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerChangedDimensionEvent;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.FORGE)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.FORGE)
 public class TestDimensions {
 	
 	@SuppressWarnings("deprecation")
 	@SubscribeEvent
 	public static void on(RegisterDimensionsEvent event) {
-		if (!DimensionManager.getRegistry().containsKey(TestModDimensions.basic.getRegistryName())) { // How do we know when the dimension needs to be registered??
-			DimensionManager.registerDimension(TestModDimensions.basic.getRegistryName(), TestModDimensions.basic, null, true);
+		if (!DimensionManager.getRegistry().containsKey(TestModDimensions.BASIC.getRegistryName())) { // How do we know when the dimension needs to be registered??
+			DimensionManager.registerDimension(TestModDimensions.BASIC.getRegistryName(), TestModDimensions.BASIC, null, true);
 		}
 	}
 	

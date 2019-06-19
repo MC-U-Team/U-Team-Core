@@ -7,6 +7,6 @@ import net.minecraft.potion.EffectInstance;
 public class RadiationPotion extends UPotion {
 	
 	public RadiationPotion(String name, int duration, int amplifier) {
-		super(name, "radiation", new EffectInstance(TestEffects.radiation, duration, amplifier));
+		super(name, "radiation", new EffectInstance(TestEffects.RADIATION, duration, amplifier));
 	}
 }

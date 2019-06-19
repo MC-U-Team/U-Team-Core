@@ -4,6 +4,6 @@ import net.minecraft.util.DamageSource;
 
 public class TestDamageSources {
 	
-	public static final DamageSource radiation = new DamageSource("radiation").setDamageBypassesArmor().setMagicDamage();
+	public static final DamageSource RADIATION = new DamageSource("radiation").setDamageBypassesArmor().setMagicDamage();
 	
 }

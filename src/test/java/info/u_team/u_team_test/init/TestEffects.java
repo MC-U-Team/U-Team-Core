@@ -9,14 +9,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestEffects {
 	
-	public static final Effect radiation = new RadiationEffect("radiation");
+	public static final Effect RADIATION = new RadiationEffect("radiation");
 	
 	@SubscribeEvent
 	public static void register(Register<Effect> event) {
-		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.modid, Effect.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.MODID, Effect.class).forEach(event.getRegistry()::register);
 	}
 	
 }

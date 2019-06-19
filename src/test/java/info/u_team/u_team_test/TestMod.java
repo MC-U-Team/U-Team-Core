@@ -8,27 +8,27 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(TestMod.modid)
+@Mod(TestMod.MODID)
 public class TestMod {
 	
-	public static final String modid = "uteamtest";
+	public static final String MODID = "uteamtest";
 	
-	private static final IModProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+	private static final IModProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 	
 	public TestMod() {
 		System.out.println("--------------------------------------- LOADING TEST MOD ---------------------------------------");
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
-		proxy.construct();
+		PROXY.construct();
 	}
 	
 	@SubscribeEvent
 	public void set(FMLCommonSetupEvent event) {
-		proxy.setup();
+		PROXY.setup();
 	}
 	
 	@SubscribeEvent
 	public void complete(FMLLoadCompleteEvent event) {
-		proxy.complete();
+		PROXY.complete();
 	}
 	
 }

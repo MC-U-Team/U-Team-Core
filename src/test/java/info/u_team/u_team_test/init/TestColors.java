@@ -9,12 +9,12 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.FORGE, value = Dist.CLIENT)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.FORGE, value = Dist.CLIENT)
 public class TestColors {
 	
 	@SubscribeEvent
 	public static void register(ColorHandlerEvent.Item event) {
 		// This use the awt color class. Might not work but was too lazy to write an own color class.
-		event.getItemColors().register((stack, index) -> Color.getHSBColor((float) stack.getDamage() / (float) stack.getMaxDamage(), 0.8F, 0.5F).getRGB(), TestItems.basic);
+		event.getItemColors().register((stack, index) -> Color.getHSBColor((float) stack.getDamage() / (float) stack.getMaxDamage(), 0.8F, 0.5F).getRGB(), TestItems.BASIC);
 	}
 }

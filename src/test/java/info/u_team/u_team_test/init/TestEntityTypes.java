@@ -10,14 +10,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestEntityTypes {
 	
-	public static final EntityType<BetterEnderPearlEntity> better_enderpearl = UEntityType.UBuilder.<BetterEnderPearlEntity> create("better_enderpearl", BetterEnderPearlEntity::new, EntityClassification.MISC).size(0.25F, 0.25F).setTrackingRange(128).setUpdateInterval(20).setShouldReceiveVelocityUpdates(true).build();
+	public static final EntityType<BetterEnderPearlEntity> BETTER_ENDERPEARL = UEntityType.UBuilder.<BetterEnderPearlEntity> create("better_enderpearl", BetterEnderPearlEntity::new, EntityClassification.MISC).size(0.25F, 0.25F).setTrackingRange(128).setUpdateInterval(20).setShouldReceiveVelocityUpdates(true).build();
 	
 	@SubscribeEvent
 	public static void register(Register<EntityType<?>> event) {
-		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(TestMod.modid, EntityType.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(TestMod.MODID, EntityType.class).forEach(event.getRegistry()::register);
 	}
 	
 }

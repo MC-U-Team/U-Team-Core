@@ -20,7 +20,7 @@ public class RadiationEffect extends UEffect {
 	@Override
 	public void performEffect(LivingEntity entityLiving, int amplifier) {
 		amplifier += 2;
-		entityLiving.attackEntityFrom(TestDamageSources.radiation, random.nextInt(amplifier));
+		entityLiving.attackEntityFrom(TestDamageSources.RADIATION, random.nextInt(amplifier));
 		if (entityLiving instanceof PlayerEntity) {
 			PlayerEntity player = (PlayerEntity) entityLiving;
 			player.addExhaustion(0.005F * amplifier);

@@ -15,16 +15,16 @@ import net.minecraft.world.World;
 
 public class BasicTileEntityBlock extends UTileEntityBlock {
 	
-	public static final DirectionProperty facing = BlockStateProperties.FACING;
+	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	
 	public BasicTileEntityBlock(String name) {
-		super(name, TestItemGroups.group, Properties.create(Material.ROCK).hardnessAndResistance(2F).sound(SoundType.GROUND).slipperiness(0.8F).lightValue(1), () -> TestTileEntityTypes.tileentity);
-		setDefaultState(getDefaultState().with(facing, Direction.NORTH));
+		super(name, TestItemGroups.GROUP, Properties.create(Material.ROCK).hardnessAndResistance(2F).sound(SoundType.GROUND).slipperiness(0.8F).lightValue(1), () -> TestTileEntityTypes.BASIC);
+		setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
 	}
 	
 	@Override
 	public BlockState getStateForPlacement(BlockItemUseContext context) {
-		return getDefaultState().with(facing, context.getNearestLookingDirection().getOpposite());
+		return getDefaultState().with(FACING, context.getNearestLookingDirection().getOpposite());
 	}
 	
 	@Override
@@ -34,7 +34,7 @@ public class BasicTileEntityBlock extends UTileEntityBlock {
 	
 	@Override
 	protected void fillStateContainer(Builder<Block, BlockState> builder) {
-		builder.add(facing);
+		builder.add(FACING);
 	}
 	
 }

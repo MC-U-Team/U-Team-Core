@@ -6,6 +6,6 @@ import net.minecraft.item.ItemGroup;
 
 public class TestItemGroups {
 	
-	public static final ItemGroup group = new UItemGroup(TestMod.modid, "group", () -> TestBlocks.basic);
+	public static final ItemGroup GROUP = new UItemGroup(TestMod.MODID, "group", () -> TestBlocks.BASIC);
 	
 }

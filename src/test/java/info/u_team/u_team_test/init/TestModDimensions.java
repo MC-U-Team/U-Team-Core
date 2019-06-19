@@ -10,14 +10,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestModDimensions {
 	
-	public static final ModDimension basic = new UModDimension("basic", BasicDimension::new);
+	public static final ModDimension BASIC = new UModDimension("basic", BasicDimension::new);
 	
 	@SubscribeEvent
 	public static void register(Register<ModDimension> event) {
-		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.modid, ModDimension.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.MODID, ModDimension.class).forEach(event.getRegistry()::register);
 	}
 	
 }

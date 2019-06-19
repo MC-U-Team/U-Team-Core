@@ -8,7 +8,7 @@ import net.minecraftforge.api.distmarker.*;
 public class TestGuis {
 	
 	public static void construct() {
-		ScreenManager.registerFactory(TestContainers.type, BasicTileEntityScreen::new);
+		ScreenManager.registerFactory(TestContainers.BASIC, BasicTileEntityScreen::new);
 	}
 	
 }

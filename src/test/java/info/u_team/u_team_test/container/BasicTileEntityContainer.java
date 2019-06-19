@@ -11,11 +11,11 @@ import net.minecraft.network.PacketBuffer;
 public class BasicTileEntityContainer extends USyncedTileEntityContainer<BasicTileEntityTileEntity> {
 	
 	public BasicTileEntityContainer(int id, PlayerInventory playerInventory, BasicTileEntityTileEntity tileEntity) {
-		super(TestContainers.type, id, playerInventory, tileEntity);
+		super(TestContainers.BASIC, id, playerInventory, tileEntity);
 	}
 	
 	public BasicTileEntityContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
-		super(TestContainers.type, id, playerInventory, buffer);
+		super(TestContainers.BASIC, id, playerInventory, buffer);
 	}
 	
 	@Override

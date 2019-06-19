@@ -11,14 +11,14 @@ import net.minecraft.world.World;
 public class BetterEnderPearlItem extends UItem {
 	
 	public BetterEnderPearlItem(String name) {
-		super(name, TestItemGroups.group, new Properties().rarity(Rarity.EPIC));
+		super(name, TestItemGroups.GROUP, new Properties().rarity(Rarity.EPIC));
 	}
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
 		ItemStack stack = player.getHeldItem(hand);
 		
-		world.playSound(null, player.posX, player.posY, player.posZ, TestSounds.better_enderpearl_use, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 1.5F));
+		world.playSound(null, player.posX, player.posY, player.posZ, TestSounds.BETTER_ENDERPEARL_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 1.5F));
 		
 		if (!world.isRemote) {
 			BetterEnderPearlEntity pearl = new BetterEnderPearlEntity(world, player);
