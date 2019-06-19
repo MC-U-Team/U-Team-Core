@@ -39,9 +39,9 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 	
 	public static class UBuilder<T extends Entity> {
 		
-		private static final Method defaultVelocitySupplierMethod = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultVelocitySupplier");
-		private static final Method defaultTrackingRangeSupplierMethod = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultTrackingRangeSupplier");
-		private static final Method defaultUpdateIntervalSupplierMethod = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultUpdateIntervalSupplier");
+		private static final Method DEFAULT_VELOCITY_SUPPLIER_METHOD = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultVelocitySupplier");
+		private static final Method DEFAULT_TRACKING_RANGE_SUPPLIER_METHOD = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultTrackingRangeSupplier");
+		private static final Method DEFAULT_UPDATE_INTERVAL_SUPPLIER_METHOD = ObfuscationReflectionHelper.findMethod(EntityType.class, "defaultUpdateIntervalSupplier");
 		
 		private final String name;
 		private final IFactory<T> factory;
@@ -115,13 +115,13 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 		
 		public UEntityType<T> build() {
 			if (velocityUpdateSupplier == null) {
-				velocityUpdateSupplier = type -> getPrivateDefaultValue(type, defaultVelocitySupplierMethod);
+				velocityUpdateSupplier = type -> getPrivateDefaultValue(type, DEFAULT_VELOCITY_SUPPLIER_METHOD);
 			}
 			if (trackingRangeSupplier == null) {
-				trackingRangeSupplier = type -> getPrivateDefaultValue(type, defaultTrackingRangeSupplierMethod);
+				trackingRangeSupplier = type -> getPrivateDefaultValue(type, DEFAULT_TRACKING_RANGE_SUPPLIER_METHOD);
 			}
 			if (updateIntervalSupplier == null) {
-				updateIntervalSupplier = type -> getPrivateDefaultValue(type, defaultUpdateIntervalSupplierMethod);
+				updateIntervalSupplier = type -> getPrivateDefaultValue(type, DEFAULT_UPDATE_INTERVAL_SUPPLIER_METHOD);
 			}
 			return new UEntityType<>(name, factory, classification, serializable, summonable, immuneToFire, dataFixerType, size, velocityUpdateSupplier, trackingRangeSupplier, updateIntervalSupplier, clientFactory);
 		}
@@ -139,7 +139,7 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 			try {
 				return (D) method.invoke(type);
 			} catch (Exception ex) {
-				UCoreMain.logger.error("Could not get default values for entity type {}.", name, ex);
+				UCoreMain.LOGGER.error("Could not get default values for entity type {}.", name, ex);
 			}
 			return null;
 		}

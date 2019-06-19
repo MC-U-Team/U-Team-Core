@@ -10,14 +10,14 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = UCoreMain.modid, bus = Bus.MOD)
+@EventBusSubscriber(modid = UCoreMain.MODID, bus = Bus.MOD)
 public class UCoreRecipes {
 	
 	public static final IRecipeSerializer<DyeableItemDyeRecipe> CRAFTING_SPECIAL_ITEMDYE = new USpecialRecipeSerializer<>("crafting_special_itemdye", DyeableItemDyeRecipe::new);
 	
 	@SubscribeEvent
 	public static void register(Register<IRecipeSerializer<?>> event) {
-		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(UCoreMain.modid, IRecipeSerializer.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(UCoreMain.MODID, IRecipeSerializer.class).forEach(event.getRegistry()::register);
 	}
 	
 }

@@ -7,7 +7,7 @@ import net.minecraftforge.api.distmarker.*;
 
 public class USoundEvent extends SoundEvent implements IURegistryType {
 	
-	private static final ResourceLocation INVALID = new ResourceLocation(UCoreMain.modid, "invalid");
+	private static final ResourceLocation INVALID = new ResourceLocation(UCoreMain.MODID, "invalid");
 	
 	protected final String name;
 	

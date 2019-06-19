@@ -10,7 +10,7 @@ public class UCoreNetwork {
 	
 	public static final String PROTOCOL = "1.14.2-1";
 	
-	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMain.modid, "network"), () -> PROTOCOL, PROTOCOL::equals, PROTOCOL::equals);
+	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMain.MODID, "network"), () -> PROTOCOL, PROTOCOL::equals, PROTOCOL::equals);
 	
 	public static void construct() {
 		NETWORK.registerMessage(0, SyncedContainerMessage.class, SyncedContainerMessage::encode, SyncedContainerMessage::decode, SyncedContainerMessage.Handler::handle);

@@ -6,7 +6,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 
-@EventBusSubscriber(modid = UCoreMain.modid)
+@EventBusSubscriber(modid = UCoreMain.MODID)
 public class UCoreCommands {
 	
 	@SubscribeEvent

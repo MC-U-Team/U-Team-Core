@@ -10,11 +10,11 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.*;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(UCoreMain.modid)
+@Mod(UCoreMain.MODID)
 public class UCoreMain {
 	
-	public static final String modid = "uteamcore";
-	public static final Logger logger = LogManager.getLogger("UTeamCore");
+	public static final String MODID = "uteamcore";
+	public static final Logger LOGGER = LogManager.getLogger("UTeamCore");
 	
 	private static final IModProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 	

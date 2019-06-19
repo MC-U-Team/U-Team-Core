@@ -15,16 +15,16 @@ import net.minecraftforge.versions.mcp.MCPVersion;
 @OnlyIn(Dist.CLIENT)
 public class DiscordRichPresence {
 	
-	private static final IPCClient client = new IPCClient(427196986064764928L);
+	private static final IPCClient CLIENT = new IPCClient(427196986064764928L);
 	
 	private static boolean isEnabled = false;
 	
-	private static final OffsetDateTime time = OffsetDateTime.now();
+	private static final OffsetDateTime TIME = OffsetDateTime.now();
 	public static State currentState = new State(EnumState.STARTUP);
 	
 	private static int errorCount = 0;
 	
-	private static final Timer timer = new Timer("Discord Rich Presence Timer Thread");
+	private static final Timer TIMER = new Timer("Discord Rich Presence Timer Thread");
 	private static TimerTask timerTask;
 	
 	static {
@@ -33,8 +33,8 @@ public class DiscordRichPresence {
 	
 	public static void start() {
 		try {
-			client.connect();
-			timer.schedule(timerTask = new TimerTask() {
+			CLIENT.connect();
+			TIMER.schedule(timerTask = new TimerTask() {
 				
 				@Override
 				public void run() {
@@ -42,9 +42,9 @@ public class DiscordRichPresence {
 				}
 			}, 1000, 1000 * 120);
 			isEnabled = true;
-			UCoreMain.logger.info("Discord client found and connected.");
+			UCoreMain.LOGGER.info("Discord client found and connected.");
 		} catch (NoDiscordClientException ex) {
-			UCoreMain.logger.info("Discord client was not found.");
+			UCoreMain.LOGGER.info("Discord client was not found.");
 		}
 	}
 	
@@ -54,12 +54,12 @@ public class DiscordRichPresence {
 			timerTask = null;
 		}
 		try {
-			client.close();
+			CLIENT.close();
 		} catch (Exception ex) {
 		}
 		errorCount = 0;
 		isEnabled = false;
-		UCoreMain.logger.info("Discord client closed.");
+		UCoreMain.LOGGER.info("Discord client closed.");
 	}
 	
 	public static void setIdling() {
@@ -88,26 +88,26 @@ public class DiscordRichPresence {
 		Builder builder = new Builder();
 		builder.setDetails(MCPVersion.getMCVersion() + " with " + ModList.get().size() + " Mods");
 		builder.setState(state.getState().getMessage(state.getReplace()));
-		builder.setStartTimestamp(time);
+		builder.setStartTimestamp(TIME);
 		builder.setLargeImage(state.getState().getImageKey(), state.getState().getImageName(state.getReplace()));
 		if (state.getState() == EnumState.MENU || state.getState() == EnumState.STARTUP) {
 			builder.setSmallImage("uteamcore", "U-Team Core");
 		}
 		try {
-			client.sendRichPresence(builder.build());
+			CLIENT.sendRichPresence(builder.build());
 		} catch (Exception ex) {
 			try {
-				client.connect();
+				CLIENT.connect();
 				errorCount = 0;
-				client.sendRichPresence(builder.build());
+				CLIENT.sendRichPresence(builder.build());
 			} catch (Exception ex2) {
 				try {
-					client.close();
+					CLIENT.close();
 				} catch (Exception ex3) {
 				}
 				errorCount++;
 				if (errorCount > 10) {
-					UCoreMain.logger.info("Discord rich presence stopped cause connection is not working.");
+					UCoreMain.LOGGER.info("Discord rich presence stopped cause connection is not working.");
 					stop();
 				}
 			}

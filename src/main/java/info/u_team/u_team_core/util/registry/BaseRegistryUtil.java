@@ -266,7 +266,7 @@ public class BaseRegistryUtil {
 		try {
 			return classCast.cast(field.get(null));
 		} catch (Exception ex) {
-			UCoreMain.logger.error("Failed fetching field entry {} for class {}.", field.getName(), field.getClass(), ex);
+			UCoreMain.LOGGER.error("Failed fetching field entry {} for class {}.", field.getName(), field.getClass(), ex);
 		}
 		return null;
 	}
@@ -295,7 +295,7 @@ public class BaseRegistryUtil {
 		try {
 			return Class.forName(Thread.currentThread().getStackTrace()[3].getClassName());
 		} catch (ClassNotFoundException ex) {
-			UCoreMain.logger.error("Failed the get caller class.", ex);
+			UCoreMain.LOGGER.error("Failed the get caller class.", ex);
 		}
 		return null;
 	}
