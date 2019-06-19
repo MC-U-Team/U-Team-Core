@@ -13,10 +13,10 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 @EventBusSubscriber(modid = UCoreMain.modid, value = Dist.CLIENT)
 public class UCoreColors {
 	
-	private static final Set<Item> dyeableItems = new HashSet<>();
+	private static final Set<Item> DYEABLE_ITEMS = new HashSet<>();
 	
 	public static <T extends Item & IDyeableItem> void addItem(T item) {
-		dyeableItems.add(item);
+		DYEABLE_ITEMS.add(item);
 	}
 	
 	@SubscribeEvent
@@ -27,6 +27,6 @@ public class UCoreColors {
 				return ((IDyeableItem) item).getColor(itemstack);
 			}
 			return 0;
-		}, dyeableItems.toArray(new Item[dyeableItems.size()]));
+		}, DYEABLE_ITEMS.toArray(new Item[DYEABLE_ITEMS.size()]));
 	}
 }

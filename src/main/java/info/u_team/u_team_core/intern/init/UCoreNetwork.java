@@ -8,12 +8,12 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class UCoreNetwork {
 	
-	public static final String protocol = "1.14.2-1";
+	public static final String PROTOCOL = "1.14.2-1";
 	
-	public static final SimpleChannel network = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMain.modid, "network"), () -> protocol, protocol::equals, protocol::equals);
+	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMain.modid, "network"), () -> PROTOCOL, PROTOCOL::equals, PROTOCOL::equals);
 	
 	public static void construct() {
-		network.registerMessage(0, SyncedContainerMessage.class, SyncedContainerMessage::encode, SyncedContainerMessage::decode, SyncedContainerMessage.Handler::handle);
+		NETWORK.registerMessage(0, SyncedContainerMessage.class, SyncedContainerMessage::encode, SyncedContainerMessage::decode, SyncedContainerMessage.Handler::handle);
 	}
 	
 }

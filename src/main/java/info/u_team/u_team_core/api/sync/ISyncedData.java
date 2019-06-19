@@ -78,7 +78,7 @@ public interface ISyncedData {
 	 * @param buffer Data
 	 */
 	default void sendDataToClient(ServerPlayerEntity player, PacketBuffer buffer) {
-		UCoreNetwork.network.send(PacketDistributor.PLAYER.with(() -> player), new SyncedContainerMessage(buffer));
+		UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> player), new SyncedContainerMessage(buffer));
 	}
 	
 	/**
@@ -99,6 +99,6 @@ public interface ISyncedData {
 	 */
 	@OnlyIn(Dist.CLIENT)
 	default void sendDataToServer(PacketBuffer buffer) {
-		UCoreNetwork.network.send(PacketDistributor.SERVER.noArg(), new SyncedContainerMessage(buffer));
+		UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new SyncedContainerMessage(buffer));
 	}
 }
