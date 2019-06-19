@@ -11,10 +11,12 @@ import net.minecraft.util.text.ITextComponent;
 public class UContainerScreen<T extends Container> extends ContainerScreen<T> {
 	
 	protected ResourceLocation background;
+	protected int backgroundWidth, backgroundHeight;
 	
 	public UContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background) {
 		super(container, playerInventory, title);
 		this.background = background;
+		backgroundWidth = backgroundHeight = 256;
 	}
 	
 	public void setBackground(ResourceLocation background) {
@@ -28,6 +30,6 @@ public class UContainerScreen<T extends Container> extends ContainerScreen<T> {
 		int xStart = (width - xSize) / 2;
 		int yStart = (height - ySize) / 2;
 		
-		blit(xStart, yStart, 0, 0, xSize, ySize);
+		blit(xStart, yStart, 0, 0, xSize, ySize, backgroundWidth, backgroundHeight);
 	}
 }
