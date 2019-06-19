@@ -15,7 +15,6 @@ public class BasicTileEntityContainer extends USyncedTileEntityContainer<BasicTi
 		super(TestContainers.type, id, playerInventory, tileEntity);
 	}
 	
-	@OnlyIn(Dist.CLIENT)
 	public BasicTileEntityContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
 		super(TestContainers.type, id, playerInventory, buffer);
 	}

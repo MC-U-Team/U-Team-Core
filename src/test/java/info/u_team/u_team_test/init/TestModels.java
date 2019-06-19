@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.*;
 @OnlyIn(Dist.CLIENT)
 public class TestModels {
 	
-	public static void setup() {
+	public static void construct() {
 		ClientRegistry.registerEntityRenderer(BetterEnderPearlEntity.class, manager -> {
 			return new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer());
 		});

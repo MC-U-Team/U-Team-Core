@@ -68,7 +68,6 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 	 * @param playerInventory Player inventory
 	 * @param buffer Initial data (specified with {@link NetworkHooks#openGui(player, containerSupplier,extraDataWriter)})
 	 */
-	@OnlyIn(Dist.CLIENT)
 	public USyncedTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer) {
 		this(type, id, playerInventory, buffer, true);
 	}
@@ -83,7 +82,6 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 	 * @param buffer Initial data (specified with {@link NetworkHooks#openGui(player, containerSupplier,extraDataWriter)})
 	 * @param init If the constructor should call {@link #init()}
 	 */
-	@OnlyIn(Dist.CLIENT)
 	public USyncedTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer, boolean init) {
 		super(type, id, buffer);
 		this.playerInventory = playerInventory;

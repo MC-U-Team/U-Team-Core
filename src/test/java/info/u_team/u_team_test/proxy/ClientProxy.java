@@ -10,12 +10,12 @@ public class ClientProxy extends CommonProxy {
 	public void construct() {
 		super.construct();
 		TestGuis.construct();
+		TestModels.construct();
 	}
 	
 	@Override
 	public void setup() {
 		super.setup();
-		TestModels.setup();
 	}
 	
 	@Override

@@ -8,11 +8,9 @@ import info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.RichPresence.Builder;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
 import net.minecraft.world.dimension.*;
-import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.versions.mcp.MCPVersion;
 
-@OnlyIn(Dist.CLIENT)
 public class DiscordRichPresence {
 	
 	private static final IPCClient client = new IPCClient(427196986064764928L);

@@ -7,7 +7,6 @@ import info.u_team.u_team_core.container.USyncedContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 
@@ -41,7 +40,6 @@ public class SyncedContainerMessage {
 			context.setPacketHandled(true);
 		}
 		
-		@OnlyIn(Dist.CLIENT)
 		private static void handleClient(PacketBuffer buffer) {
 			getSyncedContainer(Minecraft.getInstance().player.openContainer).ifPresent(container -> container.handleFromServer(buffer));
 		}

@@ -4,7 +4,6 @@ import info.u_team.u_team_core.api.registry.IURegistryType;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
-import net.minecraftforge.api.distmarker.*;
 
 public class UItemArmor extends ArmorItem implements IURegistryType {
 	
@@ -27,7 +26,6 @@ public class UItemArmor extends ArmorItem implements IURegistryType {
 		return typeName;
 	}
 	
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
 		if (!material.getName().equals("invalid")) {

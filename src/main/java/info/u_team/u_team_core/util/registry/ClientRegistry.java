@@ -4,10 +4,8 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.Entity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.client.registry.*;
 
-@OnlyIn(Dist.CLIENT)
 public class ClientRegistry {
 	
 	public static <T extends Entity> void registerEntityRenderer(Class<T> clazz, IRenderFactory<? super T> rendererFactory) {

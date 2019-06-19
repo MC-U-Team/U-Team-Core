@@ -6,7 +6,6 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.*;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.*;
 
 /**
  * Basic implementation of {@link TileEntity} with some extra data synchronization methods.
@@ -56,34 +55,32 @@ public abstract class UTileEntity extends TileEntity {
 	@Override
 	public CompoundNBT getUpdateTag() {
 		CompoundNBT compound = super.getUpdateTag();
-		writeOnChunkLoadServer(compound);
+		sendChunkLoadData(compound);
 		return compound;
 	}
 	
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleUpdateTag(CompoundNBT compound) {
 		super.read(compound);
-		readOnChunkLoadClient(compound);
+		handleChunkLoadData(compound);
 	}
 	
 	/**
 	 * Data here will be send to the client side when the chunk is loaded. The data is received in
-	 * {@link UTileEntity#readOnChunkLoadClient(CompoundNBT)}
+	 * {@link UTileEntity#handleChunkLoadData(CompoundNBT)}
 	 * 
 	 * @param compound
 	 */
-	public void writeOnChunkLoadServer(CompoundNBT compound) {
+	public void sendChunkLoadData(CompoundNBT compound) {
 	}
 	
 	/**
 	 * The data from the chunk load is received here. The data is send from
-	 * {@link UTileEntity#writeOnChunkLoadServer(CompoundNBT)}
+	 * {@link UTileEntity#sendChunkLoadData(CompoundNBT)}
 	 * 
 	 * @param compound
 	 */
-	@OnlyIn(Dist.CLIENT)
-	public void readOnChunkLoadClient(CompoundNBT compound) {
+	public void handleChunkLoadData(CompoundNBT compound) {
 	}
 	
 	// synchronization on block update
@@ -91,38 +88,36 @@ public abstract class UTileEntity extends TileEntity {
 	@Override
 	public SUpdateTileEntityPacket getUpdatePacket() {
 		final CompoundNBT compound = new CompoundNBT();
-		writeOnUpdateServer(compound);
+		sendUpdateStateData(compound);
 		if (!compound.isEmpty()) {
 			return new SUpdateTileEntityPacket(pos, -1, compound);
 		}
 		return null;
 	}
 	
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void onDataPacket(NetworkManager manager, SUpdateTileEntityPacket packet) {
-		readOnUpdateClient(packet.getNbtCompound());
+		handleUpdateStateData(packet.getNbtCompound());
 	}
 	
 	/**
 	 * Data here will be send to the client side when the block is updated. The data is received in
-	 * {@link UTileEntity#readOnUpdateClient(CompoundNBT)}. To trigger an update call
+	 * {@link UTileEntity#handleUpdateStateData(CompoundNBT)}. To trigger an update call
 	 * {@link World#notifyBlockUpdate(net.minecraft.util.math.BlockPos, BlockState, BlockState, int)} or
 	 * {@link UTileEntity#sendChangesToClient(int)}
 	 * 
 	 * @param compound
 	 */
-	public void writeOnUpdateServer(CompoundNBT compound) {
+	public void sendUpdateStateData(CompoundNBT compound) {
 	}
 	
 	/**
 	 * The data from the block update is received here. The data is send from
-	 * {@link UTileEntity#writeOnUpdateServer(CompoundNBT)}
+	 * {@link UTileEntity#sendUpdateStateData(CompoundNBT)}
 	 * 
 	 * @param compound
 	 */
-	@OnlyIn(Dist.CLIENT)
-	public void readOnUpdateClient(CompoundNBT compound) {
+	public void handleUpdateStateData(CompoundNBT compound) {
 	}
 	
 	/**

@@ -3,7 +3,6 @@ package info.u_team.u_team_core.container;
 import info.u_team.u_team_core.api.sync.ISyncedData;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 /**
@@ -31,7 +30,6 @@ public abstract class USyncedContainer extends UContainer implements ISyncedData
 	 * @param id Window id
 	 * @param buffer Initial data (specified with {@link NetworkHooks#openGui(player, containerSupplier,extraDataWriter)})
 	 */
-	@OnlyIn(Dist.CLIENT)
 	public USyncedContainer(ContainerType<?> type, int id, PacketBuffer buffer) {
 		super(type, id);
 	}
