@@ -16,21 +16,21 @@ public class UCoreMain {
 	public static final String MODID = "uteamcore";
 	public static final Logger LOGGER = LogManager.getLogger("UTeamCore");
 	
-	private static final IModProxy proxy = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+	private static final IModProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 	
 	public UCoreMain() {
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
-		proxy.construct();
+		PROXY.construct();
 	}
 	
 	@SubscribeEvent
 	public void setup(FMLCommonSetupEvent event) {
-		proxy.setup();
+		PROXY.setup();
 	}
 	
 	@SubscribeEvent
 	public void ready(FMLLoadCompleteEvent event) {
-		proxy.complete();
+		PROXY.complete();
 	}
 	
 }
