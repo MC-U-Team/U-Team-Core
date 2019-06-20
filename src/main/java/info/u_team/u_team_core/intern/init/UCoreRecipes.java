@@ -2,7 +2,7 @@ package info.u_team.u_team_core.intern.init;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.intern.recipe.DyeableItemDyeRecipe;
-import info.u_team.u_team_core.recipe.USpecialRecipeSerializer;
+import info.u_team.u_team_core.recipeserializer.USpecialRecipeSerializer;
 import info.u_team.u_team_core.util.registry.BaseRegistryUtil;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraftforge.event.RegistryEvent.Register;

@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.recipe;
+package info.u_team.u_team_core.recipeserializer;
 
 import java.util.function.Function;
 
