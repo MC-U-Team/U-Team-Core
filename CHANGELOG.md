@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.2-2.5.2.113-SNAPSHOT] - 2019-06-20
+### Changed
+- Fixed UShapedRecipeSerializer where method was not copied correctly
+- Repacked IDyeableItem and made the color registry array in api so the api can be split from the implemention
+
 ## [1.14.2-2.5.1.112-SNAPSHOT] - 2019-06-20
 ### Added 
 - Added IDyeableItem for easy usage with colored items

@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import info.u_team.u_team_core.api.IDyeableItem;
+import info.u_team.u_team_core.api.dye.IDyeableItem;
 import info.u_team.u_team_core.intern.init.UCoreRecipes;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.*;

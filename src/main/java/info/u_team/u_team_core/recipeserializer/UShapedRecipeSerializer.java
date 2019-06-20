@@ -5,7 +5,7 @@ import java.util.Map;
 import com.google.gson.*;
 
 import net.minecraft.item.crafting.*;
-import net.minecraft.util.*;
+import net.minecraft.util.NonNullList;
 
 public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> extends URecipeSerializer<T> {
 	
@@ -14,19 +14,19 @@ public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> extends UR
 	}
 	
 	protected static Map<String, Ingredient> deserializeKey(JsonObject json) {
-		return ShapedRecipe.deserializeKey(JSONUtils.getJsonObject(json, "key"));
+		return ShapedRecipe.deserializeKey(json);
 	}
 	
-	protected static String[] shrink(String... toShrink) {
-		return ShapedRecipe.shrink(toShrink);
+	protected static String[] shrink(String... shrink) {
+		return ShapedRecipe.shrink(shrink);
 	}
 	
-	protected static String[] patternFromJson(JsonArray jsonArr) {
-		return ShapedRecipe.patternFromJson(jsonArr);
+	protected static String[] patternFromJson(JsonArray json) {
+		return ShapedRecipe.patternFromJson(json);
 	}
 	
-	protected static NonNullList<Ingredient> deserializeIngredients(String[] pattern, Map<String, Ingredient> keys, int patternWidth, int patternHeight) {
-		return ShapedRecipe.deserializeIngredients(pattern, keys, patternWidth, patternHeight);
+	protected static NonNullList<Ingredient> deserializeIngredients(String[] pattern, Map<String, Ingredient> keys, int width, int height) {
+		return ShapedRecipe.deserializeIngredients(pattern, keys, width, height);
 	}
 	
 }

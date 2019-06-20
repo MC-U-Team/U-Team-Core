@@ -1,9 +1,8 @@
-package info.u_team.u_team_core.api;
+package info.u_team.u_team_core.api.dye;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import info.u_team.u_team_core.intern.init.UCoreColors;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 
@@ -16,8 +15,8 @@ import net.minecraft.nbt.CompoundNBT;
  */
 public interface IDyeableItem {
 	
-	default <T extends Item & IDyeableItem> void addItem(T item) {
-		UCoreColors.addItem(item);
+	default <T extends Item & IDyeableItem> void addColoredItem(T item) {
+		DyeableItemsRegistry.addItem(item);
 	}
 	
 	default boolean hasColor(ItemStack stack) {
