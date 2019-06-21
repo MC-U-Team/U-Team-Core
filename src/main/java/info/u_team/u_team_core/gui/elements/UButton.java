@@ -14,8 +14,22 @@ import net.minecraftforge.fml.client.config.GuiUtils;
  */
 public class UButton extends Button {
 	
+	protected static IPressable EMTPY_PRESSABLE = button -> {};
+	
+	public UButton(int x, int y, int width, int height, String displayString) {
+		super(x, y, width, height, displayString, EMTPY_PRESSABLE);
+	}
+	
 	public UButton(int x, int y, int width, int height, String displayString, IPressable pessable) {
 		super(x, y, width, height, displayString, pessable);
+	}
+	
+	public void setPressable(IPressable pressable) {
+		onPress = pressable;
+	}
+	
+	public void setPressable(Runnable runnable) {
+		onPress = button -> runnable.run();
 	}
 	
 	@Override

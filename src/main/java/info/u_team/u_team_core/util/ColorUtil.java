@@ -9,6 +9,9 @@ public class ColorUtil {
 	
 	private static final BiMap<Block, DyeColor> WOOL_DYE_COLORS = HashBiMap.create();
 	
+	public static final int WHITE_RGBA = 0xFFFFFFFF;
+	public static final int WHITE_RGB = 0xFFFFFF;
+	
 	static {
 		WOOL_DYE_COLORS.put(Blocks.WHITE_WOOL, DyeColor.WHITE);
 		WOOL_DYE_COLORS.put(Blocks.ORANGE_WOOL, DyeColor.ORANGE);

@@ -17,7 +17,7 @@ public class GuiProgressBar extends AbstractGui implements IGuiEventListener, IR
 	private int x;
 	private int y;
 	
-	private int backGroundColor;
+	private int backgroundColor;
 	private int progressColor;
 	
 	private boolean enabled = true;
@@ -25,12 +25,12 @@ public class GuiProgressBar extends AbstractGui implements IGuiEventListener, IR
 	
 	private boolean hovered;
 	
-	public GuiProgressBar(int x, int y, int width, int height, int backGroundColor, int progressColor, Supplier<Double> progress, Consumer<Double> click) {
+	public GuiProgressBar(int x, int y, int width, int height, int backgroundColor, int progressColor, Supplier<Double> progress, Consumer<Double> click) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		this.backGroundColor = backGroundColor;
+		this.backgroundColor = backgroundColor;
 		this.progressColor = progressColor;
 		this.progress = progress;
 		this.click = click;
@@ -41,7 +41,7 @@ public class GuiProgressBar extends AbstractGui implements IGuiEventListener, IR
 		if (visible) {
 			hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 			
-			fill(x, y, x + width, y + height, backGroundColor);
+			fill(x, y, x + width, y + height, backgroundColor);
 			fill(x, y, (int) (x + (progress.get() * width)), y + height, progressColor);
 		}
 	}
@@ -132,12 +132,12 @@ public class GuiProgressBar extends AbstractGui implements IGuiEventListener, IR
 		return hovered;
 	}
 	
-	public int getBackGroundColor() {
-		return backGroundColor;
+	public int getBackgroundColor() {
+		return backgroundColor;
 	}
 	
-	public void setBackGroundColor(int backGroundColor) {
-		this.backGroundColor = backGroundColor;
+	public void setBackgroundColor(int backGroundColor) {
+		this.backgroundColor = backGroundColor;
 	}
 	
 	public int getProgressColor() {
