@@ -4,25 +4,25 @@ import info.u_team.u_team_core.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
-public class UImageButton extends UButton {
+public class ImageButton extends UButton {
 	
 	protected ResourceLocation resource;
 	
 	protected RGBA color, hoverColor;
 	
-	public UImageButton(int x, int y, int width, int height, ResourceLocation resource) {
+	public ImageButton(int x, int y, int width, int height, ResourceLocation resource) {
 		this(x, y, width, height, resource, EMTPY_PRESSABLE);
 	}
 	
-	public UImageButton(int x, int y, int width, int height, ResourceLocation resource, IPressable pressable) {
+	public ImageButton(int x, int y, int width, int height, ResourceLocation resource, IPressable pressable) {
 		this(x, y, width, height, resource, ColorUtil.WHITE_RGBA, ColorUtil.WHITE_RGBA, pressable);
 	}
 	
-	public UImageButton(int x, int y, int width, int height, ResourceLocation resource, int color, int hoverColor) {
+	public ImageButton(int x, int y, int width, int height, ResourceLocation resource, int color, int hoverColor) {
 		this(x, y, width, height, resource, color, hoverColor, EMTPY_PRESSABLE);
 	}
 	
-	public UImageButton(int x, int y, int width, int height, ResourceLocation resource, int color, int hoverColor, IPressable pressable) {
+	public ImageButton(int x, int y, int width, int height, ResourceLocation resource, int color, int hoverColor, IPressable pressable) {
 		super(x, y, width, height, "", pressable);
 		this.resource = resource;
 		this.color = new RGBA(color);

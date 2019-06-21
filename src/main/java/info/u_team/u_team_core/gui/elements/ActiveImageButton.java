@@ -3,17 +3,17 @@ package info.u_team.u_team_core.gui.elements;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.util.ResourceLocation;
 
-public class UActiveImageButton extends UImageButton {
+public class ActiveImageButton extends ImageButton {
 	
 	protected boolean active;
 	
 	protected RGBA activeColor;
 	
-	public UActiveImageButton(int x, int y, int width, int height, ResourceLocation resource, int activeColor) {
+	public ActiveImageButton(int x, int y, int width, int height, ResourceLocation resource, int activeColor) {
 		this(x, y, width, height, resource, activeColor, EMTPY_PRESSABLE);
 	}
 	
-	public UActiveImageButton(int x, int y, int width, int height, ResourceLocation resource, int activeColor, IPressable pressable) {
+	public ActiveImageButton(int x, int y, int width, int height, ResourceLocation resource, int activeColor, IPressable pressable) {
 		super(x, y, width, height, resource, pressable);
 		this.activeColor = new RGBA(activeColor);
 	}

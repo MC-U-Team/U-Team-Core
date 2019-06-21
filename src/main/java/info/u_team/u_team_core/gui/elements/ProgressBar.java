@@ -7,7 +7,7 @@ import net.minecraft.client.audio.*;
 import net.minecraft.client.gui.*;
 import net.minecraft.util.SoundEvents;
 
-public class GuiProgressBar extends AbstractGui implements IGuiEventListener, IRenderable {
+public class ProgressBar extends AbstractGui implements IGuiEventListener, IRenderable {
 	
 	private Supplier<Double> progress;
 	private Consumer<Double> click;
@@ -25,7 +25,7 @@ public class GuiProgressBar extends AbstractGui implements IGuiEventListener, IR
 	
 	private boolean hovered;
 	
-	public GuiProgressBar(int x, int y, int width, int height, int backgroundColor, int progressColor, Supplier<Double> progress, Consumer<Double> click) {
+	public ProgressBar(int x, int y, int width, int height, int backgroundColor, int progressColor, Supplier<Double> progress, Consumer<Double> click) {
 		this.x = x;
 		this.y = y;
 		this.width = width;

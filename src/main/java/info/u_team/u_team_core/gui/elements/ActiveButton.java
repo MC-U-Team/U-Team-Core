@@ -2,17 +2,17 @@ package info.u_team.u_team_core.gui.elements;
 
 import info.u_team.u_team_core.util.RGBA;
 
-public class UActiveButton extends UButton {
+public class ActiveButton extends UButton {
 	
 	protected boolean active;
 	
 	protected RGBA activeColor;
 	
-	public UActiveButton(int x, int y, int width, int height, String displayString, int activeColor) {
+	public ActiveButton(int x, int y, int width, int height, String displayString, int activeColor) {
 		this(x, y, width, height, displayString, activeColor, EMTPY_PRESSABLE);
 	}
 	
-	public UActiveButton(int x, int y, int width, int height, String displayString, int activeColor, IPressable pressable) {
+	public ActiveButton(int x, int y, int width, int height, String displayString, int activeColor, IPressable pressable) {
 		super(x, y, width, height, displayString, pressable);
 		this.activeColor = new RGBA(activeColor);
 	}
