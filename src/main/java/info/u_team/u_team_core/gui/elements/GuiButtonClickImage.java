@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 
-public class GuiButtonClickImage extends GuiButtonClick {
+public class GuiButtonClickImage extends UButtonExt {
 	
 	protected ResourceLocation resource;
 	protected int color, hovercolor;

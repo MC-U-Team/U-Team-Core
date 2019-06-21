@@ -4,7 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 
-public class GuiButtonClickActivated extends GuiButtonClick {
+public class GuiButtonClickActivated extends UButtonExt {
 	
 	protected boolean active;
 	
