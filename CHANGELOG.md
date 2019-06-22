@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.2-2.5.3.114] - 2019-06-22
+### Added
+- Added Scrolling list
+
+### Changed
+- Rewritten gui buttons
+- Update to forge 26.0.43 and newest mappings
+- First stable release
+
 ## [1.14.2-2.5.2.113-SNAPSHOT] - 2019-06-20
 ### Changed
 - Fixed UShapedRecipeSerializer where method was not copied correctly
