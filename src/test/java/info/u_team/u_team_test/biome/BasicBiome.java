@@ -21,14 +21,14 @@ public class BasicBiome extends UBiome {
 		DefaultBiomeFeatures.addMonsterRooms(this);
 		DefaultBiomeFeatures.addStoneVariants(this);
 		DefaultBiomeFeatures.addOres(this);
-		DefaultBiomeFeatures.func_222282_l(this);
+		DefaultBiomeFeatures.addSedimentDisks(this);
 		DefaultBiomeFeatures.func_222342_U(this);
 		DefaultBiomeFeatures.func_222348_W(this);
-		DefaultBiomeFeatures.func_222334_S(this);
-		DefaultBiomeFeatures.func_222315_Z(this);
+		DefaultBiomeFeatures.addDeadBushes(this);
+		DefaultBiomeFeatures.addMushrooms(this);
 		DefaultBiomeFeatures.func_222292_ad(this);
 		DefaultBiomeFeatures.addSprings(this);
-		DefaultBiomeFeatures.func_222281_af(this);
+		DefaultBiomeFeatures.addDesertFeatures(this);
 		DefaultBiomeFeatures.func_222297_ap(this);
 		this.addSpawn(EntityClassification.CREATURE, new SpawnListEntry(EntityType.RABBIT, 4, 2, 3));
 		this.addSpawn(EntityClassification.AMBIENT, new SpawnListEntry(EntityType.BAT, 10, 8, 8));
