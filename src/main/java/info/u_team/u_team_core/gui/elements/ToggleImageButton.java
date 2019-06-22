@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.gui.elements;
 
-import info.u_team.u_team_core.util.ColorUtil;
 import net.minecraft.util.ResourceLocation;
 
 public class ToggleImageButton extends ImageButton {
@@ -15,15 +14,7 @@ public class ToggleImageButton extends ImageButton {
 	}
 	
 	public ToggleImageButton(int x, int y, int width, int height, ResourceLocation defaultResource, ResourceLocation toggleResource, IPressable pressable) {
-		this(x, y, width, height, defaultResource, toggleResource, ColorUtil.WHITE_RGBA, ColorUtil.WHITE_RGBA, pressable);
-	}
-	
-	public ToggleImageButton(int x, int y, int width, int height, ResourceLocation defaultResource, ResourceLocation toggleResource, int color, int hoverColor) {
-		this(x, y, width, height, defaultResource, toggleResource, color, hoverColor, EMTPY_PRESSABLE);
-	}
-	
-	public ToggleImageButton(int x, int y, int width, int height, ResourceLocation defaultResource, ResourceLocation toggleResource, int color, int hoverColor, IPressable pressable) {
-		super(x, y, width, height, defaultResource, color, hoverColor, pressable);
+		super(x, y, width, height, defaultResource, pressable);
 		this.defaultResource = defaultResource;
 		this.toggleResource = toggleResource;
 	}
