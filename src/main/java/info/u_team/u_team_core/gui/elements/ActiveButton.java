@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.gui.elements;
 
+import org.lwjgl.opengl.GL11;
+
 import com.mojang.blaze3d.platform.GlStateManager;
 
 import info.u_team.u_team_core.util.RGBA;
@@ -37,10 +39,11 @@ public class ActiveButton extends UButton {
 	
 	@Override
 	public void renderButton(int mouseX, int mouseY, float partial) {
+		GlStateManager.color4f(1, 1, 1, 1);
 		if (active) {
-			GlStateManager.color4f(1, 1, 1, 1);
 			activeColor.glColor();
 		}
 		super.renderButton(mouseX, mouseY, partial);
+		GL11.glColor4f(1, 1, 1, 1);
 	}
 }
