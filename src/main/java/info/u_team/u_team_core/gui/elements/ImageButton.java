@@ -2,6 +2,8 @@ package info.u_team.u_team_core.gui.elements;
 
 import info.u_team.u_team_core.util.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 
 public class ImageButton extends UButton {
@@ -55,15 +57,27 @@ public class ImageButton extends UButton {
 	
 	@Override
 	public void renderButton(int mouseX, int mouseY, float partial) {
-		if (visible) {
-			super.renderButton(mouseX, mouseY, partial);
-			if (isHovered()) {
-				hoverColor.glColor();
-			} else {
-				color.glColor();
-			}
-			Minecraft.getInstance().getTextureManager().bindTexture(resource);
-			blit(x + 2, y + 2, 0, 0, 1, 1, width - 4, height - 4, 1, 1);
+		super.renderButton(mouseX, mouseY, partial);
+		if (isHovered()) {
+			hoverColor.glColor();
+		} else {
+			color.glColor();
 		}
+		Minecraft.getInstance().getTextureManager().bindTexture(resource);
+		innerBlit(x + 2, x + width - 2, y + 2, y + height - 2, 0, 0, 1, 0, 1);
+	}
+	
+	@Deprecated
+	public static void drawScaledCustomSizeModalRect(int x, int y, float u, float v, int uWidth, int vHeight, int width, int height, float tileWidth, float tileHeight) {
+		float f = 1.0F / tileWidth;
+		float f1 = 1.0F / tileHeight;
+		Tessellator tessellator = Tessellator.getInstance();
+		BufferBuilder bufferbuilder = tessellator.getBuffer();
+		bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX);
+		bufferbuilder.pos((double) x, (double) (y + height), 0.0D).tex((double) (u * f), (double) ((v + (float) vHeight) * f1)).endVertex();
+		bufferbuilder.pos((double) (x + width), (double) (y + height), 0.0D).tex((double) ((u + (float) uWidth) * f), (double) ((v + (float) vHeight) * f1)).endVertex();
+		bufferbuilder.pos((double) (x + width), (double) y, 0.0D).tex((double) ((u + (float) uWidth) * f), (double) (v * f1)).endVertex();
+		bufferbuilder.pos((double) x, (double) y, 0.0D).tex((double) (u * f), (double) (v * f1)).endVertex();
+		tessellator.draw();
 	}
 }

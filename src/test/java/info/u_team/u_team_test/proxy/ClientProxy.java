@@ -11,6 +11,7 @@ public class ClientProxy extends CommonProxy {
 		super.construct();
 		TestGuis.construct();
 		TestModels.construct();
+		TestKeys.construct();
 	}
 	
 	@Override

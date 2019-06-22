@@ -39,7 +39,7 @@ public class UButton extends Button {
 		
 		String message = getMessage();
 		
-		GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, this.width, this.height, 200, 20, 2, 3, 2, 2, alpha);
+		GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0);
 		renderBg(minecraft, mouseX, mouseY);
 		
 		int messageWidth = fontRenderer.getStringWidth(message);

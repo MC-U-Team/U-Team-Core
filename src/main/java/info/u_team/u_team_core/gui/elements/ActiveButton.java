@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.gui.elements;
 
+import com.mojang.blaze3d.platform.GlStateManager;
+
 import info.u_team.u_team_core.util.RGBA;
 
 public class ActiveButton extends UButton {
@@ -36,6 +38,7 @@ public class ActiveButton extends UButton {
 	@Override
 	public void renderButton(int mouseX, int mouseY, float partial) {
 		if (active) {
+			GlStateManager.color4f(1, 1, 1, 1);
 			activeColor.glColor();
 		}
 		super.renderButton(mouseX, mouseY, partial);
