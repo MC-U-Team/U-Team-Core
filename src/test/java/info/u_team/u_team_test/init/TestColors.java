@@ -9,7 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.FORGE, value = Dist.CLIENT)
+@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class TestColors {
 	
 	@SubscribeEvent
