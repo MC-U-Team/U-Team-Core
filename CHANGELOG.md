@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.2-2.5.4.115] - 2019-06-23
+### Changed
+- Updated to forge 26.0.55
+- Fixed colored items not working since forge 26.0.51 due to forge changes
+
 ## [1.14.2-2.5.3.114] - 2019-06-22
 ### Added
 - Added Scrolling list
