@@ -31,7 +31,9 @@ public class BasicEnergyStorage extends EnergyStorage implements INBTSerializabl
 	public void addEnergy(int energy) {
 		this.energy += energy;
 		if (this.energy > getMaxEnergyStored()) {
-			this.energy = getEnergyStored();
+			this.energy = getMaxEnergyStored();
+		} else if (this.energy < 0) {
+			this.energy = 0;
 		}
 	}
 	
