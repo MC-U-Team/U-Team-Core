@@ -24,5 +24,5 @@
 	"item.uteamtest.basictool_pickaxe": "Basic Pickaxe",
 	"item.uteamtest.basictool_shovel": "Basic Shovel",
 	"item.uteamtest.basictool_sword": "Basic Sword",
-	"block.uteamtest.energy_create": "Energy Creator"
+	"block.uteamtest.energy_creator": "Energy Creator"
 }
