@@ -1,5 +1,7 @@
 package info.u_team.u_team_test.tileentity;
 
+import info.u_team.u_team_core.api.sync.ISyncedTileEntity;
+import info.u_team.u_team_core.container.USyncedTileEntityContainer;
 import info.u_team.u_team_core.energy.BasicEnergyStorage;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
@@ -7,6 +9,7 @@ import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.container.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.*;
 import net.minecraftforge.common.capabilities.Capability;
@@ -14,7 +17,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.*;
 
-public class BasicEnergyCreatorTileEntity extends UTileEntity implements INamedContainerProvider {
+public class BasicEnergyCreatorTileEntity extends UTileEntity implements ISyncedTileEntity {
 	
 	private final LazyOptional<ItemStackHandler> slots = LazyOptional.of(() -> new ItemStackHandler(5) {
 		
@@ -53,13 +56,29 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements INamedC
 	}
 	
 	@Override
-	public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+	public USyncedTileEntityContainer<?> createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
 		return new BasicEnergyCreatorContainer(id, playerInventory);
 	}
 	
 	@Override
 	public ITextComponent getDisplayName() {
 		return new StringTextComponent("Energy creator");
+	}
+	
+	@Override
+	public void sendToClient(PacketBuffer buffer) {
+	}
+	
+	@Override
+	public void handleFromServer(PacketBuffer buffer) {
+	}
+	
+	@Override
+	public void sendToServer(PacketBuffer buffer) {
+	}
+	
+	@Override
+	public void handleFromClient(PacketBuffer buffer) {
 	}
 	
 }

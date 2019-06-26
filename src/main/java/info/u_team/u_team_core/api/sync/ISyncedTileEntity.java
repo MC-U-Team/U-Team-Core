@@ -41,4 +41,24 @@ public interface ISyncedTileEntity extends INamedContainerProvider, ISyncedData 
 	@Override
 	USyncedTileEntityContainer<?> createMenu(int id, PlayerInventory playerInventory, PlayerEntity player);
 	
+	// Override here so these methods must not be implemented if not used
+	
+	@Override
+	default void sendToClient(PacketBuffer buffer) {
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	default void handleFromServer(PacketBuffer buffer) {
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	default void sendToServer(PacketBuffer buffer) {
+	}
+	
+	@Override
+	default void handleFromClient(PacketBuffer buffer) {
+	}
+	
 }
