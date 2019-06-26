@@ -1,8 +1,7 @@
 package info.u_team.u_team_core.gui.elements;
 
 import java.util.*;
-import java.util.function.LongSupplier;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.util.GuiUtil;
@@ -11,6 +10,7 @@ import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.client.config.GuiUtils;
 
@@ -21,6 +21,10 @@ public class EnergyStorageWidget extends Widget {
 	
 	private final LongSupplier capacity;
 	private final LongSupplier storage;
+	
+	public EnergyStorageWidget(int x, int y, int height, LazyOptional<IEnergyStorage> energyStorage) {
+		this(x, y, height, () -> energyStorage.map(IEnergyStorage::getMaxEnergyStored).orElse(0), () -> energyStorage.map(IEnergyStorage::getEnergyStored).orElse(0));
+	}
 	
 	public EnergyStorageWidget(int x, int y, int height, Supplier<IEnergyStorage> energyStorage) {
 		this(x, y, height, () -> energyStorage.get().getMaxEnergyStored(), () -> energyStorage.get().getEnergyStored());
