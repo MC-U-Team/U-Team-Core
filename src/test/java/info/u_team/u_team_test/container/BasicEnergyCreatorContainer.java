@@ -8,6 +8,8 @@ public class BasicEnergyCreatorContainer extends UContainer {
 
 	public BasicEnergyCreatorContainer(int id, PlayerInventory playerInventory) {
 		super(TestContainers.BASIC_ENERGY_CREATOR, id);
+		
+		appendPlayerInventory(playerInventory, 8, 100);
 	}
 
 }
