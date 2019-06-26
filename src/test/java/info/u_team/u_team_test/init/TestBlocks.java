@@ -19,7 +19,7 @@ public class TestBlocks {
 	
 	public static final BasicTileEntityBlock BASIC_TILEENTITY = new BasicTileEntityBlock("tileentity");
 	
-	public static final BasicEnergyCreatorBlock BASIC_ENERGY_CREATOR = new BasicEnergyCreatorBlock("energy_create");
+	public static final BasicEnergyCreatorBlock BASIC_ENERGY_CREATOR = new BasicEnergyCreatorBlock("energy_creator");
 	
 	@SubscribeEvent
 	public static void register(Register<Block> event) {
