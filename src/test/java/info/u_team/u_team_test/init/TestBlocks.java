@@ -19,6 +19,8 @@ public class TestBlocks {
 	
 	public static final BasicTileEntityBlock BASIC_TILEENTITY = new BasicTileEntityBlock("tileentity");
 	
+	public static final BasicEnergyCreatorBlock BASIC_ENERGY_CREATOR = new BasicEnergyCreatorBlock("energy_create");
+	
 	@SubscribeEvent
 	public static void register(Register<Block> event) {
 		entries = BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.MODID, Block.class);
