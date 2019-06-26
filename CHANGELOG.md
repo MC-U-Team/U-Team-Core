@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.2-2.5.5.116] - 2019-06-26
+### Added
+- Basic energy storage
+- Energy gui widget
+
+### Changed
+- Add default methods for sync methods in ISyncedTileEntity
+- Add more methods for slot creation in UContainer
+
 ## [1.14.2-2.5.4.115] - 2019-06-23
 ### Changed
 - Updated to forge 26.0.55
