@@ -21,8 +21,8 @@ public class BasicEnergyCreatorContainer extends USyncedTileEntityContainer<Basi
 	
 	@Override
 	protected void init(boolean server) {
-		tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> appendInventory(handler, 2, 3, 20, 20));
-		appendPlayerInventory(playerInventory, 8, 100);
+		tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> appendInventory(handler, 2, 3, 116, 41));
+		appendPlayerInventory(playerInventory, 8, 91);
 		
 		func_216958_a(new IntReferenceHolder() {
 			

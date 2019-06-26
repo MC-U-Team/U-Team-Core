@@ -8,6 +8,7 @@ import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.entity.player.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.*;
 import net.minecraftforge.common.capabilities.Capability;
@@ -15,7 +16,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.*;
 
-public class BasicEnergyCreatorTileEntity extends UTileEntity implements ISyncedTileEntity {
+public class BasicEnergyCreatorTileEntity extends UTileEntity implements ISyncedTileEntity, ITickableTileEntity {
 	
 	private final LazyOptional<ItemStackHandler> slots = LazyOptional.of(() -> new ItemStackHandler(6) {
 		
@@ -61,5 +62,27 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements ISynced
 	@Override
 	public ITextComponent getDisplayName() {
 		return new StringTextComponent("Energy creator");
+	}
+	
+	private boolean action = true;
+	
+	@Override
+	public void tick() {
+		if (world.isRemote) {
+			return;
+		}
+		energy.ifPresent(handler -> {
+			if (action) {
+				handler.addEnergy(3);
+				if (handler.getEnergyStored() == handler.getMaxEnergyStored()) {
+					action = !action;
+				}
+			} else {
+				handler.addEnergy(-3);
+				if (handler.getEnergyStored() == 0) {
+					action = !action;
+				}
+			}
+		});
 	}
 }
