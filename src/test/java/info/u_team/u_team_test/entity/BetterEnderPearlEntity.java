@@ -14,7 +14,7 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.*;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.network.NetworkHooks;
 
@@ -78,7 +78,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 				if (serverplayerentity.connection.getNetworkManager().isChannelOpen() && serverplayerentity.world == this.world && !serverplayerentity.isSleeping()) {
 					net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(serverplayerentity, this.posX, this.posY, this.posZ, 5.0F);
 					if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) {
-						if (this.rand.nextFloat() < 0.05F && this.world.getGameRules().getBoolean("doMobSpawning")) {
+						if (this.rand.nextFloat() < 0.05F && this.world.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING)) {
 							EndermiteEntity endermiteentity = EntityType.ENDERMITE.create(this.world);
 							endermiteentity.setSpawnedByPlayer(true);
 							endermiteentity.setLocationAndAngles(livingentity.posX, livingentity.posY, livingentity.posZ, livingentity.rotationYaw, livingentity.rotationPitch);
