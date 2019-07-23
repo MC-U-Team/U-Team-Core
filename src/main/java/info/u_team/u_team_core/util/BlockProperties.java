@@ -4,6 +4,8 @@ import net.minecraft.block.Block.Properties;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.ToolType;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
 public class BlockProperties extends Properties {
 	
@@ -22,6 +24,24 @@ public class BlockProperties extends Properties {
 		slipperiness = properties.slipperiness;
 		lootTable = properties.lootTable;
 		variableOpacity = properties.variableOpacity;
+		setValueHarvestLevel(getValueHarvestLevel(properties));
+		setValueHarvestTool(getValueHarvestTool(properties));
+	}
+	
+	private int getValueHarvestLevel(Properties properties) {
+		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "harvestLevel");
+	}
+	
+	private void setValueHarvestLevel(int value) {
+		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "harvestLevel");
+	}
+	
+	private ToolType getValueHarvestTool(Properties properties) {
+		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "harvestTool");
+	}
+	
+	private void setValueHarvestTool(ToolType value) {
+		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "harvestTool");
 	}
 	
 	public Material getMaterial() {
@@ -68,4 +88,11 @@ public class BlockProperties extends Properties {
 		return variableOpacity;
 	}
 	
+	public int getHarvestLevel() {
+		return getValueHarvestLevel(this);
+	}
+	
+	public ToolType getHarvestTool() {
+		return getValueHarvestTool(this);
+	}
 }
