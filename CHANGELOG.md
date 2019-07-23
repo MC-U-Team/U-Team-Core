@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.2-2.5.5.118] - 2019-07-23
+### Changed
+- Fix maven repository url
+
 ## [1.14.2-2.5.5.116] - 2019-06-26
 ### Added
 - Basic energy storage
