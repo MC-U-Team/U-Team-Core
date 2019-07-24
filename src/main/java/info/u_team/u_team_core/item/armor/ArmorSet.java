@@ -5,12 +5,12 @@ import net.minecraft.item.Item;
 
 public class ArmorSet implements IUArrayRegistryType<Item> {
 	
-	private final UItemHelmet helmet;
-	private final UItemChestplate chestplate;
-	private final UItemLeggings leggings;
-	private final UItemBoots boots;
+	private final UHelmetItem helmet;
+	private final UChestplateItem chestplate;
+	private final ULeggingsItem leggings;
+	private final UBootsItem boots;
 	
-	public ArmorSet(UItemHelmet helmet, UItemChestplate chestplate, UItemLeggings leggings, UItemBoots boots) {
+	public ArmorSet(UHelmetItem helmet, UChestplateItem chestplate, ULeggingsItem leggings, UBootsItem boots) {
 		this.helmet = helmet;
 		this.chestplate = chestplate;
 		this.leggings = leggings;
@@ -22,19 +22,19 @@ public class ArmorSet implements IUArrayRegistryType<Item> {
 		return new Item[] { helmet, chestplate, leggings, boots };
 	}
 	
-	public UItemHelmet getHelmet() {
+	public UHelmetItem getHelmet() {
 		return helmet;
 	}
 	
-	public UItemChestplate getChestplate() {
+	public UChestplateItem getChestplate() {
 		return chestplate;
 	}
 	
-	public UItemLeggings getLeggings() {
+	public ULeggingsItem getLeggings() {
 		return leggings;
 	}
 	
-	public UItemBoots getBoots() {
+	public UBootsItem getBoots() {
 		return boots;
 	}
 }

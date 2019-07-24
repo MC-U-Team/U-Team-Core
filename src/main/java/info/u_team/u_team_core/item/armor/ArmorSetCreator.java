@@ -11,6 +11,6 @@ public class ArmorSetCreator {
 	}
 	
 	public static ArmorSet create(String name, ItemGroup group, Properties properties, IArmorMaterial material) {
-		return new ArmorSet(new UItemHelmet(name, group, new ItemProperties(properties), material), new UItemChestplate(name, group, new ItemProperties(properties), material), new UItemLeggings(name, group, new ItemProperties(properties), material), new UItemBoots(name, group, new ItemProperties(properties), material));
+		return new ArmorSet(new UHelmetItem(name, group, new ItemProperties(properties), material), new UChestplateItem(name, group, new ItemProperties(properties), material), new ULeggingsItem(name, group, new ItemProperties(properties), material), new UBootsItem(name, group, new ItemProperties(properties), material));
 	}
 }

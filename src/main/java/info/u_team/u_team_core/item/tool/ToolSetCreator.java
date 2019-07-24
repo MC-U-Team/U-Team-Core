@@ -12,7 +12,7 @@ public class ToolSetCreator {
 	}
 	
 	public static ToolSet create(String name, ItemGroup group, Properties properties, IToolMaterial material) {
-		return new ToolSet(new UItemAxe(name + "_axe", group, new ItemProperties(properties), material), new UItemHoe(name + "_hoe", group, new ItemProperties(properties), material), new UItemPickaxe(name + "_pickaxe", group, new ItemProperties(properties), material), new UItemSpade(name + "_shovel", group, new ItemProperties(properties), material), new UItemSword(name + "_sword", group, new ItemProperties(properties), material));
+		return new ToolSet(new UAxeItem(name + "_axe", group, new ItemProperties(properties), material), new UHoeItem(name + "_hoe", group, new ItemProperties(properties), material), new UPickaxeItem(name + "_pickaxe", group, new ItemProperties(properties), material), new USpadeItem(name + "_shovel", group, new ItemProperties(properties), material), new USwordItem(name + "_sword", group, new ItemProperties(properties), material));
 	}
 	
 }

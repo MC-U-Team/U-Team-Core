@@ -6,16 +6,16 @@ import info.u_team.u_team_core.api.registry.IURegistryType;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ToolType;
 
-public class UItemSpade extends ShovelItem implements IURegistryType {
+public class UPickaxeItem extends PickaxeItem implements IURegistryType {
 	
 	protected final String name;
 	
-	public UItemSpade(String name, Properties properties, IToolMaterial material) {
+	public UPickaxeItem(String name, Properties properties, IToolMaterial material) {
 		this(name, null, properties, material);
 	}
 	
-	public UItemSpade(String name, ItemGroup group, Properties properties, IToolMaterial material) {
-		super(material, material.getAdditionalDamage(Tools.SPADE), material.getAttackSpeed(Tools.SPADE), applyToolType(group == null ? properties : properties.group(group), material));
+	public UPickaxeItem(String name, ItemGroup group, Properties properties, IToolMaterial material) {
+		super(material, material.getAdditionalDamage(Tools.PICKAXE), material.getAttackSpeed(Tools.PICKAXE), applyToolType(group == null ? properties : properties.group(group), material));
 		this.name = name;
 	}
 	
@@ -25,7 +25,6 @@ public class UItemSpade extends ShovelItem implements IURegistryType {
 	}
 	
 	private static Properties applyToolType(Properties properties, IToolMaterial material) {
-		return properties.addToolType(ToolType.SHOVEL, material.getHarvestLevel());
+		return properties.addToolType(ToolType.PICKAXE, material.getHarvestLevel());
 	}
-	
 }
