@@ -5,13 +5,13 @@ import net.minecraft.item.Item;
 
 public class ToolSet implements IUArrayRegistryType<Item> {
 	
-	private final UItemAxe axe;
-	private final UItemHoe hoe;
-	private final UItemPickaxe pickaxe;
-	private final UItemSpade spade;
-	private final UItemSword sword;
+	private final UAxeItem axe;
+	private final UHoeItem hoe;
+	private final UPickaxeItem pickaxe;
+	private final USpadeItem spade;
+	private final USwordItem sword;
 	
-	public ToolSet(UItemAxe axe, UItemHoe hoe, UItemPickaxe pickaxe, UItemSpade spade, UItemSword sword) {
+	public ToolSet(UAxeItem axe, UHoeItem hoe, UPickaxeItem pickaxe, USpadeItem spade, USwordItem sword) {
 		this.axe = axe;
 		this.hoe = hoe;
 		this.pickaxe = pickaxe;
@@ -24,23 +24,23 @@ public class ToolSet implements IUArrayRegistryType<Item> {
 		return new Item[] { axe, hoe, pickaxe, spade, sword };
 	}
 	
-	public UItemAxe getAxe() {
+	public UAxeItem getAxe() {
 		return axe;
 	}
 	
-	public UItemHoe getHoe() {
+	public UHoeItem getHoe() {
 		return hoe;
 	}
 	
-	public UItemPickaxe getPickaxe() {
+	public UPickaxeItem getPickaxe() {
 		return pickaxe;
 	}
 	
-	public UItemSpade getSpade() {
+	public USpadeItem getSpade() {
 		return spade;
 	}
 	
-	public UItemSword getSword() {
+	public USwordItem getSword() {
 		return sword;
 	}
 	

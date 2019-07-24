@@ -5,17 +5,17 @@ import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 
-public class UItemArmor extends ArmorItem implements IURegistryType {
+public class UArmorItem extends ArmorItem implements IURegistryType {
 	
 	protected final String typeName;
 	
 	protected final String name;
 	
-	public UItemArmor(String name, Properties properties, IArmorMaterial material, EquipmentSlotType slot) {
+	public UArmorItem(String name, Properties properties, IArmorMaterial material, EquipmentSlotType slot) {
 		this(name, null, properties, material, slot);
 	}
 	
-	public UItemArmor(String name, ItemGroup group, Properties properties, IArmorMaterial material, EquipmentSlotType slot) {
+	public UArmorItem(String name, ItemGroup group, Properties properties, IArmorMaterial material, EquipmentSlotType slot) {
 		super(material, slot, group == null ? properties : properties.group(group));
 		this.typeName = name + "_" + getTypeString(slot);
 		this.name = name;
