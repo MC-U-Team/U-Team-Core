@@ -3,6 +3,8 @@ package info.u_team.u_team_core.entitytype;
 import java.lang.reflect.Method;
 import java.util.function.*;
 
+import com.mojang.datafixers.types.Type;
+
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.api.registry.IURegistryType;
 import net.minecraft.entity.*;
@@ -16,8 +18,8 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 	
 	protected final BiFunction<EntityType<T>, World, T> clientFactory;
 	
-	protected UEntityType(String name, IFactory<T> factory, EntityClassification classification, boolean serializable, boolean summonable, boolean immuneToFire, boolean spawnable, EntitySize size, Predicate<EntityType<?>> velocityUpdateSupplier, ToIntFunction<EntityType<?>> trackingRangeSupplier, ToIntFunction<EntityType<?>> updateIntervalSupplier, BiFunction<EntityType<T>, World, T> clientFactory) {
-		super(factory, classification, serializable, summonable, immuneToFire, spawnable, size, velocityUpdateSupplier, trackingRangeSupplier, updateIntervalSupplier, null);
+	protected UEntityType(String name, IFactory<T> factory, EntityClassification classification, boolean serializable, boolean summonable, boolean immuneToFire, Type<?> dataFixerType, EntitySize size, Predicate<EntityType<?>> velocityUpdateSupplier, ToIntFunction<EntityType<?>> trackingRangeSupplier, ToIntFunction<EntityType<?>> updateIntervalSupplier, BiFunction<EntityType<T>, World, T> clientFactory) {
+		super(factory, classification, serializable, summonable, immuneToFire, dataFixerType, size, velocityUpdateSupplier, trackingRangeSupplier, updateIntervalSupplier, null);
 		this.name = name;
 		this.clientFactory = clientFactory;
 	}
@@ -51,7 +53,7 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 		private ToIntFunction<EntityType<?>> trackingRangeSupplier;// = EntityType::defaultTrackingRangeSupplier;
 		private ToIntFunction<EntityType<?>> updateIntervalSupplier;// = EntityType::defaultUpdateIntervalSupplier;
 		private BiFunction<EntityType<T>, World, T> clientFactory;
-		private boolean spawnable;
+		private Type<?> dataFixerType;
 		
 		private EntitySize size = EntitySize.flexible(0.6F, 1.8F);
 		
@@ -106,8 +108,8 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 			return this;
 		}
 		
-		public UBuilder<T> setSpawnable() {
-			this.spawnable = true;
+		public UBuilder<T> setDataFixerType(Type<?> dataFixerType) {
+			this.dataFixerType = dataFixerType;
 			return this;
 		}
 		
@@ -121,7 +123,7 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 			if (updateIntervalSupplier == null) {
 				updateIntervalSupplier = type -> getPrivateDefaultValue(type, DEFAULT_UPDATE_INTERVAL_SUPPLIER_METHOD);
 			}
-			return new UEntityType<>(name, factory, classification, serializable, summonable, immuneToFire, spawnable, size, velocityUpdateSupplier, trackingRangeSupplier, updateIntervalSupplier, clientFactory);
+			return new UEntityType<>(name, factory, classification, serializable, summonable, immuneToFire, dataFixerType, size, velocityUpdateSupplier, trackingRangeSupplier, updateIntervalSupplier, clientFactory);
 		}
 		
 		/**
