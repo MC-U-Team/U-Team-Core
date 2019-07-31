@@ -37,7 +37,7 @@ public interface IToolMaterial extends IItemTier {
 		AXE(0),
 		HOE(1),
 		PICKAXE(2),
-		SPADE(3),
+		SHOVEL(3),
 		SWORD(4);
 		
 		private final int index;

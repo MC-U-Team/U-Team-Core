@@ -8,10 +8,10 @@ public class ToolSet implements IUArrayRegistryType<Item> {
 	private final UAxeItem axe;
 	private final UHoeItem hoe;
 	private final UPickaxeItem pickaxe;
-	private final USpadeItem spade;
+	private final UShovelItem spade;
 	private final USwordItem sword;
 	
-	public ToolSet(UAxeItem axe, UHoeItem hoe, UPickaxeItem pickaxe, USpadeItem spade, USwordItem sword) {
+	public ToolSet(UAxeItem axe, UHoeItem hoe, UPickaxeItem pickaxe, UShovelItem spade, USwordItem sword) {
 		this.axe = axe;
 		this.hoe = hoe;
 		this.pickaxe = pickaxe;
@@ -36,7 +36,7 @@ public class ToolSet implements IUArrayRegistryType<Item> {
 		return pickaxe;
 	}
 	
-	public USpadeItem getSpade() {
+	public UShovelItem getSpade() {
 		return spade;
 	}
 	
