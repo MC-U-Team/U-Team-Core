@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.api;
 
 import info.u_team.u_team_core.item.tool.UToolMaterial;
-import net.minecraft.item.IItemTier;
+import net.minecraft.item.*;
 
 /**
  * This interface extends the {@link IItemTier} interface for tool materials.
@@ -12,12 +12,14 @@ import net.minecraft.item.IItemTier;
 public interface IToolMaterial extends IItemTier {
 	
 	/**
-	 * Returns the additional damage that is added to the {@link #getAttackDamage()} per given tool.
+	 * Returns the additional damage that is added to the {@link #getAttackDamage()} per given tool. {@link AxeItem} and
+	 * {@link ShovelItem} can accept float values so this method returns floats. {@link PickaxeItem} and {@link SwordItem}
+	 * cannot accept floats so they will be casted to integers.
 	 * 
 	 * @param tools The tool
 	 * @return Additional damage
 	 */
-	int getAdditionalDamage(Tools tools);
+	float getAdditionalDamage(Tools tools);
 	
 	/**
 	 * Returns the attack speed per given tool.

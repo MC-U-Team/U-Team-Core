@@ -15,7 +15,7 @@ public class UPickaxeItem extends PickaxeItem implements IURegistryType {
 	}
 	
 	public UPickaxeItem(String name, ItemGroup group, Properties properties, IToolMaterial material) {
-		super(material, material.getAdditionalDamage(Tools.PICKAXE), material.getAttackSpeed(Tools.PICKAXE), applyToolType(group == null ? properties : properties.group(group), material));
+		super(material, (int) material.getAdditionalDamage(Tools.PICKAXE), material.getAttackSpeed(Tools.PICKAXE), applyToolType(group == null ? properties : properties.group(group), material));
 		this.name = name;
 	}
 	
