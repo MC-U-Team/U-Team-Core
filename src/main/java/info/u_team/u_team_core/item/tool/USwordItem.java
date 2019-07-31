@@ -14,7 +14,7 @@ public class USwordItem extends SwordItem implements IURegistryType {
 	}
 	
 	public USwordItem(String name, ItemGroup group, Properties properties, IToolMaterial material) {
-		super(material, material.getAdditionalDamage(Tools.SWORD), material.getAttackSpeed(Tools.SWORD), group == null ? properties : properties.group(group));
+		super(material, (int) material.getAdditionalDamage(Tools.SWORD), material.getAttackSpeed(Tools.SWORD), group == null ? properties : properties.group(group));
 		this.name = name;
 	}
 	

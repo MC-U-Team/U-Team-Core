@@ -6,16 +6,16 @@ import info.u_team.u_team_core.api.registry.IURegistryType;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ToolType;
 
-public class USpadeItem extends ShovelItem implements IURegistryType {
+public class UShovelItem extends ShovelItem implements IURegistryType {
 	
 	protected final String name;
 	
-	public USpadeItem(String name, Properties properties, IToolMaterial material) {
+	public UShovelItem(String name, Properties properties, IToolMaterial material) {
 		this(name, null, properties, material);
 	}
 	
-	public USpadeItem(String name, ItemGroup group, Properties properties, IToolMaterial material) {
-		super(material, material.getAdditionalDamage(Tools.SPADE), material.getAttackSpeed(Tools.SPADE), applyToolType(group == null ? properties : properties.group(group), material));
+	public UShovelItem(String name, ItemGroup group, Properties properties, IToolMaterial material) {
+		super(material, material.getAdditionalDamage(Tools.SHOVEL), material.getAttackSpeed(Tools.SHOVEL), applyToolType(group == null ? properties : properties.group(group), material));
 		this.name = name;
 	}
 	

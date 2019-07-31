@@ -20,6 +20,6 @@ public class UCoreColors {
 				return ((IDyeableItem) item).getColor(itemstack);
 			}
 			return 0;
-		}, DyeableItemsRegistry.getDyeableItems().toArray(new Item[DyeableItemsRegistry.getDyeableItems().size()]));
+		}, DyeableItemsRegistry.getDyeableItems().stream().toArray(Item[]::new));
 	}
 }
