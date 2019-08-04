@@ -207,7 +207,7 @@ curseforge {
     	mainArtifact(jar) {
       		displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}"
       		changelogType = "html"
-      		changelog = "<a href=\"https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/CHANGELOG.MD\">Changelog of ${project.version}</a>"
+      		changelog = "<a href=\"https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/CHANGELOG.md\">Changelog of ${project.version}</a>"
     	}
     	
     	addArtifact(deobfJar) {
