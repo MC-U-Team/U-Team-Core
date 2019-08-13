@@ -1,21 +1,15 @@
 package info.u_team.u_team_core.block;
 
-import java.util.Optional;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.api.sync.*;
-import io.netty.buffer.Unpooled;
+import info.u_team.u_team_core.api.ITileEntityBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.*;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.*;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.*;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.world.IBlockReader;
 
-public class UTileEntityBlock extends UBlock {
+public class UTileEntityBlock extends UBlock implements ITileEntityBlock {
 	
 	protected final Supplier<TileEntityType<?>> tileEntityType;
 	
@@ -46,62 +40,9 @@ public class UTileEntityBlock extends UBlock {
 		return tileEntityType.get().create();
 	}
 	
-	public boolean openContainer(World world, BlockPos pos, PlayerEntity player) {
-		return openContainer(world, pos, player, false);
-	}
-	
-	public boolean openContainer(World world, BlockPos pos, PlayerEntity player, boolean canOpenSneak) {
-		if (world.isRemote || !(player instanceof ServerPlayerEntity)) {
-			return true;
-		}
-		
-		final ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-		Optional<TileEntity> tileEntityOptional = isTileEntityFromType(world, pos);
-		
-		if (!tileEntityOptional.isPresent()) {
-			return false;
-		}
-		
-		final TileEntity tileEntity = tileEntityOptional.get();
-		
-		if (!(tileEntity instanceof INamedContainerProvider)) {
-			return false;
-		}
-		
-		if (!canOpenSneak && serverPlayer.isSneaking()) {
-			return true;
-		}
-		
-		final PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-		if (tileEntity instanceof IInitSyncedTileEntity) {
-			((IInitSyncedTileEntity) tileEntity).sendInitialDataBuffer(buffer);
-		}
-		
-		NetworkHooks.openGui(serverPlayer, (INamedContainerProvider) tileEntity, extraData -> {
-			extraData.writeBlockPos(pos);
-			extraData.writeVarInt(buffer.readableBytes());
-			extraData.writeBytes(buffer);
-		});
-		return true;
-		
-	}
-	
-	/**
-	 * Return an optional with a tile entity if the tile entity at this position exists and is the same tile entity type as
-	 * this block creates. This method is unchecked with a generic attribute.
-	 * 
-	 * @param <T> Tile entity
-	 * @param world World
-	 * @param pos Position of the tile entity
-	 * @return Optional with tile entity or empty
-	 */
-	@SuppressWarnings("unchecked")
-	public <T extends TileEntity> Optional<T> isTileEntityFromType(IBlockReader world, BlockPos pos) {
-		final TileEntity tileEntity = world.getTileEntity(pos);
-		if (tileEntity == null || tileEntityType.get() != tileEntity.getType()) {
-			return Optional.empty();
-		}
-		return Optional.of((T) tileEntity);
+	@Override
+	public TileEntityType<?> getTileEntityType(IBlockReader world, BlockPos pos) {
+		return tileEntityType.get();
 	}
 	
 }
