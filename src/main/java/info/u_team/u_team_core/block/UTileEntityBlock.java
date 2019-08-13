@@ -3,7 +3,7 @@ package info.u_team.u_team_core.block;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.api.sync.ISyncedTileEntity;
+import info.u_team.u_team_core.api.sync.*;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.*;
@@ -73,8 +73,8 @@ public class UTileEntityBlock extends UBlock {
 		}
 		
 		final PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-		if (tileEntity instanceof ISyncedTileEntity) {
-			((ISyncedTileEntity) tileEntity).sendInitialDataBuffer(buffer);
+		if (tileEntity instanceof IInitSyncedTileEntity) {
+			((IInitSyncedTileEntity) tileEntity).sendInitialDataBuffer(buffer);
 		}
 		
 		NetworkHooks.openGui(serverPlayer, (INamedContainerProvider) tileEntity, extraData -> {
