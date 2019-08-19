@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [1.14.4-2.7.1.130] - 2019-08-13
 ### Changed
 - Extract init sync methods for container to extra interface 
-- Add interface for utility methods for opening guis that were in UTileEntityBlock to make the accessible for more blocks that cannot extend UBlockTileEntity e.g. rails in useful railroads
+- Add interface for utility methods for opening guis that were in UTileEntityBlock to make it accessible for more blocks that cannot extend UBlockTileEntity e.g. rails in useful railroads
 
 ### Added
 - Added new tile entity container with no sync stuff except the init packet sync
