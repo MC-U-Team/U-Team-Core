@@ -12,7 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public abstract class UTileeEntityContainer<T extends TileEntity> extends UContainer {
+public abstract class UTileEntityContainer<T extends TileEntity> extends UContainer {
 	
 	protected final PlayerInventory playerInventory;
 	protected final T tileEntity;
@@ -25,7 +25,7 @@ public abstract class UTileeEntityContainer<T extends TileEntity> extends UConta
 	 * @param playerInventory Player inventory
 	 * @param tileEntity Tile entity
 	 */
-	public UTileeEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, T tileEntity) {
+	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, T tileEntity) {
 		this(type, id, playerInventory, tileEntity, true);
 	}
 	
@@ -38,7 +38,7 @@ public abstract class UTileeEntityContainer<T extends TileEntity> extends UConta
 	 * @param tileEntity Tile entity
 	 * @param init If the constructor should call {@link #init()}
 	 */
-	public UTileeEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, T tileEntity, boolean init) {
+	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, T tileEntity, boolean init) {
 		super(type, id);
 		this.playerInventory = playerInventory;
 		this.tileEntity = tileEntity;
@@ -56,7 +56,7 @@ public abstract class UTileeEntityContainer<T extends TileEntity> extends UConta
 	 * @param playerInventory Player inventory
 	 * @param buffer Initial data (specified with {@link NetworkHooks#openGui(player, containerSupplier,extraDataWriter)})
 	 */
-	public UTileeEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer) {
+	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer) {
 		this(type, id, playerInventory, buffer, true);
 	}
 	
@@ -70,7 +70,7 @@ public abstract class UTileeEntityContainer<T extends TileEntity> extends UConta
 	 * @param buffer Initial data (specified with {@link NetworkHooks#openGui(player, containerSupplier,extraDataWriter)})
 	 * @param init If the constructor should call {@link #init()}
 	 */
-	public UTileeEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer, boolean init) {
+	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer, boolean init) {
 		super(type, id);
 		this.playerInventory = playerInventory;
 		this.tileEntity = getClientTileEntity(buffer);
