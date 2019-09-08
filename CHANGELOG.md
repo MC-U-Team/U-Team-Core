@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.7.2.131] - 2019-09-09
+### Changed
+ - Renamed UTileeEntityContainer to UTileEntityContainer (fix spelling mistake)
+
 ## [1.14.4-2.7.1.130] - 2019-08-13
 ### Changed
 - Extract init sync methods for container to extra interface 
