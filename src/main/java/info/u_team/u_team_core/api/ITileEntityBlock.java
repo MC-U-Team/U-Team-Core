@@ -21,7 +21,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public interface ITileEntityBlock {
 	
 	/**
-	 * /** Returns the {@link TileEntityType} of the block.
+	 * Returns the {@link TileEntityType} of the block.
 	 * 
 	 * 
 	 * @param world World
