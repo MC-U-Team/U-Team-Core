@@ -1,9 +1,12 @@
 # U-Team-Core
 
 [
-![](http://cf.way2muchnoise.eu/u-team-core.svg)
-![](http://cf.way2muchnoise.eu/versions/u-team-core.svg)
+![Curseforge Downloads](http://cf.way2muchnoise.eu/u-team-core.svg)
+![Curseforge Versions](http://cf.way2muchnoise.eu/versions/u-team-core.svg)
 ](https://www.curseforge.com/minecraft/mc-mods/u-team-core)
+[
+![Discord](https://img.shields.io/discord/297104769649213441?label=Discord)
+](https://discordapp.com/invite/QXbWS36)
 
 ### This is an opensource api and library for u-team's mods.
 
