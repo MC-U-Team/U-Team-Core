@@ -17,7 +17,7 @@
 ### How to build this mod
 
 #### Setup Eclipse
-- ./gradlew genEclipseRuns eclipse
+- ```./gradlew genEclipseRuns eclipse```
 - Import project as existing workspace
 
 #### Setup IntelliJ IDEA
