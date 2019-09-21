@@ -14,6 +14,19 @@
 - Find more information on our [website](https://u-team.info/mods/uteamcore).
 - See the [changelog](CHANGELOG.md) for updates.
 
+### How to build this mod
+
+#### Setup Eclipse
+- ./gradlew genEclipseRuns eclipse
+- Import project as existing workspace
+
+#### Setup IntelliJ IDEA
+- ./gradlew genIntellijRuns
+- Import as gradle project
+
+#### Build
+- ./gradlew build
+
 ### How to include this mod
 
 - Repository: [repo.u-team.info](https://repo.u-team.info)
