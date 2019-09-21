@@ -190,7 +190,15 @@ compileJava {
 }
 
 curseforge {
-	apiKey = project.getProperty("token")
+	if(System.getenv("token") != null) {
+		apiKey = project.getProperty("token")
+	} else {
+		if (project.hasProperty("token")) {
+			apiKey = System.getenv("token")
+		} else {
+			apiKey = "mrTroble" //We dont have one lol ¯\_(ツ)_/¯
+		}
+	}
 	
 	tasks.curseforge.dependsOn build
 	
