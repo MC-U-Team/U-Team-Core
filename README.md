@@ -17,15 +17,15 @@
 ### How to build this mod
 
 #### Setup Eclipse
-- ```./gradlew genEclipseRuns eclipse```
+- ``./gradlew genEclipseRuns eclipse``
 - Import project as existing workspace
 
 #### Setup IntelliJ IDEA
-- ./gradlew genIntellijRuns
+- ``./gradlew genIntellijRuns``
 - Import as gradle project
 
 #### Build
-- ./gradlew build
+- ``./gradlew build``
 
 ### How to include this mod
 
