@@ -12,7 +12,7 @@
 
 - Download on [curseforge](https://www.curseforge.com/minecraft/mc-mods/u-team-core).  
 - Find more information on our [website](https://u-team.info/mods/uteamcore).
-- See the [changelog](CHANGELOG.md) for updates.
+- Updates can be found in the [changelog](CHANGELOG.md).
 
 ### How to build this mod
 
