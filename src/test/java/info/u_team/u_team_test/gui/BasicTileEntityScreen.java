@@ -31,7 +31,8 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 			container.sendDataToServer(buffer);
 		}));
 		
-		addButton(new GuiSlider(guiLeft + 7, guiTop + 19, 162, 20, "Cooldown: ", " Ticks", 0, 100, container.getTileEntity().cooldown, false, true, button -> {}, slider -> {
+		addButton(new GuiSlider(guiLeft + 7, guiTop + 19, 162, 20, "Cooldown: ", " Ticks", 0, 100, container.getTileEntity().cooldown, false, true, button -> {
+		}, slider -> {
 			container.getTileEntity().cooldown = slider.getValueInt();
 			PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
 			container.sendToServer(buffer);

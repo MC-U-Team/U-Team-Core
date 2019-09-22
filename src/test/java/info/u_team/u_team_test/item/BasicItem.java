@@ -34,7 +34,8 @@ public class BasicItem extends UItem {
 			ServerPlayerEntity playermp = (ServerPlayerEntity) player;
 			playermp.connection.setPlayerLocation(pos.getX(), pos.getY() + 1, pos.getZ(), playermp.rotationYaw, playermp.rotationPitch);
 			
-			stack.damageItem(1, player, (test) -> {});
+			stack.damageItem(1, player, (test) -> {
+			});
 			
 		}
 		return new ActionResult<ItemStack>(ActionResultType.SUCCESS, stack);
