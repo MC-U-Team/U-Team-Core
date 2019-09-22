@@ -4,7 +4,7 @@ import static net.minecraft.client.renderer.model.ModelBakery.STATE_CONTAINER_OV
 
 import java.util.*;
 
-import com.google.common.collect.ImmutableMap;
+import com.google.common.collect.*;
 
 import net.minecraft.block.*;
 import net.minecraft.state.StateContainer;
@@ -24,6 +24,19 @@ public class ModelUtil {
 	
 	public static void addCustomStateContainer(ResourceLocation location, StateContainer<Block, BlockState> container) {
 		STATE_CONTAINER_OVERRIDES.put(location, container);
+	}
+	
+	public static class EmptyStateContainer extends StateContainer<Block, BlockState> {
+		
+		public EmptyStateContainer(Block block) {
+			super(block, BlockState::new, new HashMap<>());
+		}
+		
+		@Override
+		public ImmutableList<BlockState> getValidStates() {
+			return getOwner().getStateContainer().getValidStates();
+		}
+		
 	}
 	
 }
