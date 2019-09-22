@@ -4,7 +4,8 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.event.lifecycle.*;
 
 /**
- * Simple interface for proxy default methods. Use with {@link DistExecutor#runForDist(client, server)}.
+ * Simple interface for proxy default methods. Use with
+ * {@link DistExecutor#runForDist(java.util.function.Supplier, java.util.function.Supplier)}.
  * 
  * @author HyCraftHD
  *

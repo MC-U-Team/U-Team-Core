@@ -125,7 +125,7 @@ public abstract class UContainer extends Container {
 		 * @param index Index for this inventory
 		 * @param xPosition x coordinate
 		 * @param yPosition y coordinate
-		 * @return
+		 * @return A slot instance
 		 */
 		Slot getSlot(IInventory inventory, int index, int xPosition, int yPosition);
 	}
@@ -146,7 +146,7 @@ public abstract class UContainer extends Container {
 		 * @param index Index for this item handler
 		 * @param xPosition x coordinate
 		 * @param yPosition y coordinate
-		 * @return
+		 * @return A Slot instance
 		 */
 		Slot getSlot(IItemHandler itemHandler, int index, int xPosition, int yPosition);
 	}

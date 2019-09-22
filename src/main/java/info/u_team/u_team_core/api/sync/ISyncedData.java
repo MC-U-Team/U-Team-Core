@@ -19,7 +19,7 @@ public interface ISyncedData {
 	
 	/**
 	 * This method is called on the server side. Data can be written to the packet buffer. The data will receive the client
-	 * in {@link #handleFromServer(buffer)}.
+	 * in {@link #handleFromServer(PacketBuffer)}.
 	 * 
 	 * This method is for client -> server sync.
 	 * 
@@ -29,7 +29,7 @@ public interface ISyncedData {
 	
 	/**
 	 * This method is called on the client side. Data can be read from the packet buffer. The data is from the server method
-	 * {@link #sendToClient(buffer)}.
+	 * {@link #sendToClient(PacketBuffer)}.
 	 * 
 	 * This method is for client -> server sync.
 	 * 
@@ -40,7 +40,7 @@ public interface ISyncedData {
 	
 	/**
 	 * This method is called on the client side. Data can be written to the packet buffer. The data will receive the server
-	 * in {@link #handleFromClient(buffer)}.
+	 * in {@link #handleFromClient(PacketBuffer)}.
 	 * 
 	 * This method is for server -> client sync.
 	 * 
@@ -51,7 +51,7 @@ public interface ISyncedData {
 	
 	/**
 	 * This method is called on the server side. Data can be read from the packet buffer. The data is from the client method
-	 * {@link #sendToServer(buffer)}.
+	 * {@link #sendToServer(PacketBuffer)}.
 	 * 
 	 * This method is for server -> client sync.
 	 * 
@@ -60,8 +60,8 @@ public interface ISyncedData {
 	void handleFromClient(PacketBuffer buffer);
 	
 	/**
-	 * This method will call {@link #sendToClient(buffer)} to get the data and then call
-	 * {@link #sendDataToClient(player, buffer)} to send the data.
+	 * This method will call {@link #sendToClient(PacketBuffer)} to get the data and then call
+	 * {@link #sendDataToClient(ServerPlayerEntity, PacketBuffer)} to send the data.
 	 * 
 	 * @param player Server player
 	 */
@@ -82,7 +82,7 @@ public interface ISyncedData {
 	}
 	
 	/**
-	 * This method will call {@link #sendToServer(buffer)} to get the data and then call {@link #sendDataToServer(buffer)}
+	 * This method will call {@link #sendToServer(PacketBuffer)} to get the data and then call {@link #sendDataToServer(PacketBuffer)}
 	 * to send the data.
 	 */
 	@OnlyIn(Dist.CLIENT)

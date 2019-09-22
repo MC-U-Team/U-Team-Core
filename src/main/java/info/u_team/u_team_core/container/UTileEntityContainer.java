@@ -18,7 +18,8 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	protected final T tileEntity;
 	
 	/**
-	 * This is the server constructor for the container. The {@link #init()} is called.
+	 * This is the server constructor for the container. The {@link #init(boolean)}
+	 * is called.
 	 * 
 	 * @param type Container type
 	 * @param id Window id
@@ -36,7 +37,7 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	 * @param id Window id
 	 * @param playerInventory Player inventory
 	 * @param tileEntity Tile entity
-	 * @param init If the constructor should call {@link #init()}
+	 * @param init If the constructor should call {@link #init(boolean)}
 	 */
 	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, T tileEntity, boolean init) {
 		super(type, id);
@@ -48,27 +49,30 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	}
 	
 	/**
-	 * This is the client constructor for the container. It calls {@link #getClientTileEntity(PacketBuffer)} to get the tile
-	 * entity. The {@link #init()} is called.
+	 * This is the client constructor for the container. It calls
+	 * {@link #getClientTileEntity(PacketBuffer)} to get the tile entity. The
+	 * {@link #init(boolean)} is called.
 	 * 
 	 * @param type Container type
 	 * @param id Window id
 	 * @param playerInventory Player inventory
-	 * @param buffer Initial data (specified with {@link NetworkHooks#openGui(player, containerSupplier,extraDataWriter)})
+	 * @param buffer Initial data (specified with
+	 *        {@link NetworkHooks#openGui(net.minecraft.entity.player.ServerPlayerEntity, net.minecraft.inventory.container.INamedContainerProvider, java.util.function.Consumer)})
 	 */
 	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer) {
 		this(type, id, playerInventory, buffer, true);
 	}
 	
 	/**
-	 * This is the client constructor for the container. It calls {@link #getClientTileEntity(PacketBuffer)} to get the tile
-	 * entity.
+	 * This is the client constructor for the container. It calls
+	 * {@link #getClientTileEntity(PacketBuffer)} to get the tile entity.
 	 * 
 	 * @param type Container type
 	 * @param id Window id
 	 * @param playerInventory Player inventory
-	 * @param buffer Initial data (specified with {@link NetworkHooks#openGui(player, containerSupplier,extraDataWriter)})
-	 * @param init If the constructor should call {@link #init()}
+	 * @param buffer Initial data (specified with
+	 *        {@link NetworkHooks#openGui(net.minecraft.entity.player.ServerPlayerEntity, net.minecraft.inventory.container.INamedContainerProvider, java.util.function.Consumer)})
+	 * @param init If the constructor should call {@link #init(boolean)}
 	 */
 	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer, boolean init) {
 		super(type, id);
@@ -83,8 +87,9 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	}
 	
 	/**
-	 * This methods reads a position from the {@link PacketBuffer} and then tries to find a matching client tile entity.
-	 * This method is only client sided. If the tile entity does not exist an {@link IllegalStateException} is thrown.
+	 * This methods reads a position from the {@link PacketBuffer} and then tries to
+	 * find a matching client tile entity. This method is only client sided. If the
+	 * tile entity does not exist an {@link IllegalStateException} is thrown.
 	 * 
 	 * @param buffer Packet buffer with the read index at a {@link BlockPos}
 	 * @return A tile entity that implements {@link ISyncedTileEntity}
@@ -100,20 +105,23 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	}
 	
 	/**
-	 * Is called after the server and client constructor. If you want to use your own fields in the init method, set the
-	 * last constructor boolean to false and then call this method your self in all constructors.
+	 * Is called after the server and client constructor. If you want to use your
+	 * own fields in the init method, set the last constructor boolean to false and
+	 * then call this method your self in all constructors.
 	 *
 	 * @param server True if its the server side false otherwise
 	 */
 	protected abstract void init(boolean server);
 	
 	/**
-	 * On the server side just returns the inventory. On the client side this method returns a new instance of
-	 * {@link Inventory} with the same size as the passed inventory.
+	 * On the server side just returns the inventory. On the client side this method
+	 * returns a new instance of {@link Inventory} with the same size as the passed
+	 * inventory.
 	 * 
 	 * @param server True if is the server side false otherwise
 	 * @param inventory Inventory to decide on
-	 * @return The passed inventory on the server side of a new one on the client side
+	 * @return The passed inventory on the server side of a new one on the client
+	 *         side
 	 */
 	protected IInventory getInventoryOnDist(boolean server, IInventory inventory) {
 		return server ? inventory : new Inventory(inventory.getSizeInventory());

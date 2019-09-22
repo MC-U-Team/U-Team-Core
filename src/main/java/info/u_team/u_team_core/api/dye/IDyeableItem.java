@@ -7,8 +7,8 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 
 /**
- * Attach this to any item that can be colors. Automatically adds dye color recipes. Call {@link #addItem(Item)} to also
- * register the item to the item color manager.
+ * Attach this to any item that can be colors. Automatically adds dye color recipes. Call
+ * {@link addColoredItem(Item)} to also register the item to the item color manager.
  * 
  * @author HyCraftHD
  *

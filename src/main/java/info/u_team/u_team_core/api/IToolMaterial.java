@@ -51,7 +51,7 @@ public interface IToolMaterial extends IItemTier {
 		/**
 		 * Returns the index. Only used in {@link UToolMaterial} for simple arrays.
 		 * 
-		 * @return
+		 * @return Index of tool
 		 */
 		public int getIndex() {
 			return index;

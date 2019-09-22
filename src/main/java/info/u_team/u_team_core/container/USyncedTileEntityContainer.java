@@ -30,7 +30,7 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 	private PacketBuffer lastBuffer;
 	
 	/**
-	 * This is the server constructor for the container. The {@link #init()} is called.
+	 * This is the server constructor for the container. The {@link #init(boolean)} is called.
 	 * 
 	 * @param type Container type
 	 * @param id Window id
@@ -48,7 +48,7 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 	 * @param id Window id
 	 * @param playerInventory Player inventory
 	 * @param tileEntity Tile entity
-	 * @param init If the constructor should call {@link #init()}
+	 * @param init If the constructor should call {@link #init(boolean)}
 	 */
 	public USyncedTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, T tileEntity, boolean init) {
 		super(type, id);
@@ -61,12 +61,13 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 	
 	/**
 	 * This is the client constructor for the container. It calls {@link #getClientTileEntity(PacketBuffer)} to get the tile
-	 * entity. The {@link #init()} is called.
+	 * entity. The {@link #init(boolean)} is called.
 	 * 
 	 * @param type Container type
 	 * @param id Window id
 	 * @param playerInventory Player inventory
-	 * @param buffer Initial data (specified with {@link NetworkHooks#openGui(player, containerSupplier,extraDataWriter)})
+	 * @param buffer Initial data (specified with
+	 *            {@link NetworkHooks#openGui(ServerPlayerEntity, INamedContainerProvider, java.util.function.Consumer)})
 	 */
 	public USyncedTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer) {
 		this(type, id, playerInventory, buffer, true);
@@ -79,8 +80,9 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 	 * @param type Container type
 	 * @param id Window id
 	 * @param playerInventory Player inventory
-	 * @param buffer Initial data (specified with {@link NetworkHooks#openGui(player, containerSupplier,extraDataWriter)})
-	 * @param init If the constructor should call {@link #init()}
+	 * @param buffer Initial data (specified with
+	 *            {@link NetworkHooks#openGui(ServerPlayerEntity, INamedContainerProvider, java.util.function.Consumer)})
+	 * @param init If the constructor should call {@link #init(boolean)}
 	 */
 	public USyncedTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer, boolean init) {
 		super(type, id, buffer);

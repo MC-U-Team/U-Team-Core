@@ -28,7 +28,8 @@ public abstract class USyncedContainer extends UContainer implements ISyncedData
 	 * 
 	 * @param type Container type
 	 * @param id Window id
-	 * @param buffer Initial data (specified with {@link NetworkHooks#openGui(player, containerSupplier,extraDataWriter)})
+	 * @param buffer Initial data (specified with
+	 *            {@link NetworkHooks#openGui(net.minecraft.entity.player.ServerPlayerEntity, net.minecraft.inventory.container.INamedContainerProvider, java.util.function.Consumer)})
 	 */
 	public USyncedContainer(ContainerType<?> type, int id, PacketBuffer buffer) {
 		super(type, id);
