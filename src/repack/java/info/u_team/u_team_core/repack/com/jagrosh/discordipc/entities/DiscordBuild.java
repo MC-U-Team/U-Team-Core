@@ -32,7 +32,7 @@ public enum DiscordBuild {
 	
 	/**
 	 * 'Wildcard' build constant used in
-	 * {@link com.jagrosh.discordipc.IPCClient#connect(DiscordBuild...)
+	 * {@link info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient#connect(DiscordBuild...)
 	 * IPCClient#connect(DiscordBuild...)} to signify that the build to target is
 	 * not important, and that the first valid build will be used.
 	 * <p>
