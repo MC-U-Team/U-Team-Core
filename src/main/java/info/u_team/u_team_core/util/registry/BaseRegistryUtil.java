@@ -21,7 +21,6 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
  * fields.
  * 
  * @author HyCraftHD
- *
  */
 public class BaseRegistryUtil {
 	
@@ -46,12 +45,10 @@ public class BaseRegistryUtil {
 	
 	/**
 	 * This method is caller sensitive! It use the current stack trace to get the caller class. If this is not what you want
-	 * use {@link BaseRegistryUtil#getAllGenericRegistryEntriesAndApplyNames(modid, classType, init)}. <br>
-	 * 
+	 * use {@link BaseRegistryUtil#getAllGenericRegistryEntriesAndApplyNames(String, Class, Class)}. <br>
 	 * This method is for generic registry entries. For usage please look at see also.
 	 * 
-	 * @see BaseRegistryUtil#getAllRegistryEntriesAndApplyNames(modid, classType, init)
-	 * 
+	 * @see BaseRegistryUtil#getAllRegistryEntriesAndApplyNames(String, Class, Class)
 	 * @param <C> Also kind of the same as <T>. Because of generic classes this is not save.
 	 * @param <T> Type of the {@link IForgeRegistryEntry} to search for
 	 * @param modid The mod identifier to apply the names
@@ -65,8 +62,7 @@ public class BaseRegistryUtil {
 	/**
 	 * This method is for generic registry entries. For usage please look at see also.
 	 * 
-	 * @see BaseRegistryUtil#getAllRegistryEntriesAndApplyNames(modid, classType, init)
-	 * 
+	 * @see BaseRegistryUtil#getAllRegistryEntriesAndApplyNames(String, Class, Class)
 	 * @param <C> Also kind of the same as <T>. Because of generic classes this is not save.
 	 * @param <T> Type of the {@link IForgeRegistryEntry} to search for
 	 * @param modid The mod identifier to apply the names
@@ -81,17 +77,14 @@ public class BaseRegistryUtil {
 	
 	/**
 	 * This method is caller sensitive! It use the current stack trace to get the caller class. If this is not what you want
-	 * use {@link BaseRegistryUtil#getAllRegistryEntriesAndApplyNames(modid, classType, init)}. <br>
-	 * 
+	 * use {@link BaseRegistryUtil#getAllRegistryEntriesAndApplyNames(String, Class, Class)}. <br>
 	 * Returns all not excluded static fields of a class which extends the passed classType. Also search for
 	 * {@link IUArrayRegistryType} fields with the given classType The classType must be a subclass of
 	 * {@link IForgeRegistryEntry}. If the entry implements {@link IURegistryType} the
-	 * {@link IForgeRegistryEntry#setRegistryName(ResourceLocation)} is executed to set the registry name.
+	 * {@link IForgeRegistryEntry#setRegistryName(ResourceLocation)} is executed to set the registry name. With
+	 * {@link Exclude} you can exclude fields from this list.
 	 * 
-	 * With {@link Exclude} you can exclude fields from this list.
-	 * 
-	 * @see BaseRegistryUtil#getAllClassEntries(classType)
-	 * 
+	 * @see BaseRegistryUtil#getAllClassEntries(Class)
 	 * @param <T> Type of the {@link IForgeRegistryEntry} to search for
 	 * @param modid The mod identifier to apply the names
 	 * @param classType Class of the {@link IForgeRegistryEntry} to search for
@@ -105,12 +98,10 @@ public class BaseRegistryUtil {
 	 * Returns all not excluded static fields of a class which extends the passed classType. Also search for
 	 * {@link IUArrayRegistryType} fields with the given classType The classType must be a subclass of
 	 * {@link IForgeRegistryEntry}. If the entry implements {@link IURegistryType} the
-	 * {@link IForgeRegistryEntry#setRegistryName(ResourceLocation)} is executed to set the registry name.
+	 * {@link IForgeRegistryEntry#setRegistryName(ResourceLocation)} is executed to set the registry name. With
+	 * {@link Exclude} you can exclude fields from this list.
 	 * 
-	 * With {@link Exclude} you can exclude fields from this list.
-	 * 
-	 * @see BaseRegistryUtil#getAllClassEntries(classType, init)
-	 * 
+	 * @see BaseRegistryUtil#getAllClassEntries(Class, Class)
 	 * @param <T> Type of the {@link IForgeRegistryEntry} to search for
 	 * @param modid The mod identifier to apply the names
 	 * @param classType Class of the {@link IForgeRegistryEntry} to search for
@@ -129,19 +120,15 @@ public class BaseRegistryUtil {
 	
 	/**
 	 * This method is caller sensitive! It use the current stack trace to get the caller class. If this is not what you want
-	 * use {@link BaseRegistryUtil#getAllClassEntries(classType, init)}. <br>
-	 * 
+	 * use {@link BaseRegistryUtil#getAllClassEntries(Class, Class)}. <br>
 	 * Returns all not excluded static fields of a class which extends the passed classType. Also search for
-	 * {@link IUArrayRegistryType} fields with the given classType.
+	 * {@link IUArrayRegistryType} fields with the given classType. With {@link Exclude} you can exclude fields from this
+	 * list.
 	 * 
-	 * With {@link Exclude} you can exclude fields from this list.
-	 * 
-	 * @see BaseRegistryUtil#getClassEntries(classType)
-	 * @see BaseRegistryUtil#getClassEntriesFromArrayType(classType)
-	 * 
+	 * @see BaseRegistryUtil#getClassEntries(Class)
+	 * @see BaseRegistryUtil#getClassEntriesFromArrayType(Class)
 	 * @param <T> Type of the entry to search for
 	 * @param classType Class of the entry to search for
-	 * @param init Class where to search for entries
 	 * @return List of all found and matching entries
 	 */
 	public static <T> List<T> getAllClassEntries(Class<T> classType) {
@@ -153,11 +140,9 @@ public class BaseRegistryUtil {
 	
 	/**
 	 * This method is caller sensitive! It use the current stack trace to get the caller class. If this is not what you want
-	 * use {@link BaseRegistryUtil#getClassEntries(classType, init)}. <br>
-	 * 
-	 * Returns all not excluded static fields of a class which extends the passed classType.
-	 * 
-	 * With {@link Exclude} you can exclude fields from this list.
+	 * use {@link BaseRegistryUtil#getClassEntries(Class, Class)}. <br>
+	 * Returns all not excluded static fields of a class which extends the passed classType. With {@link Exclude} you can
+	 * exclude fields from this list.
 	 * 
 	 * @param <T> Type of the entry to search for
 	 * @param classType Class of the entry to search for
@@ -169,12 +154,9 @@ public class BaseRegistryUtil {
 	
 	/**
 	 * This method is caller sensitive! It use the current stack trace to get the caller class. If this is not what you want
-	 * use {@link BaseRegistryUtil#getClassEntriesFromArrayType(classType, init)}. <br>
-	 * 
+	 * use {@link BaseRegistryUtil#getClassEntriesFromArrayType(Class, Class)}. <br>
 	 * Returns all not excluded static fields of a class which extends the passed classType and are packed in and
-	 * {@link IUArrayRegistryType}.
-	 * 
-	 * With {@link Exclude} you can exclude fields from this list.
+	 * {@link IUArrayRegistryType}. With {@link Exclude} you can exclude fields from this list.
 	 * 
 	 * @param <T> Type of the entry to search for
 	 * @param classType Class of the entry to search for
@@ -186,13 +168,11 @@ public class BaseRegistryUtil {
 	
 	/**
 	 * Returns all not excluded static fields of a class which extends the passed classType. Also search for
-	 * {@link IUArrayRegistryType} fields with the given classType.
+	 * {@link IUArrayRegistryType} fields with the given classType. With {@link Exclude} you can exclude fields from this
+	 * list.
 	 * 
-	 * With {@link Exclude} you can exclude fields from this list.
-	 * 
-	 * @see BaseRegistryUtil#getClassEntries(classType, init)
-	 * @see BaseRegistryUtil#getClassEntriesFromArrayType(classType, init)
-	 * 
+	 * @see BaseRegistryUtil#getClassEntries(Class, Class)
+	 * @see BaseRegistryUtil#getClassEntriesFromArrayType(Class, Class)
 	 * @param <T> Type of the entry to search for
 	 * @param classType Class of the entry to search for
 	 * @param init Class where to search for entries
@@ -205,9 +185,8 @@ public class BaseRegistryUtil {
 	}
 	
 	/**
-	 * Returns all not excluded static fields of a class which extends the passed classType.
-	 * 
-	 * With {@link Exclude} you can exclude fields from this list.
+	 * Returns all not excluded static fields of a class which extends the passed classType. With {@link Exclude} you can
+	 * exclude fields from this list.
 	 * 
 	 * @param <T> Type of the entry to search for
 	 * @param classType Class of the entry to search for
@@ -221,9 +200,7 @@ public class BaseRegistryUtil {
 	
 	/**
 	 * Returns all not excluded static fields of a class which extends the passed classType and are packed in and
-	 * {@link IUArrayRegistryType}.
-	 * 
-	 * With {@link Exclude} you can exclude fields from this list.
+	 * {@link IUArrayRegistryType}. With {@link Exclude} you can exclude fields from this list.
 	 * 
 	 * @param <T> Type of the entry to search for
 	 * @param classType Class of the entry to search for
