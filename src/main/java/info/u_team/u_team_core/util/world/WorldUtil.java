@@ -19,7 +19,7 @@ public class WorldUtil {
 	 * Raytrace from an entities look vector for collisions in range. Use default block mode {@link BlockMode#OUTLINE} and
 	 * fluid mode {@link FluidMode#NONE}.
 	 * 
-	 * @see WorldUtil#rayTraceServerSide(Entity, double, BlockMode, FluidMode)
+	 * @see #rayTraceServerSide(Entity, double, BlockMode, FluidMode)
 	 * @param entity Entity from where we get the look vector
 	 * @param range Range in blocks
 	 * @return Raytrace result with information about the trace
