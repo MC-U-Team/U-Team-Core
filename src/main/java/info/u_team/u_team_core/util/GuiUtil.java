@@ -1,12 +1,14 @@
 package info.u_team.u_team_core.util;
 
 import net.minecraft.client.gui.AbstractGui;
+import net.minecraftforge.api.distmarker.*;
 
 /**
  * Some utility methods for guis
  * 
  * @author HyCraftHD
  */
+@OnlyIn(Dist.CLIENT)
 public class GuiUtil {
 	
 	/**
