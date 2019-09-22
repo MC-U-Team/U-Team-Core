@@ -1,21 +1,16 @@
 package info.u_team.u_team_core.repack.org.json;
 
 /*
- * Copyright (c) 2002 JSON.org Permission is hereby granted, free of charge, to
- * any person obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to permit
- * persons to whom the Software is furnished to do so, subject to the following
- * conditions: The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software. The Software
- * shall be used for Good, not Evil. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
- * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
- * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
- * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * Copyright (c) 2002 JSON.org Permission is hereby granted, free of charge, to any person obtaining a copy of this
+ * software and associated documentation files (the "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+ * Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The
+ * above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ * Software. The Software shall be used for Good, not Evil. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+ * KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 import java.util.Locale;
@@ -32,8 +27,8 @@ public class HTTP {
 	public static final String CRLF = "\r\n";
 	
 	/**
-	 * Convert an HTTP header string into a JSONObject. It can be a request header
-	 * or a response header. A request header will contain
+	 * Convert an HTTP header string into a JSONObject. It can be a request header or a response header. A request header
+	 * will contain
 	 * 
 	 * <pre>
 	 * {
@@ -53,8 +48,7 @@ public class HTTP {
 	 * }
 	 * </pre>
 	 * 
-	 * In addition, the other parameters in the header will be captured, using the
-	 * HTTP field names as JSON names, so that
+	 * In addition, the other parameters in the header will be captured, using the HTTP field names as JSON names, so that
 	 * 
 	 * <pre>
 	 *    Date: Sun, 26 May 2002 18:06:04 GMT
@@ -72,13 +66,10 @@ public class HTTP {
 	 * ...}
 	 * </pre>
 	 * 
-	 * It does no further checking or conversion. It does not parse dates. It does
-	 * not do '%' transforms on URLs.
+	 * It does no further checking or conversion. It does not parse dates. It does not do '%' transforms on URLs.
 	 * 
-	 * @param string
-	 *            An HTTP header string.
-	 * @return A JSONObject containing the elements and attributes of the XML
-	 *         string.
+	 * @param string An HTTP header string.
+	 * @return A JSONObject containing the elements and attributes of the XML string.
 	 * @throws JSONException
 	 */
 	public static JSONObject toJSONObject(String string) throws JSONException {
@@ -137,14 +128,11 @@ public class HTTP {
 	 * }
 	 * </pre>
 	 * 
-	 * Any other members of the JSONObject will be output as HTTP fields. The result
-	 * will end with two CRLF pairs.
+	 * Any other members of the JSONObject will be output as HTTP fields. The result will end with two CRLF pairs.
 	 * 
-	 * @param jo
-	 *            A JSONObject
+	 * @param jo A JSONObject
 	 * @return An HTTP header string.
-	 * @throws JSONException
-	 *             if the object does not contain enough information.
+	 * @throws JSONException if the object does not contain enough information.
 	 */
 	public static String toString(JSONObject jo) throws JSONException {
 		StringBuilder sb = new StringBuilder();

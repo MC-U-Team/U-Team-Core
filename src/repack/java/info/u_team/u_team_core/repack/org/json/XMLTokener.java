@@ -1,28 +1,22 @@
 package info.u_team.u_team_core.repack.org.json;
 
 /*
- * Copyright (c) 2002 JSON.org Permission is hereby granted, free of charge, to
- * any person obtaining a copy of this software and associated documentation
- * files (the "Software"), to deal in the Software without restriction,
- * including without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to permit
- * persons to whom the Software is furnished to do so, subject to the following
- * conditions: The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software. The Software
- * shall be used for Good, not Evil. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT
- * WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
- * WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
- * FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
- * TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
- * THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * Copyright (c) 2002 JSON.org Permission is hereby granted, free of charge, to any person obtaining a copy of this
+ * software and associated documentation files (the "Software"), to deal in the Software without restriction, including
+ * without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the
+ * Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions: The
+ * above copyright notice and this permission notice shall be included in all copies or substantial portions of the
+ * Software. The Software shall be used for Good, not Evil. THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+ * KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ * PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+ * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 import java.io.Reader;
 
 /**
- * The XMLTokener extends the JSONTokener to provide additional methods for the
- * parsing of XML texts.
+ * The XMLTokener extends the JSONTokener to provide additional methods for the parsing of XML texts.
  * 
  * @author JSON.org
  * @version 2015-12-09
@@ -30,8 +24,7 @@ import java.io.Reader;
 public class XMLTokener extends JSONTokener {
 	
 	/**
-	 * The table of entity values. It initially contains Character values for amp,
-	 * apos, gt, lt, quot.
+	 * The table of entity values. It initially contains Character values for amp, apos, gt, lt, quot.
 	 */
 	public static final java.util.HashMap<String, Character> entity;
 	
@@ -47,8 +40,7 @@ public class XMLTokener extends JSONTokener {
 	/**
 	 * Construct an XMLTokener from a Reader.
 	 * 
-	 * @param r
-	 *            A source reader.
+	 * @param r A source reader.
 	 */
 	public XMLTokener(Reader r) {
 		super(r);
@@ -57,8 +49,7 @@ public class XMLTokener extends JSONTokener {
 	/**
 	 * Construct an XMLTokener from a string.
 	 * 
-	 * @param s
-	 *            A source string.
+	 * @param s A source string.
 	 */
 	public XMLTokener(String s) {
 		super(s);
@@ -68,8 +59,7 @@ public class XMLTokener extends JSONTokener {
 	 * Get the text in the CDATA block.
 	 * 
 	 * @return The string up to the <code>]]&gt;</code>.
-	 * @throws JSONException
-	 *             If the <code>]]&gt;</code> is not found.
+	 * @throws JSONException If the <code>]]&gt;</code> is not found.
 	 */
 	public String nextCDATA() throws JSONException {
 		char c;
@@ -88,12 +78,10 @@ public class XMLTokener extends JSONTokener {
 	}
 	
 	/**
-	 * Get the next XML outer token, trimming whitespace. There are two kinds of
-	 * tokens: the '<' character which begins a markup tag, and the content text
-	 * between markup tags.
+	 * Get the next XML outer token, trimming whitespace. There are two kinds of tokens: the '<' character which begins a
+	 * markup tag, and the content text between markup tags.
 	 *
-	 * @return A string, or a '<' Character, or null if there is no more source
-	 *         text.
+	 * @return A string, or a '<' Character, or null if there is no more source text.
 	 * @throws JSONException
 	 */
 	public Object nextContent() throws JSONException {
@@ -127,14 +115,11 @@ public class XMLTokener extends JSONTokener {
 	}
 	
 	/**
-	 * Return the next entity. These entities are translated to Characters:
-	 * <code>&amp;  &apos;  &gt;  &lt;  &quot;</code>.
+	 * Return the next entity. These entities are translated to Characters: <code>&amp;  &apos;  &gt;  &lt;  &quot;</code>.
 	 * 
-	 * @param ampersand
-	 *            An ampersand character.
+	 * @param ampersand An ampersand character.
 	 * @return A Character or an entity String if the entity is not recognized.
-	 * @throws JSONException
-	 *             If missing ';' in XML entity.
+	 * @throws JSONException If missing ';' in XML entity.
 	 */
 	public Object nextEntity(char ampersand) throws JSONException {
 		StringBuilder sb = new StringBuilder();
@@ -155,9 +140,7 @@ public class XMLTokener extends JSONTokener {
 	/**
 	 * Unescapes an XML entity encoding;
 	 * 
-	 * @param e
-	 *            entity (only the actual entity value, not the preceding & or
-	 *            ending ;
+	 * @param e entity (only the actual entity value, not the preceding & or ending ;
 	 * @return
 	 */
 	static String unescapeEntity(String e) {
@@ -186,15 +169,11 @@ public class XMLTokener extends JSONTokener {
 	}
 	
 	/**
-	 * Returns the next XML meta token. This is used for skipping over <!...> and
-	 * <?...?> structures.
+	 * Returns the next XML meta token. This is used for skipping over <!...> and <?...?> structures.
 	 * 
-	 * @return Syntax characters (<code>< > / = ! ?</code>) are returned as
-	 *         Character, and strings and names are returned as Boolean. We don't
-	 *         care what the values actually are.
-	 * @throws JSONException
-	 *             If a string is not properly closed or if the XML is badly
-	 *             structured.
+	 * @return Syntax characters (<code>< > / = ! ?</code>) are returned as Character, and strings and names are returned as
+	 *         Boolean. We don't care what the values actually are.
+	 * @throws JSONException If a string is not properly closed or if the XML is badly structured.
 	 */
 	public Object nextMeta() throws JSONException {
 		char c;
@@ -253,13 +232,11 @@ public class XMLTokener extends JSONTokener {
 	}
 	
 	/**
-	 * Get the next XML Token. These tokens are found inside of angle brackets. It
-	 * may be one of these characters: <code>/ > = ! ?</code> or it may be a string
-	 * wrapped in single quotes or double quotes, or it may be a name.
+	 * Get the next XML Token. These tokens are found inside of angle brackets. It may be one of these characters:
+	 * <code>/ > = ! ?</code> or it may be a string wrapped in single quotes or double quotes, or it may be a name.
 	 * 
 	 * @return a String or a Character.
-	 * @throws JSONException
-	 *             If the XML is not well formed.
+	 * @throws JSONException If the XML is not well formed.
 	 */
 	public Object nextToken() throws JSONException {
 		char c;
@@ -337,11 +314,10 @@ public class XMLTokener extends JSONTokener {
 	}
 	
 	/**
-	 * Skip characters until past the requested string. If it is not found, we are
-	 * left at the end of the source with a result of false.
+	 * Skip characters until past the requested string. If it is not found, we are left at the end of the source with a
+	 * result of false.
 	 * 
-	 * @param to
-	 *            A string to skip past.
+	 * @param to A string to skip past.
 	 */
 	// The Android implementation of JSONTokener has a public method of public void
 	// skipPast(String to)
@@ -358,8 +334,7 @@ public class XMLTokener extends JSONTokener {
 		char[] circle = new char[length];
 		
 		/*
-		 * First fill the circle buffer with as many characters as are in the to string.
-		 * If we reach an early end, bail.
+		 * First fill the circle buffer with as many characters as are in the to string. If we reach an early end, bail.
 		 */
 		
 		for (i = 0; i < length; i += 1) {
@@ -402,8 +377,7 @@ public class XMLTokener extends JSONTokener {
 				return;
 			}
 			/*
-			 * Shove the character in the circle buffer and advance the circle offset. The
-			 * offset is mod n.
+			 * Shove the character in the circle buffer and advance the circle offset. The offset is mod n.
 			 */
 			circle[offset] = c;
 			offset += 1;
