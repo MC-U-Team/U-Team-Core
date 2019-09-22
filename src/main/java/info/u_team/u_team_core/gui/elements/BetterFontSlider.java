@@ -11,7 +11,8 @@ public class BetterFontSlider extends GuiSlider {
 	protected float scale;
 	
 	public BetterFontSlider(int xPos, int yPos, int width, int height, String prefix, String suf, double minVal, double maxVal, double currentVal, boolean showDec, boolean drawStr, float scale, ISlider par) {
-		super(xPos, yPos, width, height, prefix, suf, minVal, maxVal, currentVal, showDec, drawStr, slider -> {}, par);
+		super(xPos, yPos, width, height, prefix, suf, minVal, maxVal, currentVal, showDec, drawStr, slider -> {
+		}, par);
 		this.scale = scale;
 	}
 	

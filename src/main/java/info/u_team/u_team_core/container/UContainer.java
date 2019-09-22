@@ -9,7 +9,6 @@ import net.minecraftforge.items.*;
  * A basic container
  * 
  * @author HyCraftHD
- *
  */
 public abstract class UContainer extends Container {
 	
@@ -113,7 +112,6 @@ public abstract class UContainer extends Container {
 	 * Used as a function to customize slots with the append methods
 	 * 
 	 * @author HyCraftHD
-	 *
 	 */
 	@FunctionalInterface
 	public static interface SlotInventoryFunction {
@@ -134,7 +132,6 @@ public abstract class UContainer extends Container {
 	 * Used as a function to customize slots with the append methods
 	 * 
 	 * @author HyCraftHD
-	 *
 	 */
 	@FunctionalInterface
 	public static interface SlotHandlerFunction {

@@ -11,7 +11,6 @@ import net.minecraft.world.World;
  * Basic implementation of {@link TileEntity} with some extra data synchronization methods.
  * 
  * @author HyCraftHD
- *
  */
 public abstract class UTileEntity extends TileEntity {
 	

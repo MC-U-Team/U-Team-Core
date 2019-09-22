@@ -16,13 +16,11 @@ import net.minecraftforge.fml.network.NetworkHooks;
  * Implement this in your tile entity block when you want utility functions for opening guis with your tile entity.
  * 
  * @author HyCraftHD
- *
  */
 public interface ITileEntityBlock {
 	
 	/**
 	 * Returns the {@link TileEntityType} of the block.
-	 * 
 	 * 
 	 * @param world World
 	 * @param pos The tile entities position

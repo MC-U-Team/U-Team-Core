@@ -12,7 +12,6 @@ import net.minecraft.world.storage.WorldSavedData;
  * Some utility methods for world interaction.
  * 
  * @author HyCraftHD
- *
  */
 public class WorldUtil {
 	
@@ -21,7 +20,6 @@ public class WorldUtil {
 	 * fluid mode {@link FluidMode#NONE}.
 	 * 
 	 * @see WorldUtil#rayTraceServerSide(Entity, double, BlockMode, FluidMode)
-	 * 
 	 * @param entity Entity from where we get the look vector
 	 * @param range Range in blocks
 	 * @return Raytrace result with information about the trace

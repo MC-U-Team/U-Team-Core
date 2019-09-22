@@ -9,7 +9,6 @@ import net.minecraftforge.api.distmarker.*;
  * Implement this in you tile entity when it should sync values when a player opens the container
  * 
  * @author HyCraftHD
- *
  */
 public interface IInitSyncedTileEntity extends INamedContainerProvider {
 	

@@ -5,7 +5,6 @@ package info.u_team.u_team_core.api.sync;
  * server it must still be synced manually.
  * 
  * @author HyCraftHD
- *
  */
 public interface IAutoSyncedTileEntity extends ISyncedTileEntity {
 }

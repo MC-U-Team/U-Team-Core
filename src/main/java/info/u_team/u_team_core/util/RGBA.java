@@ -6,7 +6,6 @@ import org.lwjgl.opengl.GL11;
  * Basic rgba representation of a color with some conversion methods
  * 
  * @author HyCraftHD
- *
  */
 public class RGBA {
 	

@@ -9,7 +9,6 @@ import net.minecraftforge.api.distmarker.*;
  * Implement this in you tile entity when it should sync values to the client side and the over way around.
  * 
  * @author HyCraftHD
- *
  */
 public interface ISyncedTileEntity extends IInitSyncedTileEntity, ISyncedData {
 	

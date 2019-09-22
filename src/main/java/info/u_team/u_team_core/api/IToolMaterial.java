@@ -7,7 +7,6 @@ import net.minecraft.item.*;
  * This interface extends the {@link IItemTier} interface for tool materials.
  * 
  * @author HyCraftHD
- *
  */
 public interface IToolMaterial extends IItemTier {
 	
@@ -33,7 +32,6 @@ public interface IToolMaterial extends IItemTier {
 	 * Just a little helper enumeration with all vanilla tools.
 	 * 
 	 * @author HyCraftHD
-	 *
 	 */
 	public static enum Tools {
 		AXE(0),

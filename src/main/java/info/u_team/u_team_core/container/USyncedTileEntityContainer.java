@@ -16,7 +16,6 @@ import net.minecraftforge.fml.network.NetworkHooks;
  * A synchronized tile entity container with custom packets an a tile entity that implements {@link ISyncedTileEntity}
  * 
  * @author HyCraftHD
- *
  * @param <T> Tile entity
  */
 public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedTileEntity> extends USyncedContainer {
@@ -67,7 +66,7 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 	 * @param id Window id
 	 * @param playerInventory Player inventory
 	 * @param buffer Initial data (specified with
-	 *            {@link NetworkHooks#openGui(ServerPlayerEntity, INamedContainerProvider, java.util.function.Consumer)})
+	 *        {@link NetworkHooks#openGui(ServerPlayerEntity, INamedContainerProvider, java.util.function.Consumer)})
 	 */
 	public USyncedTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer) {
 		this(type, id, playerInventory, buffer, true);
@@ -81,7 +80,7 @@ public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedT
 	 * @param id Window id
 	 * @param playerInventory Player inventory
 	 * @param buffer Initial data (specified with
-	 *            {@link NetworkHooks#openGui(ServerPlayerEntity, INamedContainerProvider, java.util.function.Consumer)})
+	 *        {@link NetworkHooks#openGui(ServerPlayerEntity, INamedContainerProvider, java.util.function.Consumer)})
 	 * @param init If the constructor should call {@link #init(boolean)}
 	 */
 	public USyncedTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer, boolean init) {

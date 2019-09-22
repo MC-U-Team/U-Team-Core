@@ -8,7 +8,6 @@ import net.minecraftforge.fml.event.lifecycle.*;
  * {@link DistExecutor#runForDist(java.util.function.Supplier, java.util.function.Supplier)}.
  * 
  * @author HyCraftHD
- *
  */
 public interface IModProxy {
 	

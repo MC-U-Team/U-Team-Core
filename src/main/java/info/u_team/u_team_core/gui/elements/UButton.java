@@ -10,11 +10,11 @@ import net.minecraftforge.fml.client.config.GuiUtils;
  * from the 1.13.2 GuiButtonExt.
  * 
  * @author HyCraftHD
- *
  */
 public class UButton extends Button {
 	
-	protected static IPressable EMTPY_PRESSABLE = button -> {};
+	protected static IPressable EMTPY_PRESSABLE = button -> {
+	};
 	
 	public UButton(int x, int y, int width, int height, String displayString) {
 		super(x, y, width, height, displayString, EMTPY_PRESSABLE);

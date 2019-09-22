@@ -13,15 +13,12 @@ import net.minecraftforge.fml.network.PacketDistributor;
  * generalize the methods.
  * 
  * @author HyCraftHD
- *
  */
 public interface ISyncedData {
 	
 	/**
 	 * This method is called on the server side. Data can be written to the packet buffer. The data will receive the client
-	 * in {@link #handleFromServer(PacketBuffer)}.
-	 * 
-	 * This method is for client -> server sync.
+	 * in {@link #handleFromServer(PacketBuffer)}. This method is for client -> server sync.
 	 * 
 	 * @param buffer Packet buffer
 	 */
@@ -29,9 +26,7 @@ public interface ISyncedData {
 	
 	/**
 	 * This method is called on the client side. Data can be read from the packet buffer. The data is from the server method
-	 * {@link #sendToClient(PacketBuffer)}.
-	 * 
-	 * This method is for client -> server sync.
+	 * {@link #sendToClient(PacketBuffer)}. This method is for client -> server sync.
 	 * 
 	 * @param buffer Packet buffer
 	 */
@@ -40,9 +35,7 @@ public interface ISyncedData {
 	
 	/**
 	 * This method is called on the client side. Data can be written to the packet buffer. The data will receive the server
-	 * in {@link #handleFromClient(PacketBuffer)}.
-	 * 
-	 * This method is for server -> client sync.
+	 * in {@link #handleFromClient(PacketBuffer)}. This method is for server -> client sync.
 	 * 
 	 * @param buffer Packet buffer
 	 */
@@ -51,9 +44,7 @@ public interface ISyncedData {
 	
 	/**
 	 * This method is called on the server side. Data can be read from the packet buffer. The data is from the client method
-	 * {@link #sendToServer(PacketBuffer)}.
-	 * 
-	 * This method is for server -> client sync.
+	 * {@link #sendToServer(PacketBuffer)}. This method is for server -> client sync.
 	 * 
 	 * @param buffer Packet buffer
 	 */
@@ -82,8 +73,8 @@ public interface ISyncedData {
 	}
 	
 	/**
-	 * This method will call {@link #sendToServer(PacketBuffer)} to get the data and then call {@link #sendDataToServer(PacketBuffer)}
-	 * to send the data.
+	 * This method will call {@link #sendToServer(PacketBuffer)} to get the data and then call
+	 * {@link #sendDataToServer(PacketBuffer)} to send the data.
 	 */
 	@OnlyIn(Dist.CLIENT)
 	default void sendDataToServer() {
