@@ -1,6 +1,19 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.7.3.132] - 2019-09-22
+### Changed
+ - Fixed all java docs to compile properly
+ - Update readme to be more user friendly
+ - Add issue templates
+ - Build script now accept system properties as inputs for secrets and also compile if no secrets are available
+ - Format all files and include formatter in repository
+ - Add some missing side annotations
+ - Expand config util a bit with more useful functions
+
+### Added
+ - Add ModelUtil to add custom state maps for models (Useful for states that should not be present in the model)
+
 ## [1.14.4-2.7.2.131] - 2019-09-09
 ### Changed
  - Renamed UTileeEntityContainer to UTileEntityContainer (fix spelling mistake)
