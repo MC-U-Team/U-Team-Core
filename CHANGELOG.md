@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.14.4-2.7.3.132] - 2019-09-22
+## [1.14.4-2.7.3.132] - 2019-09-25
 ### Changed
  - Fixed all java docs to compile properly
  - Update readme to be more user friendly
