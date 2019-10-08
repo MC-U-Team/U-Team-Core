@@ -21,8 +21,8 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	
 	@Override
 	public void act(DirectoryCache cache) throws IOException {
-		addRecipes(recipe -> generateRecipe(cache, recipe, false));
-		addDefaultAdvancementsRecipes(recipe -> generateRecipe(cache, recipe, true));
+		registerRecipes(recipe -> generateRecipe(cache, recipe, false));
+		registerDefaultAdvancementsRecipes(recipe -> generateRecipe(cache, recipe, true));
 	}
 	
 	private void generateRecipe(DirectoryCache cache, IFinishedRecipe recipe, boolean vanillaAdvancement) {
@@ -44,14 +44,14 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 		}
 	}
 	
-	protected abstract void addRecipes(Consumer<IFinishedRecipe> consumer);
+	protected abstract void registerRecipes(Consumer<IFinishedRecipe> consumer);
 	
 	/**
 	 * Override this method if you want to add recipes that have the vanilla path for advancements
 	 * 
 	 * @param consumer
 	 */
-	protected void addDefaultAdvancementsRecipes(Consumer<IFinishedRecipe> consumer) {
+	protected void registerDefaultAdvancementsRecipes(Consumer<IFinishedRecipe> consumer) {
 	}
 	
 	@Override
