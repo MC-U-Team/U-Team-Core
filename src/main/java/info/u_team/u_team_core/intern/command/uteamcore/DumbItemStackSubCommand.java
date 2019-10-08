@@ -27,10 +27,14 @@ public class DumbItemStackSubCommand {
 		final Item item = stack.getItem();
 		final CompoundNBT compound = stack.getTag();
 		
-		source.sendFeedback(new StringTextComponent("Item: " + item.getRegistryName() + " (" + item + ")"), true);
+		source.sendFeedback(new StringTextComponent("Item: " + item.getRegistryName() + " (" + getClassString(item) + ")"), true);
 		if (compound != null) {
 			source.sendFeedback(new StringTextComponent("NBT: ").appendSibling(compound.toFormattedComponent()), true);
 		}
 		return 0;
+	}
+	
+	private static String getClassString(Object object) {
+		return object.getClass().getName() + "@" + Integer.toHexString(object.hashCode());
 	}
 }
