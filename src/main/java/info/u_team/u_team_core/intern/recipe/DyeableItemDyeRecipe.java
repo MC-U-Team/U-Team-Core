@@ -5,7 +5,7 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import info.u_team.u_team_core.api.dye.IDyeableItem;
-import info.u_team.u_team_core.intern.init.UCoreRecipes;
+import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.*;
@@ -81,6 +81,6 @@ public class DyeableItemDyeRecipe extends SpecialRecipe {
 	
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
-		return UCoreRecipes.CRAFTING_SPECIAL_ITEMDYE;
+		return UCoreRecipeSerializers.CRAFTING_SPECIAL_ITEMDYE;
 	}
 }
