@@ -92,6 +92,19 @@ public class WorldUtil {
 	 * @param pos The position the entity should be teleported to
 	 */
 	public static void teleportEntity(Entity entity, DimensionType type, BlockPos pos) {
+		teleportEntity(entity, type, new Vec3d(pos));
+	}
+	
+	/**
+	 * Teleports any entity to a given location in a given {@link ServerWorld}. Don't change the yaw and pitch of the
+	 * entity.
+	 * 
+	 * @param entity The entity to teleport
+	 * @param type The dimension type where the entity should be teleported. Can be the same as the current dimension type
+	 *        or a different one
+	 * @param pos The position the entity should be teleported to
+	 */
+	public static void teleportEntity(Entity entity, DimensionType type, Vec3d pos) {
 		teleportEntity(entity, getServerWorld(entity, type), pos);
 	}
 	
@@ -105,6 +118,19 @@ public class WorldUtil {
 	 * @param pos The position the entity should be teleported to
 	 */
 	public static void teleportEntity(Entity entity, ServerWorld world, BlockPos pos) {
+		teleportEntity(entity, world, new Vec3d(pos));
+	}
+	
+	/**
+	 * Teleports any entity to a given location in a given {@link ServerWorld}. Don't change the yaw and pitch of the
+	 * entity.
+	 * 
+	 * @param entity The entity to teleport
+	 * @param world The server world where the entity should be teleported. Can be the same as the current world or a
+	 *        different one
+	 * @param pos The position the entity should be teleported to
+	 */
+	public static void teleportEntity(Entity entity, ServerWorld world, Vec3d pos) {
 		teleportEntity(entity, world, pos.getX(), pos.getY(), pos.getZ(), entity.rotationYaw, entity.rotationPitch);
 	}
 	
