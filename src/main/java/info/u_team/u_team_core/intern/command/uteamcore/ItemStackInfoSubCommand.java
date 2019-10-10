@@ -11,7 +11,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class ItemStackInfoSubCommand {
 	
-	private static final String TRANSLATION_STRING = "command.uteamcore.stackinfo.";
+	private static final String SUCCESS_TRANSLATION_STRING = "commands.uteamcore.stackinfo.success.";
 	
 	public static ArgumentBuilder<CommandSource, ?> register() {
 		return Commands.literal("stackinfo").executes(context -> execute(context.getSource()));
@@ -21,14 +21,14 @@ public class ItemStackInfoSubCommand {
 		final ItemStack stack = source.asPlayer().getHeldItemMainhand();
 		final Item item = stack.getItem();
 		
-		source.sendFeedback(new TranslationTextComponent(TRANSLATION_STRING + "item", createRegistryInfo(item)), false);
+		source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item)), false);
 		
 		if (item instanceof BlockItem) {
-			source.sendFeedback(new TranslationTextComponent(TRANSLATION_STRING + "block", createRegistryInfo(((BlockItem) item).getBlock())), false);
+			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(((BlockItem) item).getBlock())), false);
 		}
 		
 		if (stack.hasTag()) {
-			source.sendFeedback(new TranslationTextComponent(TRANSLATION_STRING + "nbt", stack.getTag().toFormattedComponent()), false);
+			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "nbt", stack.getTag().toFormattedComponent()), false);
 		}
 		return 0;
 	}

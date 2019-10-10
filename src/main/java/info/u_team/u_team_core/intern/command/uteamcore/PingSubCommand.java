@@ -6,9 +6,11 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.*;
 import net.minecraft.command.arguments.EntityArgument;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.*;
 
 public class PingSubCommand {
+	
+	private static final String SUCCESS_TRANSLATION_STRING = "commands.uteamcore.ping.success.";
 	
 	public static LiteralArgumentBuilder<CommandSource> register() {
 		return Commands.literal("ping") //
@@ -19,12 +21,12 @@ public class PingSubCommand {
 	}
 	
 	private static int execute(CommandSource source) throws CommandSyntaxException {
-		source.sendFeedback(new StringTextComponent("Your ping is " + source.asPlayer().ping), false);
+		source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "self", new StringTextComponent(String.valueOf(source.asPlayer().ping)).applyTextStyle(TextFormatting.GOLD)), false);
 		return 0;
 	}
 	
 	private static int execute(CommandSource source, ServerPlayerEntity player) {
-		source.sendFeedback(new StringTextComponent("The ping of player " + player.getName().getFormattedText() + " is " + player.ping), false);
+		source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "other", player.getName(), new StringTextComponent(String.valueOf(player.ping)).applyTextStyle(TextFormatting.GOLD)), false);
 		return 0;
 	}
 	
