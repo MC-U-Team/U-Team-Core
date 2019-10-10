@@ -1,0 +1,5 @@
+{
+	"command.uteamcore.stackinfo.item": "Item: %s",
+	"command.uteamcore.stackinfo.block": "Block: %s",
+	"command.uteamcore.stackinfo.nbt": "NBT: %s"
+}

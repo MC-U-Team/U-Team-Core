@@ -3,35 +3,44 @@ package info.u_team.u_team_core.intern.command.uteamcore;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
-import net.minecraft.block.Block;
 import net.minecraft.command.*;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.*;
+import net.minecraft.util.text.event.*;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class ItemStackInfoSubCommand {
+	
+	private static final String TRANSLATION_STRING = "command.uteamcore.stackinfo.";
 	
 	public static ArgumentBuilder<CommandSource, ?> register() {
 		return Commands.literal("stackinfo").executes(context -> execute(context.getSource()));
 	}
 	
 	private static int execute(CommandSource source) throws CommandSyntaxException {
-		final ServerPlayerEntity player = source.asPlayer();
-		final ItemStack stack = player.getHeldItemMainhand();
+		final ItemStack stack = source.asPlayer().getHeldItemMainhand();
 		final Item item = stack.getItem();
-		final CompoundNBT compound = stack.getTag();
 		
-		source.sendFeedback(new StringTextComponent("Item: " + item.getRegistryName() + " (" + getClassString(item) + ")"), false);
+		source.sendFeedback(new TranslationTextComponent(TRANSLATION_STRING + "item", createRegistryInfo(item)), false);
+		
 		if (item instanceof BlockItem) {
-			final Block block = ((BlockItem) item).getBlock();
-			source.sendFeedback(new StringTextComponent("Block: " + block.getRegistryName() + " (" + getClassString(block) + ")"), false);
+			source.sendFeedback(new TranslationTextComponent(TRANSLATION_STRING + "block", createRegistryInfo(((BlockItem) item).getBlock())), false);
 		}
 		
-		if (compound != null) {
-			source.sendFeedback(new StringTextComponent("NBT: ").appendSibling(compound.toFormattedComponent()), false);
+		if (stack.hasTag()) {
+			source.sendFeedback(new TranslationTextComponent(TRANSLATION_STRING + "nbt", stack.getTag().toFormattedComponent()), false);
 		}
 		return 0;
+	}
+	
+	private static ITextComponent createRegistryInfo(IForgeRegistryEntry<?> entry) {
+		final ITextComponent component = new StringTextComponent(entry.getRegistryName().toString());
+		final Style style = component.getStyle();
+		final String className = getClassString(entry);
+		style.setColor(TextFormatting.AQUA);
+		style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(className).applyTextStyle(TextFormatting.YELLOW)));
+		style.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
+		return component;
 	}
 	
 	private static String getClassString(Object object) {
