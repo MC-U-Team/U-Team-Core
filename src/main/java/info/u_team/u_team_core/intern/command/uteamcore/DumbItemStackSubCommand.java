@@ -3,6 +3,7 @@ package info.u_team.u_team_core.intern.command.uteamcore;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
+import net.minecraft.block.Block;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.*;
@@ -21,9 +22,14 @@ public class DumbItemStackSubCommand {
 		final Item item = stack.getItem();
 		final CompoundNBT compound = stack.getTag();
 		
-		source.sendFeedback(new StringTextComponent("Item: " + item.getRegistryName() + " (" + getClassString(item) + ")"), true);
+		source.sendFeedback(new StringTextComponent("Item: " + item.getRegistryName() + " (" + getClassString(item) + ")"), false);
+		if (item instanceof BlockItem) {
+			final Block block = ((BlockItem) item).getBlock();
+			source.sendFeedback(new StringTextComponent("Block: " + block.getRegistryName() + " (" + getClassString(block) + ")"), false);
+		}
+		
 		if (compound != null) {
-			source.sendFeedback(new StringTextComponent("NBT: ").appendSibling(compound.toFormattedComponent()), true);
+			source.sendFeedback(new StringTextComponent("NBT: ").appendSibling(compound.toFormattedComponent()), false);
 		}
 		return 0;
 	}
