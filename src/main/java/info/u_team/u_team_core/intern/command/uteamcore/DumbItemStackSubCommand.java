@@ -12,17 +12,11 @@ import net.minecraft.util.text.StringTextComponent;
 public class DumbItemStackSubCommand {
 	
 	public static ArgumentBuilder<CommandSource, ?> register() {
-		return Commands.literal("dumbstack").executes(ctx -> execute(ctx.getSource()));
+		return Commands.literal("dumbstack").executes(context -> execute(context.getSource()));
 	}
 	
-	private static int execute(CommandSource source) throws CommandException {
-		final ServerPlayerEntity player;
-		try {
-			player = source.asPlayer();
-		} catch (CommandSyntaxException ex) {
-			throw new CommandException(new StringTextComponent(ex.getMessage()));
-		}
-		
+	private static int execute(CommandSource source) throws CommandSyntaxException {
+		final ServerPlayerEntity player = source.asPlayer();
 		final ItemStack stack = player.getHeldItemMainhand();
 		final Item item = stack.getItem();
 		final CompoundNBT compound = stack.getTag();
