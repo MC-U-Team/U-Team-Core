@@ -10,7 +10,7 @@ public class UTeamCoreCommand {
 	
 	public UTeamCoreCommand(CommandDispatcher<CommandSource> dispatcher) {
 		dispatcher.register(LiteralArgumentBuilder.<CommandSource> literal("uteamcore") //
-				.then(DumbItemStackSubCommand.register()) //
+				.then(ItemStackInfoSubCommand.register()) //
 				.then(DimensionTeleportSubCommand.register()) //
 				.then(dispatcher.register(PingSubCommand.register())));
 	}

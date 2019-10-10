@@ -10,10 +10,10 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.StringTextComponent;
 
-public class DumbItemStackSubCommand {
+public class ItemStackInfoSubCommand {
 	
 	public static ArgumentBuilder<CommandSource, ?> register() {
-		return Commands.literal("dumbstack").executes(context -> execute(context.getSource()));
+		return Commands.literal("stackinfo").executes(context -> execute(context.getSource()));
 	}
 	
 	private static int execute(CommandSource source) throws CommandSyntaxException {
