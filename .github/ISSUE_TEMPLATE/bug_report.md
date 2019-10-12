@@ -22,9 +22,9 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Versions**
-- Minecraft Version
-- Forge Version
-- UTeamCore Version
+- Minecraft version: xxx
+- Forge version: xxx
+- UTeamCore version: xxx
 
 **Log (if crash occures)**
 Link to crash log
