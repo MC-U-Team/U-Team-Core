@@ -16,17 +16,15 @@ public class BetterEnderPearlItem extends UItem {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+		final ItemStack stack = player.getHeldItem(hand);
 		
 		world.playSound(null, player.posX, player.posY, player.posZ, TestSounds.BETTER_ENDERPEARL_USE, SoundCategory.NEUTRAL, 0.5F, 0.4F / (random.nextFloat() * 0.4F + 1.5F));
 		
 		if (!world.isRemote) {
-			BetterEnderPearlEntity pearl = new BetterEnderPearlEntity(world, player);
+			final BetterEnderPearlEntity pearl = new BetterEnderPearlEntity(world, player);
 			pearl.shoot(player, player.rotationPitch, player.rotationYaw, 0.0F, 2.5F, 1.2F);
 			world.addEntity(pearl);
 		}
-		
 		return new ActionResult<>(ActionResultType.SUCCESS, stack);
 	}
-	
 }

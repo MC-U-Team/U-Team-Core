@@ -19,22 +19,19 @@ public class BasicItem extends UItem {
 	
 	@Override
 	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-		ItemStack stack = player.getHeldItem(hand);
+		final ItemStack stack = player.getHeldItem(hand);
 		
 		if (!world.isRemote) {
-			RayTraceResult raytrace = WorldUtil.rayTraceServerSide(player, 50);
+			final RayTraceResult rayTrace = WorldUtil.rayTraceServerSide(player, 50);
 			
-			if (raytrace.getType() == Type.MISS) {
+			if (rayTrace.getType() == Type.MISS) {
 				player.sendStatusMessage(new TranslationTextComponent("item.uteamtest.basicitem.outofrange"), true);
 				return new ActionResult<>(ActionResultType.FAIL, stack);
 			}
 			
-			Vec3d pos = raytrace.getHitVec();
-			
-			ServerPlayerEntity playermp = (ServerPlayerEntity) player;
-			playermp.connection.setPlayerLocation(pos.getX(), pos.getY() + 1, pos.getZ(), playermp.rotationYaw, playermp.rotationPitch);
-			
-			stack.damageItem(1, player, (test) -> {
+			final Vec3d pos = rayTrace.getHitVec();
+			((ServerPlayerEntity) player).connection.setPlayerLocation(pos.getX(), pos.getY() + 1, pos.getZ(), player.rotationYaw, player.rotationPitch);
+			stack.damageItem(1, player, unused -> {
 			});
 			
 		}
