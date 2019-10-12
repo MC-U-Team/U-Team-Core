@@ -79,6 +79,7 @@ public class TestMod {
 		return armor;
 	}
 	
+	@Deprecated
 	public static UBlock asyncTeTest = new UBlockTileEntity("asyncte", Material.ROCK, new UTileEntityProvider(new ResourceLocation("test", "asyncte"), TileEntityAsyncTest.class));
 	
 	public static UBlock syncedTeTest = new BlockTileEntityTest("syncedte");

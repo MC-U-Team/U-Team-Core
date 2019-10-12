@@ -18,8 +18,10 @@ package info.u_team.u_team_core.tileentity;
 
 import java.util.concurrent.*;
 
+import info.u_team.u_team_core.UCoreConstants;
 import net.minecraft.util.ITickable;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
@@ -29,6 +31,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * @date 25.12.2018
  * @author HyCraftHD
  */
+@Deprecated
+@EventBusSubscriber(modid = UCoreConstants.MODID)
 public abstract class UTileEntityAsyncUpdate extends UTileEntity implements ITickable {
 	
 	private static ScheduledExecutorService executor = Executors.newScheduledThreadPool(5);
