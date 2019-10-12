@@ -1,18 +1,37 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.7.4.134] - 2019-10-12
+### Changed
+ - Update network protocol to 1.14.4
+ - Change uteamcore command
+ 
+### Added
+ - Add no mirror shaped recipe
+ - Add recipe data provider for generating recipes
+ - Add loot table data provider for generating loot tables
+ - Add dimension teleport methods to world util
+ - Add dimension teleport command to uteamcore command (/uteamcore dimteleport ...)
+ - Add ping command for uteamcore command (/uteamcore ping ... or /ping ...)
+ - Add better button that can scale the display text
+ - Add method util with vector rotation functions
+ - Add class to easily negate a predicate for method reference usage in lambda expressions
+ 
+### Removed
+ - Removed uteamcore command (with spelling mistake, I know 😊)
+
 ## [1.14.4-2.7.3.132] - 2019-09-25
 ### Changed
  - Fixed all java docs to compile properly
  - Update readme to be more user friendly
- - Add issue templates
  - Build script now accept system properties as inputs for secrets and also compile if no secrets are available
  - Format all files and include formatter in repository
- - Add some missing side annotations
- - Expand config util a bit with more useful functions
-
+ 
 ### Added
  - Add ModelUtil to add custom state maps for models (Useful for states that should not be present in the model)
+ - Add some missing side annotations
+ - Expand config util a bit with more useful functions
+ - Add issue templates
 
 ## [1.14.4-2.7.2.131] - 2019-09-09
 ### Changed
