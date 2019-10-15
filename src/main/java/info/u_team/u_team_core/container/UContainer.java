@@ -38,7 +38,7 @@ public abstract class UContainer extends Container {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	public void appendPlayerInventory(PlayerInventory playerInventory, int x, int y) {
+	protected void appendPlayerInventory(PlayerInventory playerInventory, int x, int y) {
 		for (int height = 0; height < 4; height++) {
 			for (int width = 0; width < 9; width++) {
 				if (height == 3) {
@@ -60,7 +60,7 @@ public abstract class UContainer extends Container {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	public void appendInventory(IInventory inventory, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendInventory(IInventory inventory, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(inventory, Slot::new, inventoryHeight, inventoryWidth, x, y);
 	}
 	
@@ -76,7 +76,7 @@ public abstract class UContainer extends Container {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	public void appendInventory(IInventory inventory, SlotInventoryFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendInventory(IInventory inventory, SlotInventoryFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
 		for (int height = 0; height < inventoryHeight; height++) {
 			for (int width = 0; width < inventoryWidth; width++) {
 				addSlot(function.getSlot(inventory, width + height * inventoryWidth, width * 18 + x, height * 18 + y));
@@ -94,7 +94,7 @@ public abstract class UContainer extends Container {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	public void appendInventory(IItemHandler handler, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendInventory(IItemHandler handler, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(handler, SlotItemHandler::new, inventoryHeight, inventoryWidth, x, y);
 	}
 	
@@ -110,7 +110,7 @@ public abstract class UContainer extends Container {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	public void appendInventory(IItemHandler handler, SlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendInventory(IItemHandler handler, SlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
 		for (int height = 0; height < inventoryHeight; height++) {
 			for (int width = 0; width < inventoryWidth; width++) {
 				addSlot(function.getSlot(handler, width + height * inventoryWidth, width * 18 + x, height * 18 + y));
