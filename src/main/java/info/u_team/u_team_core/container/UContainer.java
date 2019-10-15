@@ -3,9 +3,11 @@ package info.u_team.u_team_core.container;
 import java.util.*;
 import java.util.stream.IntStream;
 
+import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.*;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.*;
 import net.minecraftforge.items.*;
 
@@ -21,6 +23,8 @@ public abstract class UContainer extends Container {
 	 * packet only uses shorts
 	 */
 	private final List<IntReferenceHolder> trackedInts = new ArrayList<>();
+	
+	private final List<BufferReferenceHolder> syncServerToClient = new ArrayList<>();
 	
 	public UContainer(ContainerType<?> type, int id) {
 		super(type, id);
@@ -136,6 +140,25 @@ public abstract class UContainer extends Container {
 	 */
 	protected void trackRealIntArray(IIntArray intArrayHolder) {
 		IntStream.range(0, intArrayHolder.size()).forEach(index -> trackRealInt(IntReferenceHolder.create(intArrayHolder, index)));
+	}
+	
+	/**
+	 * Internal method that will update the int value on the client side.
+	 * 
+	 * @param index Index in the list
+	 * @param value The new value
+	 */
+	public void updateTrackRealInts(int index, int value) {
+		trackedInts.get(index).set(value);
+	}
+	
+	/**
+	 * We use this method to send the tracked int values to the client
+	 */
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity) listener).forEach(player -> sendDataToClient(player, new PacketBuffer(lastBuffer.copy())));
 	}
 	
 	/**

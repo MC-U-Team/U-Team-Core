@@ -13,7 +13,7 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
 
 public class SyncedContainerMessage {
 	
-	private PacketBuffer buffer;
+	private final PacketBuffer buffer;
 	
 	public SyncedContainerMessage(PacketBuffer buffer) {
 		this.buffer = buffer;
