@@ -1,8 +1,12 @@
 package info.u_team.u_team_core.container;
 
+import java.util.*;
+import java.util.stream.IntStream;
+
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.*;
+import net.minecraft.util.*;
 import net.minecraftforge.items.*;
 
 /**
@@ -11,6 +15,12 @@ import net.minecraftforge.items.*;
  * @author HyCraftHD
  */
 public abstract class UContainer extends Container {
+	
+	/**
+	 * We make our own list of ints that should be tracked if the values can be greater than a short, because the sync
+	 * packet only uses shorts
+	 */
+	private final List<IntReferenceHolder> trackedInts = new ArrayList<>();
 	
 	public UContainer(ContainerType<?> type, int id) {
 		super(type, id);
@@ -106,6 +116,26 @@ public abstract class UContainer extends Container {
 				addSlot(function.getSlot(handler, width + height * inventoryWidth, width * 18 + x, height * 18 + y));
 			}
 		}
+	}
+	
+	/**
+	 * Works the same as {@link #trackInt(IntReferenceHolder)} but really sends the int value to the client and not only a
+	 * short value.
+	 * 
+	 * @param intHolder Class to provide and handle the value
+	 */
+	protected void trackRealInt(IntReferenceHolder intHolder) {
+		trackedInts.add(intHolder);
+	}
+	
+	/**
+	 * Works the same as {@link #trackIntArray(IIntArray)} but really sends the int values to the client and not only the
+	 * short values.
+	 * 
+	 * @param intArrayHolder Class to provide and handle multiple values
+	 */
+	protected void trackRealIntArray(IIntArray intArrayHolder) {
+		IntStream.range(0, intArrayHolder.size()).forEach(index -> trackRealInt(IntReferenceHolder.create(intArrayHolder, index)));
 	}
 	
 	/**
