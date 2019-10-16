@@ -1,14 +1,12 @@
 package info.u_team.u_team_core.container;
 
 import java.util.*;
-import java.util.stream.IntStream;
 
 import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.*;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.*;
 import net.minecraftforge.items.*;
 
 /**
@@ -19,12 +17,13 @@ import net.minecraftforge.items.*;
 public abstract class UContainer extends Container {
 	
 	/**
-	 * We make our own list of ints that should be tracked if the values can be greater than a short, because the sync
-	 * packet only uses shorts
+	 * Server -> Client
 	 */
-	private final List<IntReferenceHolder> trackedInts = new ArrayList<>();
-	
 	private final List<BufferReferenceHolder> syncServerToClient = new ArrayList<>();
+	/**
+	 * Client -> Server
+	 */
+	private final List<BufferReferenceHolder> syncClientToServer = new ArrayList<>();
 	
 	public UContainer(ContainerType<?> type, int id) {
 		super(type, id);
@@ -122,34 +121,20 @@ public abstract class UContainer extends Container {
 		}
 	}
 	
-	/**
-	 * Works the same as {@link #trackInt(IntReferenceHolder)} but really sends the int value to the client and not only a
-	 * short value.
-	 * 
-	 * @param intHolder Class to provide and handle the value
-	 */
-	protected void trackRealInt(IntReferenceHolder intHolder) {
-		trackedInts.add(intHolder);
+	protected void addServerToClientTracker(BufferReferenceHolder holder) {
+		syncServerToClient.add(holder);
 	}
 	
-	/**
-	 * Works the same as {@link #trackIntArray(IIntArray)} but really sends the int values to the client and not only the
-	 * short values.
-	 * 
-	 * @param intArrayHolder Class to provide and handle multiple values
-	 */
-	protected void trackRealIntArray(IIntArray intArrayHolder) {
-		IntStream.range(0, intArrayHolder.size()).forEach(index -> trackRealInt(IntReferenceHolder.create(intArrayHolder, index)));
+	public void updateClientValue(int index, PacketBuffer buffer) {
+		syncServerToClient.get(index).set(buffer);
 	}
 	
-	/**
-	 * Internal method that will update the int value on the client side.
-	 * 
-	 * @param index Index in the list
-	 * @param value The new value
-	 */
-	public void updateTrackRealInts(int index, int value) {
-		trackedInts.get(index).set(value);
+	protected void addClientToServerTracker(BufferReferenceHolder holder) {
+		syncClientToServer.add(holder);
+	}
+	
+	public void updateServerValue(int index, PacketBuffer buffer) {
+		syncClientToServer.get(index).set(buffer);
 	}
 	
 	/**
@@ -158,7 +143,9 @@ public abstract class UContainer extends Container {
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity) listener).forEach(player -> sendDataToClient(player, new PacketBuffer(lastBuffer.copy())));
+		System.out.println(Thread.currentThread().getName());
+		// listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity)
+		// listener).forEach(player -> sendDataToClient(player, new PacketBuffer(lastBuffer.copy())));
 	}
 	
 	/**

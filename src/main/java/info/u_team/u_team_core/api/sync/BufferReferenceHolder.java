@@ -1,33 +1,34 @@
 package info.u_team.u_team_core.api.sync;
 
-import java.nio.ByteBuffer;
 import java.util.function.*;
+
+import net.minecraft.network.PacketBuffer;
 
 public abstract class BufferReferenceHolder {
 	
-	private ByteBuffer lastKnownValue;
+	private PacketBuffer lastKnownValue;
 	
-	public abstract ByteBuffer get();
+	public abstract PacketBuffer get();
 	
-	public abstract void set(ByteBuffer buffer);
+	public abstract void set(PacketBuffer buffer);
 	
 	public boolean isDirty() {
-		final ByteBuffer buffer = get();
-		final boolean flag = buffer != lastKnownValue;
+		final PacketBuffer buffer = get();
+		final boolean dirty = !buffer.equals(lastKnownValue);
 		lastKnownValue = buffer;
-		return flag;
+		return dirty;
 	}
 	
-	public static final BufferReferenceHolder create(Supplier<ByteBuffer> get, Consumer<ByteBuffer> set) {
+	public static final BufferReferenceHolder create(Supplier<PacketBuffer> get, Consumer<PacketBuffer> set) {
 		return new BufferReferenceHolder() {
 			
 			@Override
-			public ByteBuffer get() {
+			public PacketBuffer get() {
 				return get.get();
 			}
 			
 			@Override
-			public void set(ByteBuffer buffer) {
+			public void set(PacketBuffer buffer) {
 				set.accept(buffer);
 			}
 		};

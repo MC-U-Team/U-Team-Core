@@ -1,13 +1,15 @@
 package info.u_team.u_team_core.intern.network;
 
+import java.util.Optional;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.container.UContainer;
+import info.u_team.u_team_core.container.*;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.network.PacketBuffer;
+import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 
 public class BufferPropertyContainerMessage {
@@ -37,14 +39,30 @@ public class BufferPropertyContainerMessage {
 		public static void handle(BufferPropertyContainerMessage message, Supplier<Context> contextSupplier) {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
-				final PlayerEntity player = Minecraft.getInstance().player;
-				final Container container = player.openContainer;
 				
-				if (container instanceof UContainer && container.windowId == message.id) {
-					((UContainer) container).updateTrackRealInts(message.property, message.value);
+				if (context.getDirection().getOriginationSide() == LogicalSide.SERVER) {
+					handleClient(message);
+				} else {
+					handleServer(message, context);
 				}
 			});
 			context.setPacketHandled(true);
+		}
+		
+		private static void handleServer(BufferPropertyContainerMessage message, Context context) {
+			getUContainer(context.getSender().openContainer, message.id).ifPresent(container -> container.updateClientValue(message.property, message.buffer));
+		}
+		
+		@OnlyIn(Dist.CLIENT)
+		private static void handleClient(BufferPropertyContainerMessage message) {
+			getUContainer(Minecraft.getInstance().player.openContainer, message.id).ifPresent(container -> container.updateServerValue(message.property, message.buffer));
+		}
+		
+		private static final Optional<USyncedContainer> getUContainer(Container container, int id) {
+			if (container instanceof UContainer && container.windowId == id) {
+				return Optional.of((USyncedContainer) container);
+			}
+			return Optional.empty();
 		}
 	}
 }
