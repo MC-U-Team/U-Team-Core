@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.intern.init;
 
 import info.u_team.u_team_core.UCoreMain;
+import info.u_team.u_team_core.intern.network.BufferPropertyContainerMessage;
 import info.u_team.u_team_core.intern.network.SyncedContainerMessage;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -14,6 +15,7 @@ public class UCoreNetwork {
 	
 	public static void construct() {
 		NETWORK.registerMessage(0, SyncedContainerMessage.class, SyncedContainerMessage::encode, SyncedContainerMessage::decode, SyncedContainerMessage.Handler::handle);
+		NETWORK.registerMessage(1, BufferPropertyContainerMessage.class, BufferPropertyContainerMessage::encode, BufferPropertyContainerMessage::decode, BufferPropertyContainerMessage.Handler::handle);
 	}
 	
 }
