@@ -2,6 +2,7 @@ package info.u_team.u_team_core.gui;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 
+import info.u_team.u_team_core.container.UContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -33,5 +34,13 @@ public class UContainerScreen<T extends Container> extends ContainerScreen<T> {
 		int yStart = (height - ySize) / 2;
 		
 		blit(xStart, yStart, 0, 0, xSize, ySize, backgroundWidth, backgroundHeight);
+	}
+	
+	@Override
+	public void tick() {
+		super.tick();
+		if(container instanceof UContainer) {
+			((UContainer) container).updateTrackedServerToClient();
+		}
 	}
 }

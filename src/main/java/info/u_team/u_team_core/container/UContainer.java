@@ -143,7 +143,7 @@ public abstract class UContainer extends Container {
 	}
 	
 	/**
-	 * We use this method to send the tracked int values to the client
+	 * We use this method to send the tracked values to the client
 	 */
 	@Override
 	public void detectAndSendChanges() {
@@ -154,19 +154,18 @@ public abstract class UContainer extends Container {
 				.map(listener -> ((ServerPlayerEntity) listener).connection.getNetworkManager()) //
 				.collect(Collectors.toList());
 		
-		final Map<Integer, BufferReferenceHolder> dirtyMap = getServerToClientDirtyMap();
+		final Map<Integer, BufferReferenceHolder> dirtyMap = getDirtyMap(syncServerToClient);
 		
 		dirtyMap.forEach((property, holder) -> {
 			UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new BufferPropertyContainerMessage(windowId, property, new PacketBuffer(holder.get().copy())));
 		});
 	}
 	
-	private Map<Integer, BufferReferenceHolder> getServerToClientDirtyMap() {
-		return getDirtyMap(syncServerToClient);
-	}
-	
-	private Map<Integer, BufferReferenceHolder> getClientToServerDirtyMap() {
-		return getDirtyMap(syncClientToServer);
+	public void updateTrackedServerToClient() {
+		final Map<Integer, BufferReferenceHolder> dirtyMap = getDirtyMap(syncClientToServer);
+		dirtyMap.forEach((property, holder) -> {
+			UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new BufferPropertyContainerMessage(windowId, property, new PacketBuffer(holder.get().copy())));
+		});
 	}
 	
 	private Map<Integer, BufferReferenceHolder> getDirtyMap(List<BufferReferenceHolder> list) {
