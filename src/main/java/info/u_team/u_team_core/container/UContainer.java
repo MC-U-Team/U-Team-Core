@@ -1,12 +1,17 @@
 package info.u_team.u_team_core.container;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.*;
 
 import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
+import info.u_team.u_team_core.intern.init.UCoreNetwork;
+import info.u_team.u_team_core.intern.network.BufferPropertyContainerMessage;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.*;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.*;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.*;
 
 /**
@@ -143,9 +148,32 @@ public abstract class UContainer extends Container {
 	@Override
 	public void detectAndSendChanges() {
 		super.detectAndSendChanges();
-		System.out.println(Thread.currentThread().getName());
-		// listeners.stream().filter(listener -> listener instanceof ServerPlayerEntity).map(listener -> (ServerPlayerEntity)
-		// listener).forEach(player -> sendDataToClient(player, new PacketBuffer(lastBuffer.copy())));
+		
+		final List<NetworkManager> networkManagers = listeners.stream() //
+				.filter(listener -> listener instanceof ServerPlayerEntity) //
+				.map(listener -> ((ServerPlayerEntity) listener).connection.getNetworkManager()) //
+				.collect(Collectors.toList());
+		
+		final Map<Integer, BufferReferenceHolder> dirtyMap = getServerToClientDirtyMap();
+		
+		dirtyMap.forEach((property, holder) -> {
+			UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new BufferPropertyContainerMessage(windowId, property, new PacketBuffer(holder.get().copy())));
+		});
+	}
+	
+	private Map<Integer, BufferReferenceHolder> getServerToClientDirtyMap() {
+		return getDirtyMap(syncServerToClient);
+	}
+	
+	private Map<Integer, BufferReferenceHolder> getClientToServerDirtyMap() {
+		return getDirtyMap(syncClientToServer);
+	}
+	
+	private Map<Integer, BufferReferenceHolder> getDirtyMap(List<BufferReferenceHolder> list) {
+		return IntStream.range(0, list.size()) //
+				.filter(index -> list.get(index).isDirty()) //
+				.boxed() //
+				.collect(Collectors.toMap(Function.identity(), index -> list.get(index)));
 	}
 	
 	/**
