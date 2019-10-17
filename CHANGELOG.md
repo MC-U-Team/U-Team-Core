@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.7.5.135-SNAPSHOT] - 2019-10-17
+### Added
+ - Add new way to sync things like the vanilla tracker.
+ - Very alpha state (so this is only an alpha snapshot)
+
 ## [1.14.4-2.7.4.134] - 2019-10-12
 ### Changed
  - Update network protocol to 1.14.4
