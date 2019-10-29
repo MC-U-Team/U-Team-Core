@@ -6,5 +6,6 @@ package info.u_team.u_team_core.api.sync;
  * 
  * @author HyCraftHD
  */
+@Deprecated
 public interface IAutoSyncedTileEntity extends ISyncedTileEntity {
 }

@@ -10,6 +10,7 @@ import net.minecraftforge.api.distmarker.*;
  * 
  * @author HyCraftHD
  */
+@Deprecated
 public interface ISyncedTileEntity extends IInitSyncedTileEntity, ISyncedData {
 	
 	default void sendInitialDataBuffer(PacketBuffer buffer) {

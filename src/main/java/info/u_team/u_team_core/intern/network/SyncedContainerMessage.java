@@ -11,6 +11,7 @@ import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 
+@Deprecated
 public class SyncedContainerMessage {
 	
 	private final PacketBuffer buffer;

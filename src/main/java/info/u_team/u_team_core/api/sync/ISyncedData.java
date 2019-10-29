@@ -14,6 +14,7 @@ import net.minecraftforge.fml.network.PacketDistributor;
  * 
  * @author HyCraftHD
  */
+@Deprecated
 public interface ISyncedData {
 	
 	/**

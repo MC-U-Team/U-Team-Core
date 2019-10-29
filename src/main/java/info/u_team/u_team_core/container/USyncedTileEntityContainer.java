@@ -18,6 +18,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
  * @author HyCraftHD
  * @param <T> Tile entity
  */
+@Deprecated
 public abstract class USyncedTileEntityContainer<T extends TileEntity & ISyncedTileEntity> extends USyncedContainer {
 	
 	protected final PlayerInventory playerInventory;

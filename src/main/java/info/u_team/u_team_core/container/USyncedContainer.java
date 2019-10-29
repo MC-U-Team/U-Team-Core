@@ -10,6 +10,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
  * 
  * @author HyCraftHD
  */
+@Deprecated
 public abstract class USyncedContainer extends UContainer implements ISyncedData {
 	
 	/**
