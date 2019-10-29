@@ -84,13 +84,14 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 					action = !action;
 				}
 			}
+			markDirty();
 		});
 	}
-
+	
 	@Override
 	public void sendInitialDataBuffer(PacketBuffer buffer) {
 	}
-
+	
 	@Override
 	public void handleInitialDataBuffer(PacketBuffer buffer) {
 	}

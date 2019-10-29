@@ -58,7 +58,8 @@ public abstract class UContainer extends Container {
 	 * Adds a new {@link BufferReferenceHolder} that will sync values from the client to the server. <br />
 	 * <br />
 	 * THE AUTO SYNC ONLY WORKS IF YOU USE AN IMPLEMENTION OF {@link UContainerScreen}. If not you must manually call
-	 * {@link #updateTrackedServerToClient()} everytime you update values on the client that should be synced to the server.
+	 * {@link #updateTrackedServerToClient()} every time you update values on the client that should be synced to the
+	 * server.
 	 * 
 	 * @param holder Buffer reference holder
 	 */
@@ -98,12 +99,23 @@ public abstract class UContainer extends Container {
 		});
 	}
 	
+	/**
+	 * We use this method to send the tracked values to the server
+	 * 
+	 * @see #addClientToServerTracker(BufferReferenceHolder)
+	 */
 	public void updateTrackedServerToClient() {
 		getDirtyMap(syncClientToServer).forEach((property, holder) -> {
 			UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new BufferPropertyContainerMessage(windowId, property, holder.get()));
 		});
 	}
 	
+	/**
+	 * Returns a map with all {@link BufferReferenceHolder} that are dirty. The key is the property index.
+	 * 
+	 * @param list The list of {@link BufferReferenceHolder}
+	 * @return A map with dirty values
+	 */
 	private Map<Integer, BufferReferenceHolder> getDirtyMap(List<BufferReferenceHolder> list) {
 		return IntStream.range(0, list.size()) //
 				.filter(index -> list.get(index).isDirty()) //
