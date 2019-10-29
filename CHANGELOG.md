@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.7.6.136] - 2019-10-29
+### Changed
+ - Make the new sync system way better
+ - Deprecate the old sync system (will be removed in further updates)
+ - Fix the loot table provider
+
 ## [1.14.4-2.7.5.135-SNAPSHOT] - 2019-10-17
 ### Added
  - Add new way to sync things like the vanilla tracker.
