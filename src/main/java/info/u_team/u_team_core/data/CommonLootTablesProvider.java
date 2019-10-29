@@ -21,6 +21,13 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	
 	@Override
 	public void act(DirectoryCache cache) throws IOException {
+		registerLootTables((id, lootTable) -> {
+			try {
+				write(cache, LootTableManager.toJson(lootTable), path.resolve(id.getNamespace()).resolve("loot_tables").resolve(id.getPath() + ".json"));
+			} catch (IOException ex) {
+				LOGGER.error(marker, "Could not write data.", ex);
+			}
+		});
 	}
 	
 	protected abstract void registerLootTables(BiConsumer<ResourceLocation, LootTable> consumer);
