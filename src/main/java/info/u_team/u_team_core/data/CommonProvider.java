@@ -7,9 +7,9 @@ import java.util.Objects;
 import org.apache.logging.log4j.*;
 
 import com.google.gson.*;
-import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonWriter;
 
+import info.u_team.u_team_core.util.GsonUtil;
 import net.minecraft.data.*;
 
 public abstract class CommonProvider implements IDataProvider {
@@ -39,15 +39,13 @@ public abstract class CommonProvider implements IDataProvider {
 	}
 	
 	protected void write(DirectoryCache cache, JsonElement element, Path path) throws IOException {
-		final StringWriter writer = new StringWriter();
-		try {
-			final JsonWriter jsonWriter = GSON.newJsonWriter(Streams.writerForAppendable(writer));
-			jsonWriter.setIndent("	"); // Use tab instead of two spaces
+		try (final StringWriter writer = new StringWriter(); //
+				final JsonWriter jsonWriter = GsonUtil.createTabWriter(GSON, writer)) {
 			GSON.toJson(element, jsonWriter);
+			write(cache, writer.toString(), path);
 		} catch (IOException e) {
 			throw new JsonIOException(e);
 		}
-		write(cache, writer.toString(), path);
 	}
 	
 	protected void write(DirectoryCache cache, String string, Path path) throws IOException {
