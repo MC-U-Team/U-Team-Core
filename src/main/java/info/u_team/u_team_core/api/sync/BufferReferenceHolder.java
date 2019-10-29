@@ -2,6 +2,7 @@ package info.u_team.u_team_core.api.sync;
 
 import java.util.function.*;
 
+import io.netty.buffer.Unpooled;
 import net.minecraft.network.PacketBuffer;
 
 public abstract class BufferReferenceHolder {
@@ -19,7 +20,7 @@ public abstract class BufferReferenceHolder {
 		return dirty;
 	}
 	
-	public static final BufferReferenceHolder create(Supplier<PacketBuffer> get, Consumer<PacketBuffer> set) {
+	public static final BufferReferenceHolder createHolder(Supplier<PacketBuffer> get, Consumer<PacketBuffer> set) {
 		return new BufferReferenceHolder() {
 			
 			@Override
@@ -30,6 +31,51 @@ public abstract class BufferReferenceHolder {
 			@Override
 			public void set(PacketBuffer buffer) {
 				set.accept(buffer);
+			}
+		};
+	}
+	
+	public static final BufferReferenceHolder createIntHolder(IntSupplier get, IntConsumer set) {
+		return new BufferReferenceHolder() {
+			
+			@Override
+			public PacketBuffer get() {
+				return new PacketBuffer(Unpooled.copyInt(get.getAsInt()));
+			}
+			
+			@Override
+			public void set(PacketBuffer buffer) {
+				set.accept(buffer.readInt());
+			}
+		};
+	}
+	
+	public static final BufferReferenceHolder createShortHolder(Supplier<Short> get, Consumer<Short> set) {
+		return new BufferReferenceHolder() {
+			
+			@Override
+			public PacketBuffer get() {
+				return new PacketBuffer(Unpooled.copyShort(get.get()));
+			}
+			
+			@Override
+			public void set(PacketBuffer buffer) {
+				set.accept(buffer.readShort());
+			}
+		};
+	}
+	
+	public static final BufferReferenceHolder createLongHolder(LongSupplier get, LongConsumer set) {
+		return new BufferReferenceHolder() {
+			
+			@Override
+			public PacketBuffer get() {
+				return new PacketBuffer(Unpooled.copyLong(get.getAsLong()));
+			}
+			
+			@Override
+			public void set(PacketBuffer buffer) {
+				set.accept(buffer.readLong());
 			}
 		};
 	}
