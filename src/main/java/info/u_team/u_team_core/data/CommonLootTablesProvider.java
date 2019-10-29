@@ -60,9 +60,9 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 						.addEntry(ItemLootEntry.builder(block) //
 								.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create() //
 										.enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)))) //
-								).func_216080_a(ItemLootEntry.builder(item) //
-										.acceptFunction(ApplyBonus.func_215869_a(Enchantments.FORTUNE)) //
-										.acceptFunction(ExplosionDecay.func_215863_b()))))
+								).alternatively(ItemLootEntry.builder(item) //
+										.acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE)) //
+										.acceptFunction(ExplosionDecay.builder()))))
 				.build();
 	}
 	

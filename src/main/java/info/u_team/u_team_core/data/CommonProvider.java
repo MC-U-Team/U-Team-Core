@@ -65,6 +65,6 @@ public abstract class CommonProvider implements IDataProvider {
 				writer.write(string);
 			}
 		}
-		cache.func_208316_a(path, hash);
+		cache.recordHash(path, hash);
 	}
 }
