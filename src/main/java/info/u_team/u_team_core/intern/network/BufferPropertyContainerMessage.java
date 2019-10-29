@@ -3,7 +3,7 @@ package info.u_team.u_team_core.intern.network;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.container.*;
+import info.u_team.u_team_core.container.UContainer;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.container.Container;
@@ -34,13 +34,21 @@ public class BufferPropertyContainerMessage {
 		return new BufferPropertyContainerMessage(sendBuffer.readByte(), sendBuffer.readShort(), new PacketBuffer(sendBuffer.readBytes(Unpooled.buffer())));
 	}
 	
+	public int getProperty() {
+		return property;
+	}
+	
+	public PacketBuffer getBuffer() {
+		return buffer;
+	}
+	
 	public static class Handler {
 		
 		public static void handle(BufferPropertyContainerMessage message, Supplier<Context> contextSupplier) {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
 				
-				if (context.getDirection().getOriginationSide() == LogicalSide.SERVER) {
+				if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
 					handleClient(message);
 				} else {
 					handleServer(message, context);
@@ -50,17 +58,17 @@ public class BufferPropertyContainerMessage {
 		}
 		
 		private static void handleServer(BufferPropertyContainerMessage message, Context context) {
-			getUContainer(context.getSender().openContainer, message.id).ifPresent(container -> container.updateClientValue(message.property, message.buffer));
+			getUContainer(context.getSender().openContainer, message.id).ifPresent(container -> container.updateValue(message, LogicalSide.SERVER));
 		}
 		
 		@OnlyIn(Dist.CLIENT)
 		private static void handleClient(BufferPropertyContainerMessage message) {
-			getUContainer(Minecraft.getInstance().player.openContainer, message.id).ifPresent(container -> container.updateServerValue(message.property, message.buffer));
+			getUContainer(Minecraft.getInstance().player.openContainer, message.id).ifPresent(container -> container.updateValue(message, LogicalSide.CLIENT));
 		}
 		
-		private static final Optional<USyncedContainer> getUContainer(Container container, int id) {
+		private static final Optional<UContainer> getUContainer(Container container, int id) {
 			if (container instanceof UContainer && container.windowId == id) {
-				return Optional.of((USyncedContainer) container);
+				return Optional.of((UContainer) container);
 			}
 			return Optional.empty();
 		}

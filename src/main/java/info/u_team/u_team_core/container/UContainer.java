@@ -5,12 +5,14 @@ import java.util.function.Function;
 import java.util.stream.*;
 
 import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
+import info.u_team.u_team_core.gui.UContainerScreen;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.BufferPropertyContainerMessage;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.*;
 import net.minecraft.network.*;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.*;
 
@@ -24,16 +26,94 @@ public abstract class UContainer extends Container {
 	/**
 	 * Server -> Client
 	 */
-	private final List<BufferReferenceHolder> syncServerToClient = new ArrayList<>();
+	private final List<BufferReferenceHolder> syncServerToClient;
+	
 	/**
 	 * Client -> Server
 	 */
-	private final List<BufferReferenceHolder> syncClientToServer = new ArrayList<>();
+	private final List<BufferReferenceHolder> syncClientToServer;
 	
+	/**
+	 * Creates a new container
+	 * 
+	 * @param type Container type
+	 * @param id Window id
+	 */
 	public UContainer(ContainerType<?> type, int id) {
 		super(type, id);
+		syncServerToClient = new ArrayList<>();
+		syncClientToServer = new ArrayList<>();
 	}
 	
+	/**
+	 * Adds a new {@link BufferReferenceHolder} that will sync values from the server to the client.
+	 * 
+	 * @param holder Buffer reference holder
+	 */
+	protected void addServerToClientTracker(BufferReferenceHolder holder) {
+		syncServerToClient.add(holder);
+	}
+	
+	/**
+	 * Adds a new {@link BufferReferenceHolder} that will sync values from the client to the server. <br />
+	 * <br />
+	 * THE AUTO SYNC ONLY WORKS IF YOU USE AN IMPLEMENTION OF {@link UContainerScreen}. If not you must manually call
+	 * {@link #updateTrackedServerToClient()} everytime you update values on the client that should be synced to the server.
+	 * 
+	 * @param holder Buffer reference holder
+	 */
+	protected void addClientToServerTracker(BufferReferenceHolder holder) {
+		syncClientToServer.add(holder);
+	}
+	
+	/**
+	 * INTERNAL. Called by the packet handler to update the values on the right side.
+	 * 
+	 * @param message Message
+	 * @param side Side to handle the packet on
+	 */
+	public void updateValue(BufferPropertyContainerMessage message, LogicalSide side) {
+		final int property = message.getProperty();
+		final PacketBuffer buffer = message.getBuffer();
+		if (side == LogicalSide.CLIENT) {
+			syncServerToClient.get(property).set(buffer);
+		} else if (side == LogicalSide.SERVER) {
+			syncClientToServer.get(property).set(buffer);
+		}
+	}
+	
+	/**
+	 * We use this method to send the tracked values to the client
+	 */
+	@Override
+	public void detectAndSendChanges() {
+		super.detectAndSendChanges();
+		
+		final List<NetworkManager> networkManagers = listeners.stream() //
+				.filter(listener -> listener instanceof ServerPlayerEntity) //
+				.map(listener -> ((ServerPlayerEntity) listener).connection.getNetworkManager()) //
+				.collect(Collectors.toList());
+		getDirtyMap(syncServerToClient).forEach((property, holder) -> {
+			UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new BufferPropertyContainerMessage(windowId, property, holder.get()));
+		});
+	}
+	
+	public void updateTrackedServerToClient() {
+		getDirtyMap(syncClientToServer).forEach((property, holder) -> {
+			UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new BufferPropertyContainerMessage(windowId, property, holder.get()));
+		});
+	}
+	
+	private Map<Integer, BufferReferenceHolder> getDirtyMap(List<BufferReferenceHolder> list) {
+		return IntStream.range(0, list.size()) //
+				.filter(index -> list.get(index).isDirty()) //
+				.boxed() //
+				.collect(Collectors.toMap(Function.identity(), index -> list.get(index)));
+	}
+	
+	/**
+	 * Player can interact with this container
+	 */
 	@Override
 	public boolean canInteractWith(PlayerEntity player) {
 		return true;
@@ -124,55 +204,6 @@ public abstract class UContainer extends Container {
 				addSlot(function.getSlot(handler, width + height * inventoryWidth, width * 18 + x, height * 18 + y));
 			}
 		}
-	}
-	
-	protected void addServerToClientTracker(BufferReferenceHolder holder) {
-		syncServerToClient.add(holder);
-	}
-	
-	public void updateClientValue(int index, PacketBuffer buffer) {
-		syncServerToClient.get(index).set(buffer);
-	}
-	
-	protected void addClientToServerTracker(BufferReferenceHolder holder) {
-		syncClientToServer.add(holder);
-	}
-	
-	public void updateServerValue(int index, PacketBuffer buffer) {
-		syncClientToServer.get(index).set(buffer);
-	}
-	
-	/**
-	 * We use this method to send the tracked values to the client
-	 */
-	@Override
-	public void detectAndSendChanges() {
-		super.detectAndSendChanges();
-		
-		final List<NetworkManager> networkManagers = listeners.stream() //
-				.filter(listener -> listener instanceof ServerPlayerEntity) //
-				.map(listener -> ((ServerPlayerEntity) listener).connection.getNetworkManager()) //
-				.collect(Collectors.toList());
-		
-		final Map<Integer, BufferReferenceHolder> dirtyMap = getDirtyMap(syncServerToClient);
-		
-		dirtyMap.forEach((property, holder) -> {
-			UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new BufferPropertyContainerMessage(windowId, property, new PacketBuffer(holder.get().copy())));
-		});
-	}
-	
-	public void updateTrackedServerToClient() {
-		final Map<Integer, BufferReferenceHolder> dirtyMap = getDirtyMap(syncClientToServer);
-		dirtyMap.forEach((property, holder) -> {
-			UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new BufferPropertyContainerMessage(windowId, property, new PacketBuffer(holder.get().copy())));
-		});
-	}
-	
-	private Map<Integer, BufferReferenceHolder> getDirtyMap(List<BufferReferenceHolder> list) {
-		return IntStream.range(0, list.size()) //
-				.filter(index -> list.get(index).isDirty()) //
-				.boxed() //
-				.collect(Collectors.toMap(Function.identity(), index -> list.get(index)));
 	}
 	
 	/**
