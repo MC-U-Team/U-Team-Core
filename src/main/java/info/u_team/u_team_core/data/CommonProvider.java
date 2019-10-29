@@ -19,15 +19,13 @@ public abstract class CommonProvider implements IDataProvider {
 	
 	protected final Marker marker;
 	
-	private final String name;
 	protected final DataGenerator generator;
 	protected final Path path;
 	
-	public CommonProvider(String name, DataGenerator generator) {
+	public CommonProvider(DataGenerator generator) {
 		this.generator = generator;
-		this.name = name;
 		this.path = resolvePath(generator.getOutputFolder());
-		marker = MarkerManager.getMarker(name);
+		marker = MarkerManager.getMarker(getName());
 	}
 	
 	protected abstract Path resolvePath(Path outputFolder);
@@ -38,11 +36,6 @@ public abstract class CommonProvider implements IDataProvider {
 	
 	protected Path resolveData(Path outputFolder, String modid) {
 		return outputFolder.resolve("data").resolve(modid);
-	}
-	
-	@Override
-	public String getName() {
-		return name;
 	}
 	
 	protected void write(DirectoryCache cache, JsonElement element, Path path) throws IOException {

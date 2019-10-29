@@ -67,6 +67,24 @@ minecraft {
                 }
             }
         }
+        data = {
+            workingDirectory project.file("run/data").canonicalPath
+            args "--mod", "uteamcore", "--all", "--output", "\"" + file("src/generated/resources").toString() + "\""
+            mods {
+                uteamcore {
+                    source sourceSets.main
+				}
+			}
+        }
+        data_test = {
+            workingDirectory project.file("run/data").canonicalPath
+            args "--mod", "uteamtest", "--all", "--output", "\"" + file("src/generated_test/resources").toString() + "\""
+            mods {
+                uteamtest {
+                    source sourceSets.test
+				}
+			}
+        }
     }
 }
 
@@ -173,11 +191,14 @@ sourceSets {
 		}
 		resources {
 			srcDirs += "src/repack/resources"
+			srcDirs += "src/generated/resources"
 		}
    	}
    	test {
 		java
-		resources
+		resources {
+			srcDirs += "src/generated_test/resources"
+		}
    	}
 }
 
