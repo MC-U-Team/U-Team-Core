@@ -31,7 +31,14 @@ public class BufferPropertyContainerMessage {
 	}
 	
 	public static BufferPropertyContainerMessage decode(PacketBuffer sendBuffer) {
-		return new BufferPropertyContainerMessage(sendBuffer.readByte(), sendBuffer.readShort(), new PacketBuffer(sendBuffer.readBytes(Unpooled.buffer())));
+		final int id = sendBuffer.readByte();
+		final int property = sendBuffer.readShort();
+		
+		final byte[] bytes = new byte[sendBuffer.readableBytes()]; // Is there a better way to read all bytes??
+		sendBuffer.getBytes(sendBuffer.readerIndex(), bytes);
+		BufferPropertyContainerMessage buffer = new BufferPropertyContainerMessage(id, property, new PacketBuffer(Unpooled.wrappedBuffer(bytes)));
+		
+		return buffer;
 	}
 	
 	public int getProperty() {

@@ -1,13 +1,14 @@
 package info.u_team.u_team_test.tileentity;
 
-import info.u_team.u_team_core.api.sync.ISyncedTileEntity;
-import info.u_team.u_team_core.container.USyncedTileEntityContainer;
+import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
 import info.u_team.u_team_core.energy.BasicEnergyStorage;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.entity.player.*;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.*;
@@ -16,7 +17,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.*;
 
-public class BasicEnergyCreatorTileEntity extends UTileEntity implements ISyncedTileEntity, ITickableTileEntity {
+public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSyncedTileEntity, ITickableTileEntity {
 	
 	private final LazyOptional<ItemStackHandler> slots = LazyOptional.of(() -> new ItemStackHandler(6) {
 		
@@ -55,7 +56,7 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements ISynced
 	}
 	
 	@Override
-	public USyncedTileEntityContainer<?> createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+	public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
 		return new BasicEnergyCreatorContainer(id, playerInventory, this);
 	}
 	
@@ -84,5 +85,13 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements ISynced
 				}
 			}
 		});
+	}
+
+	@Override
+	public void sendInitialDataBuffer(PacketBuffer buffer) {
+	}
+
+	@Override
+	public void handleInitialDataBuffer(PacketBuffer buffer) {
 	}
 }
