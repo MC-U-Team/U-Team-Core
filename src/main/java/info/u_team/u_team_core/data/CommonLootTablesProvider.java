@@ -15,8 +15,8 @@ import net.minecraft.world.storage.loot.functions.*;
 
 public abstract class CommonLootTablesProvider extends CommonProvider {
 	
-	public CommonLootTablesProvider(String name, DataGenerator generator) {
-		super(name, generator);
+	public CommonLootTablesProvider(DataGenerator generator) {
+		super(generator);
 	}
 	
 	@Override
@@ -35,6 +35,11 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	@Override
 	protected Path resolvePath(Path outputFolder) {
 		return outputFolder.resolve("data");
+	}
+	
+	@Override
+	public String getName() {
+		return "Loot-Tables";
 	}
 	
 	protected static void registerBlock(Block block, LootTable lootTable, BiConsumer<ResourceLocation, LootTable> consumer) {

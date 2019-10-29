@@ -19,8 +19,8 @@ public abstract class CommonTagsProvider<T extends IForgeRegistryEntry<T>> exten
 	protected final IForgeRegistry<T> registry;
 	protected final Map<Tag<T>, Tag.Builder<T>> tagToBuilder = Maps.newLinkedHashMap();
 	
-	protected CommonTagsProvider(String name, DataGenerator generator, IForgeRegistry<T> registry) {
-		super(name, generator);
+	protected CommonTagsProvider(DataGenerator generator, IForgeRegistry<T> registry) {
+		super(generator);
 		this.registry = registry;
 	}
 	

@@ -15,14 +15,19 @@ import net.minecraft.util.*;
 
 public abstract class CommonRecipesProvider extends CommonProvider {
 	
-	public CommonRecipesProvider(DataGenerator generator) {
-		super("Recipes", generator);
+	protected CommonRecipesProvider(DataGenerator generator) {
+		super(generator);
 	}
 	
 	@Override
 	public void act(DirectoryCache cache) throws IOException {
 		registerRecipes(recipe -> generateRecipe(cache, recipe, false));
 		registerDefaultAdvancementsRecipes(recipe -> generateRecipe(cache, recipe, true));
+	}
+	
+	@Override
+	public String getName() {
+		return "Recipes";
 	}
 	
 	private void generateRecipe(DirectoryCache cache, IFinishedRecipe recipe, boolean vanillaAdvancement) {

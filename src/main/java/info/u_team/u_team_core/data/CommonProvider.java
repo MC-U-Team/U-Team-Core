@@ -38,9 +38,13 @@ public abstract class CommonProvider implements IDataProvider {
 		return outputFolder.resolve("data").resolve(modid);
 	}
 	
-	protected void write(DirectoryCache cache, JsonElement element, Path path) throws IOException {
+	public static void write(DirectoryCache cache, JsonElement element, Path path) throws IOException {
+		write(cache, element, path, GSON);
+	}
+	
+	public static void write(DirectoryCache cache, JsonElement element, Path path, Gson gson) throws IOException {
 		try (final StringWriter writer = new StringWriter(); //
-				final JsonWriter jsonWriter = GsonUtil.createTabWriter(GSON, writer)) {
+				final JsonWriter jsonWriter = GsonUtil.createTabWriter(gson, writer)) {
 			GSON.toJson(element, jsonWriter);
 			write(cache, writer.toString(), path);
 		} catch (IOException e) {
@@ -48,7 +52,7 @@ public abstract class CommonProvider implements IDataProvider {
 		}
 	}
 	
-	protected void write(DirectoryCache cache, String string, Path path) throws IOException {
+	public static void write(DirectoryCache cache, String string, Path path) throws IOException {
 		final String hash = HASH_FUNCTION.hashUnencodedChars(string).toString();
 		if (!Objects.equals(cache.getPreviousHash(path), hash) || !Files.exists(path)) {
 			Files.createDirectories(path.getParent());

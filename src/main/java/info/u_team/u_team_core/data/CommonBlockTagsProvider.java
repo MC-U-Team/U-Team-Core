@@ -10,8 +10,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonBlockTagsProvider extends CommonTagsProvider<Block> {
 	
-	protected CommonBlockTagsProvider(String name, DataGenerator generator) {
-		super(name, generator, ForgeRegistries.BLOCKS);
+	protected CommonBlockTagsProvider(DataGenerator generator) {
+		super(generator, ForgeRegistries.BLOCKS);
 	}
 	
 	@Override
@@ -22,5 +22,10 @@ public abstract class CommonBlockTagsProvider extends CommonTagsProvider<Block> 
 	@Override
 	protected void setCollection(TagCollection<Block> collection) {
 		BlockTags.setCollection(collection);
+	}
+	
+	@Override
+	public String getName() {
+		return "Block-Tags";
 	}
 }

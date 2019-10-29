@@ -15,8 +15,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	
-	protected CommonItemTagsProvider(String name, DataGenerator generator) {
-		super(name, generator, ForgeRegistries.ITEMS);
+	protected CommonItemTagsProvider(DataGenerator generator) {
+		super(generator, ForgeRegistries.ITEMS);
 	}
 	
 	@Override
@@ -27,6 +27,11 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	@Override
 	protected void setCollection(TagCollection<Item> collection) {
 		ItemTags.setCollection(collection);
+	}
+	
+	@Override
+	public String getName() {
+		return "Item-Tags";
 	}
 	
 	protected void copy(Tag<Block> from, Tag<Item> to) {
