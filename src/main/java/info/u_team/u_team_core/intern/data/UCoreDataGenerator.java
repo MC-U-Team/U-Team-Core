@@ -19,6 +19,7 @@ public class UCoreDataGenerator {
 		}
 		if (event.includeClient()) {
 			generator.addProvider(new UCoreLanguagesProvider(generator, UCoreMain.MODID));
+			generator.addProvider(new UCoreBlockStatesProvider(generator, UCoreMain.MODID, event.getExistingFileHelper()));
 		}
 	}
 }

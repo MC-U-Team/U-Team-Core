@@ -79,7 +79,7 @@ minecraft {
         data_test = {
         	parents data
             workingDirectory project.file("run/data").canonicalPath
-            args "--mod", "uteamtest", "--all", "--output", "\"" + file("src/generated_test/resources").toString() + "\""
+            args "--mod", "uteamtest", "--all", "--output", "\"" + file("src/generated_test/resources").toString() + "\"", "--validate", "--existing", "\"" + sourceSets.test.resources.srcDirs[0] + "\""
             mods {
                 uteamtest {
                     source sourceSets.test

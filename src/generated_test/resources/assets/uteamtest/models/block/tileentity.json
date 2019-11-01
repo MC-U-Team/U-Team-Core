@@ -1,0 +1,7 @@
+{
+	"parent": "uteamcore:block/facing",
+	"textures": {
+		"front": "uteamtest:block/tileentity",
+		"side": "uteamtest:block/tileentity_front"
+	}
+}
