@@ -82,15 +82,25 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	
 	// Block model methods
 	protected BlockModelBuilder cubeFacing(String name, ResourceLocation front, ResourceLocation side) {
+		return cubeFacing(name, front, side, side);
+	}
+	
+	protected BlockModelBuilder cubeFacing(String name, ResourceLocation front, ResourceLocation side, ResourceLocation particle) {
 		return getBuilder(name) //
 				.parent(new UncheckedModelFile(new ResourceLocation(UCoreMain.MODID, "block/facing"))) //
+				.texture("particle", particle) //
 				.texture("front", front) //
 				.texture("side", side);
 	}
 	
 	protected BlockModelBuilder cubeFacingBottomTop(String name, ResourceLocation front, ResourceLocation bottom, ResourceLocation top, ResourceLocation side) {
+		return cubeFacingBottomTop(name, front, bottom, top, side, side);
+	}
+	
+	protected BlockModelBuilder cubeFacingBottomTop(String name, ResourceLocation front, ResourceLocation bottom, ResourceLocation top, ResourceLocation side, ResourceLocation particle) {
 		return getBuilder(name) //
 				.parent(new UncheckedModelFile(new ResourceLocation(UCoreMain.MODID, "block/facing_bottom_top"))) //
+				.texture("particle", particle) //
 				.texture("front", front) //
 				.texture("bottom", bottom) //
 				.texture("top", top) //
