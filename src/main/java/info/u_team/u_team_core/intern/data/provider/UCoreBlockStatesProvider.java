@@ -13,6 +13,7 @@ public class UCoreBlockStatesProvider extends CommonBlockStatesProvider {
 	@Override
 	protected void registerStatesAndModels() {
 		withExistingParent("facing", "cube") //
+				.texture("particle", "#side") //
 				.texture("north", "#front") //
 				.texture("east", "#side") //
 				.texture("south", "#side") //
@@ -21,6 +22,7 @@ public class UCoreBlockStatesProvider extends CommonBlockStatesProvider {
 				.texture("down", "#side");
 		
 		withExistingParent("facing_bottom_top", "cube") //
+				.texture("particle", "#side") //
 				.texture("north", "#front") //
 				.texture("east", "#side") //
 				.texture("south", "#side") //
