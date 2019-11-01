@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @EventBusSubscriber(modid = UCoreMain.MODID, bus = Bus.MOD)
 public class UCoreRecipeSerializers {
 	
-	public static final IRecipeSerializer<DyeableItemDyeRecipe> CRAFTING_SPECIAL_ITEMDYE = new USpecialRecipeSerializer<>("crafting_special_itemdye", DyeableItemDyeRecipe::new);
+	public static final USpecialRecipeSerializer<DyeableItemDyeRecipe> CRAFTING_SPECIAL_ITEMDYE = new USpecialRecipeSerializer<>("crafting_special_itemdye", DyeableItemDyeRecipe::new);
 	
 	public static final NoMirrorShapedRecipe.Serializer NO_MIRROR_SHAPED = new NoMirrorShapedRecipe.Serializer("crafting_shaped_no_mirror");
 	

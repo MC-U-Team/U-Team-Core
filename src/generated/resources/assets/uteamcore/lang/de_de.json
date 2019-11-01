@@ -1,0 +1,4 @@
+{
+	"commands.uteamcore.ping.success.other": "%s\u0027s Ping ist %sms",
+	"commands.uteamcore.ping.success.self": "Dein Ping ist %sms"
+}
