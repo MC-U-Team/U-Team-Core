@@ -7,7 +7,6 @@ import info.u_team.u_team_test.init.TestContainers;
 import info.u_team.u_team_test.tileentity.BasicEnergyCreatorTileEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketBuffer;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 public class BasicEnergyCreatorContainer extends UTileEntityContainer<BasicEnergyCreatorTileEntity> {
 	
@@ -21,7 +20,7 @@ public class BasicEnergyCreatorContainer extends UTileEntityContainer<BasicEnerg
 	
 	@Override
 	protected void init(boolean server) {
-		tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(handler -> appendInventory(handler, 2, 3, 116, 41));
+		tileEntity.getSlots().ifPresent(handler -> appendInventory(handler, 2, 3, 116, 41));
 		appendPlayerInventory(playerInventory, 8, 91);
 		addServerToClientTracker(BufferReferenceHolder.createIntHolder(() -> BasicEnergyStorage.getTileEntityEnergy(tileEntity), value -> BasicEnergyStorage.setTileEntityEnergy(tileEntity, value)));
 	}

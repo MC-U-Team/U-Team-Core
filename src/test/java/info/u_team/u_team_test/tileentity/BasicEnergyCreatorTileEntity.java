@@ -2,6 +2,7 @@ package info.u_team.u_team_test.tileentity;
 
 import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
 import info.u_team.u_team_core.energy.BasicEnergyStorage;
+import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
@@ -12,22 +13,19 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.*;
+import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.items.*;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSyncedTileEntity, ITickableTileEntity {
 	
-	private final LazyOptional<ItemStackHandler> slots = LazyOptional.of(() -> new ItemStackHandler(6) {
+	private final LazyOptional<TileEntityUItemStackHandler> slots = LazyOptional.of(() -> new TileEntityUItemStackHandler(6, this) {
 		
 		public int getSlotLimit(int slot) {
 			return 16;
 		}
-		
-		protected void onContentsChanged(int slot) {
-			markDirty();
-		};
 	});
 	
 	private final LazyOptional<BasicEnergyStorage> energy = LazyOptional.of(() -> new BasicEnergyStorage(1000, 10));
@@ -94,9 +92,16 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	
 	@Override
 	public void sendInitialDataBuffer(PacketBuffer buffer) {
+		energy.ifPresent(handler -> buffer.writeInt(handler.getEnergyStored()));
 	}
 	
+	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleInitialDataBuffer(PacketBuffer buffer) {
+		energy.ifPresent(handler -> handler.setEnergy(buffer.readInt()));
+	}
+	
+	public LazyOptional<TileEntityUItemStackHandler> getSlots() {
+		return slots;
 	}
 }
