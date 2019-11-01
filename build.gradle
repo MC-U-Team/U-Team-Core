@@ -107,6 +107,8 @@ jar {
 
     from "LICENSE"
     from "LICENSE-DEPENDENCIES"
+    
+    exclude(".cache")  
 
    	manifest normalManifest
 }
@@ -117,6 +119,8 @@ task deobfJar(type: Jar) {
     from sourceSets.main.output
     from "LICENSE"
     from "LICENSE-DEPENDENCIES"
+    
+    exclude(".cache")  
         
     manifest normalManifest
 }
@@ -148,6 +152,8 @@ task testJar(type: Jar) {
 
     from sourceSets.test.output
     from "LICENSE"
+    
+    exclude(".cache")
                
    	afterEvaluate {
 	    reobf.create("testJar");
@@ -164,6 +170,8 @@ task testDeobfJar(type: Jar) {
 
     from sourceSets.test.output
     from "LICENSE"
+    
+    exclude(".cache")
                       
     manifest normalManifest
 }
