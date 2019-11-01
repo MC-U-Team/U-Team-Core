@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
-public class TestPotion {
+public class TestPotions {
 	
 	public static final Potion RADIATION = new RadiationPotion("radiation", 1200, 0);
 	public static final Potion RADIATION_LONG = new RadiationPotion("radiation_long", 2400, 1);
