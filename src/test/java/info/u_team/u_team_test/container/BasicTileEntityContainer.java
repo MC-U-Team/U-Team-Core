@@ -1,6 +1,7 @@
 package info.u_team.u_team_test.container;
 
-import info.u_team.u_team_core.container.USyncedTileEntityContainer;
+import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
+import info.u_team.u_team_core.container.*;
 import info.u_team.u_team_test.init.TestContainers;
 import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -8,14 +9,16 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.network.PacketBuffer;
 
-public class BasicTileEntityContainer extends USyncedTileEntityContainer<BasicTileEntityTileEntity> {
+public class BasicTileEntityContainer extends UTileEntityContainer<BasicTileEntityTileEntity> {
 	
-	public BasicTileEntityContainer(int id, PlayerInventory playerInventory, BasicTileEntityTileEntity tileEntity) {
-		super(TestContainers.BASIC, id, playerInventory, tileEntity);
-	}
-	
+	// Client
 	public BasicTileEntityContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
 		super(TestContainers.BASIC, id, playerInventory, buffer);
+	}
+	
+	// Server
+	public BasicTileEntityContainer(int id, PlayerInventory playerInventory, BasicTileEntityTileEntity tileEntity) {
+		super(TestContainers.BASIC, id, playerInventory, tileEntity);
 	}
 	
 	@Override
@@ -29,5 +32,17 @@ public class BasicTileEntityContainer extends USyncedTileEntityContainer<BasicTi
 		}
 		
 		appendPlayerInventory(playerInventory, 8, 91);
+		
+		addServerToClientTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.value, value -> tileEntity.value = value));
+		addServerToClientTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.cooldown, value -> tileEntity.cooldown = value));
+		
+		addClientToServerTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.value, value -> {
+			tileEntity.value = value;
+			tileEntity.markDirty();
+		}));
+		addClientToServerTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.cooldown, value -> {
+			tileEntity.cooldown = Math.min(value, 100);
+			tileEntity.markDirty();
+		}));
 	}
 }

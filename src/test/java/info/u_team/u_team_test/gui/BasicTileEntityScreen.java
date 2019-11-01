@@ -4,9 +4,7 @@ import info.u_team.u_team_core.gui.UContainerScreen;
 import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
-import io.netty.buffer.Unpooled;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
@@ -26,17 +24,11 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 		super.init();
 		addButton(new UButton(guiLeft + xSize / 2 - 25, guiTop + 3, 50, 15, "Add 100", button -> {
 			container.getTileEntity().value += 100;
-			PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-			container.sendToServer(buffer);
-			container.sendDataToServer(buffer);
 		}));
 		
 		addButton(new GuiSlider(guiLeft + 7, guiTop + 19, 162, 20, "Cooldown: ", " Ticks", 0, 100, container.getTileEntity().cooldown, false, true, button -> {
 		}, slider -> {
 			container.getTileEntity().cooldown = slider.getValueInt();
-			PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
-			container.sendToServer(buffer);
-			container.sendDataToServer(buffer);
 		}));
 	}
 	

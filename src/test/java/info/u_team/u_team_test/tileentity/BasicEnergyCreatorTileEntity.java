@@ -24,6 +24,10 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 		public int getSlotLimit(int slot) {
 			return 16;
 		}
+		
+		protected void onContentsChanged(int slot) {
+			markDirty();
+		};
 	});
 	
 	private final LazyOptional<BasicEnergyStorage> energy = LazyOptional.of(() -> new BasicEnergyStorage(1000, 10));

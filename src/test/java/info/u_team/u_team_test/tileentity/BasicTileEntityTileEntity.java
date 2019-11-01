@@ -2,13 +2,13 @@ package info.u_team.u_team_test.tileentity;
 
 import java.util.Iterator;
 
-import info.u_team.u_team_core.api.sync.IAutoSyncedTileEntity;
-import info.u_team.u_team_core.container.USyncedTileEntityContainer;
+import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.*;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -17,7 +17,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.*;
 
-public class BasicTileEntityTileEntity extends UTileEntity implements IInventory, IAutoSyncedTileEntity, ITickableTileEntity {
+public class BasicTileEntityTileEntity extends UTileEntity implements IInventory, IInitSyncedTileEntity, ITickableTileEntity {
 	
 	private final NonNullList<ItemStack> list;
 	
@@ -29,7 +29,7 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInventory
 	}
 	
 	@Override
-	public USyncedTileEntityContainer<?> createMenu(int windowid, PlayerInventory playerInventory, PlayerEntity player) {
+	public Container createMenu(int windowid, PlayerInventory playerInventory, PlayerEntity player) {
 		return new BasicTileEntityContainer(windowid, playerInventory, this);
 	}
 	
@@ -38,31 +38,44 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInventory
 		return new StringTextComponent("Tile Entity");
 	}
 	
+	// @Override
+	// public void sendToClient(PacketBuffer buffer) {
+	// buffer.writeInt(value);
+	// buffer.writeInt(cooldown);
+	// }
+	//
+	// @OnlyIn(Dist.CLIENT)
+	// @Override
+	// public void handleFromServer(PacketBuffer buffer) {
+	// value = buffer.readInt();
+	// cooldown = buffer.readInt();
+	// }
+	//
+	// @OnlyIn(Dist.CLIENT)
+	// @Override
+	// public void sendToServer(PacketBuffer buffer) {
+	// buffer.writeInt(value);
+	// buffer.writeInt(cooldown);
+	// }
+	//
+	// @Override
+	// public void handleFromClient(PacketBuffer buffer) {
+	// value = buffer.readInt();
+	// cooldown = Math.min(buffer.readInt(), 100);
+	// markDirty();
+	// }
+	
 	@Override
-	public void sendToClient(PacketBuffer buffer) {
+	public void sendInitialDataBuffer(PacketBuffer buffer) {
 		buffer.writeInt(value);
 		buffer.writeInt(cooldown);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void handleFromServer(PacketBuffer buffer) {
+	public void handleInitialDataBuffer(PacketBuffer buffer) {
 		value = buffer.readInt();
 		cooldown = buffer.readInt();
-	}
-	
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void sendToServer(PacketBuffer buffer) {
-		buffer.writeInt(value);
-		buffer.writeInt(cooldown);
-	}
-	
-	@Override
-	public void handleFromClient(PacketBuffer buffer) {
-		value = buffer.readInt();
-		cooldown = Math.min(buffer.readInt(), 100);
-		markDirty();
 	}
 	
 	private int timer;
