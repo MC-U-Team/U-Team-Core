@@ -61,7 +61,7 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	
 	protected void simpleBlock(Block block) {
 		final ResourceLocation registryName = block.getRegistryName();
-		getBuilder(registryName.getPath()).parent(new ExistingModelFile(new ResourceLocation(registryName.getNamespace(), "block/" + registryName.getPath()), existingFileHelper));
+		getBuilder(registryName.getPath()).parent(new UncheckedModelFile(new ResourceLocation(registryName.getNamespace(), "block/" + registryName.getPath())));
 	}
 	
 	// Utility methods
