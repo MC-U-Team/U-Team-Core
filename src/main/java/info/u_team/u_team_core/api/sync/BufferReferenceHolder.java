@@ -50,6 +50,21 @@ public abstract class BufferReferenceHolder {
 		};
 	}
 	
+	public static final BufferReferenceHolder createByteHolder(Supplier<Byte> get, Consumer<Byte> set) {
+		return new BufferReferenceHolder() {
+			
+			@Override
+			public PacketBuffer get() {
+				return new PacketBuffer(Unpooled.buffer(1).writeByte(get.get()));
+			}
+			
+			@Override
+			public void set(PacketBuffer buffer) {
+				set.accept(buffer.readByte());
+			}
+		};
+	}
+	
 	public static final BufferReferenceHolder createShortHolder(Supplier<Short> get, Consumer<Short> set) {
 		return new BufferReferenceHolder() {
 			
