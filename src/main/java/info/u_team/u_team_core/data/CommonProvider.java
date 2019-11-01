@@ -30,14 +30,6 @@ public abstract class CommonProvider implements IDataProvider {
 	
 	protected abstract Path resolvePath(Path outputFolder);
 	
-	protected Path resolveAssets(Path outputFolder, String modid) {
-		return outputFolder.resolve("assets").resolve(modid);
-	}
-	
-	protected Path resolveData(Path outputFolder, String modid) {
-		return outputFolder.resolve("data").resolve(modid);
-	}
-	
 	public static void write(DirectoryCache cache, JsonElement element, Path path) throws IOException {
 		write(cache, element, path, GSON);
 	}
