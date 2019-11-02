@@ -3,6 +3,7 @@ package info.u_team.u_team_core.api.sync;
 import java.util.function.*;
 
 import io.netty.buffer.Unpooled;
+import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
 import net.minecraft.network.PacketBuffer;
 
 public abstract class BufferReferenceHolder {
@@ -91,6 +92,21 @@ public abstract class BufferReferenceHolder {
 			@Override
 			public void set(PacketBuffer buffer) {
 				set.accept(buffer.readLong());
+			}
+		};
+	}
+	
+	public static final BufferReferenceHolder createBooleanHolder(BooleanSupplier get, BooleanConsumer set) {
+		return new BufferReferenceHolder() {
+			
+			@Override
+			public PacketBuffer get() {
+				return new PacketBuffer(Unpooled.copyBoolean(get.getAsBoolean()));
+			}
+			
+			@Override
+			public void set(PacketBuffer buffer) {
+				set.accept(buffer.readBoolean());
 			}
 		};
 	}
