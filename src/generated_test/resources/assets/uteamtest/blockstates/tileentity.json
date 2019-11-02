@@ -1,25 +1,25 @@
 {
 	"variants": {
-		"facing\u003ddown": {
+		"facing=down": {
 			"model": "uteamtest:block/tileentity",
 			"x": 90
 		},
-		"facing\u003dup": {
+		"facing=up": {
 			"model": "uteamtest:block/tileentity",
 			"x": 270
 		},
-		"facing\u003dnorth": {
+		"facing=north": {
 			"model": "uteamtest:block/tileentity"
 		},
-		"facing\u003dsouth": {
+		"facing=south": {
 			"model": "uteamtest:block/tileentity",
 			"y": 180
 		},
-		"facing\u003dwest": {
+		"facing=west": {
 			"model": "uteamtest:block/tileentity",
 			"y": 270
 		},
-		"facing\u003deast": {
+		"facing=east": {
 			"model": "uteamtest:block/tileentity",
 			"y": 90
 		}

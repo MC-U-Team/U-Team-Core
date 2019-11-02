@@ -15,7 +15,7 @@ import net.minecraft.data.*;
 public abstract class CommonProvider implements IDataProvider {
 	
 	public static final Logger LOGGER = LogManager.getLogger("DataGenerator");
-	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 	
 	protected final Marker marker;
 	
