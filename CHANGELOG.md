@@ -1,6 +1,20 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.7.7.137] - 2019-11-02
+### Changed
+ - Deprecate some methods in BasicEnergyStorage
+ - Update test mod to the new sync system + some more improvements
+ - Fix loot table provider (data generator)
+ - Fix some streams not closed correctly
+ 
+### Added
+ - Add languages provider (data generator)
+ - Add block state provider / block models provider (data generator)
+ - Add item models provider (data generator)
+ - Expand BufferHolderReference with some basic methods for int, short, byte sync
+ - Add a MessageHolder that will send one message if you mark it that it should sync
+
 ## [1.14.4-2.7.6.136] - 2019-10-29
 ### Changed
  - Make the new sync system way better
