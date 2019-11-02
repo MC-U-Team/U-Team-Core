@@ -4,7 +4,9 @@ import info.u_team.u_team_core.gui.UContainerScreen;
 import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
+import io.netty.buffer.Unpooled;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
@@ -12,6 +14,8 @@ import net.minecraftforge.fml.client.config.GuiSlider;
 
 @OnlyIn(Dist.CLIENT)
 public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityContainer> {
+	
+	private GuiSlider slider;
 	
 	public BasicTileEntityScreen(BasicTileEntityContainer container, PlayerInventory playerInventory, ITextComponent text) {
 		super(container, playerInventory, text, new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png"));
@@ -23,13 +27,19 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 	protected void init() {
 		super.init();
 		addButton(new UButton(guiLeft + xSize / 2 - 25, guiTop + 3, 50, 15, "Add 100", button -> {
-			container.getTileEntity().value += 100;
+			container.getValueMessage().triggerMessage();
 		}));
 		
-		addButton(new GuiSlider(guiLeft + 7, guiTop + 19, 162, 20, "Cooldown: ", " Ticks", 0, 100, container.getTileEntity().cooldown, false, true, button -> {
+		slider = addButton(new GuiSlider(guiLeft + 7, guiTop + 19, 162, 20, "Cooldown: ", " Ticks", 0, 100, container.getTileEntity().cooldown, false, true, button -> {
 		}, slider -> {
-			container.getTileEntity().cooldown = slider.getValueInt();
+			container.getCooldownMessage().triggerMessage(() -> new PacketBuffer(Unpooled.copyShort(slider.getValueInt())));
 		}));
+	}
+	
+	@Override
+	public void tick() {
+		super.tick();
+		slider.setValue(container.getTileEntity().cooldown);
 	}
 	
 	@Override

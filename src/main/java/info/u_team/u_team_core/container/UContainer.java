@@ -51,7 +51,7 @@ public abstract class UContainer extends Container {
 	 * @param holder Buffer reference holder
 	 * @return The buffer reference holder
 	 */
-	protected BufferReferenceHolder addServerToClientTracker(BufferReferenceHolder holder) {
+	protected <E extends BufferReferenceHolder> E addServerToClientTracker(E holder) {
 		syncServerToClient.add(holder);
 		return holder;
 	}
@@ -66,7 +66,7 @@ public abstract class UContainer extends Container {
 	 * @param holder Buffer reference holder
 	 * @return The buffer reference holder
 	 */
-	protected BufferReferenceHolder addClientToServerTracker(BufferReferenceHolder holder) {
+	protected <E extends BufferReferenceHolder> E addClientToServerTracker(E holder) {
 		syncClientToServer.add(holder);
 		return holder;
 	}
