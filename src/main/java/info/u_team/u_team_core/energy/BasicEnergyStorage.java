@@ -24,6 +24,10 @@ public class BasicEnergyStorage extends EnergyStorage implements INBTSerializabl
 		super(capacity, maxReceive, maxExtract, energy);
 	}
 	
+	public int getEnergy() {
+		return super.getEnergyStored();
+	}
+	
 	public void setEnergy(int energy) {
 		this.energy = energy;
 	}
@@ -49,18 +53,22 @@ public class BasicEnergyStorage extends EnergyStorage implements INBTSerializabl
 		setEnergy(compound.getInt("energy"));
 	}
 	
+	@Deprecated
 	public static void setTileEntityEnergy(TileEntity tileEntity, int energy) {
 		setTileEntityEnergy(tileEntity, null, energy);
 	}
 	
+	@Deprecated
 	public static void setTileEntityEnergy(TileEntity tileEntity, Direction side, int energy) {
 		tileEntity.getCapability(CapabilityEnergy.ENERGY, side).filter(handler -> handler instanceof BasicEnergyStorage).map(handler -> (BasicEnergyStorage) handler).ifPresent(handler -> handler.setEnergy(energy));
 	}
 	
+	@Deprecated
 	public static int getTileEntityEnergy(TileEntity tileEntity) {
 		return getTileEntityEnergy(tileEntity, null);
 	}
 	
+	@Deprecated
 	public static int getTileEntityEnergy(TileEntity tileEntity, Direction side) {
 		return tileEntity.getCapability(CapabilityEnergy.ENERGY, side).map(IEnergyStorage::getEnergyStored).orElse(0);
 	}
