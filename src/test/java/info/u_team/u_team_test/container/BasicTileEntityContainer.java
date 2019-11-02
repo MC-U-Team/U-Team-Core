@@ -4,6 +4,7 @@ import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
 import info.u_team.u_team_core.container.UTileEntityContainer;
 import info.u_team.u_team_test.init.TestContainers;
 import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
+import io.netty.buffer.Unpooled;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketBuffer;
 
@@ -27,13 +28,17 @@ public class BasicTileEntityContainer extends UTileEntityContainer<BasicTileEnti
 		addServerToClientTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.value, value -> tileEntity.value = value));
 		addServerToClientTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.cooldown, value -> tileEntity.cooldown = value));
 		
-		addClientToServerTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.value, value -> {
-			tileEntity.value = value;
-			tileEntity.markDirty();
-		}));
-		addClientToServerTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.cooldown, value -> {
-			tileEntity.cooldown = Math.min(value, 100);
-			tileEntity.markDirty();
-		}));
+		
+		
+//		addClientToServerTracker(BufferReferenceHolder.createHolder(() -> new PacketBuffer(Unpooled.EMPTY_BUFFER), buffer -> ));
+		
+		// addClientToServerTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.value, value -> {
+		// tileEntity.value = value;
+		// tileEntity.markDirty();
+		// }));
+		// addClientToServerTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.cooldown, value -> {
+		// tileEntity.cooldown = Math.min(value, 100);
+		// tileEntity.markDirty();
+		// }));
 	}
 }

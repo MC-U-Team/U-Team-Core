@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.gui;
+package info.u_team.u_team_test.screen;
 
 import info.u_team.u_team_core.gui.elements.*;
 import info.u_team.u_team_test.TestMod;
