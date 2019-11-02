@@ -49,9 +49,11 @@ public abstract class UContainer extends Container {
 	 * Adds a new {@link BufferReferenceHolder} that will sync values from the server to the client.
 	 * 
 	 * @param holder Buffer reference holder
+	 * @return The buffer reference holder
 	 */
-	protected void addServerToClientTracker(BufferReferenceHolder holder) {
+	protected BufferReferenceHolder addServerToClientTracker(BufferReferenceHolder holder) {
 		syncServerToClient.add(holder);
+		return holder;
 	}
 	
 	/**
@@ -62,9 +64,11 @@ public abstract class UContainer extends Container {
 	 * server.
 	 * 
 	 * @param holder Buffer reference holder
+	 * @return The buffer reference holder
 	 */
-	protected void addClientToServerTracker(BufferReferenceHolder holder) {
+	protected BufferReferenceHolder addClientToServerTracker(BufferReferenceHolder holder) {
 		syncClientToServer.add(holder);
+		return holder;
 	}
 	
 	/**
