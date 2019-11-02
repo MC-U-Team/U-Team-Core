@@ -117,6 +117,7 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	 * @param inventory Inventory to decide on
 	 * @return The passed inventory on the server side of a new one on the client side
 	 */
+	@Deprecated
 	protected IInventory getInventoryOnDist(boolean server, IInventory inventory) {
 		return server ? inventory : new Inventory(inventory.getSizeInventory());
 	}
