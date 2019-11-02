@@ -104,4 +104,15 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	public LazyOptional<TileEntityUItemStackHandler> getSlots() {
 		return slots;
 	}
+	
+	public LazyOptional<BasicEnergyStorage> getEnergy() {
+		return energy;
+	}
+	
+	@Override
+	public void remove() {
+		slots.invalidate();
+		energy.invalidate();
+		super.remove();
+	}
 }

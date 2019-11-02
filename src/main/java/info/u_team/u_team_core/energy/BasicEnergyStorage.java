@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.energy;
 
+import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -51,6 +52,10 @@ public class BasicEnergyStorage extends EnergyStorage implements INBTSerializabl
 	@Override
 	public void deserializeNBT(CompoundNBT compound) {
 		setEnergy(compound.getInt("energy"));
+	}
+	
+	public BufferReferenceHolder createSyncHandler() {
+		return BufferReferenceHolder.createIntHolder(this::getEnergy, this::setEnergy);
 	}
 	
 	@Deprecated

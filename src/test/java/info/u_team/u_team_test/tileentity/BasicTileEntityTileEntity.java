@@ -92,4 +92,10 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 	public LazyOptional<TileEntityUItemStackHandler> getSlots() {
 		return slots;
 	}
+	
+	@Override
+	public void remove() {
+		slots.invalidate();
+		super.remove();
+	}
 }
