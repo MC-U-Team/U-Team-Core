@@ -51,6 +51,10 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		return outputFolder.resolve("assets");
 	}
 	
+	protected void add(ItemGroup key, String name) {
+		add(key.getTranslationKey(), name);
+	}
+	
 	protected void addBlock(Supplier<Block> key, String name) {
 		add(key.get(), name);
 	}
@@ -109,6 +113,10 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	
 	protected void add(String key, String value) {
 		add("en_us", key, value);
+	}
+	
+	protected void add(String locale, ItemGroup key, String name) {
+		add(locale, key.getTranslationKey(), name);
 	}
 	
 	protected void addBlock(String locale, Supplier<Block> key, String name) {
