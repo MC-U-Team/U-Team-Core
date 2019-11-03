@@ -1,14 +1,12 @@
 package info.u_team.u_team_test.data.provider;
 
-import info.u_team.u_team_core.data.CommonItemModelsProvider;
+import info.u_team.u_team_core.data.*;
 import info.u_team.u_team_test.init.*;
-import net.minecraft.data.DataGenerator;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
 
 public class TestItemModelsProvider extends CommonItemModelsProvider {
 	
-	public TestItemModelsProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
-		super(generator, modid, existingFileHelper);
+	public TestItemModelsProvider(GenerationData data) {
+		super(data);
 	}
 	
 	@Override

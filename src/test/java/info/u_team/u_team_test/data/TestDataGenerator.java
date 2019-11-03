@@ -1,8 +1,8 @@
 package info.u_team.u_team_test.data;
 
+import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.data.provider.*;
-import net.minecraft.data.DataGenerator;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -13,13 +13,12 @@ public class TestDataGenerator {
 	
 	@SubscribeEvent
 	public static void data(GatherDataEvent event) {
-		final DataGenerator generator = event.getGenerator();
+		final GenerationData data = new GenerationData(TestMod.MODID, event);
 		if (event.includeServer()) {
 		}
 		if (event.includeClient()) {
-			generator.addProvider(new TestBlockStatesProvider(generator, TestMod.MODID, event.getExistingFileHelper()));
-			generator.addProvider(new TestItemModelsProvider(generator, TestMod.MODID, event.getExistingFileHelper()));
+			data.addProvider(TestBlockStatesProvider::new);
+			data.addProvider(TestItemModelsProvider::new);
 		}
 	}
-	
 }
