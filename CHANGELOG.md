@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.7.8.138] - 2019-11-03
+### Changed
+ - Make data generator much easier to register
+ - Breaking change for mod developers depending on this, but not for the players
+ 
 ## [1.14.4-2.7.7.137] - 2019-11-02
 ### Changed
  - Deprecate some methods in BasicEnergyStorage
