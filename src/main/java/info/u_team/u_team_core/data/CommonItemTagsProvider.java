@@ -6,7 +6,6 @@ import java.util.List;
 import com.google.common.collect.Lists;
 
 import net.minecraft.block.Block;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.item.*;
 import net.minecraft.tags.*;
 import net.minecraft.tags.Tag.*;
@@ -15,8 +14,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	
-	protected CommonItemTagsProvider(DataGenerator generator) {
-		super(generator, ForgeRegistries.ITEMS);
+	protected CommonItemTagsProvider(GenerationData data) {
+		super(data, ForgeRegistries.ITEMS);
 	}
 	
 	@Override

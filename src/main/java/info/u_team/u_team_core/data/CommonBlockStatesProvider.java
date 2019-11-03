@@ -9,7 +9,7 @@ import com.google.common.base.Preconditions;
 
 import info.u_team.u_team_core.UCoreMain;
 import net.minecraft.block.*;
-import net.minecraft.data.*;
+import net.minecraft.data.DirectoryCache;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.*;
 import net.minecraftforge.client.model.generators.*;
@@ -19,8 +19,8 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	
 	protected final Marker marker;
 	
-	public CommonBlockStatesProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
-		super(generator, modid, existingFileHelper);
+	public CommonBlockStatesProvider(GenerationData data) {
+		super(data.getGenerator(), data.getModid(), data.getExistingFileHelper());
 		marker = MarkerManager.getMarker(getName());
 	}
 	

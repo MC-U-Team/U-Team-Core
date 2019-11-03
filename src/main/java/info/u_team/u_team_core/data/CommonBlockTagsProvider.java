@@ -3,15 +3,14 @@ package info.u_team.u_team_core.data;
 import java.nio.file.Path;
 
 import net.minecraft.block.Block;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.tags.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonBlockTagsProvider extends CommonTagsProvider<Block> {
 	
-	protected CommonBlockTagsProvider(DataGenerator generator) {
-		super(generator, ForgeRegistries.BLOCKS);
+	protected CommonBlockTagsProvider(GenerationData data) {
+		super(data, ForgeRegistries.BLOCKS);
 	}
 	
 	@Override

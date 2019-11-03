@@ -15,8 +15,8 @@ import net.minecraft.util.*;
 
 public abstract class CommonRecipesProvider extends CommonProvider {
 	
-	protected CommonRecipesProvider(DataGenerator generator) {
-		super(generator);
+	protected CommonRecipesProvider(GenerationData data) {
+		super(data);
 	}
 	
 	@Override

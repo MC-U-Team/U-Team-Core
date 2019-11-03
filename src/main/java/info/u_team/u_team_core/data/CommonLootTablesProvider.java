@@ -6,7 +6,7 @@ import java.util.function.BiConsumer;
 
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.block.Block;
-import net.minecraft.data.*;
+import net.minecraft.data.DirectoryCache;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.util.*;
 import net.minecraft.world.storage.loot.*;
@@ -15,8 +15,8 @@ import net.minecraft.world.storage.loot.functions.*;
 
 public abstract class CommonLootTablesProvider extends CommonProvider {
 	
-	public CommonLootTablesProvider(DataGenerator generator) {
-		super(generator);
+	public CommonLootTablesProvider(GenerationData data) {
+		super(data);
 	}
 	
 	@Override

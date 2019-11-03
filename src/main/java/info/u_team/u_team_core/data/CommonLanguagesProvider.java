@@ -6,7 +6,7 @@ import java.util.*;
 import java.util.function.Supplier;
 
 import net.minecraft.block.Block;
-import net.minecraft.data.*;
+import net.minecraft.data.DirectoryCache;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.*;
@@ -15,13 +15,10 @@ import net.minecraft.world.biome.Biome;
 
 public abstract class CommonLanguagesProvider extends CommonProvider {
 	
-	protected final String modid;
-	
 	protected final Map<String, Map<String, String>> data;
 	
-	public CommonLanguagesProvider(DataGenerator generator, String modid) {
-		super(generator);
-		this.modid = modid;
+	public CommonLanguagesProvider(GenerationData data) {
+		super(data);
 		this.data = new HashMap<>();
 	}
 	

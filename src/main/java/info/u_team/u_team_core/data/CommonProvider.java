@@ -19,11 +19,15 @@ public abstract class CommonProvider implements IDataProvider {
 	
 	protected final Marker marker;
 	
+	protected final GenerationData data;
+	protected final String modid;
 	protected final DataGenerator generator;
 	protected final Path path;
 	
-	public CommonProvider(DataGenerator generator) {
-		this.generator = generator;
+	public CommonProvider(GenerationData data) {
+		this.data = data;
+		generator = data.getGenerator();
+		modid = data.getModid();
 		this.path = resolvePath(generator.getOutputFolder());
 		marker = MarkerManager.getMarker(getName());
 	}

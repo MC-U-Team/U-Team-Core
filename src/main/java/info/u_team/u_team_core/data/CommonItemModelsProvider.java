@@ -8,18 +8,18 @@ import org.apache.logging.log4j.*;
 
 import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
 import net.minecraft.block.Block;
-import net.minecraft.data.*;
+import net.minecraft.data.DirectoryCache;
 import net.minecraft.item.Item;
 import net.minecraft.util.*;
-import net.minecraftforge.client.model.generators.*;
-import net.minecraftforge.client.model.generators.ModelFile.*;
+import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 
 public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	
 	protected final Marker marker;
 	
-	public CommonItemModelsProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
-		super(generator, modid, existingFileHelper);
+	public CommonItemModelsProvider(GenerationData data) {
+		super(data.getGenerator(), data.getModid(), data.getExistingFileHelper());
 		marker = MarkerManager.getMarker(getName());
 	}
 	

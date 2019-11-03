@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.*;
+import net.minecraft.data.DirectoryCache;
 import net.minecraft.tags.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.*;
@@ -19,8 +19,8 @@ public abstract class CommonTagsProvider<T extends IForgeRegistryEntry<T>> exten
 	protected final IForgeRegistry<T> registry;
 	protected final Map<Tag<T>, Tag.Builder<T>> tagToBuilder = Maps.newLinkedHashMap();
 	
-	protected CommonTagsProvider(DataGenerator generator, IForgeRegistry<T> registry) {
-		super(generator);
+	protected CommonTagsProvider(GenerationData data, IForgeRegistry<T> registry) {
+		super(data);
 		this.registry = registry;
 	}
 	
