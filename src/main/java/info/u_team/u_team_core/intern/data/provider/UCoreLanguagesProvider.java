@@ -1,12 +1,11 @@
 package info.u_team.u_team_core.intern.data.provider;
 
-import info.u_team.u_team_core.data.CommonLanguagesProvider;
-import net.minecraft.data.DataGenerator;
+import info.u_team.u_team_core.data.*;
 
 public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 	
-	public UCoreLanguagesProvider(DataGenerator generator, String modid) {
-		super(generator, modid);
+	public UCoreLanguagesProvider(GenerationData data) {
+		super(data);
 	}
 	
 	@Override

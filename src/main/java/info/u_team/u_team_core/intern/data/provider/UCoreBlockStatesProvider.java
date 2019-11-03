@@ -1,13 +1,11 @@
 package info.u_team.u_team_core.intern.data.provider;
 
-import info.u_team.u_team_core.data.CommonBlockStatesProvider;
-import net.minecraft.data.DataGenerator;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import info.u_team.u_team_core.data.*;
 
 public class UCoreBlockStatesProvider extends CommonBlockStatesProvider {
 	
-	public UCoreBlockStatesProvider(DataGenerator generator, String modid, ExistingFileHelper existingFileHelper) {
-		super(generator, modid, existingFileHelper);
+	public UCoreBlockStatesProvider(GenerationData data) {
+		super(data);
 	}
 	
 	@Override

@@ -1,6 +1,8 @@
 package info.u_team.u_team_core.data;
 
-import net.minecraft.data.DataGenerator;
+import java.util.function.Function;
+
+import net.minecraft.data.*;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
@@ -30,6 +32,10 @@ public class GenerationData {
 	
 	public ExistingFileHelper getExistingFileHelper() {
 		return existingFileHelper;
+	}
+	
+	public void addProvider(Function<GenerationData, IDataProvider> function) {
+		generator.addProvider(function.apply(this));
 	}
 	
 }
