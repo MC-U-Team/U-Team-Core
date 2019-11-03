@@ -32,15 +32,15 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	
 	private void generateRecipe(DirectoryCache cache, IFinishedRecipe recipe, boolean vanillaAdvancement) {
 		try {
-			final ResourceLocation recipeID = recipe.getID();
-			write(cache, recipe.getRecipeJson(), path.resolve(recipeID.getNamespace()).resolve("recipes").resolve(recipe.getID().getPath() + ".json"));
+			final ResourceLocation recipeLocation = recipe.getID();
+			write(cache, recipe.getRecipeJson(), resolveData(recipeLocation).resolve("recipes").resolve(recipe.getID().getPath() + ".json"));
 			if (recipe.getAdvancementJson() != null) {
 				final Path advancementPath;
 				if (vanillaAdvancement) {
-					final ResourceLocation advancementID = recipe.getAdvancementID();
-					advancementPath = path.resolve(advancementID.getNamespace()).resolve("advancements").resolve(advancementID.getPath() + ".json");
+					final ResourceLocation advancementLocation = recipe.getAdvancementID();
+					advancementPath = resolveData(advancementLocation).resolve("advancements").resolve(advancementLocation.getPath() + ".json");
 				} else {
-					advancementPath = path.resolve(recipeID.getNamespace()).resolve("advancements").resolve("recipes").resolve(recipeID.getPath() + ".json");
+					advancementPath = resolveData(recipeLocation).resolve("advancements").resolve("recipes").resolve(recipeLocation.getPath() + ".json");
 				}
 				write(cache, recipe.getAdvancementJson(), advancementPath);
 			}
@@ -57,11 +57,6 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	 * @param consumer
 	 */
 	protected void registerDefaultAdvancementsRecipes(Consumer<IFinishedRecipe> consumer) {
-	}
-	
-	@Override
-	protected Path resolvePath(Path outputFolder) {
-		return outputFolder.resolve("data");
 	}
 	
 	protected InventoryChangeTrigger.Instance hasItem(Tag<Item> tag) {

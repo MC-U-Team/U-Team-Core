@@ -11,6 +11,7 @@ import com.google.gson.stream.JsonWriter;
 
 import info.u_team.u_team_core.util.GsonUtil;
 import net.minecraft.data.*;
+import net.minecraft.util.ResourceLocation;
 
 public abstract class CommonProvider implements IDataProvider {
 	
@@ -28,11 +29,33 @@ public abstract class CommonProvider implements IDataProvider {
 		this.data = data;
 		generator = data.getGenerator();
 		modid = data.getModid();
-		this.path = resolvePath(generator.getOutputFolder());
+		path = generator.getOutputFolder();
 		marker = MarkerManager.getMarker(getName());
 	}
 	
-	protected abstract Path resolvePath(Path outputFolder);
+	public ResourceLocation modLoc(String path) {
+		return new ResourceLocation(modid, path);
+	}
+	
+	public ResourceLocation mcLoc(String path) {
+		return new ResourceLocation(path);
+	}
+	
+	public Path resolveModData() {
+		return path.resolve("data").resolve(modid);
+	}
+	
+	public Path resolveModAssets() {
+		return path.resolve("assets").resolve(modid);
+	}
+	
+	public Path resolveData(ResourceLocation location) {
+		return path.resolve("data").resolve(location.getNamespace());
+	}
+	
+	public Path resolveAssets(ResourceLocation location) {
+		return path.resolve("assets").resolve(location.getNamespace());
+	}
 	
 	public static void write(DirectoryCache cache, JsonElement element, Path path) throws IOException {
 		write(cache, element, path, GSON);
@@ -43,8 +66,8 @@ public abstract class CommonProvider implements IDataProvider {
 				final JsonWriter jsonWriter = GsonUtil.createTabWriter(gson, writer)) {
 			GSON.toJson(element, jsonWriter);
 			write(cache, writer.toString(), path);
-		} catch (IOException e) {
-			throw new JsonIOException(e);
+		} catch (IOException ex) {
+			throw new JsonIOException(ex);
 		}
 	}
 	

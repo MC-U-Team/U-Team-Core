@@ -35,12 +35,9 @@ public abstract class CommonTagsProvider<T extends IForgeRegistryEntry<T>> exten
 		final Map<ResourceLocation, Tag.Builder<T>> map = tagToBuilder.entrySet().stream().collect(Collectors.toMap(entry -> entry.getKey().getId(), Entry::getValue));
 		
 		collection.registerAll(map);
-		collection.getTagMap().forEach((id, tag) -> {
+		collection.getTagMap().forEach((location, tag) -> {
 			final JsonObject object = tag.serialize(registry::getKey);
-			final Path path = makePath(id);
-			if (path == null) {
-				return;
-			}
+			final Path path = makePath(location);
 			try {
 				write(cache, object, path);
 			} catch (IOException ex) {
@@ -51,14 +48,9 @@ public abstract class CommonTagsProvider<T extends IForgeRegistryEntry<T>> exten
 		setCollection(collection);
 	}
 	
-	@Override
-	protected Path resolvePath(Path outputFolder) {
-		return outputFolder.resolve("data");
-	}
-	
 	protected abstract void setCollection(TagCollection<T> collection);
 	
-	protected abstract Path makePath(ResourceLocation id);
+	protected abstract Path makePath(ResourceLocation location);
 	
 	protected Tag.Builder<T> getBuilder(Tag<T> tag) {
 		return tagToBuilder.computeIfAbsent(tag, otherTag -> Tag.Builder.create());

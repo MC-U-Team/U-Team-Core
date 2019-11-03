@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.function.BiConsumer;
 
 import net.minecraft.advancements.criterion.*;
@@ -21,9 +20,9 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	
 	@Override
 	public void act(DirectoryCache cache) throws IOException {
-		registerLootTables((id, lootTable) -> {
+		registerLootTables((location, lootTable) -> {
 			try {
-				write(cache, LootTableManager.toJson(lootTable), path.resolve(id.getNamespace()).resolve("loot_tables").resolve(id.getPath() + ".json"));
+				write(cache, LootTableManager.toJson(lootTable), resolveData(location).resolve("loot_tables").resolve(location.getPath() + ".json"));
 			} catch (IOException ex) {
 				LOGGER.error(marker, "Could not write data.", ex);
 			}
@@ -31,11 +30,6 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	}
 	
 	protected abstract void registerLootTables(BiConsumer<ResourceLocation, LootTable> consumer);
-	
-	@Override
-	protected Path resolvePath(Path outputFolder) {
-		return outputFolder.resolve("data");
-	}
 	
 	@Override
 	public String getName() {

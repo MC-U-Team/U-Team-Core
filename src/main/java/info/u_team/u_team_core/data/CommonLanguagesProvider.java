@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.*;
 import java.util.function.Supplier;
 
@@ -28,7 +27,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		data.forEach((locale, map) -> {
 			if (!map.isEmpty()) {
 				try {
-					write(cache, GSON.toJsonTree(map), path.resolve(modid).resolve("lang").resolve(locale + ".json"));
+					write(cache, GSON.toJsonTree(map), resolveModAssets().resolve("lang").resolve(locale + ".json"));
 				} catch (IOException ex) {
 					LOGGER.error(marker, "Could not write data.", ex);
 				}
@@ -41,11 +40,6 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	@Override
 	public String getName() {
 		return "Languages";
-	}
-	
-	@Override
-	protected Path resolvePath(Path outputFolder) {
-		return outputFolder.resolve("assets");
 	}
 	
 	protected void add(ItemGroup key, String name) {

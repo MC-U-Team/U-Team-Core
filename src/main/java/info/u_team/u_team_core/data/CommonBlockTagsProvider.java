@@ -14,8 +14,8 @@ public abstract class CommonBlockTagsProvider extends CommonTagsProvider<Block> 
 	}
 	
 	@Override
-	protected Path makePath(ResourceLocation id) {
-		return path.resolve(id.getNamespace()).resolve("tags").resolve("blocks").resolve(id.getPath() + ".json");
+	protected Path makePath(ResourceLocation location) {
+		return resolveData(location).resolve("tags").resolve("blocks").resolve(location.getPath() + ".json");
 	}
 	
 	@Override
