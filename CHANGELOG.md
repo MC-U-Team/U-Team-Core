@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.8.0.140] - 2019-12-17
+### Changed
+ - Fixed adding the right dependency versions
+
 ## [1.14.4-2.8.0.139] - 2019-12-17
 ### Removed
  - Removed all deprecated methods
