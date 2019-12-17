@@ -4,7 +4,7 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.IToolMaterial;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyLoadBase;
+import net.minecraft.util.LazyValue;
 
 public class UToolMaterial implements IToolMaterial {
 	
@@ -15,7 +15,7 @@ public class UToolMaterial implements IToolMaterial {
 	private final float efficiency;
 	private final float baseDamage;
 	private final int enchantability;
-	private final LazyLoadBase<Ingredient> repair;
+	private final LazyValue<Ingredient> repair;
 	
 	public UToolMaterial(float[] additionalDamage, float[] speed, int harvestlevel, int durability, float efficiency, float baseDamage, int enchantability, Supplier<Ingredient> ingredient) {
 		this.additionalDamage = additionalDamage;
@@ -25,7 +25,7 @@ public class UToolMaterial implements IToolMaterial {
 		this.efficiency = efficiency;
 		this.baseDamage = baseDamage;
 		this.enchantability = enchantability;
-		this.repair = new LazyLoadBase<>(ingredient);
+		this.repair = new LazyValue<>(ingredient);
 	}
 	
 	@Override

@@ -41,7 +41,7 @@ public class WorldUtil {
 	 * @return Raytrace result with information about the trace
 	 */
 	public static RayTraceResult rayTraceServerSide(Entity entity, double range, BlockMode blockMode, FluidMode fluidMode) {
-		final Vec3d playerVector = new Vec3d(entity.posX, entity.posY + entity.getEyeHeight(), entity.posZ);
+		final Vec3d playerVector = entity.getPositionVec().add(0, entity.getEyeHeight(), 0);
 		final Vec3d lookVector = entity.getLookVec();
 		final Vec3d locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
 		return entity.world.rayTraceBlocks(new RayTraceContext(playerVector, locationVector, blockMode, fluidMode, entity));

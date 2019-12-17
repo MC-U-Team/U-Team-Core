@@ -2,7 +2,7 @@ package info.u_team.u_team_core.gui.elements;
 
 import org.lwjgl.opengl.GL11;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.util.ResourceLocation;
@@ -40,7 +40,7 @@ public class ActiveImageButton extends ImageButton {
 	
 	@Override
 	public void renderButton(int mouseX, int mouseY, float partial) {
-		GlStateManager.color4f(1, 1, 1, 1);
+		RenderSystem.color4f(1, 1, 1, 1);
 		if (active) {
 			activeColor.glColor();
 		}

@@ -71,7 +71,7 @@ public interface ITileEntityBlock {
 			return false;
 		}
 		
-		if (!canOpenSneak && serverPlayer.isSneaking()) {
+		if (!canOpenSneak && serverPlayer.func_225608_bj_()) {
 			return true;
 		}
 		

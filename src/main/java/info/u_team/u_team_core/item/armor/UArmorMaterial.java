@@ -15,7 +15,7 @@ public class UArmorMaterial implements IArmorMaterial {
 	private final int enchantability;
 	private final SoundEvent soundevent;
 	private final float toughness;
-	private final LazyLoadBase<Ingredient> repair;
+	private final LazyValue<Ingredient> repair;
 	
 	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, SoundEvent soundevent, float toughness, Supplier<Ingredient> ingredient) {
 		this.durability = durability;
@@ -23,7 +23,7 @@ public class UArmorMaterial implements IArmorMaterial {
 		this.enchantability = enchantability;
 		this.soundevent = soundevent;
 		this.toughness = toughness;
-		this.repair = new LazyLoadBase<>(ingredient);
+		this.repair = new LazyValue<>(ingredient);
 	}
 	
 	@Override

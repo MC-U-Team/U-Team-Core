@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.gui;
 
-import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.container.UContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -28,7 +28,7 @@ public class UContainerScreen<T extends Container> extends ContainerScreen<T> {
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		GlStateManager.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		minecraft.getTextureManager().bindTexture(background);
 		int xStart = (width - xSize) / 2;
 		int yStart = (height - ySize) / 2;

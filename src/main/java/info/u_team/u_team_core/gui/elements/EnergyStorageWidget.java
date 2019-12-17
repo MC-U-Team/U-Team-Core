@@ -67,7 +67,7 @@ public class EnergyStorageWidget extends Widget {
 	public void renderToolTip(int mouseX, int mouseY) {
 		if (isHovered) {
 			final Minecraft minecraft = Minecraft.getInstance();
-			final MainWindow mainWindow = minecraft.mainWindow;
+			final MainWindow mainWindow = minecraft.func_228018_at_();
 			final List<String> list = new ArrayList<>();
 			list.add(storage.getAsLong() + " / " + capacity.getAsLong() + " FE");
 			GuiUtils.drawHoveringText(list, mouseX, mouseY, mainWindow.getWidth(), mainWindow.getHeight(), 300, minecraft.fontRenderer);

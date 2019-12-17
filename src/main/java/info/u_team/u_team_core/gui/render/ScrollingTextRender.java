@@ -69,7 +69,7 @@ public class ScrollingTextRender extends ScalingTextRender {
 	@Override
 	public void draw(float x, float y) {
 		final Minecraft mc = Minecraft.getInstance();
-		final MainWindow window = mc.mainWindow;
+		final MainWindow window = mc.func_228018_at_();
 		
 		final double scaleFactor = window.getGuiScaleFactor();
 		
