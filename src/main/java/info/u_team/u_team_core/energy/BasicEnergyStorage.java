@@ -2,10 +2,8 @@ package info.u_team.u_team_core.energy;
 
 import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.energy.*;
+import net.minecraftforge.energy.EnergyStorage;
 
 public class BasicEnergyStorage extends EnergyStorage implements INBTSerializable<CompoundNBT> {
 	
@@ -56,26 +54,6 @@ public class BasicEnergyStorage extends EnergyStorage implements INBTSerializabl
 	
 	public BufferReferenceHolder createSyncHandler() {
 		return BufferReferenceHolder.createIntHolder(this::getEnergy, this::setEnergy);
-	}
-	
-	@Deprecated
-	public static void setTileEntityEnergy(TileEntity tileEntity, int energy) {
-		setTileEntityEnergy(tileEntity, null, energy);
-	}
-	
-	@Deprecated
-	public static void setTileEntityEnergy(TileEntity tileEntity, Direction side, int energy) {
-		tileEntity.getCapability(CapabilityEnergy.ENERGY, side).filter(handler -> handler instanceof BasicEnergyStorage).map(handler -> (BasicEnergyStorage) handler).ifPresent(handler -> handler.setEnergy(energy));
-	}
-	
-	@Deprecated
-	public static int getTileEntityEnergy(TileEntity tileEntity) {
-		return getTileEntityEnergy(tileEntity, null);
-	}
-	
-	@Deprecated
-	public static int getTileEntityEnergy(TileEntity tileEntity, Direction side) {
-		return tileEntity.getCapability(CapabilityEnergy.ENERGY, side).map(IEnergyStorage::getEnergyStored).orElse(0);
 	}
 	
 }
