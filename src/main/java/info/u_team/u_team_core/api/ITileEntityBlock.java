@@ -8,6 +8,7 @@ import net.minecraft.entity.player.*;
 import net.minecraft.inventory.container.*;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.*;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -38,7 +39,7 @@ public interface ITileEntityBlock {
 	 * @param player The player that opens the tile entity
 	 * @return If the container could be opened
 	 */
-	default boolean openContainer(World world, BlockPos pos, PlayerEntity player) {
+	default ActionResultType openContainer(World world, BlockPos pos, PlayerEntity player) {
 		return openContainer(world, pos, player, false);
 	}
 	
@@ -53,26 +54,26 @@ public interface ITileEntityBlock {
 	 * @param canOpenSneak If the container can be opened when shift clicking with an item that has no right click function
 	 * @return If the container could be opened
 	 */
-	default boolean openContainer(World world, BlockPos pos, PlayerEntity player, boolean canOpenSneak) {
+	default ActionResultType openContainer(World world, BlockPos pos, PlayerEntity player, boolean canOpenSneak) {
 		if (world.isRemote || !(player instanceof ServerPlayerEntity)) {
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 		
 		final ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
 		Optional<TileEntity> tileEntityOptional = isTileEntityFromType(world, pos);
 		
 		if (!tileEntityOptional.isPresent()) {
-			return false;
+			return ActionResultType.PASS;
 		}
 		
 		final TileEntity tileEntity = tileEntityOptional.get();
 		
 		if (!(tileEntity instanceof INamedContainerProvider)) {
-			return false;
+			return ActionResultType.PASS;
 		}
 		
 		if (!canOpenSneak && serverPlayer.func_225608_bj_()) {
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 		
 		final PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
@@ -85,7 +86,7 @@ public interface ITileEntityBlock {
 			extraData.writeVarInt(buffer.readableBytes());
 			extraData.writeBytes(buffer);
 		});
-		return true;
+		return ActionResultType.SUCCESS;
 		
 	}
 	
