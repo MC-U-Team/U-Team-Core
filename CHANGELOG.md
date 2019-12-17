@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.8.0.139] - 2019-12-17
+### Removed
+ - Removed all deprecated methods
+ 
 ## [1.14.4-2.7.8.138] - 2019-11-03
 ### Changed
  - Make data generator much easier to register
