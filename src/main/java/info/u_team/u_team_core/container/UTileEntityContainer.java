@@ -1,10 +1,9 @@
 package info.u_team.u_team_core.container;
 
-import info.u_team.u_team_core.api.sync.*;
+import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.*;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tileentity.TileEntity;
@@ -108,19 +107,6 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	 * @param server True if its the server side false otherwise
 	 */
 	protected abstract void init(boolean server);
-	
-	/**
-	 * On the server side just returns the inventory. On the client side this method returns a new instance of
-	 * {@link Inventory} with the same size as the passed inventory.
-	 * 
-	 * @param server True if is the server side false otherwise
-	 * @param inventory Inventory to decide on
-	 * @return The passed inventory on the server side of a new one on the client side
-	 */
-	@Deprecated
-	protected IInventory getInventoryOnDist(boolean server, IInventory inventory) {
-		return server ? inventory : new Inventory(inventory.getSizeInventory());
-	}
 	
 	/**
 	 * Gets the tile entity
