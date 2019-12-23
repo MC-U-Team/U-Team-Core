@@ -1,6 +1,7 @@
 package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_core.entitytype.UEntityType;
+import info.u_team.u_team_core.util.registry.BaseRegistryUtil;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.entity.BetterEnderPearlEntity;
 import net.minecraft.entity.*;
@@ -16,9 +17,7 @@ public class TestEntityTypes {
 	
 	@SubscribeEvent
 	public static void register(Register<EntityType<?>> event) {
-		// TODO disabled because of https://github.com/MinecraftForge/MinecraftForge/pull/6364
-		// BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(TestMod.MODID,
-		// EntityType.class).forEach(event.getRegistry()::register);
+		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(TestMod.MODID, EntityType.class).forEach(event.getRegistry()::register);
 	}
 	
 }
