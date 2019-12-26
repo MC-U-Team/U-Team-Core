@@ -8,12 +8,12 @@ import net.minecraft.client.gui.widget.list.ExtendedList;
 
 public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> extends ExtendedList.AbstractListEntry<T> {
 	
-	protected final Minecraft mc;
+	protected final Minecraft minecraft;
 	
 	private final List<Widget> widget;
 	
 	public ScrollableListEntry() {
-		mc = Minecraft.getInstance();
+		minecraft = Minecraft.getInstance();
 		widget = new ArrayList<>();
 	}
 	
