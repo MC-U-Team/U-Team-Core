@@ -1,7 +1,7 @@
 package info.u_team.u_team_test.screen;
 
 import info.u_team.u_team_core.gui.UContainerScreen;
-import info.u_team.u_team_core.gui.elements.UButton;
+import info.u_team.u_team_core.gui.elements.*;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
 import io.netty.buffer.Unpooled;
@@ -30,8 +30,7 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 			container.getValueMessage().triggerMessage();
 		}));
 		
-		slider = addButton(new GuiSlider(guiLeft + 7, guiTop + 19, 162, 20, "Cooldown: ", " Ticks", 0, 100, container.getTileEntity().cooldown, false, true, button -> {
-		}, slider -> {
+		slider = addButton(new BetterFontSlider(guiLeft + 7, guiTop + 19, 162, 20, "Cooldown: ", " Ticks", 0, 100, container.getTileEntity().cooldown, false, true, 1, slider -> {
 			container.getCooldownMessage().triggerMessage(() -> new PacketBuffer(Unpooled.copyShort(slider.getValueInt())));
 		}));
 	}
@@ -54,5 +53,11 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 		font.drawString("" + container.getTileEntity().value, xSize / 2 + 32, 6, 4210752);
 		font.drawString(title.getFormattedText(), 8, 6, 4210752);
 		font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
+	}
+	
+	@Override
+	public boolean mouseReleased(double p_mouseReleased_1_, double p_mouseReleased_3_, int p_mouseReleased_5_) {
+		slider.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_);
+		return super.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_);
 	}
 }
