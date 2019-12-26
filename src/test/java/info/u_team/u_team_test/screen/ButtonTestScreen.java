@@ -43,6 +43,10 @@ public class ButtonTestScreen extends Screen {
 		addButton(new BetterFontSlider(300, 10, 200, 15, "Test: ", "%", 0, 100, 20, false, true, 0.75F, slider -> {
 			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
 		}));
+		
+		addButton(new BetterFontSlider(300, 30, 200, 40, "Test: ", "%", 0, 100, 20, false, true, 2, slider -> {
+			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
+		}));
 	}
 	
 	@Override

@@ -17,6 +17,17 @@ public class BetterFontSlider extends GuiSlider {
 	}
 	
 	@Override
+	protected void renderBg(Minecraft minecraft, int x, int y) {
+		if (visible) {
+			if (dragging) {
+				sliderValue = (x - (this.x + 4)) / (float) (this.width - 8);
+				updateSlider();
+			}
+			GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, this.x + (int) (this.sliderValue * (float) (this.width - 8)), this.y, 0, 66 + (isHovered() ? 20 : 0), 8, this.height, 200, 20, 2, 3, 2, 2, this.getBlitOffset());
+		}
+	}
+	
+	@Override
 	public void renderButton(int mouseX, int mouseY, float partial) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		final FontRenderer fontRenderer = minecraft.fontRenderer;
