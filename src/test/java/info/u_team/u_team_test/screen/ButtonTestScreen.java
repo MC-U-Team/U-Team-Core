@@ -40,7 +40,7 @@ public class ButtonTestScreen extends Screen {
 			System.out.println("Pressed ToggleImageButton");
 		});
 		
-		addButton(new BetterFontSlider(300, 10, 200, 15, "Test: ", "%", 0, 100, 20, false, true, 0.8F, slider -> {
+		addButton(new BetterFontSlider(300, 10, 200, 15, "Test: ", "%", 0, 100, 20, false, true, 0.75F, slider -> {
 			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
 		}));
 	}

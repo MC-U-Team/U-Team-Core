@@ -39,7 +39,6 @@ public class BetterButton extends UButton {
 		final float positionFactor = 1 / scale;
 		
 		final float xStart = (x + (width / 2) - messageWidth / 2) * positionFactor;
-		
 		final float yStart = (y + ((int) (height - 8 * scale)) / 2) * positionFactor;
 		
 		fontRenderer.func_228078_a_(message, xStart, yStart, getFGColor(), Matrix4f.func_226593_a_(scale, scale, 0), true);

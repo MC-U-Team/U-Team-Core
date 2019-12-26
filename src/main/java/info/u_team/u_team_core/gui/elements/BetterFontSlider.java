@@ -1,8 +1,8 @@
 package info.u_team.u_team_core.gui.elements;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.client.config.*;
 
@@ -18,21 +18,26 @@ public class BetterFontSlider extends GuiSlider {
 	
 	@Override
 	public void renderButton(int mouseX, int mouseY, float partial) {
-		GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, this.x, this.y, 0, 46 + getYImage(isHovered()) * 20, this.width, this.height, 200, 20, 2, 3, 2, 2, 0);
 		final Minecraft minecraft = Minecraft.getInstance();
+		final FontRenderer fontRenderer = minecraft.fontRenderer;
+		
+		String message = getMessage();
+		
+		GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0);
 		renderBg(minecraft, mouseX, mouseY);
-		final int color = getFGColor();
-		String buttonText = getMessage();
-		int strWidth = MathHelper.ceil(scale * minecraft.fontRenderer.getStringWidth(buttonText));
-		int ellipsisWidth = MathHelper.ceil(scale * minecraft.fontRenderer.getStringWidth("..."));
 		
-		if (strWidth > width - 6 && strWidth > ellipsisWidth)
-			buttonText = minecraft.fontRenderer.trimStringToWidth(buttonText, width - 6 - ellipsisWidth).trim() + "...";
+		final int messageWidth = MathHelper.ceil(scale * fontRenderer.getStringWidth(message));
+		final int ellipsisWidth = MathHelper.ceil(scale * fontRenderer.getStringWidth("..."));
 		
-		GL11.glPushMatrix();
-		GL11.glTranslatef(x + width / 2, y + (height - 8 * scale) / 2, 0);
-		GL11.glScalef(scale, scale, 0);
-		drawCenteredString(minecraft.fontRenderer, buttonText, 0, 0, color);
-		GL11.glPopMatrix();
+		if (messageWidth > width - 6 && messageWidth > ellipsisWidth) {
+			message = fontRenderer.trimStringToWidth(message, width - 6 - ellipsisWidth).trim() + "...";
+		}
+		
+		final float positionFactor = 1 / scale;
+		
+		final float xStart = (x + (width / 2) - messageWidth / 2) * positionFactor;
+		final float yStart = (y + ((int) (height - 8 * scale)) / 2) * positionFactor;
+		
+		fontRenderer.func_228078_a_(message, xStart, yStart, getFGColor(), Matrix4f.func_226593_a_(scale, scale, 0), true);
 	}
 }
