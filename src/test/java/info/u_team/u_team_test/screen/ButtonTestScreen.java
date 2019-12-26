@@ -18,21 +18,24 @@ public class ButtonTestScreen extends Screen {
 	@Override
 	protected void init() {
 		addButton(new UButton(10, 10, 200, 15, "U Button", button -> System.out.println("Pressed UButton")));
-		ActiveButton activeButton = addButton(new ActiveButton(10, 30, 200, 15, "Basic Test button", 0x006442FF));
+		
+		addButton(new BetterButton(10, 30, 200, 15, 0.75F, "Better button", button -> System.out.println("Pressed UButton")));
+		
+		ActiveButton activeButton = addButton(new ActiveButton(10, 50, 200, 15, "Basic Test button", 0x006442FF));
 		activeButton.setPressable(() -> {
 			System.out.println("Pressed ActiveButton");
 			activeButton.setActive(!activeButton.isActive());
 		});
 		
-		addButton(new ImageButton(10, 50, 16, 16, TEXTURE1, button -> System.out.println("Pressed ImageButton")));
+		addButton(new ImageButton(10, 70, 16, 16, TEXTURE1, button -> System.out.println("Pressed ImageButton")));
 		
-		ActiveImageButton activeImageButton = addButton(new ActiveImageButton(10, 75, 20, 20, TEXTURE1, 0x006442FF));
+		ActiveImageButton activeImageButton = addButton(new ActiveImageButton(10, 90, 20, 20, TEXTURE1, 0x006442FF));
 		activeImageButton.setPressable(() -> {
 			System.out.println("Pressed ActiveImageButton");
 			activeImageButton.setActive(!activeImageButton.isActive());
 		});
 		
-		ToggleImageButton toggleImageButton = addButton(new ToggleImageButton(10, 110, 20, 20, TEXTURE1, TEXTURE2));
+		ToggleImageButton toggleImageButton = addButton(new ToggleImageButton(10, 115, 20, 20, TEXTURE1, TEXTURE2));
 		toggleImageButton.setPressable(() -> {
 			System.out.println("Pressed ToggleImageButton");
 		});
