@@ -12,16 +12,16 @@ import net.minecraftforge.fml.client.registry.*;
 @OnlyIn(Dist.CLIENT)
 public class ClientRegistry {
 	
-	public static <T extends Entity> void registerEntityRenderer(EntityType<T> clazz, IRenderFactory<? super T> rendererFactory) {
-		RenderingRegistry.registerEntityRenderingHandler(clazz, rendererFactory);
+	public static <T extends Entity> void registerEntityRenderer(EntityType<T> type, IRenderFactory<? super T> rendererFactory) {
+		RenderingRegistry.registerEntityRenderingHandler(type, rendererFactory);
 	}
 	
-	public static <T extends TileEntity> void registerSpecialTileEntityRenderer(TileEntityType<T> clazz, TileEntityRenderer<? super T> renderer) {
-		registerSpecialTileEntityRenderer(clazz, dispatcher -> renderer);
+	public static <T extends TileEntity> void registerSpecialTileEntityRenderer(TileEntityType<T> type, TileEntityRenderer<? super T> renderer) {
+		registerSpecialTileEntityRenderer(type, dispatcher -> renderer);
 	}
 	
-	public static <T extends TileEntity> void registerSpecialTileEntityRenderer(TileEntityType<T> clazz, Function<? super TileEntityRendererDispatcher, ? extends TileEntityRenderer<? super T>> rendererFactory) {
-		net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntityRenderer(clazz, rendererFactory);
+	public static <T extends TileEntity> void registerSpecialTileEntityRenderer(TileEntityType<T> type, Function<? super TileEntityRendererDispatcher, ? extends TileEntityRenderer<? super T>> rendererFactory) {
+		net.minecraftforge.fml.client.registry.ClientRegistry.bindTileEntityRenderer(type, rendererFactory);
 	}
 	
 	public static void registerKeybinding(KeyBinding key) {
