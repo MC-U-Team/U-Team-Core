@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.1-2.9.3.145] - 2019-12-31
+### Changed
+ - Update to forge (30.0.19)
+
 ## [1.15.1-2.9.3.144] - 2019-12-26
 ### Changed
  - Fixed better font slider and better font button scaling
