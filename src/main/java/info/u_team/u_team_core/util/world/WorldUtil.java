@@ -165,7 +165,7 @@ public class WorldUtil {
 	public static void teleportEntity(Entity entity, ServerWorld world, double x, double y, double z, float yaw, float pitch) {
 		if (entity instanceof ServerPlayerEntity) {
 			final ServerPlayerEntity player = (ServerPlayerEntity) entity;
-			world.getChunkProvider().func_217228_a(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getEntityId());
+			world.getChunkProvider().registerTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getEntityId());
 			if (world == entity.world) {
 				player.connection.setPlayerLocation(x, y, z, yaw, pitch);
 			} else {
