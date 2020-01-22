@@ -26,7 +26,7 @@ public class ItemProperties extends Properties {
 		food = properties.food;
 		setValueCanRepair(getValueCanRepair(properties));
 		setValueToolClasses(Maps.newHashMap(getValueToolClasses(properties)));
-		setValueTeisr(getValueTeisr(properties));
+		setValueIster(getValueIster(properties));
 	}
 	
 	private boolean getValueCanRepair(Properties properties) {
@@ -45,12 +45,12 @@ public class ItemProperties extends Properties {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "toolClasses");
 	}
 	
-	private Supplier<Callable<ItemStackTileEntityRenderer>> getValueTeisr(Properties properties) {
-		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "teisr");
+	private Supplier<Callable<ItemStackTileEntityRenderer>> getValueIster(Properties properties) {
+		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "ister");
 	}
 	
-	private void setValueTeisr(Supplier<Callable<ItemStackTileEntityRenderer>> value) {
-		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "teisr");
+	private void setValueIster(Supplier<Callable<ItemStackTileEntityRenderer>> value) {
+		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "ister");
 	}
 	
 	public int getMaxStackSize() {
@@ -85,7 +85,7 @@ public class ItemProperties extends Properties {
 		return getValueToolClasses(this);
 	}
 	
-	public Supplier<Callable<ItemStackTileEntityRenderer>> getTeisr() {
-		return getValueTeisr(this);
+	public Supplier<Callable<ItemStackTileEntityRenderer>> getIster() {
+		return getValueIster(this);
 	}
 }
