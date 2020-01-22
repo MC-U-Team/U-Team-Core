@@ -8,7 +8,7 @@ import org.apache.logging.log4j.*;
 
 import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
 import net.minecraft.block.Block;
-import net.minecraft.data.DirectoryCache;
+import net.minecraft.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.util.*;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -18,14 +18,20 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	
 	protected final Marker marker;
 	
+	protected final GenerationData data;
+	protected final String modid;
+	protected final DataGenerator generator;
+	
 	public CommonItemModelsProvider(GenerationData data) {
 		super(data.getGenerator(), data.getModid(), data.getExistingFileHelper());
+		this.data = data;
+		this.modid = data.getModid();
+		this.generator = data.getGenerator();
 		marker = MarkerManager.getMarker(getName());
 	}
 	
 	@Override
 	public void act(DirectoryCache cache) throws IOException {
-		this.cache = cache;
 		generatedModels.clear();
 		registerModels();
 		generatedModels.values().forEach(model -> {
@@ -36,7 +42,6 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
 			}
 		});
-		this.cache = null;
 	}
 	
 	@Override

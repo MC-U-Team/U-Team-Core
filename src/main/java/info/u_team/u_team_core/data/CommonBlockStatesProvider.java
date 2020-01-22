@@ -9,7 +9,7 @@ import com.google.common.base.Preconditions;
 
 import info.u_team.u_team_core.UCoreMain;
 import net.minecraft.block.*;
-import net.minecraft.data.DirectoryCache;
+import net.minecraft.data.*;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.*;
 import net.minecraftforge.client.model.generators.*;
@@ -19,17 +19,23 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	
 	protected final Marker marker;
 	
+	protected final GenerationData data;
+	protected final String modid;
+	protected final DataGenerator generator;
+	
 	public CommonBlockStatesProvider(GenerationData data) {
 		super(data.getGenerator(), data.getModid(), data.getExistingFileHelper());
+		this.data = data;
+		this.modid = data.getModid();
+		this.generator = data.getGenerator();
 		marker = MarkerManager.getMarker(getName());
 	}
 	
 	@Override
 	public void act(DirectoryCache cache) throws IOException {
-		this.cache = cache;
-		generatedModels.clear();
-		registerModels0();
-		generatedModels.values().forEach(model -> {
+		models().generatedModels.clear();
+		registerModels0(cache);
+		models().generatedModels.values().forEach(model -> {
 			try {
 				final ResourceLocation location = model.getLocation();
 				CommonProvider.write(cache, model.toJson(), generator.getOutputFolder().resolve("assets/" + location.getNamespace() + "/models/" + location.getPath() + ".json"));
@@ -37,11 +43,10 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
 			}
 		});
-		this.cache = null;
 	}
 	
 	// We need to overide registerModels, but this method is marked final...
-	private void registerModels0() {
+	private void registerModels0(DirectoryCache cache) {
 		registeredBlocks.clear();
 		registerStatesAndModels();
 		
@@ -86,7 +91,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	}
 	
 	protected BlockModelBuilder cubeFacing(String name, ResourceLocation front, ResourceLocation side, ResourceLocation particle) {
-		return getBuilder(name) //
+		return models().getBuilder(name) //
 				.parent(new UncheckedModelFile(new ResourceLocation(UCoreMain.MODID, "block/facing"))) //
 				.texture("particle", particle) //
 				.texture("front", front) //
@@ -98,7 +103,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	}
 	
 	protected BlockModelBuilder cubeFacingBottomTop(String name, ResourceLocation front, ResourceLocation bottom, ResourceLocation top, ResourceLocation side, ResourceLocation particle) {
-		return getBuilder(name) //
+		return models().getBuilder(name) //
 				.parent(new UncheckedModelFile(new ResourceLocation(UCoreMain.MODID, "block/facing_bottom_top"))) //
 				.texture("particle", particle) //
 				.texture("front", front) //
