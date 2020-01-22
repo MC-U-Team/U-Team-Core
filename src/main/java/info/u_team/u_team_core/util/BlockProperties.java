@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.util;
 
+import java.util.function.Supplier;
+
 import net.minecraft.block.Block.Properties;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.*;
@@ -22,11 +24,15 @@ public class BlockProperties extends Properties {
 		hardness = properties.hardness;
 		ticksRandomly = properties.ticksRandomly;
 		slipperiness = properties.slipperiness;
+		field_226893_j_ = properties.field_226893_j_;
+		field_226894_k_ = properties.field_226894_k_;
 		lootTable = properties.lootTable;
+		field_226895_m_ = properties.field_226895_m_;
 		variableOpacity = properties.variableOpacity;
 		
 		setValueHarvestLevel(getValueHarvestLevel(properties));
 		setValueHarvestTool(getValueHarvestTool(properties));
+		setLootTableSupplier(getLootTableSupplier(properties));
 	}
 	
 	private int getValueHarvestLevel(Properties properties) {
@@ -43,6 +49,14 @@ public class BlockProperties extends Properties {
 	
 	private void setValueHarvestTool(ToolType value) {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "harvestTool");
+	}
+	
+	private Supplier<ResourceLocation> getLootTableSupplier(Properties properties) {
+		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "lootTableSupplier");
+	}
+	
+	private void setLootTableSupplier(Supplier<ResourceLocation> value) {
+		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "lootTableSupplier");
 	}
 	
 	public Material getMaterial() {
