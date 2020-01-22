@@ -4,9 +4,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Matrix4f;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.client.config.*;
+import net.minecraftforge.fml.client.gui.GuiUtils;
+import net.minecraftforge.fml.client.gui.widget.Slider;
 
-public class BetterFontSlider extends GuiSlider {
+public class BetterFontSlider extends Slider {
 	
 	protected float scale;
 	
@@ -49,6 +50,6 @@ public class BetterFontSlider extends GuiSlider {
 		final float xStart = (x + (width / 2) - messageWidth / 2) * positionFactor;
 		final float yStart = (y + ((int) (height - 8 * scale)) / 2) * positionFactor;
 		
-		fontRenderer.func_228078_a_(message, xStart, yStart, getFGColor(), Matrix4f.func_226593_a_(scale, scale, 0), true);
+		fontRenderer.renderString(message, xStart, yStart, getFGColor(), Matrix4f.func_226593_a_(scale, scale, 0), true);
 	}
 }

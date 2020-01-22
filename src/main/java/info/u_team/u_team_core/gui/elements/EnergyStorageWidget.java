@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fml.client.config.GuiUtils;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 
 @OnlyIn(Dist.CLIENT)
 public class EnergyStorageWidget extends Widget {
@@ -67,7 +67,7 @@ public class EnergyStorageWidget extends Widget {
 	public void renderToolTip(int mouseX, int mouseY) {
 		if (isHovered) {
 			final Minecraft minecraft = Minecraft.getInstance();
-			final MainWindow mainWindow = minecraft.func_228018_at_();
+			final MainWindow mainWindow = minecraft.getMainWindow();
 			final List<String> list = new ArrayList<>();
 			list.add(storage.getAsLong() + " / " + capacity.getAsLong() + " FE");
 			GuiUtils.drawHoveringText(list, mouseX, mouseY, mainWindow.getWidth(), mainWindow.getHeight(), 300, minecraft.fontRenderer);
