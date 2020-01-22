@@ -24,6 +24,7 @@ public class BlockProperties extends Properties {
 		slipperiness = properties.slipperiness;
 		lootTable = properties.lootTable;
 		variableOpacity = properties.variableOpacity;
+		
 		setValueHarvestLevel(getValueHarvestLevel(properties));
 		setValueHarvestTool(getValueHarvestTool(properties));
 	}
