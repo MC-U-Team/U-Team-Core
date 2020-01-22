@@ -10,12 +10,11 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fml.client.config.GuiSlider;
 
 @OnlyIn(Dist.CLIENT)
 public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityContainer> {
 	
-	private GuiSlider slider;
+	private BetterFontSlider slider;
 	
 	public BasicTileEntityScreen(BasicTileEntityContainer container, PlayerInventory playerInventory, ITextComponent text) {
 		super(container, playerInventory, text, new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png"));

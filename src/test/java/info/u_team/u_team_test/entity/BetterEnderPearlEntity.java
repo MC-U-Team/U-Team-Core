@@ -69,19 +69,19 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 		}
 		
 		for (int i = 0; i < 32; ++i) {
-			this.world.addParticle(ParticleTypes.PORTAL, this.func_226277_ct_(), this.func_226278_cu_() + this.rand.nextDouble() * 2.0D, this.func_226281_cx_(), this.rand.nextGaussian(), 0.0D, this.rand.nextGaussian());
+			this.world.addParticle(ParticleTypes.PORTAL, this.getPosX(), this.getPosY() + this.rand.nextDouble() * 2.0D, this.getPosZ(), this.rand.nextGaussian(), 0.0D, this.rand.nextGaussian());
 		}
 		
 		if (!this.world.isRemote) {
 			if (livingentity instanceof ServerPlayerEntity) {
 				ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) livingentity;
 				if (serverplayerentity.connection.getNetworkManager().isChannelOpen() && serverplayerentity.world == this.world && !serverplayerentity.isSleeping()) {
-					net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(serverplayerentity, this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_(), 5.0F);
+					net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(serverplayerentity, this.getPosX(), this.getPosY(), this.getPosZ(), 5.0F);
 					if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) {
 						if (this.rand.nextFloat() < 0.05F && this.world.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING)) {
 							EndermiteEntity endermiteentity = EntityType.ENDERMITE.create(this.world);
 							endermiteentity.setSpawnedByPlayer(true);
-							endermiteentity.setLocationAndAngles(livingentity.func_226277_ct_(), livingentity.func_226278_cu_(), livingentity.func_226281_cx_(), livingentity.rotationYaw, livingentity.rotationPitch);
+							endermiteentity.setLocationAndAngles(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ(), livingentity.rotationYaw, livingentity.rotationPitch);
 							this.world.addEntity(endermiteentity);
 						}
 						
@@ -95,7 +95,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 					}
 				}
 			} else if (livingentity != null) {
-				livingentity.setPositionAndUpdate(this.func_226277_ct_(), this.func_226278_cu_(), this.func_226281_cx_());
+				livingentity.setPositionAndUpdate(this.getPosX(), this.getPosY(), this.getPosZ());
 				livingentity.fallDistance = 0.0F;
 			}
 			
