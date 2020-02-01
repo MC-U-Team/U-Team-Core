@@ -39,7 +39,7 @@ public class UContainerScreen<T extends Container> extends ContainerScreen<T> {
 	@Override
 	public void tick() {
 		super.tick();
-		if(container instanceof UContainer) {
+		if (container instanceof UContainer) {
 			((UContainer) container).updateTrackedServerToClient();
 		}
 	}

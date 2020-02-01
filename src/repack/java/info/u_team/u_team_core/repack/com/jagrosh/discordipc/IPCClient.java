@@ -332,6 +332,7 @@ public final class IPCClient implements Closeable {
 	 * A full breakdown of each is available <a href=https://discordapp.com/developers/docs/rich-presence/how-to>here</a>.
 	 */
 	public enum Event {
+		
 		NULL(false), // used for confirmation
 		READY(false),
 		ERROR(false),

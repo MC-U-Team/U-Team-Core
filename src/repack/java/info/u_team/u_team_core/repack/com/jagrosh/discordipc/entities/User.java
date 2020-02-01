@@ -166,6 +166,7 @@ public class User {
 	 * Constants representing one of five different default avatars a {@link User} can have.
 	 */
 	public enum DefaultAvatar {
+		
 		BLURPLE("6debd47ed13483642cf09e832ed0bc1b"),
 		GREY("322c936a8c8be1b803cd94861bdfa868"),
 		GREEN("dd4dbc0016779df1378e7812eabaa04d"),

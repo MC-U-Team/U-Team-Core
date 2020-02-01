@@ -146,6 +146,7 @@ public class DiscordRichPresence {
 	}
 	
 	public static enum EnumState {
+		
 		STARTUP("Starting Minecraft", "Minecraft", "minecraft"),
 		MENU("Idling in menu", "Minecraft", "minecraft"),
 		OVERWORLD("Dimension: Overworld", "Overworld", "world_overworld"),

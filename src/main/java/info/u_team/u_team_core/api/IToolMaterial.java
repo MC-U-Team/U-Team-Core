@@ -34,6 +34,7 @@ public interface IToolMaterial extends IItemTier {
 	 * @author HyCraftHD
 	 */
 	public static enum Tools {
+		
 		AXE(0),
 		HOE(1),
 		PICKAXE(2),

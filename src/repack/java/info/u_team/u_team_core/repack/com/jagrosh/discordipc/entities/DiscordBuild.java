@@ -12,6 +12,7 @@ package info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities;
  * Constants representing various Discord client builds, such as Stable, Canary, Public Test Build (PTB)
  */
 public enum DiscordBuild {
+	
 	/**
 	 * Constant for the current Discord Canary release.
 	 */
