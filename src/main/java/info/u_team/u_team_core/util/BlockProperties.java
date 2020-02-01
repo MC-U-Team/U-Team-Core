@@ -24,10 +24,10 @@ public class BlockProperties extends Properties {
 		hardness = properties.hardness;
 		ticksRandomly = properties.ticksRandomly;
 		slipperiness = properties.slipperiness;
-		field_226893_j_ = properties.field_226893_j_;
-		field_226894_k_ = properties.field_226894_k_;
+		speedFactor = properties.speedFactor;
+		jumpFactor = properties.jumpFactor;
 		lootTable = properties.lootTable;
-		field_226895_m_ = properties.field_226895_m_;
+		isSolid = properties.isSolid;
 		variableOpacity = properties.variableOpacity;
 		
 		setValueHarvestLevel(getValueHarvestLevel(properties));
