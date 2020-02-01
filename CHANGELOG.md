@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.8.1.148] - 2020-02-01
+### Changed
+ - Updated forge to 28.1.117
+ - Updated mappings to 1.14.4 stable release
+
 ## [1.14.4-2.8.0.140] - 2019-12-17
 ### Changed
  - Fixed adding the right dependency versions
