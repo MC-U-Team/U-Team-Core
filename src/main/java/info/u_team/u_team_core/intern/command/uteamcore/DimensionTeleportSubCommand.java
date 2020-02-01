@@ -23,16 +23,16 @@ public class DimensionTeleportSubCommand {
 				.then(Commands.argument("targets", EntityArgument.entities()) //
 						.then(Commands.argument("dimension", DimensionArgument.getDimension()) //
 								.executes(context -> {
-									return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.func_212592_a(context, "dimension"));
+									return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.getDimensionArgument(context, "dimension"));
 								}) //
 								.then(Commands.argument("location", Vec3Argument.vec3()) //
 										.executes(context -> {
-											return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.func_212592_a(context, "dimension"), Vec3Argument.getVec3(context, "location"));
+											return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.getDimensionArgument(context, "dimension"), Vec3Argument.getVec3(context, "location"));
 										}) //
 										.then(Commands.argument("yaw", FloatArgumentType.floatArg(0, 360)) //
 												.then(Commands.argument("pitch", FloatArgumentType.floatArg(-90, 90)) //
 														.executes(context -> {
-															return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.func_212592_a(context, "dimension"), Vec3Argument.getVec3(context, "location"), FloatArgumentType.getFloat(context, "yaw"), FloatArgumentType.getFloat(context, "pitch"));
+															return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.getDimensionArgument(context, "dimension"), Vec3Argument.getVec3(context, "location"), FloatArgumentType.getFloat(context, "yaw"), FloatArgumentType.getFloat(context, "pitch"));
 														}))))));
 	}
 	

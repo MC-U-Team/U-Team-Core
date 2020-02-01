@@ -79,7 +79,7 @@ public class WorldUtil {
 	 * @return The server world for the given type
 	 */
 	public static ServerWorld getServerWorld(MinecraftServer server, DimensionType type) {
-		return server.getWorld(type);
+		return server.func_71218_a(type);
 	}
 	
 	/**
@@ -169,7 +169,7 @@ public class WorldUtil {
 			if (world == entity.world) {
 				player.connection.setPlayerLocation(x, y, z, yaw, pitch);
 			} else {
-				player.teleport(world, x, y, z, yaw, pitch);
+				player.func_200619_a(world, x, y, z, yaw, pitch);
 			}
 			entity.setRotationYawHead(yaw);
 		} else {
