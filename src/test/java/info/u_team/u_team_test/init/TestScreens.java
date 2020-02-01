@@ -3,7 +3,7 @@ package info.u_team.u_team_test.init;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.screen.*;
 import net.minecraft.client.gui.ScreenManager;
-import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;

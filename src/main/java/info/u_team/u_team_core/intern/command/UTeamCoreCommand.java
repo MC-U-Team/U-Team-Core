@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
 import info.u_team.u_team_core.intern.command.uteamcore.*;
-import net.minecraft.command.*;
+import net.minecraft.command.CommandSource;
 
 public class UTeamCoreCommand {
 	
