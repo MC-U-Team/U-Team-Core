@@ -227,7 +227,7 @@ configurations.archives.allArtifacts.each {artifact ->
 	//println(testJar.archivePath);
 }*/
 
-
+/*
 configurations.archives.allArtifacts.each { artifact ->
 	if(!(artifact instanceof LazyPublishArtifact)) {
 		tasks.create(name: "signJar${artifact.getClassifier()}", type: SignJar) {
@@ -248,7 +248,7 @@ configurations.archives.allArtifacts.each { artifact ->
 	  	}
 	  	build.dependsOn "signJar${artifact.getClassifier()}"
   	}
-}
+}*/
 
 sourceSets {
    	main {
