@@ -13,6 +13,7 @@ buildscript {
 
 apply from: "https://raw.githubusercontent.com/HyCraftHD/Blank-Forge-Project/master/configuration.methods"
 apply from: "https://raw.githubusercontent.com/HyCraftHD/Blank-Forge-Project/master/git.methods"
+apply from: "signtest.methods"
 
 setup()
 info()
@@ -22,7 +23,6 @@ apply plugin: "eclipse"
 apply plugin: "com.matthewprenger.cursegradle"
 apply plugin: "maven"
 
-import net.minecraftforge.gradle.common.task.SignJar
 import org.gradle.api.internal.artifacts.dsl.LazyPublishArtifact
 
 getBuildNumber()
@@ -185,27 +185,6 @@ task testSourcesJar(type: Jar) {
     from sourceSets.test.allJava
     from "LICENSE"
 }
-
-/*
-task signJar(type: SignJar) {
-	afterEvaluate {
-		dependsOn reobfTestJar
-	}
-	if (project.hasProperty("keystore")) {
-	    project.logger.lifecycle("Signing jar " + testJar.archivePath.getName());
-	    keyStore = project.findProperty("keystore")
-	    alias = project.findProperty("keystore.alias")
-	    storePass = project.findProperty("keystore.password")
-	    keyPass = project.findProperty("keystore.password")
-	    inputFile = testJar.archivePath
-	    outputFile = testJar.archivePath
-    } else {
-	   project.logger.lifecycle("Could not sign " + testJar.archivePath.getName() + ". No keystore property could be found.")
-	}
-}
-
-build.dependsOn signJar
-*/
 
 artifacts {
     archives deobfJar
