@@ -22,6 +22,9 @@ apply plugin: "eclipse"
 apply plugin: "com.matthewprenger.cursegradle"
 apply plugin: "maven"
 
+import net.minecraftforge.gradle.common.task.SignJar
+import org.gradle.api.internal.artifacts.dsl.LazyPublishArtifact
+
 getBuildNumber()
 
 group = "info.u-team"
@@ -109,7 +112,7 @@ jar {
     from "LICENSE-DEPENDENCIES"
     
     exclude(".cache")  
-
+    
    	manifest normalManifest
 }
 
@@ -161,7 +164,7 @@ task testJar(type: Jar) {
 	    reobfTestJar.setMappings(createMcpToSrg.getOutput())
 	    reobfTestJar.setClasspath(reobfTestJar.getClasspath().plus(files(jar)))   
 	}
-                
+	                
     manifest normalManifest
 }
 
@@ -183,6 +186,27 @@ task testSourcesJar(type: Jar) {
     from "LICENSE"
 }
 
+/*
+task signJar(type: SignJar) {
+	afterEvaluate {
+		dependsOn reobfTestJar
+	}
+	if (project.hasProperty("keystore")) {
+	    project.logger.lifecycle("Signing jar " + testJar.archivePath.getName());
+	    keyStore = project.findProperty("keystore")
+	    alias = project.findProperty("keystore.alias")
+	    storePass = project.findProperty("keystore.password")
+	    keyPass = project.findProperty("keystore.password")
+	    inputFile = testJar.archivePath
+	    outputFile = testJar.archivePath
+    } else {
+	   project.logger.lifecycle("Could not sign " + testJar.archivePath.getName() + ". No keystore property could be found.")
+	}
+}
+
+build.dependsOn signJar
+*/
+
 artifacts {
     archives deobfJar
     archives sourcesJar
@@ -191,6 +215,39 @@ artifacts {
     archives testJar
     archives testDeobfJar
     archives testSourcesJar
+}
+
+/*
+configurations.archives.allArtifacts.each {artifact -> 
+	
+	println(artifact);
+	println(artifact.getClassifier());
+	println(artifact.getExtension());
+	println("-------------------------------");
+	//println(testJar.archivePath);
+}*/
+
+
+configurations.archives.allArtifacts.each { artifact ->
+	if(!(artifact instanceof LazyPublishArtifact)) {
+		tasks.create(name: "signJar${artifact.getClassifier()}", type: SignJar) {
+			afterEvaluate {
+				dependsOn artifact
+			}
+			if (project.hasProperty("keystore")) {
+			    project.logger.lifecycle("Signing jar " + artifact.getFile().getName());
+			    keyStore = project.findProperty("keystore")
+			    alias = project.findProperty("keystore.alias")
+			    storePass = project.findProperty("keystore.password")
+			    keyPass = project.findProperty("keystore.password")
+			    inputFile = artifact.getFile()
+			    outputFile = artifact.getFile()
+		    } else {
+			   project.logger.lifecycle("Could not sign " + artifact.getFile().getName() + ". No keystore property could be found.")
+			}
+	  	}
+	  	build.dependsOn "signJar${artifact.getClassifier()}"
+  	}
 }
 
 sourceSets {
