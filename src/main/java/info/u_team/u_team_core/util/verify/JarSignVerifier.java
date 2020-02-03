@@ -45,15 +45,18 @@ public class JarSignVerifier {
 		
 		try (final JarFile jarFile = new JarFile(path.toFile())) {
 			
+			// Get finger print from manifest
 			final Optional<String> fingerPrintOptional = Optional.ofNullable(jarFile.getManifest().getMainAttributes().getValue("Fingerprint"));
 			
 			if (!fingerPrintOptional.isPresent()) {
 				return VerifyStatus.UNSIGNED;
 			}
 			
+			// Remove dots and make all characters lowercase
 			final String fingerprint = fingerPrintOptional.get().replace(":", "").toLowerCase();
 			
 			try (Stream<JarEntry> entryStream = jarFile.stream()) {
+				// Check sign on every class and on the manifest file
 				if (entryStream.filter(entry -> entry.getName().endsWith(".class") || entry.getName().endsWith(".MF")).allMatch(entry -> {
 					// Read everything so the certificate gets loaded but trash the input
 					try (final InputStream stream = jarFile.getInputStream(entry)) {
