@@ -4,7 +4,7 @@ import org.apache.logging.log4j.*;
 
 import info.u_team.u_team_core.api.IModProxy;
 import info.u_team.u_team_core.intern.proxy.*;
-import info.u_team.u_team_core.util.io.JarSignVerifier;
+import info.u_team.u_team_core.util.verify.JarSignVerifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;

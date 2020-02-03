@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.util.io;
+package info.u_team.u_team_core.util.verify;
 
 import java.io.InputStream;
 import java.nio.file.*;
