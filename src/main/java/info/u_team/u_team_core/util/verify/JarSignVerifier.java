@@ -45,7 +45,7 @@ public class JarSignVerifier {
 		
 		try (final JarFile jarFile = new JarFile(path.toFile())) {
 			
-			// Get finger print from manifest
+			// Get fingerprint from manifest
 			final Optional<String> fingerPrintOptional = Optional.ofNullable(jarFile.getManifest().getMainAttributes().getValue("Fingerprint"));
 			
 			if (!fingerPrintOptional.isPresent()) {
