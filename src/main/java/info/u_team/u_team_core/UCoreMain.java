@@ -4,6 +4,7 @@ import org.apache.logging.log4j.*;
 
 import info.u_team.u_team_core.api.IModProxy;
 import info.u_team.u_team_core.intern.proxy.*;
+import info.u_team.u_team_core.util.io.JarSignVerifier;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
@@ -19,6 +20,8 @@ public class UCoreMain {
 	private static final IModProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 	
 	public UCoreMain() {
+		System.out.println(":::::::::::::::::::::::::::::::::::::");
+		System.out.println(JarSignVerifier.verify(MODID));
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
 		PROXY.construct();
 	}
