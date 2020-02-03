@@ -99,7 +99,8 @@ def normalManifest = {
 		"Implementation-Title": config.mod.name,
     	"Implementation-Version": project.version,
 		"Implementation-Vendor": "Team UTeam",
-        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+        "Fingerprint": project.findProperty("keystore.fingerprint") ?: "NONE"
 	)
 }
 
