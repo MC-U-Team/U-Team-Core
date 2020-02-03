@@ -5,6 +5,8 @@ import java.nio.file.*;
 import java.util.Optional;
 import java.util.jar.*;
 
+import org.apache.logging.log4j.*;
+
 import com.google.common.io.ByteStreams;
 
 import net.minecraftforge.fml.common.CertificateHelper;
@@ -12,7 +14,24 @@ import net.minecraftforge.fml.loading.*;
 
 public class JarSignVerifier {
 	
+	private static final Logger LOGGER = LogManager.getLogger("JarSignVerifier");
+	
+	public static void checkSigned(String modid) {
+		final VerifyStatus status = verify(modid);
+		if (status == VerifyStatus.SIGNED) {
+			LOGGER.info("Mod " + modid + " is signed with a valid certificate.");
+		} else if (status == VerifyStatus.UNSIGNED) {
+			LOGGER.warn("---------------------------------------------------------------------------------");
+			LOGGER.warn("Mod " + modid + " is not signed with a valid certificate but should be signed.");
+			LOGGER.warn("Please download the mod only from trusted sources such as curseforge.com!");
+			LOGGER.warn("---------------------------------------------------------------------------------");
+		} else {
+			LOGGER.info("Mod " + modid + " is loaded in dev environment.");
+		}
+	}
+	
 	public static VerifyStatus verify(String modid) {
+		// We don't need to check sign in dev environment
 		if (FMLLoader.getNaming().equals("mcp")) {
 			return VerifyStatus.DEV;
 		}

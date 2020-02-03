@@ -20,8 +20,7 @@ public class UCoreMain {
 	private static final IModProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 	
 	public UCoreMain() {
-		System.out.println(":::::::::::::::::::::::::::::::::::::");
-		System.out.println(JarSignVerifier.verify(MODID));
+		JarSignVerifier.checkSigned(MODID);
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
 		PROXY.construct();
 	}
