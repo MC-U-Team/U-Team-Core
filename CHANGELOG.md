@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.14.4-2.8.2.150] - 2020-02-04
+### Changed
+ - Updated forge to 28.2.0
+
 ## [1.14.4-2.8.1.148] - 2020-02-01
 ### Changed
  - Updated forge to 28.1.117
