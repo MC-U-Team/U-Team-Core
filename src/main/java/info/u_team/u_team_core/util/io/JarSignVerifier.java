@@ -4,6 +4,7 @@ import java.io.InputStream;
 import java.nio.file.*;
 import java.util.Optional;
 import java.util.jar.*;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.*;
 
@@ -43,12 +44,6 @@ public class JarSignVerifier {
 		}
 		
 		try (final JarFile jarFile = new JarFile(path.toFile())) {
-			final JarEntry entry = jarFile.getJarEntry(JarFile.MANIFEST_NAME);
-			
-			// Read everything so the certificate gets loaded but trash the input
-			try (final InputStream stream = jarFile.getInputStream(entry)) {
-				ByteStreams.toByteArray(stream);
-			}
 			
 			final Optional<String> fingerPrintOptional = Optional.ofNullable(jarFile.getManifest().getMainAttributes().getValue("Fingerprint"));
 			
@@ -58,11 +53,20 @@ public class JarSignVerifier {
 			
 			final String fingerprint = fingerPrintOptional.get().replace(":", "").toLowerCase();
 			
-			// Check if finger print is valid
-			if (CertificateHelper.getFingerprints(entry.getCertificates()).stream().filter(fingerprint::equals).findAny().isPresent()) {
-				return VerifyStatus.SIGNED;
+			try (Stream<JarEntry> entryStream = jarFile.stream()) {
+				if (entryStream.filter(entry -> entry.getName().endsWith(".class") || entry.getName().endsWith(".MF")).allMatch(entry -> {
+					// Read everything so the certificate gets loaded but trash the input
+					try (final InputStream stream = jarFile.getInputStream(entry)) {
+						ByteStreams.toByteArray(stream);
+					} catch (Exception ex) {
+						return false;
+					}
+					// Check if finger print is valid
+					return CertificateHelper.getFingerprints(entry.getCertificates()).stream().filter(fingerprint::equals).findAny().isPresent();
+				})) {
+					return VerifyStatus.SIGNED;
+				}
 			}
-			
 			return VerifyStatus.UNSIGNED;
 		} catch (Exception ex) {
 			return VerifyStatus.UNSIGNED;
