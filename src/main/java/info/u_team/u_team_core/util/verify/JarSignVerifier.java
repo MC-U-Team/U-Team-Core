@@ -56,8 +56,8 @@ public class JarSignVerifier {
 			final String fingerprint = fingerPrintOptional.get().replace(":", "").toLowerCase();
 			
 			try (Stream<JarEntry> entryStream = jarFile.stream()) {
-				// Check sign on every class and on the manifest file
-				if (entryStream.filter(entry -> entry.getName().endsWith(".class") || entry.getName().endsWith(".MF")).allMatch(entry -> {
+				// Check sign on every resource excluding directories and the certificate files
+				if (entryStream.filter(JarSignVerifier::checkEntryForSign).allMatch(entry -> {
 					// Read everything so the certificate gets loaded but trash the input
 					try (final InputStream stream = jarFile.getInputStream(entry)) {
 						ByteStreams.toByteArray(stream);
@@ -74,6 +74,14 @@ public class JarSignVerifier {
 		} catch (Exception ex) {
 			return VerifyStatus.UNSIGNED;
 		}
+	}
+	
+	private static boolean checkEntryForSign(JarEntry entry) {
+		if (entry.isDirectory()) {
+			return false;
+		}
+		final String name = entry.getName().toUpperCase();
+		return !name.endsWith(".SF") && !name.endsWith(".DSA") && !name.endsWith(".EC") && !name.endsWith(".RSA");
 	}
 	
 	public static enum VerifyStatus {
