@@ -1,7 +1,7 @@
 package info.u_team.u_team_test.screen;
 
 import info.u_team.u_team_core.gui.elements.*;
-import info.u_team.u_team_core.gui.render.ScalingTextRender;
+import info.u_team.u_team_core.gui.render.*;
 import info.u_team.u_team_test.TestMod;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
@@ -17,6 +17,8 @@ public class ButtonTestScreen extends Screen {
 	}
 	
 	private ScalingTextRender scalingRender;
+	
+	private ScrollingTextRender scrollingRender;
 	
 	@Override
 	protected void init() {
@@ -53,6 +55,10 @@ public class ButtonTestScreen extends Screen {
 		
 		scalingRender = new ScalingTextRender(() -> font, () -> "This is a test for the scaling text renderer");
 		scalingRender.setColor(0xFFFFFF);
+		
+		scrollingRender = new ScrollingTextRender(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling");
+		scrollingRender.setColor(0xFFFFFF);
+		scrollingRender.setWidth(200);
 	}
 	
 	@Override
@@ -60,7 +66,7 @@ public class ButtonTestScreen extends Screen {
 		renderBackground();
 		super.render(p_render_1_, p_render_2_, p_render_3_);
 		scalingRender.draw(10, 145);
-		scalingRender.setScale(0.5F);
+		scrollingRender.draw(10, 170);
 	}
 	
 }
