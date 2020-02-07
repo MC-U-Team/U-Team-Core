@@ -3,9 +3,8 @@ package info.u_team.u_team_core.gui.render;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import org.lwjgl.opengl.GL11;
-
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.renderer.Matrix4f;
 
 public class ScalingTextRender {
 	
@@ -84,14 +83,7 @@ public class ScalingTextRender {
 	}
 	
 	protected void renderFont(float x, float y) {
-		GL11.glPushMatrix();
-		GL11.glTranslatef(x, y, 0);
-		GL11.glScalef(scale, scale, 0);
-		if (shadow) {
-			fontRenderSupplier.get().drawStringWithShadow(text, 0, 0, color);
-		} else {
-			fontRenderSupplier.get().drawString(text, 0, 0, color);
-		}
-		GL11.glPopMatrix();
+		final float positionFactor = 1 / scale;
+		fontRenderSupplier.get().renderString(text, x * positionFactor, y * positionFactor, color, Matrix4f.makeScale(scale, scale, 0), shadow);
 	}
 }

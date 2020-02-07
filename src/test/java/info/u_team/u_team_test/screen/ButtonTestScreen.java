@@ -1,6 +1,7 @@
 package info.u_team.u_team_test.screen;
 
 import info.u_team.u_team_core.gui.elements.*;
+import info.u_team.u_team_core.gui.render.ScalingTextRender;
 import info.u_team.u_team_test.TestMod;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
@@ -14,6 +15,8 @@ public class ButtonTestScreen extends Screen {
 	public ButtonTestScreen() {
 		super(new StringTextComponent("test"));
 	}
+	
+	private ScalingTextRender scalingRender;
 	
 	@Override
 	protected void init() {
@@ -47,12 +50,17 @@ public class ButtonTestScreen extends Screen {
 		addButton(new BetterFontSlider(300, 30, 200, 40, "Test: ", "%", 0, 100, 20, false, true, 2, slider -> {
 			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
 		}));
+		
+		scalingRender = new ScalingTextRender(() -> font, () -> "This is a test for the scaling text renderer");
+		scalingRender.setColor(0xFFFFFF);
 	}
 	
 	@Override
 	public void render(int p_render_1_, int p_render_2_, float p_render_3_) {
 		renderBackground();
 		super.render(p_render_1_, p_render_2_, p_render_3_);
+		scalingRender.draw(10, 145);
+		scalingRender.setScale(0.5F);
 	}
 	
 }
