@@ -13,24 +13,23 @@ def getBuildNumber() {
 		commit(".", "Commit forced, because of new build", mainBranch)
 		execute("git pull")
 
-		def existBranch = execute("git rev-parse --verify ${versionBranch}").trim();
+		println "Check if branch ${versionBranch} already exists"
 
+		def existBranch = execute("git rev-parse --verify ${versionBranch}").trim();
+		
 		if(existBranch != null && existBranch.length() > 0) {
-			execute("git checkout ${versionBranch} -f");
-			execute("git pull origin ${versionBranch}");
-			Integer count = patchFile.text as Integer
-			count += 1
-			buildnumber = "" + count
+			println "Branch exists. Read ${patchFile} file"
+			buildnumber = findBuildNumber(versionBranch, patchFile)
 		} else {	
-			println "Try online search for branch"
+			println "Branch was not found. First check if the branch exists in the upstream repo"
 			execute("git checkout ${versionBranch}");
-			println "Checkout branch"
 			existBranch = execute("git rev-parse --verify ${versionBranch}").trim()
 			
-			println "Does the branch now exists? : " + existBranch
-			
-			if(existBranch == null || existBranch.length() == 0) {
-				println "Now create a new branch"
+			if(existBranch != null && existBranch.length() > 0) {
+				println "Branch now exists. Read ${patchFile} file"
+				buildnumber = findBuildNumber(versionBranch, patchFile)
+			} else {
+				println "Branch does not exist. Now create a new branch and start with buildnumber 0"
 				execute("git checkout --orphan ${versionBranch}");
 				execute("git rm --cache -r -f *");
 				patchFile.write "0"
@@ -51,6 +50,14 @@ def getBuildNumber() {
 	println "Finished fetching build number"	
 	print "The buildnumber is "
 	println config.buildnumber
+}
+
+def findBuildNumber(versionBranch, patchFile) {
+	execute("git checkout ${versionBranch} -f");
+	execute("git pull origin ${versionBranch}");
+	Integer count = patchFile.text as Integer
+	count += 1
+	return count as String
 }
 
 task setBuildNumber {
