@@ -231,11 +231,7 @@ def generateChangelogUrl() {
 	return url + "#" + mcversion + "-" + version + "---" + date
 }
 
-curseforge {
-	doFirst {
-		validateBuild()
-	}	
-	
+curseforge {	
 	tasks.curseforge.dependsOn build
 
 	if(System.getenv("token") != null) {
@@ -273,10 +269,6 @@ curseforge {
 }
 
 uploadArchives {
-	doFirst {
-		validateBuild()
-	}	
-
 	tasks.uploadArchives.dependsOn build
 
 	repositories {
@@ -338,5 +330,18 @@ task uploadBoth {
 	tasks.uploadBoth.dependsOn setBuildNumber
 	doLast {
 		println "Published both"
+	}
+}
+
+gradle.taskGraph.whenReady {
+	if (gradle.taskGraph.hasTask(":curseforge${config.curse.id}")) {
+		tasks."curseforge${config.curse.id}".doFirst {
+			validateBuild()
+		}
+	}
+	if (gradle.taskGraph.hasTask(":uploadArchives")) {
+		tasks."uploadArchives".doFirst {
+			validateBuild()
+		}
 	}
 }
