@@ -290,7 +290,7 @@ uploadArchives {
 					name project.archivesBaseName
 					packaging "jar"
 					description "${config.github.name}"
-						url "https://github.com/MC-U-Team/${config.github.name}"
+					url "https://github.com/MC-U-Team/${config.github.name}"
 					scm {
 						url "https://github.com/MC-U-Team/${config.github.name}"
 						connection "scm:git:git://github.com/MC-U-Team/${config.github.name}.git"
