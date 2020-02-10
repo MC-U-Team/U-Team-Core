@@ -232,6 +232,12 @@ def generateChangelogUrl() {
 }
 
 curseforge {
+	doFirst {
+		validateBuild()
+	}	
+	
+	tasks.curseforge.dependsOn build
+
 	if(System.getenv("token") != null) {
 		apiKey = System.getenv("token")
 	} else {
@@ -241,9 +247,7 @@ curseforge {
 			apiKey = "mrTroble" //We dont have one lol ¯\_(ツ)_/¯
 		}
 	}
-	
-	tasks.curseforge.dependsOn build
-	
+		
   	project {
     	id = config.curse.id
     	releaseType = config.curse.type
@@ -269,6 +273,9 @@ curseforge {
 }
 
 uploadArchives {
+	doFirst {
+		validateBuild()
+	}	
 
 	tasks.uploadArchives.dependsOn build
 
