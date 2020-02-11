@@ -335,19 +335,7 @@ task uploadBoth {
 }
 
 gradle.taskGraph.whenReady {
-	if (gradle.taskGraph.hasTask(":curseforge${config.curse.id}")) {
-		tasks."curseforge${config.curse.id}".doFirst {
-			validateBuild()
-		}
-	}
-	if (gradle.taskGraph.hasTask(":uploadArchives")) {
-		tasks."uploadArchives".doFirst {
-			validateBuild()
-		}
-	}
-	if (gradle.taskGraph.hasTask(":signJar")) {
-		//tasks."uploadArchives".doFirst {
-			validateBuild()
-		//}
+	if (gradle.taskGraph.hasTask(":curseforge${config.curse.id}") || gradle.taskGraph.hasTask(":uploadArchives")) {
+		validateBuild()
 	}
 }
