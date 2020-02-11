@@ -66,7 +66,7 @@ public abstract class CommonProvider implements IDataProvider {
 				final JsonWriter jsonWriter = GsonUtil.createTabWriter(gson, writer)) {
 			GSON.toJson(element, jsonWriter);
 			write(cache, writer.toString(), path);
-		} catch (IOException ex) {
+		} catch (final IOException ex) {
 			throw new JsonIOException(ex);
 		}
 	}

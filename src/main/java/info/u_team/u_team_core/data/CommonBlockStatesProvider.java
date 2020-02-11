@@ -39,7 +39,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 			try {
 				final ResourceLocation location = model.getLocation();
 				CommonProvider.write(cache, model.toJson(), generator.getOutputFolder().resolve("assets/" + location.getNamespace() + "/models/" + location.getPath() + ".json"));
-			} catch (IOException ex) {
+			} catch (final IOException ex) {
 				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
 			}
 		});
@@ -54,7 +54,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 			try {
 				final ResourceLocation location = Preconditions.checkNotNull(block.getRegistryName());
 				CommonProvider.write(cache, generatedState.toJson(), generator.getOutputFolder().resolve("assets/" + location.getNamespace() + "/blockstates/" + location.getPath() + ".json"));
-			} catch (IOException ex) {
+			} catch (final IOException ex) {
 				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
 			}
 		});

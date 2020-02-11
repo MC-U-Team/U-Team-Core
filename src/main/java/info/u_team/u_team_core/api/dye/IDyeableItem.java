@@ -71,7 +71,7 @@ public interface IDyeableItem {
 			++colorItemSum;
 		}
 		
-		for (DyeColor dye : dyeList) {
+		for (final DyeColor dye : dyeList) {
 			final float[] colorComponents = dye.getColorComponentValues();
 			
 			final int red = (int) (colorComponents[0] * 255.0F);

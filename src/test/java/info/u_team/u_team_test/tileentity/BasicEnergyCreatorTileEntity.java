@@ -23,6 +23,7 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	
 	private final LazyOptional<TileEntityUItemStackHandler> slots = LazyOptional.of(() -> new TileEntityUItemStackHandler(6, this) {
 		
+		@Override
 		public int getSlotLimit(int slot) {
 			return 16;
 		}

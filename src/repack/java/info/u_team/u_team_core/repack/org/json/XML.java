@@ -67,7 +67,7 @@ public class XML {
 				return new Iterator<Integer>() {
 					
 					private int nextIndex = 0;
-					private int length = string.length();
+					private final int length = string.length();
 					
 					@Override
 					public boolean hasNext() {
@@ -76,7 +76,7 @@ public class XML {
 					
 					@Override
 					public Integer next() {
-						int result = string.codePointAt(this.nextIndex);
+						final int result = string.codePointAt(this.nextIndex);
 						this.nextIndex += Character.charCount(result);
 						return result;
 					}
@@ -105,7 +105,7 @@ public class XML {
 	 * @return The escaped string.
 	 */
 	public static String escape(String string) {
-		StringBuilder sb = new StringBuilder(string.length());
+		final StringBuilder sb = new StringBuilder(string.length());
 		for (final int cp : codePointIterator(string)) {
 			switch (cp) {
 			case '&':
@@ -160,9 +160,9 @@ public class XML {
 	 * @return string with converted entities
 	 */
 	public static String unescape(String string) {
-		StringBuilder sb = new StringBuilder(string.length());
+		final StringBuilder sb = new StringBuilder(string.length());
 		for (int i = 0, length = string.length(); i < length; i++) {
-			char c = string.charAt(i);
+			final char c = string.charAt(i);
 			if (c == '&') {
 				final int semic = string.indexOf(';', i);
 				if (semic > i) {
@@ -190,7 +190,8 @@ public class XML {
 	 * @throws JSONException Thrown if the string contains whitespace or is empty.
 	 */
 	public static void noSpace(String string) throws JSONException {
-		int i, length = string.length();
+		int i;
+		final int length = string.length();
 		if (length == 0) {
 			throw new JSONException("Empty string.");
 		}
@@ -389,18 +390,18 @@ public class XML {
 		 * If it might be a number, try converting it. If a number cannot be produced, then the value will just be a string.
 		 */
 		
-		char initial = string.charAt(0);
+		final char initial = string.charAt(0);
 		if ((initial >= '0' && initial <= '9') || initial == '-') {
 			try {
 				// if we want full Big Number support this block can be replaced with:
 				// return stringToNumber(string);
 				if (string.indexOf('.') > -1 || string.indexOf('e') > -1 || string.indexOf('E') > -1 || "-0".equals(string)) {
-					Double d = Double.valueOf(string);
+					final Double d = Double.valueOf(string);
 					if (!d.isInfinite() && !d.isNaN()) {
 						return d;
 					}
 				} else {
-					Long myLong = Long.valueOf(string);
+					final Long myLong = Long.valueOf(string);
 					if (string.equals(myLong.toString())) {
 						if (myLong.longValue() == myLong.intValue()) {
 							return Integer.valueOf(myLong.intValue());
@@ -408,7 +409,7 @@ public class XML {
 						return myLong;
 					}
 				}
-			} catch (Exception ignore) {
+			} catch (final Exception ignore) {
 			}
 		}
 		return string;
@@ -460,8 +461,8 @@ public class XML {
 	 * @throws JSONException Thrown if there is an errors while parsing the string
 	 */
 	public static JSONObject toJSONObject(Reader reader, boolean keepStrings) throws JSONException {
-		JSONObject jo = new JSONObject();
-		XMLTokener x = new XMLTokener(reader);
+		final JSONObject jo = new JSONObject();
+		final XMLTokener x = new XMLTokener(reader);
 		while (x.more()) {
 			x.skipPast("<");
 			if (x.more()) {
@@ -510,7 +511,7 @@ public class XML {
 	 * @throws JSONException Thrown if there is an error parsing the string
 	 */
 	public static String toString(final Object object, final String tagName) throws JSONException {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		JSONArray ja;
 		JSONObject jo;
 		String string;
@@ -539,13 +540,13 @@ public class XML {
 				if ("content".equals(key)) {
 					if (value instanceof JSONArray) {
 						ja = (JSONArray) value;
-						int jaLength = ja.length();
+						final int jaLength = ja.length();
 						// don't use the new iterator API to maintain support for Android
 						for (int i = 0; i < jaLength; i++) {
 							if (i > 0) {
 								sb.append('\n');
 							}
-							Object val = ja.opt(i);
+							final Object val = ja.opt(i);
 							sb.append(escape(val.toString()));
 						}
 					} else {
@@ -556,10 +557,10 @@ public class XML {
 					
 				} else if (value instanceof JSONArray) {
 					ja = (JSONArray) value;
-					int jaLength = ja.length();
+					final int jaLength = ja.length();
 					// don't use the new iterator API to maintain support for Android
 					for (int i = 0; i < jaLength; i++) {
-						Object val = ja.opt(i);
+						final Object val = ja.opt(i);
 						if (val instanceof JSONArray) {
 							sb.append('<');
 							sb.append(key);
@@ -600,10 +601,10 @@ public class XML {
 			} else {
 				ja = (JSONArray) object;
 			}
-			int jaLength = ja.length();
+			final int jaLength = ja.length();
 			// don't use the new iterator API to maintain support for Android
 			for (int i = 0; i < jaLength; i++) {
-				Object val = ja.opt(i);
+				final Object val = ja.opt(i);
 				// XML does not have good support for arrays. If an array
 				// appears in a place where XML is lacking, synthesize an
 				// <array> element.

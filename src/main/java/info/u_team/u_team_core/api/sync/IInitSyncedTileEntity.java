@@ -29,6 +29,7 @@ public interface IInitSyncedTileEntity extends INamedContainerProvider {
 	@OnlyIn(Dist.CLIENT)
 	void handleInitialDataBuffer(PacketBuffer buffer);
 	
+	@Override
 	Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player);
 	
 }

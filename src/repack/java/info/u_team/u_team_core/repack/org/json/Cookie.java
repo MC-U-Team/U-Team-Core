@@ -34,9 +34,9 @@ public class Cookie {
 	 */
 	public static String escape(String string) {
 		char c;
-		String s = string.trim();
-		int length = s.length();
-		StringBuilder sb = new StringBuilder(length);
+		final String s = string.trim();
+		final int length = s.length();
+		final StringBuilder sb = new StringBuilder(length);
 		for (int i = 0; i < length; i += 1) {
 			c = s.charAt(i);
 			if (c < ' ' || c == '+' || c == '%' || c == '=' || c == ';') {
@@ -63,9 +63,9 @@ public class Cookie {
 	 */
 	public static JSONObject toJSONObject(String string) throws JSONException {
 		String name;
-		JSONObject jo = new JSONObject();
+		final JSONObject jo = new JSONObject();
 		Object value;
-		JSONTokener x = new JSONTokener(string);
+		final JSONTokener x = new JSONTokener(string);
 		jo.put("name", x.nextTo('='));
 		x.next('=');
 		jo.put("value", x.nextTo(';'));
@@ -97,7 +97,7 @@ public class Cookie {
 	 * @throws JSONException
 	 */
 	public static String toString(JSONObject jo) throws JSONException {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		
 		sb.append(escape(jo.getString("name")));
 		sb.append("=");
@@ -128,15 +128,15 @@ public class Cookie {
 	 * @return The unescaped string.
 	 */
 	public static String unescape(String string) {
-		int length = string.length();
-		StringBuilder sb = new StringBuilder(length);
+		final int length = string.length();
+		final StringBuilder sb = new StringBuilder(length);
 		for (int i = 0; i < length; ++i) {
 			char c = string.charAt(i);
 			if (c == '+') {
 				c = ' ';
 			} else if (c == '%' && i + 2 < length) {
-				int d = JSONTokener.dehexchar(string.charAt(i + 1));
-				int e = JSONTokener.dehexchar(string.charAt(i + 2));
+				final int d = JSONTokener.dehexchar(string.charAt(i + 1));
+				final int e = JSONTokener.dehexchar(string.charAt(i + 2));
 				if (d >= 0 && e >= 0) {
 					c = (char) (d * 16 + e);
 					i += 2;

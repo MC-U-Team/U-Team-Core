@@ -32,10 +32,10 @@ public class CookieList {
 	 * @throws JSONException
 	 */
 	public static JSONObject toJSONObject(String string) throws JSONException {
-		JSONObject jo = new JSONObject();
-		JSONTokener x = new JSONTokener(string);
+		final JSONObject jo = new JSONObject();
+		final JSONTokener x = new JSONTokener(string);
 		while (x.more()) {
-			String name = Cookie.unescape(x.nextTo('='));
+			final String name = Cookie.unescape(x.nextTo('='));
 			x.next('=');
 			jo.put(name, Cookie.unescape(x.nextTo(';')));
 			x.next();

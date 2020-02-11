@@ -30,8 +30,8 @@ public class UContainerScreen<T extends Container> extends ContainerScreen<T> {
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
 		minecraft.getTextureManager().bindTexture(background);
-		int xStart = (width - xSize) / 2;
-		int yStart = (height - ySize) / 2;
+		final int xStart = (width - xSize) / 2;
+		final int yStart = (height - ySize) / 2;
 		
 		blit(xStart, yStart, 0, 0, xSize, ySize, backgroundWidth, backgroundHeight);
 	}

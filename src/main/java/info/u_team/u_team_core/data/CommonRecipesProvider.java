@@ -44,7 +44,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 				}
 				write(cache, recipe.getAdvancementJson(), advancementPath);
 			}
-		} catch (IOException ex) {
+		} catch (final IOException ex) {
 			LOGGER.error(marker, "Could not write data.", ex);
 		}
 	}

@@ -30,7 +30,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	
 	@Override
 	public boolean mouseReleased(double p_mouseReleased_1_, double p_mouseReleased_3_, int p_mouseReleased_5_) {
-		for (Widget button : widget) {
+		for (final Widget button : widget) {
 			if (button.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_)) {
 				return true;
 			}
@@ -40,7 +40,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	
 	@Override
 	public boolean mouseDragged(double p_mouseDragged_1_, double p_mouseDragged_3_, int p_mouseDragged_5_, double p_mouseDragged_6_, double p_mouseDragged_8_) {
-		for (Widget button : widget) {
+		for (final Widget button : widget) {
 			if (button.mouseDragged(p_mouseDragged_1_, p_mouseDragged_3_, p_mouseDragged_5_, p_mouseDragged_6_, p_mouseDragged_8_)) {
 				return true;
 			}

@@ -57,7 +57,7 @@ public enum DiscordBuild {
 	 * @return The DiscordBuild corresponding to the endpoint, or {@link DiscordBuild#ANY} if none match.
 	 */
 	public static DiscordBuild from(String endpoint) {
-		for (DiscordBuild value : values()) {
+		for (final DiscordBuild value : values()) {
 			if (value.endpoint != null && value.endpoint.equals(endpoint)) {
 				return value;
 			}

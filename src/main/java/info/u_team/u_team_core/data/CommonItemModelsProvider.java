@@ -38,7 +38,7 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 			try {
 				final ResourceLocation location = model.getLocation();
 				CommonProvider.write(cache, model.toJson(), generator.getOutputFolder().resolve("assets/" + location.getNamespace() + "/models/" + location.getPath() + ".json"));
-			} catch (IOException ex) {
+			} catch (final IOException ex) {
 				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
 			}
 		});

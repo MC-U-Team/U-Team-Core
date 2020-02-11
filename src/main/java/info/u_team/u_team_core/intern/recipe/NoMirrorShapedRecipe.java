@@ -69,7 +69,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 			buffer.writeVarInt(recipe.getRecipeWidth());
 			buffer.writeVarInt(recipe.getRecipeHeight());
 			buffer.writeString(recipe.getGroup());
-			for (Ingredient ingredient : recipe.getIngredients()) {
+			for (final Ingredient ingredient : recipe.getIngredients()) {
 				ingredient.write(buffer);
 			}
 			buffer.writeItemStack(recipe.getRecipeOutput());

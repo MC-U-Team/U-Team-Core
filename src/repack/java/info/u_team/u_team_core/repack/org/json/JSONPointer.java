@@ -128,7 +128,7 @@ public class JSONPointer {
 			refs = pointer.substring(2);
 			try {
 				refs = URLDecoder.decode(refs, ENCODING);
-			} catch (UnsupportedEncodingException e) {
+			} catch (final UnsupportedEncodingException e) {
 				throw new RuntimeException(e);
 			}
 		} else if (pointer.startsWith("/")) {
@@ -137,7 +137,7 @@ public class JSONPointer {
 			throw new IllegalArgumentException("a JSON pointer should start with '/' or '#/'");
 		}
 		this.refTokens = new ArrayList<String>();
-		for (String token : refs.split("/")) {
+		for (final String token : refs.split("/")) {
 			this.refTokens.add(unescape(token));
 		}
 	}
@@ -164,7 +164,7 @@ public class JSONPointer {
 			return document;
 		}
 		Object current = document;
-		for (String token : this.refTokens) {
+		for (final String token : this.refTokens) {
 			if (current instanceof JSONObject) {
 				current = ((JSONObject) current).opt(unescape(token));
 			} else if (current instanceof JSONArray) {
@@ -186,17 +186,17 @@ public class JSONPointer {
 	 */
 	private Object readByIndexToken(Object current, String indexToken) throws JSONPointerException {
 		try {
-			int index = Integer.parseInt(indexToken);
-			JSONArray currentArr = (JSONArray) current;
+			final int index = Integer.parseInt(indexToken);
+			final JSONArray currentArr = (JSONArray) current;
 			if (index >= currentArr.length()) {
 				throw new JSONPointerException(format("index %d is out of bounds - the array has %d elements", index, currentArr.length()));
 			}
 			try {
 				return currentArr.get(index);
-			} catch (JSONException e) {
+			} catch (final JSONException e) {
 				throw new JSONPointerException("Error reading value at index position " + index, e);
 			}
-		} catch (NumberFormatException e) {
+		} catch (final NumberFormatException e) {
 			throw new JSONPointerException(format("%s is not an array index", indexToken), e);
 		}
 	}
@@ -206,8 +206,8 @@ public class JSONPointer {
 	 */
 	@Override
 	public String toString() {
-		StringBuilder rval = new StringBuilder("");
-		for (String token : this.refTokens) {
+		final StringBuilder rval = new StringBuilder("");
+		for (final String token : this.refTokens) {
 			rval.append('/').append(escape(token));
 		}
 		return rval.toString();
@@ -229,12 +229,12 @@ public class JSONPointer {
 	 */
 	public String toURIFragment() {
 		try {
-			StringBuilder rval = new StringBuilder("#");
-			for (String token : this.refTokens) {
+			final StringBuilder rval = new StringBuilder("#");
+			for (final String token : this.refTokens) {
 				rval.append('/').append(URLEncoder.encode(token, ENCODING));
 			}
 			return rval.toString();
-		} catch (UnsupportedEncodingException e) {
+		} catch (final UnsupportedEncodingException e) {
 			throw new RuntimeException(e);
 		}
 	}

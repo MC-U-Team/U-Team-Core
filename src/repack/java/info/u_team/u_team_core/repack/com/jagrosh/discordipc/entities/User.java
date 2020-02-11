@@ -148,7 +148,7 @@ public class User {
 	public boolean equals(Object o) {
 		if (!(o instanceof User))
 			return false;
-		User oUser = (User) o;
+		final User oUser = (User) o;
 		return this == oUser || this.id == oUser.id;
 	}
 	

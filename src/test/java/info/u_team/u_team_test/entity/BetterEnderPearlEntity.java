@@ -38,9 +38,9 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	@Override
 	protected void onImpact(RayTraceResult result) {
-		LivingEntity livingentity = this.getThrower();
+		final LivingEntity livingentity = this.getThrower();
 		if (result.getType() == RayTraceResult.Type.ENTITY) {
-			Entity entity = ((EntityRayTraceResult) result).getEntity();
+			final Entity entity = ((EntityRayTraceResult) result).getEntity();
 			if (entity == this.thrower) {
 				return;
 			}
@@ -49,10 +49,10 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 		}
 		
 		if (result.getType() == RayTraceResult.Type.BLOCK) {
-			BlockPos blockpos = ((BlockRayTraceResult) result).getPos();
-			TileEntity tileentity = this.world.getTileEntity(blockpos);
+			final BlockPos blockpos = ((BlockRayTraceResult) result).getPos();
+			final TileEntity tileentity = this.world.getTileEntity(blockpos);
 			if (tileentity instanceof EndGatewayTileEntity) {
-				EndGatewayTileEntity endgatewaytileentity = (EndGatewayTileEntity) tileentity;
+				final EndGatewayTileEntity endgatewaytileentity = (EndGatewayTileEntity) tileentity;
 				if (livingentity != null) {
 					if (livingentity instanceof ServerPlayerEntity) {
 						CriteriaTriggers.ENTER_BLOCK.trigger((ServerPlayerEntity) livingentity, this.world.getBlockState(blockpos));
@@ -74,12 +74,12 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 		
 		if (!this.world.isRemote) {
 			if (livingentity instanceof ServerPlayerEntity) {
-				ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) livingentity;
+				final ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) livingentity;
 				if (serverplayerentity.connection.getNetworkManager().isChannelOpen() && serverplayerentity.world == this.world && !serverplayerentity.isSleeping()) {
-					net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(serverplayerentity, this.getPosX(), this.getPosY(), this.getPosZ(), 5.0F);
+					final net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(serverplayerentity, this.getPosX(), this.getPosY(), this.getPosZ(), 5.0F);
 					if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) {
 						if (this.rand.nextFloat() < 0.05F && this.world.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING)) {
-							EndermiteEntity endermiteentity = EntityType.ENDERMITE.create(this.world);
+							final EndermiteEntity endermiteentity = EntityType.ENDERMITE.create(this.world);
 							endermiteentity.setSpawnedByPlayer(true);
 							endermiteentity.setLocationAndAngles(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ(), livingentity.rotationYaw, livingentity.rotationPitch);
 							this.world.addEntity(endermiteentity);
@@ -106,7 +106,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	@Override
 	public void tick() {
-		LivingEntity livingentity = this.getThrower();
+		final LivingEntity livingentity = this.getThrower();
 		if (livingentity != null && livingentity instanceof PlayerEntity && !livingentity.isAlive()) {
 			this.remove();
 		} else {

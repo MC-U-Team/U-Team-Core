@@ -26,7 +26,7 @@ public class ButtonTestScreen extends Screen {
 		
 		addButton(new BetterButton(10, 30, 200, 15, 0.75F, "Better button", button -> System.out.println("Pressed UButton")));
 		
-		ActiveButton activeButton = addButton(new ActiveButton(10, 50, 200, 15, "Basic Test button", 0x006442FF));
+		final ActiveButton activeButton = addButton(new ActiveButton(10, 50, 200, 15, "Basic Test button", 0x006442FF));
 		activeButton.setPressable(() -> {
 			System.out.println("Pressed ActiveButton");
 			activeButton.setActive(!activeButton.isActive());
@@ -34,13 +34,13 @@ public class ButtonTestScreen extends Screen {
 		
 		addButton(new ImageButton(10, 70, 16, 16, TEXTURE1, button -> System.out.println("Pressed ImageButton")));
 		
-		ActiveImageButton activeImageButton = addButton(new ActiveImageButton(10, 90, 20, 20, TEXTURE1, 0x006442FF));
+		final ActiveImageButton activeImageButton = addButton(new ActiveImageButton(10, 90, 20, 20, TEXTURE1, 0x006442FF));
 		activeImageButton.setPressable(() -> {
 			System.out.println("Pressed ActiveImageButton");
 			activeImageButton.setActive(!activeImageButton.isActive());
 		});
 		
-		ToggleImageButton toggleImageButton = addButton(new ToggleImageButton(10, 115, 20, 20, TEXTURE1, TEXTURE2));
+		final ToggleImageButton toggleImageButton = addButton(new ToggleImageButton(10, 115, 20, 20, TEXTURE1, TEXTURE2));
 		toggleImageButton.setPressable(() -> {
 			System.out.println("Pressed ToggleImageButton");
 		});

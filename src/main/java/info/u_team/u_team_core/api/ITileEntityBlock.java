@@ -60,7 +60,7 @@ public interface ITileEntityBlock {
 		}
 		
 		final ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-		Optional<TileEntity> tileEntityOptional = isTileEntityFromType(world, pos);
+		final Optional<TileEntity> tileEntityOptional = isTileEntityFromType(world, pos);
 		
 		if (!tileEntityOptional.isPresent()) {
 			return ActionResultType.PASS;

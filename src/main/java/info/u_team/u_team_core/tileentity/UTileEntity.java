@@ -53,7 +53,7 @@ public abstract class UTileEntity extends TileEntity {
 	
 	@Override
 	public CompoundNBT getUpdateTag() {
-		CompoundNBT compound = super.getUpdateTag();
+		final CompoundNBT compound = super.getUpdateTag();
 		sendChunkLoadData(compound);
 		return compound;
 	}

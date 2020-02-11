@@ -43,10 +43,10 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 		} else if (entry instanceof ListEntry) {
 			final List<Item> list = Lists.newArrayList();
 			
-			for (Block block : ((ListEntry<Block>) entry).getTaggedItems()) {
+			for (final Block block : ((ListEntry<Block>) entry).getTaggedItems()) {
 				final Item item = block.asItem();
 				if (item == Items.AIR) {
-					LOGGER.warn("Itemless block copied to item tag: {}", (Object) ForgeRegistries.BLOCKS.getKey(block));
+					LOGGER.warn("Itemless block copied to item tag: {}", ForgeRegistries.BLOCKS.getKey(block));
 				} else {
 					list.add(item);
 				}

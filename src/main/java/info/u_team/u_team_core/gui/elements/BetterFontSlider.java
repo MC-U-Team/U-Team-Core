@@ -24,7 +24,7 @@ public class BetterFontSlider extends Slider {
 				sliderValue = (x - (this.x + 4)) / (float) (this.width - 8);
 				updateSlider();
 			}
-			GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, this.x + (int) (this.sliderValue * (float) (this.width - 8)), this.y, 0, 66 + (isHovered() ? 20 : 0), 8, this.height, 200, 20, 2, 3, 2, 2, this.getBlitOffset());
+			GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, this.x + (int) (this.sliderValue * (this.width - 8)), this.y, 0, 66 + (isHovered() ? 20 : 0), 8, this.height, 200, 20, 2, 3, 2, 2, this.getBlitOffset());
 		}
 	}
 	

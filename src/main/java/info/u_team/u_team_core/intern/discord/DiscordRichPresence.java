@@ -43,7 +43,7 @@ public class DiscordRichPresence {
 			}, 1000, 1000 * 120);
 			isEnabled = true;
 			UCoreMain.LOGGER.info("Discord client found and connected.");
-		} catch (NoDiscordClientException ex) {
+		} catch (final NoDiscordClientException ex) {
 			UCoreMain.LOGGER.info("Discord client was not found.");
 		}
 	}
@@ -55,7 +55,7 @@ public class DiscordRichPresence {
 		}
 		try {
 			CLIENT.close();
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 		}
 		errorCount = 0;
 		isEnabled = false;
@@ -85,7 +85,7 @@ public class DiscordRichPresence {
 	
 	public static void setState(State state) {
 		currentState = state;
-		Builder builder = new Builder();
+		final Builder builder = new Builder();
 		builder.setDetails(MCPVersion.getMCVersion() + " with " + ModList.get().size() + " Mods");
 		builder.setState(state.getState().getMessage(state.getReplace()));
 		builder.setStartTimestamp(TIME);
@@ -95,15 +95,15 @@ public class DiscordRichPresence {
 		}
 		try {
 			CLIENT.sendRichPresence(builder.build());
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			try {
 				CLIENT.connect();
 				errorCount = 0;
 				CLIENT.sendRichPresence(builder.build());
-			} catch (Exception ex2) {
+			} catch (final Exception ex2) {
 				try {
 					CLIENT.close();
-				} catch (Exception ex3) {
+				} catch (final Exception ex3) {
 				}
 				errorCount++;
 				if (errorCount > 10) {
@@ -124,8 +124,8 @@ public class DiscordRichPresence {
 	
 	public static class State {
 		
-		private EnumState state;
-		private String replace;
+		private final EnumState state;
+		private final String replace;
 		
 		public State(EnumState state) {
 			this(state, "");
@@ -154,7 +154,7 @@ public class DiscordRichPresence {
 		END("Dimension: The End", "The End", "world_the_end"),
 		DIM("Dimension: %s", "%s", "world_dim");
 		
-		private String message, imagename, imagekey;
+		private final String message, imagename, imagekey;
 		
 		private EnumState(String message, String imagename, String imagekey) {
 			this.message = message;

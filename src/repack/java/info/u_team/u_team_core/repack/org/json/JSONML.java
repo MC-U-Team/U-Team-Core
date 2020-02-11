@@ -350,7 +350,7 @@ public class JSONML {
 		JSONObject jo;
 		int length;
 		Object object;
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		String tagName;
 		
 		// Emit <tagName
@@ -426,7 +426,7 @@ public class JSONML {
 	 * @throws JSONException Thrown on error converting to a string
 	 */
 	public static String toString(JSONObject jo) throws JSONException {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		int i;
 		JSONArray ja;
 		int length;

@@ -14,11 +14,11 @@ public class BasicDimension extends OverworldDimension {
 	
 	@Override
 	public ChunkGenerator<? extends GenerationSettings> createChunkGenerator() {
-		ChunkGeneratorType<OverworldGenSettings, OverworldChunkGenerator> chunkgenerator = ChunkGeneratorType.SURFACE;
-		BiomeProviderType<SingleBiomeProviderSettings, SingleBiomeProvider> biomeprovidertype = BiomeProviderType.FIXED;
+		final ChunkGeneratorType<OverworldGenSettings, OverworldChunkGenerator> chunkgenerator = ChunkGeneratorType.SURFACE;
+		final BiomeProviderType<SingleBiomeProviderSettings, SingleBiomeProvider> biomeprovidertype = BiomeProviderType.FIXED;
 		
-		OverworldGenSettings overworldgensettings = chunkgenerator.createSettings();
-		SingleBiomeProviderSettings overworldbiomeprovidersettings = biomeprovidertype.func_226840_a_(world.getWorldInfo()).setBiome(TestBiomes.BASIC);
+		final OverworldGenSettings overworldgensettings = chunkgenerator.createSettings();
+		final SingleBiomeProviderSettings overworldbiomeprovidersettings = biomeprovidertype.func_226840_a_(world.getWorldInfo()).setBiome(TestBiomes.BASIC);
 		return chunkgenerator.create(this.world, biomeprovidertype.create(overworldbiomeprovidersettings), overworldgensettings);
 	}
 	

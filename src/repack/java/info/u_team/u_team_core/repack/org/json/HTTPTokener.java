@@ -39,7 +39,7 @@ public class HTTPTokener extends JSONTokener {
 	public String nextToken() throws JSONException {
 		char c;
 		char q;
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		do {
 			c = next();
 		} while (Character.isWhitespace(c));

@@ -102,7 +102,7 @@ public class JSONWriter {
 					this.writer.append(',');
 				}
 				this.writer.append(string);
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				// Android as of API 25 does not support this exception constructor
 				// however we won't worry about it. If an exception is happening here
 				// it will just throw a "Method not found" exception instead.
@@ -150,7 +150,7 @@ public class JSONWriter {
 		this.pop(m);
 		try {
 			this.writer.append(c);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			// Android as of API 25 does not support this exception constructor
 			// however we won't worry about it. If an exception is happening here
 			// it will just throw a "Method not found" exception instead.
@@ -193,7 +193,7 @@ public class JSONWriter {
 		}
 		if (this.mode == 'k') {
 			try {
-				JSONObject topObject = this.stack[this.top - 1];
+				final JSONObject topObject = this.stack[this.top - 1];
 				// don't use the built in putOnce method to maintain Android support
 				if (topObject.has(string)) {
 					throw new JSONException("Duplicate key \"" + string + "\"");
@@ -207,7 +207,7 @@ public class JSONWriter {
 				this.comma = false;
 				this.mode = 'o';
 				return this;
-			} catch (IOException e) {
+			} catch (final IOException e) {
 				// Android as of API 25 does not support this exception constructor
 				// however we won't worry about it. If an exception is happening here
 				// it will just throw a "Method not found" exception instead.
@@ -249,7 +249,7 @@ public class JSONWriter {
 		if (this.top <= 0) {
 			throw new JSONException("Nesting error.");
 		}
-		char m = this.stack[this.top - 1] == null ? 'a' : 'k';
+		final char m = this.stack[this.top - 1] == null ? 'a' : 'k';
 		if (m != c) {
 			throw new JSONException("Nesting error.");
 		}
@@ -296,7 +296,7 @@ public class JSONWriter {
 			Object object;
 			try {
 				object = ((JSONString) value).toJSONString();
-			} catch (Exception e) {
+			} catch (final Exception e) {
 				throw new JSONException(e);
 			}
 			if (object instanceof String) {
@@ -310,10 +310,11 @@ public class JSONWriter {
 			try {
 				// Use the BigDecimal constructor for it's parser to validate the format.
 				@SuppressWarnings("unused")
+				final
 				BigDecimal unused = new BigDecimal(numberAsString);
 				// Close enough to a JSON number that we will return it unquoted
 				return numberAsString;
-			} catch (NumberFormatException ex) {
+			} catch (final NumberFormatException ex) {
 				// The Number value is not a valid JSON number.
 				// Instead we will quote it as a string
 				return JSONObject.quote(numberAsString);
@@ -323,11 +324,11 @@ public class JSONWriter {
 			return value.toString();
 		}
 		if (value instanceof Map) {
-			Map<?, ?> map = (Map<?, ?>) value;
+			final Map<?, ?> map = (Map<?, ?>) value;
 			return new JSONObject(map).toString();
 		}
 		if (value instanceof Collection) {
-			Collection<?> coll = (Collection<?>) value;
+			final Collection<?> coll = (Collection<?>) value;
 			return new JSONArray(coll).toString();
 		}
 		if (value.getClass().isArray()) {

@@ -61,7 +61,7 @@ public class JarSignVerifier {
 					// Read everything so the certificate gets loaded but trash the input
 					try (final InputStream stream = jarFile.getInputStream(entry)) {
 						ByteStreams.toByteArray(stream);
-					} catch (Exception ex) {
+					} catch (final Exception ex) {
 						return false;
 					}
 					// Check if finger print is valid
@@ -71,7 +71,7 @@ public class JarSignVerifier {
 				}
 			}
 			return VerifyStatus.UNSIGNED;
-		} catch (Exception ex) {
+		} catch (final Exception ex) {
 			return VerifyStatus.UNSIGNED;
 		}
 	}

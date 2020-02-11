@@ -36,7 +36,7 @@ public class BufferPropertyContainerMessage {
 		
 		final byte[] bytes = new byte[sendBuffer.readableBytes()]; // Is there a better way to read all bytes??
 		sendBuffer.getBytes(sendBuffer.readerIndex(), bytes);
-		BufferPropertyContainerMessage buffer = new BufferPropertyContainerMessage(id, property, new PacketBuffer(Unpooled.wrappedBuffer(bytes)));
+		final BufferPropertyContainerMessage buffer = new BufferPropertyContainerMessage(id, property, new PacketBuffer(Unpooled.wrappedBuffer(bytes)));
 		
 		return buffer;
 	}

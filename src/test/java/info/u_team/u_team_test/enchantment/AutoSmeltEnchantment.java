@@ -27,38 +27,38 @@ public class AutoSmeltEnchantment extends UEnchantment {
 		if (event.isSilkTouching()) {
 			return;
 		}
-		PlayerEntity player = event.getHarvester();
+		final PlayerEntity player = event.getHarvester();
 		if (player == null) {
 			return;
 		}
-		World world = player.getEntityWorld();
+		final World world = player.getEntityWorld();
 		if (world.isRemote) {
 			return;
 		}
-		ItemStack stack = player.getHeldItemMainhand();
+		final ItemStack stack = player.getHeldItemMainhand();
 		if (stack.isEmpty()) {
 			return;
 		}
-		int level = EnchantmentHelper.getEnchantmentLevel(this, stack);
+		final int level = EnchantmentHelper.getEnchantmentLevel(this, stack);
 		if (level == 0) {
 			return;
 		}
-		List<ItemStack> drops = event.getDrops();
+		final List<ItemStack> drops = event.getDrops();
 		for (int i = 0; i < drops.size(); i++) {
-			ItemStack drop = drops.get(i);
-			Inventory inventory = new Inventory(1);
+			final ItemStack drop = drops.get(i);
+			final Inventory inventory = new Inventory(1);
 			inventory.setInventorySlotContents(0, drop);
 			
 			final int index = i;
 			
 			world.getRecipeManager().getRecipe(IRecipeType.SMELTING, inventory, world).ifPresent(recipe -> {
-				ItemStack newDrop = recipe.getCraftingResult(inventory);
+				final ItemStack newDrop = recipe.getCraftingResult(inventory);
 				if (newDrop != null && !newDrop.isEmpty()) {
 					drops.set(index, newDrop);
-					BlockPos pos = event.getPos();
+					final BlockPos pos = event.getPos();
 					int amount = drop.getCount();
 					recipe.getIcon();
-					float exp = recipe.getExperience();
+					final float exp = recipe.getExperience();
 					
 					if (exp == 0.0F) {
 						amount = 0;
@@ -72,7 +72,7 @@ public class AutoSmeltEnchantment extends UEnchantment {
 					}
 					
 					while (amount > 0) {
-						int split = ExperienceOrbEntity.getXPSplit(amount);
+						final int split = ExperienceOrbEntity.getXPSplit(amount);
 						amount -= split;
 						world.addEntity(new ExperienceOrbEntity(world, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, split));
 					}

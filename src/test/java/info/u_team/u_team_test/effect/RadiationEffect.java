@@ -22,7 +22,7 @@ public class RadiationEffect extends UEffect {
 		amplifier += 2;
 		entityLiving.attackEntityFrom(TestDamageSources.RADIATION, random.nextInt(amplifier));
 		if (entityLiving instanceof PlayerEntity) {
-			PlayerEntity player = (PlayerEntity) entityLiving;
+			final PlayerEntity player = (PlayerEntity) entityLiving;
 			player.addExhaustion(0.005F * amplifier);
 		}
 	}

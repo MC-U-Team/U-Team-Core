@@ -95,16 +95,16 @@ public final class IPCClient implements Closeable {
 		build = null;
 		
 		// store some files so we can get the preferred client
-		RandomAccessFile[] open = new RandomAccessFile[DiscordBuild.values().length];
+		final RandomAccessFile[] open = new RandomAccessFile[DiscordBuild.values().length];
 		for (int i = 0; i < 10; i++) {
 			try {
-				String ipc = getIPC(i);
+				final String ipc = getIPC(i);
 				LOGGER.debug(String.format("Searching for IPC: %s", ipc));
 				pipe = new RandomAccessFile(ipc, "rw");
 				
 				send(OpCode.HANDSHAKE, new JSONObject().put("v", version).put("client_id", Long.toString(clientId)), null);
 				
-				Packet p = read(); // this is a valid client at this point
+				final Packet p = read(); // this is a valid client at this point
 				
 				build = DiscordBuild.from(p.getJson().getJSONObject("data").getJSONObject("config").getString("api_endpoint"));
 				
@@ -130,7 +130,7 @@ public final class IPCClient implements Closeable {
 			// we already know we don't have our first pick
 			// check each of the rest to see if we have that
 			for (int i = 1; i < preferredOrder.length; i++) {
-				DiscordBuild cb = preferredOrder[i];
+				final DiscordBuild cb = preferredOrder[i];
 				LOGGER.debug(String.format("Looking for client build: %s", cb.name()));
 				if (open[cb.ordinal()] != null) {
 					pipe = open[cb.ordinal()];
@@ -163,7 +163,7 @@ public final class IPCClient implements Closeable {
 			if (open[i] != null) {
 				try {
 					open[i].close();
-				} catch (IOException ex) {
+				} catch (final IOException ex) {
 					// This isn't really important to applications and better
 					// as debug info
 					LOGGER.debug("Failed to close an open IPC Pipe!", ex);
@@ -357,7 +357,7 @@ public final class IPCClient implements Closeable {
 		static Event of(String str) {
 			if (str == null)
 				return NULL;
-			for (Event s : Event.values()) {
+			for (final Event s : Event.values()) {
 				if (s != UNKNOWN && s.name().equalsIgnoreCase(str))
 					return s;
 			}
@@ -387,9 +387,9 @@ public final class IPCClient implements Closeable {
 			try {
 				Packet p;
 				while ((p = read()).getOp() != OpCode.CLOSE) {
-					JSONObject json = p.getJson();
-					Event event = Event.of(json.optString("evt", null));
-					String nonce = json.optString("nonce", null);
+					final JSONObject json = p.getJson();
+					final Event event = Event.of(json.optString("evt", null));
+					final String nonce = json.optString("nonce", null);
 					switch (event) {
 					case NULL:
 						if (nonce != null && callbacks.containsKey(nonce))
@@ -421,7 +421,7 @@ public final class IPCClient implements Closeable {
 					}
 					if (listener != null && json.has("cmd") && json.getString("cmd").equals("DISPATCH")) {
 						try {
-							JSONObject data = json.getJSONObject("data");
+							final JSONObject data = json.getJSONObject("data");
 							switch (Event.of(json.getString("evt"))) {
 							case ACTIVITY_JOIN:
 								listener.onActivityJoin(this, data.getString("secret"));
@@ -432,14 +432,14 @@ public final class IPCClient implements Closeable {
 								break;
 							
 							case ACTIVITY_JOIN_REQUEST:
-								JSONObject u = data.getJSONObject("user");
-								User user = new User(u.getString("username"), u.getString("discriminator"), Long.parseLong(u.getString("id")), u.optString("avatar", null));
+								final JSONObject u = data.getJSONObject("user");
+								final User user = new User(u.getString("username"), u.getString("discriminator"), Long.parseLong(u.getString("id")), u.optString("avatar", null));
 								listener.onActivityJoinRequest(this, data.optString("secret", null), user);
 								break;
 							default:
 								break;
 							}
-						} catch (Exception e) {
+						} catch (final Exception e) {
 							LOGGER.error("Exception when handling event: ", e);
 						}
 					}
@@ -472,15 +472,15 @@ public final class IPCClient implements Closeable {
 	 */
 	private void send(OpCode op, JSONObject data, Callback callback) {
 		try {
-			String nonce = generateNonce();
-			Packet p = new Packet(op, data.put("nonce", nonce));
+			final String nonce = generateNonce();
+			final Packet p = new Packet(op, data.put("nonce", nonce));
 			if (callback != null && !callback.isEmpty())
 				callbacks.put(nonce, callback);
 			pipe.write(p.toBytes());
 			LOGGER.debug(String.format("Sent packet: %s", p.toString()));
 			if (listener != null)
 				listener.onPacketSent(this, p);
-		} catch (IOException ex) {
+		} catch (final IOException ex) {
 			LOGGER.debug("Encountered an IOException while sending a packet and disconnected!");
 			status = Status.DISCONNECTED;
 			throw new RuntimeException(ex);
@@ -498,7 +498,7 @@ public final class IPCClient implements Closeable {
 		while (pipe.length() == 0 && status == Status.CONNECTED) {
 			try {
 				Thread.sleep(50);
-			} catch (InterruptedException ignored) {
+			} catch (final InterruptedException ignored) {
 			}
 		}
 		
@@ -508,12 +508,12 @@ public final class IPCClient implements Closeable {
 		if (status == Status.CLOSED)
 			return new Packet(OpCode.CLOSE, null);
 		
-		OpCode op = OpCode.values()[Integer.reverseBytes(pipe.readInt())];
-		int len = Integer.reverseBytes(pipe.readInt());
-		byte[] d = new byte[len];
+		final OpCode op = OpCode.values()[Integer.reverseBytes(pipe.readInt())];
+		final int len = Integer.reverseBytes(pipe.readInt());
+		final byte[] d = new byte[len];
 		
 		pipe.readFully(d);
-		Packet p = new Packet(op, new JSONObject(new String(d)));
+		final Packet p = new Packet(op, new JSONObject(new String(d)));
 		LOGGER.debug(String.format("Received packet: %s", p.toString()));
 		if (listener != null)
 			listener.onPacketReceived(this, p);
@@ -528,7 +528,7 @@ public final class IPCClient implements Closeable {
 	 * @return The current process ID.
 	 */
 	private static int getPID() {
-		String pr = ManagementFactory.getRuntimeMXBean().getName();
+		final String pr = ManagementFactory.getRuntimeMXBean().getName();
 		return Integer.parseInt(pr.substring(0, pr.indexOf('@')));
 	}
 	
@@ -545,7 +545,7 @@ public final class IPCClient implements Closeable {
 		if (System.getProperty("os.name").contains("Win"))
 			return "\\\\?\\pipe\\discord-ipc-" + i;
 		String tmppath = null;
-		for (String str : paths) {
+		for (final String str : paths) {
 			tmppath = System.getenv(str);
 			if (tmppath != null)
 				break;

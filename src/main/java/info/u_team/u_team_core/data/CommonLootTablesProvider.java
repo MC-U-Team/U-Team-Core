@@ -23,7 +23,7 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 		registerLootTables((location, lootTable) -> {
 			try {
 				write(cache, LootTableManager.toJson(lootTable), resolveData(location).resolve("loot_tables").resolve(location.getPath() + ".json"));
-			} catch (IOException ex) {
+			} catch (final IOException ex) {
 				LOGGER.error(marker, "Could not write data.", ex);
 			}
 		});

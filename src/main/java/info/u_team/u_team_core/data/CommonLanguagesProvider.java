@@ -28,7 +28,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 			if (!map.isEmpty()) {
 				try {
 					write(cache, GSON.toJsonTree(map), resolveModAssets().resolve("lang").resolve(locale + ".json"));
-				} catch (IOException ex) {
+				} catch (final IOException ex) {
 					LOGGER.error(marker, "Could not write data.", ex);
 				}
 			}

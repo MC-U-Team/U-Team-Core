@@ -32,11 +32,11 @@ public class Property {
 	public static JSONObject toJSONObject(java.util.Properties properties) throws JSONException {
 		// can't use the new constructor for Android support
 		// JSONObject jo = new JSONObject(properties == null ? 0 : properties.size());
-		JSONObject jo = new JSONObject();
+		final JSONObject jo = new JSONObject();
 		if (properties != null && !properties.isEmpty()) {
-			Enumeration<?> enumProperties = properties.propertyNames();
+			final Enumeration<?> enumProperties = properties.propertyNames();
 			while (enumProperties.hasMoreElements()) {
-				String name = (String) enumProperties.nextElement();
+				final String name = (String) enumProperties.nextElement();
 				jo.put(name, properties.getProperty(name));
 			}
 		}
@@ -51,11 +51,11 @@ public class Property {
 	 * @throws JSONException
 	 */
 	public static Properties toProperties(JSONObject jo) throws JSONException {
-		Properties properties = new Properties();
+		final Properties properties = new Properties();
 		if (jo != null) {
 			// Don't use the new entrySet API to maintain Android support
 			for (final String key : jo.keySet()) {
-				Object value = jo.opt(key);
+				final Object value = jo.opt(key);
 				if (!JSONObject.NULL.equals(value)) {
 					properties.put(key, value.toString());
 				}

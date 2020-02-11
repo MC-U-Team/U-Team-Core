@@ -40,7 +40,7 @@ public abstract class CommonTagsProvider<T extends IForgeRegistryEntry<T>> exten
 			final Path path = makePath(location);
 			try {
 				write(cache, object, path);
-			} catch (IOException ex) {
+			} catch (final IOException ex) {
 				LOGGER.error(marker, "Could not write data.", ex);
 			}
 			

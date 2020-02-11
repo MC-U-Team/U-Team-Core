@@ -136,7 +136,7 @@ public class UEntityType<T extends Entity> extends EntityType<T> implements IURe
 		private <D> D getPrivateDefaultValue(EntityType<?> type, Method method) {
 			try {
 				return (D) method.invoke(type);
-			} catch (Exception ex) {
+			} catch (final Exception ex) {
 				UCoreMain.LOGGER.error("Could not get default values for entity type {}.", name, ex);
 			}
 			return null;

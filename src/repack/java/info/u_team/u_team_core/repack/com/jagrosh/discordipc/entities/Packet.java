@@ -42,8 +42,8 @@ public class Packet {
 	 * @return This Packet as a {@code byte} array.
 	 */
 	public byte[] toBytes() {
-		byte[] d = data.toString().getBytes();
-		ByteBuffer packet = ByteBuffer.allocate(d.length + 2 * Integer.BYTES);
+		final byte[] d = data.toString().getBytes();
+		final ByteBuffer packet = ByteBuffer.allocate(d.length + 2 * Integer.BYTES);
 		packet.putInt(Integer.reverseBytes(op.ordinal()));
 		packet.putInt(Integer.reverseBytes(d.length));
 		packet.put(d);

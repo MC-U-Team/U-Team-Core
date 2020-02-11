@@ -143,7 +143,7 @@ public class JSONTokener {
 		}
 		try {
 			this.reader.mark(1);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			throw new JSONException("Unable to preserve stream position", e);
 		}
 		try {
@@ -153,7 +153,7 @@ public class JSONTokener {
 				return false;
 			}
 			this.reader.reset();
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			throw new JSONException("Unable to read the next character from the stream", e);
 		}
 		return true;
@@ -173,7 +173,7 @@ public class JSONTokener {
 		} else {
 			try {
 				c = this.reader.read();
-			} catch (IOException exception) {
+			} catch (final IOException exception) {
 				throw new JSONException(exception);
 			}
 		}
@@ -219,7 +219,7 @@ public class JSONTokener {
 	 * @throws JSONException if the character does not match.
 	 */
 	public char next(char c) throws JSONException {
-		char n = this.next();
+		final char n = this.next();
 		if (n != c) {
 			if (n > 0) {
 				throw this.syntaxError("Expected '" + c + "' and instead saw '" + n + "'");
@@ -241,7 +241,7 @@ public class JSONTokener {
 			return "";
 		}
 		
-		char[] chars = new char[n];
+		final char[] chars = new char[n];
 		int pos = 0;
 		
 		while (pos < n) {
@@ -262,7 +262,7 @@ public class JSONTokener {
 	 */
 	public char nextClean() throws JSONException {
 		for (;;) {
-			char c = this.next();
+			final char c = this.next();
 			if (c == 0 || c > ' ') {
 				return c;
 			}
@@ -280,7 +280,7 @@ public class JSONTokener {
 	 */
 	public String nextString(char quote) throws JSONException {
 		char c;
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		for (;;) {
 			c = this.next();
 			switch (c) {
@@ -309,7 +309,7 @@ public class JSONTokener {
 				case 'u':
 					try {
 						sb.append((char) Integer.parseInt(this.next(4), 16));
-					} catch (NumberFormatException e) {
+					} catch (final NumberFormatException e) {
 						throw this.syntaxError("Illegal escape.", e);
 					}
 					break;
@@ -340,9 +340,9 @@ public class JSONTokener {
 	 * @throws JSONException Thrown if there is an error while searching for the delimiter
 	 */
 	public String nextTo(char delimiter) throws JSONException {
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		for (;;) {
-			char c = this.next();
+			final char c = this.next();
 			if (c == delimiter || c == 0 || c == '\n' || c == '\r') {
 				if (c != 0) {
 					this.back();
@@ -363,7 +363,7 @@ public class JSONTokener {
 	 */
 	public String nextTo(String delimiters) throws JSONException {
 		char c;
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		for (;;) {
 			c = this.next();
 			if (delimiters.indexOf(c) >= 0 || c == 0 || c == '\n' || c == '\r') {
@@ -405,7 +405,7 @@ public class JSONTokener {
 		 * or a formatting character.
 		 */
 		
-		StringBuilder sb = new StringBuilder();
+		final StringBuilder sb = new StringBuilder();
 		while (c >= ' ' && ",:]}/\\\"[{;=#".indexOf(c) < 0) {
 			sb.append(c);
 			c = this.next();
@@ -430,9 +430,9 @@ public class JSONTokener {
 	public char skipTo(char to) throws JSONException {
 		char c;
 		try {
-			long startIndex = this.index;
-			long startCharacter = this.character;
-			long startLine = this.line;
+			final long startIndex = this.index;
+			final long startCharacter = this.character;
+			final long startLine = this.line;
 			this.reader.mark(1000000);
 			do {
 				c = this.next();
@@ -448,7 +448,7 @@ public class JSONTokener {
 				}
 			} while (c != to);
 			this.reader.mark(1);
-		} catch (IOException exception) {
+		} catch (final IOException exception) {
 			throw new JSONException(exception);
 		}
 		this.back();
