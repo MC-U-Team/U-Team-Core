@@ -108,7 +108,7 @@ jar {
 	classifier = ""
 
     from "LICENSE"
-    from "LICENSE-DEPENDENCIES"
+    from "src/repack/resources/LICENSE-DEPENDENCIES"
     
     exclude(".cache")  
     
@@ -120,7 +120,7 @@ task deobfJar(type: Jar) {
 
     from sourceSets.main.output
     from "LICENSE"
-    from "LICENSE-DEPENDENCIES"
+    from "src/repack/resources/LICENSE-DEPENDENCIES"
     
     exclude(".cache")  
         
@@ -132,7 +132,7 @@ task sourcesJar(type: Jar) {
     
     from sourceSets.main.allJava
     from "LICENSE"
-    from "LICENSE-DEPENDENCIES"
+    from "src/repack/resources/LICENSE-DEPENDENCIES"
 }
 
 task docJar(type: Jar) {
@@ -140,7 +140,7 @@ task docJar(type: Jar) {
     
     from javadoc
     from "LICENSE"
-    from "LICENSE-DEPENDENCIES"
+    from "src/repack/resources/LICENSE-DEPENDENCIES"
     
     tasks.withType(Javadoc) {
 		options.addStringOption('Xdoclint:none', '-quiet')
