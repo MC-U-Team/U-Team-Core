@@ -345,4 +345,9 @@ gradle.taskGraph.whenReady {
 			validateBuild()
 		}
 	}
+	if (gradle.taskGraph.hasTask(":signJar")) {
+		//tasks."uploadArchives".doFirst {
+			validateBuild()
+		//}
+	}
 }
