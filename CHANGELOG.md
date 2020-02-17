@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.2-2.10.5.154] - 2020-02-17
+### Changed
+ - Updated to forge 31.1.12
+ - Updated mappings to 20200217-1.15.1
+ - Update buildscripts
+
 ## [1.15.2-2.10.4.153] - 2020-02-07
 ### Changed
  - Fixed bug with scaling text renderer for music player mod. Fixed [#34](https://github.com/MC-U-Team/U-Team-Core/issues/34) and fixed [#34](https://github.com/MC-U-Team/Music-Player/issues/34) in music player
