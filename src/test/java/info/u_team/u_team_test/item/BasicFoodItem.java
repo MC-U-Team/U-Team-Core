@@ -8,10 +8,10 @@ import net.minecraftforge.api.distmarker.*;
 
 public class BasicFoodItem extends UItem {
 	
-	private static final Food food = (new Food.Builder()).hunger(4).saturation(1.2F).effect(() -> new EffectInstance(Effects.GLOWING, 200, 0), 1).setAlwaysEdible().fastToEat().build();
+	private static final Food FOOD = (new Food.Builder()).hunger(4).saturation(1.2F).effect(() -> new EffectInstance(Effects.GLOWING, 200, 0), 1).setAlwaysEdible().fastToEat().build();
 	
 	public BasicFoodItem(String name) {
-		super(name, TestItemGroups.GROUP, new Properties().rarity(Rarity.RARE).food(food));
+		super(name, TestItemGroups.GROUP, new Properties().rarity(Rarity.RARE).food(FOOD));
 	}
 	
 	@OnlyIn(Dist.CLIENT)
