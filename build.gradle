@@ -278,7 +278,6 @@ uploadArchives {
 	}
 }
 
-
 task uploadBoth {
 	tasks.uploadBoth.dependsOn build
 	tasks.uploadBoth.dependsOn uploadArchives
