@@ -11,31 +11,16 @@ buildscript {
     }
 }
 
-apply from: "https://raw.githubusercontent.com/HyCraftHD/Blank-Forge-Project/master/configuration.methods"
-apply from: "https://raw.githubusercontent.com/HyCraftHD/Blank-Forge-Project/master/git.methods"
-apply from: "https://raw.githubusercontent.com/HyCraftHD/Blank-Forge-Project/master/signjar.methods"
-
-setup()
-info()
+apply from: "https://gradle-files.u-team.info/default-project.gradle"
 
 apply plugin: "net.minecraftforge.gradle"
 apply plugin: "eclipse"
 apply plugin: "com.matthewprenger.cursegradle"
 apply plugin: "maven"
 
-getBuildNumber()
-
 group = "info.u-team"
-archivesBaseName = "${config.mod.filename}-${config.forge.mcversion}"
-version = "${config.mod.version}.${config.buildnumber}" + getAppendix();
-
-def getAppendix() {
-	if("${config.mod.snapshot}".toBoolean()) {
-		return "-SNAPSHOT"
-	} else {
-		return ""
-	}
-}
+archivesBaseName = generateArchivesBaseName()
+version = generateVersion()
 
 sourceCompatibility = targetCompatibility = "1.8"
 
@@ -47,7 +32,7 @@ minecraft {
         client = {
             workingDirectory project.file("run/client").canonicalPath
 			mods {
-                uteamcore {
+                "${config.mod.modid}" {
                     source sourceSets.main
                 }
 				
@@ -59,7 +44,7 @@ minecraft {
         server = {
             workingDirectory project.file("run/server").canonicalPath
             mods {
-                uteamcore {
+                "${config.mod.modid}" {
                     source sourceSets.main
                 }
 				
@@ -70,9 +55,9 @@ minecraft {
         }
         data = {
             workingDirectory project.file("run/data").canonicalPath
-            args "--mod", "uteamcore", "--all", "--output", "\"" + file("src/generated/resources").toString() + "\""
+            args "--mod", config.mod.modid, "--all", "--output", "\"" + file("src/generated/resources").toString() + "\""
             mods {
-                uteamcore {
+                "${config.mod.modid}" {
                     source sourceSets.main
 				}
 			}
@@ -88,20 +73,6 @@ minecraft {
 			}
         }
     }
-}
-
-def normalManifest = {
-	attributes(
-		"Specification-Title": config.mod.name,
-        "Specification-Vendor": "Team UTeam",
-        "Specification-Version": config.forge.major_version,
-		"Built-On": config.forge.mcversion,
-		"Implementation-Title": config.mod.name,
-    	"Implementation-Version": project.version,
-		"Implementation-Vendor": "Team UTeam",
-        "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
-        "Fingerprint": project.findProperty("keystore.fingerprint") ?: "NONE"
-	)
 }
 
 jar {
@@ -216,33 +187,19 @@ sourceSets {
 }
 
 dependencies {
-    minecraft "net.minecraftforge:forge:$config.forge.version"
-}
-
-compileJava {
-    options.encoding = "UTF-8"
-}
-
-def generateChangelogUrl() {
-	String url = "https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/CHANGELOG.md"
-	String mcversion = "${config.forge.mcversion}".replace(".", "")
-	String version = "${project.version}".replace(".", "")
-	String date =new Date().format("yyyy-MM-dd");
-	return url + "#" + mcversion + "-" + version + "---" + date
+    minecraft getForgeDependency()
 }
 
 curseforge {	
-	tasks.curseforge.dependsOn build
-
-	if(System.getenv("token") != null) {
-		apiKey = System.getenv("token")
-	} else {
-		if (project.hasProperty("token")) {
-			apiKey = project.getProperty("token")
-		} else {
-			apiKey = "mrTroble" //We dont have one lol ¯\_(ツ)_/¯
+	afterEvaluate {
+		tasks."curseforge${config.curse.id}".onlyIf {
+			getValue("token") != null
 		}
 	}
+	
+	tasks.curseforge.dependsOn build
+	
+	apiKey = getValue("token")
 		
   	project {
     	id = config.curse.id
@@ -269,18 +226,16 @@ curseforge {
 }
 
 uploadArchives {
+	onlyIf {
+		getValue("mavenpass") != null
+	}
+
 	tasks.uploadArchives.dependsOn build
 
 	repositories {
 		mavenDeployer {
-			String mavenPass = System.getenv("mavenpass")
-			if(mavenPass == null) {
-				mavenPass = project.getProperty("mavenpass")
-			}
-			if (mavenPass != null) {
-				repository(url: "https://repo.u-team.info") {
-					authentication(userName: "maven", password: mavenPass)
-				}
+			repository(url: "https://repo.u-team.info") {
+				authentication(userName: "maven", password: getValue("mavenpass"))
 			}
 			pom {
 				groupId = project.group
