@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.util.world;
 
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -45,6 +45,19 @@ public class WorldUtil {
 		final Vec3d lookVector = entity.getLookVec();
 		final Vec3d locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
 		return entity.world.rayTraceBlocks(new RayTraceContext(playerVector, locationVector, blockMode, fluidMode, entity));
+	}
+	
+	/**
+	 * Get a saved instance (own implementation) of {@link WorldSavedData}. If it does not exist, a new one is created.
+	 * 
+	 * @param <T> Custom world save data class
+	 * @param world Server world
+	 * @param name Name of this data
+	 * @param defaultData Function for creating an instance and for the default instance
+	 * @return An instance of <T> with the loaded data or default data.
+	 */
+	public static <T extends WorldSavedData> T getSaveData(ServerWorld world, String name, Function<String, T> defaultData) {
+		return getSaveData(world, name, () -> defaultData.apply(name));
 	}
 	
 	/**
