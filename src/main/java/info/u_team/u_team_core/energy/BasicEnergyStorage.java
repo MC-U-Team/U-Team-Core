@@ -40,6 +40,10 @@ public class BasicEnergyStorage extends EnergyStorage implements INBTSerializabl
 		}
 	}
 	
+	public void removeEnergy(int energy) {
+		addEnergy(-energy);
+	}
+	
 	@Override
 	public CompoundNBT serializeNBT() {
 		final CompoundNBT compound = new CompoundNBT();
