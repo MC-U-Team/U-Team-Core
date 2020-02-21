@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.2-2.10.6.155] - 2020-02-21
+### Added
+ - Better method for the world save data
+ - Energy change detection in the basic energy storage implementation
+ - Energy delegates for acceptor and producer
+
 ## [1.15.2-2.10.5.154] - 2020-02-17
 ### Changed
  - Updated to forge 31.1.12
