@@ -2,22 +2,22 @@ package info.u_team.u_team_core.energy;
 
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class BasicEnergyAcceptorDelegate implements IEnergyStorage {
+public class BasicEnergyProducerDelegate implements IEnergyStorage {
 	
 	private final IEnergyStorage delegate;
 	
-	public BasicEnergyAcceptorDelegate(IEnergyStorage delegate) {
+	public BasicEnergyProducerDelegate(IEnergyStorage delegate) {
 		this.delegate = delegate;
 	}
 	
 	@Override
-	public boolean canReceive() {
+	public boolean canExtract() {
 		return true;
 	}
 	
 	@Override
-	public int receiveEnergy(int maxReceive, boolean simulate) {
-		return delegate.receiveEnergy(maxReceive, simulate);
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		return delegate.extractEnergy(maxExtract, simulate);
 	}
 	
 	@Override
@@ -31,12 +31,12 @@ public class BasicEnergyAcceptorDelegate implements IEnergyStorage {
 	}
 	
 	@Override
-	public boolean canExtract() {
+	public boolean canReceive() {
 		return false;
 	}
 	
 	@Override
-	public int extractEnergy(int maxExtract, boolean simulate) {
+	public int receiveEnergy(int maxReceive, boolean simulate) {
 		return 0;
 	}
 }
