@@ -23,12 +23,31 @@ public class BasicEnergyStorage extends EnergyStorage implements INBTSerializabl
 		super(capacity, maxReceive, maxExtract, energy);
 	}
 	
+	@Override
+	public int extractEnergy(int maxExtract, boolean simulate) {
+		final int value = super.extractEnergy(maxExtract, simulate);
+		if (!simulate) {
+			onEnergyChanged();
+		}
+		return value;
+	}
+	
+	@Override
+	public int receiveEnergy(int maxReceive, boolean simulate) {
+		final int value = super.receiveEnergy(maxReceive, simulate);
+		if (!simulate) {
+			onEnergyChanged();
+		}
+		return value;
+	}
+	
 	public int getEnergy() {
 		return super.getEnergyStored();
 	}
 	
 	public void setEnergy(int energy) {
 		this.energy = energy;
+		onEnergyChanged();
 	}
 	
 	public void addEnergy(int energy) {
@@ -38,6 +57,7 @@ public class BasicEnergyStorage extends EnergyStorage implements INBTSerializabl
 		} else if (this.energy < 0) {
 			this.energy = 0;
 		}
+		onEnergyChanged();
 	}
 	
 	public void removeEnergy(int energy) {
@@ -54,6 +74,9 @@ public class BasicEnergyStorage extends EnergyStorage implements INBTSerializabl
 	@Override
 	public void deserializeNBT(CompoundNBT compound) {
 		setEnergy(compound.getInt("energy"));
+	}
+	
+	public void onEnergyChanged() {
 	}
 	
 	public BufferReferenceHolder createSyncHandler() {
