@@ -13,21 +13,21 @@ public class UTileEntityBlock extends UBlock implements ITileEntityBlock {
 	
 	protected final Supplier<TileEntityType<?>> tileEntityType;
 	
-	public UTileEntityBlock(String name, Properties properties, Supplier<TileEntityType<?>> tileentitytype) {
-		this(name, null, properties, tileentitytype);
+	public UTileEntityBlock(String name, Properties properties, Supplier<TileEntityType<?>> tileEntityType) {
+		this(name, null, properties, tileEntityType);
 	}
 	
-	public UTileEntityBlock(String name, ItemGroup group, Properties properties, Supplier<TileEntityType<?>> tileentitytype) {
-		this(name, group, properties, null, tileentitytype);
+	public UTileEntityBlock(String name, ItemGroup group, Properties properties, Supplier<TileEntityType<?>> tileEntityType) {
+		this(name, group, properties, null, tileEntityType);
 	}
 	
-	public UTileEntityBlock(String name, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileentitytype) {
-		this(name, null, properties, itemblockproperties, tileentitytype);
+	public UTileEntityBlock(String name, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileEntityType) {
+		this(name, null, properties, itemblockproperties, tileEntityType);
 	}
 	
-	public UTileEntityBlock(String name, ItemGroup group, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileentitytype) {
+	public UTileEntityBlock(String name, ItemGroup group, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileEntityType) {
 		super(name, group, properties, itemblockproperties);
-		this.tileEntityType = tileentitytype;
+		this.tileEntityType = tileEntityType;
 	}
 	
 	@Override
