@@ -1,6 +1,20 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.2-2.11.0.156] - 2020-03-06
+### Added
+ - Added generator for fluid and entity type tags
+ - Added utility methods for fluid and entity type tags
+ - Added UParticleType for easier particle registration
+ - Added UFlowingFluid and USourceFluid
+ - Added UFluidBlock
+ - Added UBucketItem
+ - Added SetTileEntityNBT loot function under the name uteamcore:set_tileentity_nbt and add basic method to generate them in the loot tables generator
+
+### Added
+ - Duplicate tags error with data generators can now not occur anymore
+ - Make some constructors public
+
 ## [1.15.2-2.10.6.155] - 2020-02-21
 ### Added
  - Better method for the world save data
