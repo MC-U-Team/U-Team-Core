@@ -31,7 +31,11 @@ public class TagUtil {
 	}
 	
 	public static Tag<Fluid> createFluidTag(String modid, String name) {
-		return new FluidTags.Wrapper(new ResourceLocation(modid, name));
+		return createFluidTag(new ResourceLocation(modid, name));
+	}
+	
+	public static Tag<Fluid> createFluidTag(ResourceLocation location) {
+		return new FluidTags.Wrapper(location);
 	}
 	
 	public static Tag<EntityType<?>> createEntityTypeTag(String modid, String name) {
