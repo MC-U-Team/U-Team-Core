@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonBlockTagsProvider extends CommonTagsProvider<Block> {
 	
-	protected CommonBlockTagsProvider(GenerationData data) {
+	public CommonBlockTagsProvider(GenerationData data) {
 		super(data, ForgeRegistries.BLOCKS);
 	}
 	

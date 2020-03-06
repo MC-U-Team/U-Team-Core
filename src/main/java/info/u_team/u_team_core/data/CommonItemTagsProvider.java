@@ -14,7 +14,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	
-	protected CommonItemTagsProvider(GenerationData data) {
+	public CommonItemTagsProvider(GenerationData data) {
 		super(data, ForgeRegistries.ITEMS);
 	}
 	
