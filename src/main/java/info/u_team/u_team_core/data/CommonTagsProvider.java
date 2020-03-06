@@ -53,6 +53,11 @@ public abstract class CommonTagsProvider<T extends IForgeRegistryEntry<T>> exten
 	protected abstract Path makePath(ResourceLocation location);
 	
 	protected Tag.Builder<T> getBuilder(Tag<T> tag) {
-		return tagToBuilder.computeIfAbsent(tag, otherTag -> Tag.Builder.create());
+		final Optional<Tag.Builder<T>> optional = tagToBuilder.entrySet().stream().filter(entry -> entry.getKey().getId().equals(tag.getId())).findAny().map(Entry::getValue);
+		if (optional.isPresent()) {
+			return optional.get();
+		} else {
+			return tagToBuilder.computeIfAbsent(tag, otherTag -> Tag.Builder.create());
+		}
 	}
 }
