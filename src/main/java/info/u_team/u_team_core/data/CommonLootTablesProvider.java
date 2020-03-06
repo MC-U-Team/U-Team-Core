@@ -3,6 +3,7 @@ package info.u_team.u_team_core.data;
 import java.io.IOException;
 import java.util.function.BiConsumer;
 
+import info.u_team.u_team_core.intern.loot.SetTileEntityNBTLootFunction;
 import net.minecraft.advancements.criterion.*;
 import net.minecraft.block.Block;
 import net.minecraft.data.DirectoryCache;
@@ -47,6 +48,17 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 				.addLootPool(LootPool.builder() //
 						.rolls(ConstantRange.of(1)) //
 						.addEntry(ItemLootEntry.builder(item)) //
+						.acceptCondition(SurvivesExplosion.builder())) //
+				.build();
+	}
+	
+	protected static LootTable addTileEntityBlockLootTable(IItemProvider item) {
+		return LootTable.builder() //
+				.setParameterSet(LootParameterSets.BLOCK) //
+				.addLootPool(LootPool.builder() //
+						.rolls(ConstantRange.of(1)) //
+						.addEntry(ItemLootEntry.builder(item)) //
+						.acceptFunction(SetTileEntityNBTLootFunction.builder()) //
 						.acceptCondition(SurvivesExplosion.builder())) //
 				.build();
 	}
