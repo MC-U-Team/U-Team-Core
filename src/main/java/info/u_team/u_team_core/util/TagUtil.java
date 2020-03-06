@@ -39,7 +39,11 @@ public class TagUtil {
 	}
 	
 	public static Tag<EntityType<?>> createEntityTypeTag(String modid, String name) {
-		return new EntityTypeTags.Wrapper(new ResourceLocation(modid, name));
+		return createEntityTypeTag(new ResourceLocation(modid, name));
+	}
+	
+	public static Tag<EntityType<?>> createEntityTypeTag(ResourceLocation location) {
+		return new EntityTypeTags.Wrapper(location);
 	}
 	
 	public static Tag<Block> fromItemTag(Tag<Item> block) {
