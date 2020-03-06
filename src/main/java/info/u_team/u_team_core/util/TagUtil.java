@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import net.minecraft.block.Block;
+import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
@@ -23,6 +24,10 @@ public class TagUtil {
 	
 	public static Tag<Fluid> createFluidTag(String modid, String name) {
 		return new FluidTags.Wrapper(new ResourceLocation(modid, name));
+	}
+	
+	public static Tag<EntityType<?>> createEntityTypeTag(String modid, String name) {
+		return new EntityTypeTags.Wrapper(new ResourceLocation(modid, name));
 	}
 	
 	public static Tag<Block> fromItemTag(Tag<Item> block) {
