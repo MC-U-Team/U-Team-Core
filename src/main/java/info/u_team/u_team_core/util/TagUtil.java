@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Stream;
 
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.Ingredient.TagList;
@@ -18,6 +19,10 @@ public class TagUtil {
 	
 	public static Tag<Item> createItemTag(String modid, String name) {
 		return new ItemTags.Wrapper(new ResourceLocation(modid, name));
+	}
+	
+	public static Tag<Fluid> createFluidTag(String modid, String name) {
+		return new FluidTags.Wrapper(new ResourceLocation(modid, name));
 	}
 	
 	public static Tag<Block> fromItemTag(Tag<Item> block) {
