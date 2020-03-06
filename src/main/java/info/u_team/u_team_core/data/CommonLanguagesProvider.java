@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
 import net.minecraft.potion.Effect;
 import net.minecraft.world.biome.Biome;
@@ -102,6 +103,10 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(key.getTranslationKey(), name);
 	}
 	
+	protected void add(Fluid key, String name) {
+		add(key.getAttributes().getTranslationKey(), name);
+	}
+	
 	protected void add(String key, String value) {
 		add("en_us", key, value);
 	}
@@ -164,6 +169,10 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	
 	protected void add(String locale, EntityType<?> key, String name) {
 		add(locale, key.getTranslationKey(), name);
+	}
+	
+	protected void add(String locale, Fluid key, String name) {
+		add(locale, key.getAttributes().getTranslationKey(), name);
 	}
 	
 	protected void add(String locale, String key, String value) {
