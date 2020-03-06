@@ -23,7 +23,11 @@ public class TagUtil {
 	}
 	
 	public static Tag<Item> createItemTag(String modid, String name) {
-		return new ItemTags.Wrapper(new ResourceLocation(modid, name));
+		return createItemTag(new ResourceLocation(modid, name));
+	}
+	
+	public static Tag<Item> createItemTag(ResourceLocation location) {
+		return new ItemTags.Wrapper(location);
 	}
 	
 	public static Tag<Fluid> createFluidTag(String modid, String name) {
