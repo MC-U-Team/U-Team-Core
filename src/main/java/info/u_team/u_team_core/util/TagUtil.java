@@ -15,7 +15,11 @@ import net.minecraft.util.ResourceLocation;
 public class TagUtil {
 	
 	public static Tag<Block> createBlockTag(String modid, String name) {
-		return new BlockTags.Wrapper(new ResourceLocation(modid, name));
+		return createBlockTag(new ResourceLocation(modid, name));
+	}
+	
+	public static Tag<Block> createBlockTag(ResourceLocation location) {
+		return new BlockTags.Wrapper(location);
 	}
 	
 	public static Tag<Item> createItemTag(String modid, String name) {
