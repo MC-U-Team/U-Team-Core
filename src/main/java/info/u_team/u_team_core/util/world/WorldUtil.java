@@ -205,7 +205,7 @@ public class WorldUtil {
 				entityCopy.remove(false);
 				entity.setLocationAndAngles(x, y, z, wrapedYaw, wrapedPitch);
 				entity.setRotationYawHead(wrapedYaw);
-				world.func_217460_e(entity);
+				world.addFromAnotherDimension(entity);
 			}
 		}
 	}
