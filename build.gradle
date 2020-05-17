@@ -172,6 +172,7 @@ sourceSets {
    	main {
 		java {
 			srcDirs += "src/repack/java"
+			srcDirs += "src/api/java"
 		}
 		resources {
 			srcDirs += "src/repack/resources"
