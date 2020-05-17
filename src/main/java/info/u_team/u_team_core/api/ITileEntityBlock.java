@@ -72,7 +72,7 @@ public interface ITileEntityBlock {
 			return ActionResultType.PASS;
 		}
 		
-		if (!canOpenSneak && serverPlayer.isShiftKeyDown()) {
+		if (!canOpenSneak && serverPlayer.isSneaking()) {
 			return ActionResultType.SUCCESS;
 		}
 		
