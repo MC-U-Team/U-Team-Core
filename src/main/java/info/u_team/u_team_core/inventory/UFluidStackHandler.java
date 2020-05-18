@@ -150,6 +150,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 				stacks.set(slot, FluidStack.loadFluidStackFromNBT(slotCompound));
 			}
 		}
+		onLoad();
 	}
 	
 	protected void validateTankIndex(int tank) {
