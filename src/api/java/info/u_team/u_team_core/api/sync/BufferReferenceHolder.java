@@ -96,6 +96,21 @@ public abstract class BufferReferenceHolder {
 		};
 	}
 	
+	public static final BufferReferenceHolder createFloatHolder(Supplier<Float> get, Consumer<Float> set) {
+		return new BufferReferenceHolder() {
+			
+			@Override
+			public PacketBuffer get() {
+				return new PacketBuffer(Unpooled.copyFloat(get.get()));
+			}
+			
+			@Override
+			public void set(PacketBuffer buffer) {
+				set.accept(buffer.readFloat());
+			}
+		};
+	}
+	
 	public static final BufferReferenceHolder createBooleanHolder(BooleanSupplier get, BooleanConsumer set) {
 		return new BufferReferenceHolder() {
 			
