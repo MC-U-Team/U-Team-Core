@@ -21,6 +21,8 @@ public class TestBlocks {
 	
 	public static final BasicEnergyCreatorBlock BASIC_ENERGY_CREATOR = new BasicEnergyCreatorBlock("energy_creator");
 	
+	
+	
 	@SubscribeEvent
 	public static void register(Register<Block> event) {
 		entries = BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.MODID, Block.class);
