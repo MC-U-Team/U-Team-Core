@@ -72,6 +72,13 @@ public class MathUtil {
 		return random.nextInt(max - min + 1) + min;
 	}
 	
+	/**
+	 * Returns a pseudo random number in range of min and max (inclusive). Use this {@link #RANDOM} instance
+	 * 
+	 * @param min Minimal value (inclusive)
+	 * @param max Maximal value (inclusive)
+	 * @return Return a random value between min and max
+	 */
 	public static float randomNumberInRange(float min, float max) {
 		return randomNumberInRange(RANDOM, min, max);
 	}
