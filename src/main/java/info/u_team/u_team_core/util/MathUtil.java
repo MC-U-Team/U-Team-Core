@@ -51,6 +51,31 @@ public class MathUtil {
 		return random.nextDouble() * (max - min) + min;
 	}
 	
+	///
+	public static int randomNumberInRange(int min, int max) {
+		return randomNumberInRange(RANDOM, min, max);
+	}
+	
+	public static int randomNumberInRange(Random random, int min, int max) {
+		return random.nextInt(max - min + 1) + min;
+	}
+	
+	public static float randomNumberInRange(float min, float max) {
+		return randomNumberInRange(RANDOM, min, max);
+	}
+	
+	public static float randomNumberInRange(Random random, float min, float max) {
+		return random.nextFloat() * (max - min) + min;
+	}
+	
+	public static double randomNumberInRange(double min, double max) {
+		return randomNumberInRange(RANDOM, min, max);
+	}
+	
+	public static double randomNumberInRange(Random random, double min, double max) {
+		return random.nextDouble() * (max - min) + min;
+	}
+	
 	/**
 	 * Returns a value between min and max
 	 * 
