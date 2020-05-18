@@ -55,4 +55,8 @@ public class MathUtil {
 		return Math.min(max, Math.max(min, value));
 	}
 	
+	public static double valueInRange(double min, double max, double value) {
+		return Math.min(max, Math.max(min, value));
+	}
+	
 }
