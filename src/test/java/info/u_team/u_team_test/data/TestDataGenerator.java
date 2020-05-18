@@ -19,6 +19,7 @@ public class TestDataGenerator {
 		if (event.includeClient()) {
 			data.addProvider(TestBlockStatesProvider::new);
 			data.addProvider(TestItemModelsProvider::new);
+			data.addProvider(TestLanguagesProvider::new);
 		}
 	}
 }
