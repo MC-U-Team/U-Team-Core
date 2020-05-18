@@ -4,7 +4,12 @@ import info.u_team.u_team_core.inventory.*;
 import info.u_team.u_team_core.tileentity.UTickableTileEntity;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Direction;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.energy.CapabilityEnergy;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.items.CapabilityItemHandler;
 
 public class BasicFluidInventoryTileEntity extends UTickableTileEntity {
 	
@@ -51,6 +56,18 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity {
 	
 	public UFluidStackHandler getFluidTanks() {
 		return fluidTanks;
+	}
+	
+	// Capability
+	@Override
+	public <X> LazyOptional<X> getCapability(Capability<X> capability, Direction side) {
+		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+			return itemSlotsOptional.cast();
+		} else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+			return fluidTanksOptional.cast();
+		} else {
+			return super.getCapability(capability, side);
+		}
 	}
 	
 }
