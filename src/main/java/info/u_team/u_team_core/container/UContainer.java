@@ -21,7 +21,7 @@ import net.minecraftforge.items.*;
  * 
  * @author HyCraftHD
  */
-public abstract class UContainer extends Container {
+public abstract class UContainer extends FluidContainer {
 	
 	/**
 	 * Server -> Client
