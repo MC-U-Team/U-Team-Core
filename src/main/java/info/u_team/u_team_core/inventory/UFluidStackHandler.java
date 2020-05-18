@@ -48,6 +48,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 	public void setFluidInTank(int tank, FluidStack stack) {
 		validateTankIndex(tank);
 		stacks.set(tank, stack);
+		onContentsChanged(tank);
 	}
 	
 	@Override
@@ -82,6 +83,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 			} else {
 				existing.grow(reachedLimit ? limit : stack.getAmount());
 			}
+			onContentsChanged(tank);
 		}
 		
 		return reachedLimit ? FluidHandlerHelper.copyStackWithSize(stack, stack.getAmount() - limit) : FluidStack.EMPTY;
@@ -104,6 +106,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 		if (existing.getAmount() <= toExtract) {
 			if (action.isExecute()) {
 				stacks.set(tank, FluidStack.EMPTY);
+				onContentsChanged(tank);
 				return existing;
 			} else {
 				return existing.copy();
@@ -111,6 +114,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 		} else {
 			if (action.isExecute()) {
 				stacks.set(tank, FluidHandlerHelper.copyStackWithSize(existing, existing.getAmount() - toExtract));
+				onContentsChanged(tank);
 			}
 			
 			return FluidHandlerHelper.copyStackWithSize(existing, toExtract);
