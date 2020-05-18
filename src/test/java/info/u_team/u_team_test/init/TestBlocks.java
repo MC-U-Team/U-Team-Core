@@ -21,7 +21,7 @@ public class TestBlocks {
 	
 	public static final BasicEnergyCreatorBlock BASIC_ENERGY_CREATOR = new BasicEnergyCreatorBlock("energy_creator");
 	
-	
+	public static final BasicFluidInventoryBlock BASIC_FLUID_INVENTORY = new BasicFluidInventoryBlock("fluid_inventory");
 	
 	@SubscribeEvent
 	public static void register(Register<Block> event) {

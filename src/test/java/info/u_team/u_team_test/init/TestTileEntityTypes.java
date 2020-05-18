@@ -17,7 +17,7 @@ public class TestTileEntityTypes {
 	
 	public static final TileEntityType<BasicEnergyCreatorTileEntity> BASIC_ENERGY_CREATOR = UTileEntityType.UBuilder.create("energy_creator", BasicEnergyCreatorTileEntity::new, TestBlocks.BASIC_ENERGY_CREATOR).build();
 	
-	public static final TileEntityType<BasicFluidInventoryTileEntity> BASIC_FLUID_INVENTORY = UTileEntityType.UBuilder.create("fluid_inventory", BasicFluidInventoryTileEntity::new, TestBlocks.BASIC_ENERGY_CREATOR).build();
+	public static final TileEntityType<BasicFluidInventoryTileEntity> BASIC_FLUID_INVENTORY = UTileEntityType.UBuilder.create("fluid_inventory", BasicFluidInventoryTileEntity::new, TestBlocks.BASIC_FLUID_INVENTORY).build();
 	
 	@SubscribeEvent
 	public static void register(Register<TileEntityType<?>> event) {
