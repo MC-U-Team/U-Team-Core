@@ -51,6 +51,10 @@ public class MathUtil {
 		return random.nextDouble() * (max - min) + min;
 	}
 	
+	public static int valueInRange(int min, int max, int value) {
+		return Math.min(max, Math.max(min, value));
+	}
+	
 	public static float valueInRange(float min, float max, float value) {
 		return Math.min(max, Math.max(min, value));
 	}
