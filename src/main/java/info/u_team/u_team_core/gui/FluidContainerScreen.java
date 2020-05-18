@@ -24,7 +24,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		}
 	}
 	
-	private void drawFluidSlot(FluidSlot slot) {
+	protected void drawFluidSlot(FluidSlot slot) {
 		// final int x = slot.getX();
 		// final int y = slot.getY();
 		// final FluidStack stack = slot.getStack();
