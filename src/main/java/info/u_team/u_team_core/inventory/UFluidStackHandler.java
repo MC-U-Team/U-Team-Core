@@ -30,6 +30,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 	
 	@Override
 	public FluidStack getFluidInTank(int tank) {
+		validateTankIndex(tank);
 		return stacks.get(tank);
 	}
 	
@@ -45,6 +46,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 	
 	@Override
 	public void setFluidInTank(int tank, FluidStack stack) {
+		validateTankIndex(tank);
 		stacks.set(tank, stack);
 	}
 	
@@ -55,6 +57,8 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 		
 		if (!isFluidValid(tank, stack))
 			return stack;
+		
+		validateTankIndex(tank);
 		
 		FluidStack existing = stacks.get(tank);
 		
@@ -87,6 +91,8 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 	public FluidStack extractFluid(int tank, int amount, InteractionType action) {
 		if (amount == 0)
 			return FluidStack.EMPTY;
+		
+		validateTankIndex(tank);
 		
 		FluidStack existing = stacks.get(tank);
 		
