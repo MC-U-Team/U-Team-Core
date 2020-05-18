@@ -145,4 +145,10 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 			}
 		}
 	}
+	
+	protected void validateTankIndex(int tank) {
+		if (tank < 0 || tank >= stacks.size()) {
+			throw new RuntimeException("Tank " + tank + " not in valid range - [0," + stacks.size() + ")");
+		}
+	}
 }
