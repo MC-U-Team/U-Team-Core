@@ -151,4 +151,10 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 			throw new RuntimeException("Tank " + tank + " not in valid range - [0," + stacks.size() + ")");
 		}
 	}
+	
+	protected void onLoad() {
+	}
+	
+	protected void onContentsChanged(int tank) {
+	}
 }
