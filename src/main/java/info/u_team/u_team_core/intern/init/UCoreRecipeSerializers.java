@@ -1,10 +1,13 @@
 package info.u_team.u_team_core.intern.init;
 
 import info.u_team.u_team_core.UCoreMain;
+import info.u_team.u_team_core.ingredient.ItemIngredient;
 import info.u_team.u_team_core.intern.recipe.*;
 import info.u_team.u_team_core.recipeserializer.USpecialRecipeSerializer;
 import info.u_team.u_team_core.util.registry.BaseRegistryUtil;
 import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -20,6 +23,7 @@ public class UCoreRecipeSerializers {
 	@SubscribeEvent
 	public static void register(Register<IRecipeSerializer<?>> event) {
 		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(UCoreMain.MODID, IRecipeSerializer.class).forEach(event.getRegistry()::register);
+		CraftingHelper.register(new ResourceLocation(UCoreMain.MODID, "item"), ItemIngredient.Serializer.INSTANCE);
 	}
 	
 }
