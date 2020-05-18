@@ -3,7 +3,6 @@ package info.u_team.u_team_core.gui;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.container.UContainer;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
@@ -11,7 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
-public class UContainerScreen<T extends Container> extends ContainerScreen<T> {
+public class UContainerScreen<T extends Container> extends FluidContainerScreen<T> {
 	
 	protected ResourceLocation background;
 	protected int backgroundWidth, backgroundHeight;
