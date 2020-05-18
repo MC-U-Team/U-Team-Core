@@ -4,7 +4,7 @@ import net.minecraft.inventory.container.*;
 
 public abstract class FluidContainer extends Container {
 	
-	protected FluidContainer(ContainerType<?> type, int id) {
+	public FluidContainer(ContainerType<?> type, int id) {
 		super(type, id);
 	}
 }
