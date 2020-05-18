@@ -24,7 +24,7 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity {
 		itemSlots = new TileEntityUItemStackHandler(4, this);
 		itemSlotsOptional = LazyOptional.of(() -> itemSlots);
 		
-		fluidTanks = new UFluidStackHandler(4); // TODO tile entity u fluid stack handler
+		fluidTanks = new TileEntityUFluidStackHandler(4, this);
 		fluidTanksOptional = LazyOptional.of(() -> fluidTanks);
 	}
 	
