@@ -55,6 +55,10 @@ public class MathUtil {
 		return Math.min(max, Math.max(min, value));
 	}
 	
+	public static long valueInRange(long min, long max, long value) {
+		return Math.min(max, Math.max(min, value));
+	}
+	
 	public static float valueInRange(float min, float max, float value) {
 		return Math.min(max, Math.max(min, value));
 	}
