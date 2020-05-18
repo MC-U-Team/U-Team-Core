@@ -29,35 +29,34 @@ public class MathUtil {
 	
 	@Deprecated
 	public static int getRandomNumberInRange(int min, int max) {
-		return getRandomNumberInRange(RANDOM, min, max);
+		return randomNumberInRange(min, max);
 	}
 	
 	@Deprecated
 	public static int getRandomNumberInRange(Random random, int min, int max) {
-		return random.nextInt(max - min + 1) + min;
+		return randomNumberInRange(random, min, max);
 	}
 	
 	@Deprecated
 	public static float getRandomNumberInRange(float min, float max) {
-		return getRandomNumberInRange(RANDOM, min, max);
+		return randomNumberInRange(min, max);
 	}
 	
 	@Deprecated
 	public static float getRandomNumberInRange(Random random, float min, float max) {
-		return random.nextFloat() * (max - min) + min;
+		return randomNumberInRange(random, min, max);
 	}
 	
 	@Deprecated
 	public static double getRandomNumberInRange(double min, double max) {
-		return getRandomNumberInRange(RANDOM, min, max);
+		return randomNumberInRange(min, max);
 	}
 	
 	@Deprecated
 	public static double getRandomNumberInRange(Random random, double min, double max) {
-		return random.nextDouble() * (max - min) + min;
+		return randomNumberInRange(random, min, max);
 	}
 	
-	///
 	public static int randomNumberInRange(int min, int max) {
 		return randomNumberInRange(RANDOM, min, max);
 	}
