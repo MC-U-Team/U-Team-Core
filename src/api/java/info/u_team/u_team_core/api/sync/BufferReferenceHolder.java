@@ -111,6 +111,21 @@ public abstract class BufferReferenceHolder {
 		};
 	}
 	
+	public static final BufferReferenceHolder createDoubleHolder(Supplier<Double> get, Consumer<Double> set) {
+		return new BufferReferenceHolder() {
+			
+			@Override
+			public PacketBuffer get() {
+				return new PacketBuffer(Unpooled.copyDouble(get.get()));
+			}
+			
+			@Override
+			public void set(PacketBuffer buffer) {
+				set.accept(buffer.readDouble());
+			}
+		};
+	}
+	
 	public static final BufferReferenceHolder createBooleanHolder(BooleanSupplier get, BooleanConsumer set) {
 		return new BufferReferenceHolder() {
 			
