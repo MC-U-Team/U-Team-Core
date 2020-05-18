@@ -91,6 +91,14 @@ public class MathUtil {
 		return randomNumberInRange(RANDOM, min, max);
 	}
 	
+	/**
+	 * Returns a pseudo random number in range of min and max (inclusive).
+	 * 
+	 * @param random The random instance
+	 * @param min Minimal value (inclusive)
+	 * @param max Maximal value (inclusive)
+	 * @return Return a random value between min and max
+	 */
 	public static float randomNumberInRange(Random random, float min, float max) {
 		return random.nextFloat() * (max - min) + min;
 	}
