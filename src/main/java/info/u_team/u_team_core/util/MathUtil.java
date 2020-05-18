@@ -75,26 +75,10 @@ public class MathUtil {
 		return Math.min(max, Math.max(min, value));
 	}
 	
-	/**
-	 * Returns a value between min and max
-	 * 
-	 * @param min Minimal value (inclusive)
-	 * @param max Maximal value (inclusive)
-	 * @param value Value that should be in range
-	 * @return Return a value between min and max
-	 */
 	public static float valueInRange(float min, float max, float value) {
 		return Math.min(max, Math.max(min, value));
 	}
 	
-	/**
-	 * Returns a value between min and max
-	 * 
-	 * @param min Minimal value (inclusive)
-	 * @param max Maximal value (inclusive)
-	 * @param value Value that should be in range
-	 * @return Return a value between min and max
-	 */
 	public static double valueInRange(double min, double max, double value) {
 		return Math.min(max, Math.max(min, value));
 	}
