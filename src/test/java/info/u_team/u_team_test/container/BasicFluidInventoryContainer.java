@@ -20,7 +20,8 @@ public class BasicFluidInventoryContainer extends UTileEntityContainer<BasicFlui
 	
 	@Override
 	protected void init(boolean server) {
-		
+		appendInventory(tileEntity.getItemSlots(), 2, 9, 8, 41);
+		appendPlayerInventory(playerInventory, 8, 91);
 	}
 	
 }
