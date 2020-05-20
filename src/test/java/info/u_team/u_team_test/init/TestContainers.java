@@ -17,6 +17,8 @@ public class TestContainers {
 	
 	public static final ContainerType<BasicEnergyCreatorContainer> BASIC_ENERGY_CREATOR = new UContainerType<>("energy_creator", BasicEnergyCreatorContainer::new);
 	
+	public static final ContainerType<BasicFluidInventoryContainer> BASIC_FLUID_INVENTORY = new UContainerType<>("fluid_inventory", BasicFluidInventoryContainer::new);
+	
 	@SubscribeEvent
 	public static void register(Register<ContainerType<?>> event) {
 		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(TestMod.MODID, ContainerType.class).forEach(event.getRegistry()::register);
