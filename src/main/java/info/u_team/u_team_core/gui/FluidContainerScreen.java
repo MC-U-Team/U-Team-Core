@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.gui;
 
+import java.util.*;
+
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.container.*;
@@ -9,6 +11,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.fluids.FluidStack;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class FluidContainerScreen<T extends Container> extends ContainerScreen<T> {
@@ -53,6 +56,16 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		}
 	}
 	
+	@Override
+	protected void renderHoveredToolTip(int mouseX, int mouseY) {
+		super.renderHoveredToolTip(mouseX, mouseY);
+		
+		if (hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
+			renderTooltip(this.getTooltipFromFluid(hoveredFluidSlot.getStack()), mouseX, mouseY);
+		}
+		
+	}
+	
 	protected void drawFluidSlot(FluidSlot fluidSlot) {
 		fluidRenderer.drawFluid(fluidSlot.getX(), fluidSlot.getY(), fluidSlot.getStack());
 	}
@@ -63,6 +76,15 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	
 	public int getFluidSlotColor(int index) {
 		return super.getSlotColor(index);
+	}
+	
+	public List<String> getTooltipFromFluid(FluidStack stack) {
+		final List<String> list = new ArrayList<>();
+		
+		list.add(stack.getDisplayName().getFormattedText());
+		// TODO add more
+		
+		return list;
 	}
 	
 }
