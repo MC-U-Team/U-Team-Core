@@ -13,8 +13,8 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
 public class FluidSetSlotContainerMessage {
 	
 	private final int id;
-	private int slot;
-	private FluidStack stack;
+	private final int slot;
+	private final FluidStack stack;
 	
 	public FluidSetSlotContainerMessage(int id, int slot, FluidStack stack) {
 		this.id = id;
