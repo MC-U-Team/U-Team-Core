@@ -24,13 +24,18 @@ public class FluidInventoryRender {
 		final TextureAtlasSprite sprite = getFluidSprite(stack);
 		Minecraft.getInstance().getTextureManager().bindTexture(ATLAS);
 		
-		final RGBA rgba = RGBA.fromARGB(stack.getFluid().getAttributes().getColor(stack));
+		RenderSystem.enableBlend();
+		RenderSystem.enableAlphaTest();
 		
+		final RGBA rgba = RGBA.fromARGB(stack.getFluid().getAttributes().getColor(stack));
 		RenderSystem.color4f(rgba.getRedComponent(), rgba.getGreenComponent(), rgba.getBlueComponent(), rgba.getAlphaComponent());
 		
 		drawTextureWithMasking(x, y, sprite, 0, 0, 100);
 		
 		RenderSystem.color4f(1, 1, 1, 1);
+		
+		RenderSystem.disableAlphaTest();
+		RenderSystem.disableBlend();
 	}
 	
 	private TextureAtlasSprite getFluidSprite(FluidStack stack) {
