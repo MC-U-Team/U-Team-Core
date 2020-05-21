@@ -9,17 +9,19 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
-import net.minecraftforge.fluids.FluidStack;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class FluidContainerScreen<T extends Container> extends ContainerScreen<T> {
 	
 	private static final FluidInventoryRender FLUID_RENDERER = new FluidInventoryRender();
 	
+	protected FluidInventoryRender fluidRenderer;
+	
 	protected FluidSlot hoveredFluidSlot;
 	
 	public FluidContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title) {
 		super(container, playerInventory, title);
+		fluidRenderer = FLUID_RENDERER;
 	}
 	
 	@Override
@@ -52,14 +54,10 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	}
 	
 	protected void drawFluidSlot(FluidSlot fluidSlot) {
-		final int x = fluidSlot.getX();
-		final int y = fluidSlot.getY();
-		final FluidStack stack = fluidSlot.getStack();
-		
-		FLUID_RENDERER.drawFluid(x, y, stack);
+		fluidRenderer.drawFluid(fluidSlot.getX(), fluidSlot.getY(), fluidSlot.getStack());
 	}
 	
-	private boolean isFluidSlotSelected(FluidSlot fluidSlot, double mouseX, double mouseY) {
+	protected boolean isFluidSlotSelected(FluidSlot fluidSlot, double mouseX, double mouseY) {
 		return isPointInRegion(fluidSlot.getX(), fluidSlot.getY(), 16, 16, mouseX, mouseY);
 	}
 	
