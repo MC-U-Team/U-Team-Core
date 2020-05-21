@@ -9,9 +9,10 @@ import info.u_team.u_team_core.gui.render.FluidInventoryRender;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @OnlyIn(Dist.CLIENT)
 public abstract class FluidContainerScreen<T extends Container> extends ContainerScreen<T> {
@@ -83,6 +84,9 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		
 		list.add(stack.getDisplayName().getFormattedText());
 		// TODO add more
+		if (minecraft.gameSettings.advancedItemTooltips) {
+			list.add((new StringTextComponent(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString())).applyTextStyle(TextFormatting.DARK_GRAY).getFormattedText());
+		}
 		
 		return list;
 	}
