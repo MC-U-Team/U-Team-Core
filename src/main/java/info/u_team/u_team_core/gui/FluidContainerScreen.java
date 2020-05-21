@@ -69,6 +69,13 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		final FluidSlot fluidSlot = getSelectedFluidSlot(mouseX, mouseY);
+		
+		if (fluidSlot != null) {
+			
+			System.out.println(fluidSlot + " - " + button);
+			return true;
+		}
 		return super.mouseClicked(mouseX, mouseY, button);
 	}
 	
