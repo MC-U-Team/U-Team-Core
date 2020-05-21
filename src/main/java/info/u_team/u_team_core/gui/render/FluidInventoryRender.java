@@ -41,6 +41,8 @@ public class FluidInventoryRender {
 		return Minecraft.getInstance().getAtlasSpriteGetter(ATLAS).apply(stack.getFluid().getAttributes().getStillTexture(stack));
 	}
 	
+	// From JEI by mezz (MIT)
+	// https://github.com/mezz/JustEnoughItems/blob/e2eba79a2065436ad7625fdb3ab67cb275fe78b0/src/main/java/mezz/jei/plugins/vanilla/ingredients/fluid/FluidStackRenderer.java#L151-L167
 	private void drawTextureWithMasking(double xCoord, double yCoord, TextureAtlasSprite textureSprite, int maskTop, int maskRight, double zLevel) {
 		double uMin = textureSprite.getMinU();
 		double uMax = textureSprite.getMaxU();
