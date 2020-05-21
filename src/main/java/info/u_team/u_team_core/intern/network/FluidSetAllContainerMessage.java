@@ -14,7 +14,7 @@ import net.minecraftforge.fml.network.NetworkEvent.Context;
 public class FluidSetAllContainerMessage {
 	
 	private final int id;
-	private List<FluidStack> stacks;
+	private final List<FluidStack> stacks;
 	
 	public FluidSetAllContainerMessage(int id, List<FluidStack> stacks) {
 		this.id = id;
