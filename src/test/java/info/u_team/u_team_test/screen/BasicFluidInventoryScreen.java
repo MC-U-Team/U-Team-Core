@@ -23,6 +23,7 @@ public class BasicFluidInventoryScreen extends UContainerScreen<BasicFluidInvent
 	
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(mouseX, mouseY);
 		font.drawString(title.getFormattedText(), 8, 6, 4210752);
 		font.drawString(playerInventory.getDisplayName().getFormattedText(), 8, ySize - 94, 4210752);
 	}
