@@ -10,6 +10,7 @@ import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.FluidStack;
@@ -41,6 +42,11 @@ public abstract class FluidContainer extends Container {
 			list.add(fluidSlots.get(index).getStack());
 		}
 		return list;
+	}
+	
+	// Called when a client clicks on a fluid slot
+	
+	public void fluidSlotClick(int slot, ItemStack stack) {
 	}
 	
 	// Used for sync with the client
