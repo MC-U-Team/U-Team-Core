@@ -87,6 +87,20 @@ public abstract class FluidContainer extends Container {
 	
 	/**
 	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
+	 * (slot rows) and width (slot columns).
+	 * 
+	 * @param handler Some fluid handler
+	 * @param inventoryHeight Slot rows
+	 * @param inventoryWidth Slot columns
+	 * @param x Start x
+	 * @param y Start y
+	 */
+	protected void appendFluidInventory(IFluidHandlerModifiable handler, int inventoryHeight, int inventoryWidth, int x, int y) {
+		appendFluidInventory(handler, FluidSlot::new, inventoryHeight, inventoryWidth, x, y);
+	}
+	
+	/**
+	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
 	 * (slot rows) and width (slot columns). You must supplier a function that create a fluid slot. With this you can set
 	 * your own slot. implementations.
 	 * 
