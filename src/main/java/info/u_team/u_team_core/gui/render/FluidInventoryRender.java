@@ -24,7 +24,7 @@ public class FluidInventoryRender {
 		final TextureAtlasSprite sprite = getFluidSprite(stack);
 		Minecraft.getInstance().getTextureManager().bindTexture(ATLAS);
 		
-		final RGBA rgba = new RGBA(stack.getFluid().getAttributes().getColor(stack));
+		final RGBA rgba = RGBA.fromARGB(stack.getFluid().getAttributes().getColor(stack));
 		
 		RenderSystem.color4f(rgba.getRedComponent(), rgba.getGreenComponent(), rgba.getBlueComponent(), rgba.getAlphaComponent());
 		
