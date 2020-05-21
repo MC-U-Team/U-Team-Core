@@ -67,6 +67,11 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		
 	}
 	
+	@Override
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		return super.mouseClicked(mouseX, mouseY, button);
+	}
+	
 	protected void drawFluidSlot(FluidSlot fluidSlot) {
 		fluidRenderer.drawFluid(fluidSlot.getX(), fluidSlot.getY(), fluidSlot.getStack());
 	}
@@ -94,4 +99,16 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		return list;
 	}
 	
+	private FluidSlot getSelectedFluidSlot(double mouseX, double mouseY) {
+		if (container instanceof FluidContainer) {
+			final FluidContainer fluidContainer = (FluidContainer) container;
+			for (int index = 0; index < fluidContainer.fluidSlots.size(); index++) {
+				final FluidSlot fluidSlot = fluidContainer.fluidSlots.get(index);
+				if (isFluidSlotSelected(fluidSlot, mouseX, mouseY) && fluidSlot.isEnabled()) {
+					return fluidSlot;
+				}
+			}
+		}
+		return null;
+	}
 }
