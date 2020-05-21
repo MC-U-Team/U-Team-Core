@@ -12,6 +12,7 @@ import net.minecraft.entity.player.*;
 import net.minecraft.inventory.container.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -57,6 +58,7 @@ public abstract class FluidContainer extends Container {
 		fluidSlot.getStack().grow(5);
 		stack.grow(5);
 		playerInventory.setItemStack(stack);
+		player.connection.sendPacket(new SSetSlotPacket(-1, -1, playerInventory.getItemStack()));
 	}
 	
 	// Used for sync with the client
