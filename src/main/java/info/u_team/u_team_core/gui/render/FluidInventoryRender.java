@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -13,7 +12,7 @@ import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
-public class FluidInventoryRender extends AbstractGui {
+public class FluidInventoryRender {
 	
 	private static final ResourceLocation ATLAS = PlayerContainer.LOCATION_BLOCKS_TEXTURE;
 	
