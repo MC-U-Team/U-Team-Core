@@ -47,9 +47,16 @@ public abstract class FluidContainer extends Container {
 	
 	// Called when a client clicks on a fluid slot
 	
-	public void fluidSlotClick(PlayerEntity player, int slot, ItemStack stack) {
-		System.out.println(slot + " - " + stack);
+	public void fluidSlotClick(ServerPlayerEntity player, int index, ItemStack stack) {
+		if (index < 0 && index >= fluidSlots.size()) {
+			return;
+		}
+		final FluidSlot fluidSlot = getFluidSlot(index);
+		final PlayerInventory playerInventory = player.inventory;
 		
+		fluidSlot.getStack().grow(5);
+		stack.grow(5);
+		playerInventory.setItemStack(stack);
 	}
 	
 	// Used for sync with the client
