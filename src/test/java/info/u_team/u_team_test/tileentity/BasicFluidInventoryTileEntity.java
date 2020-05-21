@@ -2,15 +2,19 @@ package info.u_team.u_team_test.tileentity;
 
 import info.u_team.u_team_core.inventory.*;
 import info.u_team.u_team_core.tileentity.UTickableTileEntity;
+import info.u_team.u_team_test.container.BasicFluidInventoryContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
+import net.minecraft.entity.player.*;
+import net.minecraft.inventory.container.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.text.*;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BasicFluidInventoryTileEntity extends UTickableTileEntity {
+public class BasicFluidInventoryTileEntity extends UTickableTileEntity implements INamedContainerProvider {
 	
 	protected final UItemStackHandler itemSlots;
 	protected final LazyOptional<UItemStackHandler> itemSlotsOptional;
@@ -67,6 +71,18 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity {
 		} else {
 			return super.getCapability(capability, side);
 		}
+	}
+	
+	// Container
+	
+	@Override
+	public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+		return new BasicFluidInventoryContainer(id, playerInventory, this);
+	}
+	
+	@Override
+	public ITextComponent getDisplayName() {
+		return new StringTextComponent("Fluid Inventory");
 	}
 	
 }
