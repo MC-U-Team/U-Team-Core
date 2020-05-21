@@ -10,4 +10,8 @@ public class FluidInventoryRender {
 	
 	private static final ResourceLocation ATLAS = PlayerContainer.LOCATION_BLOCKS_TEXTURE;
 	
+	private static TextureAtlasSprite getFluidSprite(FluidStack fluidStack) {
+		return Minecraft.getInstance().getAtlasSpriteGetter(ATLAS).apply(fluidStack.getFluid().getAttributes().getStillTexture(fluidStack));
+	}
+	
 }
