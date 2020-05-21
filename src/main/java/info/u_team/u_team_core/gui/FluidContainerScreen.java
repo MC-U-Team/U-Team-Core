@@ -6,6 +6,8 @@ import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.container.*;
 import info.u_team.u_team_core.gui.render.FluidInventoryRender;
+import info.u_team.u_team_core.intern.init.UCoreNetwork;
+import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -69,12 +71,14 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
-		final FluidSlot fluidSlot = getSelectedFluidSlot(mouseX, mouseY);
-		
-		if (fluidSlot != null) {
-			
-			System.out.println(fluidSlot + " - " + button);
-			return true;
+		if (button == 0) {
+			final FluidSlot fluidSlot = getSelectedFluidSlot(mouseX, mouseY);
+			if (fluidSlot != null) {
+				if(!playerInventory.getItemStack().isEmpty()) {
+					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(container.windowId, fluidSlot.slotNumber, playerInventory.getItemStack()));
+				}
+				return true;
+			}
 		}
 		return super.mouseClicked(mouseX, mouseY, button);
 	}
