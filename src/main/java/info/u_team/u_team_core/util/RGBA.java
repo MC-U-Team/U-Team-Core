@@ -148,4 +148,18 @@ public class RGBA {
 	public String toString() {
 		return "RGBA [red=" + red + ", green=" + green + ", blue=" + blue + ", alpha=" + alpha + "]";
 	}
+	
+	/**
+	 * Returns an {@link RGBA} object from an argb integer. This encoding is used in fluids
+	 * 
+	 * @param color ARBA color
+	 * @return RGBA object
+	 */
+	public static RGBA fromARGB(int color) {
+		final int red = (color >> 16 & 255);
+		final int green = (color >> 8 & 255);
+		final int blue = (color & 255);
+		final int alpha = (color >> 24 & 255);
+		return new RGBA(red, green, blue, alpha);
+	}
 }
