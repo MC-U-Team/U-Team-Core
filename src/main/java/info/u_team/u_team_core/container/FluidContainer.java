@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
 
+import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -82,5 +83,45 @@ public abstract class FluidContainer extends Container {
 				UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new FluidSetSlotContainerMessage(windowId, index, stackNewSynced));
 			}
 		}
+	}
+	
+	/**
+	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
+	 * (slot rows) and width (slot columns). You must supplier a function that create a fluid slot. With this you can set
+	 * your own slot. implementations.
+	 * 
+	 * @param handler Some fluid handler
+	 * @param function Function to create a fluid slot.
+	 * @param inventoryHeight Slot rows
+	 * @param inventoryWidth Slot columns
+	 * @param x Start x
+	 * @param y Start y
+	 */
+	protected void appendFluidInventory(IFluidHandlerModifiable handler, FluidSlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
+		for (int height = 0; height < inventoryHeight; height++) {
+			for (int width = 0; width < inventoryWidth; width++) {
+				addFluidSlot(function.getSlot(handler, width + height * inventoryWidth, width * 18 + x, height * 18 + y));
+			}
+		}
+	}
+	
+	/**
+	 * Used as a function to customize fluid slots with the append methods
+	 * 
+	 * @author HyCraftHD
+	 */
+	@FunctionalInterface
+	public static interface FluidSlotHandlerFunction {
+		
+		/**
+		 * Should return a slot with the applied parameters.
+		 * 
+		 * @param fluidHandler A fluid handler
+		 * @param index Index for this fluid handler
+		 * @param xPosition x coordinate
+		 * @param yPosition y coordinate
+		 * @return A Slot instance
+		 */
+		FluidSlot getSlot(IFluidHandlerModifiable fluidHandler, int index, int xPosition, int yPosition);
 	}
 }
