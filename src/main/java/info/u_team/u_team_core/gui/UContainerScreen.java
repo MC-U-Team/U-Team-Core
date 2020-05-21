@@ -27,7 +27,7 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float partialTicks, int mouseX, int mouseY) {
-		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
+		RenderSystem.color4f(1, 1, 1, 1);
 		minecraft.getTextureManager().bindTexture(background);
 		final int xStart = (width - xSize) / 2;
 		final int yStart = (height - ySize) / 2;
