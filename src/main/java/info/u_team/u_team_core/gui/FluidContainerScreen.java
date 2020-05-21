@@ -62,7 +62,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		super.renderHoveredToolTip(mouseX, mouseY);
 		
 		if (hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
-			renderTooltip(this.getTooltipFromFluid(hoveredFluidSlot.getStack()), mouseX, mouseY);
+			renderTooltip(getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
 		}
 		
 	}
@@ -79,11 +79,13 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		return super.getSlotColor(index);
 	}
 	
-	public List<String> getTooltipFromFluid(FluidStack stack) {
+	public List<String> getTooltipFromFluid(FluidSlot fluidSlot) {
+		final FluidStack stack = fluidSlot.getStack();
+		
 		final List<String> list = new ArrayList<>();
 		
 		list.add(stack.getDisplayName().getFormattedText());
-		// TODO add more
+		
 		if (minecraft.gameSettings.advancedItemTooltips) {
 			list.add((new StringTextComponent(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString())).applyTextStyle(TextFormatting.DARK_GRAY).getFormattedText());
 		}
