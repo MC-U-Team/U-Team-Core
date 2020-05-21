@@ -42,7 +42,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 					final int y = fluidSlot.getY();
 					RenderSystem.disableDepthTest();
 					RenderSystem.colorMask(true, true, true, false);
-					final int slotColor = 0x80FFFFFF; // TODO basic slot color for now
+					final int slotColor = getFluidSlotColor(index);
 					fillGradient(x, y, x + 16, y + 16, slotColor, slotColor);
 					RenderSystem.colorMask(true, true, true, true);
 					RenderSystem.enableDepthTest();
@@ -61,6 +61,10 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	
 	private boolean isFluidSlotSelected(FluidSlot fluidSlot, double mouseX, double mouseY) {
 		return isPointInRegion(fluidSlot.getX(), fluidSlot.getY(), 16, 16, mouseX, mouseY);
+	}
+	
+	public int getFluidSlotColor(int index) {
+		return super.getSlotColor(index);
 	}
 	
 }
