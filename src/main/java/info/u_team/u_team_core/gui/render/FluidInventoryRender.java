@@ -7,7 +7,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
@@ -17,7 +16,7 @@ public class FluidInventoryRender {
 	private static final ResourceLocation ATLAS = PlayerContainer.LOCATION_BLOCKS_TEXTURE;
 	
 	public void drawFluid(int x, int y, FluidStack stack) {
-		if (stack == null || stack.isEmpty() || stack.getFluid() == Fluids.EMPTY) {
+		if (stack == null || stack.isEmpty()) {
 			return;
 		}
 		
