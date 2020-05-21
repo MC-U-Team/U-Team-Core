@@ -8,7 +8,7 @@ import com.google.common.collect.Lists;
 import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.*;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.entity.player.*;
 import net.minecraft.inventory.container.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetworkManager;
@@ -47,7 +47,9 @@ public abstract class FluidContainer extends Container {
 	
 	// Called when a client clicks on a fluid slot
 	
-	public void fluidSlotClick(int slot, ItemStack stack) {
+	public void fluidSlotClick(PlayerEntity player, int slot, ItemStack stack) {
+		System.out.println(slot + " - " + stack);
+		
 	}
 	
 	// Used for sync with the client
