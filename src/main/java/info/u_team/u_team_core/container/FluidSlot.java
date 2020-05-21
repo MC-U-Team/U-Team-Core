@@ -10,6 +10,8 @@ public class FluidSlot {
 	private final int x;
 	private final int y;
 	
+	public int slotNumber;
+	
 	public FluidSlot(IFluidHandlerModifiable fluidHandler, int index, int x, int y) {
 		this.fluidHandler = fluidHandler;
 		this.index = index;

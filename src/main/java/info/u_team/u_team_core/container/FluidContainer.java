@@ -26,6 +26,7 @@ public abstract class FluidContainer extends Container {
 	}
 	
 	protected FluidSlot addFluidSlot(FluidSlot slot) {
+		slot.slotNumber = fluidSlots.size();
 		fluidSlots.add(slot);
 		fluidStacks.add(FluidStack.EMPTY);
 		return slot;
