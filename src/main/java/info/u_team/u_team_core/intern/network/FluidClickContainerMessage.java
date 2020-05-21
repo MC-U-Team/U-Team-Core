@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.container.FluidContainer;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketBuffer;
@@ -40,7 +41,8 @@ public class FluidClickContainerMessage {
 		public static void handle(FluidClickContainerMessage message, Supplier<Context> contextSupplier) {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
-				getFluidContainer(context.getSender().openContainer, message.id).ifPresent(container -> container.fluidSlotClick(message.slot, message.stack));
+				final ServerPlayerEntity player = context.getSender();
+				getFluidContainer(player.openContainer, message.id).ifPresent(container -> container.fluidSlotClick(player, message.slot, message.stack));
 			});
 			context.setPacketHandled(true);
 		}
