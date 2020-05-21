@@ -40,4 +40,7 @@ public class FluidSlot {
 		return y;
 	}
 	
+	public boolean isEnabled() {
+		return true;
+	}
 }
