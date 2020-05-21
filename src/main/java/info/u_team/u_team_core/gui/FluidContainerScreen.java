@@ -85,6 +85,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		final List<String> list = new ArrayList<>();
 		
 		list.add(stack.getDisplayName().getFormattedText());
+		list.add(new StringTextComponent(stack.getAmount() + " /" + fluidSlot.getSlotCapacity()).applyTextStyle(TextFormatting.DARK_GRAY).getFormattedText());
 		
 		if (minecraft.gameSettings.advancedItemTooltips) {
 			list.add((new StringTextComponent(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString())).applyTextStyle(TextFormatting.DARK_GRAY).getFormattedText());
