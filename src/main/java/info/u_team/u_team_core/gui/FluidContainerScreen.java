@@ -1,7 +1,5 @@
 package info.u_team.u_team_core.gui;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-
 import info.u_team.u_team_core.container.*;
 import info.u_team.u_team_core.gui.render.FluidInventoryRender;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -17,8 +15,8 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	
 	private static final FluidInventoryRender FLUID_RENDERER = new FluidInventoryRender();
 	
-	public FluidContainerScreen(T screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-		super(screenContainer, inv, titleIn);
+	public FluidContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title) {
+		super(container, playerInventory, title);
 	}
 	
 	@Override
@@ -30,13 +28,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 			}
 		}
 		
-//		RenderSystem.enableBlend();
-//		RenderSystem.enableAlphaTest();
-		
 		FLUID_RENDERER.drawFluid(8, 18, new FluidStack(Fluids.WATER, 10));
-		
-//		RenderSystem.disableAlphaTest();
-//		RenderSystem.disableBlend();
 	}
 	
 	protected void drawFluidSlot(FluidSlot slot) {
@@ -44,13 +36,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		final int y = slot.getY();
 		final FluidStack stack = slot.getStack();
 		
-		RenderSystem.enableBlend();
-		RenderSystem.enableAlphaTest();
-		
 		FLUID_RENDERER.drawFluid(x, y, stack);
-		
-		RenderSystem.disableAlphaTest();
-		RenderSystem.disableBlend();
 	}
 	
 }
