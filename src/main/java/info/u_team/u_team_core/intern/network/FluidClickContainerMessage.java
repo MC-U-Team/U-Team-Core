@@ -14,26 +14,30 @@ public class FluidClickContainerMessage {
 	
 	private final int id;
 	private final int slot;
+	private final boolean shift;
 	private final ItemStack stack;
 	
-	public FluidClickContainerMessage(int id, int slot, ItemStack stack) {
+	public FluidClickContainerMessage(int id, int slot, boolean shift, ItemStack stack) {
 		this.id = id;
 		this.slot = slot;
+		this.shift = shift;
 		this.stack = stack;
 	}
 	
 	public static void encode(FluidClickContainerMessage message, PacketBuffer sendBuffer) {
 		sendBuffer.writeByte(message.id);
 		sendBuffer.writeShort(message.slot);
+		sendBuffer.writeBoolean(message.shift);
 		sendBuffer.writeItemStack(message.stack, false);
 	}
 	
 	public static FluidClickContainerMessage decode(PacketBuffer sendBuffer) {
 		final int id = sendBuffer.readByte();
 		final int slot = sendBuffer.readShort();
+		final boolean shift = sendBuffer.readBoolean();
 		final ItemStack stack = sendBuffer.readItemStack();
 		
-		return new FluidClickContainerMessage(id, slot, stack);
+		return new FluidClickContainerMessage(id, slot, shift, stack);
 	}
 	
 	public static class Handler {
