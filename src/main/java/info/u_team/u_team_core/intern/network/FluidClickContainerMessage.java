@@ -46,7 +46,7 @@ public class FluidClickContainerMessage {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
 				final ServerPlayerEntity player = context.getSender();
-				getFluidContainer(player.openContainer, message.id).ifPresent(container -> container.fluidSlotClick(player, message.slot, message.stack));
+				getFluidContainer(player.openContainer, message.id).ifPresent(container -> container.fluidSlotClick(player, message.slot, message.shift, message.stack));
 			});
 			context.setPacketHandled(true);
 		}
