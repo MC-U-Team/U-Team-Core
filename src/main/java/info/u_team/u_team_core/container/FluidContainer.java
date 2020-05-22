@@ -82,7 +82,6 @@ public abstract class FluidContainer extends Container {
 		final FluidSlot fluidSlot = getFluidSlot(index);
 		
 		if (!containedFluidStack.isEmpty()) { // Called when filled to the fluid slot
-			
 			// Check if the fluid is valid in this slot
 			if (!fluidSlot.isFluidValid(containedFluidStack)) {
 				return;
