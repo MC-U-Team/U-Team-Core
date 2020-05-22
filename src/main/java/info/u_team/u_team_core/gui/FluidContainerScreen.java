@@ -63,7 +63,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	protected void renderHoveredToolTip(int mouseX, int mouseY) {
 		super.renderHoveredToolTip(mouseX, mouseY);
 		
-		if (hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
+		if (minecraft.player.inventory.getItemStack().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
 			renderTooltip(getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
 		}
 		
@@ -74,7 +74,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		if (button == 0) {
 			final FluidSlot fluidSlot = getSelectedFluidSlot(mouseX, mouseY);
 			if (fluidSlot != null) {
-				if(!playerInventory.getItemStack().isEmpty()) {
+				if (!playerInventory.getItemStack().isEmpty()) {
 					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(container.windowId, fluidSlot.slotNumber, playerInventory.getItemStack()));
 				}
 				return true;
