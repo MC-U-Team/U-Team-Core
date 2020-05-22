@@ -115,6 +115,11 @@ public abstract class FluidContainer extends Container {
 			}
 		} else { // Called when drained from the fluid slot
 			final FluidStack fluidStack = fluidSlot.getStack();
+			
+			// Check if the fluid is valid in the container
+			if (!containedFluidHandler.isFluidValid(0, fluidStack)) {
+				return;
+			}
 		}
 		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
 	}
