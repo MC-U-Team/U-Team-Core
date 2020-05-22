@@ -89,6 +89,7 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 		return new StringTextComponent("Fluid Inventory");
 	}
 	
+	/*
 	// DEBUG
 	int i = 0;
 	
@@ -119,6 +120,6 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 			}
 			return iter.next();
 		}
-	}
+	}*/
 	
 }
