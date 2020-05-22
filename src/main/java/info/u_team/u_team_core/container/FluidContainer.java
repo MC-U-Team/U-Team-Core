@@ -51,19 +51,23 @@ public abstract class FluidContainer extends Container {
 	
 	// Called when a client clicks on a fluid slot
 	
-	public void fluidSlotClick(ServerPlayerEntity player, int index, ItemStack clickStack) {
+	public void fluidSlotClick(ServerPlayerEntity player, int index, ItemStack clientClickStack) {
+		final ItemStack serverClickStack = player.inventory.getItemStack();
+		
+		// Check if the client item is the same as the server item stack
+		if (!ItemStack.areItemStacksEqual(clientClickStack, serverClickStack)) {
+			return;
+		}
+		
+		// Check if the slot index is in range to prevent server crashes with malicious packets
 		if (index < 0 && index >= fluidSlots.size()) {
 			return;
 		}
+		
 		final FluidSlot fluidSlot = getFluidSlot(index);
-		final ItemStack itemStack = player.inventory.getItemStack();
 		final FluidStack fluidStack = fluidSlot.getStack();
 		
-		if (!ItemStack.areItemStacksEqual(clickStack, itemStack)) {
-			return;
-		}
-		
-		final LazyOptional<FluidStack> containedFluidStackOptional = FluidUtil.getFluidContained(itemStack);
+		final LazyOptional<FluidStack> containedFluidStackOptional = FluidUtil.getFluidContained(serverClickStack);
 		
 		if (!containedFluidStackOptional.isPresent()) {
 			return;
@@ -72,11 +76,11 @@ public abstract class FluidContainer extends Container {
 		final FluidStack containedFluidStack = containedFluidStackOptional.orElseThrow(AssertionError::new);
 		
 		if (!containedFluidStack.isEmpty()) {
-			if (!containedFluidStack.isFluidEqual(fluidStack)) {
+			if (!fluidStack.isEmpty() && !containedFluidStack.isFluidEqual(fluidStack)) {
 				return;
 			}
 			final int maxDrain = fluidSlot.getSlotCapacity() - fluidStack.getAmount();
-			final IFluidHandlerItem containedFluidHandler = FluidUtil.getFluidHandler(itemStack).orElseThrow(AssertionError::new);
+			final IFluidHandlerItem containedFluidHandler = FluidUtil.getFluidHandler(serverClickStack).orElseThrow(AssertionError::new);
 			final FluidStack drainedFluidStack = containedFluidHandler.drain(maxDrain, FluidAction.EXECUTE);
 			
 			if (!drainedFluidStack.isEmpty()) {
