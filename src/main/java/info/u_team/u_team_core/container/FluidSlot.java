@@ -38,6 +38,10 @@ public class FluidSlot {
 		return fluidHandler.getTankCapacity(index);
 	}
 	
+	public int getSlotCurrentyCapacity() {
+		return getSlotCapacity() - getStack().getAmount();
+	}
+	
 	public IFluidHandlerModifiable getFluidHandler() {
 		return fluidHandler;
 	}
