@@ -75,7 +75,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 			final FluidSlot fluidSlot = getSelectedFluidSlot(mouseX, mouseY);
 			if (fluidSlot != null) {
 				if (!playerInventory.getItemStack().isEmpty()) {
-					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(container.windowId, fluidSlot.slotNumber, playerInventory.getItemStack()));
+					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(container.windowId, fluidSlot.slotNumber, hasShiftDown(), playerInventory.getItemStack()));
 				}
 				return true;
 			}
