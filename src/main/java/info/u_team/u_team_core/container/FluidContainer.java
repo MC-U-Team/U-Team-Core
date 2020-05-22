@@ -16,8 +16,8 @@ import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.*;
-import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 public abstract class FluidContainer extends Container {
@@ -107,61 +107,7 @@ public abstract class FluidContainer extends Container {
 				player.inventory.setItemStack(containedFluidHandler.getContainer());
 			}
 		} else { // Called when drained from the fluid slot
-		
 		}
-		
-		// final FluidSlot fluidSlot = getFluidSlot(index);
-		// final FluidStack fluidStack = fluidSlot.getStack();
-		//
-		// final LazyOptional<FluidStack> containedFluidStackOptional = FluidUtil.getFluidContained(serverClickStack);
-		//
-		// if (!containedFluidStackOptional.isPresent()) {
-		// return;
-		// }
-		//
-		
-		// final FluidStack containedFluidStack = containedFluidStackOptional.orElseThrow(AssertionError::new);
-		//
-		// if (!containedFluidStack.isEmpty()) {
-		// if (!fluidStack.isEmpty() && !containedFluidStack.isFluidEqual(fluidStack)) {
-		// return;
-		// }
-		// final int maxDrain = fluidSlot.getSlotCapacity() - fluidStack.getAmount();
-		// final IFluidHandlerItem containedFluidHandler =
-		// FluidUtil.getFluidHandler(serverClickStack).orElseThrow(AssertionError::new);
-		// final FluidStack drainedFluidStack = containedFluidHandler.drain(maxDrain, FluidAction.EXECUTE);
-		//
-		// if (!drainedFluidStack.isEmpty()) {
-		// fluidStack.grow(drainedFluidStack.getAmount());
-		// // TODO mark dirty methods
-		// player.inventory.setItemStack(containedFluidHandler.getContainer());
-		// }
-		//
-		// } else {
-		//
-		// }
-		
-		// FluidActionResult res = FluidUtil.tryEmptyContainer(itemStack, fluidSlot.getFluidHandler(), 64_000, player, true);
-		//
-		// if (res.isSuccess())
-		// player.inventory.setItemStack(res.getResult());
-		
-		// if (fluidStack.isEmpty()) {
-		// // FILL slot
-		// FluidUtil.getFluidContained(itemStack) //
-		// .filter(fluidSlot::isFluidValid) //
-		// .filter(toInsert -> fluidStack.getAmount() + toInsert.getAmount() <= fluidSlot.getSlotCapacity()).ifPresent(toInsert
-		// -> {
-		// fluidSlot.putStack(toInsert);
-		// });
-		// player.inventory.setItemStack(FluidUtil.getFluidHandler(itemStack).map(handler -> {
-		// handler.drain(Integer.MAX_VALUE, FluidAction.EXECUTE);
-		// return handler;
-		// }).map(IFluidHandlerItem::getContainer).orElse(ItemStack.EMPTY));
-		// } else {
-		// // EMPTY slot
-		// }
-		
 		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
 	}
 	
