@@ -51,7 +51,7 @@ public abstract class FluidContainer extends Container {
 	
 	// Called when a client clicks on a fluid slot
 	
-	public void fluidSlotClick(ServerPlayerEntity player, int index, ItemStack clientClickStack) {
+	public void fluidSlotClick(ServerPlayerEntity player, int index, boolean shift, ItemStack clientClickStack) {
 		final ItemStack serverClickStack = player.inventory.getItemStack();
 		
 		// Check if an item is in the hand
