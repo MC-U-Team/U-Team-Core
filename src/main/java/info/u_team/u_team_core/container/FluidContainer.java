@@ -106,6 +106,7 @@ public abstract class FluidContainer extends Container {
 				player.inventory.setItemStack(containedFluidHandler.getContainer());
 			}
 		} else { // Called when drained from the fluid slot
+			final FluidStack fluidStack = fluidSlot.getStack();
 		}
 		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
 	}
