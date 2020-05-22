@@ -19,6 +19,7 @@ import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 public abstract class FluidContainer extends Container {
 	
@@ -102,8 +103,15 @@ public abstract class FluidContainer extends Container {
 					// TODO mark dirty
 				}
 				
+				final ItemStack emptiedStack = containedFluidHandler.getContainer();
+				
 				// Change the item stack to the result of the drain action
-				player.inventory.setItemStack(containedFluidHandler.getContainer());
+				if (shift) {
+					ItemHandlerHelper.giveItemToPlayer(player, emptiedStack);
+					player.inventory.setItemStack(ItemStack.EMPTY);
+				} else {
+					player.inventory.setItemStack(emptiedStack);
+				}
 			}
 		} else { // Called when drained from the fluid slot
 			final FluidStack fluidStack = fluidSlot.getStack();
