@@ -42,6 +42,10 @@ public class FluidSlot {
 		return fluidHandler;
 	}
 	
+	public int getIndex() {
+		return index;
+	}
+	
 	public int getX() {
 		return x;
 	}
