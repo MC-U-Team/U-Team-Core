@@ -8,13 +8,14 @@ import com.google.common.collect.Lists;
 import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.*;
-import net.minecraft.entity.player.*;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.NonNullList;
-import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 public abstract class FluidContainer extends Container {
@@ -48,17 +49,31 @@ public abstract class FluidContainer extends Container {
 	
 	// Called when a client clicks on a fluid slot
 	
-	public void fluidSlotClick(ServerPlayerEntity player, int index, ItemStack stack) {
+	public void fluidSlotClick(ServerPlayerEntity player, int index, ItemStack clickStack) {
 		if (index < 0 && index >= fluidSlots.size()) {
 			return;
 		}
 		final FluidSlot fluidSlot = getFluidSlot(index);
-		final PlayerInventory playerInventory = player.inventory;
+		final ItemStack itemStack = player.inventory.getItemStack();
+		final FluidStack fluidStack = fluidSlot.getStack();
 		
-		fluidSlot.getStack().grow(5);
-		stack.grow(5);
-		playerInventory.setItemStack(stack);
-		player.connection.sendPacket(new SSetSlotPacket(-1, -1, playerInventory.getItemStack()));
+		if (!ItemStack.areItemStacksEqual(clickStack, itemStack)) {
+			return;
+		}
+		
+		if (fluidStack.isEmpty()) {
+			// FILL slot
+			FluidUtil.getFluidContained(itemStack) //
+					.filter(fluidSlot::isFluidValid) //
+					.filter(toInsert -> fluidStack.getAmount() + toInsert.getAmount() <= fluidSlot.getSlotCapacity()).ifPresent(toInsert -> {
+						fluidSlot.putStack(toInsert);
+					});
+			player.inventory.setItemStack(FluidUtil.getFluidHandler(itemStack).map(IFluidHandlerItem::getContainer).orElse(ItemStack.EMPTY));
+		} else {
+			// EMPTY slot
+		}
+		
+		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
 	}
 	
 	// Used for sync with the client
