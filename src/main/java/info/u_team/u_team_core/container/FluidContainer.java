@@ -54,6 +54,11 @@ public abstract class FluidContainer extends Container {
 	public void fluidSlotClick(ServerPlayerEntity player, int index, ItemStack clientClickStack) {
 		final ItemStack serverClickStack = player.inventory.getItemStack();
 		
+		// Check if an item is in the hand
+		if (serverClickStack.isEmpty()) {
+			return;
+		}
+		
 		// Check if the client item is the same as the server item stack
 		if (!ItemStack.areItemStacksEqual(clientClickStack, serverClickStack)) {
 			return;
@@ -64,34 +69,58 @@ public abstract class FluidContainer extends Container {
 			return;
 		}
 		
-		final FluidSlot fluidSlot = getFluidSlot(index);
-		final FluidStack fluidStack = fluidSlot.getStack();
+		final LazyOptional<IFluidHandlerItem> containedFluidHandlerOptional = FluidUtil.getFluidHandler(serverClickStack);
 		
-		final LazyOptional<FluidStack> containedFluidStackOptional = FluidUtil.getFluidContained(serverClickStack);
-		
-		if (!containedFluidStackOptional.isPresent()) {
+		// Check if the item stack has a fluid capability attached
+		if (!containedFluidHandlerOptional.isPresent()) {
 			return;
 		}
 		
-		final FluidStack containedFluidStack = containedFluidStackOptional.orElseThrow(AssertionError::new);
+		final IFluidHandlerItem containedFluidHandler = containedFluidHandlerOptional.orElseThrow(AssertionError::new);
+		final FluidStack containedFluidStack = containedFluidHandler.drain(Integer.MAX_VALUE, FluidAction.SIMULATE);
 		
-		if (!containedFluidStack.isEmpty()) {
-			if (!fluidStack.isEmpty() && !containedFluidStack.isFluidEqual(fluidStack)) {
+		final FluidSlot fluidSlot = getFluidSlot(index);
+		
+		if(!containedFluidStack.isEmpty()) { // Called when filled to the fluid slot
+			if(!fluidSlot.isFluidValid(containedFluidStack)) {
 				return;
 			}
-			final int maxDrain = fluidSlot.getSlotCapacity() - fluidStack.getAmount();
-			final IFluidHandlerItem containedFluidHandler = FluidUtil.getFluidHandler(serverClickStack).orElseThrow(AssertionError::new);
-			final FluidStack drainedFluidStack = containedFluidHandler.drain(maxDrain, FluidAction.EXECUTE);
 			
-			if (!drainedFluidStack.isEmpty()) {
-				fluidStack.grow(drainedFluidStack.getAmount());
-				// TODO mark dirty methods
-				player.inventory.setItemStack(containedFluidHandler.getContainer());
-			}
-			
-		} else {
+		} else { // Called when drained from the fluid slot
 			
 		}
+		
+		
+//		final FluidSlot fluidSlot = getFluidSlot(index);
+//		final FluidStack fluidStack = fluidSlot.getStack();
+//		
+//		final LazyOptional<FluidStack> containedFluidStackOptional = FluidUtil.getFluidContained(serverClickStack);
+//		
+//		if (!containedFluidStackOptional.isPresent()) {
+//			return;
+//		}
+//		
+		
+		
+//		final FluidStack containedFluidStack = containedFluidStackOptional.orElseThrow(AssertionError::new);
+//		
+//		if (!containedFluidStack.isEmpty()) {
+//			if (!fluidStack.isEmpty() && !containedFluidStack.isFluidEqual(fluidStack)) {
+//				return;
+//			}
+//			final int maxDrain = fluidSlot.getSlotCapacity() - fluidStack.getAmount();
+//			final IFluidHandlerItem containedFluidHandler = FluidUtil.getFluidHandler(serverClickStack).orElseThrow(AssertionError::new);
+//			final FluidStack drainedFluidStack = containedFluidHandler.drain(maxDrain, FluidAction.EXECUTE);
+//			
+//			if (!drainedFluidStack.isEmpty()) {
+//				fluidStack.grow(drainedFluidStack.getAmount());
+//				// TODO mark dirty methods
+//				player.inventory.setItemStack(containedFluidHandler.getContainer());
+//			}
+//			
+//		} else {
+//			
+//		}
 		
 		// FluidActionResult res = FluidUtil.tryEmptyContainer(itemStack, fluidSlot.getFluidHandler(), 64_000, player, true);
 		//
