@@ -116,7 +116,7 @@ public abstract class FluidContainer extends Container {
 		} else { // Called when drained from the fluid slot
 			final FluidStack fluidStack = fluidSlot.getStack();
 			
-			// Check if the fluid is valid in the container
+			// Check if the fluid is valid in the container //TODO check other tanks too??
 			if (!containedFluidHandler.isFluidValid(0, fluidStack)) {
 				return;
 			}
