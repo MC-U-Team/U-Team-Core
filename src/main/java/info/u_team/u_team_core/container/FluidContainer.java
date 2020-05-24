@@ -133,7 +133,7 @@ public abstract class FluidContainer extends Container {
 				
 				final ItemStack filledStack = containedFluidHandler.getContainer();
 				
-				// Change the item stack to the result of the drain action
+				// Change the item stack to the result of the fill action
 				if (shift) {
 					ItemHandlerHelper.giveItemToPlayer(player, filledStack);
 					player.inventory.setItemStack(ItemStack.EMPTY);
