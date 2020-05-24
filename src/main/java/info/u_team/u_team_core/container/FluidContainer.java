@@ -19,7 +19,8 @@ import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.*;
+import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 public abstract class FluidContainer extends Container {
 	
@@ -121,26 +122,58 @@ public abstract class FluidContainer extends Container {
 				return;
 			}
 			
-			if (serverClickStack.getCount() == 1) {
-				
+			for (int itemCount = serverClickStack.getCount(); itemCount > 0; itemCount--) {
 				// Fill fluid in container item
 				final int filled = containedFluidHandler.fill(fluidSlot.getStack(), FluidAction.EXECUTE);
 				
-				// If nothing was filled nothing needs to change
+				// If nothing was filled we cannot fill this item
 				if (filled == 0) {
-					return;
+					break;
 				}
 				
 				final ItemStack filledStack = containedFluidHandler.getContainer();
 				
-				// Change the item stack to the result of the fill action
-				if (shift) {
-					ItemHandlerHelper.giveItemToPlayer(player, filledStack);
-					player.inventory.setItemStack(ItemStack.EMPTY);
-				} else {
-					player.inventory.setItemStack(filledStack);
+				final IItemHandler inventory = new PlayerMainInvWrapper(player.inventory);
+				
+				// If its cannot be put in the players inventory we stop
+				if (!ItemHandlerHelper.insertItemStacked(inventory, filledStack, true).isEmpty()) {
+					break;
 				}
+				
+				ItemHandlerHelper.insertItemStacked(inventory, filledStack, false);
+				
+				fluidStack.shrink(filled);
+				if (fluidStack.isEmpty()) {
+					fluidSlot.putStack(FluidStack.EMPTY);
+				}
+				
+				serverClickStack.shrink(1);
 			}
+			
+			if (serverClickStack.isEmpty()) {
+				player.inventory.setItemStack(ItemStack.EMPTY);
+			}
+			
+			// if (serverClickStack.getCount() == 1) {
+			//
+			// // Fill fluid in container item
+			// final int filled = containedFluidHandler.fill(fluidSlot.getStack(), FluidAction.EXECUTE);
+			//
+			// // If nothing was filled nothing needs to change
+			// if (filled == 0) {
+			// return;
+			// }
+			//
+			// final ItemStack filledStack = containedFluidHandler.getContainer();
+			//
+			// // Change the item stack to the result of the fill action
+			// if (shift) {
+			// ItemHandlerHelper.giveItemToPlayer(player, filledStack);
+			// player.inventory.setItemStack(ItemStack.EMPTY);
+			// } else {
+			// player.inventory.setItemStack(filledStack);
+			// }
+			// }
 		}
 		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
 	}
