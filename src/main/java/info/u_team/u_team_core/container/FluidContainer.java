@@ -70,7 +70,7 @@ public abstract class FluidContainer extends Container {
 			return;
 		}
 		
-		final LazyOptional<IFluidHandlerItem> containedFluidHandlerOptional = FluidUtil.getFluidHandler(serverClickStack);
+		final LazyOptional<IFluidHandlerItem> containedFluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(serverClickStack, 1));
 		
 		// Check if the item stack has a fluid capability attached
 		if (!containedFluidHandlerOptional.isPresent()) {
