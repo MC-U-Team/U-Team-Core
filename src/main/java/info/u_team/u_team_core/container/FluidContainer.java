@@ -120,6 +120,27 @@ public abstract class FluidContainer extends Container {
 			if (!containedFluidHandler.isFluidValid(0, fluidStack)) {
 				return;
 			}
+			
+			if (serverClickStack.getCount() == 1) {
+				
+				// Fill fluid in container item
+				final int filled = containedFluidHandler.fill(fluidSlot.getStack(), FluidAction.EXECUTE);
+				
+				// If nothing was filled nothing needs to change
+				if (filled == 0) {
+					return;
+				}
+				
+				final ItemStack filledStack = containedFluidHandler.getContainer();
+				
+				// Change the item stack to the result of the drain action
+				if (shift) {
+					ItemHandlerHelper.giveItemToPlayer(player, filledStack);
+					player.inventory.setItemStack(ItemStack.EMPTY);
+				} else {
+					player.inventory.setItemStack(filledStack);
+				}
+			}
 		}
 		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
 	}
