@@ -123,11 +123,13 @@ public abstract class FluidContainer extends Container {
 			}
 			
 			for (int itemCount = serverClickStack.getCount(); itemCount > 0; itemCount--) {
+				
 				// Fill fluid in container item
 				final int filled = containedFluidHandler.fill(fluidSlot.getStack(), FluidAction.EXECUTE);
 				
 				// If nothing was filled we cannot fill this item
 				if (filled == 0) {
+					System.out.println("BREAK");
 					break;
 				}
 				
