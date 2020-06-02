@@ -25,7 +25,7 @@ import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 public abstract class FluidContainer extends Container {
 	
 	private final NonNullList<FluidStack> fluidStacks = NonNullList.create();
-	public final List<FluidSlot> fluidSlots = Lists.newArrayList();
+	private final List<FluidSlot> fluidSlots = Lists.newArrayList();
 	
 	public FluidContainer(ContainerType<?> type, int id) {
 		super(type, id);
