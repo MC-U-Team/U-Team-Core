@@ -84,21 +84,4 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 	public ITextComponent getDisplayName() {
 		return new StringTextComponent("Fluid Inventory");
 	}
-	
-	/*
-	 * // DEBUG int i = 0;
-	 * 
-	 * @Override protected void tickServer() { super.tickServer(); if (i % 50 == 0) { fluidTanks.setFluidInTank(0, new
-	 * FluidStack(choice(ForgeRegistries.FLUIDS.getValues(), new Random()), 1000)); fluidTanks.setFluidInTank(1, new
-	 * FluidStack(choice(ForgeRegistries.FLUIDS.getValues(), new Random()), 1000)); fluidTanks.setFluidInTank(2, new
-	 * FluidStack(choice(ForgeRegistries.FLUIDS.getValues(), new Random()), 1000)); fluidTanks.setFluidInTank(3, new
-	 * FluidStack(choice(ForgeRegistries.FLUIDS.getValues(), new Random()), 1000)); } i++; }
-	 * 
-	 * public static <E> E choice(Collection<? extends E> coll, Random rand) { if (coll.size() == 0) { return null; }
-	 * 
-	 * int index = rand.nextInt(coll.size()); if (coll instanceof List) { return ((List<? extends E>) coll).get(index); }
-	 * else { Iterator<? extends E> iter = coll.iterator(); for (int i = 0; i < index; i++) { iter.next(); } return
-	 * iter.next(); } }
-	 */
-	
 }
