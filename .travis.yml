@@ -3,6 +3,7 @@ jdk: openjdk8
 before_install: chmod +x gradlew
 install:
   - ./gradlew --refresh-dependencies
+  - ./gradlew --stop
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
@@ -17,4 +18,4 @@ jobs:
   include:
     - stage: "build"
       name: "Build"
-      script: ./gradlew build
+      script: ./gradlew build --no-daemon
