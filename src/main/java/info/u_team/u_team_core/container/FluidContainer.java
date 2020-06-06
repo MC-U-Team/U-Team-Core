@@ -84,7 +84,7 @@ public abstract class FluidContainer extends Container {
 		
 		if (!containedFluidStack.isEmpty()) { // Called when filled to the fluid slot
 		} else { // Called when drained from the fluid slot
-		}
+		} 
 		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
 	}
 	
