@@ -19,8 +19,7 @@ import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.items.*;
-import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 public abstract class FluidContainer extends Container {
 	
@@ -84,98 +83,7 @@ public abstract class FluidContainer extends Container {
 		final FluidSlot fluidSlot = getFluidSlot(index);
 		
 		if (!containedFluidStack.isEmpty()) { // Called when filled to the fluid slot
-			// Check if the fluid is valid in this slot
-			if (!fluidSlot.isFluidValid(containedFluidStack)) {
-				return;
-			}
-			
-			final boolean slotEmpty = fluidSlot.getStack().isEmpty();
-			
-			// Check if the fluid slot is empty or is the same fluid as the one already in this slot
-			if (slotEmpty || containedFluidStack.isFluidEqual(fluidSlot.getStack())) {
-				final int maxAmountToFill = fluidSlot.getSlotCurrentyCapacity();
-				// Drain the fluid from the container item stack
-				final FluidStack drainedFluidStack = containedFluidHandler.drain(maxAmountToFill, FluidAction.EXECUTE);
-				if (slotEmpty) {
-					fluidSlot.putStack(drainedFluidStack);
-					// TODO mark dirty
-				} else {
-					fluidSlot.getStack().grow(drainedFluidStack.getAmount());
-					// TODO mark dirty
-				}
-				
-				final ItemStack emptiedStack = containedFluidHandler.getContainer();
-				
-				// Change the item stack to the result of the drain action
-				if (shift) {
-					ItemHandlerHelper.giveItemToPlayer(player, emptiedStack);
-					player.inventory.setItemStack(ItemStack.EMPTY);
-				} else {
-					player.inventory.setItemStack(emptiedStack);
-				}
-			}
 		} else { // Called when drained from the fluid slot
-			final FluidStack fluidStack = fluidSlot.getStack();
-			
-			// Check if the fluid is valid in the container //TODO check other tanks too??
-			if (!containedFluidHandler.isFluidValid(0, fluidStack)) {
-				return;
-			}
-			
-			for (int itemCount = serverClickStack.getCount(); itemCount > 0; itemCount--) {
-				
-				// Fill fluid in container item
-				final int filled = containedFluidHandler.fill(fluidSlot.getStack(), FluidAction.EXECUTE);
-				
-				// If nothing was filled we cannot fill this item
-				if (filled == 0) {
-					System.out.println("BREAK");
-					break;
-				}
-				
-				final ItemStack filledStack = containedFluidHandler.getContainer();
-				
-				final IItemHandler inventory = new PlayerMainInvWrapper(player.inventory);
-				
-				// If its cannot be put in the players inventory we stop
-				if (!ItemHandlerHelper.insertItemStacked(inventory, filledStack, true).isEmpty()) {
-					break;
-				}
-				
-				ItemHandlerHelper.insertItemStacked(inventory, filledStack, false);
-				
-				fluidStack.shrink(filled);
-				if (fluidStack.isEmpty()) {
-					fluidSlot.putStack(FluidStack.EMPTY);
-				}
-				
-				serverClickStack.shrink(1);
-			}
-			
-			if (serverClickStack.isEmpty()) {
-				player.inventory.setItemStack(ItemStack.EMPTY);
-			}
-			
-			// if (serverClickStack.getCount() == 1) {
-			//
-			// // Fill fluid in container item
-			// final int filled = containedFluidHandler.fill(fluidSlot.getStack(), FluidAction.EXECUTE);
-			//
-			// // If nothing was filled nothing needs to change
-			// if (filled == 0) {
-			// return;
-			// }
-			//
-			// final ItemStack filledStack = containedFluidHandler.getContainer();
-			//
-			// // Change the item stack to the result of the fill action
-			// if (shift) {
-			// ItemHandlerHelper.giveItemToPlayer(player, filledStack);
-			// player.inventory.setItemStack(ItemStack.EMPTY);
-			// } else {
-			// player.inventory.setItemStack(filledStack);
-			// }
-			// }
 		}
 		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
 	}
