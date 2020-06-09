@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.*;
+import info.u_team.u_team_core.util.FluidHandlerHelper;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.*;
 import net.minecraft.item.ItemStack;
@@ -70,22 +71,10 @@ public abstract class FluidContainer extends Container {
 			return;
 		}
 		
-		final LazyOptional<IFluidHandlerItem> containedFluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(serverClickStack, 1));
-		
-		// Check if the item stack has a fluid capability attached
-		if (!containedFluidHandlerOptional.isPresent()) {
+		// Check if the item stack can hold fluids
+		if (!FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(serverClickStack, 1)).isPresent()) {
 			return;
 		}
-		
-		final IFluidHandlerItem containedFluidHandler = containedFluidHandlerOptional.orElseThrow(AssertionError::new);
-		final FluidStack containedFluidStack = containedFluidHandler.drain(Integer.MAX_VALUE, FluidAction.SIMULATE);
-		
-		final FluidSlot fluidSlot = getFluidSlot(index);
-		
-		if (!containedFluidStack.isEmpty()) { // Called when filled to the fluid slot
-		} else { // Called when drained from the fluid slot
-		} 
-		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
 	}
 	
 	// Used for sync with the client
