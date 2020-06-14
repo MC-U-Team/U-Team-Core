@@ -42,18 +42,18 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 				
 				if (fluidSlot.isEnabled()) {
 					drawFluidSlot(fluidSlot);
-				}
-				
-				if (isFluidSlotSelected(fluidSlot, mouseX, mouseY) && fluidSlot.isEnabled()) {
-					hoveredFluidSlot = fluidSlot;
-					final int x = fluidSlot.getX();
-					final int y = fluidSlot.getY();
-					RenderSystem.disableDepthTest();
-					RenderSystem.colorMask(true, true, true, false);
-					final int slotColor = getFluidSlotColor(index);
-					fillGradient(x, y, x + 16, y + 16, slotColor, slotColor);
-					RenderSystem.colorMask(true, true, true, true);
-					RenderSystem.enableDepthTest();
+					
+					if (isFluidSlotSelected(fluidSlot, mouseX, mouseY)) {
+						hoveredFluidSlot = fluidSlot;
+						final int x = fluidSlot.getX();
+						final int y = fluidSlot.getY();
+						RenderSystem.disableDepthTest();
+						RenderSystem.colorMask(true, true, true, false);
+						final int slotColor = getFluidSlotColor(index);
+						fillGradient(x, y, x + 16, y + 16, slotColor, slotColor);
+						RenderSystem.colorMask(true, true, true, true);
+						RenderSystem.enableDepthTest();
+					}
 				}
 			}
 		}
