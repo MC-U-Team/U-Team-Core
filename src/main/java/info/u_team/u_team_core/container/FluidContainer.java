@@ -8,7 +8,6 @@ import com.google.common.collect.Lists;
 import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.*;
-import info.u_team.u_team_core.util.FluidHandlerHelper;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.*;
 import net.minecraft.item.ItemStack;
@@ -21,6 +20,7 @@ import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 public abstract class FluidContainer extends Container {
 	
@@ -71,10 +71,86 @@ public abstract class FluidContainer extends Container {
 			return;
 		}
 		
+		final FluidSlot fluidSlot = fluidSlots.get(index);
+		
+		final LazyOptional<FluidStack> containedFluidOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(serverClickStack, 1)).map(handler -> handler.drain(Integer.MAX_VALUE, FluidAction.SIMULATE));
+		
 		// Check if the item stack can hold fluids
-		if (!FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(serverClickStack, 1)).isPresent()) {
+		if (!containedFluidOptional.isPresent()) {
 			return;
 		}
+		
+		final int maximumTries = shift ? serverClickStack.getCount() : 1;
+		
+		if (!containedFluidOptional.orElseThrow(AssertionError::new).isEmpty()) {
+			for (int i = 0; i < maximumTries; i++) {
+				if (!insertFluidFromItem(player, fluidSlot, shift)) {
+					break;
+				}
+			}
+		}
+	}
+	
+	private boolean insertFluidFromItem(ServerPlayerEntity player, FluidSlot fluidSlot, boolean shift) {
+		
+		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.inventory);
+		
+		final ItemStack stack = player.inventory.getItemStack();
+		
+		final LazyOptional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
+		
+		if (!fluidHandlerOptional.isPresent()) {
+			return false;
+		}
+		
+		final IFluidHandlerItem handler = fluidHandlerOptional.orElseThrow(AssertionError::new);
+		
+		final int maxAmountToFill = fluidSlot.getSlotCurrentyCapacity();
+		final FluidStack drainedFluidStack = handler.drain(maxAmountToFill, FluidAction.EXECUTE);
+		
+		if (drainedFluidStack.isEmpty()) {
+			return false;
+		}
+		
+		if (!fluidSlot.isFluidValid(drainedFluidStack)) {
+			return false;
+		}
+		
+		final boolean slotEmpty = fluidSlot.getStack().isEmpty();
+		
+		if (!slotEmpty && !drainedFluidStack.isFluidEqual(fluidSlot.getStack())) {
+			return false;
+		}
+		
+		final ItemStack outputStack = handler.getContainer();
+		
+		if (stack.getCount() == 1 && !shift) {
+			if (slotEmpty) {
+				fluidSlot.putStack(drainedFluidStack);
+				// TODO mark dirty
+			} else {
+				fluidSlot.getStack().grow(drainedFluidStack.getAmount());
+				// TODO mark dirty
+			}
+			player.inventory.setItemStack(outputStack);
+		} else {
+			if (ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, true).isEmpty()) {
+				if (slotEmpty) {
+					fluidSlot.putStack(drainedFluidStack);
+					// TODO mark dirty
+				} else {
+					fluidSlot.getStack().grow(drainedFluidStack.getAmount());
+					// TODO mark dirty
+				}
+				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
+				stack.shrink(1);
+				if (stack.isEmpty()) {
+					player.inventory.setItemStack(ItemStack.EMPTY);
+				}
+			}
+		}
+		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
+		return true;
 	}
 	
 	// Used for sync with the client
