@@ -32,6 +32,11 @@ public class FluidSlot {
 	
 	public void putStack(FluidStack stack) {
 		fluidHandler.setFluidInTank(index, stack);
+		onSlotChanged();
+	}
+	
+	public void onSlotChanged() {
+		//TODO
 	}
 	
 	public int getSlotCapacity() {
