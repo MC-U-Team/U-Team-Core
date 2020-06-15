@@ -1,6 +1,6 @@
 {
 	"name": "U Team Test",
-	"landing_text": "Landing text",
+	"landing_text": "This is a test mod for uteamcore",
 	"model": "patchouli:book_red",
 	"creative_tab": "uteamtest.group",
 	"version": 1
