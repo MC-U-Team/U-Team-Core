@@ -133,20 +133,18 @@ public abstract class FluidContainer extends Container {
 		if (stack.getCount() == 1 && !shift) {
 			if (slotEmpty) {
 				fluidSlot.putStack(drainedFluidStack);
-				// TODO mark dirty
 			} else {
 				fluidSlot.getStack().grow(drainedFluidStack.getAmount());
-				// TODO mark dirty
+				fluidSlot.onSlotChanged();
 			}
 			player.inventory.setItemStack(outputStack);
 		} else {
 			if (ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, true).isEmpty()) {
 				if (slotEmpty) {
 					fluidSlot.putStack(drainedFluidStack);
-					// TODO mark dirty
 				} else {
 					fluidSlot.getStack().grow(drainedFluidStack.getAmount());
-					// TODO mark dirty
+					fluidSlot.onSlotChanged();
 				}
 				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
 				stack.shrink(1);
@@ -185,16 +183,18 @@ public abstract class FluidContainer extends Container {
 			fluidSlot.getStack().shrink(amountFilled);
 			if (fluidSlot.getStack().isEmpty()) {
 				fluidSlot.putStack(FluidStack.EMPTY);
+			} else {
+				fluidSlot.onSlotChanged();
 			}
-			// TODO mark dirty
 			player.inventory.setItemStack(outputStack);
 		} else {
 			if (ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, true).isEmpty()) {
 				fluidSlot.getStack().shrink(amountFilled);
 				if (fluidSlot.getStack().isEmpty()) {
 					fluidSlot.putStack(FluidStack.EMPTY);
+				} else {
+					fluidSlot.onSlotChanged();
 				}
-				// TODO mark dirty
 				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
 				stack.shrink(1);
 				if (stack.isEmpty()) {
