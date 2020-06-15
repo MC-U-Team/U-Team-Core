@@ -255,13 +255,14 @@ public abstract class FluidContainer extends Container {
 	 * (slot rows) and width (slot columns).
 	 * 
 	 * @param handler Some fluid handler
+	 * @param startIndex Start index of the handler
 	 * @param inventoryHeight Slot rows
 	 * @param inventoryWidth Slot columns
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendFluidInventory(IFluidHandlerModifiable handler, int inventoryHeight, int inventoryWidth, int x, int y) {
-		appendFluidInventory(handler, FluidSlot::new, inventoryHeight, inventoryWidth, x, y);
+	protected void appendFluidInventory(IFluidHandlerModifiable handler, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
+		appendFluidInventory(handler, FluidSlot::new, startIndex, inventoryHeight, inventoryWidth, x, y);
 	}
 	
 	/**
@@ -271,15 +272,16 @@ public abstract class FluidContainer extends Container {
 	 * 
 	 * @param handler Some fluid handler
 	 * @param function Function to create a fluid slot.
+	 * @param startIndex Start index of the handler
 	 * @param inventoryHeight Slot rows
 	 * @param inventoryWidth Slot columns
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendFluidInventory(IFluidHandlerModifiable handler, FluidSlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendFluidInventory(IFluidHandlerModifiable handler, FluidSlotHandlerFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
 		for (int height = 0; height < inventoryHeight; height++) {
 			for (int width = 0; width < inventoryWidth; width++) {
-				addFluidSlot(function.getSlot(handler, width + height * inventoryWidth, width * 18 + x, height * 18 + y));
+				addFluidSlot(function.getSlot(handler, startIndex + (width + height * inventoryWidth), width * 18 + x, height * 18 + y));
 			}
 		}
 	}
