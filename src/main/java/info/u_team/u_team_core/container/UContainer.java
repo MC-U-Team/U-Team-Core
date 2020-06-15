@@ -226,6 +226,36 @@ public abstract class UContainer extends FluidContainer {
 	 * and width (slot columns).
 	 * 
 	 * @param handler Some item handler
+	 * @param inventoryHeight Slot rows
+	 * @param inventoryWidth Slot columns
+	 * @param x Start x
+	 * @param y Start y
+	 */
+	protected void appendInventory(IItemHandler handler, int inventoryHeight, int inventoryWidth, int x, int y) {
+		appendInventory(handler, 0, inventoryHeight, inventoryWidth, x, y);
+	}
+	
+	/**
+	 * This methods can add any {@link IItemHandler} to the container. You can specialize the inventory height (slot rows)
+	 * and width (slot columns). You must supplier a function that create a slot. With this you can set your own slot.
+	 * implementations.
+	 * 
+	 * @param handler Some item handler
+	 * @param function Function to create a slot.
+	 * @param inventoryHeight Slot rows
+	 * @param inventoryWidth Slot columns
+	 * @param x Start x
+	 * @param y Start y
+	 */
+	protected void appendInventory(IItemHandler handler, SlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
+		appendInventory(handler, function, 0, inventoryHeight, inventoryWidth, x, y);
+	}
+	
+	/**
+	 * This methods can add any {@link IItemHandler} to the container. You can specialize the inventory height (slot rows)
+	 * and width (slot columns).
+	 * 
+	 * @param handler Some item handler
 	 * @param startIndex Start index of the handler
 	 * @param inventoryHeight Slot rows
 	 * @param inventoryWidth Slot columns
