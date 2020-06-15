@@ -1,6 +1,29 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.2-2.12.0.157-SNAPSHOT] - 2020-06-15
+### Added
+ - Added valueInRange methods to math util
+ - Added randomNumberInRange method and deprecate the old random methods
+ - Added item ingredient that takes amount of items (Can only be used in custom machines, because vanilla machines cannot handle the amount of input ingredients)
+ - Added fluid ingredient that can handle fluids, fluid tags and the amount
+ - Added serialize util for item stacks and fluid stacks as well as item ingredients and fluid ingredients
+ - Added float and double buffer holder
+ - Added new interaction type enum (execute, simulate) for item and fluid stuff
+ - Added extended item handler that uses the new interaction type (implemented in the UItemStackHandler)
+ - Added interface for the modifiable fluid handler like the item handler modifiable
+ - Added extended fluid handler to handle fluids better. (Copied from mekanism)
+ - Added fluid container, fluid slot and fluid screen that can handle the whole fluid sync system with fluid slots
+ - Added fluid render for slots
+
+### Changed
+ - Updated to forge 31.2.19
+ - Updated mappings to 20200615-1.15.1
+ - Add travis ci for building
+ - Fix build script for travis ci
+ - Use the right file endings now in all files with git
+ - Make extra api source set
+
 ## [1.15.2-2.11.0.156] - 2020-03-06
 ### Added
  - Added generator for fluid and entity type tags
