@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.container;
 
 import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
+import info.u_team.u_team_core.inventory.UFluidStackHandler;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidSlot {
@@ -36,7 +37,9 @@ public class FluidSlot {
 	}
 	
 	public void onSlotChanged() {
-		//TODO
+		if (fluidHandler instanceof UFluidStackHandler) {
+			((UFluidStackHandler) fluidHandler).onContentsChanged(index);
+		}
 	}
 	
 	public int getSlotCapacity() {
