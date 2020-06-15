@@ -153,6 +153,53 @@ public abstract class FluidContainer extends Container {
 		return true;
 	}
 	
+	private boolean extractFluidToItem(ServerPlayerEntity player, FluidSlot fluidSlot, boolean shift) {
+		
+		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.inventory);
+		
+		final ItemStack stack = player.inventory.getItemStack();
+		
+		final LazyOptional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
+		
+		if (!fluidHandlerOptional.isPresent()) {
+			return false;
+		}
+		
+		final IFluidHandlerItem handler = fluidHandlerOptional.orElseThrow(AssertionError::new);
+		
+		final int amountFilled = handler.fill(fluidSlot.getStack(), FluidAction.EXECUTE);
+		
+		if (amountFilled <= 0) {
+			return false;
+		}
+		
+		final ItemStack outputStack = handler.getContainer();
+		
+		if (stack.getCount() == 1 && !shift) {
+			fluidSlot.getStack().shrink(amountFilled);
+			if (fluidSlot.getStack().isEmpty()) {
+				fluidSlot.putStack(FluidStack.EMPTY);
+			}
+			// TODO mark dirty
+			player.inventory.setItemStack(outputStack);
+		} else {
+			if (ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, true).isEmpty()) {
+				fluidSlot.getStack().shrink(amountFilled);
+				if (fluidSlot.getStack().isEmpty()) {
+					fluidSlot.putStack(FluidStack.EMPTY);
+				}
+				// TODO mark dirty
+				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
+				stack.shrink(1);
+				if (stack.isEmpty()) {
+					player.inventory.setItemStack(ItemStack.EMPTY);
+				}
+			}
+		}
+		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
+		return true;
+	}
+	
 	// Used for sync with the client
 	
 	public void setFluidStackInSlot(int slot, FluidStack stack) {
