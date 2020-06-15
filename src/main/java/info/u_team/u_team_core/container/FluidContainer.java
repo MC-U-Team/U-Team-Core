@@ -255,6 +255,36 @@ public abstract class FluidContainer extends Container {
 	 * (slot rows) and width (slot columns).
 	 * 
 	 * @param handler Some fluid handler
+	 * @param inventoryHeight Slot rows
+	 * @param inventoryWidth Slot columns
+	 * @param x Start x
+	 * @param y Start y
+	 */
+	protected void appendFluidInventory(IFluidHandlerModifiable handler, int inventoryHeight, int inventoryWidth, int x, int y) {
+		appendFluidInventory(handler, 0, inventoryHeight, inventoryWidth, x, y);
+	}
+	
+	/**
+	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
+	 * (slot rows) and width (slot columns). You must supplier a function that create a fluid slot. With this you can set
+	 * your own slot. implementations.
+	 * 
+	 * @param handler Some fluid handler
+	 * @param function Function to create a fluid slot.
+	 * @param inventoryHeight Slot rows
+	 * @param inventoryWidth Slot columns
+	 * @param x Start x
+	 * @param y Start y
+	 */
+	protected void appendFluidInventory(IFluidHandlerModifiable handler, FluidSlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
+		appendFluidInventory(handler, function, 0, inventoryHeight, inventoryWidth, x, y);
+	}
+	
+	/**
+	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
+	 * (slot rows) and width (slot columns).
+	 * 
+	 * @param handler Some fluid handler
 	 * @param startIndex Start index of the handler
 	 * @param inventoryHeight Slot rows
 	 * @param inventoryWidth Slot columns
