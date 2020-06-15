@@ -97,6 +97,7 @@ public abstract class FluidContainer extends Container {
 		}
 	}
 	
+	// TODO make this method better
 	private boolean insertFluidFromItem(ServerPlayerEntity player, FluidSlot fluidSlot, boolean shift) {
 		
 		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.inventory);
@@ -157,6 +158,7 @@ public abstract class FluidContainer extends Container {
 		return true;
 	}
 	
+	// TODO make this method better (maybe extract to an other class??)
 	private boolean extractFluidToItem(ServerPlayerEntity player, FluidSlot fluidSlot, boolean shift) {
 		
 		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.inventory);
