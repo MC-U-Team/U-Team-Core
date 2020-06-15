@@ -5,6 +5,9 @@ import java.util.function.Supplier;
 import info.u_team.u_team_core.api.registry.IURegistryType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 
 public class UBucketItem extends BucketItem implements IURegistryType {
 	
@@ -22,5 +25,10 @@ public class UBucketItem extends BucketItem implements IURegistryType {
 	@Override
 	public String getEntryName() {
 		return name;
+	}
+	
+	@Override
+	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundNBT compound) {
+		return new FluidBucketWrapper(stack);
 	}
 }
