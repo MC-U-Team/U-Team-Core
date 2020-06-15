@@ -88,6 +88,12 @@ public abstract class FluidContainer extends Container {
 					break;
 				}
 			}
+		} else {
+			for (int i = 0; i < maximumTries; i++) {
+				if (!extractFluidToItem(player, fluidSlot, shift)) {
+					break;
+				}
+			}
 		}
 	}
 	
