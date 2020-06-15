@@ -226,13 +226,14 @@ public abstract class UContainer extends FluidContainer {
 	 * and width (slot columns).
 	 * 
 	 * @param handler Some item handler
+	 * @param startIndex Start index of the handler
 	 * @param inventoryHeight Slot rows
 	 * @param inventoryWidth Slot columns
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendInventory(IItemHandler handler, int inventoryHeight, int inventoryWidth, int x, int y) {
-		appendInventory(handler, ItemSlot::new, inventoryHeight, inventoryWidth, x, y);
+	protected void appendInventory(IItemHandler handler, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
+		appendInventory(handler, ItemSlot::new, startIndex, inventoryHeight, inventoryWidth, x, y);
 	}
 	
 	/**
@@ -242,15 +243,16 @@ public abstract class UContainer extends FluidContainer {
 	 * 
 	 * @param handler Some item handler
 	 * @param function Function to create a slot.
+	 * @param startIndex Start index of the handler
 	 * @param inventoryHeight Slot rows
 	 * @param inventoryWidth Slot columns
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendInventory(IItemHandler handler, SlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendInventory(IItemHandler handler, SlotHandlerFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
 		for (int height = 0; height < inventoryHeight; height++) {
 			for (int width = 0; width < inventoryWidth; width++) {
-				addSlot(function.getSlot(handler, width + height * inventoryWidth, width * 18 + x, height * 18 + y));
+				addSlot(function.getSlot(handler, startIndex + (width + height * inventoryWidth), width * 18 + x, height * 18 + y));
 			}
 		}
 	}
