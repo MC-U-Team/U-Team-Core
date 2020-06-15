@@ -17,7 +17,7 @@ public class UCoreMain {
 	public static final String MODID = "uteamcore";
 	public static final Logger LOGGER = LogManager.getLogger("UTeamCore");
 	
-	private static final IModProxy PROXY = DistExecutor.runForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+	private static final IModProxy PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
 	
 	public UCoreMain() {
 		JarSignVerifier.checkSigned(MODID);
