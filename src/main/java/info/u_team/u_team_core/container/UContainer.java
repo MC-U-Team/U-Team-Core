@@ -199,7 +199,7 @@ public abstract class UContainer extends FluidContainer {
 	 * @param y Start y
 	 */
 	protected void appendInventory(IItemHandler handler, int inventoryHeight, int inventoryWidth, int x, int y) {
-		appendInventory(handler, SlotItemHandler::new, inventoryHeight, inventoryWidth, x, y);
+		appendInventory(handler, ItemSlot::new, inventoryHeight, inventoryWidth, x, y);
 	}
 	
 	/**
