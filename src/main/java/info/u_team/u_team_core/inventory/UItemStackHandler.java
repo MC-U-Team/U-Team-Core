@@ -28,4 +28,9 @@ public class UItemStackHandler extends ItemStackHandler implements IExtendedItem
 		ItemStackHelper.loadAllItems(compound, stacks);
 		onLoad();
 	}
+	
+	@Override
+	public void onContentsChanged(int slot) {
+		super.onContentsChanged(slot);
+	}
 }
