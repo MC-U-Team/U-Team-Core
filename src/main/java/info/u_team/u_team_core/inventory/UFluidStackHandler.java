@@ -166,6 +166,6 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 	protected void onLoad() {
 	}
 	
-	protected void onContentsChanged(int tank) {
+	public void onContentsChanged(int tank) {
 	}
 }
