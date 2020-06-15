@@ -12,7 +12,7 @@ public class TileEntityUItemStackHandler extends UItemStackHandler {
 	}
 	
 	@Override
-	protected void onContentsChanged(int slot) {
+	public void onContentsChanged(int slot) {
 		tileEntity.markDirty();
 	}
 	
