@@ -3,6 +3,7 @@ package info.u_team.u_team_core.intern.command.uteamcore;
 import java.util.*;
 
 import com.mojang.brigadier.builder.ArgumentBuilder;
+import com.mojang.brigadier.exceptions.*;
 
 import net.minecraft.command.*;
 import net.minecraft.command.arguments.ResourceLocationArgument;
@@ -17,6 +18,8 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class LocateBiomeSubCommand {
 	
+	private static final SimpleCommandExceptionType FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.locate.failed"));
+	
 	public static ArgumentBuilder<CommandSource, ?> register() {
 		return Commands.literal("locatebiome") //
 				.requires(source -> source.hasPermissionLevel(2)) //
@@ -25,23 +28,32 @@ public class LocateBiomeSubCommand {
 						.executes(context -> locateBiome(context.getSource(), context.getArgument("biome", ResourceLocation.class))));
 	}
 	
-	private static int locateBiome(CommandSource source, ResourceLocation biome) {
+	private static int locateBiome(CommandSource source, ResourceLocation biomeName) throws CommandSyntaxException {
+		final Biome biome = ForgeRegistries.BIOMES.getValue(biomeName);
+		
+		if (biome == null) {
+			throw FAILED_EXCEPTION.create();
+		}
+		
 		final ServerWorld world = source.getWorld();
 		final BiomeProvider biomeProvider = world.getChunkProvider().getChunkGenerator().getBiomeProvider();
 		final Random random = new Random(world.getSeed());
-		
 		final BlockPos pos = new BlockPos(source.getPos());
 		
-		final BlockPos foundPos = locateBiome(biomeProvider, pos.getX(), pos.getY(), pos.getZ(), 6400, 8, Arrays.asList(ForgeRegistries.BIOMES.getValue(biome)), random, true);
+		final BlockPos foundPos = locateBiome(biomeProvider, pos.getX(), pos.getY(), pos.getZ(), 6400, 8, biome, random, true);
 		
-		System.out.println(foundPos);
+		if (foundPos == null) {
+			throw FAILED_EXCEPTION.create();
+		}
 		
-		int i = MathHelper.floor(getDistance(pos.getX(), pos.getZ(), foundPos.getX(), foundPos.getZ()));
-		ITextComponent itextcomponent = TextComponentUtils.wrapInSquareBrackets(new TranslationTextComponent("chat.coordinates", foundPos.getX(), "~", foundPos.getZ())).applyTextStyle((p_211746_1_) -> {
-			p_211746_1_.setColor(TextFormatting.GREEN).setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tp @s " + foundPos.getX() + " ~ " + foundPos.getZ())).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.coordinates.tooltip")));
+		final int distance = MathHelper.floor(getDistance(pos.getX(), pos.getZ(), foundPos.getX(), foundPos.getZ()));
+		
+		final ITextComponent text = TextComponentUtils.wrapInSquareBrackets(new TranslationTextComponent("chat.coordinates", foundPos.getX(), "~", foundPos.getZ())).applyTextStyle((style) -> {
+			style.setColor(TextFormatting.GREEN).setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tp @s " + foundPos.getX() + " ~ " + foundPos.getZ())).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.coordinates.tooltip")));
 		});
-		source.sendFeedback(new TranslationTextComponent("commands.locate.success", biome, itextcomponent, i), false);
-		return i;
+		source.sendFeedback(new TranslationTextComponent("commands.locate.success", biomeName, text, distance), false);
+		
+		return distance;
 	}
 	
 	private static float getDistance(int x1, int z1, int x2, int z2) {
@@ -50,43 +62,46 @@ public class LocateBiomeSubCommand {
 		return MathHelper.sqrt((float) (i * i + j * j));
 	}
 	
-	public static BlockPos locateBiome(BiomeProvider provider, int x, int y, int z, int radius, int i, List<Biome> biomes, Random random, boolean bl) {
-		int j = x >> 2;
-		int k = z >> 2;
-		int l = radius >> 2;
-		int m = y >> 2;
+	/*
+	 * This code is from 1.16-pre6 for the biome locate (It is like the method func_225531_a_#func_225531_a_ but has more
+	 * options)
+	 */
+	private static BlockPos locateBiome(BiomeProvider provider, int x, int y, int z, int radius, int accuracy, Biome biome, Random random, boolean randomPoint) {
+		final int j = x >> 2;
+		final int k = z >> 2;
+		final int l = radius >> 2;
+		final int m = y >> 2;
+		final int o = randomPoint ? 0 : l;
 		BlockPos blockPos = null;
-		int n = 0;
-		int o = bl ? 0 : l;
 		
-		for (int p = o; p <= l; p += i) {
-			for (int q = -p; q <= p; q += i) {
-				boolean bl2 = Math.abs(q) == p;
+		int n = 0;
+		
+		for (int p = o; p <= l; p += accuracy) {
+			for (int q = -p; q <= p; q += accuracy) {
+				final boolean bl2 = Math.abs(q) == p;
 				
-				for (int r = -p; r <= p; r += i) {
-					if (bl) {
-						boolean bl3 = Math.abs(r) == p;
+				for (int r = -p; r <= p; r += accuracy) {
+					if (randomPoint) {
+						final boolean bl3 = Math.abs(r) == p;
 						if (!bl3 && !bl2) {
 							continue;
 						}
 					}
 					
-					int s = j + r;
-					int t = k + q;
-					if (biomes.contains(provider.getNoiseBiome(s, m, t))) {
+					final int s = j + r;
+					final int t = k + q;
+					if (biome == (provider.getNoiseBiome(s, m, t))) {
 						if (blockPos == null || random.nextInt(n + 1) == 0) {
 							blockPos = new BlockPos(s << 2, y, t << 2);
-							if (bl) {
+							if (randomPoint) {
 								return blockPos;
 							}
 						}
-						
 						++n;
 					}
 				}
 			}
 		}
-		
 		return blockPos;
 	}
 	
