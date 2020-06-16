@@ -26,7 +26,7 @@ public class LocateStructureSubCommand {
 	private static int locateStructure(CommandSource source, ResourceLocation structureName) throws CommandSyntaxException {
 		final BlockPos pos = new BlockPos(source.getPos());
 		
-		final BlockPos foundPos = source.getWorld().findNearestStructure(structureName.toString(), pos, 100, false);
+		final BlockPos foundPos = source.getWorld().findNearestStructure(structureName.getPath(), pos, 100, false);
 		
 		if (foundPos == null) {
 			throw FAILED_EXCEPTION.create();
