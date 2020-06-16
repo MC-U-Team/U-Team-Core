@@ -13,7 +13,8 @@ public class UTeamCoreCommand {
 				.then(ItemStackInfoSubCommand.register()) //
 				.then(DimensionTeleportSubCommand.register()) //
 				.then(dispatcher.register(PingSubCommand.register())) //
-				.then(LocateBiomeSubCommand.register()));
+				.then(LocateBiomeSubCommand.register()) //
+				.then(LocateStructureSubCommand.register()));
 	}
 	
 }
