@@ -594,8 +594,7 @@ public class JSONArray implements Iterable<Object> {
 			if (clazz.isAssignableFrom(val.getClass())) {
 				// we just checked it!
 				@SuppressWarnings("unchecked")
-				final
-				E myE = (E) val;
+				final E myE = (E) val;
 				return myE;
 			}
 			return Enum.valueOf(clazz, val.toString());

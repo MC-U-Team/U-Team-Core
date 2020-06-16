@@ -310,8 +310,7 @@ public class JSONWriter {
 			try {
 				// Use the BigDecimal constructor for it's parser to validate the format.
 				@SuppressWarnings("unused")
-				final
-				BigDecimal unused = new BigDecimal(numberAsString);
+				final BigDecimal unused = new BigDecimal(numberAsString);
 				// Close enough to a JSON number that we will return it unquoted
 				return numberAsString;
 			} catch (final NumberFormatException ex) {

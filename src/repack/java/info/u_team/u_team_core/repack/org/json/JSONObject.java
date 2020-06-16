@@ -886,8 +886,7 @@ public class JSONObject {
 			if (clazz.isAssignableFrom(val.getClass())) {
 				// we just checked it!
 				@SuppressWarnings("unchecked")
-				final
-				E myE = (E) val;
+				final E myE = (E) val;
 				return myE;
 			}
 			return Enum.valueOf(clazz, val.toString());
@@ -2094,8 +2093,7 @@ public class JSONObject {
 			try {
 				// Use the BigDecimal constructor for its parser to validate the format.
 				@SuppressWarnings("unused")
-				final
-				BigDecimal testNum = new BigDecimal(numberAsString);
+				final BigDecimal testNum = new BigDecimal(numberAsString);
 				// Close enough to a JSON number that we will use it unquoted
 				writer.write(numberAsString);
 			} catch (final NumberFormatException ex) {
