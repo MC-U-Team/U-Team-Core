@@ -3,7 +3,7 @@ package info.u_team.u_team_core.intern.network;
 import java.util.*;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.container.*;
+import info.u_team.u_team_core.container.FluidContainer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.network.PacketBuffer;
