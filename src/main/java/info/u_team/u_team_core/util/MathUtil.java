@@ -2,7 +2,7 @@ package info.u_team.u_team_core.util;
 
 import java.util.Random;
 
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.*;
 
 public class MathUtil {
 	
@@ -172,6 +172,12 @@ public class MathUtil {
 	 */
 	public static double valueInRange(double min, double max, double value) {
 		return Math.min(max, Math.max(min, value));
+	}
+	
+	public static float getPlaneDistance(int x1, int z1, int x2, int z2) {
+		int xDiff = x2 - x1;
+		int zDiff = z2 - z1;
+		return MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff);
 	}
 	
 }
