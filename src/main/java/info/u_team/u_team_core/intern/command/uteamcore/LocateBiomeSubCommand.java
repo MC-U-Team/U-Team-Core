@@ -19,7 +19,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class LocateBiomeSubCommand {
 	
-	private static final SimpleCommandExceptionType FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.locate.failed"));
+	private static final SimpleCommandExceptionType FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.uteamcore.locatebiome.failed"));
 	
 	public static ArgumentBuilder<CommandSource, ?> register() {
 		return Commands.literal("locatebiome") //
@@ -52,7 +52,7 @@ public class LocateBiomeSubCommand {
 		final ITextComponent text = TextComponentUtils.wrapInSquareBrackets(new TranslationTextComponent("chat.coordinates", foundPos.getX(), "~", foundPos.getZ())).applyTextStyle((style) -> {
 			style.setColor(TextFormatting.GREEN).setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tp @s " + foundPos.getX() + " ~ " + foundPos.getZ())).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.coordinates.tooltip")));
 		});
-		source.sendFeedback(new TranslationTextComponent("commands.locate.success", biomeName, text, distance), false);
+		source.sendFeedback(new TranslationTextComponent("commands.uteamcore.locatebiome.success", biomeName, text, distance), false);
 		
 		return distance;
 	}
