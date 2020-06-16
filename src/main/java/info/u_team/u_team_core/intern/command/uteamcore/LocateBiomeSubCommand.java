@@ -26,10 +26,10 @@ public class LocateBiomeSubCommand {
 		final ServerWorld world = source.getWorld();
 		final BiomeProvider biomeProvider = world.getChunkProvider().getChunkGenerator().getBiomeProvider();
 		final Random random = new Random(world.getSeed());
-
-		final BlockPos pos = biomeProvider.func_225531_a_(0, world.getSeaLevel(), 0, 256, Arrays.asList(ForgeRegistries.BIOMES.getValue(biome)), random);
-
 		
+		final BlockPos pos = biomeProvider.func_225531_a_(0, world.getSeaLevel(), 0, 256, Arrays.asList(ForgeRegistries.BIOMES.getValue(biome)), random);
+		
+		System.out.println(pos);
 		
 		return 0;
 	}
