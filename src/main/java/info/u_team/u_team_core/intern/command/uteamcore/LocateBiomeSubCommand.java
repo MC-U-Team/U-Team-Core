@@ -19,7 +19,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class LocateBiomeSubCommand {
 	
-	private static final SimpleCommandExceptionType FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.uteamcore.locatebiome.failed"));
+	private static final DynamicCommandExceptionType FAILED_EXCEPTION = new DynamicCommandExceptionType(biomeName -> new TranslationTextComponent("commands.uteamcore.locatebiome.failed", biomeName));
 	
 	public static ArgumentBuilder<CommandSource, ?> register() {
 		return Commands.literal("locatebiome") //
@@ -33,7 +33,7 @@ public class LocateBiomeSubCommand {
 		final Biome biome = ForgeRegistries.BIOMES.getValue(biomeName);
 		
 		if (biome == null) {
-			throw FAILED_EXCEPTION.create();
+			throw FAILED_EXCEPTION.create(biomeName);
 		}
 		
 		final ServerWorld world = source.getWorld();
@@ -44,7 +44,7 @@ public class LocateBiomeSubCommand {
 		final BlockPos foundPos = findBiome(biomeProvider, pos.getX(), pos.getY(), pos.getZ(), 6400, 8, biome, random, true);
 		
 		if (foundPos == null) {
-			throw FAILED_EXCEPTION.create();
+			throw FAILED_EXCEPTION.create(biomeName);
 		}
 		
 		final int distance = MathHelper.floor(MathUtil.getPlaneDistance(pos.getX(), pos.getZ(), foundPos.getX(), foundPos.getZ()));
