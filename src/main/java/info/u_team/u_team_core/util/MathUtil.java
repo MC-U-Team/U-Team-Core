@@ -174,6 +174,15 @@ public class MathUtil {
 		return Math.min(max, Math.max(min, value));
 	}
 	
+	/**
+	 * Returns the distance between x1, z1 and x2, z2
+	 * 
+	 * @param x1 First x coordinate
+	 * @param z1 First z coordinate
+	 * @param x2 Second x coordinate
+	 * @param z2 Second z coordinate
+	 * @return The distance between these two coordinates
+	 */
 	public static float getPlaneDistance(int x1, int z1, int x2, int z2) {
 		int xDiff = x2 - x1;
 		int zDiff = z2 - z1;
