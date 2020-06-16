@@ -1,6 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.2-2.12.1.158] - 2020-06-16
+### Added
+ - Added getPlaneDistance to math util
+ - Added NoPlaceUBucketItem
+ - Added [#39](https://github.com/MC-U-Team/U-Team-Core/issues/39) to make the inventory adder better (for fluid inventory, and item inventory)
+ - Added uteamcore subcommand locatebiome
+ - Added uteamcore subcommand locatestructure
+ 
+### Changed
+ - Fixed [#38](https://github.com/MC-U-Team/U-Team-Core/issues/38) to expose the fluid capabilities for the u bucket item
+
 ## [1.15.2-2.12.0.157-SNAPSHOT] - 2020-06-15
 ### Added
  - Added valueInRange methods to math util
