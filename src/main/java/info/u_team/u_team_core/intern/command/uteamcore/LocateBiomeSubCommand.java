@@ -40,7 +40,7 @@ public class LocateBiomeSubCommand {
 		final Random random = new Random(world.getSeed());
 		final BlockPos pos = new BlockPos(source.getPos());
 		
-		final BlockPos foundPos = locateBiome(biomeProvider, pos.getX(), pos.getY(), pos.getZ(), 6400, 8, biome, random, true);
+		final BlockPos foundPos = findBiome(biomeProvider, pos.getX(), pos.getY(), pos.getZ(), 6400, 8, biome, random, true);
 		
 		if (foundPos == null) {
 			throw FAILED_EXCEPTION.create();
@@ -66,7 +66,7 @@ public class LocateBiomeSubCommand {
 	 * This code is from 1.16-pre6 for the biome locate (It is like the method func_225531_a_#func_225531_a_ but has more
 	 * options)
 	 */
-	private static BlockPos locateBiome(BiomeProvider provider, int x, int y, int z, int radius, int accuracy, Biome biome, Random random, boolean randomPoint) {
+	private static BlockPos findBiome(BiomeProvider provider, int x, int y, int z, int radius, int accuracy, Biome biome, Random random, boolean randomPoint) {
 		final int j = x >> 2;
 		final int k = z >> 2;
 		final int l = radius >> 2;
