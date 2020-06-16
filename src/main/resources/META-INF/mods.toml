@@ -16,7 +16,7 @@ authors="HyCraftHD, MrTroble"
 	[[dependencies.uteamcore]]
 	    modId="forge"
 	    mandatory=true
-	    versionRange="[31.2.19,)"
+	    versionRange="[31.2.20,)"
 	    ordering="NONE"
 	    side="BOTH"
 	
