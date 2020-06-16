@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.intern.command.uteamcore;
 
-import java.util.*;
+import java.util.Random;
 
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.*;
