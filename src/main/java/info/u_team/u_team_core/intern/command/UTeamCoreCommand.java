@@ -12,7 +12,8 @@ public class UTeamCoreCommand {
 		dispatcher.register(LiteralArgumentBuilder.<CommandSource> literal("uteamcore") //
 				.then(ItemStackInfoSubCommand.register()) //
 				.then(DimensionTeleportSubCommand.register()) //
-				.then(dispatcher.register(PingSubCommand.register())));
+				.then(dispatcher.register(PingSubCommand.register())) //
+				.then(LocateBiomeSubCommand.register()));
 	}
 	
 }
