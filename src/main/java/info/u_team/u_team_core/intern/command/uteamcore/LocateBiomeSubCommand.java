@@ -5,6 +5,7 @@ import java.util.*;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.*;
 
+import info.u_team.u_team_core.util.MathUtil;
 import net.minecraft.command.*;
 import net.minecraft.command.arguments.ResourceLocationArgument;
 import net.minecraft.util.ResourceLocation;
@@ -46,7 +47,7 @@ public class LocateBiomeSubCommand {
 			throw FAILED_EXCEPTION.create();
 		}
 		
-		final int distance = MathHelper.floor(getDistance(pos.getX(), pos.getZ(), foundPos.getX(), foundPos.getZ()));
+		final int distance = MathHelper.floor(MathUtil.getPlaneDistance(pos.getX(), pos.getZ(), foundPos.getX(), foundPos.getZ()));
 		
 		final ITextComponent text = TextComponentUtils.wrapInSquareBrackets(new TranslationTextComponent("chat.coordinates", foundPos.getX(), "~", foundPos.getZ())).applyTextStyle((style) -> {
 			style.setColor(TextFormatting.GREEN).setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tp @s " + foundPos.getX() + " ~ " + foundPos.getZ())).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.coordinates.tooltip")));
@@ -54,12 +55,6 @@ public class LocateBiomeSubCommand {
 		source.sendFeedback(new TranslationTextComponent("commands.locate.success", biomeName, text, distance), false);
 		
 		return distance;
-	}
-	
-	private static float getDistance(int x1, int z1, int x2, int z2) {
-		int i = x2 - x1;
-		int j = z2 - z1;
-		return MathHelper.sqrt((float) (i * i + j * j));
 	}
 	
 	/*
