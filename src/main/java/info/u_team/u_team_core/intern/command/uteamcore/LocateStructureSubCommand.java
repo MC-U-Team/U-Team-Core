@@ -14,7 +14,7 @@ import net.minecraftforge.registries.GameData;
 
 public class LocateStructureSubCommand {
 	
-	private static final SimpleCommandExceptionType FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.locate.failed"));
+	private static final SimpleCommandExceptionType FAILED_EXCEPTION = new SimpleCommandExceptionType(new TranslationTextComponent("commands.uteamcore.locatestructure.failed"));
 	
 	public static ArgumentBuilder<CommandSource, ?> register() {
 		return Commands.literal("locatestructure") //
@@ -38,7 +38,7 @@ public class LocateStructureSubCommand {
 		final ITextComponent text = TextComponentUtils.wrapInSquareBrackets(new TranslationTextComponent("chat.coordinates", foundPos.getX(), "~", foundPos.getZ())).applyTextStyle((style) -> {
 			style.setColor(TextFormatting.GREEN).setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/tp @s " + foundPos.getX() + " ~ " + foundPos.getZ())).setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TranslationTextComponent("chat.coordinates.tooltip")));
 		});
-		source.sendFeedback(new TranslationTextComponent("commands.locate.success", structureName, text, distance), false);
+		source.sendFeedback(new TranslationTextComponent("commands.uteamcore.locatestructure.success", structureName, text, distance), false);
 		
 		return distance;
 	}
