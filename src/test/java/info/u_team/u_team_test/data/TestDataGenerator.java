@@ -15,6 +15,7 @@ public class TestDataGenerator {
 	public static void data(GatherDataEvent event) {
 		final GenerationData data = new GenerationData(TestMod.MODID, event);
 		if (event.includeServer()) {
+			data.addProvider(TestLootTablesProvider::new);
 		}
 		if (event.includeClient()) {
 			data.addProvider(TestBlockStatesProvider::new);
