@@ -1,5 +1,6 @@
 package info.u_team.u_team_test.init;
 
+import info.u_team.u_team_core.util.registry.RegistryWorker;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.screen.*;
 import net.minecraft.client.gui.ScreenManager;
@@ -14,9 +15,11 @@ public class TestScreens {
 	
 	@SubscribeEvent
 	public static void register(FMLClientSetupEvent event) {
-		ScreenManager.registerFactory(TestContainers.BASIC, BasicTileEntityScreen::new);
-		ScreenManager.registerFactory(TestContainers.BASIC_ENERGY_CREATOR, BasicEnergyCreatorScreen::new);
-		ScreenManager.registerFactory(TestContainers.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
+		RegistryWorker.runOnMainThread(() -> {
+			ScreenManager.registerFactory(TestContainers.BASIC, BasicTileEntityScreen::new);
+			ScreenManager.registerFactory(TestContainers.BASIC_ENERGY_CREATOR, BasicEnergyCreatorScreen::new);
+			ScreenManager.registerFactory(TestContainers.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
+		});
 	}
 	
 }
