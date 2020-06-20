@@ -9,6 +9,5 @@ public class AutoSmeltEnchantment extends UEnchantment {
 	
 	public AutoSmeltEnchantment(String name) {
 		super(name, Rarity.COMMON, EnchantmentType.DIGGER, new EquipmentSlotType[] { EquipmentSlotType.MAINHAND });
-		MinecraftForge.EVENT_BUS.register(this);
 	}
 }
