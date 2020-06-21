@@ -34,13 +34,12 @@ public class DeferedRegisterTest<T extends IForgeRegistryEntry<T>> {
 	private IForgeRegistry<T> type;
 	private Supplier<RegistryBuilder<T>> registryFactory;
 	
-	private DeferedRegisterTest(Class<T> base, String modid) {
+	protected DeferedRegisterTest(Class<T> base, String modid) {
 		this.superType = base;
 		this.modid = modid;
 	}
 	
-	@Deprecated // Make private in 1.16, Use create. Constructors are an implementation detail.
-	public DeferedRegisterTest(IForgeRegistry<T> reg, String modid) {
+	protected DeferedRegisterTest(IForgeRegistry<T> reg, String modid) {
 		this(reg.getRegistrySuperType(), modid);
 		this.type = reg;
 	}
