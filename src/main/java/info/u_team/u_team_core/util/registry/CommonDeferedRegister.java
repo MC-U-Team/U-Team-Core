@@ -96,7 +96,7 @@ public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 	}
 	
 	private void createRegistry(RegistryEvent.NewRegistry event) {
-		this.type = this.registryFactory.get().create();
+		type = registryFactory.get().create();
 	}
 	
 	private void captureRegistry(RegistryEvent.NewRegistry event) {
