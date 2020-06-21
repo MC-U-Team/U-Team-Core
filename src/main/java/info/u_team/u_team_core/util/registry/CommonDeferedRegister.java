@@ -71,11 +71,12 @@ public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 	
 	public void register(IEventBus bus) {
 		bus.addListener(this::addEntries);
-		if (this.type == null) {
-			if (this.registryFactory != null)
+		if (type == null) {
+			if (registryFactory != null) {
 				bus.addListener(this::createRegistry);
-			else
+			} else {
 				bus.addListener(EventPriority.LOWEST, this::captureRegistry);
+			}
 		}
 	}
 	
@@ -84,12 +85,12 @@ public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 	}
 	
 	private void addEntries(RegistryEvent.Register<?> event) {
-		if (this.type != null && event.getGenericType() == this.type.getRegistrySuperType()) {
+		if (type != null && event.getGenericType() == type.getRegistrySuperType()) {
 			@SuppressWarnings("unchecked")
-			IForgeRegistry<T> reg = (IForgeRegistry<T>) event.getRegistry();
-			for (Entry<RegistryObject<T>, Supplier<? extends T>> e : entries.entrySet()) {
-				reg.register(e.getValue().get());
-				e.getKey().updateReference(reg);
+			final IForgeRegistry<T> registry = (IForgeRegistry<T>) event.getRegistry();
+			for (Entry<RegistryObject<T>, Supplier<? extends T>> entry : entries.entrySet()) {
+				registry.register(entry.getValue().get());
+				entry.getKey().updateReference(registry);
 			}
 		}
 	}
