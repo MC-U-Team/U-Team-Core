@@ -12,18 +12,12 @@ import net.minecraftforge.registries.*;
 
 public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 	
-	/**
-	 * Use for vanilla/forge registries. See example above.
-	 */
-	public static <B extends IForgeRegistryEntry<B>> CommonDeferedRegister<B> create(IForgeRegistry<B> reg, String modid) {
-		return new CommonDeferedRegister<B>(reg, modid);
-	}
-	
-	/**
-	 * Use for custom registries that are made during the NewRegistry event.
-	 */
 	public static <B extends IForgeRegistryEntry<B>> CommonDeferedRegister<B> create(Class<B> base, String modid) {
 		return new CommonDeferedRegister<B>(base, modid);
+	}
+	
+	public static <B extends IForgeRegistryEntry<B>> CommonDeferedRegister<B> create(IForgeRegistry<B> registry, String modid) {
+		return new CommonDeferedRegister<B>(registry, modid);
 	}
 	
 	private final Class<T> superType;
@@ -34,14 +28,14 @@ public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 	private IForgeRegistry<T> type;
 	private Supplier<RegistryBuilder<T>> registryFactory;
 	
+	protected CommonDeferedRegister(IForgeRegistry<T> registry, String modid) {
+		this(registry.getRegistrySuperType(), modid);
+		this.type = registry;
+	}
+	
 	protected CommonDeferedRegister(Class<T> base, String modid) {
 		this.superType = base;
 		this.modid = modid;
-	}
-	
-	protected CommonDeferedRegister(IForgeRegistry<T> reg, String modid) {
-		this(reg.getRegistrySuperType(), modid);
-		this.type = reg;
 	}
 	
 	/**
