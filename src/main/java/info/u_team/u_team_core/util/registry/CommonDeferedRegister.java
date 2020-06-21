@@ -38,14 +38,6 @@ public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 		this.modid = modid;
 	}
 	
-	/**
-	 * Adds a new supplier to the list of entries to be registered, and returns a RegistryObject that will be populated with
-	 * the created entry automatically.
-	 *
-	 * @param name The new entry's name, it will automatically have the modid prefixed.
-	 * @param sup A factory for the new entry, it should return a new instance every time it is called.
-	 * @return A RegistryObject that will be updated with when the entries in the registry change.
-	 */
 	@SuppressWarnings("unchecked")
 	public <I extends T> RegistryObject<I> register(final String name, final Supplier<? extends I> sup) {
 		Objects.requireNonNull(name);
@@ -67,14 +59,6 @@ public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 		return ret;
 	}
 	
-	/**
-	 * For custom registries only, fills the {@link #registryFactory} to be called later see {@link #register(IEventBus)}
-	 * Calls {@link RegistryBuilder#setName} and {@link RegistryBuilder#setType} automatically.
-	 *
-	 * @param name Path of the registry's {@link ResourceLocation}
-	 * @param sup Supplier of the RegistryBuilder that is called to fill {@link #type} during the NewRegistry event
-	 * @return A supplier of the {@link IForgeRegistry} created by the builder.
-	 */
 	public Supplier<IForgeRegistry<T>> makeRegistry(final String name, final Supplier<RegistryBuilder<T>> sup) {
 		if (this.superType == null)
 			throw new IllegalStateException("Cannot create a registry without specifying a base type");
@@ -85,12 +69,6 @@ public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 		return () -> this.type;
 	}
 	
-	/**
-	 * Adds our event handler to the specified event bus, this MUST be called in order for this class to function. See the
-	 * example usage.
-	 *
-	 * @param bus The Mod Specific event bus.
-	 */
 	public void register(IEventBus bus) {
 		bus.addListener(this::addEntries);
 		if (this.type == null) {
@@ -101,9 +79,6 @@ public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 		}
 	}
 	
-	/**
-	 * @return The unmodifiable view of registered entries. Useful for bulk operations on all values.
-	 */
 	public Collection<RegistryObject<T>> getEntries() {
 		return entriesView;
 	}
