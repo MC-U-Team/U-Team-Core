@@ -100,11 +100,13 @@ public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 	}
 	
 	private void captureRegistry(RegistryEvent.NewRegistry event) {
-		if (this.superType != null) {
-			this.type = RegistryManager.ACTIVE.getRegistry(this.superType);
-			if (this.type == null)
+		if (superType != null) {
+			type = RegistryManager.ACTIVE.getRegistry(this.superType);
+			if (type == null) {
 				throw new IllegalStateException("Unable to find registry for type " + this.superType.getName() + " for modid \"" + modid + "\" after NewRegistry event");
-		} else
+			}
+		} else {
 			throw new IllegalStateException("Unable to find registry for mod \"" + modid + "\" No lookup criteria specified.");
+		}
 	}
 }
