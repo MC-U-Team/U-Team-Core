@@ -45,7 +45,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		add("item.minecraft.splash_potion.effect.radiation", "Splash Potion of Radiation");
 		add("item.minecraft.lingering_potion.effect.radiation", "Lingering Potion of Radiation");
 		
-		add(TestBiomes.BASIC, "Basic");
+		add(TestBiomes.BASIC.get(), "Basic");
 	}
 	
 }

@@ -18,7 +18,7 @@ public class BasicDimension extends OverworldDimension {
 		final BiomeProviderType<SingleBiomeProviderSettings, SingleBiomeProvider> biomeprovidertype = BiomeProviderType.FIXED;
 		
 		final OverworldGenSettings overworldgensettings = chunkgenerator.createSettings();
-		final SingleBiomeProviderSettings overworldbiomeprovidersettings = biomeprovidertype.createSettings(world.getWorldInfo()).setBiome(TestBiomes.BASIC);
+		final SingleBiomeProviderSettings overworldbiomeprovidersettings = biomeprovidertype.createSettings(world.getWorldInfo()).setBiome(TestBiomes.BASIC.get());
 		return chunkgenerator.create(this.world, biomeprovidertype.create(overworldbiomeprovidersettings), overworldgensettings);
 	}
 	
