@@ -11,7 +11,7 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-
+// TODO rework (Complicated, cuz of items)
 @EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestBlocks {
 	
