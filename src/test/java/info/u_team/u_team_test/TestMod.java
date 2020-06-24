@@ -13,6 +13,10 @@ public class TestMod {
 	public TestMod() {
 		JarSignVerifier.checkSigned(MODID);
 		System.out.println("--------------------------------------- LOADING TEST MOD ---------------------------------------");
-		BusRegister.registerMod(TestBiomes::init);
+		register();
+	}
+	
+	private void register() {
+		BusRegister.registerMod(TestBiomes::register);
 	}
 }
