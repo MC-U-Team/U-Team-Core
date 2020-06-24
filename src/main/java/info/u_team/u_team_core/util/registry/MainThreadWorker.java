@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.util.registry;
 
-public class SyncedWorker {
+public class MainThreadWorker {
 	
 	@SuppressWarnings("deprecation")
 	public static void runOnMainThread(Runnable runnable) {
