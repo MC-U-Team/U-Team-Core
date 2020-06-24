@@ -15,8 +15,8 @@ public class TestPotions {
 	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTION_TYPES, TestMod.MODID);
 	
 	public static final RegistryObject<Potion> RADIATION = POTIONS.register("radiation", () -> new RadiationPotion(1200, 0));
-	public static final RegistryObject<Potion> RADIATION_LONG = POTIONS.register("radiation", () -> new RadiationPotion(2400, 1));
-	public static final RegistryObject<Potion> RADIATION_EXTREME = POTIONS.register("radiation", () -> new RadiationPotion(1200, 2));
+	public static final RegistryObject<Potion> RADIATION_LONG = POTIONS.register("radiation_long", () -> new RadiationPotion(2400, 1));
+	public static final RegistryObject<Potion> RADIATION_EXTREME = POTIONS.register("radiation_extrem", () -> new RadiationPotion(1200, 2));
 	
 	public static void register(IEventBus bus) {
 		POTIONS.register(bus);
