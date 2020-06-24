@@ -17,7 +17,7 @@ public class TestContainers {
 	
 	public static final RegistryObject<UContainerType<BasicTileEntityContainer>> BASIC = CONTAINER_TYPES.register("basic", () -> new UContainerType<>("basic", BasicTileEntityContainer::new));
 	
-	public static final ContainerType<BasicEnergyCreatorContainer> BASIC_ENERGY_CREATOR = new UContainerType<>("energy_creator", BasicEnergyCreatorContainer::new);
+	public static final RegistryObject<ContainerType<BasicEnergyCreatorContainer>> BASIC_ENERGY_CREATOR = CONTAINER_TYPES.register("energy_creator", () -> new UContainerType<>("energy_creator", BasicEnergyCreatorContainer::new));
 	
 	public static final ContainerType<BasicFluidInventoryContainer> BASIC_FLUID_INVENTORY = new UContainerType<>("fluid_inventory", BasicFluidInventoryContainer::new);
 	
