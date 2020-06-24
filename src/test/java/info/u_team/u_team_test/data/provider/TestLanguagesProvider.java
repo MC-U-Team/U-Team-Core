@@ -37,7 +37,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		
 		add(TestEnchantments.AUTO_SMELT, "Auto Smelt");
 		
-		add(TestEffects.RADIATION, "Radiation");
+		add(TestEffects.RADIATION.get(), "Radiation");
 		
 		add("death.attack.radiation", "%1$s dies of radiation");
 		
