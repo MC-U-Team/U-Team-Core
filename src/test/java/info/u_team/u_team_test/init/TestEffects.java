@@ -14,7 +14,7 @@ public class TestEffects {
 	
 	public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, TestMod.MODID);
 	
-	public static final RegistryObject<Effect> RADIATION = EFFECTS.register("radiation", () -> new RadiationEffect("radiation"));
+	public static final RegistryObject<Effect> RADIATION = EFFECTS.register("radiation", RadiationEffect::new);
 	
 	public static void register(IEventBus bus) {
 		EFFECTS.register(bus);
