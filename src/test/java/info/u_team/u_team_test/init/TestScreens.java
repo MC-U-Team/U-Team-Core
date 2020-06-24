@@ -18,7 +18,7 @@ public class TestScreens {
 		MainThreadWorker.run(() -> {
 			ScreenManager.registerFactory(TestContainers.BASIC.get(), BasicTileEntityScreen::new);
 			ScreenManager.registerFactory(TestContainers.BASIC_ENERGY_CREATOR.get(), BasicEnergyCreatorScreen::new);
-			ScreenManager.registerFactory(TestContainers.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
+			ScreenManager.registerFactory(TestContainers.BASIC_FLUID_INVENTORY.get(), BasicFluidInventoryScreen::new);
 		});
 	}
 	

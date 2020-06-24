@@ -10,12 +10,12 @@ public class BasicFluidInventoryContainer extends UTileEntityContainer<BasicFlui
 	
 	// Client
 	public BasicFluidInventoryContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
-		super(TestContainers.BASIC_FLUID_INVENTORY, id, playerInventory, buffer);
+		super(TestContainers.BASIC_FLUID_INVENTORY.get(), id, playerInventory, buffer);
 	}
 	
 	// Server
 	public BasicFluidInventoryContainer(int id, PlayerInventory playerInventory, BasicFluidInventoryTileEntity tileEntity) {
-		super(TestContainers.BASIC_FLUID_INVENTORY, id, playerInventory, tileEntity);
+		super(TestContainers.BASIC_FLUID_INVENTORY.get(), id, playerInventory, tileEntity);
 	}
 	
 	@Override
