@@ -9,11 +9,11 @@ import net.minecraft.network.PacketBuffer;
 public class BasicEnergyCreatorContainer extends UTileEntityContainer<BasicEnergyCreatorTileEntity> {
 	
 	public BasicEnergyCreatorContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
-		super(TestContainers.BASIC_ENERGY_CREATOR, id, playerInventory, buffer);
+		super(TestContainers.BASIC_ENERGY_CREATOR.get(), id, playerInventory, buffer);
 	}
 	
 	public BasicEnergyCreatorContainer(int id, PlayerInventory playerInventory, BasicEnergyCreatorTileEntity tileEntity) {
-		super(TestContainers.BASIC_ENERGY_CREATOR, id, playerInventory, tileEntity);
+		super(TestContainers.BASIC_ENERGY_CREATOR.get(), id, playerInventory, tileEntity);
 	}
 	
 	@Override
