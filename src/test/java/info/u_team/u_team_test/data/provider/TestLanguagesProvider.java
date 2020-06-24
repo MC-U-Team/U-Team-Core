@@ -32,6 +32,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		add(TestBlocks.BASIC, "Basic Block");
 		add(TestBlocks.BASIC_TILEENTITY, "Tile Entity Block");
 		add(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
+		add(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
 		
 		add(TestEntityTypes.BETTER_ENDERPEARL, "Better Enderpearl");
 		
