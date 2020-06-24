@@ -15,12 +15,12 @@ public class BasicTileEntityContainer extends UTileEntityContainer<BasicTileEnti
 	
 	// Client
 	public BasicTileEntityContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
-		super(TestContainers.BASIC, id, playerInventory, buffer);
+		super(TestContainers.BASIC.get(), id, playerInventory, buffer);
 	}
 	
 	// Server
 	public BasicTileEntityContainer(int id, PlayerInventory playerInventory, BasicTileEntityTileEntity tileEntity) {
-		super(TestContainers.BASIC, id, playerInventory, tileEntity);
+		super(TestContainers.BASIC.get(), id, playerInventory, tileEntity);
 	}
 	
 	@Override
