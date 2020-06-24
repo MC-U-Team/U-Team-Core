@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.*;
 
-@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestPotions {
 	
 	public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(ForgeRegistries.POTION_TYPES, TestMod.MODID);
