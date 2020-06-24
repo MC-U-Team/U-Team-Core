@@ -10,10 +10,10 @@ import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.*;
 
-public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
+public class CommonDeferredRegister<T extends IForgeRegistryEntry<T>> {
 	
-	public static <B extends IForgeRegistryEntry<B>> CommonDeferedRegister<B> create(IForgeRegistry<B> registry, String modid) {
-		return new CommonDeferedRegister<B>(registry, modid);
+	public static <B extends IForgeRegistryEntry<B>> CommonDeferredRegister<B> create(IForgeRegistry<B> registry, String modid) {
+		return new CommonDeferredRegister<B>(registry, modid);
 	}
 	
 	private final IForgeRegistry<T> type;
@@ -21,7 +21,7 @@ public class CommonDeferedRegister<T extends IForgeRegistryEntry<T>> {
 	private final Map<RegistryObject<T>, Supplier<? extends T>> entries = new LinkedHashMap<>();
 	private final Set<RegistryObject<T>> entriesView = Collections.unmodifiableSet(entries.keySet());
 	
-	public CommonDeferedRegister(IForgeRegistry<T> reg, String modid) {
+	public CommonDeferredRegister(IForgeRegistry<T> reg, String modid) {
 		this.type = reg;
 		this.modid = modid;
 	}
