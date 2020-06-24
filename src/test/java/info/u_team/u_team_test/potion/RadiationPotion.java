@@ -1,12 +1,11 @@
 package info.u_team.u_team_test.potion;
 
-import info.u_team.u_team_core.potion.UPotion;
 import info.u_team.u_team_test.init.TestEffects;
-import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.*;
 
-public class RadiationPotion extends UPotion {
+public class RadiationPotion extends Potion {
 	
-	public RadiationPotion(String name, int duration, int amplifier) {
-		super(name, "radiation", new EffectInstance(TestEffects.RADIATION.get(), duration, amplifier));
+	public RadiationPotion(int duration, int amplifier) {
+		super("radiation", new EffectInstance(TestEffects.RADIATION.get(), duration, amplifier));
 	}
 }
