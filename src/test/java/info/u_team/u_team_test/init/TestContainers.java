@@ -19,7 +19,7 @@ public class TestContainers {
 	
 	public static final RegistryObject<ContainerType<BasicEnergyCreatorContainer>> BASIC_ENERGY_CREATOR = CONTAINER_TYPES.register("energy_creator", () -> new UContainerType<>("energy_creator", BasicEnergyCreatorContainer::new));
 	
-	public static final ContainerType<BasicFluidInventoryContainer> BASIC_FLUID_INVENTORY = new UContainerType<>("fluid_inventory", BasicFluidInventoryContainer::new);
+	public static final RegistryObject<ContainerType<BasicFluidInventoryContainer>> BASIC_FLUID_INVENTORY = CONTAINER_TYPES.register("fluid_inventory", () -> new UContainerType<>("fluid_inventory", BasicFluidInventoryContainer::new));
 	
 	public static void register(IEventBus bus) {
 		CONTAINER_TYPES.register(bus);
