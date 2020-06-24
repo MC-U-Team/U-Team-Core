@@ -15,7 +15,7 @@ public class TestScreens {
 	
 	@SubscribeEvent
 	public static void register(FMLClientSetupEvent event) {
-		MainThreadWorker.runOnMainThread(() -> {
+		MainThreadWorker.run(() -> {
 			ScreenManager.registerFactory(TestContainers.BASIC, BasicTileEntityScreen::new);
 			ScreenManager.registerFactory(TestContainers.BASIC_ENERGY_CREATOR, BasicEnergyCreatorScreen::new);
 			ScreenManager.registerFactory(TestContainers.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
