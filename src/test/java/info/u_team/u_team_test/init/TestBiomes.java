@@ -9,14 +9,14 @@ import net.minecraftforge.registries.*;
 
 public class TestBiomes {
 	
-	public static final DeferredRegister<Biome> BLOCKS = DeferredRegister.create(ForgeRegistries.BIOMES, TestMod.MODID);
+	public static final DeferredRegister<Biome> BIOMES = DeferredRegister.create(ForgeRegistries.BIOMES, TestMod.MODID);
 	
-	public static final RegistryObject<BasicBiome> BASIC = BLOCKS.register("basic", () -> {
+	public static final RegistryObject<BasicBiome> BASIC = BIOMES.register("basic", () -> {
 		System.out.println("CREATE BIOME");
 		return new BasicBiome("basic");
 	});
 	
 	public static void register(IEventBus bus) {
-		BLOCKS.register(bus);
+		BIOMES.register(bus);
 	}
 }
