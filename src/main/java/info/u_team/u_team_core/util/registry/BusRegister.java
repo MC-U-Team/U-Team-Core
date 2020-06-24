@@ -5,7 +5,7 @@ import java.util.function.Consumer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-public class BusRegistry {
+public class BusRegister {
 	
 	public static void registerMod(Consumer<IEventBus> consumer) {
 		register(Bus.MOD, consumer);
