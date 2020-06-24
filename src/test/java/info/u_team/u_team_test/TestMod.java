@@ -20,5 +20,7 @@ public class TestMod {
 		BusRegister.registerMod(TestBiomes::register);
 		BusRegister.registerMod(TestContainers::register);
 		BusRegister.registerMod(TestEffects::register);
+		
+		BusRegister.registerMod(TestPotions::register);
 	}
 }
