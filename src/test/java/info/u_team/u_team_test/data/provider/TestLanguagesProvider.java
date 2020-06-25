@@ -36,7 +36,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		
 		add(TestEntityTypes.BETTER_ENDERPEARL, "Better Enderpearl");
 		
-		add(TestEnchantments.AUTO_SMELT, "Auto Smelt");
+		add(TestEnchantments.AUTO_SMELT.get(), "Auto Smelt");
 		
 		add(TestEffects.RADIATION.get(), "Radiation");
 		
