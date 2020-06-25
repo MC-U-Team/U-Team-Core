@@ -12,11 +12,11 @@ public class TestBlocks {
 	
 	public static final BlockRegistryObject<BasicBlock, BlockItem> BASIC = BLOCKS.register("basicblock", () -> new BasicBlock("basicblock"));
 	
-	public static final BasicTileEntityBlock BASIC_TILEENTITY = new BasicTileEntityBlock("tileentity");
+	public static final BlockRegistryObject<BasicTileEntityBlock, BlockItem> BASIC_TILEENTITY = BLOCKS.register("tileentity", () -> new BasicTileEntityBlock("tileentity"));
 	
-	public static final BasicEnergyCreatorBlock BASIC_ENERGY_CREATOR = new BasicEnergyCreatorBlock("energy_creator");
+	public static final BlockRegistryObject<BasicEnergyCreatorBlock, BlockItem> BASIC_ENERGY_CREATOR = BLOCKS.register("energy_creator", () -> new BasicEnergyCreatorBlock("energy_creator"));
 	
-	public static final BasicFluidInventoryBlock BASIC_FLUID_INVENTORY = new BasicFluidInventoryBlock("fluid_inventory");
+	public static final BlockRegistryObject<BasicFluidInventoryBlock, BlockItem> BASIC_FLUID_INVENTORY = BLOCKS.register("fluid_inventory", () -> new BasicFluidInventoryBlock("fluid_inventory"));
 	
 	public static void register(IEventBus bus) {
 		BLOCKS.register(bus);
