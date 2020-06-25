@@ -1,15 +1,16 @@
 package info.u_team.u_team_test.init;
 
-import info.u_team.u_team_core.util.registry.BlockDeferredRegister;
+import info.u_team.u_team_core.util.registry.*;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.block.*;
+import net.minecraft.item.BlockItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class TestBlocks {
 	
 	public static final BlockDeferredRegister BLOCKS = BlockDeferredRegister.create(TestMod.MODID);
 	
-	public static final BasicBlock BASIC = new BasicBlock("basicblock");
+	public static final BlockRegistryObject<BasicBlock, BlockItem> BASIC = BLOCKS.register("basicblock", () -> new BasicBlock("basicblock"));
 	
 	public static final BasicTileEntityBlock BASIC_TILEENTITY = new BasicTileEntityBlock("tileentity");
 	
