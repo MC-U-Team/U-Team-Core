@@ -24,6 +24,7 @@ public class TestMod {
 		BusRegister.registerMod(TestEnchantments::register);
 		BusRegister.registerMod(TestEntityTypes::register);
 		BusRegister.registerMod(TestGlobalLootModifiers::register);
+		BusRegister.registerMod(TestItems::register);
 		BusRegister.registerMod(TestModDimensions::register);
 		BusRegister.registerMod(TestPotions::register);
 		BusRegister.registerMod(TestSounds::register);
