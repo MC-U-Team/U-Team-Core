@@ -23,7 +23,7 @@ public class TestMod {
 		BusRegister.registerMod(TestEnchantments::register);
 		BusRegister.registerMod(TestEntityTypes::register);
 		BusRegister.registerMod(TestGlobalLootModifiers::register);
-		
+		BusRegister.registerMod(TestModDimensions::register);
 		BusRegister.registerMod(TestPotions::register);
 	}
 }
