@@ -1,40 +1,34 @@
 package info.u_team.u_team_core.item.armor;
 
-import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
-import net.minecraft.item.Item;
+import net.minecraftforge.fml.RegistryObject;
 
-public class ArmorSet implements IUArrayRegistryType<Item> {
+public class ArmorSet {
 	
-	private final UHelmetItem helmet;
-	private final UChestplateItem chestplate;
-	private final ULeggingsItem leggings;
-	private final UBootsItem boots;
+	private final RegistryObject<UHelmetItem> helmet;
+	private final RegistryObject<UChestplateItem> chestplate;
+	private final RegistryObject<ULeggingsItem> leggings;
+	private final RegistryObject<UBootsItem> boots;
 	
-	public ArmorSet(UHelmetItem helmet, UChestplateItem chestplate, ULeggingsItem leggings, UBootsItem boots) {
+	public ArmorSet(RegistryObject<UHelmetItem> helmet, RegistryObject<UChestplateItem> chestplate, RegistryObject<ULeggingsItem> leggings, RegistryObject<UBootsItem> boots) {
 		this.helmet = helmet;
 		this.chestplate = chestplate;
 		this.leggings = leggings;
 		this.boots = boots;
 	}
 	
-	@Override
-	public Item[] getArray() {
-		return new Item[] { helmet, chestplate, leggings, boots };
-	}
-	
-	public UHelmetItem getHelmet() {
+	public RegistryObject<UHelmetItem> getHelmet() {
 		return helmet;
 	}
 	
-	public UChestplateItem getChestplate() {
+	public RegistryObject<UChestplateItem> getChestplate() {
 		return chestplate;
 	}
 	
-	public ULeggingsItem getLeggings() {
+	public RegistryObject<ULeggingsItem> getLeggings() {
 		return leggings;
 	}
 	
-	public UBootsItem getBoots() {
+	public RegistryObject<UBootsItem> getBoots() {
 		return boots;
 	}
 }
