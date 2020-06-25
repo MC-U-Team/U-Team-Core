@@ -7,6 +7,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
  * Implement this interface in {@link IForgeRegistryEntry} classes. Then the {@link BaseRegistryUtil} can retrieve the
  * name and set the registry name.
  */
+@Deprecated
 public interface IURegistryType {
 	
 	/**

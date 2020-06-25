@@ -5,6 +5,7 @@ import info.u_team.u_team_core.util.registry.BaseRegistryUtil;
 /**
  * Implement this in your class which holds entries so the {@link BaseRegistryUtil} can register them all.
  */
+@Deprecated
 public interface IUArrayRegistryType<T> {
 	
 	/**

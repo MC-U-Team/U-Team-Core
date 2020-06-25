@@ -7,6 +7,7 @@ import net.minecraft.item.BlockItem;
  * 
  * @see IURegistryType
  */
+@Deprecated
 public interface IUBlockRegistryType extends IURegistryType, IBlockItemProvider {
 	
 	/**
