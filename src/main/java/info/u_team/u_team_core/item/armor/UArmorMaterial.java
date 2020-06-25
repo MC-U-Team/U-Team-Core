@@ -53,7 +53,7 @@ public class UArmorMaterial implements IArmorMaterial {
 	
 	@Override
 	public float getToughness() {
-		return this.toughness;
+		return toughness;
 	}
 	
 	@Override
