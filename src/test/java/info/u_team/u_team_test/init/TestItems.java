@@ -7,17 +7,18 @@ import info.u_team.u_team_test.item.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.Properties;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.*;
 
 public class TestItems {
 	
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TestMod.MODID);
 	
-	public static final Item BASIC = new BasicItem("basicitem");
+	public static final RegistryObject<Item> BASIC = ITEMS.register("basicitem", () -> new BasicItem("basicitem"));
 	
-	public static final Item BETTER_ENDERPEARL = new BetterEnderPearlItem("better_enderpearl");
+	public static final RegistryObject<Item> BETTER_ENDERPEARL = ITEMS.register("better_enderpearl", () -> new BetterEnderPearlItem("better_enderpearl"));
 	
-	public static final Item BASIC_FOOD = new BasicFoodItem("basicfood");
+	public static final RegistryObject<Item> BASIC_FOOD = ITEMS.register("basicfood", () -> new BasicFoodItem("basicfood"));
 	
 	public static final ToolSet BASIC_TOOL = ToolSetCreator.create("basictool", TestItemGroups.GROUP, new Properties(), TestToolMaterial.BASIC);
 	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create("basicarmor", TestItemGroups.GROUP, new Properties(), TestArmorMaterial.BASIC);
