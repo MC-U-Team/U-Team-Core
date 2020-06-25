@@ -1,11 +1,9 @@
 package info.u_team.u_team_test.biome;
 
-import net.minecraft.world.biome.Biome;
-
 import info.u_team.u_team_test.init.TestBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
-import net.minecraft.world.biome.DefaultBiomeFeatures;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.surfacebuilders.*;
