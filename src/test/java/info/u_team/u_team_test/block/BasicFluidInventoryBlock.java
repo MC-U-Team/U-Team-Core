@@ -11,8 +11,8 @@ import net.minecraft.world.World;
 
 public class BasicFluidInventoryBlock extends UTileEntityBlock {
 	
-	public BasicFluidInventoryBlock(String name) {
-		super(name, TestItemGroups.GROUP, Properties.create(Material.IRON).hardnessAndResistance(1), () -> TestTileEntityTypes.BASIC_FLUID_INVENTORY.get());
+	public BasicFluidInventoryBlock() {
+		super(TestItemGroups.GROUP, Properties.create(Material.IRON).hardnessAndResistance(1), () -> TestTileEntityTypes.BASIC_FLUID_INVENTORY.get());
 	}
 	
 	@Override
