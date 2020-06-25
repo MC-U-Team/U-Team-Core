@@ -12,9 +12,9 @@ import net.minecraftforge.registries.*;
 
 public class BlockDeferredRegister {
 	
-	public final DeferredRegister<Block> blocks;
+	private final DeferredRegister<Block> blocks;
 	
-	public BlockDeferredRegister(String modid) {
+	protected BlockDeferredRegister(String modid) {
 		blocks = DeferredRegister.create(ForgeRegistries.BLOCKS, modid);
 	}
 	
