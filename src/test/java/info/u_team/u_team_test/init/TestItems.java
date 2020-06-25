@@ -20,8 +20,8 @@ public class TestItems {
 	
 	public static final RegistryObject<Item> BASIC_FOOD = ITEMS.register("basicfood", () -> new BasicFoodItem("basicfood"));
 	
-	public static final ToolSet BASIC_TOOL = ToolSetCreator.create("basictool", TestItemGroups.GROUP, new Properties(), TestToolMaterial.BASIC);
-	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create("basicarmor", TestItemGroups.GROUP, new Properties(), TestArmorMaterial.BASIC);
+	public static final ToolSet BASIC_TOOL = ToolSetCreator.create(ITEMS, "basictool", TestItemGroups.GROUP, new Properties(), TestToolMaterial.BASIC);
+	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create(ITEMS, "basicarmor", TestItemGroups.GROUP, new Properties(), TestArmorMaterial.BASIC);
 	
 	public static void register(IEventBus bus) {
 		ITEMS.register(bus);
