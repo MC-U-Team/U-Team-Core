@@ -18,16 +18,16 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		add(TestItems.BETTER_ENDERPEARL.get(), "Better Enderpearl");
 		add(TestItems.BASIC_FOOD.get(), "Basic Food");
 		
-		add(TestItems.BASIC_ARMOR.getHelmet(), "Basic Helmet");
-		add(TestItems.BASIC_ARMOR.getChestplate(), "Basic Chestplate");
-		add(TestItems.BASIC_ARMOR.getLeggings(), "Basic Leggings");
-		add(TestItems.BASIC_ARMOR.getBoots(), "Basic Boots");
+		add(TestItems.BASIC_ARMOR.getHelmet().get(), "Basic Helmet");
+		add(TestItems.BASIC_ARMOR.getChestplate().get(), "Basic Chestplate");
+		add(TestItems.BASIC_ARMOR.getLeggings().get(), "Basic Leggings");
+		add(TestItems.BASIC_ARMOR.getBoots().get(), "Basic Boots");
 		
-		add(TestItems.BASIC_TOOL.getAxe(), "Basic Axe");
-		add(TestItems.BASIC_TOOL.getHoe(), "Basic Hoe");
-		add(TestItems.BASIC_TOOL.getPickaxe(), "Basic Pickaxe");
-		add(TestItems.BASIC_TOOL.getShovel(), "Basic Shovel");
-		add(TestItems.BASIC_TOOL.getSword(), "Basic Sword");
+		add(TestItems.BASIC_TOOL.getAxe().get(), "Basic Axe");
+		add(TestItems.BASIC_TOOL.getHoe().get(), "Basic Hoe");
+		add(TestItems.BASIC_TOOL.getPickaxe().get(), "Basic Pickaxe");
+		add(TestItems.BASIC_TOOL.getShovel().get(), "Basic Shovel");
+		add(TestItems.BASIC_TOOL.getSword().get(), "Basic Sword");
 		
 		add(TestBlocks.BASIC.get(), "Basic Block");
 		add(TestBlocks.BASIC_TILEENTITY.get(), "Tile Entity Block");
