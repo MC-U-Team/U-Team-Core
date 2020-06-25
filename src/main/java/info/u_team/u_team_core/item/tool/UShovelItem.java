@@ -2,26 +2,17 @@ package info.u_team.u_team_core.item.tool;
 
 import info.u_team.u_team_core.api.IToolMaterial;
 import info.u_team.u_team_core.api.IToolMaterial.Tools;
-import info.u_team.u_team_core.api.registry.IURegistryType;
 import net.minecraft.item.*;
 import net.minecraftforge.common.ToolType;
 
-public class UShovelItem extends ShovelItem implements IURegistryType {
+public class UShovelItem extends ShovelItem {
 	
-	protected final String name;
-	
-	public UShovelItem(String name, Properties properties, IToolMaterial material) {
-		this(name, null, properties, material);
+	public UShovelItem(Properties properties, IToolMaterial material) {
+		this(null, properties, material);
 	}
 	
-	public UShovelItem(String name, ItemGroup group, Properties properties, IToolMaterial material) {
+	public UShovelItem(ItemGroup group, Properties properties, IToolMaterial material) {
 		super(material, material.getAdditionalDamage(Tools.SHOVEL), material.getAttackSpeed(Tools.SHOVEL), applyToolType(group == null ? properties : properties.group(group), material));
-		this.name = name;
-	}
-	
-	@Override
-	public String getEntryName() {
-		return name;
 	}
 	
 	private static Properties applyToolType(Properties properties, IToolMaterial material) {
