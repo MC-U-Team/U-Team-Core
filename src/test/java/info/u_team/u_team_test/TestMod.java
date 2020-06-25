@@ -21,6 +21,7 @@ public class TestMod {
 		BusRegister.registerMod(TestContainers::register);
 		BusRegister.registerMod(TestEffects::register);
 		BusRegister.registerMod(TestEnchantments::register);
+		BusRegister.registerMod(TestEntityTypes::register);
 		
 		BusRegister.registerMod(TestPotions::register);
 	}
