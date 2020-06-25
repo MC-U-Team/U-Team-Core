@@ -11,7 +11,7 @@ public class TestEnchantments {
 	
 	public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, TestMod.MODID);
 	
-	public static final RegistryObject<Enchantment> AUTO_SMELT = ENCHANTMENTS.register("auto_smelt", () -> new AutoSmeltEnchantment("auto_smelt"));
+	public static final RegistryObject<Enchantment> AUTO_SMELT = ENCHANTMENTS.register("auto_smelt", AutoSmeltEnchantment::new);
 	
 	public static void register(IEventBus bus) {
 		ENCHANTMENTS.register(bus);
