@@ -23,9 +23,10 @@ public class UCoreRecipeSerializers {
 	}
 	
 	// @SubscribeEvent
-//	public static void register(Register<IRecipeSerializer<?>> event) {
-//		BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(UCoreMain.MODID, IRecipeSerializer.class).forEach(event.getRegistry()::register);
-//		CraftingHelper.register(new ResourceLocation(UCoreMain.MODID, "item"), ItemIngredient.Serializer.INSTANCE);
-//	}
+	// public static void register(Register<IRecipeSerializer<?>> event) {
+	// BaseRegistryUtil.getAllGenericRegistryEntriesAndApplyNames(UCoreMain.MODID,
+	// IRecipeSerializer.class).forEach(event.getRegistry()::register);
+	// CraftingHelper.register(new ResourceLocation(UCoreMain.MODID, "item"), ItemIngredient.Serializer.INSTANCE);
+	// }
 	
 }
