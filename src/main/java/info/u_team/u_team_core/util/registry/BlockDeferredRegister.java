@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.*;
 
@@ -19,6 +20,11 @@ public class BlockDeferredRegister {
 	
 	public <I extends Block> RegistryObject<I> registerCommon(String name, Supplier<? extends I> supplier) {
 		return blocks.register(name, supplier);
+	}
+	
+	public void register(IEventBus bus) {
+		blocks.register(bus);
+		items.register(bus);
 	}
 	
 }
