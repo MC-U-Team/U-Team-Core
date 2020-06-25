@@ -13,15 +13,15 @@ public class UArmorMaterial implements IArmorMaterial {
 	private final int[] durability;
 	private final int[] armorPoints;
 	private final int enchantability;
-	private final SoundEvent soundevent;
+	private final LazyValue<SoundEvent> soundevent;
 	private final float toughness;
 	private final LazyValue<Ingredient> repair;
 	
-	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, SoundEvent soundevent, float toughness, Supplier<Ingredient> ingredient) {
+	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, Supplier<SoundEvent> soundevent, float toughness, Supplier<Ingredient> ingredient) {
 		this.durability = durability;
 		this.armorPoints = armorPoints;
 		this.enchantability = enchantability;
-		this.soundevent = soundevent;
+		this.soundevent = new LazyValue<>(soundevent);
 		this.toughness = toughness;
 		this.repair = new LazyValue<>(ingredient);
 	}
@@ -43,7 +43,7 @@ public class UArmorMaterial implements IArmorMaterial {
 	
 	@Override
 	public SoundEvent getSoundEvent() {
-		return soundevent;
+		return soundevent.getValue();
 	}
 	
 	@Override
