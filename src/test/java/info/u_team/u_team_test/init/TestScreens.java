@@ -21,5 +21,4 @@ public class TestScreens {
 			ScreenManager.registerFactory(TestContainers.BASIC_FLUID_INVENTORY.get(), BasicFluidInventoryScreen::new);
 		});
 	}
-	
 }
