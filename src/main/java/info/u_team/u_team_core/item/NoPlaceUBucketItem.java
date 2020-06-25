@@ -10,12 +10,12 @@ import net.minecraft.world.World;
 
 public class NoPlaceUBucketItem extends UBucketItem {
 	
-	public NoPlaceUBucketItem(String name, ItemGroup group, Properties properties, Supplier<? extends Fluid> fluid) {
-		super(name, group, properties, fluid);
+	public NoPlaceUBucketItem(ItemGroup group, Properties properties, Supplier<? extends Fluid> fluid) {
+		super(group, properties, fluid);
 	}
 	
-	public NoPlaceUBucketItem(String name, Properties properties, Supplier<? extends Fluid> fluid) {
-		super(name, properties, fluid);
+	public NoPlaceUBucketItem(Properties properties, Supplier<? extends Fluid> fluid) {
+		super(properties, fluid);
 	}
 	
 	@Override
