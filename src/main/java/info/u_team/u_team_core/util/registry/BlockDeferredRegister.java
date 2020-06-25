@@ -13,11 +13,9 @@ import net.minecraftforge.registries.*;
 public class BlockDeferredRegister {
 	
 	public final DeferredRegister<Block> blocks;
-	public final DeferredRegister<Item> items;
 	
 	public BlockDeferredRegister(String modid) {
 		blocks = DeferredRegister.create(ForgeRegistries.BLOCKS, modid);
-		items = DeferredRegister.create(ForgeRegistries.ITEMS, modid);
 	}
 	
 	public <B extends Block & IUBlockRegistryType, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
@@ -29,7 +27,6 @@ public class BlockDeferredRegister {
 	
 	public void register(IEventBus bus) {
 		blocks.register(bus);
-		items.register(bus);
 	}
 	
 }
