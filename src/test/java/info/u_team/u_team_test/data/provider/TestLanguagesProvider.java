@@ -30,9 +30,9 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		add(TestItems.BASIC_TOOL.getSword(), "Basic Sword");
 		
 		add(TestBlocks.BASIC.get(), "Basic Block");
-		add(TestBlocks.BASIC_TILEENTITY, "Tile Entity Block");
-		add(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
-		add(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
+		add(TestBlocks.BASIC_TILEENTITY.get(), "Tile Entity Block");
+		add(TestBlocks.BASIC_ENERGY_CREATOR.get(), "Energy Creator");
+		add(TestBlocks.BASIC_FLUID_INVENTORY.get(), "Fluid Inventory");
 		
 		add(TestEntityTypes.BETTER_ENDERPEARL.get(), "Better Enderpearl");
 		

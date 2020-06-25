@@ -12,8 +12,8 @@ public class TestBlockStatesProvider extends CommonBlockStatesProvider {
 	@Override
 	protected void registerStatesAndModels() {
 		simpleBlock(TestBlocks.BASIC.get());
-		facingBlock(TestBlocks.BASIC_TILEENTITY, cubeFacing(TestBlocks.BASIC_TILEENTITY.getRegistryName().getPath(), modLoc("block/tileentity_front"), modLoc("block/tileentity")));
-		simpleBlock(TestBlocks.BASIC_ENERGY_CREATOR);
-		simpleBlock(TestBlocks.BASIC_FLUID_INVENTORY);
+		facingBlock(TestBlocks.BASIC_TILEENTITY.get(), cubeFacing(TestBlocks.BASIC_TILEENTITY.get().getRegistryName().getPath(), modLoc("block/tileentity_front"), modLoc("block/tileentity")));
+		simpleBlock(TestBlocks.BASIC_ENERGY_CREATOR.get());
+		simpleBlock(TestBlocks.BASIC_FLUID_INVENTORY.get());
 	}
 }
