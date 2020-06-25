@@ -1,10 +1,11 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.function.Consumer;
+import java.util.function.*;
 
 import org.apache.logging.log4j.*;
+
+import com.google.common.collect.Streams;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.*;
@@ -12,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.*;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
+import net.minecraftforge.fml.RegistryObject;
 
 public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	
@@ -69,12 +71,12 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	}
 	
 	// Utility methods
-	protected void iterateItems(Iterator<? extends Item> iterator, Consumer<IItemProvider> item) {
-		iterator.forEachRemaining(item);
+	protected void iterateItems(Iterable<? extends Supplier<? extends Item>> iterable, Consumer<IItemProvider> item) {
+		Streams.stream(iterable).map(Supplier::get).forEach(item);
 	}
 	
-	protected void iterateBlocks(Iterator<? extends Block> iterator, Consumer<IItemProvider> item) {
-		iterator.forEachRemaining(item);
+	protected void iterateBlocks(Iterable<? extends RegistryObject<? extends Block>> iterable, Consumer<IItemProvider> item) {
+		Streams.stream(iterable).map(Supplier::get).forEach(item);
 	}
 	
 	protected String getPath(IItemProvider provider) {
