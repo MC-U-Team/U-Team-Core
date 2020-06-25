@@ -3,10 +3,10 @@ package info.u_team.u_team_core.util.registry;
 import java.util.function.Supplier;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
+import net.minecraft.item.BlockItem;
 import net.minecraftforge.fml.RegistryObject;
 
-public class BlockRegistryObject<B extends Block, I extends Item> implements Supplier<B> {
+public class BlockRegistryObject<B extends Block, I extends BlockItem> implements Supplier<B> {
 	
 	private final RegistryObject<B> block;
 	private final RegistryObject<I> item;
