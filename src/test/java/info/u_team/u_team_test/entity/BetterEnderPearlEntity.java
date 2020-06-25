@@ -127,7 +127,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	@Override
 	protected Item getDefaultItem() {
-		return TestItems.BETTER_ENDERPEARL;
+		return TestItems.BETTER_ENDERPEARL.get();
 	}
 	
 	@Override
