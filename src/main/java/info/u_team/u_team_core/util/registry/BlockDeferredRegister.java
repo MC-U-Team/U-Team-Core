@@ -4,13 +4,17 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.registry.IUBlockRegistryType;
 import net.minecraft.block.Block;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.*;
 
 public class BlockDeferredRegister {
+	
+	public static BlockDeferredRegister create(String modid) {
+		return new BlockDeferredRegister(modid);
+	}
 	
 	private final DeferredRegister<Block> blocks;
 	
