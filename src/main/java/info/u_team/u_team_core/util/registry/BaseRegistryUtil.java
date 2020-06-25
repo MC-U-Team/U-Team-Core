@@ -22,6 +22,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
  * 
  * @author HyCraftHD
  */
+@Deprecated
 public class BaseRegistryUtil {
 	
 	/**
