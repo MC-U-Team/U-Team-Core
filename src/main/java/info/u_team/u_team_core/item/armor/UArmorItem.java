@@ -6,15 +6,15 @@ import net.minecraft.item.*;
 
 public class UArmorItem extends ArmorItem {
 	
-	protected final String name;
+	protected final String textureName;
 	
-	public UArmorItem(String name, Properties properties, IArmorMaterial material, EquipmentSlotType slot) {
-		this(name, null, properties, material, slot);
+	public UArmorItem(String textureName, Properties properties, IArmorMaterial material, EquipmentSlotType slot) {
+		this(textureName, null, properties, material, slot);
 	}
 	
-	public UArmorItem(String name, ItemGroup group, Properties properties, IArmorMaterial material, EquipmentSlotType slot) {
+	public UArmorItem(String textureName, ItemGroup group, Properties properties, IArmorMaterial material, EquipmentSlotType slot) {
 		super(material, slot, group == null ? properties : properties.group(group));
-		this.name = name;
+		this.textureName = textureName;
 	}
 	
 	@Override
@@ -22,7 +22,7 @@ public class UArmorItem extends ArmorItem {
 		if (!material.getName().equals("invalid")) {
 			return null;
 		}
-		return String.format("%s:textures/models/armor/%s_layer_%d%s.png", getRegistryName().getNamespace(), name, (slot == EquipmentSlotType.LEGS ? 2 : 1), type == null ? "" : String.format("_%s", type));
+		return String.format("%s:textures/models/armor/%s_layer_%d%s.png", getRegistryName().getNamespace(), textureName, (slot == EquipmentSlotType.LEGS ? 2 : 1), type == null ? "" : String.format("_%s", type));
 	}
 	
 	protected String getTypeString(EquipmentSlotType slot) {
