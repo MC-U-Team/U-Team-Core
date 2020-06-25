@@ -18,7 +18,7 @@ public class BasicTileEntityBlock extends UTileEntityBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	
 	public BasicTileEntityBlock(String name) {
-		super(name, TestItemGroups.GROUP, Properties.create(Material.ROCK).hardnessAndResistance(2F).sound(SoundType.GROUND).slipperiness(0.8F).lightValue(1), () -> TestTileEntityTypes.BASIC);
+		super(name, TestItemGroups.GROUP, Properties.create(Material.ROCK).hardnessAndResistance(2F).sound(SoundType.GROUND).slipperiness(0.8F).lightValue(1), () -> TestTileEntityTypes.BASIC.get());
 		setDefaultState(getDefaultState().with(FACING, Direction.NORTH));
 	}
 	

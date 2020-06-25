@@ -1,5 +1,6 @@
 package info.u_team.u_team_test.block;
 
+
 import info.u_team.u_team_core.block.UTileEntityBlock;
 import info.u_team.u_team_test.init.*;
 import net.minecraft.block.BlockState;
@@ -12,7 +13,7 @@ import net.minecraft.world.World;
 public class BasicEnergyCreatorBlock extends UTileEntityBlock {
 	
 	public BasicEnergyCreatorBlock(String name) {
-		super(name, TestItemGroups.GROUP, Properties.create(Material.IRON).hardnessAndResistance(2), () -> TestTileEntityTypes.BASIC_ENERGY_CREATOR);
+		super(name, TestItemGroups.GROUP, Properties.create(Material.IRON).hardnessAndResistance(2), () -> TestTileEntityTypes.BASIC_ENERGY_CREATOR.get());
 	}
 	
 	@Override
