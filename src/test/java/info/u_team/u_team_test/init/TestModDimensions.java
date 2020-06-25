@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.*;
 
-@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestModDimensions {
 	
 	public static final DeferredRegister<ModDimension> MOD_DIMENSIONS = DeferredRegister.create(ForgeRegistries.MOD_DIMENSIONS, TestMod.MODID);
