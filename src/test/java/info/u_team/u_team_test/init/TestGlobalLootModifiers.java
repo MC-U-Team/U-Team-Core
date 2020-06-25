@@ -21,10 +21,5 @@ public class TestGlobalLootModifiers {
 	public static void register(IEventBus bus) {
 		GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(bus);
 	}
-//	
-//	@SubscribeEvent
-//	public static void register(Register<GlobalLootModifierSerializer<?>> event) {
-//		event.getRegistry().register(new AutoSmeltLootModifier.Serializer().setRegistryName(TestMod.MODID, "auto_smelt"));
-//	}
 	
 }
