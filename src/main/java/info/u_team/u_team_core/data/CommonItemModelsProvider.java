@@ -1,12 +1,11 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
+import java.util.Iterator;
 import java.util.function.Consumer;
-import java.util.stream.Stream;
 
 import org.apache.logging.log4j.*;
 
-import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
 import net.minecraft.block.Block;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
@@ -70,12 +69,12 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	}
 	
 	// Utility methods
-	protected void iterateItems(IUArrayRegistryType<Item> type, Consumer<IItemProvider> item) {
-		Stream.of(type.getArray()).forEach(item);
+	protected void iterateItems(Iterator<? extends Item> iterator, Consumer<IItemProvider> item) {
+		iterator.forEachRemaining(item);
 	}
 	
-	protected void iterateBlocks(IUArrayRegistryType<Block> type, Consumer<IItemProvider> item) {
-		Stream.of(type.getArray()).forEach(item);
+	protected void iterateBlocks(Iterator<? extends Block> iterator, Consumer<IItemProvider> item) {
+		iterator.forEachRemaining(item);
 	}
 	
 	protected String getPath(IItemProvider provider) {
