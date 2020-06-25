@@ -15,6 +15,6 @@ public class TestModels {
 	
 	@SubscribeEvent
 	public static void register(FMLClientSetupEvent event) {
-		ClientRegistry.registerEntityRenderer(TestEntityTypes.BETTER_ENDERPEARL, manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
+		ClientRegistry.registerEntityRenderer(TestEntityTypes.BETTER_ENDERPEARL.get(), manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
 	}
 }

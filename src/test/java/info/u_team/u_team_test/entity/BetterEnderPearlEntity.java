@@ -27,7 +27,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	}
 	
 	public BetterEnderPearlEntity(World world, LivingEntity thrower) {
-		super(TestEntityTypes.BETTER_ENDERPEARL, thrower, world);
+		super(TestEntityTypes.BETTER_ENDERPEARL.get(), thrower, world);
 		this.thrower = thrower;
 	}
 	
