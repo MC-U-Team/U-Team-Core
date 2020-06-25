@@ -32,7 +32,7 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	private final LazyOptional<BasicEnergyStorage> energy = LazyOptional.of(() -> new BasicEnergyStorage(1000, 10));
 	
 	public BasicEnergyCreatorTileEntity() {
-		super(TestTileEntityTypes.BASIC_ENERGY_CREATOR);
+		super(TestTileEntityTypes.BASIC_ENERGY_CREATOR.get());
 	}
 	
 	@Override

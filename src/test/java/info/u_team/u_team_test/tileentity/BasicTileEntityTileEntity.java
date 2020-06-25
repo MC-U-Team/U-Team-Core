@@ -24,7 +24,7 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 	public int cooldown, value;
 	
 	public BasicTileEntityTileEntity() {
-		super(TestTileEntityTypes.BASIC);
+		super(TestTileEntityTypes.BASIC.get());
 	}
 	
 	@Override

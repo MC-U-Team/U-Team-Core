@@ -23,7 +23,7 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 	protected final LazyOptional<UFluidStackHandler> fluidTanksOptional;
 	
 	public BasicFluidInventoryTileEntity() {
-		super(TestTileEntityTypes.BASIC_FLUID_INVENTORY);
+		super(TestTileEntityTypes.BASIC_FLUID_INVENTORY.get());
 		
 		itemSlots = new TileEntityUItemStackHandler(4, this);
 		itemSlotsOptional = LazyOptional.of(() -> itemSlots);
