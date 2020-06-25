@@ -26,5 +26,6 @@ public class TestMod {
 		BusRegister.registerMod(TestModDimensions::register);
 		BusRegister.registerMod(TestPotions::register);
 		BusRegister.registerMod(TestSounds::register);
+		BusRegister.registerMod(TestTileEntityTypes::register);
 	}
 }
