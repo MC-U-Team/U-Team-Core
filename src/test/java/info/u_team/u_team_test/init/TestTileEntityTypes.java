@@ -5,11 +5,8 @@ import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.tileentity.*;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.*;
 
-@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestTileEntityTypes {
 	
 	public static final DeferredRegister<TileEntityType<?>> TILE_ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, TestMod.MODID);
