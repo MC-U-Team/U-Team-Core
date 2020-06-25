@@ -36,10 +36,6 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 	
 	public static class Serializer extends UShapedRecipeSerializer<NoMirrorShapedRecipe> {
 		
-		public Serializer(String name) {
-			super(name);
-		}
-		
 		@Override
 		public NoMirrorShapedRecipe read(ResourceLocation location, JsonObject json) {
 			final String[] pattern = patternFromJson(JSONUtils.getJsonArray(json, "pattern"));
