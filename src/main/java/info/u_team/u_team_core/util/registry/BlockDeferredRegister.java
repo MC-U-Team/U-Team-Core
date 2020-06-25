@@ -41,13 +41,13 @@ public class BlockDeferredRegister {
 		return new BlockRegistryObject<B, I>(block, item);
 	}
 	
-	public <B extends Block & IUBlockRegistryType, I extends BlockItem> BlockRegistryObject<B, I> register(final String name, final Supplier<? extends B> blockSupplier, final Supplier<? extends I> itemSupplier) {
+	public <B extends Block & IUBlockRegistryType, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
 		final RegistryObject<B> block = blocks.register(name, blockSupplier);
 		final RegistryObject<I> item = items.register(name, itemSupplier);
 		return new BlockRegistryObject<B, I>(block, item);
 	}
 	
-	public <B extends Block> RegistryObject<B> registerBlock(final String name, final Supplier<? extends B> supplier) {
+	public <B extends Block> RegistryObject<B> registerBlock(String name, Supplier<? extends B> supplier) {
 		return blocks.register(name, supplier);
 	}
 	
