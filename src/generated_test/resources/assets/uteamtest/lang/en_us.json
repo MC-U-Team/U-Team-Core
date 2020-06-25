@@ -2,6 +2,7 @@
 	"biome.uteamtest.basic": "Basic",
 	"block.uteamtest.basicblock": "Basic Block",
 	"block.uteamtest.energy_creator": "Energy Creator",
+	"block.uteamtest.fluid_inventory": "Fluid Inventory",
 	"block.uteamtest.tileentity": "Tile Entity Block",
 	"death.attack.radiation": "%1$s dies of radiation",
 	"effect.uteamtest.radiation": "Radiation",
