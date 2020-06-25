@@ -1,17 +1,16 @@
 package info.u_team.u_team_core.item.tool;
 
-import info.u_team.u_team_core.api.registry.IUArrayRegistryType;
-import net.minecraft.item.Item;
+import net.minecraftforge.fml.RegistryObject;
 
-public class ToolSet implements IUArrayRegistryType<Item> {
+public class ToolSet {
 	
-	private final UAxeItem axe;
-	private final UHoeItem hoe;
-	private final UPickaxeItem pickaxe;
-	private final UShovelItem shovel;
-	private final USwordItem sword;
+	private final RegistryObject<UAxeItem> axe;
+	private final RegistryObject<UHoeItem> hoe;
+	private final RegistryObject<UPickaxeItem> pickaxe;
+	private final RegistryObject<UShovelItem> shovel;
+	private final RegistryObject<USwordItem> sword;
 	
-	public ToolSet(UAxeItem axe, UHoeItem hoe, UPickaxeItem pickaxe, UShovelItem shovel, USwordItem sword) {
+	public ToolSet(RegistryObject<UAxeItem> axe, RegistryObject<UHoeItem> hoe, RegistryObject<UPickaxeItem> pickaxe, RegistryObject<UShovelItem> shovel, RegistryObject<USwordItem> sword) {
 		this.axe = axe;
 		this.hoe = hoe;
 		this.pickaxe = pickaxe;
@@ -19,28 +18,23 @@ public class ToolSet implements IUArrayRegistryType<Item> {
 		this.sword = sword;
 	}
 	
-	@Override
-	public Item[] getArray() {
-		return new Item[] { axe, hoe, pickaxe, shovel, sword };
-	}
-	
-	public UAxeItem getAxe() {
+	public RegistryObject<UAxeItem> getAxe() {
 		return axe;
 	}
 	
-	public UHoeItem getHoe() {
+	public RegistryObject<UHoeItem> getHoe() {
 		return hoe;
 	}
 	
-	public UPickaxeItem getPickaxe() {
+	public RegistryObject<UPickaxeItem> getPickaxe() {
 		return pickaxe;
 	}
 	
-	public UShovelItem getShovel() {
+	public RegistryObject<UShovelItem> getShovel() {
 		return shovel;
 	}
 	
-	public USwordItem getSword() {
+	public RegistryObject<USwordItem> getSword() {
 		return sword;
 	}
 	
