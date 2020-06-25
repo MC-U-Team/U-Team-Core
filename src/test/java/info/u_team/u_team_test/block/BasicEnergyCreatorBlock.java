@@ -1,6 +1,5 @@
 package info.u_team.u_team_test.block;
 
-
 import info.u_team.u_team_core.block.UTileEntityBlock;
 import info.u_team.u_team_test.init.*;
 import net.minecraft.block.BlockState;
