@@ -13,8 +13,8 @@ import net.minecraft.world.World;
 
 public class BasicItem extends UItem {
 	
-	public BasicItem(String name) {
-		super(name, TestItemGroups.GROUP, new Properties().rarity(Rarity.EPIC).defaultMaxDamage(10));
+	public BasicItem() {
+		super(TestItemGroups.GROUP, new Properties().rarity(Rarity.EPIC).defaultMaxDamage(10));
 	}
 	
 	@Override
