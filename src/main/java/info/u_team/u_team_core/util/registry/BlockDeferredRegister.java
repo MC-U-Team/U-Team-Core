@@ -39,6 +39,10 @@ public class BlockDeferredRegister {
 		return new BlockRegistryObject<B, I>(block, item);
 	}
 	
+	public <B extends Block> RegistryObject<B> registerBlock(final String name, final Supplier<? extends B> supplier) {
+		return blocks.register(name, supplier);
+	}
+	
 	public void register(IEventBus bus) {
 		blocks.register(bus);
 		bus.addGenericListener(Item.class, this::registerItems);
