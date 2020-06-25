@@ -81,6 +81,6 @@ public class DyeableItemDyeRecipe extends SpecialRecipe {
 	
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
-		return UCoreRecipeSerializers.CRAFTING_SPECIAL_ITEMDYE;
+		return UCoreRecipeSerializers.CRAFTING_SPECIAL_ITEMDYE.get();
 	}
 }
