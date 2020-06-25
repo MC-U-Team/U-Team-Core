@@ -7,7 +7,7 @@ import net.minecraft.item.BlockItem;
  * 
  * @see IURegistryType
  */
-public interface IUBlockRegistryType extends IURegistryType {
+public interface IUBlockRegistryType extends IURegistryType, IBlockItemProvider {
 	
 	/**
 	 * Must return the same block item instance every time you call this method. The registry name will be set to the name
