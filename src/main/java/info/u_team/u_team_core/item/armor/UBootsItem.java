@@ -5,12 +5,12 @@ import net.minecraft.item.*;
 
 public class UBootsItem extends UArmorItem {
 	
-	public UBootsItem(String name, Properties properties, IArmorMaterial material) {
-		this(name, null, properties, material);
+	public UBootsItem(String textureName, Properties properties, IArmorMaterial material) {
+		this(textureName, null, properties, material);
 	}
 	
-	public UBootsItem(String name, ItemGroup group, Properties properties, IArmorMaterial material) {
-		super(name, group, properties, material, EquipmentSlotType.FEET);
+	public UBootsItem(String textureName, ItemGroup group, Properties properties, IArmorMaterial material) {
+		super(textureName, group, properties, material, EquipmentSlotType.FEET);
 	}
 	
 }

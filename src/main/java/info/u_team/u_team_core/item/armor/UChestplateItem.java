@@ -5,12 +5,12 @@ import net.minecraft.item.*;
 
 public class UChestplateItem extends UArmorItem {
 	
-	public UChestplateItem(String name, Properties properties, IArmorMaterial material) {
-		this(name, null, properties, material);
+	public UChestplateItem(String textureName, Properties properties, IArmorMaterial material) {
+		this(textureName, null, properties, material);
 	}
 	
-	public UChestplateItem(String name, ItemGroup group, Properties properties, IArmorMaterial material) {
-		super(name, group, properties, material, EquipmentSlotType.CHEST);
+	public UChestplateItem(String textureName, ItemGroup group, Properties properties, IArmorMaterial material) {
+		super(textureName, group, properties, material, EquipmentSlotType.CHEST);
 	}
 	
 }

@@ -5,12 +5,12 @@ import net.minecraft.item.*;
 
 public class ULeggingsItem extends UArmorItem {
 	
-	public ULeggingsItem(String name, Properties properties, IArmorMaterial material) {
-		this(name, null, properties, material);
+	public ULeggingsItem(String textureName, Properties properties, IArmorMaterial material) {
+		this(textureName, null, properties, material);
 	}
 	
-	public ULeggingsItem(String name, ItemGroup group, Properties properties, IArmorMaterial material) {
-		super(name, group, properties, material, EquipmentSlotType.LEGS);
+	public ULeggingsItem(String textureName, ItemGroup group, Properties properties, IArmorMaterial material) {
+		super(textureName, group, properties, material, EquipmentSlotType.LEGS);
 	}
 	
 }
