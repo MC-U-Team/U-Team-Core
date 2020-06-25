@@ -10,8 +10,8 @@ import net.minecraft.world.World;
 
 public class BetterEnderPearlItem extends UItem {
 	
-	public BetterEnderPearlItem(String name) {
-		super(name, TestItemGroups.GROUP, new Properties().rarity(Rarity.EPIC));
+	public BetterEnderPearlItem() {
+		super(TestItemGroups.GROUP, new Properties().rarity(Rarity.EPIC));
 	}
 	
 	@Override
