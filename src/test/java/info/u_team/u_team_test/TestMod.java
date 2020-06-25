@@ -18,6 +18,7 @@ public class TestMod {
 	
 	private void register() {
 		BusRegister.registerMod(TestBiomes::register);
+		BusRegister.registerMod(TestBlocks::register);
 		BusRegister.registerMod(TestContainers::register);
 		BusRegister.registerMod(TestEffects::register);
 		BusRegister.registerMod(TestEnchantments::register);
