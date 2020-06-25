@@ -20,17 +20,18 @@ public class BlockDeferredRegister {
 	
 	private final String modid;
 	
-	private final DeferredRegister<Block> blocksWithBlockItemProvider;
+	private final DeferredRegister<Block> blocks;
+	
 	private final Map<RegistryObject<? extends Block>, RegistryObject<? extends Item>> blockToItemsMap;
 	
 	protected BlockDeferredRegister(String modid) {
 		this.modid = modid;
-		blocksWithBlockItemProvider = DeferredRegister.create(ForgeRegistries.BLOCKS, modid);
+		blocks = DeferredRegister.create(ForgeRegistries.BLOCKS, modid);
 		blockToItemsMap = new HashMap<>();
 	}
 	
 	public <B extends Block & IUBlockRegistryType, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
-		final RegistryObject<B> block = blocksWithBlockItemProvider.register(name, supplier);
+		final RegistryObject<B> block = blocks.register(name, supplier);
 		final RegistryObject<I> item = RegistryObject.of(new ResourceLocation(modid, name), ForgeRegistries.ITEMS);
 		
 		blockToItemsMap.put(block, item);
@@ -39,7 +40,7 @@ public class BlockDeferredRegister {
 	}
 	
 	public void register(IEventBus bus) {
-		blocksWithBlockItemProvider.register(bus);
+		blocks.register(bus);
 		bus.addGenericListener(Item.class, this::registerItems);
 	}
 	
