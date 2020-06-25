@@ -7,7 +7,7 @@ import com.google.gson.*;
 import net.minecraft.item.crafting.*;
 import net.minecraft.util.NonNullList;
 
-public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> implements IRecipeSerializer<T> {
+public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> extends URecipeSerializer<T> {
 	
 	protected static Map<String, Ingredient> deserializeKey(JsonObject json) {
 		return ShapedRecipe.deserializeKey(json);
