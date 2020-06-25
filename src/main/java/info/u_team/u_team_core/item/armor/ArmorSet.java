@@ -1,8 +1,12 @@
 package info.u_team.u_team_core.item.armor;
 
+import java.util.Iterator;
+
+import com.google.common.collect.Iterators;
+
 import net.minecraftforge.fml.RegistryObject;
 
-public class ArmorSet {
+public class ArmorSet implements Iterable<RegistryObject<? extends UArmorItem>> {
 	
 	private final RegistryObject<UHelmetItem> helmet;
 	private final RegistryObject<UChestplateItem> chestplate;
@@ -30,5 +34,10 @@ public class ArmorSet {
 	
 	public RegistryObject<UBootsItem> getBoots() {
 		return boots;
+	}
+	
+	@Override
+	public Iterator<RegistryObject<? extends UArmorItem>> iterator() {
+		return Iterators.forArray(helmet, chestplate, leggings, boots);
 	}
 }
