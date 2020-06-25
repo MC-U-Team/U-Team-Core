@@ -1,8 +1,13 @@
 package info.u_team.u_team_core.item.tool;
 
+import java.util.Iterator;
+
+import com.google.common.collect.Iterators;
+
+import net.minecraft.item.TieredItem;
 import net.minecraftforge.fml.RegistryObject;
 
-public class ToolSet {
+public class ToolSet implements Iterable<RegistryObject<? extends TieredItem>> {
 	
 	private final RegistryObject<UAxeItem> axe;
 	private final RegistryObject<UHoeItem> hoe;
@@ -36,5 +41,10 @@ public class ToolSet {
 	
 	public RegistryObject<USwordItem> getSword() {
 		return sword;
+	}
+	
+	@Override
+	public Iterator<RegistryObject<? extends TieredItem>> iterator() {
+		return Iterators.forArray(axe, hoe, pickaxe, shovel, sword);
 	}
 }
