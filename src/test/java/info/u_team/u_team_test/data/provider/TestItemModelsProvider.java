@@ -18,7 +18,7 @@ public class TestItemModelsProvider extends CommonItemModelsProvider {
 		iterateItems(TestItems.BASIC_ARMOR, this::simpleGenerated);
 		iterateItems(TestItems.BASIC_TOOL, this::simpleHandheld);
 		// Blocks
-		simpleBlock(TestBlocks.BASIC);
+		simpleBlock(TestBlocks.BASIC.get());
 		simpleBlock(TestBlocks.BASIC_TILEENTITY);
 		simpleBlock(TestBlocks.BASIC_ENERGY_CREATOR);
 		simpleBlock(TestBlocks.BASIC_FLUID_INVENTORY);

@@ -29,7 +29,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		add(TestItems.BASIC_TOOL.getShovel(), "Basic Shovel");
 		add(TestItems.BASIC_TOOL.getSword(), "Basic Sword");
 		
-		add(TestBlocks.BASIC, "Basic Block");
+		add(TestBlocks.BASIC.get(), "Basic Block");
 		add(TestBlocks.BASIC_TILEENTITY, "Tile Entity Block");
 		add(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
 		add(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
