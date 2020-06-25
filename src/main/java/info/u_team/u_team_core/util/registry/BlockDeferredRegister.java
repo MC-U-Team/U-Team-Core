@@ -40,11 +40,11 @@ public class BlockDeferredRegister {
 	
 	public void register(IEventBus bus) {
 		blocksWithBlockItemProvider.register(bus);
-		bus.addGenericListener(Item.class, this::addItems);
+		bus.addGenericListener(Item.class, this::registerItems);
 	}
 	
 	@SuppressWarnings("unchecked")
-	private void addItems(Register<Item> event) {
+	private void registerItems(Register<Item> event) {
 		final IForgeRegistry<Item> registry = event.getRegistry();
 		
 		blockToItemsMap.forEach((blockObject, itemObject) -> {
