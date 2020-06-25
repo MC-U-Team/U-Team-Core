@@ -2,7 +2,7 @@ package info.u_team.u_team_core.util.registry;
 
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.api.registry.IUBlockRegistryType;
+import info.u_team.u_team_core.api.registry.*;
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
@@ -43,8 +43,13 @@ public class BlockDeferredRegister {
 		blocksWithItemBlockProvider.getEntries() //
 				.stream() //
 				.map(RegistryObject::get) //
-				.filter(IUBlockRegistryType.class::isInstance) //
-				.forEach(block -> registry.register(((IUBlockRegistryType) block).getBlockItem().setRegistryName(block.getRegistryName())));
+				.filter(block -> {
+					if (block instanceof IBlockItemProvider) {
+						return ((IBlockItemProvider) block).getBlockItem() != null;
+					}
+					return false;
+				}) //
+				.forEach(block -> registry.register(((IBlockItemProvider) block).getBlockItem().setRegistryName(block.getRegistryName())));
 	}
 	
 }
