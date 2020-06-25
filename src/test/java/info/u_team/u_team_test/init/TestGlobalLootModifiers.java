@@ -16,7 +16,7 @@ public class TestGlobalLootModifiers {
 	
 	public static final DeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIER_SERIALIZERS = DeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, TestMod.MODID);
 	
-	public static final RegistryObject<AutoSmeltLootModifier.Serializer> RADIATION = GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("auto_smelt", AutoSmeltLootModifier.Serializer::new);	
+	public static final RegistryObject<AutoSmeltLootModifier.Serializer> AUTO_SMELT = GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("auto_smelt", AutoSmeltLootModifier.Serializer::new);	
 	
 	public static void register(IEventBus bus) {
 		GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(bus);
