@@ -19,11 +19,4 @@ public class TestModDimensions {
 	public static void register(IEventBus bus) {
 		MOD_DIMENSIONS.register(bus);
 	}
-	
-	// @SubscribeEvent
-	// public static void register(Register<ModDimension> event) {
-	// BaseRegistryUtil.getAllRegistryEntriesAndApplyNames(TestMod.MODID,
-	// ModDimension.class).forEach(event.getRegistry()::register);
-	// }
-	//
 }
