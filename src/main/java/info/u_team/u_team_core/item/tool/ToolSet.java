@@ -37,5 +37,4 @@ public class ToolSet {
 	public RegistryObject<USwordItem> getSword() {
 		return sword;
 	}
-	
 }
