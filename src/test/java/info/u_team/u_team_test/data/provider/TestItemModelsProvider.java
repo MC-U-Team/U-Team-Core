@@ -12,9 +12,9 @@ public class TestItemModelsProvider extends CommonItemModelsProvider {
 	@Override
 	protected void registerModels() {
 		// Items
-		simpleGenerated(TestItems.BASIC);
-		simpleGenerated(TestItems.BASIC_FOOD);
-		simpleGenerated(TestItems.BETTER_ENDERPEARL);
+		simpleGenerated(TestItems.BASIC.get());
+		simpleGenerated(TestItems.BASIC_FOOD.get());
+		simpleGenerated(TestItems.BETTER_ENDERPEARL.get());
 		iterateItems(TestItems.BASIC_ARMOR, this::simpleGenerated);
 		iterateItems(TestItems.BASIC_TOOL, this::simpleHandheld);
 		// Blocks

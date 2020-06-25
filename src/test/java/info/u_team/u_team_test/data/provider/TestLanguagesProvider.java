@@ -13,10 +13,10 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 	public void addTranslations() {
 		add(TestItemGroups.GROUP, "UTeamTest Tab");
 		
-		add(TestItems.BASIC, "Basic Item");
-		add(TestItems.BASIC.getTranslationKey() + ".outofrange", "\u00A74Out of range");
-		add(TestItems.BETTER_ENDERPEARL, "Better Enderpearl");
-		add(TestItems.BASIC_FOOD, "Basic Food");
+		add(TestItems.BASIC.get(), "Basic Item");
+		add(TestItems.BASIC.get().getTranslationKey() + ".outofrange", "\u00A74Out of range");
+		add(TestItems.BETTER_ENDERPEARL.get(), "Better Enderpearl");
+		add(TestItems.BASIC_FOOD.get(), "Basic Food");
 		
 		add(TestItems.BASIC_ARMOR.getHelmet(), "Basic Helmet");
 		add(TestItems.BASIC_ARMOR.getChestplate(), "Basic Chestplate");
