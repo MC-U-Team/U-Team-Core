@@ -25,5 +25,6 @@ public class TestMod {
 		BusRegister.registerMod(TestGlobalLootModifiers::register);
 		BusRegister.registerMod(TestModDimensions::register);
 		BusRegister.registerMod(TestPotions::register);
+		BusRegister.registerMod(TestSounds::register);
 	}
 }
