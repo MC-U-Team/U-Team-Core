@@ -32,7 +32,7 @@ public class BlockDeferredRegister {
 		blockToItemsMap = new HashMap<>();
 	}
 	
-	public <B extends Block & IUBlockRegistryType, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
+	public <B extends Block & IBlockItemProvider, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
 		final RegistryObject<B> block = blocks.register(name, supplier);
 		final RegistryObject<I> item = RegistryObject.of(new ResourceLocation(modid, name), ForgeRegistries.ITEMS);
 		
@@ -41,7 +41,7 @@ public class BlockDeferredRegister {
 		return new BlockRegistryObject<B, I>(block, item);
 	}
 	
-	public <B extends Block & IUBlockRegistryType, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
+	public <B extends Block, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
 		final RegistryObject<B> block = blocks.register(name, blockSupplier);
 		final RegistryObject<I> item = items.register(name, itemSupplier);
 		return new BlockRegistryObject<B, I>(block, item);
