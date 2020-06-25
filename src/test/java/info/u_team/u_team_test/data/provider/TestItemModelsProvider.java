@@ -15,8 +15,8 @@ public class TestItemModelsProvider extends CommonItemModelsProvider {
 		simpleGenerated(TestItems.BASIC.get());
 		simpleGenerated(TestItems.BASIC_FOOD.get());
 		simpleGenerated(TestItems.BETTER_ENDERPEARL.get());
-//		iterateItems(TestItems.BASIC_ARMOR, this::simpleGenerated); // TODO
-//		iterateItems(TestItems.BASIC_TOOL, this::simpleHandheld); // TODO
+		iterateItems(TestItems.BASIC_TOOL, this::simpleHandheld);
+		iterateItems(TestItems.BASIC_ARMOR, this::simpleGenerated);
 		// Blocks
 		simpleBlock(TestBlocks.BASIC.get());
 		simpleBlock(TestBlocks.BASIC_TILEENTITY.get());
