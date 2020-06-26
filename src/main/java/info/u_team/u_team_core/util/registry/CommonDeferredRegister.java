@@ -22,7 +22,7 @@ public class CommonDeferredRegister<R extends IForgeRegistryEntry<R>> implements
 		register = DeferredRegister.create(registry, modid);
 	}
 	
-	public <E extends R> RegistryObject<E> register(final String name, final Supplier<? extends E> supplier) {
+	public <E extends R> RegistryObject<E> register(String name, Supplier<? extends E> supplier) {
 		return register.register(name, supplier);
 	}
 	
