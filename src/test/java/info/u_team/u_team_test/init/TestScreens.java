@@ -15,9 +15,9 @@ public class TestScreens {
 	@SubscribeEvent
 	public static void register(FMLClientSetupEvent event) {
 		MainThreadWorker.run(() -> {
-			ClientRegistry.registryScreen(TestContainers.BASIC, BasicTileEntityScreen::new);
-			ClientRegistry.registryScreen(TestContainers.BASIC_ENERGY_CREATOR, BasicEnergyCreatorScreen::new);
-			ClientRegistry.registryScreen(TestContainers.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
+			ClientRegistry.registerScreen(TestContainers.BASIC, BasicTileEntityScreen::new);
+			ClientRegistry.registerScreen(TestContainers.BASIC_ENERGY_CREATOR, BasicEnergyCreatorScreen::new);
+			ClientRegistry.registerScreen(TestContainers.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
 		});
 	}
 }
