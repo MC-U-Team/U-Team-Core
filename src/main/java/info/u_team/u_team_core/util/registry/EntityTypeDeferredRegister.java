@@ -20,7 +20,7 @@ public class EntityTypeDeferredRegister {
 		register = CommonDeferredRegister.create(ForgeRegistries.ENTITIES, modid);
 	}
 	
-	public <E extends Entity, B extends Builder<E>> RegistryObject<EntityType<E>> register(String name, Supplier<? extends B> supplier) {
+	public <E extends Entity> RegistryObject<EntityType<E>> register(String name, Supplier<Builder<E>> supplier) {
 		return register.register(name, () -> supplier.get().build(register.getModid() + ":" + name));
 	}
 	
