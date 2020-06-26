@@ -13,32 +13,32 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 	public void addTranslations() {
 		add(TestItemGroups.GROUP, "UTeamTest Tab");
 		
-		add(TestItems.BASIC.get(), "Basic Item");
+		addItem(TestItems.BASIC, "Basic Item");
 		add(TestItems.BASIC.get().getTranslationKey() + ".outofrange", "\u00A74Out of range");
-		add(TestItems.BETTER_ENDERPEARL.get(), "Better Enderpearl");
-		add(TestItems.BASIC_FOOD.get(), "Basic Food");
+		addItem(TestItems.BETTER_ENDERPEARL, "Better Enderpearl");
+		addItem(TestItems.BASIC_FOOD, "Basic Food");
 		
-		add(TestItems.BASIC_ARMOR.getHelmet().get(), "Basic Helmet");
-		add(TestItems.BASIC_ARMOR.getChestplate().get(), "Basic Chestplate");
-		add(TestItems.BASIC_ARMOR.getLeggings().get(), "Basic Leggings");
-		add(TestItems.BASIC_ARMOR.getBoots().get(), "Basic Boots");
+		addItem(TestItems.BASIC_ARMOR.getHelmet(), "Basic Helmet");
+		addItem(TestItems.BASIC_ARMOR.getChestplate(), "Basic Chestplate");
+		addItem(TestItems.BASIC_ARMOR.getLeggings(), "Basic Leggings");
+		addItem(TestItems.BASIC_ARMOR.getBoots(), "Basic Boots");
 		
-		add(TestItems.BASIC_TOOL.getAxe().get(), "Basic Axe");
-		add(TestItems.BASIC_TOOL.getHoe().get(), "Basic Hoe");
-		add(TestItems.BASIC_TOOL.getPickaxe().get(), "Basic Pickaxe");
-		add(TestItems.BASIC_TOOL.getShovel().get(), "Basic Shovel");
-		add(TestItems.BASIC_TOOL.getSword().get(), "Basic Sword");
+		addItem(TestItems.BASIC_TOOL.getAxe(), "Basic Axe");
+		addItem(TestItems.BASIC_TOOL.getHoe(), "Basic Hoe");
+		addItem(TestItems.BASIC_TOOL.getPickaxe(), "Basic Pickaxe");
+		addItem(TestItems.BASIC_TOOL.getShovel(), "Basic Shovel");
+		addItem(TestItems.BASIC_TOOL.getSword(), "Basic Sword");
 		
-		add(TestBlocks.BASIC.get(), "Basic Block");
-		add(TestBlocks.BASIC_TILEENTITY.get(), "Tile Entity Block");
-		add(TestBlocks.BASIC_ENERGY_CREATOR.get(), "Energy Creator");
-		add(TestBlocks.BASIC_FLUID_INVENTORY.get(), "Fluid Inventory");
+		addBlock(TestBlocks.BASIC, "Basic Block");
+		addBlock(TestBlocks.BASIC_TILEENTITY, "Tile Entity Block");
+		addBlock(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
+		addBlock(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
 		
-		add(TestEntityTypes.BETTER_ENDERPEARL.get(), "Better Enderpearl");
+		addEntityType(TestEntityTypes.BETTER_ENDERPEARL, "Better Enderpearl");
 		
-		add(TestEnchantments.AUTO_SMELT.get(), "Auto Smelt");
+		addEnchantment(TestEnchantments.AUTO_SMELT, "Auto Smelt");
 		
-		add(TestEffects.RADIATION.get(), "Radiation");
+		addEffect(TestEffects.RADIATION, "Radiation");
 		
 		add("death.attack.radiation", "%1$s dies of radiation");
 		
@@ -46,7 +46,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		add("item.minecraft.splash_potion.effect.radiation", "Splash Potion of Radiation");
 		add("item.minecraft.lingering_potion.effect.radiation", "Lingering Potion of Radiation");
 		
-		add(TestBiomes.BASIC.get(), "Basic");
+		addBiome(TestBiomes.BASIC, "Basic");
 	}
 	
 }
