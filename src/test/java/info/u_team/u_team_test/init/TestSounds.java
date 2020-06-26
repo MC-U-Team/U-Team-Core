@@ -11,7 +11,7 @@ public class TestSounds {
 	
 	public static final CommonDeferredRegister<SoundEvent> SOUND_EVENTS = CommonDeferredRegister.create(ForgeRegistries.SOUND_EVENTS, TestMod.MODID);
 	
-	public static final RegistryObject<SoundEvent> BETTER_ENDERPEARL_USE = SOUND_EVENTS.register("better_enderpearl_use", () -> new SoundEvent(new ResourceLocation(TestMod.MODID, "better_enderpearl_use")));
+	public static final RegistryObject<SoundEvent> BETTER_ENDERPEARL_USE = SOUND_EVENTS.register("better_enderpearl_use", SoundEvent::new);
 	
 	public static void register(IEventBus bus) {
 		SOUND_EVENTS.register(bus);
