@@ -2,12 +2,8 @@ package info.u_team.u_team_core.util.registry;
 
 import java.util.function.Supplier;
 
-import com.mojang.datafixers.DataFixUtils;
-
 import net.minecraft.tileentity.*;
 import net.minecraft.tileentity.TileEntityType.Builder;
-import net.minecraft.util.SharedConstants;
-import net.minecraft.util.datafix.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -25,7 +21,7 @@ public class TileEntityTypeDeferredRegister {
 	}
 	
 	public <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<Builder<T>> supplier) {
-		return register.register(name, () -> supplier.get().build(DataFixesManager.getDataFixer().getSchema(DataFixUtils.makeKey(SharedConstants.getVersion().getWorldVersion())).getChoiceType(TypeReferences.BLOCK_ENTITY, register.getModid() + ":" + name)));
+		return register.register(name, () -> supplier.get().build(null));
 	}
 	
 	public void register(IEventBus bus) {
