@@ -18,8 +18,8 @@ public class BasicEnergyCreatorContainer extends UTileEntityContainer<BasicEnerg
 	
 	@Override
 	protected void init(boolean server) {
-		tileEntity.getSlots().ifPresent(handler -> appendInventory(handler, 2, 3, 116, 41));
+		appendInventory(tileEntity.getSlots(), 2, 3, 116, 41);
 		appendPlayerInventory(playerInventory, 8, 91);
-		tileEntity.getEnergy().ifPresent(handler -> addServerToClientTracker(handler.createSyncHandler()));
+		addServerToClientTracker(tileEntity.getEnergy().createSyncHandler());
 	}
 }
