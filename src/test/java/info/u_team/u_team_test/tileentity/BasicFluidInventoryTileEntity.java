@@ -46,13 +46,6 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 		fluidTanks.deserializeNBT(compound.getCompound("fluids"));
 	}
 	
-	@Override
-	public void remove() {
-		super.remove();
-		itemSlotsOptional.invalidate();
-		fluidTanksOptional.invalidate();
-	}
-	
 	public UItemStackHandler getItemSlots() {
 		return itemSlots;
 	}
@@ -72,6 +65,13 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 		} else {
 			return super.getCapability(capability, side);
 		}
+	}
+	
+	@Override
+	public void remove() {
+		super.remove();
+		itemSlotsOptional.invalidate();
+		fluidTanksOptional.invalidate();
 	}
 	
 	// Container
