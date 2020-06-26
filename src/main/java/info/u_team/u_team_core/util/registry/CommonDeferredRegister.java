@@ -1,8 +1,9 @@
 package info.u_team.u_team_core.util.registry;
 
 import java.util.*;
-import java.util.function.Supplier;
+import java.util.function.*;
 
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.*;
@@ -20,6 +21,10 @@ public class CommonDeferredRegister<R extends IForgeRegistryEntry<R>> implements
 	public CommonDeferredRegister(IForgeRegistry<R> registry, String modid) {
 		this.modid = modid;
 		register = DeferredRegister.create(registry, modid);
+	}
+	
+	public <E extends R> RegistryObject<E> register(String name, Function<ResourceLocation, ? extends E> function) {
+		return register(name, () -> function.apply(new ResourceLocation(modid, name)));
 	}
 	
 	public <E extends R> RegistryObject<E> register(String name, Supplier<? extends E> supplier) {
