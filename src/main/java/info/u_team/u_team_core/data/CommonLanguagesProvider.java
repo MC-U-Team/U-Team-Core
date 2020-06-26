@@ -47,7 +47,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(key.getTranslationKey(), name);
 	}
 	
-	protected void addBlock(Supplier<Block> key, String name) {
+	protected void addBlock(Supplier<? extends Block> key, String name) {
 		add(key.get(), name);
 	}
 	
@@ -55,7 +55,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(key.getTranslationKey(), name);
 	}
 	
-	protected void addItem(Supplier<Item> key, String name) {
+	protected void addItem(Supplier<? extends Item> key, String name) {
 		add(key.get(), name);
 	}
 	
@@ -63,7 +63,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(key.getTranslationKey(), name);
 	}
 	
-	protected void addItemStack(Supplier<ItemStack> key, String name) {
+	protected void addItemStack(Supplier<? extends ItemStack> key, String name) {
 		add(key.get(), name);
 	}
 	
@@ -71,7 +71,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(key.getTranslationKey(), name);
 	}
 	
-	protected void addEnchantment(Supplier<Enchantment> key, String name) {
+	protected void addEnchantment(Supplier<? extends Enchantment> key, String name) {
 		add(key.get(), name);
 	}
 	
@@ -79,7 +79,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(key.getName(), name);
 	}
 	
-	protected void addBiome(Supplier<Biome> key, String name) {
+	protected void addBiome(Supplier<? extends Biome> key, String name) {
 		add(key.get(), name);
 	}
 	
@@ -87,7 +87,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(key.getTranslationKey(), name);
 	}
 	
-	protected void addEffect(Supplier<Effect> key, String name) {
+	protected void addEffect(Supplier<? extends Effect> key, String name) {
 		add(key.get(), name);
 	}
 	
@@ -95,12 +95,16 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(key.getName(), name);
 	}
 	
-	protected void addEntityType(Supplier<EntityType<?>> key, String name) {
+	protected void addEntityType(Supplier<? extends EntityType<?>> key, String name) {
 		add(key.get(), name);
 	}
 	
 	protected void add(EntityType<?> key, String name) {
 		add(key.getTranslationKey(), name);
+	}
+	
+	protected void add(Supplier<? extends Fluid> key, String name) {
+		add(key.get(), name);
 	}
 	
 	protected void add(Fluid key, String name) {
@@ -115,7 +119,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(locale, key.getTranslationKey(), name);
 	}
 	
-	protected void addBlock(String locale, Supplier<Block> key, String name) {
+	protected void addBlock(String locale, Supplier<? extends Block> key, String name) {
 		add(locale, key.get(), name);
 	}
 	
@@ -123,7 +127,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(locale, key.getTranslationKey(), name);
 	}
 	
-	protected void addItem(String locale, Supplier<Item> key, String name) {
+	protected void addItem(String locale, Supplier<? extends Item> key, String name) {
 		add(locale, key.get(), name);
 	}
 	
@@ -131,7 +135,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(locale, key.getTranslationKey(), name);
 	}
 	
-	protected void addItemStack(String locale, Supplier<ItemStack> key, String name) {
+	protected void addItemStack(String locale, Supplier<? extends ItemStack> key, String name) {
 		add(locale, key.get(), name);
 	}
 	
@@ -139,7 +143,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(locale, key.getTranslationKey(), name);
 	}
 	
-	protected void addEnchantment(String locale, Supplier<Enchantment> key, String name) {
+	protected void addEnchantment(String locale, Supplier<? extends Enchantment> key, String name) {
 		add(locale, key.get(), name);
 	}
 	
@@ -147,7 +151,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(locale, key.getName(), name);
 	}
 	
-	protected void addBiome(String locale, Supplier<Biome> key, String name) {
+	protected void addBiome(String locale, Supplier<? extends Biome> key, String name) {
 		add(locale, key.get(), name);
 	}
 	
@@ -155,7 +159,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(locale, key.getTranslationKey(), name);
 	}
 	
-	protected void addEffect(String locale, Supplier<Effect> key, String name) {
+	protected void addEffect(String locale, Supplier<? extends Effect> key, String name) {
 		add(locale, key.get(), name);
 	}
 	
@@ -163,12 +167,16 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(locale, key.getName(), name);
 	}
 	
-	protected void addEntityType(String locale, Supplier<EntityType<?>> key, String name) {
+	protected void addEntityType(String locale, Supplier<? extends EntityType<?>> key, String name) {
 		add(locale, key.get(), name);
 	}
 	
 	protected void add(String locale, EntityType<?> key, String name) {
 		add(locale, key.getTranslationKey(), name);
+	}
+	
+	protected void addFluid(String locale, Supplier<? extends Fluid> key, String name) {
+		add(locale, key.get(), name);
 	}
 	
 	protected void add(String locale, Fluid key, String name) {
