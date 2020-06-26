@@ -62,6 +62,7 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 	}
 	
 	// Capability
+	
 	@Override
 	public <X> LazyOptional<X> getCapability(Capability<X> capability, Direction side) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
