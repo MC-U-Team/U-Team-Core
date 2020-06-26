@@ -25,7 +25,7 @@ public class TileEntityTypeDeferredRegister {
 	}
 	
 	public <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<Builder<T>> supplier) {
-		return register.register(name, () -> supplier.get().build(DataFixesManager.getDataFixer().getSchema(DataFixUtils.makeKey(SharedConstants.getVersion().getWorldVersion())).getChoiceType(TypeReferences.ENTITY_TYPE, register.getModid() + ":" + name)));
+		return register.register(name, () -> supplier.get().build(DataFixesManager.getDataFixer().getSchema(DataFixUtils.makeKey(SharedConstants.getVersion().getWorldVersion())).getChoiceType(TypeReferences.BLOCK_ENTITY, register.getModid() + ":" + name)));
 	}
 	
 	public void register(IEventBus bus) {
