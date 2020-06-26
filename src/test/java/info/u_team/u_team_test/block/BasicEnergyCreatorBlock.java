@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 public class BasicEnergyCreatorBlock extends UTileEntityBlock {
 	
 	public BasicEnergyCreatorBlock() {
-		super(TestItemGroups.GROUP, Properties.create(Material.IRON).hardnessAndResistance(2), () -> TestTileEntityTypes.BASIC_ENERGY_CREATOR.get());
+		super(TestItemGroups.GROUP, Properties.create(Material.IRON).hardnessAndResistance(2), TestTileEntityTypes.BASIC_ENERGY_CREATOR);
 	}
 	
 	@Override
