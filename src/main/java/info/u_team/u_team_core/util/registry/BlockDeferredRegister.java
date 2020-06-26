@@ -18,15 +18,12 @@ public class BlockDeferredRegister {
 		return new BlockDeferredRegister(modid);
 	}
 	
-	private final String modid;
-	
 	private final CommonDeferredRegister<Block> blocks;
 	private final CommonDeferredRegister<Item> items;
 	
 	private final Map<RegistryObject<? extends Block>, RegistryObject<? extends Item>> blockToItemsMap;
 	
 	protected BlockDeferredRegister(String modid) {
-		this.modid = modid;
 		blocks = CommonDeferredRegister.create(ForgeRegistries.BLOCKS, modid);
 		items = CommonDeferredRegister.create(ForgeRegistries.ITEMS, modid);
 		blockToItemsMap = new HashMap<>();
@@ -34,7 +31,7 @@ public class BlockDeferredRegister {
 	
 	public <B extends Block & IBlockItemProvider, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
 		final RegistryObject<B> block = blocks.register(name, supplier);
-		final RegistryObject<I> item = RegistryObject.of(new ResourceLocation(modid, name), ForgeRegistries.ITEMS);
+		final RegistryObject<I> item = RegistryObject.of(new ResourceLocation(blocks.getModid(), name), ForgeRegistries.ITEMS);
 		
 		blockToItemsMap.put(block, item);
 		
