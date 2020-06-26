@@ -17,11 +17,6 @@ public class UArmorMaterial implements IArmorMaterial {
 	private final float toughness;
 	private final LazyValue<Ingredient> repair;
 	
-	@Deprecated
-	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, SoundEvent soundEvent, float toughness, Supplier<Ingredient> ingredient) {
-		this(durability, armorPoints, enchantability, () -> soundEvent, toughness, ingredient);
-	}
-	
 	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, Supplier<Ingredient> ingredient) {
 		this.durability = durability;
 		this.armorPoints = armorPoints;

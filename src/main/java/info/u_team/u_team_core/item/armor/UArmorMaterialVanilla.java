@@ -10,16 +10,6 @@ public class UArmorMaterialVanilla extends UArmorMaterial {
 	
 	protected final String texture;
 	
-	@Deprecated
-	public UArmorMaterialVanilla(int durability, int[] armorPoints, int enchantability, SoundEvent soundEvent, float toughness, Supplier<Ingredient> ingredient) {
-		this(null, durability, armorPoints, enchantability, soundEvent, toughness, ingredient);
-	}
-	
-	@Deprecated
-	public UArmorMaterialVanilla(String texture, int durability, int[] armorpoints, int enchantability, SoundEvent soundEvent, float toughness, Supplier<Ingredient> ingredient) {
-		this(texture, durability, armorpoints, enchantability, () -> soundEvent, toughness, ingredient);
-	}
-	
 	public UArmorMaterialVanilla(int durability, int[] armorPoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, Supplier<Ingredient> ingredient) {
 		this(null, durability, armorPoints, enchantability, soundEvent, toughness, ingredient);
 	}
