@@ -18,7 +18,7 @@ public class CommonDeferredRegister<R extends IForgeRegistryEntry<R>> implements
 	
 	private final DeferredRegister<R> register;
 	
-	public CommonDeferredRegister(IForgeRegistry<R> registry, String modid) {
+	protected CommonDeferredRegister(IForgeRegistry<R> registry, String modid) {
 		this.modid = modid;
 		register = DeferredRegister.create(registry, modid);
 	}
@@ -33,6 +33,10 @@ public class CommonDeferredRegister<R extends IForgeRegistryEntry<R>> implements
 	
 	public void register(IEventBus bus) {
 		register.register(bus);
+	}
+	
+	public String getModid() {
+		return modid;
 	}
 	
 	public Collection<RegistryObject<R>> getEntries() {
