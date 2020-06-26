@@ -21,7 +21,7 @@ public class EntityTypeDeferredRegister {
 	}
 	
 	public <E extends Entity> RegistryObject<EntityType<E>> register(String name, Supplier<Builder<E>> supplier) {
-		return register.register(name, () -> supplier.get().build(register.getModid() + ":" + name));
+		return register.register(name, () -> supplier.get().build("egg")); // Pass a vanilla minecraft entity here, so we don't get the complain about a missing data fixer
 	}
 	
 	public void register(IEventBus bus) {
