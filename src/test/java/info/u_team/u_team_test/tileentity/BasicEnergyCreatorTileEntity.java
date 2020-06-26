@@ -21,42 +21,102 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSyncedTileEntity, ITickableTileEntity {
 	
-	private final LazyOptional<TileEntityUItemStackHandler> slots = LazyOptional.of(() -> new TileEntityUItemStackHandler(6, this) {
-		
-		@Override
-		public int getSlotLimit(int slot) {
-			return 16;
-		}
-	});
+	private final TileEntityUItemStackHandler slots;
+	private final BasicEnergyStorage energy;
 	
-	private final LazyOptional<BasicEnergyStorage> energy = LazyOptional.of(() -> new BasicEnergyStorage(1000, 10));
+	private final LazyOptional<TileEntityUItemStackHandler> slotsOptional;
+	private final LazyOptional<BasicEnergyStorage> energyOptional;
 	
 	public BasicEnergyCreatorTileEntity() {
 		super(TestTileEntityTypes.BASIC_ENERGY_CREATOR.get());
+		slots = new TileEntityUItemStackHandler(6, this) {
+			
+			@Override
+			public int getSlotLimit(int slot) {
+				return 16;
+			}
+		};
+		energy = new BasicEnergyStorage(1000, 10);
+		
+		slotsOptional = LazyOptional.of(() -> slots);
+		energyOptional = LazyOptional.of(() -> energy);
+	}
+	
+	private boolean action = true;
+	
+	@Override
+	public void tick() {
+		if (world.isRemote) {
+			return;
+		}
+		if (action) {
+			energy.addEnergy(3);
+			if (energy.getEnergyStored() == energy.getMaxEnergyStored()) {
+				action = !action;
+			}
+		} else {
+			energy.addEnergy(-3);
+			if (energy.getEnergyStored() == 0) {
+				action = !action;
+			}
+		}
+		markDirty();
 	}
 	
 	@Override
-	public void readNBT(CompoundNBT compound) {
-		slots.ifPresent(handler -> handler.deserializeNBT(compound.getCompound("inventory")));
-		energy.ifPresent(handler -> handler.deserializeNBT(compound.getCompound("energy")));
+	public void sendInitialDataBuffer(PacketBuffer buffer) {
+		buffer.writeInt(energy.getEnergyStored());
+	}
+	
+	@OnlyIn(Dist.CLIENT)
+	@Override
+	public void handleInitialDataBuffer(PacketBuffer buffer) {
+		energy.setEnergy(buffer.readInt());
+	}
+	
+	public TileEntityUItemStackHandler getSlots() {
+		return slots;
+	}
+	
+	public BasicEnergyStorage getEnergy() {
+		return energy;
 	}
 	
 	@Override
 	public void writeNBT(CompoundNBT compound) {
-		slots.ifPresent(handler -> compound.put("inventory", handler.serializeNBT()));
-		energy.ifPresent(handler -> compound.put("energy", handler.serializeNBT()));
+		super.writeNBT(compound);
+		compound.put("inventory", slots.serializeNBT());
+		compound.put("energy", energy.serializeNBT());
 	}
+	
+	@Override
+	public void readNBT(CompoundNBT compound) {
+		super.readNBT(compound);
+		slots.deserializeNBT(compound.getCompound("inventory"));
+		energy.deserializeNBT(compound.getCompound("energy"));
+	}
+	
+	// Capability
 	
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction side) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-			return slots.cast();
+			return slotsOptional.cast();
+		} else if (capability == CapabilityEnergy.ENERGY) {
+			return energyOptional.cast();
+		} else {
+			return super.getCapability(capability, side);
 		}
-		if (capability == CapabilityEnergy.ENERGY) {
-			return energy.cast();
-		}
-		return super.getCapability(capability, side);
 	}
+	
+	@Override
+	public void remove() {
+		super.remove();
+		slotsOptional.invalidate();
+		energyOptional.invalidate();
+	}
+	
+	// Container
 	
 	@Override
 	public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
@@ -68,52 +128,4 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 		return new StringTextComponent("Energy creator");
 	}
 	
-	private boolean action = true;
-	
-	@Override
-	public void tick() {
-		if (world.isRemote) {
-			return;
-		}
-		energy.ifPresent(handler -> {
-			if (action) {
-				handler.addEnergy(3);
-				if (handler.getEnergyStored() == handler.getMaxEnergyStored()) {
-					action = !action;
-				}
-			} else {
-				handler.addEnergy(-3);
-				if (handler.getEnergyStored() == 0) {
-					action = !action;
-				}
-			}
-			markDirty();
-		});
-	}
-	
-	@Override
-	public void sendInitialDataBuffer(PacketBuffer buffer) {
-		energy.ifPresent(handler -> buffer.writeInt(handler.getEnergyStored()));
-	}
-	
-	@OnlyIn(Dist.CLIENT)
-	@Override
-	public void handleInitialDataBuffer(PacketBuffer buffer) {
-		energy.ifPresent(handler -> handler.setEnergy(buffer.readInt()));
-	}
-	
-	public LazyOptional<TileEntityUItemStackHandler> getSlots() {
-		return slots;
-	}
-	
-	public LazyOptional<BasicEnergyStorage> getEnergy() {
-		return energy;
-	}
-	
-	@Override
-	public void remove() {
-		super.remove();
-		slots.invalidate();
-		energy.invalidate();
-	}
 }
