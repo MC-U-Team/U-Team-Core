@@ -112,8 +112,8 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	
 	@Override
 	public void remove() {
+		super.remove();
 		slots.invalidate();
 		energy.invalidate();
-		super.remove();
 	}
 }

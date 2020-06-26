@@ -95,7 +95,7 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 	
 	@Override
 	public void remove() {
-		slots.invalidate();
 		super.remove();
+		slots.invalidate();
 	}
 }
