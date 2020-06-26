@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import net.minecraft.entity.*;
 import net.minecraft.entity.EntityType.Builder;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -21,6 +22,14 @@ public class EntityTypeDeferredRegister {
 	
 	public <E extends Entity, B extends Builder<E>> RegistryObject<EntityType<E>> register(String name, Supplier<? extends B> supplier) {
 		return register.register(name, () -> supplier.get().build(register.getModid() + ":" + name));
+	}
+	
+	public void register(IEventBus bus) {
+		register.register(bus);
+	}
+	
+	public CommonDeferredRegister<EntityType<?>> getRegister() {
+		return register;
 	}
 	
 }
