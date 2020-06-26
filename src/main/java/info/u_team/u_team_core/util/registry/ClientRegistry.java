@@ -15,7 +15,7 @@ import net.minecraftforge.fml.client.registry.*;
 @OnlyIn(Dist.CLIENT)
 public class ClientRegistry {
 	
-	public static <M extends Container, U extends Screen & IHasContainer<M>> void registryScreen(Supplier<? extends ContainerType<? extends M>> supplier, ScreenManager.IScreenFactory<M, U> factory) {
+	public static <M extends Container, U extends Screen & IHasContainer<M>> void registerScreen(Supplier<? extends ContainerType<? extends M>> supplier, ScreenManager.IScreenFactory<M, U> factory) {
 		ScreenManager.registerFactory(supplier.get(), factory);
 	}
 	
