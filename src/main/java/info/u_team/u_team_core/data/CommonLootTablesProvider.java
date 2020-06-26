@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
-import java.util.function.BiConsumer;
+import java.util.function.*;
 
 import info.u_team.u_team_core.intern.loot.SetTileEntityNBTLootFunction;
 import net.minecraft.advancements.criterion.*;
@@ -35,6 +35,10 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	@Override
 	public String getName() {
 		return "Loot-Tables";
+	}
+	
+	protected static void registerBlock(Supplier<? extends Block> supplier, LootTable lootTable, BiConsumer<ResourceLocation, LootTable> consumer) {
+		registerBlock(supplier.get(), lootTable, consumer);
 	}
 	
 	protected static void registerBlock(Block block, LootTable lootTable, BiConsumer<ResourceLocation, LootTable> consumer) {
