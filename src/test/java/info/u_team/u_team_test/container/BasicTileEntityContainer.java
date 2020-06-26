@@ -25,7 +25,7 @@ public class BasicTileEntityContainer extends UTileEntityContainer<BasicTileEnti
 	
 	@Override
 	protected void init(boolean server) {
-		tileEntity.getSlots().ifPresent(handler -> appendInventory(handler, 2, 9, 8, 41));
+		appendInventory(tileEntity.getSlots(), 2, 9, 8, 41);
 		appendPlayerInventory(playerInventory, 8, 91);
 		
 		addServerToClientTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.value, value -> tileEntity.value = value));
