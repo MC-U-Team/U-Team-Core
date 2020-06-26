@@ -11,21 +11,21 @@ import net.minecraft.world.IBlockReader;
 
 public class UTileEntityBlock extends UBlock implements ITileEntityBlock {
 	
-	protected final Supplier<TileEntityType<?>> tileEntityType;
+	protected final Supplier<? extends TileEntityType<?>> tileEntityType;
 	
-	public UTileEntityBlock(Properties properties, Supplier<TileEntityType<?>> tileEntityType) {
+	public UTileEntityBlock(Properties properties, Supplier<? extends TileEntityType<?>> tileEntityType) {
 		this(null, properties, tileEntityType);
 	}
 	
-	public UTileEntityBlock(ItemGroup group, Properties properties, Supplier<TileEntityType<?>> tileEntityType) {
+	public UTileEntityBlock(ItemGroup group, Properties properties, Supplier<? extends TileEntityType<?>> tileEntityType) {
 		this(group, properties, null, tileEntityType);
 	}
 	
-	public UTileEntityBlock(Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileEntityType) {
+	public UTileEntityBlock(Properties properties, Item.Properties itemblockproperties, Supplier<? extends TileEntityType<?>> tileEntityType) {
 		this(null, properties, itemblockproperties, tileEntityType);
 	}
 	
-	public UTileEntityBlock(ItemGroup group, Properties properties, Item.Properties itemblockproperties, Supplier<TileEntityType<?>> tileEntityType) {
+	public UTileEntityBlock(ItemGroup group, Properties properties, Item.Properties itemblockproperties, Supplier<? extends TileEntityType<?>> tileEntityType) {
 		super(group, properties, itemblockproperties);
 		this.tileEntityType = tileEntityType;
 	}
