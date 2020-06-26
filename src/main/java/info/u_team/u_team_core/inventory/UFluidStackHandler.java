@@ -150,7 +150,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 		for (int index = 0; index < list.size(); index++) {
 			final CompoundNBT slotCompound = list.getCompound(index);
 			final int slot = slotCompound.getByte("Slot") & 255;
-			if (slot >= 0 && slot < list.size()) {
+			if (slot >= 0 && slot <= list.size()) {
 				stacks.set(slot, FluidStack.loadFluidStackFromNBT(slotCompound));
 			}
 		}
