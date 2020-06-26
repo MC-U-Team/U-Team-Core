@@ -8,13 +8,10 @@ import net.minecraft.item.crafting.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent.Register;
-import net.minecraftforge.eventbus.api.*;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 import net.minecraftforge.registries.ForgeRegistries;
 
-@EventBusSubscriber(modid = UCoreMain.MODID, bus = Bus.MOD)
 public class UCoreRecipeSerializers {
 	
 	public static final CommonDeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = CommonDeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, UCoreMain.MODID);
@@ -25,11 +22,10 @@ public class UCoreRecipeSerializers {
 	
 	public static void register(IEventBus bus) {
 		RECIPE_SERIALIZERS.register(bus);
+		bus.addGenericListener(IRecipeSerializer.class, UCoreRecipeSerializers::registerIngredient);
 	}
 	
-	@SubscribeEvent
-	public static void register(Register<IRecipeSerializer<?>> event) {
+	private static void registerIngredient(Register<IRecipeSerializer<?>> event) {
 		CraftingHelper.register(new ResourceLocation(UCoreMain.MODID, "item"), ItemIngredient.Serializer.INSTANCE);
 	}
-	
 }
