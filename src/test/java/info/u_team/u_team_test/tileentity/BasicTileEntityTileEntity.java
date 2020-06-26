@@ -63,6 +63,7 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 	
 	@Override
 	public void writeNBT(CompoundNBT compound) {
+		super.writeNBT(compound);
 		compound.put("inventory", slots.serializeNBT());
 		compound.putInt("value", value);
 		compound.putInt("cooldown", cooldown);
@@ -70,6 +71,7 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 	
 	@Override
 	public void readNBT(CompoundNBT compound) {
+		super.readNBT(compound);
 		value = compound.getInt("value");
 		cooldown = compound.getInt("cooldown");
 		slots.deserializeNBT(compound.getCompound("inventory"));
