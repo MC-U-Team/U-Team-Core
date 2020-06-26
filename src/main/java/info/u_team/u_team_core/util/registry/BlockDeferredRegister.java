@@ -68,4 +68,12 @@ public class BlockDeferredRegister {
 		});
 	}
 	
+	public CommonDeferredRegister<Block> getBlockRegister() {
+		return blocks;
+	}
+	
+	public CommonDeferredRegister<Item> getItemRegister() {
+		return items;
+	}
+	
 }
