@@ -20,15 +20,15 @@ public class BlockDeferredRegister {
 	
 	private final String modid;
 	
-	private final DeferredRegister<Block> blocks;
-	private final DeferredRegister<Item> items;
+	private final CommonDeferredRegister<Block> blocks;
+	private final CommonDeferredRegister<Item> items;
 	
 	private final Map<RegistryObject<? extends Block>, RegistryObject<? extends Item>> blockToItemsMap;
 	
 	protected BlockDeferredRegister(String modid) {
 		this.modid = modid;
-		blocks = DeferredRegister.create(ForgeRegistries.BLOCKS, modid);
-		items = DeferredRegister.create(ForgeRegistries.ITEMS, modid);
+		blocks = CommonDeferredRegister.create(ForgeRegistries.BLOCKS, modid);
+		items = CommonDeferredRegister.create(ForgeRegistries.ITEMS, modid);
 		blockToItemsMap = new HashMap<>();
 	}
 	
