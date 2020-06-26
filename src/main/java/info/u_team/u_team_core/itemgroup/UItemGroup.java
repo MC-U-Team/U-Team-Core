@@ -8,13 +8,13 @@ import net.minecraftforge.api.distmarker.*;
 
 public class UItemGroup extends ItemGroup {
 	
-	private final Supplier<IItemProvider> provider;
+	private final Supplier<? extends IItemProvider> provider;
 	
-	public UItemGroup(ResourceLocation location, Supplier<IItemProvider> provider) {
+	public UItemGroup(ResourceLocation location, Supplier<? extends IItemProvider> provider) {
 		this(location.getNamespace(), location.getPath(), provider);
 	}
 	
-	public UItemGroup(String modid, String name, Supplier<IItemProvider> provider) {
+	public UItemGroup(String modid, String name, Supplier<? extends IItemProvider> provider) {
 		super(modid + "." + name);
 		this.provider = provider;
 	}
