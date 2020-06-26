@@ -14,11 +14,11 @@ public class TestItems {
 	
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, TestMod.MODID);
 	
-	public static final RegistryObject<Item> BASIC = ITEMS.register("basicitem", () -> new BasicItem("basicitem"));
+	public static final RegistryObject<BasicItem> BASIC = ITEMS.register("basicitem", BasicItem::new);
 	
-	public static final RegistryObject<Item> BETTER_ENDERPEARL = ITEMS.register("better_enderpearl", () -> new BetterEnderPearlItem("better_enderpearl"));
+	public static final RegistryObject<BetterEnderPearlItem> BETTER_ENDERPEARL = ITEMS.register("better_enderpearl", BetterEnderPearlItem::new);
 	
-	public static final RegistryObject<Item> BASIC_FOOD = ITEMS.register("basicfood", () -> new BasicFoodItem("basicfood"));
+	public static final RegistryObject<BasicFoodItem> BASIC_FOOD = ITEMS.register("basicfood", BasicFoodItem::new);
 	
 	public static final ToolSet BASIC_TOOL = ToolSetCreator.create(ITEMS, "basictool", TestItemGroups.GROUP, new Properties(), TestToolMaterial.BASIC);
 	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create(ITEMS, "basicarmor", TestItemGroups.GROUP, new Properties(), TestArmorMaterial.BASIC);
