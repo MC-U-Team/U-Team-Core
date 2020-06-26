@@ -3,7 +3,7 @@ package info.u_team.u_team_core.util.registry;
 import java.util.*;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.api.registry.*;
+import info.u_team.u_team_core.api.registry.IBlockItemProvider;
 import net.minecraft.block.Block;
 import net.minecraft.item.*;
 import net.minecraft.util.ResourceLocation;
