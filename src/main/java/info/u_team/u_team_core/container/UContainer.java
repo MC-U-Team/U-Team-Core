@@ -174,7 +174,6 @@ public abstract class UContainer extends FluidContainer {
 	 * implementations.
 	 * 
 	 * @param inventory Some inventory
-	 * @param startIndex Start index of the handler
 	 * @param function Function to create a slot.
 	 * @param inventoryHeight Slot rows
 	 * @param inventoryWidth Slot columns
