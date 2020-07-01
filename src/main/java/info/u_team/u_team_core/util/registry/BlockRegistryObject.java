@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 
 public class BlockRegistryObject<B extends Block, I extends BlockItem> implements Supplier<B> {
@@ -16,9 +17,17 @@ public class BlockRegistryObject<B extends Block, I extends BlockItem> implement
 		this.item = item;
 	}
 	
+	public boolean isPresent() {
+		return block.isPresent();
+	}
+	
 	@Override
 	public B get() {
 		return block.get();
+	}
+	
+	public ResourceLocation getId() {
+		return block.getId();
 	}
 	
 	public boolean hasItem() {
@@ -27,6 +36,10 @@ public class BlockRegistryObject<B extends Block, I extends BlockItem> implement
 	
 	public I getItem() {
 		return item.get();
+	}
+	
+	public ResourceLocation getItemId() {
+		return item.getId();
 	}
 	
 }
