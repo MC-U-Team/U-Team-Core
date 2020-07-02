@@ -1,16 +1,17 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.15.2-3.0.0.159-SNAPSHOT] - 2020-06-26
+## [1.15.2-3.0.0.159-SNAPSHOT] - 2020-07-02
 ### Changed
  - Use deferred register all over now
  - Do not init registry entries before they are registered
  - Therefore the whole IURegistryEntry system is gone
  - Base RegistryUtil is removed
  - Fixed a bug in the UFluidHandler
+ - Make the logo file smaller
  
 ### Removed
- - Remove some U*** Types as they were only used for the IURegistryEntry
+ - Remove some UTypes as they were only used for the IURegistryEntry
  
 ### Added
  - Added custom deferred registers
