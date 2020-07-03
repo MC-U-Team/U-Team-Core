@@ -7,7 +7,6 @@ import java.util.function.Supplier;
 import com.google.common.collect.Maps;
 
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
-import net.minecraft.item.*;
 import net.minecraft.item.Item.Properties;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
