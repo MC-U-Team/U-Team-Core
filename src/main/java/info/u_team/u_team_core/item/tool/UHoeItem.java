@@ -11,7 +11,7 @@ public class UHoeItem extends HoeItem {
 	}
 	
 	public UHoeItem(ItemGroup group, Properties properties, IToolMaterial material) {
-		super(material, material.getAttackSpeed(Tools.HOE), group == null ? properties : properties.group(group));
+		super(material, (int) material.getAdditionalDamage(Tools.HOE), material.getAttackSpeed(Tools.HOE), group == null ? properties : properties.group(group));
 	}
 	
 }
