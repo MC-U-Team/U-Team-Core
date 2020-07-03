@@ -29,7 +29,7 @@ public class ModelUtil {
 	public static class EmptyStateContainer extends StateContainer<Block, BlockState> {
 		
 		public EmptyStateContainer(Block block) {
-			super(block, BlockState::new, new HashMap<>());
+			super(Block::getDefaultState, block, BlockState::new, new HashMap<>());
 		}
 		
 		@Override
