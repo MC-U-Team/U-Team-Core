@@ -7,6 +7,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceContext.*;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.*;
 import net.minecraft.world.storage.WorldSavedData;
@@ -40,9 +41,9 @@ public class WorldUtil {
 	 * @return Raytrace result with information about the trace
 	 */
 	public static RayTraceResult rayTraceServerSide(Entity entity, double range, BlockMode blockMode, FluidMode fluidMode) {
-		final Vec3d playerVector = entity.getPositionVec().add(0, entity.getEyeHeight(), 0);
-		final Vec3d lookVector = entity.getLookVec();
-		final Vec3d locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
+		final Vector3d playerVector = entity.getPositionVec().add(0, entity.getEyeHeight(), 0);
+		final Vector3d lookVector = entity.getLookVec();
+		final Vector3d locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
 		return entity.world.rayTraceBlocks(new RayTraceContext(playerVector, locationVector, blockMode, fluidMode, entity));
 	}
 	
