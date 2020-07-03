@@ -141,7 +141,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			return new SingleFluidList(new FluidStack(fluid, 1000));
 		} else if (jsonObject.has("tag")) {
 			final ResourceLocation key = new ResourceLocation(JSONUtils.getString(jsonObject, "tag"));
-			final Tag<Fluid> tag = FluidTags.getCollection().get(key);
+			final ITag<Fluid> tag = FluidTags.getCollection().get(key);
 			if (tag == null) {
 				throw new JsonSyntaxException("Unknown fluid tag '" + key + "'");
 			}
@@ -179,16 +179,16 @@ public class FluidIngredient implements Predicate<FluidStack> {
 	
 	public static class TagList implements IFluidList {
 		
-		private final Tag<Fluid> tag;
+		private final ITag<Fluid> tag;
 		
-		public TagList(Tag<Fluid> tag) {
+		public TagList(ITag<Fluid> tag) {
 			this.tag = tag;
 		}
 		
 		public Collection<FluidStack> getStacks() {
 			final List<FluidStack> list = Lists.newArrayList();
 			
-			for (Fluid fluid : tag.getAllElements()) {
+			for (Fluid fluid : tag.func_230236_b_()) {
 				list.add(new FluidStack(fluid, 1000));
 			}
 			
@@ -200,7 +200,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		
 		public JsonObject serialize() {
 			final JsonObject jsonObject = new JsonObject();
-			jsonObject.addProperty("tag", tag.getId().toString());
+			jsonObject.addProperty("tag", TagCollectionManager.func_232928_e_().func_232926_c_().func_232975_b_(tag).toString());
 			return jsonObject;
 		}
 	}
