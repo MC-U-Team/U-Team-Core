@@ -52,40 +52,4 @@ public class ItemProperties extends Properties {
 	private void setValueIster(Supplier<Callable<ItemStackTileEntityRenderer>> value) {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "ister");
 	}
-	
-	public int getMaxStackSize() {
-		return maxStackSize;
-	}
-	
-	public int getMaxDamage() {
-		return maxDamage;
-	}
-	
-	public Item getContainerItem() {
-		return containerItem;
-	}
-	
-	public ItemGroup getGroup() {
-		return group;
-	}
-	
-	public Rarity getRarity() {
-		return rarity;
-	}
-	
-	public Food getFood() {
-		return food;
-	}
-	
-	public boolean isCanRepair() {
-		return getValueCanRepair(this);
-	}
-	
-	public Map<ToolType, Integer> getToolClasses() {
-		return getValueToolClasses(this);
-	}
-	
-	public Supplier<Callable<ItemStackTileEntityRenderer>> getIster() {
-		return getValueIster(this);
-	}
 }
