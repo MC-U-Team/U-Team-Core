@@ -23,6 +23,7 @@ public class ItemProperties extends Properties {
 		group = properties.group;
 		rarity = properties.rarity;
 		food = properties.food;
+		field_234688_g_ = properties.field_234688_g_;
 		setValueCanRepair(getValueCanRepair(properties));
 		setValueToolClasses(Maps.newHashMap(getValueToolClasses(properties)));
 		setValueIster(getValueIster(properties));
