@@ -2,8 +2,7 @@ package info.u_team.u_team_core.util;
 
 import java.util.function.Supplier;
 
-import net.minecraft.block.Block.Properties;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.AbstractBlock.Properties;
 import net.minecraft.block.material.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ToolType;
@@ -16,18 +15,26 @@ public class BlockProperties extends Properties {
 	}
 	
 	public BlockProperties(Properties properties) {
-		super(properties.material, properties.mapColor);
+		super(properties.material, properties.field_235800_b_);
 		blocksMovement = properties.blocksMovement;
 		soundType = properties.soundType;
-		lightValue = properties.lightValue;
+		field_235803_e_ = properties.field_235803_e_;
 		resistance = properties.resistance;
-		hardness = properties.hardness;
+		field_235806_h_ = properties.field_235806_h_;
 		ticksRandomly = properties.ticksRandomly;
 		slipperiness = properties.slipperiness;
 		speedFactor = properties.speedFactor;
 		jumpFactor = properties.jumpFactor;
 		lootTable = properties.lootTable;
 		isSolid = properties.isSolid;
+		field_235813_o_ = properties.field_235813_o_;
+		field_235814_p_ = properties.field_235814_p_;
+		field_235814_p_ = properties.field_235814_p_;
+		field_235815_q_ = properties.field_235815_q_;
+		field_235816_r_ = properties.field_235816_r_;
+		field_235817_s_ = properties.field_235817_s_;
+		field_235818_t_ = properties.field_235818_t_;
+		field_235819_u_ = properties.field_235819_u_;
 		variableOpacity = properties.variableOpacity;
 		
 		setValueHarvestLevel(getValueHarvestLevel(properties));
@@ -57,57 +64,5 @@ public class BlockProperties extends Properties {
 	
 	private void setLootTableSupplier(Supplier<ResourceLocation> value) {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "lootTableSupplier");
-	}
-	
-	public Material getMaterial() {
-		return material;
-	}
-	
-	public MaterialColor getMapColor() {
-		return mapColor;
-	}
-	
-	public boolean isBlocksMovement() {
-		return blocksMovement;
-	}
-	
-	public SoundType getSoundType() {
-		return soundType;
-	}
-	
-	public int getLightValue() {
-		return lightValue;
-	}
-	
-	public float getResistance() {
-		return resistance;
-	}
-	
-	public float getHardness() {
-		return hardness;
-	}
-	
-	public boolean isTickRandomly() {
-		return ticksRandomly;
-	}
-	
-	public float getSlipperiness() {
-		return slipperiness;
-	}
-	
-	public ResourceLocation getLootTable() {
-		return lootTable;
-	}
-	
-	public boolean isVariableOpacity() {
-		return variableOpacity;
-	}
-	
-	public int getHarvestLevel() {
-		return getValueHarvestLevel(this);
-	}
-	
-	public ToolType getHarvestTool() {
-		return getValueHarvestTool(this);
 	}
 }
