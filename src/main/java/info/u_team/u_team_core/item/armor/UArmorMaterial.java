@@ -15,14 +15,16 @@ public class UArmorMaterial implements IArmorMaterial {
 	private final int enchantability;
 	private final LazyValue<SoundEvent> soundEvent;
 	private final float toughness;
+	private final float knockbackResistance;
 	private final LazyValue<Ingredient> repair;
 	
-	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, Supplier<Ingredient> ingredient) {
+	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> ingredient) {
 		this.durability = durability;
 		this.armorPoints = armorPoints;
 		this.enchantability = enchantability;
 		this.soundEvent = new LazyValue<>(soundEvent);
 		this.toughness = toughness;
+		this.knockbackResistance = knockbackResistance;
 		this.repair = new LazyValue<>(ingredient);
 	}
 	
@@ -60,6 +62,11 @@ public class UArmorMaterial implements IArmorMaterial {
 	@OnlyIn(Dist.CLIENT)
 	public String getName() {
 		return "invalid";
+	}
+	
+	@Override
+	public float func_230304_f_() {
+		return knockbackResistance;
 	}
 	
 }

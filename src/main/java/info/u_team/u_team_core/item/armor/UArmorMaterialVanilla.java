@@ -10,12 +10,12 @@ public class UArmorMaterialVanilla extends UArmorMaterial {
 	
 	protected final String texture;
 	
-	public UArmorMaterialVanilla(int durability, int[] armorPoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, Supplier<Ingredient> ingredient) {
-		this(null, durability, armorPoints, enchantability, soundEvent, toughness, ingredient);
+	public UArmorMaterialVanilla(int durability, int[] armorPoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> ingredient) {
+		this(null, durability, armorPoints, enchantability, soundEvent, toughness, knockbackResistance, ingredient);
 	}
 	
-	public UArmorMaterialVanilla(String texture, int durability, int[] armorpoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, Supplier<Ingredient> ingredient) {
-		super(createDurabilityVanillaArray(durability), armorpoints, enchantability, soundEvent, toughness, ingredient);
+	public UArmorMaterialVanilla(String texture, int durability, int[] armorpoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> ingredient) {
+		super(createDurabilityVanillaArray(durability), armorpoints, enchantability, soundEvent, toughness, knockbackResistance, ingredient);
 		this.texture = texture;
 	}
 	
