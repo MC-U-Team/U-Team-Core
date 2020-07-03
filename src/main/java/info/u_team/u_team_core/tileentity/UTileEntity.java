@@ -26,9 +26,9 @@ public abstract class UTileEntity extends TileEntity {
 	}
 	
 	@Override
-	public void read(CompoundNBT compound) {
-		super.read(compound);
-		readNBT(compound);
+	public void func_230337_a_(BlockState state, CompoundNBT compound) {
+		super.func_230337_a_(state, compound);
+		readNBT(state, compound);
 	}
 	
 	/**
@@ -42,9 +42,10 @@ public abstract class UTileEntity extends TileEntity {
 	/**
 	 * Reads data from disk.
 	 * 
+	 * @param state
 	 * @param compound
 	 */
-	public void readNBT(CompoundNBT compound) {
+	public void readNBT(BlockState state, CompoundNBT compound) {
 	}
 	
 	// sync server -> client
@@ -59,8 +60,8 @@ public abstract class UTileEntity extends TileEntity {
 	}
 	
 	@Override
-	public void handleUpdateTag(CompoundNBT compound) {
-		super.read(compound);
+	public void handleUpdateTag(BlockState state, CompoundNBT compound) {
+		super.func_230337_a_(state, compound);
 		handleChunkLoadData(compound);
 	}
 	
