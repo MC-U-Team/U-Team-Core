@@ -2,6 +2,8 @@ package info.u_team.u_team_core.gui.elements;
 
 import java.util.*;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.list.ExtendedList;
@@ -23,15 +25,15 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	}
 	
 	@Override
-	public boolean mouseClicked(double p_mouseClicked_1_, double p_mouseClicked_3_, int p_mouseClicked_5_) {
-		widget.forEach(button -> button.mouseClicked(p_mouseClicked_1_, p_mouseClicked_3_, p_mouseClicked_5_));
+	public boolean func_231044_a_(double p_mouseClicked_1_, double p_mouseClicked_3_, int p_mouseClicked_5_) {
+		widget.forEach(button -> button.func_231044_a_(p_mouseClicked_1_, p_mouseClicked_3_, p_mouseClicked_5_));
 		return true;
 	}
 	
 	@Override
-	public boolean mouseReleased(double p_mouseReleased_1_, double p_mouseReleased_3_, int p_mouseReleased_5_) {
+	public boolean func_231048_c_(double p_mouseReleased_1_, double p_mouseReleased_3_, int p_mouseReleased_5_) {
 		for (final Widget button : widget) {
-			if (button.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_)) {
+			if (button.func_231048_c_(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_)) {
 				return true;
 			}
 		}
@@ -39,9 +41,9 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	}
 	
 	@Override
-	public boolean mouseDragged(double p_mouseDragged_1_, double p_mouseDragged_3_, int p_mouseDragged_5_, double p_mouseDragged_6_, double p_mouseDragged_8_) {
+	public boolean func_231045_a_(double p_mouseDragged_1_, double p_mouseDragged_3_, int p_mouseDragged_5_, double p_mouseDragged_6_, double p_mouseDragged_8_) {
 		for (final Widget button : widget) {
-			if (button.mouseDragged(p_mouseDragged_1_, p_mouseDragged_3_, p_mouseDragged_5_, p_mouseDragged_6_, p_mouseDragged_8_)) {
+			if (button.func_231045_a_(p_mouseDragged_1_, p_mouseDragged_3_, p_mouseDragged_5_, p_mouseDragged_6_, p_mouseDragged_8_)) {
 				return true;
 			}
 		}
@@ -49,5 +51,5 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	}
 	
 	@Override
-	public abstract void render(int slotIndex, int entryY, int entryX, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float partialTicks);
+	public abstract void func_230432_a_(MatrixStack matrixStack, int slotIndex, int entryY, int entryX, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float partialTicks);
 }
