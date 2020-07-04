@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.gui.render;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.util.RGBA;
@@ -14,7 +15,7 @@ public class FluidInventoryRender extends AbstractGui {
 	
 	private static final ResourceLocation ATLAS = PlayerContainer.LOCATION_BLOCKS_TEXTURE;
 	
-	public void drawFluid(int x, int y, FluidStack stack) {
+	public void drawFluid(MatrixStack matrixStack, int x, int y, FluidStack stack) {
 		if (stack == null || stack.isEmpty()) {
 			return;
 		}
@@ -28,7 +29,7 @@ public class FluidInventoryRender extends AbstractGui {
 		final RGBA rgba = RGBA.fromARGB(stack.getFluid().getAttributes().getColor(stack));
 		RenderSystem.color4f(rgba.getRedComponent(), rgba.getGreenComponent(), rgba.getBlueComponent(), rgba.getAlphaComponent());
 		
-		blit(x, y, 100, 16, 16, sprite);
+		func_238470_a_(matrixStack, x, y, 100, 16, 16, sprite);
 		
 		RenderSystem.color4f(1, 1, 1, 1);
 		

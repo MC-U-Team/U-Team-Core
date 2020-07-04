@@ -42,7 +42,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 				final FluidSlot fluidSlot = fluidContainer.fluidSlots.get(index);
 				
 				if (fluidSlot.isEnabled()) {
-					drawFluidSlot(fluidSlot);
+					drawFluidSlot(matrixStack, fluidSlot);
 					
 					if (isFluidSlotSelected(fluidSlot, mouseX, mouseY)) {
 						hoveredFluidSlot = fluidSlot;
@@ -84,8 +84,8 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		return super.func_231044_a_(mouseX, mouseY, button);
 	}
 	
-	protected void drawFluidSlot(FluidSlot fluidSlot) {
-		fluidRenderer.drawFluid(fluidSlot.getX(), fluidSlot.getY(), fluidSlot.getStack());
+	protected void drawFluidSlot(MatrixStack matrixStack, FluidSlot fluidSlot) {
+		fluidRenderer.drawFluid(matrixStack, fluidSlot.getX(), fluidSlot.getY(), fluidSlot.getStack());
 	}
 	
 	protected boolean isFluidSlotSelected(FluidSlot fluidSlot, double mouseX, double mouseY) {
