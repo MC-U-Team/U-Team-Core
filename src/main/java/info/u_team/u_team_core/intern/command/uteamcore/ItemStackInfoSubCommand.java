@@ -34,12 +34,13 @@ public class ItemStackInfoSubCommand {
 	}
 	
 	private static ITextComponent createRegistryInfo(IForgeRegistryEntry<?> entry) {
-		final ITextComponent component = new StringTextComponent(entry.getRegistryName().toString());
-		final Style style = component.getStyle();
+		final IFormattableTextComponent component = new StringTextComponent(entry.getRegistryName().toString());
+		Style style = component.getStyle();
 		final String className = getClassString(entry);
-		style.setColor(TextFormatting.AQUA);
-		style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(className).applyTextStyle(TextFormatting.YELLOW)));
-		style.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
+		style = style.func_240712_a_(TextFormatting.AQUA);
+		style = style.func_240716_a_(new HoverEvent(HoverEvent.Action.field_230550_a_, new StringTextComponent(className).func_240699_a_(TextFormatting.YELLOW)));
+		style = style.func_240715_a_(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
+		component.func_230530_a_(style);
 		return component;
 	}
 	
