@@ -3,12 +3,15 @@ package info.u_team.u_team_core.gui.elements;
 import java.util.*;
 import java.util.function.*;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.util.GuiUtil;
 import net.minecraft.client.*;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.*;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
@@ -31,13 +34,13 @@ public class EnergyStorageWidget extends Widget {
 	}
 	
 	public EnergyStorageWidget(int x, int y, int height, LongSupplier capacity, LongSupplier storage) {
-		super(x, y, 14, height < 3 ? 3 : height, "");
+		super(x, y, 14, height < 3 ? 3 : height, ITextComponent.func_241827_a_(null));
 		this.capacity = capacity;
 		this.storage = storage;
 	}
 	
 	@Override
-	public void renderButton(int mouseX, int mouseY, float partialTicks) {
+	public void func_230431_b_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		minecraft.getTextureManager().bindTexture(ENERGY_TEXTURE);
 		
@@ -46,36 +49,36 @@ public class EnergyStorageWidget extends Widget {
 			ratio = 1;
 		}
 		
-		final int storageOffset = (int) ((1 - ratio) * (height - 2));
+		final int storageOffset = (int) ((1 - ratio) * (field_230689_k_ - 2));
 		
-		for (int yComponent = 1; yComponent < height - 1; yComponent += 2) {
-			blit(x + 1, y + yComponent, 0, 0, 12, 2, 16, 16); // Background with side border
+		for (int yComponent = 1; yComponent < field_230689_k_ - 1; yComponent += 2) {
+			func_238463_a_(matrixStack, field_230690_l_ + 1, field_230691_m_ + yComponent, 0, 0, 12, 2, 16, 16); // Background with side border
 		}
 		
-		for (int yComponent = 1 + storageOffset; yComponent < height - 1; yComponent++) {
+		for (int yComponent = 1 + storageOffset; yComponent < field_230689_k_ - 1; yComponent++) {
 			if (yComponent % 2 == 0) {
-				blit(x + 1, y + yComponent, 0, 3, 12, 1, 16, 16); // Fuel
+				func_238463_a_(matrixStack, field_230690_l_ + 1, field_230691_m_ + yComponent, 0, 3, 12, 1, 16, 16); // Fuel
 			} else {
-				blit(x + 1, y + yComponent, 0, 2, 12, 1, 16, 16); // Fuel
+				func_238463_a_(matrixStack, field_230690_l_ + 1, field_230691_m_ + yComponent, 0, 2, 12, 1, 16, 16); // Fuel
 			}
 		}
 		
-		GuiUtil.drawContainerBorder(x, y, width, height);
+		GuiUtil.drawContainerBorder(matrixStack, field_230690_l_, field_230691_m_, field_230688_j_, field_230689_k_);
 	}
 	
 	@Override
-	public void renderToolTip(int mouseX, int mouseY) {
-		if (isHovered) {
+	public void func_230443_a_(MatrixStack matrixStack, int mouseX, int mouseY) {
+		if (field_230692_n_) {
 			final Minecraft minecraft = Minecraft.getInstance();
 			final MainWindow mainWindow = minecraft.getMainWindow();
-			final List<String> list = new ArrayList<>();
-			list.add(storage.getAsLong() + " / " + capacity.getAsLong() + " FE");
-			GuiUtils.drawHoveringText(list, mouseX, mouseY, mainWindow.getWidth(), mainWindow.getHeight(), 300, minecraft.fontRenderer);
+			final List<ITextComponent> list = new ArrayList<>();
+			list.add(ITextComponent.func_241827_a_(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
+			GuiUtils.drawHoveringText(matrixStack, list, mouseX, mouseY, mainWindow.getWidth(), mainWindow.getHeight(), 300, minecraft.fontRenderer);
 		}
 	}
 	
 	@Override
-	public void playDownSound(SoundHandler handler) {
+	public void func_230988_a_(SoundHandler handler) {
 		// Don't play click sound
 	}
 }
