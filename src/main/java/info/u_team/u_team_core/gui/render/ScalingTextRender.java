@@ -4,7 +4,7 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.renderer.Matrix4f;
+import net.minecraft.util.math.vector.Matrix4f;
 
 public class ScalingTextRender {
 	
@@ -84,6 +84,6 @@ public class ScalingTextRender {
 	
 	protected void renderFont(float x, float y) {
 		final float positionFactor = 1 / scale;
-		fontRenderSupplier.get().renderString(text, x * positionFactor, y * positionFactor, color, Matrix4f.makeScale(scale, scale, 0), shadow);
+		fontRenderSupplier.get().renderString(text, x * positionFactor, y * positionFactor, color, Matrix4f.makeScale(scale, scale, 0), shadow, false);
 	}
 }
