@@ -2,6 +2,8 @@ package info.u_team.u_team_core.gui.elements;
 
 import java.util.function.*;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
 import net.minecraft.client.gui.*;
@@ -37,12 +39,12 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 	}
 	
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
+	public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		if (visible) {
 			hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 			
-			fill(x, y, x + width, y + height, backgroundColor);
-			fill(x, y, (int) (x + (progress.get() * width)), y + height, progressColor);
+			func_238467_a_(matrixStack, x, y, x + width, y + height, backgroundColor);
+			func_238467_a_(matrixStack, x, y, (int) (x + (progress.get() * width)), y + height, progressColor);
 		}
 	}
 	
@@ -53,7 +55,7 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 	}
 	
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+	public boolean func_231044_a_(double mouseX, double mouseY, int button) {
 		if (button == 0) {
 			if (isPressable(mouseX, mouseY)) {
 				playPressSound(Minecraft.getInstance().getSoundHandler());
