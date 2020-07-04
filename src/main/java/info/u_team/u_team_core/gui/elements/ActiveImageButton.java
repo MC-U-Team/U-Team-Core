@@ -2,6 +2,7 @@ package info.u_team.u_team_core.gui.elements;
 
 import org.lwjgl.opengl.GL11;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.util.RGBA;
@@ -39,12 +40,12 @@ public class ActiveImageButton extends ImageButton {
 	}
 	
 	@Override
-	public void renderButton(int mouseX, int mouseY, float partial) {
+	public void func_230431_b_(MatrixStack matrixStack, int mouseX, int mouseY, float partial) {
 		RenderSystem.color4f(1, 1, 1, 1);
 		if (active) {
 			activeColor.glColor();
 		}
-		super.renderButton(mouseX, mouseY, partial);
+		super.func_230431_b_(matrixStack, mouseX, mouseY, partial);
 		GL11.glColor4f(1, 1, 1, 1);
 	}
 }
