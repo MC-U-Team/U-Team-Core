@@ -13,6 +13,7 @@ import net.minecraft.data.*;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.*;
 import net.minecraftforge.client.model.generators.*;
+import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 
 public abstract class CommonBlockStatesProvider extends BlockStateProvider {
