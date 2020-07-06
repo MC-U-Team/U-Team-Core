@@ -10,22 +10,19 @@ import net.minecraft.item.*;
 import net.minecraft.tags.*;
 import net.minecraft.tags.Tag.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	
+	@SuppressWarnings("deprecation")
 	public CommonItemTagsProvider(GenerationData data) {
-		super(data, ForgeRegistries.ITEMS);
+		super(data, Registry.ITEM);
 	}
 	
 	@Override
 	protected Path makePath(ResourceLocation location) {
 		return resolveData(location).resolve("tags").resolve("items").resolve(location.getPath() + ".json");
-	}
-	
-	@Override
-	protected void setCollection(TagCollection<Item> collection) {
-		ItemTags.setCollection(collection);
 	}
 	
 	@Override
