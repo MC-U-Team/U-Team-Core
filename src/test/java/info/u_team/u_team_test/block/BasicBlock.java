@@ -9,7 +9,7 @@ import net.minecraft.item.*;
 public class BasicBlock extends UBlock {
 	
 	public BasicBlock() {
-		super(TestItemGroups.GROUP, Properties.create(Material.ROCK).hardnessAndResistance(2F).sound(SoundType.GROUND).slipperiness(0.8F).lightValue(1), new Item.Properties().rarity(Rarity.UNCOMMON));
+		super(TestItemGroups.GROUP, Properties.create(Material.ROCK).hardnessAndResistance(2F).sound(SoundType.GROUND).slipperiness(0.8F).func_235838_a_(state -> 1), new Item.Properties().rarity(Rarity.UNCOMMON));
 	}
 	
 }
