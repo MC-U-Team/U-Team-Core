@@ -5,22 +5,18 @@ import java.nio.file.Path;
 import net.minecraft.entity.EntityType;
 import net.minecraft.tags.*;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonEntityTypeTagsProvider extends CommonTagsProvider<EntityType<?>> {
 	
 	public CommonEntityTypeTagsProvider(GenerationData data) {
-		super(data, ForgeRegistries.ENTITIES);
+		super(data, Registry.ENTITY_TYPE);
 	}
 	
 	@Override
 	protected Path makePath(ResourceLocation location) {
 		return resolveData(location).resolve("tags").resolve("entity_types").resolve(location.getPath() + ".json");
-	}
-	
-	@Override
-	protected void setCollection(TagCollection<EntityType<?>> collection) {
-		EntityTypeTags.setCollection(collection);
 	}
 	
 	@Override

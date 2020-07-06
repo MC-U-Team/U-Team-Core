@@ -3,24 +3,18 @@ package info.u_team.u_team_core.data;
 import java.nio.file.Path;
 
 import net.minecraft.block.Block;
-import net.minecraft.tags.*;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraft.util.registry.Registry;
 
 public abstract class CommonBlockTagsProvider extends CommonTagsProvider<Block> {
 	
 	public CommonBlockTagsProvider(GenerationData data) {
-		super(data, ForgeRegistries.BLOCKS);
+		super(data, Registry.BLOCK);
 	}
 	
 	@Override
 	protected Path makePath(ResourceLocation location) {
 		return resolveData(location).resolve("tags").resolve("blocks").resolve(location.getPath() + ".json");
-	}
-	
-	@Override
-	protected void setCollection(TagCollection<Block> collection) {
-		BlockTags.setCollection(collection);
 	}
 	
 	@Override
