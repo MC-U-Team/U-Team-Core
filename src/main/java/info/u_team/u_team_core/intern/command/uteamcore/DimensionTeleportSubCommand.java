@@ -9,10 +9,8 @@ import info.u_team.u_team_core.util.world.WorldUtil;
 import net.minecraft.command.*;
 import net.minecraft.command.arguments.*;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
 
 public class DimensionTeleportSubCommand {
