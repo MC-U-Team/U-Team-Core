@@ -15,7 +15,7 @@ import net.minecraft.tileentity.*;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.*;
 import net.minecraft.world.*;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 public class BetterEnderPearlEntity extends ProjectileItemEntity {
@@ -38,7 +38,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	@Override
 	protected void onImpact(RayTraceResult result) {
-		final LivingEntity livingentity = this.getThrower();
+		final LivingEntity livingentity = (LivingEntity) func_234616_v_();
 		if (result.getType() == RayTraceResult.Type.ENTITY) {
 			final Entity entity = ((EntityRayTraceResult) result).getEntity();
 			if (entity == this.thrower) {
@@ -106,7 +106,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	@Override
 	public void tick() {
-		final LivingEntity livingentity = this.getThrower();
+		final Entity livingentity = func_234616_v_();
 		if (livingentity != null && livingentity instanceof PlayerEntity && !livingentity.isAlive()) {
 			this.remove();
 		} else {
@@ -115,14 +115,14 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 		
 	}
 	
-	@Override
 	@Nullable
-	public Entity changeDimension(DimensionType destination) {
-		if (this.owner.dimension != destination) {
-			this.owner = null;
+	public Entity func_241206_a_(ServerWorld world) {
+		Entity entity = func_234616_v_();
+		if (entity != null && entity.world.func_234923_W_() != world.func_234923_W_()) {
+			setShooter((Entity) null);
 		}
 		
-		return super.changeDimension(destination);
+		return super.func_241206_a_(world);
 	}
 	
 	@Override
