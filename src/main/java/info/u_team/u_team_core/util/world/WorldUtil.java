@@ -192,8 +192,6 @@ public class WorldUtil {
 				entity.setLocationAndAngles(x, y, z, wrapedYaw, wrapedPitch);
 				entity.setRotationYawHead(wrapedYaw);
 			} else {
-				entity.dimension = world.dimension.getType();
-				
 				final Entity entityCopy = entity;
 				entity = entity.getType().create(world);
 				if (entity == null) {
