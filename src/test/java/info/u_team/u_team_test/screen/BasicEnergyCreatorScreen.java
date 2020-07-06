@@ -1,5 +1,7 @@
 package info.u_team.u_team_test.screen;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import info.u_team.u_team_core.gui.UContainerScreen;
 import info.u_team.u_team_core.gui.elements.EnergyStorageWidget;
 import info.u_team.u_team_test.TestMod;
@@ -20,23 +22,23 @@ public class BasicEnergyCreatorScreen extends UContainerScreen<BasicEnergyCreato
 	}
 	
 	@Override
-	protected void init() {
-		super.init();
-		addButton(new EnergyStorageWidget(guiLeft + 9, guiTop + 20, 54, container.getTileEntity().getCapability(CapabilityEnergy.ENERGY)));
+	protected void func_231160_c_() {
+		super.func_231160_c_();
+		func_230480_a_(new EnergyStorageWidget(guiLeft + 9, guiTop + 20, 54, container.getTileEntity().getCapability(CapabilityEnergy.ENERGY)));
 	}
 	
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		renderBackground();
-		super.render(mouseX, mouseY, partialTicks);
-		buttons.forEach(button -> button.renderToolTip(mouseX, mouseY));
-		renderHoveredToolTip(mouseX, mouseY);
+	public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		func_230446_a_(matrixStack);
+		super.func_230430_a_(matrixStack, mouseX, mouseY, partialTicks);
+		//buttons.forEach(button -> button.renderToolTip(mouseX, mouseY)); TODO nessessary??
+		func_230459_a_(matrixStack, mouseX, mouseY);
 	}
 	
-	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		font.drawString(title.getFormattedText(), 8, 6, 4210752);
-		font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
-	}
+//	@Override
+//	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+//		font.drawString(title.getFormattedText(), 8, 6, 4210752);
+//		font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
+//	}
 	
 }
