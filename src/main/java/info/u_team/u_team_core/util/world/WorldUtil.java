@@ -192,15 +192,16 @@ public class WorldUtil {
 				entity.setLocationAndAngles(x, y, z, wrapedYaw, wrapedPitch);
 				entity.setRotationYawHead(wrapedYaw);
 			} else {
-				final Entity entityCopy = entity;
+				entity.detach(); // TODO mark this (added new)
+				final Entity entityOld = entity;
 				entity = entity.getType().create(world);
 				if (entity == null) {
 					return;
 				}
-				entity.copyDataFromOld(entityCopy);
+				entity.copyDataFromOld(entityOld);
 				// Need to remove the old entity (Why the heck does TeleportCommand don't do
 				// this and it works ?????)
-				entityCopy.remove(false);
+				entityOld.remove(false);
 				entity.setLocationAndAngles(x, y, z, wrapedYaw, wrapedPitch);
 				entity.setRotationYawHead(wrapedYaw);
 				world.addFromAnotherDimension(entity);
