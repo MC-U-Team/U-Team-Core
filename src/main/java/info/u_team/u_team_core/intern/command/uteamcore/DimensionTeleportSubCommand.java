@@ -10,8 +10,10 @@ import net.minecraft.command.*;
 import net.minecraft.command.arguments.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.server.ServerWorld;
 
 public class DimensionTeleportSubCommand {
 	
@@ -36,33 +38,33 @@ public class DimensionTeleportSubCommand {
 														}))))));
 	}
 	
-	private static int execute(CommandSource source, Collection<? extends Entity> targets, DimensionType type) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, type, entity.getPositionVector()));
+	private static int execute(CommandSource source, Collection<? extends Entity> targets, ServerWorld world) {
+		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, entity.getPositionVec()));
 		if (targets.size() == 1) {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), type.getRegistryName()), true);
+			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), world.func_234923_W_().func_240901_a_()), true);
 		} else {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), type.getRegistryName()), true);
+			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), world.func_234923_W_().func_240901_a_()), true);
 		}
 		return 0;
 	}
 	
-	private static int execute(CommandSource source, Collection<? extends Entity> targets, DimensionType type, Vec3d pos) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, type, pos));
-		sendPositionInfo(source, targets, type, pos);
+	private static int execute(CommandSource source, Collection<? extends Entity> targets, ServerWorld world, Vector3d pos) {
+		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, pos));
+		sendPositionInfo(source, targets, world, pos);
 		return 0;
 	}
 	
-	private static int execute(CommandSource source, Collection<? extends Entity> targets, DimensionType type, Vec3d pos, float yaw, float pitch) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, type, pos.getX(), pos.getY(), pos.getZ(), yaw, pitch));
-		sendPositionInfo(source, targets, type, pos);
+	private static int execute(CommandSource source, Collection<? extends Entity> targets, ServerWorld world, Vector3d pos, float yaw, float pitch) {
+		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, pos.getX(), pos.getY(), pos.getZ(), yaw, pitch));
+		sendPositionInfo(source, targets, world, pos);
 		return 0;
 	}
 	
-	private static void sendPositionInfo(CommandSource source, Collection<? extends Entity> targets, DimensionType type, Vec3d pos) {
+	private static void sendPositionInfo(CommandSource source, Collection<? extends Entity> targets, ServerWorld world, Vector3d pos) {
 		if (targets.size() == 1) {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), type.getRegistryName(), pos.x, pos.y, pos.z), true);
+			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), world.func_234923_W_().func_240901_a_(), pos.x, pos.y, pos.z), true);
 		} else {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), type.getRegistryName(), pos.x, pos.y, pos.z), true);
+			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), world.func_234923_W_().func_240901_a_(), pos.x, pos.y, pos.z), true);
 		}
 	}
 }
