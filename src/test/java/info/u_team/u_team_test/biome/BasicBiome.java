@@ -4,8 +4,6 @@ import info.u_team.u_team_test.init.TestBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.*;
 import net.minecraft.world.biome.*;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.surfacebuilders.*;
 
 public class BasicBiome extends Biome {
@@ -13,10 +11,8 @@ public class BasicBiome extends Biome {
 	public static final SurfaceBuilderConfig BASIC_BLOCK_SURVACE = new SurfaceBuilderConfig(TestBlocks.BASIC.get().getDefaultState(), TestBlocks.BASIC.get().getDefaultState(), TestBlocks.BASIC.get().getDefaultState());
 	
 	public BasicBiome() {
-		super(new Builder().surfaceBuilder(SurfaceBuilder.SHATTERED_SAVANNA, new SurfaceBuilderConfig(TestBlocks.BASIC.get().getDefaultState(), Blocks.END_STONE.getDefaultState(), TestBlocks.BASIC.get().getDefaultState())).precipitation(RainType.RAIN).category(Category.PLAINS).depth(0.125F).scale(0.05F).temperature(1.0F).downfall(1.0F).waterColor(4159204).waterFogColor(329011).parent((String) null));
-		this.addStructure(Feature.VILLAGE.withConfiguration(new VillageConfig("village/desert/town_centers", 6)));
-		DefaultBiomeFeatures.addCarvers(this);
-		DefaultBiomeFeatures.addStructures(this);
+		super(new Builder().surfaceBuilder(SurfaceBuilder.SHATTERED_SAVANNA, new SurfaceBuilderConfig(TestBlocks.BASIC.get().getDefaultState(), Blocks.END_STONE.getDefaultState(), TestBlocks.BASIC.get().getDefaultState())).precipitation(RainType.RAIN).category(Category.PLAINS).depth(0.125F).scale(0.05F).temperature(1.0F).downfall(1.0F).parent((String) null));
+		this.func_235063_a_(DefaultBiomeFeatures.field_235183_u_);
 		DefaultBiomeFeatures.addMonsterRooms(this);
 		DefaultBiomeFeatures.addStoneVariants(this);
 		DefaultBiomeFeatures.addOres(this);
