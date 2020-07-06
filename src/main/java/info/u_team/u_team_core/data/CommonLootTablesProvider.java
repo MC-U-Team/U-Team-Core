@@ -8,10 +8,10 @@ import net.minecraft.advancements.criterion.*;
 import net.minecraft.block.Block;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.loot.*;
+import net.minecraft.loot.conditions.*;
+import net.minecraft.loot.functions.*;
 import net.minecraft.util.*;
-import net.minecraft.world.storage.loot.*;
-import net.minecraft.world.storage.loot.conditions.*;
-import net.minecraft.world.storage.loot.functions.*;
 
 public abstract class CommonLootTablesProvider extends CommonProvider {
 	
