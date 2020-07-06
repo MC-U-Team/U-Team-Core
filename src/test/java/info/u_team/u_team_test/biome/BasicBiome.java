@@ -11,7 +11,7 @@ public class BasicBiome extends Biome {
 	public static final SurfaceBuilderConfig BASIC_BLOCK_SURVACE = new SurfaceBuilderConfig(TestBlocks.BASIC.get().getDefaultState(), TestBlocks.BASIC.get().getDefaultState(), TestBlocks.BASIC.get().getDefaultState());
 	
 	public BasicBiome() {
-		super(new Builder().surfaceBuilder(SurfaceBuilder.SHATTERED_SAVANNA, new SurfaceBuilderConfig(TestBlocks.BASIC.get().getDefaultState(), Blocks.END_STONE.getDefaultState(), TestBlocks.BASIC.get().getDefaultState())).precipitation(RainType.RAIN).category(Category.PLAINS).depth(0.125F).scale(0.05F).temperature(1.0F).downfall(1.0F).parent((String) null));
+		super(new Builder().surfaceBuilder(SurfaceBuilder.SHATTERED_SAVANNA, new SurfaceBuilderConfig(TestBlocks.BASIC.get().getDefaultState(), Blocks.END_STONE.getDefaultState(), TestBlocks.BASIC.get().getDefaultState())).precipitation(RainType.RAIN).category(Category.PLAINS).depth(0.125F).scale(0.05F).temperature(1.0F).downfall(1.0F).func_235097_a_(new BiomeAmbience.Builder().func_235238_a_()).parent((String) null));
 		this.func_235063_a_(DefaultBiomeFeatures.field_235183_u_);
 		DefaultBiomeFeatures.addMonsterRooms(this);
 		DefaultBiomeFeatures.addStoneVariants(this);
