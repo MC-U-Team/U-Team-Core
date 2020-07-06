@@ -1,23 +1,22 @@
 package info.u_team.u_team_core.data;
 
 import java.nio.file.Path;
-import java.util.List;
-
-import com.google.common.collect.Lists;
+import java.util.function.Function;
 
 import net.minecraft.block.Block;
-import net.minecraft.item.*;
-import net.minecraft.tags.*;
-import net.minecraft.tags.Tag.*;
+import net.minecraft.item.Item;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	
+	private final Function<ITag.INamedTag<Block>, ITag.Builder> blockTagBuilderFunction;
+	
 	@SuppressWarnings("deprecation")
-	public CommonItemTagsProvider(GenerationData data) {
+	public CommonItemTagsProvider(GenerationData data, CommonBlockTagsProvider blockProvider) {
 		super(data, Registry.ITEM);
+		this.blockTagBuilderFunction = blockProvider::getTagBuilder;
 	}
 	
 	@Override
@@ -30,28 +29,9 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 		return "Item-Tags";
 	}
 	
-	protected void copy(Tag<Block> from, Tag<Item> to) {
-		from.getEntries().forEach(entry -> getBuilder(to).add(copyEntry(entry)));
-	}
-	
-	private ITagEntry<Item> copyEntry(ITagEntry<Block> entry) {
-		if (entry instanceof TagEntry) {
-			return new TagEntry<>(((TagEntry<Block>) entry).getSerializedId());
-		} else if (entry instanceof ListEntry) {
-			final List<Item> list = Lists.newArrayList();
-			
-			for (final Block block : ((ListEntry<Block>) entry).getTaggedItems()) {
-				final Item item = block.asItem();
-				if (item == Items.AIR) {
-					LOGGER.warn("Itemless block copied to item tag: {}", ForgeRegistries.BLOCKS.getKey(block));
-				} else {
-					list.add(item);
-				}
-			}
-			
-			return new ListEntry<>(list);
-		} else {
-			throw new UnsupportedOperationException("Unknown tag entry " + entry);
-		}
+	protected void copy(ITag.INamedTag<Block> blockTag, ITag.INamedTag<Item> itemTag) {
+		final ITag.Builder itemTagBuilder = getTagBuilder(itemTag);
+		final ITag.Builder blockTagBuilder = blockTagBuilderFunction.apply(blockTag);
+		blockTagBuilder.func_232962_b_().forEach(itemTagBuilder::func_232954_a_);
 	}
 }
