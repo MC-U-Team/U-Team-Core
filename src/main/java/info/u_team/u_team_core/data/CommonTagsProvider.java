@@ -3,7 +3,6 @@ package info.u_team.u_team_core.data;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Maps;
@@ -12,14 +11,14 @@ import com.google.gson.JsonObject;
 import net.minecraft.data.*;
 import net.minecraft.tags.*;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.*;
+import net.minecraft.util.registry.Registry;
 
-public abstract class CommonTagsProvider<T extends IForgeRegistryEntry<T>> extends CommonProvider {
+public abstract class CommonTagsProvider<T> extends CommonProvider {
 	
-	protected final IForgeRegistry<T> registry;
+	protected final Registry<T> registry;
 	protected final Map<ResourceLocation, ITag.Builder> tagToBuilder = Maps.newLinkedHashMap();
 	
-	public CommonTagsProvider(GenerationData data, IForgeRegistry<T> registry) {
+	public CommonTagsProvider(GenerationData data, Registry<T> registry) {
 		super(data);
 		this.registry = registry;
 	}
@@ -32,7 +31,7 @@ public abstract class CommonTagsProvider<T extends IForgeRegistryEntry<T>> exten
 		registerTags();
 		
 		tagToBuilder.forEach((location, builder) -> {
-			final List<ITag.Proxy> list = builder.func_232963_b_(id -> tagToBuilder.containsKey(id) ? Tag.func_241284_a_() : null, id -> registry.getValue(id)).collect(Collectors.toList());
+			final List<ITag.Proxy> list = builder.func_232963_b_(id -> tagToBuilder.containsKey(id) ? Tag.func_241284_a_() : null, id -> registry.getValue(id).orElse(null)).collect(Collectors.toList());
 			if (!list.isEmpty()) {
 				throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", location, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
 			}
@@ -48,23 +47,12 @@ public abstract class CommonTagsProvider<T extends IForgeRegistryEntry<T>> exten
 	
 	protected abstract Path makePath(ResourceLocation location);
 	
-	protected TagsProvider.Builder<T> func_240522_a_(ITag.INamedTag<T> p_240522_1_) {
-		ITag.Builder itag$builder = this.func_240525_b_(p_240522_1_);
-		return new TagsProvider.Builder<>(itag$builder, this.registry, modid);
+	protected TagsProvider.Builder<T> getBuilder(ITag.INamedTag<T> tag) {
+		final ITag.Builder tagBuilder = getTagBuilder(tag);
+		return new TagsProvider.Builder<>(tagBuilder, registry, modid);
 	}
 	
-	protected ITag.Builder func_240525_b_(ITag.INamedTag<T> p_240525_1_) {
-		return this.tagToBuilder.computeIfAbsent(p_240525_1_.func_230234_a_(), (p_240526_0_) -> {
-			return new ITag.Builder();
-		});
-	}
-	
-	protected Tag.Builder<T> getBuilder(Tag<T> tag) {
-		final Optional<Tag.Builder<T>> optional = tagToBuilder.entrySet().stream().filter(entry -> entry.getKey().getId().equals(tag.getId())).findAny().map(Entry::getValue);
-		if (optional.isPresent()) {
-			return optional.get();
-		} else {
-			return tagToBuilder.computeIfAbsent(tag, otherTag -> Tag.Builder.create());
-		}
+	protected ITag.Builder getTagBuilder(ITag.INamedTag<T> tag) {
+		return this.tagToBuilder.computeIfAbsent(tag.func_230234_a_(), location -> new ITag.Builder());
 	}
 }
