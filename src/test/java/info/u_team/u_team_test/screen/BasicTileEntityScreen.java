@@ -1,5 +1,7 @@
 package info.u_team.u_team_test.screen;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import info.u_team.u_team_core.gui.UContainerScreen;
 import info.u_team.u_team_core.gui.elements.*;
 import info.u_team.u_team_test.TestMod;
@@ -23,40 +25,42 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 	}
 	
 	@Override
-	protected void init() {
-		super.init();
-		addButton(new UButton(guiLeft + xSize / 2 - 25, guiTop + 3, 50, 15, "Add 100", button -> {
+	protected void func_231160_c_() {
+		super.func_231160_c_();
+		func_230480_a_(new UButton(guiLeft + xSize / 2 - 25, guiTop + 3, 50, 15, ITextComponent.func_241827_a_("Add 100"), button -> {
 			container.getValueMessage().triggerMessage();
 		}));
 		
-		slider = addButton(new BetterFontSlider(guiLeft + 7, guiTop + 19, 162, 20, "Cooldown: ", " Ticks", 0, 100, container.getTileEntity().cooldown, false, true, 1, slider -> {
+		slider = func_230480_a_(new BetterFontSlider(guiLeft + 7, guiTop + 19, 162, 20, ITextComponent.func_241827_a_("Cooldown: "), ITextComponent.func_241827_a_(" Ticks"), 0, 100, container.getTileEntity().cooldown, false, true, 1, slider -> {
 			container.getCooldownMessage().triggerMessage(() -> new PacketBuffer(Unpooled.copyShort(slider.getValueInt())));
 		}));
 	}
 	
 	@Override
-	public void tick() {
-		super.tick();
+	public void func_231023_e_() {
+		super.func_231023_e_();
 		slider.setValue(container.getTileEntity().cooldown);
 	}
 	
 	@Override
-	public void render(int mouseX, int mouseY, float partialTicks) {
-		renderBackground();
-		super.render(mouseX, mouseY, partialTicks);
-		renderHoveredToolTip(mouseX, mouseY);
+	public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		func_230446_a_(matrixStack);
+		super.func_230430_a_(matrixStack, mouseX, mouseY, partialTicks);
+		//buttons.forEach(button -> button.renderToolTip(mouseX, mouseY)); TODO nessessary??
+		func_230459_a_(matrixStack, mouseX, mouseY);
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-		font.drawString("" + container.getTileEntity().value, xSize / 2 + 32, 6, 4210752);
-		font.drawString(title.getFormattedText(), 8, 6, 4210752);
-		font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
+	protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
+		super.func_230451_b_(matrixStack, mouseX, mouseY);
+		field_230712_o_.func_238422_b_(matrixStack, ITextComponent.func_241827_a_("" + container.getTileEntity().value), xSize / 2 + 32, 6, 4210752);
+//		font.drawString(title.getFormattedText(), 8, 6, 4210752);
+//		font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
 	}
 	
 	@Override
-	public boolean mouseReleased(double p_mouseReleased_1_, double p_mouseReleased_3_, int p_mouseReleased_5_) {
-		slider.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_);
-		return super.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_);
+	public boolean func_231048_c_(double p_mouseReleased_1_, double p_mouseReleased_3_, int p_mouseReleased_5_) {
+		slider.func_231048_c_(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_);
+		return super.func_231048_c_(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_);
 	}
 }
