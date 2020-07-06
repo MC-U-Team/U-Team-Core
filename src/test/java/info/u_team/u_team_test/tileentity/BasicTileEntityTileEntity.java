@@ -5,6 +5,7 @@ import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.nbt.CompoundNBT;
@@ -70,8 +71,8 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 	}
 	
 	@Override
-	public void readNBT(CompoundNBT compound) {
-		super.readNBT(compound);
+	public void readNBT(BlockState state, CompoundNBT compound) {
+		super.readNBT(state, compound);
 		value = compound.getInt("value");
 		cooldown = compound.getInt("cooldown");
 		slots.deserializeNBT(compound.getCompound("inventory"));

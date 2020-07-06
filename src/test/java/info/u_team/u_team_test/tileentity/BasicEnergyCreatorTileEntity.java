@@ -6,6 +6,7 @@ import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.nbt.CompoundNBT;
@@ -90,8 +91,8 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	}
 	
 	@Override
-	public void readNBT(CompoundNBT compound) {
-		super.readNBT(compound);
+	public void readNBT(BlockState state, CompoundNBT compound) {
+		super.readNBT(state, compound);
 		slots.deserializeNBT(compound.getCompound("inventory"));
 		energy.deserializeNBT(compound.getCompound("energy"));
 	}

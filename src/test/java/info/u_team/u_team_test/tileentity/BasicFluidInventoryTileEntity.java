@@ -4,6 +4,7 @@ import info.u_team.u_team_core.inventory.*;
 import info.u_team.u_team_core.tileentity.UTickableTileEntity;
 import info.u_team.u_team_test.container.BasicFluidInventoryContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.container.*;
 import net.minecraft.nbt.CompoundNBT;
@@ -40,8 +41,8 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 	}
 	
 	@Override
-	public void readNBT(CompoundNBT compound) {
-		super.readNBT(compound);
+	public void readNBT(BlockState state, CompoundNBT compound) {
+		super.readNBT(state, compound);
 		itemSlots.deserializeNBT(compound.getCompound("items"));
 		fluidTanks.deserializeNBT(compound.getCompound("fluids"));
 	}
