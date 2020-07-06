@@ -7,7 +7,8 @@ import info.u_team.u_team_core.UCoreMain;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.RichPresence.Builder;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
-import net.minecraft.world.dimension.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.versions.mcp.MCPVersion;
@@ -66,20 +67,20 @@ public class DiscordRichPresence {
 		setState(new State(EnumState.MENU));
 	}
 	
-	public static void setDimension(Dimension dimension) {
-		setState(getStateFromDimension(dimension));
+	public static void setDimension(World world) {
+		setState(getStateFromDimension(world));
 	}
 	
-	public static State getStateFromDimension(Dimension dimension) {
-		switch (dimension.getType().getId()) {
-		case -1:
-			return new State(EnumState.NETHER);
-		case 0:
+	public static State getStateFromDimension(World world) {
+		final ResourceLocation dimensionKey = world.func_234923_W_().func_240901_a_();
+		if (dimensionKey.equals(World.field_234918_g_.func_240901_a_())) {
 			return new State(EnumState.OVERWORLD);
-		case 1:
+		} else if (dimensionKey.equals(World.field_234919_h_.func_240901_a_())) {
+			return new State(EnumState.NETHER);
+		} else if (dimensionKey.equals(World.field_234920_i_.func_240901_a_())) {
 			return new State(EnumState.END);
-		default:
-			return new State(EnumState.DIM, DimensionType.getKey(dimension.getType()).getPath());
+		} else {
+			return new State(EnumState.DIM, dimensionKey.getPath());
 		}
 	}
 	
