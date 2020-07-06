@@ -2,7 +2,7 @@ package info.u_team.u_team_core.util.world;
 
 import java.util.function.*;
 
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.*;
@@ -179,6 +179,10 @@ public class WorldUtil {
 		if (entity instanceof ServerPlayerEntity) {
 			final ServerPlayerEntity player = (ServerPlayerEntity) entity;
 			world.getChunkProvider().registerTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getEntityId());
+			player.stopRiding(); // TODO mark this (added new)
+			if (player.isSleeping()) { // TODO mark this (added new)
+				player.stopSleepInBed(true, true); // TODO mark this (added new)
+			} // TODO mark this (added new)
 			if (world == entity.world) {
 				player.connection.setPlayerLocation(x, y, z, yaw, pitch);
 			} else {
@@ -206,6 +210,16 @@ public class WorldUtil {
 				entity.setRotationYawHead(wrapedYaw);
 				world.addFromAnotherDimension(entity);
 			}
+		}
+		
+		// TODO mark this (added new)
+		if (!(entity instanceof LivingEntity) || !((LivingEntity) entity).isElytraFlying()) {
+			entity.setMotion(entity.getMotion().mul(1.0D, 0.0D, 1.0D));
+			entity.func_230245_c_(true);
+		}
+		
+		if (entity instanceof CreatureEntity) {
+			((CreatureEntity) entity).getNavigator().clearPath();
 		}
 	}
 }
