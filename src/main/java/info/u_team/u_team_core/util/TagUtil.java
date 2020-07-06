@@ -10,40 +10,41 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.Ingredient.TagList;
 import net.minecraft.tags.*;
+import net.minecraft.tags.ITag.INamedTag;
 import net.minecraft.util.ResourceLocation;
 
 public class TagUtil {
 	
-	public static Tag<Block> createBlockTag(String modid, String name) {
+	public static INamedTag<Block> createBlockTag(String modid, String name) {
 		return createBlockTag(new ResourceLocation(modid, name));
 	}
 	
-	public static Tag<Block> createBlockTag(ResourceLocation location) {
-		return new BlockTags.Wrapper(location);
+	public static INamedTag<Block> createBlockTag(ResourceLocation location) {
+		return BlockTags.makeWrapperTag(location.toString());
 	}
 	
-	public static Tag<Item> createItemTag(String modid, String name) {
+	public static INamedTag<Item> createItemTag(String modid, String name) {
 		return createItemTag(new ResourceLocation(modid, name));
 	}
 	
-	public static Tag<Item> createItemTag(ResourceLocation location) {
-		return new ItemTags.Wrapper(location);
+	public static INamedTag<Item> createItemTag(ResourceLocation location) {
+		return ItemTags.makeWrapperTag(location.toString());
 	}
 	
-	public static Tag<Fluid> createFluidTag(String modid, String name) {
+	public static INamedTag<Fluid> createFluidTag(String modid, String name) {
 		return createFluidTag(new ResourceLocation(modid, name));
 	}
 	
-	public static Tag<Fluid> createFluidTag(ResourceLocation location) {
-		return new FluidTags.Wrapper(location);
+	public static INamedTag<Fluid> createFluidTag(ResourceLocation location) {
+		return FluidTags.makeWrapperTag(location.toString());
 	}
 	
-	public static Tag<EntityType<?>> createEntityTypeTag(String modid, String name) {
+	public static INamedTag<EntityType<?>> createEntityTypeTag(String modid, String name) {
 		return createEntityTypeTag(new ResourceLocation(modid, name));
 	}
 	
-	public static Tag<EntityType<?>> createEntityTypeTag(ResourceLocation location) {
-		return new EntityTypeTags.Wrapper(location);
+	public static INamedTag<EntityType<?>> createEntityTypeTag(ResourceLocation location) {
+		return EntityTypeTags.func_232896_a_(location.toString());
 	}
 	
 	public static Tag<Block> fromItemTag(Tag<Item> block) {
