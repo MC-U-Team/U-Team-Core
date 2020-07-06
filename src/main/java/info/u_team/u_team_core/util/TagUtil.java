@@ -47,12 +47,12 @@ public class TagUtil {
 		return EntityTypeTags.func_232896_a_(location.toString());
 	}
 	
-	public static Tag<Block> fromItemTag(Tag<Item> block) {
-		return new BlockTags.Wrapper(block.getId());
+	public static INamedTag<Block> fromItemTag(INamedTag<Item> block) {
+		return BlockTags.makeWrapperTag(block.func_230234_a_().toString());
 	}
 	
-	public static Tag<Item> fromBlockTag(Tag<Block> block) {
-		return new ItemTags.Wrapper(block.getId());
+	public static INamedTag<Item> fromBlockTag(INamedTag<Block> block) {
+		return ItemTags.makeWrapperTag(block.func_230234_a_().toString());
 	}
 	
 	public static Ingredient getSerializableIngredientOfTag(Tag<Item> tag) {
