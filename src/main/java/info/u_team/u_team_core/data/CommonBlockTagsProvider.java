@@ -8,6 +8,7 @@ import net.minecraft.util.registry.Registry;
 
 public abstract class CommonBlockTagsProvider extends CommonTagsProvider<Block> {
 	
+	@SuppressWarnings("deprecation")
 	public CommonBlockTagsProvider(GenerationData data) {
 		super(data, Registry.BLOCK);
 	}
