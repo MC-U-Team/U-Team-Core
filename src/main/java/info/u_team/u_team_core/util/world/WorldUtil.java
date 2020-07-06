@@ -5,10 +5,11 @@ import java.util.function.*;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.RayTraceContext.*;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.dimension.DimensionType;
+import net.minecraft.world.*;
 import net.minecraft.world.server.*;
 import net.minecraft.world.storage.WorldSavedData;
 
@@ -80,7 +81,7 @@ public class WorldUtil {
 	 * @param type The dimension type
 	 * @return The server world for the given type
 	 */
-	public static ServerWorld getServerWorld(Entity entity, DimensionType type) {
+	public static ServerWorld getServerWorld(Entity entity, RegistryKey<World> type) {
 		return getServerWorld(entity.getServer(), type);
 	}
 	
@@ -91,7 +92,7 @@ public class WorldUtil {
 	 * @param type The dimension type
 	 * @return The server world for the given type
 	 */
-	public static ServerWorld getServerWorld(MinecraftServer server, DimensionType type) {
+	public static ServerWorld getServerWorld(MinecraftServer server, RegistryKey<World> type) {
 		return server.getWorld(type);
 	}
 	
@@ -104,8 +105,8 @@ public class WorldUtil {
 	 *        or a different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, DimensionType type, BlockPos pos) {
-		teleportEntity(entity, type, new Vec3d(pos));
+	public static void teleportEntity(Entity entity, RegistryKey<World> type, BlockPos pos) {
+		teleportEntity(entity, type, Vector3d.func_237489_a_(pos));
 	}
 	
 	/**
@@ -117,7 +118,7 @@ public class WorldUtil {
 	 *        or a different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, DimensionType type, Vec3d pos) {
+	public static void teleportEntity(Entity entity, RegistryKey<World> type, Vector3d pos) {
 		teleportEntity(entity, getServerWorld(entity, type), pos);
 	}
 	
@@ -131,7 +132,7 @@ public class WorldUtil {
 	 * @param pos The position the entity should be teleported to
 	 */
 	public static void teleportEntity(Entity entity, ServerWorld world, BlockPos pos) {
-		teleportEntity(entity, world, new Vec3d(pos));
+		teleportEntity(entity, world, Vector3d.func_237489_a_(pos));
 	}
 	
 	/**
@@ -143,7 +144,7 @@ public class WorldUtil {
 	 *        different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, ServerWorld world, Vec3d pos) {
+	public static void teleportEntity(Entity entity, ServerWorld world, Vector3d pos) {
 		teleportEntity(entity, world, pos.getX(), pos.getY(), pos.getZ(), entity.rotationYaw, entity.rotationPitch);
 	}
 	
@@ -159,7 +160,7 @@ public class WorldUtil {
 	 * @param yaw Yaw
 	 * @param pitch Pitch
 	 */
-	public static void teleportEntity(Entity entity, DimensionType type, double x, double y, double z, float yaw, float pitch) {
+	public static void teleportEntity(Entity entity, RegistryKey<World> type, double x, double y, double z, float yaw, float pitch) {
 		teleportEntity(entity, getServerWorld(entity, type), x, y, z, yaw, pitch);
 	}
 	
