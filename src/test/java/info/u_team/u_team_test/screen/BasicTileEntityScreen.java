@@ -22,6 +22,7 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 		super(container, playerInventory, text, new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png"));
 		xSize = 176;
 		ySize = 173;
+		setTextLocation();
 	}
 	
 	@Override
@@ -54,8 +55,8 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 	protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
 		super.func_230451_b_(matrixStack, mouseX, mouseY);
 		field_230712_o_.func_238422_b_(matrixStack, ITextComponent.func_241827_a_("" + container.getTileEntity().value), xSize / 2 + 32, 6, 4210752);
-//		field_230712_o_.func_238422_b_(matrixStack, field_230704_d_, 8, 6, 4210752);
-//		field_230712_o_.func_238422_b_(matrixStack, playerInventory.getDisplayName(), 8.0F, ySize - 94, 4210752);
+		// field_230712_o_.func_238422_b_(matrixStack, field_230704_d_, 8, 6, 4210752);
+		// field_230712_o_.func_238422_b_(matrixStack, playerInventory.getDisplayName(), 8.0F, ySize - 94, 4210752);
 	}
 	
 	@Override
