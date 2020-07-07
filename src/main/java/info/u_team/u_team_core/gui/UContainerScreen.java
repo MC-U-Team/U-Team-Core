@@ -16,14 +16,36 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	protected ResourceLocation background;
 	protected int backgroundWidth, backgroundHeight;
 	
+	protected boolean drawTitleName;
+	protected boolean drawInventoryName;
+	
 	public UContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background) {
 		super(container, playerInventory, title);
 		this.background = background;
 		backgroundWidth = backgroundHeight = 256;
+		drawTitleName = drawInventoryName = true;
 	}
 	
 	public void setBackground(ResourceLocation background) {
 		this.background = background;
+	}
+	
+	protected void setNameRender(int xTitle, int yTitle, int xInventory, int yInventory) {
+		field_238742_p_ = xTitle;
+		field_238743_q_ = yTitle;
+		field_238744_r_ = xInventory;
+		field_238745_s_ = yInventory;
+	}
+	
+	@Override
+	protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
+		super.func_230451_b_(matrixStack, mouseX, mouseY);
+		if (drawTitleName) {
+			field_230712_o_.func_238422_b_(matrixStack, field_230704_d_, field_238742_p_, field_238743_q_, 4210752);
+		}
+		if (drawInventoryName) {
+			field_230712_o_.func_238422_b_(matrixStack, playerInventory.getDisplayName(), field_238744_r_, field_238745_s_, 4210752);
+		}
 	}
 	
 	@Override
