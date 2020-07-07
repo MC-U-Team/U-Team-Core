@@ -3,7 +3,7 @@ package info.u_team.u_team_test.screen;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.gui.elements.*;
-import info.u_team.u_team_core.screen.UContainerScreen;
+import info.u_team.u_team_core.screen.UBasicContainerScreen;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
 import io.netty.buffer.Unpooled;
@@ -14,13 +14,12 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.*;
 
 @OnlyIn(Dist.CLIENT)
-public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityContainer> {
+public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntityContainer> {
 	
 	private BetterFontSlider slider;
 	
 	public BasicTileEntityScreen(BasicTileEntityContainer container, PlayerInventory playerInventory, ITextComponent text) {
-		super(container, playerInventory, text, new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png"));
-		setSize(176, 173);
+		super(container, playerInventory, text, new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png"), 176, 173);
 	}
 	
 	@Override
@@ -39,14 +38,6 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 	public void func_231023_e_() {
 		super.func_231023_e_();
 		slider.setValue(container.getTileEntity().cooldown);
-	}
-	
-	@Override
-	public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		func_230446_a_(matrixStack);
-		super.func_230430_a_(matrixStack, mouseX, mouseY, partialTicks);
-		field_230710_m_.forEach(widget -> widget.func_230443_a_(matrixStack, mouseX, mouseY));
-		func_230459_a_(matrixStack, mouseX, mouseY);
 	}
 	
 	@Override
