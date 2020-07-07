@@ -22,12 +22,4 @@ public class BasicFluidInventoryScreen extends UContainerScreen<BasicFluidInvent
 		// buttons.forEach(button -> button.renderToolTip(mouseX, mouseY)); TODO nessessary??
 		func_230459_a_(matrixStack, mouseX, mouseY);
 	}
-	
-	@Override
-	protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
-		// super.drawGuiContainerForegroundLayer(mouseX, mouseY);
-		// font.drawString(title.getFormattedText(), 8, 6, 4210752);
-		// font.drawString(playerInventory.getDisplayName().getFormattedText(), 8, ySize - 94, 4210752);
-	}
-	
 }
