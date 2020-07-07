@@ -13,6 +13,15 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	
 	private final Function<ITag.INamedTag<Block>, ITag.Builder> blockTagBuilderFunction;
 	
+	public CommonItemTagsProvider(GenerationData data) {
+		this(data, new CommonBlockTagsProvider(data) {
+			
+			@Override
+			protected void registerTags() {
+			}
+		});
+	}
+	
 	@SuppressWarnings("deprecation")
 	public CommonItemTagsProvider(GenerationData data, CommonBlockTagsProvider blockProvider) {
 		super(data, Registry.ITEM);
