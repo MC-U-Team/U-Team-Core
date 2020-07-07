@@ -17,9 +17,7 @@ public class BasicEnergyCreatorScreen extends UContainerScreen<BasicEnergyCreato
 	
 	public BasicEnergyCreatorScreen(BasicEnergyCreatorContainer container, PlayerInventory playerInventory, ITextComponent title) {
 		super(container, playerInventory, title, new ResourceLocation(TestMod.MODID, "textures/gui/energy_creator.png"));
-		xSize = 176;
-		ySize = 173;
-		setTextLocation();
+		setSize(176, 173);
 	}
 	
 	@Override
