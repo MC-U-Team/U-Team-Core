@@ -55,7 +55,7 @@ public class TagUtil {
 		return ItemTags.makeWrapperTag(block.func_230234_a_().toString());
 	}
 	
-	public static Ingredient getSerializableIngredientOfTag(Tag<Item> tag) {
+	public static Ingredient getSerializableIngredientOfTag(ITag<Item> tag) {
 		return Ingredient.fromItemListStream(Stream.of(new TagList(tag) {
 			
 			@Override
