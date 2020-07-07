@@ -46,7 +46,7 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 	public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		func_230446_a_(matrixStack);
 		super.func_230430_a_(matrixStack, mouseX, mouseY, partialTicks);
-		//buttons.forEach(button -> button.renderToolTip(mouseX, mouseY)); TODO nessessary??
+		// buttons.forEach(button -> button.renderToolTip(mouseX, mouseY)); TODO nessessary??
 		func_230459_a_(matrixStack, mouseX, mouseY);
 	}
 	
@@ -54,8 +54,8 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 	protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
 		super.func_230451_b_(matrixStack, mouseX, mouseY);
 		field_230712_o_.func_238422_b_(matrixStack, ITextComponent.func_241827_a_("" + container.getTileEntity().value), xSize / 2 + 32, 6, 4210752);
-//		font.drawString(title.getFormattedText(), 8, 6, 4210752);
-//		font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
+		// font.drawString(title.getFormattedText(), 8, 6, 4210752);
+		// font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
 	}
 	
 	@Override

@@ -31,14 +31,14 @@ public class BasicEnergyCreatorScreen extends UContainerScreen<BasicEnergyCreato
 	public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		func_230446_a_(matrixStack);
 		super.func_230430_a_(matrixStack, mouseX, mouseY, partialTicks);
-		//buttons.forEach(button -> button.renderToolTip(mouseX, mouseY)); TODO nessessary??
+		// buttons.forEach(button -> button.renderToolTip(mouseX, mouseY)); TODO nessessary??
 		func_230459_a_(matrixStack, mouseX, mouseY);
 	}
 	
-//	@Override
-//	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
-//		font.drawString(title.getFormattedText(), 8, 6, 4210752);
-//		font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
-//	}
+	// @Override
+	// protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+	// font.drawString(title.getFormattedText(), 8, 6, 4210752);
+	// font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
+	// }
 	
 }

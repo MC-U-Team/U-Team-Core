@@ -28,7 +28,7 @@ public class ButtonTestScreen extends Screen {
 		
 		func_230480_a_(new BetterButton(10, 30, 200, 15, 0.75F, ITextComponent.func_241827_a_("Better button"), button -> System.out.println("Pressed UButton")));
 		
-		final ActiveButton activeButton = func_230480_a_(new ActiveButton(10, 50, 200, 15,  ITextComponent.func_241827_a_("Basic Test button"), 0x006442FF));
+		final ActiveButton activeButton = func_230480_a_(new ActiveButton(10, 50, 200, 15, ITextComponent.func_241827_a_("Basic Test button"), 0x006442FF));
 		activeButton.setPressable(() -> {
 			System.out.println("Pressed ActiveButton");
 			activeButton.setActive(!activeButton.isActive());

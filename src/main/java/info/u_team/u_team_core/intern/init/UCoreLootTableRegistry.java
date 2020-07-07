@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 @EventBusSubscriber(modid = UCoreMain.MODID, bus = Bus.MOD)
 public class UCoreLootTableRegistry {
 	
-	public static LootFunctionType SET_TILEENTITY_NBT; 
+	public static LootFunctionType SET_TILEENTITY_NBT;
 	
 	@SubscribeEvent
 	public static void register(Register<Block> event) {
