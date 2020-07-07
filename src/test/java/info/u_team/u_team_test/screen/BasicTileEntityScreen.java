@@ -20,9 +20,7 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 	
 	public BasicTileEntityScreen(BasicTileEntityContainer container, PlayerInventory playerInventory, ITextComponent text) {
 		super(container, playerInventory, text, new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png"));
-		xSize = 176;
-		ySize = 173;
-		setTextLocation();
+		setSize(176, 173);
 	}
 	
 	@Override
