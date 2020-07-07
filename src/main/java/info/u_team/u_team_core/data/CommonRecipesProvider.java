@@ -10,7 +10,7 @@ import net.minecraft.advancements.criterion.MinMaxBounds.IntBound;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.*;
 
 public abstract class CommonRecipesProvider extends CommonProvider {
@@ -59,7 +59,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	protected void registerDefaultAdvancementsRecipes(Consumer<IFinishedRecipe> consumer) {
 	}
 	
-	protected InventoryChangeTrigger.Instance hasItem(Tag<Item> tag) {
+	protected InventoryChangeTrigger.Instance hasItem(ITag<Item> tag) {
 		return hasItem(ItemPredicate.Builder.create().tag(tag).build());
 	}
 	
@@ -71,7 +71,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 		return new InventoryChangeTrigger.Instance(EntityPredicate.AndPredicate.field_234582_a_, IntBound.UNBOUNDED, IntBound.UNBOUNDED, IntBound.UNBOUNDED, predicates);
 	}
 	
-	public static Ingredient getIngredientOfTag(Tag<Item> tag) {
+	public static Ingredient getIngredientOfTag(ITag<Item> tag) {
 		return TagUtil.getSerializableIngredientOfTag(tag);
 	}
 	
