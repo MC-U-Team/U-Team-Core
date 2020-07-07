@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.gui;
+package info.u_team.u_team_core.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;

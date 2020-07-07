@@ -5,9 +5,9 @@ import java.util.function.Function;
 import java.util.stream.*;
 
 import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
-import info.u_team.u_team_core.gui.UContainerScreen;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.BufferPropertyContainerMessage;
+import info.u_team.u_team_core.screen.UContainerScreen;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.*;

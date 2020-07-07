@@ -2,8 +2,8 @@ package info.u_team.u_team_test.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import info.u_team.u_team_core.gui.UContainerScreen;
 import info.u_team.u_team_core.gui.elements.EnergyStorageWidget;
+import info.u_team.u_team_core.screen.UContainerScreen;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
 import net.minecraft.entity.player.PlayerInventory;
