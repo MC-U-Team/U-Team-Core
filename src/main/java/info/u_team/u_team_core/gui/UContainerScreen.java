@@ -30,6 +30,12 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 		this.background = background;
 	}
 	
+	protected void setSize(int x, int y) {
+		xSize = x;
+		ySize = y;
+		setTextLocation();
+	}
+	
 	protected void setTextLocation() {
 		setTextLocation(8, 6, 8, ySize - 94);
 	}
