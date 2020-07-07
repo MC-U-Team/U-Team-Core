@@ -11,7 +11,9 @@ import net.minecraftforge.api.distmarker.*;
 @OnlyIn(Dist.CLIENT)
 public class BasicFluidInventoryScreen extends UBasicContainerScreen<BasicFluidInventoryContainer> {
 	
+	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/fluid_inventory.png");
+	
 	public BasicFluidInventoryScreen(BasicFluidInventoryContainer container, PlayerInventory playerInventory, ITextComponent title) {
-		super(container, playerInventory, title, new ResourceLocation(TestMod.MODID, "textures/gui/fluid_inventory.png"));
+		super(container, playerInventory, title, BACKGROUND);
 	}
 }
