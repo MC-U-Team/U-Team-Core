@@ -9,8 +9,9 @@ import net.minecraft.util.text.ITextComponent;
 
 public class UBasicContainerScreen<T extends Container> extends UContainerScreen<T> {
 	
-	public UBasicContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background) {
+	public UBasicContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background, int xSize, int ySize) {
 		super(container, playerInventory, title, background);
+		setSize(xSize, ySize);
 	}
 	
 	@Override
