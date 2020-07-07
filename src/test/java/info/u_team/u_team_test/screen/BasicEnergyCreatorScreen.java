@@ -13,8 +13,10 @@ import net.minecraftforge.energy.CapabilityEnergy;
 @OnlyIn(Dist.CLIENT)
 public class BasicEnergyCreatorScreen extends UBasicContainerScreen<BasicEnergyCreatorContainer> {
 	
+	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/energy_creator.png");
+	
 	public BasicEnergyCreatorScreen(BasicEnergyCreatorContainer container, PlayerInventory playerInventory, ITextComponent title) {
-		super(container, playerInventory, title, new ResourceLocation(TestMod.MODID, "textures/gui/energy_creator.png"), 176, 173);
+		super(container, playerInventory, title, BACKGROUND, 176, 173);
 	}
 	
 	@Override
