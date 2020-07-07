@@ -47,7 +47,7 @@ public class BasicTileEntityScreen extends UContainerScreen<BasicTileEntityConta
 	public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		func_230446_a_(matrixStack);
 		super.func_230430_a_(matrixStack, mouseX, mouseY, partialTicks);
-		// buttons.forEach(button -> button.renderToolTip(mouseX, mouseY)); TODO nessessary??
+		field_230710_m_.forEach(widget -> widget.func_230443_a_(matrixStack, mouseX, mouseY));
 		func_230459_a_(matrixStack, mouseX, mouseY);
 	}
 	
