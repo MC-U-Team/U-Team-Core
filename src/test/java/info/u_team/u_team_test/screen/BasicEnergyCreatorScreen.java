@@ -35,12 +35,4 @@ public class BasicEnergyCreatorScreen extends UContainerScreen<BasicEnergyCreato
 		field_230710_m_.forEach(widget -> widget.func_230443_a_(matrixStack, mouseX, mouseY));
 		func_230459_a_(matrixStack, mouseX, mouseY);
 	}
-	
-	@Override
-	protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
-		super.func_230451_b_(matrixStack, mouseX, mouseY);
-		// font.drawString(title.getFormattedText(), 8, 6, 4210752);
-		// font.drawString(playerInventory.getDisplayName().getFormattedText(), 8.0F, ySize - 94, 4210752);
-	}
-	
 }
