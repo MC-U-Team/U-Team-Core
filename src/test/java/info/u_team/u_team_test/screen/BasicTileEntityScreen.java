@@ -16,10 +16,12 @@ import net.minecraftforge.api.distmarker.*;
 @OnlyIn(Dist.CLIENT)
 public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntityContainer> {
 	
+	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png");
+	
 	private BetterFontSlider slider;
 	
 	public BasicTileEntityScreen(BasicTileEntityContainer container, PlayerInventory playerInventory, ITextComponent text) {
-		super(container, playerInventory, text, new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png"), 176, 173);
+		super(container, playerInventory, text, BACKGROUND, 176, 173);
 	}
 	
 	@Override
