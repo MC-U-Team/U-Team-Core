@@ -189,9 +189,9 @@ sourceSets {
 
 dependencies {
     minecraft getForgeDependency()
-    //compile fg.deobf(getJeiApiDependency())
-    //runtime fg.deobf(getJeiDependency())
-    //compile fg.deobf(getPatchouliDependency())
+    compile fg.deobf(getJeiApiDependency())
+    runtime fg.deobf(getJeiDependency())
+    compile fg.deobf(getPatchouliDependency())
 }
 
 curseforge {	
