@@ -47,6 +47,12 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		add("item.minecraft.lingering_potion.effect.radiation", "Lingering Potion of Radiation");
 		
 		addBiome(TestBiomes.BASIC, "Basic");
+		
+		// German test for umlaut
+		addBlock("de_de", TestBlocks.BASIC, "Ä");
+		addBlock("de_de", TestBlocks.BASIC_TILEENTITY, "Ö");
+		addBlock("de_de", TestBlocks.BASIC_ENERGY_CREATOR, "Üabc");
+		addBlock("de_de", TestBlocks.BASIC_FLUID_INVENTORY, "Großes");
 	}
 	
 }
