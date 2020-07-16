@@ -40,12 +40,12 @@ public class ActiveImageButton extends ImageButton {
 	}
 	
 	@Override
-	public void func_230431_b_(MatrixStack matrixStack, int mouseX, int mouseY, float partial) {
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partial) {
 		RenderSystem.color4f(1, 1, 1, 1);
 		if (active) {
 			activeColor.glColor();
 		}
-		super.func_230431_b_(matrixStack, mouseX, mouseY, partial);
+		super.renderButton(matrixStack, mouseX, mouseY, partial);
 		GL11.glColor4f(1, 1, 1, 1);
 	}
 }

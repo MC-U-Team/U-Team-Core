@@ -29,7 +29,7 @@ public class FluidInventoryRender extends AbstractGui {
 		final RGBA rgba = RGBA.fromARGB(stack.getFluid().getAttributes().getColor(stack));
 		RenderSystem.color4f(rgba.getRedComponent(), rgba.getGreenComponent(), rgba.getBlueComponent(), rgba.getAlphaComponent());
 		
-		func_238470_a_(matrixStack, x, y, 100, 16, 16, sprite);
+		blit(matrixStack, x, y, 100, 16, 16, sprite);
 		
 		RenderSystem.color4f(1, 1, 1, 1);
 		

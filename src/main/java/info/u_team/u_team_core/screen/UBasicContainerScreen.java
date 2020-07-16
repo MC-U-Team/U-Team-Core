@@ -19,10 +19,10 @@ public class UBasicContainerScreen<T extends Container> extends UContainerScreen
 	}
 	
 	@Override
-	public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		func_230446_a_(matrixStack);
-		super.func_230430_a_(matrixStack, mouseX, mouseY, partialTicks);
-		field_230710_m_.forEach(widget -> widget.func_230443_a_(matrixStack, mouseX, mouseY));
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		renderBackground(matrixStack);
+		super.render(matrixStack, mouseX, mouseY, partialTicks);
+		buttons.forEach(widget -> widget.renderToolTip(matrixStack, mouseX, mouseY));
 		func_230459_a_(matrixStack, mouseX, mouseY);
 	}
 	

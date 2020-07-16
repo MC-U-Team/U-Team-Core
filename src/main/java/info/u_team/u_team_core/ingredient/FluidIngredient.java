@@ -188,7 +188,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		public Collection<FluidStack> getStacks() {
 			final List<FluidStack> list = Lists.newArrayList();
 			
-			for (Fluid fluid : tag.func_230236_b_()) {
+			for (Fluid fluid : tag.getAllElements()) {
 				list.add(new FluidStack(fluid, 1000));
 			}
 			

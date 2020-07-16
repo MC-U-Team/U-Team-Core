@@ -16,21 +16,21 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	}
 	
 	public void updateSettings(int width, int height, int top, int bottom, int left, int right) {
-		this.field_230670_d_ = width;
-		this.field_230671_e_ = height;
-		this.field_230672_i_ = top;
-		this.field_230673_j_ = bottom;
-		this.field_230675_l_ = left;
-		this.field_230674_k_ = right;
+		this.width = width;
+		this.height = height;
+		this.y0 = top;
+		this.y1 = bottom;
+		this.x0 = left;
+		this.x1 = right;
 	}
 	
 	@Override
-	public int func_230949_c_() {
-		return field_230670_d_ - listWidth;
+	public int getRowWidth() {
+		return width - listWidth;
 	}
 	
 	@Override
-	protected int func_230952_d_() {
-		return field_230670_d_ + scrollbarPos;
+	protected int getScrollbarPosition() {
+		return width + scrollbarPos;
 	}
 }

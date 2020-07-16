@@ -48,11 +48,11 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<Block> fromItemTag(INamedTag<Item> block) {
-		return BlockTags.makeWrapperTag(block.func_230234_a_().toString());
+		return BlockTags.makeWrapperTag(block.getName().toString());
 	}
 	
 	public static INamedTag<Item> fromBlockTag(INamedTag<Block> block) {
-		return ItemTags.makeWrapperTag(block.func_230234_a_().toString());
+		return ItemTags.makeWrapperTag(block.getName().toString());
 	}
 	
 	public static Ingredient getSerializableIngredientOfTag(ITag<Item> tag) {

@@ -39,12 +39,12 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 	}
 	
 	@Override
-	public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		if (visible) {
 			hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 			
-			func_238467_a_(matrixStack, x, y, x + width, y + height, backgroundColor);
-			func_238467_a_(matrixStack, x, y, (int) (x + (progress.get() * width)), y + height, progressColor);
+			fill(matrixStack, x, y, x + width, y + height, backgroundColor);
+			fill(matrixStack, x, y, (int) (x + (progress.get() * width)), y + height, progressColor);
 		}
 	}
 	
@@ -55,7 +55,7 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 	}
 	
 	@Override
-	public boolean func_231044_a_(double mouseX, double mouseY, int button) {
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		if (button == 0) {
 			if (isPressable(mouseX, mouseY)) {
 				playPressSound(Minecraft.getInstance().getSoundHandler());

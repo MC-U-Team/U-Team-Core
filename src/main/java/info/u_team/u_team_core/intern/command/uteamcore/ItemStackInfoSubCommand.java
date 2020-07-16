@@ -37,9 +37,9 @@ public class ItemStackInfoSubCommand {
 		final IFormattableTextComponent component = new StringTextComponent(entry.getRegistryName().toString());
 		Style style = component.getStyle();
 		final String className = getClassString(entry);
-		style = style.func_240712_a_(TextFormatting.AQUA);
-		style = style.func_240716_a_(new HoverEvent(HoverEvent.Action.field_230550_a_, new StringTextComponent(className).func_240699_a_(TextFormatting.YELLOW)));
-		style = style.func_240715_a_(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
+		style = style.setFormatting(TextFormatting.AQUA);
+		style = style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(className).func_240699_a_(TextFormatting.YELLOW)));
+		style = style.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
 		component.func_230530_a_(style);
 		return component;
 	}

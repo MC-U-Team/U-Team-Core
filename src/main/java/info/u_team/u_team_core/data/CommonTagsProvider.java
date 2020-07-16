@@ -35,7 +35,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			if (!list.isEmpty()) {
 				throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", location, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
 			}
-			final JsonObject object = builder.func_232965_c_();
+			final JsonObject object = builder.serialize();
 			final Path path = makePath(location);
 			try {
 				write(cache, object, path);
@@ -53,6 +53,6 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	}
 	
 	protected ITag.Builder getTagBuilder(ITag.INamedTag<T> tag) {
-		return this.tagToBuilder.computeIfAbsent(tag.func_230234_a_(), location -> new ITag.Builder());
+		return this.tagToBuilder.computeIfAbsent(tag.getName(), location -> new ITag.Builder());
 	}
 }

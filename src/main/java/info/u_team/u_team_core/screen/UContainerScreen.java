@@ -51,26 +51,26 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
 		super.func_230451_b_(matrixStack, mouseX, mouseY);
 		if (drawTitleText) {
-			field_230712_o_.func_238422_b_(matrixStack, field_230704_d_, field_238742_p_, field_238743_q_, 4210752);
+			font.func_238422_b_(matrixStack, title, field_238742_p_, field_238743_q_, 4210752);
 		}
 		if (drawInventoryText) {
-			field_230712_o_.func_238422_b_(matrixStack, playerInventory.getDisplayName(), field_238744_r_, field_238745_s_, 4210752);
+			font.func_238422_b_(matrixStack, playerInventory.getDisplayName(), field_238744_r_, field_238745_s_, 4210752);
 		}
 	}
 	
 	@Override
 	protected void func_230450_a_(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
 		RenderSystem.color4f(1, 1, 1, 1);
-		field_230706_i_.getTextureManager().bindTexture(background);
-		final int xStart = (field_230708_k_ - xSize) / 2;
-		final int yStart = (field_230709_l_ - ySize) / 2;
+		minecraft.getTextureManager().bindTexture(background);
+		final int xStart = (width - xSize) / 2;
+		final int yStart = (height - ySize) / 2;
 		
-		func_238463_a_(matrixStack, xStart, yStart, 0, 0, xSize, ySize, backgroundWidth, backgroundHeight);
+		blit(matrixStack, xStart, yStart, 0, 0, xSize, ySize, backgroundWidth, backgroundHeight);
 	}
 	
 	@Override
-	public void func_231023_e_() {
-		super.func_231023_e_();
+	public void tick() {
+		super.tick();
 		if (container instanceof UContainer) {
 			((UContainer) container).updateTrackedServerToClient();
 		}

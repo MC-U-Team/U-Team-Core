@@ -49,8 +49,8 @@ public class ToggleImageButton extends ImageButton {
 	}
 	
 	@Override
-	public void func_230930_b_() {
+	public void onPress() {
 		toggle();
-		super.func_230930_b_();
+		super.onPress();
 	}
 }

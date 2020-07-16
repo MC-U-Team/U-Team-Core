@@ -23,26 +23,26 @@ public class BetterButton extends UButton {
 	}
 	
 	@Override
-	public void func_230431_b_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		final FontRenderer fontRenderer = minecraft.fontRenderer;
 		
-		String message = func_230458_i_().getString();
+		String message = getMessage().getString();
 		
-		GuiUtils.drawContinuousTexturedBox(field_230687_i_, field_230690_l_, field_230691_m_, 0, 46 + func_230989_a_(func_230449_g_()) * 20, field_230688_j_, field_230689_k_, 200, 20, 2, 3, 2, 2, 0);
-		func_230441_a_(matrixStack, minecraft, mouseX, mouseY);
+		GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0);
+		renderBg(matrixStack, minecraft, mouseX, mouseY);
 		
 		final int messageWidth = MathHelper.ceil(scale * fontRenderer.getStringWidth(message));
 		final int ellipsisWidth = MathHelper.ceil(scale * fontRenderer.getStringWidth("..."));
 		
-		if (messageWidth > field_230688_j_ - 6 && messageWidth > ellipsisWidth) {
-			message = fontRenderer.func_238412_a_(message, field_230688_j_ - 6 - ellipsisWidth).trim() + "...";
+		if (messageWidth > width - 6 && messageWidth > ellipsisWidth) {
+			message = fontRenderer.func_238412_a_(message, width - 6 - ellipsisWidth).trim() + "...";
 		}
 		
 		final float positionFactor = 1 / scale;
 		
-		final float xStart = (field_230690_l_ + (field_230688_j_ / 2) - messageWidth / 2) * positionFactor;
-		final float yStart = (field_230691_m_ + ((int) (field_230689_k_ - 8 * scale)) / 2) * positionFactor;
+		final float xStart = (x + (width / 2) - messageWidth / 2) * positionFactor;
+		final float yStart = (y + ((int) (height - 8 * scale)) / 2) * positionFactor;
 		
 		fontRenderer.renderString(message, xStart, yStart, getFGColor(), Matrix4f.makeScale(scale, scale, 0), true, false);
 	}

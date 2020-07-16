@@ -40,7 +40,7 @@ public class EnergyStorageWidget extends Widget {
 	}
 	
 	@Override
-	public void func_230431_b_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		minecraft.getTextureManager().bindTexture(ENERGY_TEXTURE);
 		
@@ -49,26 +49,26 @@ public class EnergyStorageWidget extends Widget {
 			ratio = 1;
 		}
 		
-		final int storageOffset = (int) ((1 - ratio) * (field_230689_k_ - 2));
+		final int storageOffset = (int) ((1 - ratio) * (height - 2));
 		
-		for (int yComponent = 1; yComponent < field_230689_k_ - 1; yComponent += 2) {
-			func_238463_a_(matrixStack, field_230690_l_ + 1, field_230691_m_ + yComponent, 0, 0, 12, 2, 16, 16); // Background with side border
+		for (int yComponent = 1; yComponent < height - 1; yComponent += 2) {
+			blit(matrixStack, x + 1, y + yComponent, 0, 0, 12, 2, 16, 16); // Background with side border
 		}
 		
-		for (int yComponent = 1 + storageOffset; yComponent < field_230689_k_ - 1; yComponent++) {
+		for (int yComponent = 1 + storageOffset; yComponent < height - 1; yComponent++) {
 			if (yComponent % 2 == 0) {
-				func_238463_a_(matrixStack, field_230690_l_ + 1, field_230691_m_ + yComponent, 0, 3, 12, 1, 16, 16); // Fuel
+				blit(matrixStack, x + 1, y + yComponent, 0, 3, 12, 1, 16, 16); // Fuel
 			} else {
-				func_238463_a_(matrixStack, field_230690_l_ + 1, field_230691_m_ + yComponent, 0, 2, 12, 1, 16, 16); // Fuel
+				blit(matrixStack, x + 1, y + yComponent, 0, 2, 12, 1, 16, 16); // Fuel
 			}
 		}
 		
-		GuiUtil.drawContainerBorder(matrixStack, field_230690_l_, field_230691_m_, field_230688_j_, field_230689_k_);
+		GuiUtil.drawContainerBorder(matrixStack, x, y, width, height);
 	}
 	
 	@Override
-	public void func_230443_a_(MatrixStack matrixStack, int mouseX, int mouseY) {
-		if (field_230692_n_) {
+	public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+		if (isHovered) {
 			final Minecraft minecraft = Minecraft.getInstance();
 			final MainWindow mainWindow = minecraft.getMainWindow();
 			final List<ITextComponent> list = new ArrayList<>();
@@ -78,7 +78,7 @@ public class EnergyStorageWidget extends Widget {
 	}
 	
 	@Override
-	public void func_230988_a_(SoundHandler handler) {
+	public void playDownSound(SoundHandler handler) {
 		// Don't play click sound
 	}
 }

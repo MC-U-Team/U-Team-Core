@@ -30,11 +30,11 @@ public class ImageButton extends UButton {
 	}
 	
 	@Override
-	public void func_230431_b_(MatrixStack matrixStack, int mouseX, int mouseY, float partial) {
-		super.func_230431_b_(matrixStack, mouseX, mouseY, partial);
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partial) {
+		super.renderButton(matrixStack, mouseX, mouseY, partial);
 		resetColor();
 		Minecraft.getInstance().getTextureManager().bindTexture(resource);
-		func_238461_a_(matrixStack.getLast().getMatrix(), field_230690_l_ + 2, field_230690_l_ + field_230688_j_ - 2, field_230691_m_ + 2, field_230691_m_ + field_230689_k_ - 2, 0, 0, 1, 0, 1);
+		innerBlit(matrixStack.getLast().getMatrix(), x + 2, x + width - 2, y + 2, y + height - 2, 0, 0, 1, 0, 1);
 	}
 	
 	protected void resetColor() {

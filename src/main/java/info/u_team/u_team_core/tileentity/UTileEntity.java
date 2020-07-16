@@ -26,8 +26,8 @@ public abstract class UTileEntity extends TileEntity {
 	}
 	
 	@Override
-	public void func_230337_a_(BlockState state, CompoundNBT compound) {
-		super.func_230337_a_(state, compound);
+	public void read(BlockState state, CompoundNBT compound) {
+		super.read(state, compound);
 		readNBT(state, compound);
 	}
 	
@@ -61,7 +61,7 @@ public abstract class UTileEntity extends TileEntity {
 	
 	@Override
 	public void handleUpdateTag(BlockState state, CompoundNBT compound) {
-		super.func_230337_a_(state, compound);
+		super.read(state, compound);
 		handleChunkLoadData(compound);
 	}
 	

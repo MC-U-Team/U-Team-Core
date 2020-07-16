@@ -23,50 +23,50 @@ public class ButtonTestScreen extends Screen {
 	private ScrollingTextRender scrollingRender;
 	
 	@Override
-	protected void func_231160_c_() {
-		func_230480_a_(new UButton(10, 10, 200, 15, ITextComponent.func_241827_a_("U Button"), button -> System.out.println("Pressed UButton")));
+	protected void init() {
+		addButton(new UButton(10, 10, 200, 15, ITextComponent.func_241827_a_("U Button"), button -> System.out.println("Pressed UButton")));
 		
-		func_230480_a_(new BetterButton(10, 30, 200, 15, 0.75F, ITextComponent.func_241827_a_("Better button"), button -> System.out.println("Pressed UButton")));
+		addButton(new BetterButton(10, 30, 200, 15, 0.75F, ITextComponent.func_241827_a_("Better button"), button -> System.out.println("Pressed UButton")));
 		
-		final ActiveButton activeButton = func_230480_a_(new ActiveButton(10, 50, 200, 15, ITextComponent.func_241827_a_("Basic Test button"), 0x006442FF));
+		final ActiveButton activeButton = addButton(new ActiveButton(10, 50, 200, 15, ITextComponent.func_241827_a_("Basic Test button"), 0x006442FF));
 		activeButton.setPressable(() -> {
 			System.out.println("Pressed ActiveButton");
 			activeButton.setActive(!activeButton.isActive());
 		});
 		
-		func_230480_a_(new ImageButton(10, 70, 16, 16, TEXTURE1, button -> System.out.println("Pressed ImageButton")));
+		addButton(new ImageButton(10, 70, 16, 16, TEXTURE1, button -> System.out.println("Pressed ImageButton")));
 		
-		final ActiveImageButton activeImageButton = func_230480_a_(new ActiveImageButton(10, 90, 20, 20, TEXTURE1, 0x006442FF));
+		final ActiveImageButton activeImageButton = addButton(new ActiveImageButton(10, 90, 20, 20, TEXTURE1, 0x006442FF));
 		activeImageButton.setPressable(() -> {
 			System.out.println("Pressed ActiveImageButton");
 			activeImageButton.setActive(!activeImageButton.isActive());
 		});
 		
-		final ToggleImageButton toggleImageButton = func_230480_a_(new ToggleImageButton(10, 115, 20, 20, TEXTURE1, TEXTURE2));
+		final ToggleImageButton toggleImageButton = addButton(new ToggleImageButton(10, 115, 20, 20, TEXTURE1, TEXTURE2));
 		toggleImageButton.setPressable(() -> {
 			System.out.println("Pressed ToggleImageButton");
 		});
 		
-		func_230480_a_(new BetterFontSlider(300, 10, 200, 15, ITextComponent.func_241827_a_("Test: "), ITextComponent.func_241827_a_("%"), 0, 100, 20, false, true, 0.75F, slider -> {
+		addButton(new BetterFontSlider(300, 10, 200, 15, ITextComponent.func_241827_a_("Test: "), ITextComponent.func_241827_a_("%"), 0, 100, 20, false, true, 0.75F, slider -> {
 			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
 		}));
 		
-		func_230480_a_(new BetterFontSlider(300, 30, 200, 40, ITextComponent.func_241827_a_("Test: "), ITextComponent.func_241827_a_("%"), 0, 100, 20, false, true, 2, slider -> {
+		addButton(new BetterFontSlider(300, 30, 200, 40, ITextComponent.func_241827_a_("Test: "), ITextComponent.func_241827_a_("%"), 0, 100, 20, false, true, 2, slider -> {
 			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
 		}));
 		
-		scalingRender = new ScalingTextRender(() -> field_230712_o_, () -> "This is a test for the scaling text renderer");
+		scalingRender = new ScalingTextRender(() -> font, () -> "This is a test for the scaling text renderer");
 		scalingRender.setColor(0xFFFFFF);
 		
-		scrollingRender = new ScrollingTextRender(() -> field_230712_o_, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling");
+		scrollingRender = new ScrollingTextRender(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling");
 		scrollingRender.setColor(0xFFFFFF);
 		scrollingRender.setWidth(200);
 	}
 	
 	@Override
-	public void func_230430_a_(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		func_230446_a_(matrixStack);
-		super.func_230430_a_(matrixStack, mouseX, mouseY, partialTicks);
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		renderBackground(matrixStack);
+		super.render(matrixStack, mouseX, mouseY, partialTicks);
 		scalingRender.draw(10, 145);
 		scrollingRender.draw(10, 170);
 	}

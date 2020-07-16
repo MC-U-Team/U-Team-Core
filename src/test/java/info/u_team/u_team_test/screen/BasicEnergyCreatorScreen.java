@@ -20,8 +20,8 @@ public class BasicEnergyCreatorScreen extends UBasicContainerScreen<BasicEnergyC
 	}
 	
 	@Override
-	protected void func_231160_c_() {
-		super.func_231160_c_();
-		func_230480_a_(new EnergyStorageWidget(guiLeft + 9, guiTop + 20, 54, container.getTileEntity().getCapability(CapabilityEnergy.ENERGY)));
+	protected void init() {
+		super.init();
+		addButton(new EnergyStorageWidget(guiLeft + 9, guiTop + 20, 54, container.getTileEntity().getCapability(CapabilityEnergy.ENERGY)));
 	}
 }

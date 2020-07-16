@@ -51,7 +51,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 						RenderSystem.disableDepthTest();
 						RenderSystem.colorMask(true, true, true, false);
 						final int slotColor = getFluidSlotColor(index);
-						func_238468_a_(matrixStack, x, y, x + 16, y + 16, slotColor, slotColor);
+						fillGradient(matrixStack, x, y, x + 16, y + 16, slotColor, slotColor);
 						RenderSystem.colorMask(true, true, true, true);
 						RenderSystem.enableDepthTest();
 					}
@@ -64,24 +64,24 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	protected void func_230459_a_(MatrixStack matrixStack, int mouseX, int mouseY) {
 		super.func_230459_a_(matrixStack, mouseX, mouseY);
 		
-		if (field_230706_i_.player.inventory.getItemStack().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
-			func_238654_b_(matrixStack, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
+		if (minecraft.player.inventory.getItemStack().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
+			renderTooltip(matrixStack, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
 		}
 		
 	}
 	
 	@Override
-	public boolean func_231044_a_(double mouseX, double mouseY, int button) {
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		if (button == 0) {
 			final FluidSlot fluidSlot = getSelectedFluidSlot(mouseX, mouseY);
 			if (fluidSlot != null) {
 				if (!playerInventory.getItemStack().isEmpty()) {
-					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(container.windowId, fluidSlot.slotNumber, func_231173_s_(), playerInventory.getItemStack()));
+					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(container.windowId, fluidSlot.slotNumber, hasShiftDown(), playerInventory.getItemStack()));
 				}
 				return true;
 			}
 		}
-		return super.func_231044_a_(mouseX, mouseY, button);
+		return super.mouseClicked(mouseX, mouseY, button);
 	}
 	
 	protected void drawFluidSlot(MatrixStack matrixStack, FluidSlot fluidSlot) {
@@ -104,7 +104,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		list.add(stack.getDisplayName());
 		list.add(new StringTextComponent(stack.getAmount() + " / " + fluidSlot.getSlotCapacity()).func_240699_a_(TextFormatting.GRAY));
 		
-		if (field_230706_i_.gameSettings.advancedItemTooltips) {
+		if (minecraft.gameSettings.advancedItemTooltips) {
 			list.add((new StringTextComponent(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString())).func_240699_a_(TextFormatting.DARK_GRAY));
 		}
 		
