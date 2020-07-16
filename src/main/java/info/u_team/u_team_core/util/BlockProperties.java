@@ -20,6 +20,7 @@ public class BlockProperties extends Properties {
 		soundType = properties.soundType;
 		lightLevel = properties.lightLevel;
 		resistance = properties.resistance;
+		hardness = properties.hardness;
 		requiresTool = properties.requiresTool;
 		ticksRandomly = properties.ticksRandomly;
 		slipperiness = properties.slipperiness;
@@ -28,7 +29,6 @@ public class BlockProperties extends Properties {
 		lootTable = properties.lootTable;
 		isSolid = properties.isSolid;
 		isAir = properties.isAir;
-		propagatesLightDownwards = properties.propagatesLightDownwards;
 		propagatesLightDownwards = properties.propagatesLightDownwards;
 		isOpaque = properties.isOpaque;
 		suffocates = properties.suffocates;
