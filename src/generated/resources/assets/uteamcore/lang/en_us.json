@@ -8,5 +8,5 @@
 	"commands.uteamcore.stackinfo.success.block": "Block: %s",
 	"commands.uteamcore.stackinfo.success.item": "Item: %s",
 	"commands.uteamcore.stackinfo.success.nbt": "NBT: %s",
-	"jei.uteamcore.dyeable.info": "These items can be dyed with dye in the crafting field"
+	"jei.uteamcore.dyeable.info": "These items can be dyed with dye in the crafting field."
 }
