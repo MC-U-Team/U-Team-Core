@@ -3,7 +3,7 @@ package info.u_team.u_team_core.util;
 import com.google.common.collect.*;
 
 import net.minecraft.block.*;
-import net.minecraft.item.DyeColor;
+import net.minecraft.item.*;
 
 public class ColorUtil {
 	
@@ -35,8 +35,11 @@ public class ColorUtil {
 		return WOOL_DYE_COLORS.inverse().get(color);
 	}
 	
+	public static DyeColor getColorFromWool(Item item) {
+		return getColorFromWool(Block.getBlockFromItem(item));
+	}
+	
 	public static DyeColor getColorFromWool(Block block) {
 		return WOOL_DYE_COLORS.get(block);
 	}
-	
 }
