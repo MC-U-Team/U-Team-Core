@@ -41,6 +41,6 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 		
 		// Jei
 		// English
-		add("jei.uteamcore.dyeable.info", "These items can be dyed with dye in the crafting field");
+		add("jei.uteamcore.dyeable.info", "These items can be dyed with dye in the crafting field.");
 	}
 }
