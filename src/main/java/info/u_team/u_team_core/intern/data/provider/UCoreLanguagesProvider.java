@@ -38,5 +38,9 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 		add(dimTeleportSuccess + "multiple", "Teleported %s entities to %s");
 		add(dimTeleportSuccess + "position.single", "Teleported %s to %s at %s, %s, %s");
 		add(dimTeleportSuccess + "position.multiple", "Teleported %s entities to %s at %s, %s, %s");
+		
+		// Jei
+		// English
+		add("jei.uteamcore.dyeable.info", "These items can be dyed with dye in the crafting field");
 	}
 }
