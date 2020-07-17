@@ -216,6 +216,10 @@ curseforge {
 		    forgeGradleIntegration = false
 		}
 
+		relations {
+      		optionalDependency "jei"
+    	}
+
     	mainArtifact(jar) {
       		displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}"
       		changelogType = "html"
