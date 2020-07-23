@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.15.2-3.0.1.160] - 2020-07-23
+## [1.15.2-3.0.1.164] - 2020-07-23
 ### Added
  - Backported jei integration from 1.16.1 to display if an item can be dyed
 
