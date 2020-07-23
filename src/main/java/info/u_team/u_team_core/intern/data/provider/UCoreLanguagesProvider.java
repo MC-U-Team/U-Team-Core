@@ -40,6 +40,7 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 		add(dimTeleportSuccess + "position.multiple", "Teleported %s entities to %s at %s, %s, %s");
 		
 		// Locate biome
+		// English
 		final String locateBiomeSuccess = "commands.uteamcore.locatebiome.success";
 		final String locateBiomeFailed = "commands.uteamcore.locatebiome.failed";
 		
@@ -47,10 +48,15 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 		add(locateBiomeFailed, "Could not find a biome of type \"%s\" within reasonable distance");
 		
 		// Locate structure
+		// English
 		final String locateStructureSuccess = "commands.uteamcore.locatestructure.success";
 		final String locateStructureFailed = "commands.uteamcore.locatestructure.failed";
 		
 		add(locateStructureSuccess, "The nearest %s is at %s (%s blocks away)");
 		add(locateStructureFailed, "Could not find that structure nearby");
+		
+		// Jei
+		// English
+		add("jei.uteamcore.dyeable.info", "These items can be dyed with dye in the crafting field.");
 	}
 }

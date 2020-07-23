@@ -173,6 +173,7 @@ sourceSets {
 		java {
 			srcDirs += "src/repack/java"
 			srcDirs += "src/api/java"
+			srcDirs += "src/integration/java"
 		}
 		resources {
 			srcDirs += "src/repack/resources"
@@ -214,6 +215,10 @@ curseforge {
 		options {
 		    forgeGradleIntegration = false
 		}
+
+		relations {
+      		optionalDependency "jei"
+    	}
 
     	mainArtifact(jar) {
       		displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}"
