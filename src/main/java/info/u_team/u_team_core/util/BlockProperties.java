@@ -15,7 +15,7 @@ public class BlockProperties extends Properties {
 	}
 	
 	public BlockProperties(Properties properties) {
-		super(properties.material, properties.field_235800_b_);
+		super(properties.material, properties.blockColors);
 		blocksMovement = properties.blocksMovement;
 		soundType = properties.soundType;
 		lightLevel = properties.lightLevel;
@@ -29,7 +29,7 @@ public class BlockProperties extends Properties {
 		lootTable = properties.lootTable;
 		isSolid = properties.isSolid;
 		isAir = properties.isAir;
-		propagatesLightDownwards = properties.propagatesLightDownwards;
+		allowsSpawn = properties.allowsSpawn;
 		isOpaque = properties.isOpaque;
 		suffocates = properties.suffocates;
 		blocksVision = properties.blocksVision;
