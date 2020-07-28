@@ -38,7 +38,7 @@ public class ItemStackInfoSubCommand {
 		Style style = component.getStyle();
 		final String className = getClassString(entry);
 		style = style.setFormatting(TextFormatting.AQUA);
-		style = style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(className).func_240699_a_(TextFormatting.YELLOW)));
+		style = style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(className).mergeStyle(TextFormatting.YELLOW)));
 		style = style.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
 		component.setStyle(style);
 		return component;
