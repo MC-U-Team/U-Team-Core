@@ -1,7 +1,5 @@
 package info.u_team.u_team_test.entity;
 
-import javax.annotation.Nullable;
-
 import info.u_team.u_team_test.init.*;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.entity.*;
