@@ -41,10 +41,10 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	}
 	
 	protected void setTextLocation(int xTitle, int yTitle, int xInventory, int yInventory) {
-		field_238742_p_ = xTitle;
-		field_238743_q_ = yTitle;
-		field_238744_r_ = xInventory;
-		field_238745_s_ = yInventory;
+		titleX = xTitle;
+		titleY = yTitle;
+		playerInventoryTitleX = xInventory;
+		playerInventoryTitleY = yInventory;
 	}
 	
 	@Override
