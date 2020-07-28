@@ -106,7 +106,7 @@ public class WorldUtil {
 	 * @param pos The position the entity should be teleported to
 	 */
 	public static void teleportEntity(Entity entity, RegistryKey<World> type, BlockPos pos) {
-		teleportEntity(entity, type, Vector3d.func_237489_a_(pos));
+		teleportEntity(entity, type, Vector3d.copyCentered(pos));
 	}
 	
 	/**
@@ -132,7 +132,7 @@ public class WorldUtil {
 	 * @param pos The position the entity should be teleported to
 	 */
 	public static void teleportEntity(Entity entity, ServerWorld world, BlockPos pos) {
-		teleportEntity(entity, world, Vector3d.func_237489_a_(pos));
+		teleportEntity(entity, world, Vector3d.copyCentered(pos));
 	}
 	
 	/**
@@ -216,7 +216,7 @@ public class WorldUtil {
 		// TODO mark this (added new)
 		if (!(entity instanceof LivingEntity) || !((LivingEntity) entity).isElytraFlying()) {
 			entity.setMotion(entity.getMotion().mul(1.0D, 0.0D, 1.0D));
-			entity.func_230245_c_(true);
+			entity.setOnGround(true);
 		}
 		
 		if (entity instanceof CreatureEntity) {
