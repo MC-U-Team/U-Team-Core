@@ -43,8 +43,8 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 	}
 	
 	@Override
-	protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
-		super.func_230451_b_(matrixStack, mouseX, mouseY);
+	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
 		font.func_238422_b_(matrixStack, ITextComponent.func_241827_a_("" + container.getTileEntity().value), xSize / 2 + 32, 6, 4210752);
 	}
 	
