@@ -40,7 +40,7 @@ public class ItemStackInfoSubCommand {
 		style = style.setFormatting(TextFormatting.AQUA);
 		style = style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(className).func_240699_a_(TextFormatting.YELLOW)));
 		style = style.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
-		component.func_230530_a_(style);
+		component.setStyle(style);
 		return component;
 	}
 	
