@@ -48,13 +48,13 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	}
 	
 	@Override
-	protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
-		super.func_230451_b_(matrixStack, mouseX, mouseY);
+	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
+		super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
 		if (drawTitleText) {
-			font.func_238422_b_(matrixStack, title, field_238742_p_, field_238743_q_, 4210752);
+			font.func_238422_b_(matrixStack, title, titleX, titleY, 4210752);
 		}
 		if (drawInventoryText) {
-			font.func_238422_b_(matrixStack, playerInventory.getDisplayName(), field_238744_r_, field_238745_s_, 4210752);
+			font.func_238422_b_(matrixStack, playerInventory.getDisplayName(), playerInventoryTitleX, playerInventoryTitleY, 4210752);
 		}
 	}
 	
