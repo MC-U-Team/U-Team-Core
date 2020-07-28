@@ -68,7 +68,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	}
 	
 	protected InventoryChangeTrigger.Instance hasItem(ItemPredicate... predicates) {
-		return new InventoryChangeTrigger.Instance(EntityPredicate.AndPredicate.field_234582_a_, IntBound.UNBOUNDED, IntBound.UNBOUNDED, IntBound.UNBOUNDED, predicates);
+		return new InventoryChangeTrigger.Instance(EntityPredicate.AndPredicate.ANY_AND, IntBound.UNBOUNDED, IntBound.UNBOUNDED, IntBound.UNBOUNDED, predicates);
 	}
 	
 	public static Ingredient getIngredientOfTag(ITag<Item> tag) {
