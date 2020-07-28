@@ -115,14 +115,14 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 		
 	}
 	
-	@Nullable
-	public Entity func_241206_a_(ServerWorld world) {
+	@Override
+	public Entity changeDimension(ServerWorld world) {
 		Entity entity = func_234616_v_();
 		if (entity != null && entity.world.func_234923_W_() != world.func_234923_W_()) {
 			setShooter((Entity) null);
 		}
 		
-		return super.func_241206_a_(world);
+		return super.changeDimension(world);
 	}
 	
 	@Override
