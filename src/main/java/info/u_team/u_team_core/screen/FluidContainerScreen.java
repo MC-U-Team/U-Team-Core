@@ -102,10 +102,10 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		final List<ITextProperties> list = new ArrayList<>();
 		
 		list.add(stack.getDisplayName());
-		list.add(new StringTextComponent(stack.getAmount() + " / " + fluidSlot.getSlotCapacity()).func_240699_a_(TextFormatting.GRAY));
+		list.add(new StringTextComponent(stack.getAmount() + " / " + fluidSlot.getSlotCapacity()).mergeStyle(TextFormatting.GRAY));
 		
 		if (minecraft.gameSettings.advancedItemTooltips) {
-			list.add((new StringTextComponent(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString())).func_240699_a_(TextFormatting.DARK_GRAY));
+			list.add((new StringTextComponent(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString())).mergeStyle(TextFormatting.DARK_GRAY));
 		}
 		
 		return list;
