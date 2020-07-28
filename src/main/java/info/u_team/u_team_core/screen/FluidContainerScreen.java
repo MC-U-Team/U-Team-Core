@@ -32,7 +32,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	}
 	
 	@Override
-	protected void func_230451_b_(MatrixStack matrixStack, int mouseX, int mouseY) {
+	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
 		if (container instanceof FluidContainer) {
 			hoveredFluidSlot = null;
 			
