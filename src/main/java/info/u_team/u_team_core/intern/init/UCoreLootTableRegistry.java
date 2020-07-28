@@ -18,7 +18,7 @@ public class UCoreLootTableRegistry {
 	
 	@SubscribeEvent
 	public static void register(Register<Block> event) {
-		SET_TILEENTITY_NBT = Registry.register(Registry.field_239694_aZ_, new ResourceLocation(UCoreMain.MODID, "set_tileentity_nbt"), new LootFunctionType(new SetTileEntityNBTLootFunction.Serializer()));
+		SET_TILEENTITY_NBT = Registry.register(Registry.LOOT_FUNCTION_TYPE, new ResourceLocation(UCoreMain.MODID, "set_tileentity_nbt"), new LootFunctionType(new SetTileEntityNBTLootFunction.Serializer()));
 	}
 	
 }
