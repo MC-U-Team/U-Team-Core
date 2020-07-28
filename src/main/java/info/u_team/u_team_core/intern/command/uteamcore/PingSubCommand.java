@@ -21,12 +21,12 @@ public class PingSubCommand {
 	}
 	
 	private static int execute(CommandSource source) throws CommandSyntaxException {
-		source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "self", new StringTextComponent(String.valueOf(source.asPlayer().ping)).func_240699_a_(TextFormatting.GOLD)), false);
+		source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "self", new StringTextComponent(String.valueOf(source.asPlayer().ping)).mergeStyle(TextFormatting.GOLD)), false);
 		return 0;
 	}
 	
 	private static int execute(CommandSource source, ServerPlayerEntity player) {
-		source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "other", player.getName(), new StringTextComponent(String.valueOf(player.ping)).func_240699_a_(TextFormatting.GOLD)), false);
+		source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "other", player.getName(), new StringTextComponent(String.valueOf(player.ping)).mergeStyle(TextFormatting.GOLD)), false);
 		return 0;
 	}
 	
