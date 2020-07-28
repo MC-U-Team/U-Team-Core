@@ -11,8 +11,8 @@ public class BasicBiome extends Biome {
 	public static final SurfaceBuilderConfig BASIC_BLOCK_SURVACE = new SurfaceBuilderConfig(TestBlocks.BASIC.get().getDefaultState(), TestBlocks.BASIC.get().getDefaultState(), TestBlocks.BASIC.get().getDefaultState());
 	
 	public BasicBiome() {
-		super(new Builder().surfaceBuilder(SurfaceBuilder.SHATTERED_SAVANNA, new SurfaceBuilderConfig(TestBlocks.BASIC.get().getDefaultState(), Blocks.END_STONE.getDefaultState(), TestBlocks.BASIC.get().getDefaultState())).precipitation(RainType.RAIN).category(Category.PLAINS).depth(0.125F).scale(0.05F).temperature(1.0F).downfall(1.0F).func_235097_a_(new BiomeAmbience.Builder().func_235246_b_(4159204).func_235248_c_(329011).func_235239_a_(12638463).func_235243_a_(MoodSoundAmbience.field_235027_b_).func_235238_a_()).parent((String) null));
-		this.func_235063_a_(DefaultBiomeFeatures.field_235183_u_);
+		super(new Builder().surfaceBuilder(SurfaceBuilder.SHATTERED_SAVANNA, new SurfaceBuilderConfig(TestBlocks.BASIC.get().getDefaultState(), Blocks.END_STONE.getDefaultState(), TestBlocks.BASIC.get().getDefaultState())).precipitation(RainType.RAIN).category(Category.PLAINS).depth(0.125F).scale(0.05F).temperature(1.0F).downfall(1.0F).func_235097_a_(new BiomeAmbience.Builder().setWaterColor(4159204).setWaterFogColor(329011).setFogColor(12638463).setMoodSound(MoodSoundAmbience.field_235027_b_).build()).parent((String) null));
+		this.func_235063_a_(DefaultBiomeFeatures.VILLAGE_DESERT);
 		DefaultBiomeFeatures.addMonsterRooms(this);
 		DefaultBiomeFeatures.addStoneVariants(this);
 		DefaultBiomeFeatures.addOres(this);
