@@ -2,6 +2,7 @@ modLoader="javafml"
 loaderVersion="[32,)"
 issueTrackerURL="https://github.com/MC-U-Team/U-Team-Core/issues"
 displayURL="https://u-team.info/mods/uteamcore"
+license="Apache-2.0 License"
 credits="Team U-Team"
 authors="HyCraftHD"
     
