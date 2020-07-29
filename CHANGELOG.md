@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.1-3.1.1.166] - 2020-07-29
+### Changed
+ - Run data generators to update the jsons files
+
 ## [1.16.1-3.1.1.165] - 2020-07-29
 ### Changed
  - Updated to newer forge versions
