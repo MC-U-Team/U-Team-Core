@@ -5,7 +5,7 @@ import org.lwjgl.opengl.GL11;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import info.u_team.u_team_core.util.RGBA;
+import info.u_team.u_team_core.util.*;
 import net.minecraft.util.ResourceLocation;
 
 public class ActiveImageButton extends ImageButton {
@@ -41,7 +41,7 @@ public class ActiveImageButton extends ImageButton {
 	
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partial) {
-		RenderSystem.color4f(1, 1, 1, 1);
+		GuiUtil.clearColor();
 		if (active) {
 			activeColor.glColor();
 		}

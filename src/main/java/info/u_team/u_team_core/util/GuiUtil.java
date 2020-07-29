@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.util;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraftforge.api.distmarker.*;
@@ -36,6 +37,11 @@ public class GuiUtil {
 		
 		AbstractGui.fill(matrixStack, x + 1, y + height, x + width - 1, y + height - 1, brightColor);
 		AbstractGui.fill(matrixStack, x + width - 1, y + 1, x + width, y + height, brightColor);
+	}
+	
+	@SuppressWarnings("deprecation")
+	public static void clearColor() {
+		RenderSystem.color4f(1, 1, 1, 1);
 	}
 	
 }

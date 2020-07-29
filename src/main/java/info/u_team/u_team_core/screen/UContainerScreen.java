@@ -1,9 +1,9 @@
 package info.u_team.u_team_core.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.container.UContainer;
+import info.u_team.u_team_core.util.GuiUtil;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.ResourceLocation;
@@ -60,7 +60,7 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	
 	@Override
 	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
-		RenderSystem.color4f(1, 1, 1, 1);
+		GuiUtil.clearColor();
 		minecraft.getTextureManager().bindTexture(background);
 		final int xStart = (width - xSize) / 2;
 		final int yStart = (height - ySize) / 2;
