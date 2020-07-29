@@ -3,7 +3,6 @@ package info.u_team.u_team_core.gui.elements;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.util.*;
 import net.minecraft.util.text.ITextComponent;
