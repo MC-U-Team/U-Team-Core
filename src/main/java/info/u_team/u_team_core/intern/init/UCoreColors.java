@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.intern.init;
 
-import info.u_team.u_team_core.UCoreMain;
+import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.api.dye.*;
 import net.minecraft.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
@@ -9,7 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
-@EventBusSubscriber(modid = UCoreMain.MODID, bus = Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid = UCoreMod.MODID, bus = Bus.MOD, value = Dist.CLIENT)
 public class UCoreColors {
 	
 	@SubscribeEvent

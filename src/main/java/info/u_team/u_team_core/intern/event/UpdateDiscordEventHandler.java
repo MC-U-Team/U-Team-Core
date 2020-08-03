@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.intern.event;
 
-import info.u_team.u_team_core.UCoreMain;
+import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence.*;
 import net.minecraft.client.Minecraft;
@@ -12,7 +12,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
-@EventBusSubscriber(modid = UCoreMain.MODID, value = Dist.CLIENT)
+@EventBusSubscriber(modid = UCoreMod.MODID, value = Dist.CLIENT)
 public class UpdateDiscordEventHandler {
 	
 	@SubscribeEvent

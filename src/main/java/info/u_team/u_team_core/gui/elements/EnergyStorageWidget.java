@@ -5,7 +5,7 @@ import java.util.function.*;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import info.u_team.u_team_core.UCoreMain;
+import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.util.GuiUtil;
 import net.minecraft.client.*;
 import net.minecraft.client.audio.SoundHandler;
@@ -20,7 +20,7 @@ import net.minecraftforge.fml.client.gui.GuiUtils;
 @OnlyIn(Dist.CLIENT)
 public class EnergyStorageWidget extends Widget {
 	
-	public static final ResourceLocation ENERGY_TEXTURE = new ResourceLocation(UCoreMain.MODID, "textures/gui/energy.png");
+	public static final ResourceLocation ENERGY_TEXTURE = new ResourceLocation(UCoreMod.MODID, "textures/gui/energy.png");
 	
 	private final LongSupplier capacity;
 	private final LongSupplier storage;

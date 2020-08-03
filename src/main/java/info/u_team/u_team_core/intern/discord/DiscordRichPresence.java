@@ -3,7 +3,7 @@ package info.u_team.u_team_core.intern.discord;
 import java.time.OffsetDateTime;
 import java.util.*;
 
-import info.u_team.u_team_core.UCoreMain;
+import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.IPCClient;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.entities.RichPresence.Builder;
 import info.u_team.u_team_core.repack.com.jagrosh.discordipc.exceptions.NoDiscordClientException;
@@ -43,9 +43,9 @@ public class DiscordRichPresence {
 				}
 			}, 1000, 1000 * 120);
 			isEnabled = true;
-			UCoreMain.LOGGER.info("Discord client found and connected.");
+			UCoreMod.LOGGER.info("Discord client found and connected.");
 		} catch (final NoDiscordClientException ex) {
-			UCoreMain.LOGGER.info("Discord client was not found.");
+			UCoreMod.LOGGER.info("Discord client was not found.");
 		}
 	}
 	
@@ -60,7 +60,7 @@ public class DiscordRichPresence {
 		}
 		errorCount = 0;
 		isEnabled = false;
-		UCoreMain.LOGGER.info("Discord client closed.");
+		UCoreMod.LOGGER.info("Discord client closed.");
 	}
 	
 	public static void setIdling() {
@@ -108,7 +108,7 @@ public class DiscordRichPresence {
 				}
 				errorCount++;
 				if (errorCount > 10) {
-					UCoreMain.LOGGER.info("Discord rich presence stopped cause connection is not working.");
+					UCoreMod.LOGGER.info("Discord rich presence stopped cause connection is not working.");
 					stop();
 				}
 			}

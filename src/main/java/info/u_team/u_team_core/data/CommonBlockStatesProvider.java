@@ -7,7 +7,7 @@ import org.apache.logging.log4j.*;
 
 import com.google.common.base.Preconditions;
 
-import info.u_team.u_team_core.UCoreMain;
+import info.u_team.u_team_core.UCoreMod;
 import net.minecraft.block.*;
 import net.minecraft.data.*;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -93,7 +93,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	
 	protected BlockModelBuilder cubeFacing(String name, ResourceLocation front, ResourceLocation side, ResourceLocation particle) {
 		return models().getBuilder(name) //
-				.parent(new UncheckedModelFile(new ResourceLocation(UCoreMain.MODID, "block/facing"))) //
+				.parent(new UncheckedModelFile(new ResourceLocation(UCoreMod.MODID, "block/facing"))) //
 				.texture("particle", particle) //
 				.texture("front", front) //
 				.texture("side", side);
@@ -105,7 +105,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	
 	protected BlockModelBuilder cubeFacingBottomTop(String name, ResourceLocation front, ResourceLocation bottom, ResourceLocation top, ResourceLocation side, ResourceLocation particle) {
 		return models().getBuilder(name) //
-				.parent(new UncheckedModelFile(new ResourceLocation(UCoreMain.MODID, "block/facing_bottom_top"))) //
+				.parent(new UncheckedModelFile(new ResourceLocation(UCoreMod.MODID, "block/facing_bottom_top"))) //
 				.texture("particle", particle) //
 				.texture("front", front) //
 				.texture("bottom", bottom) //

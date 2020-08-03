@@ -3,7 +3,7 @@ package info.u_team.u_team_core.integration.jei;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import info.u_team.u_team_core.UCoreMain;
+import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.api.dye.IDyeableItem;
 import mezz.jei.api.*;
 import mezz.jei.api.constants.VanillaTypes;
@@ -15,7 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 @JeiPlugin
 public class UTeamCoreJeiPlugin implements IModPlugin {
 	
-	private final ResourceLocation id = new ResourceLocation(UCoreMain.MODID, "jei");
+	private final ResourceLocation id = new ResourceLocation(UCoreMod.MODID, "jei");
 	
 	@Override
 	public ResourceLocation getPluginUid() {

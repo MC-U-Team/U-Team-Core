@@ -6,13 +6,13 @@ import info.u_team.u_team_core.util.verify.JarSignVerifier;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod(UCoreMain.MODID)
-public class UCoreMain {
+@Mod(UCoreMod.MODID)
+public class UCoreMod {
 	
 	public static final String MODID = "uteamcore";
 	public static final Logger LOGGER = LogManager.getLogger("UTeamCore");
 	
-	public UCoreMain() {
+	public UCoreMod() {
 		JarSignVerifier.checkSigned(MODID);
 		FMLJavaModLoadingContext.get().getModEventBus().register(this);
 	}
