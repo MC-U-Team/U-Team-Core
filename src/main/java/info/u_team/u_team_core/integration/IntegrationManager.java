@@ -30,8 +30,9 @@ public class IntegrationManager {
 			if (ModList.get().isLoaded((String) data.getAnnotationData().get("value"))) {
 				try {
 					Class.forName(data.getMemberName()).asSubclass(IModIntegration.class).newInstance().construct();
-				} catch (Exception ex) {
+				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
 					LOGGER.error("Failed to load and construct integration : {}", data.getMemberName(), ex);
+					throw new RuntimeException(ex);
 				}
 			}
 		}
