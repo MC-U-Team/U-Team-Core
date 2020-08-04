@@ -18,7 +18,9 @@ public class UCoreMod {
 	
 	public UCoreMod() {
 		JarSignVerifier.checkSigned(MODID);
+		
 		ModLoadingContext.get().registerConfig(Type.CLIENT, ClientConfig.CONFIG);
+		
 		UCoreCommonBusRegister.register();
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> UCoreClientBusRegister::register);
 	}
