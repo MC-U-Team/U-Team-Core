@@ -13,10 +13,8 @@ import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.event.lifecycle.*;
 
-@EventBusSubscriber(modid = UCoreMod.MODID, value = Dist.CLIENT)
 public class UpdateDiscordEventHandler {
 	
-	@SubscribeEvent
 	public static void on(InitGuiEvent.Pre event) {
 		if (!DiscordRichPresence.isEnabled()) {
 			return;
@@ -29,7 +27,6 @@ public class UpdateDiscordEventHandler {
 		}
 	}
 	
-	@SubscribeEvent
 	public static void on(EntityJoinWorldEvent event) {
 		if (!DiscordRichPresence.isEnabled()) {
 			return;
