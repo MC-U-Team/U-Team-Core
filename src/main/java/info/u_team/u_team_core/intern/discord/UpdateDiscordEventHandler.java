@@ -43,11 +43,11 @@ public class UpdateDiscordEventHandler {
 	}
 	
 	public static void registerMod(IEventBus bus) {
-		bus.addListener(UpdateDiscordEventHandler::onInitGuiPre);
-		bus.addListener(UpdateDiscordEventHandler::onEntityJoinWorld);
+		bus.addListener(UpdateDiscordEventHandler::setup);
 	}
 	
 	public static void registerForge(IEventBus bus) {
-		bus.addListener(UpdateDiscordEventHandler::setup);
+		bus.addListener(UpdateDiscordEventHandler::onInitGuiPre);
+		bus.addListener(UpdateDiscordEventHandler::onEntityJoinWorld);
 	}
 }
