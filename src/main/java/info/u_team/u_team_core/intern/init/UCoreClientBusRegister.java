@@ -7,6 +7,9 @@ public class UCoreClientBusRegister {
 	
 	public static void register() {
 		BusRegister.registerMod(UpdateDiscordEventHandler::registerMod);
+		BusRegister.registerMod(UCoreColors::registerMod);
+		
+		
 		BusRegister.registerForge(UpdateDiscordEventHandler::registerForge);
 	}
 	
