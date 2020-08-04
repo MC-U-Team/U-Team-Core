@@ -1,21 +1,18 @@
 package info.u_team.u_team_core.intern.discord;
 
-import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.intern.config.ClientConfig;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.screen.*;
-import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.eventbus.api.*;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.event.lifecycle.*;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class UpdateDiscordEventHandler {
 	
-	public static void on(InitGuiEvent.Pre event) {
+	private static void onInitGuiPre(InitGuiEvent.Pre event) {
 		if (!DiscordRichPresence.isEnabled()) {
 			return;
 		}
@@ -27,7 +24,7 @@ public class UpdateDiscordEventHandler {
 		}
 	}
 	
-	public static void on(EntityJoinWorldEvent event) {
+	private static void onEntityJoinWorld(EntityJoinWorldEvent event) {
 		if (!DiscordRichPresence.isEnabled()) {
 			return;
 		}
@@ -46,9 +43,11 @@ public class UpdateDiscordEventHandler {
 	}
 	
 	public static void registerMod(IEventBus bus) {
-		bus.addListener(UpdateDiscordEventHandler::setup);
+		bus.addListener(UpdateDiscordEventHandler::onInitGuiPre);
+		bus.addListener(UpdateDiscordEventHandler::onEntityJoinWorld);
 	}
 	
 	public static void registerForge(IEventBus bus) {
+		bus.addListener(UpdateDiscordEventHandler::setup);
 	}
 }
