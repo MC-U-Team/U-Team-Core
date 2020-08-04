@@ -1,7 +1,6 @@
-package info.u_team.u_team_core.intern.event;
+package info.u_team.u_team_core.intern.discord;
 
 import info.u_team.u_team_core.UCoreMod;
-import info.u_team.u_team_core.intern.discord.DiscordRichPresence;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
