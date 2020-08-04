@@ -6,5 +6,6 @@ public class UCoreCommonBusRegister {
 	
 	public static void register() {
 		BusRegister.registerMod(UCoreNetwork::registerMod);
+		BusRegister.registerMod(UCoreRecipeSerializers::register);
 	}
 }
