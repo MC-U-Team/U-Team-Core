@@ -24,7 +24,7 @@ public class UCoreRecipeSerializers {
 		CraftingHelper.register(new ResourceLocation(UCoreMod.MODID, "item"), ItemIngredient.Serializer.INSTANCE);
 	}
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		RECIPE_SERIALIZERS.register(bus);
 		bus.addGenericListener(IRecipeSerializer.class, UCoreRecipeSerializers::registerIngredient);
 	}
