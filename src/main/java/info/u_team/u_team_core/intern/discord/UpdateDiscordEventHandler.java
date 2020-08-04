@@ -2,13 +2,14 @@ package info.u_team.u_team_core.intern.discord;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence.*;
+import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.screen.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 @EventBusSubscriber(modid = UCoreMod.MODID, value = Dist.CLIENT)
@@ -38,5 +39,11 @@ public class UpdateDiscordEventHandler {
 				DiscordRichPresence.setDimension(player.getEntityWorld());
 			}
 		}
+	}
+	
+	public static void registerMod(IEventBus bus) {
+	}
+	
+	public static void registerForge(IEventBus bus) {
 	}
 }
