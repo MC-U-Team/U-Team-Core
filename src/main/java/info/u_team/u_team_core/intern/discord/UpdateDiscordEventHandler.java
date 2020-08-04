@@ -11,7 +11,7 @@ import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.*;
 
 @EventBusSubscriber(modid = UCoreMod.MODID, value = Dist.CLIENT)
 public class UpdateDiscordEventHandler {
@@ -42,7 +42,7 @@ public class UpdateDiscordEventHandler {
 		}
 	}
 	
-	private static void setup(FMLClientSetupEvent event) {
+	private static void setup(FMLCommonSetupEvent event) {
 		if (ClientConfig.getInstance().discordRichPresence.get()) {
 			DiscordRichPresence.start();
 		}
