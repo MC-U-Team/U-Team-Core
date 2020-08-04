@@ -20,12 +20,12 @@ public class UCoreRecipeSerializers {
 	
 	public static final RegistryObject<NoMirrorShapedRecipe.Serializer> NO_MIRROR_SHAPED = RECIPE_SERIALIZERS.register("crafting_shaped_no_mirror", NoMirrorShapedRecipe.Serializer::new);
 	
+	private static void registerIngredient(Register<IRecipeSerializer<?>> event) {
+		CraftingHelper.register(new ResourceLocation(UCoreMod.MODID, "item"), ItemIngredient.Serializer.INSTANCE);
+	}
+	
 	public static void register(IEventBus bus) {
 		RECIPE_SERIALIZERS.register(bus);
 		bus.addGenericListener(IRecipeSerializer.class, UCoreRecipeSerializers::registerIngredient);
-	}
-	
-	private static void registerIngredient(Register<IRecipeSerializer<?>> event) {
-		CraftingHelper.register(new ResourceLocation(UCoreMod.MODID, "item"), ItemIngredient.Serializer.INSTANCE);
 	}
 }
