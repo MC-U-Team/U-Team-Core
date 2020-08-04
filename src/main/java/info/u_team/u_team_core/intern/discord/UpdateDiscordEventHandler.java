@@ -1,8 +1,8 @@
 package info.u_team.u_team_core.intern.discord;
 
 import info.u_team.u_team_core.UCoreMod;
+import info.u_team.u_team_core.intern.config.ClientConfig;
 import info.u_team.u_team_core.intern.discord.DiscordRichPresence.*;
-import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.screen.*;
@@ -11,6 +11,7 @@ import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.eventbus.api.*;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @EventBusSubscriber(modid = UCoreMod.MODID, value = Dist.CLIENT)
 public class UpdateDiscordEventHandler {
@@ -41,7 +42,14 @@ public class UpdateDiscordEventHandler {
 		}
 	}
 	
+	private static void setup(FMLClientSetupEvent event) {
+		if (ClientConfig.getInstance().discordRichPresence.get()) {
+			DiscordRichPresence.start();
+		}
+	}
+	
 	public static void registerMod(IEventBus bus) {
+		bus.addListener(UpdateDiscordEventHandler::setup);
 	}
 	
 	public static void registerForge(IEventBus bus) {
