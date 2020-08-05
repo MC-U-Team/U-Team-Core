@@ -13,7 +13,7 @@ public class TestSounds {
 	
 	public static final RegistryObject<SoundEvent> BETTER_ENDERPEARL_USE = SOUND_EVENTS.register("better_enderpearl_use", SoundEvent::new);
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		SOUND_EVENTS.register(bus);
 	}
 	
