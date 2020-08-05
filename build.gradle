@@ -182,7 +182,9 @@ sourceSets {
 		}
    	}
    	test {
-		java
+		java {
+			srcDirs += "src/data_test/java"
+		}
 		resources {
 			srcDirs += "src/generated_test/resources"
 		}
