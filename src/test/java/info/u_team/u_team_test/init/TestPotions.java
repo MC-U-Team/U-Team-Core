@@ -16,7 +16,7 @@ public class TestPotions {
 	public static final RegistryObject<Potion> RADIATION_LONG = POTIONS.register("radiation_long", () -> new RadiationPotion(2400, 1));
 	public static final RegistryObject<Potion> RADIATION_EXTREME = POTIONS.register("radiation_extreme", () -> new RadiationPotion(1200, 2));
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		POTIONS.register(bus);
 	}
 	
