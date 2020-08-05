@@ -7,18 +7,17 @@ import net.minecraft.loot.LootFunctionType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent.Register;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.minecraftforge.eventbus.api.IEventBus;
 
-@EventBusSubscriber(modid = UCoreMod.MODID, bus = Bus.MOD)
 public class UCoreLootTableRegistry {
 	
-	public static LootFunctionType SET_TILEENTITY_NBT;
+	public static final LootFunctionType SET_TILEENTITY_NBT = new LootFunctionType(new SetTileEntityNBTLootFunction.Serializer());
 	
-	@SubscribeEvent
-	public static void register(Register<Block> event) {
-		SET_TILEENTITY_NBT = Registry.register(Registry.LOOT_FUNCTION_TYPE, new ResourceLocation(UCoreMod.MODID, "set_tileentity_nbt"), new LootFunctionType(new SetTileEntityNBTLootFunction.Serializer()));
+	private static void registerLootFunction(Register<Block> event) {
+		Registry.register(Registry.LOOT_FUNCTION_TYPE, new ResourceLocation(UCoreMod.MODID, "set_tileentity_nbt"), SET_TILEENTITY_NBT);
 	}
 	
+	public static void registerMod(IEventBus bus) {
+		bus.addGenericListener(Block.class, UCoreLootTableRegistry::registerLootFunction);
+	}
 }
