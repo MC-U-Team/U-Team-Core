@@ -9,7 +9,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.IEventBus;
 
-public class UCoreLootTableRegistry {
+public class UCoreLootFunctions {
 	
 	public static final LootFunctionType SET_TILEENTITY_NBT = new LootFunctionType(new SetTileEntityNBTLootFunction.Serializer());
 	
@@ -18,6 +18,6 @@ public class UCoreLootTableRegistry {
 	}
 	
 	public static void registerMod(IEventBus bus) {
-		bus.addGenericListener(Block.class, UCoreLootTableRegistry::registerLootFunction);
+		bus.addGenericListener(Block.class, UCoreLootFunctions::registerLootFunction);
 	}
 }

@@ -2,7 +2,7 @@ package info.u_team.u_team_core.intern.loot;
 
 import com.google.gson.*;
 
-import info.u_team.u_team_core.intern.init.UCoreLootTableRegistry;
+import info.u_team.u_team_core.intern.init.UCoreLootFunctions;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.loot.*;
@@ -38,7 +38,7 @@ public class SetTileEntityNBTLootFunction extends LootFunction {
 	
 	@Override
 	public LootFunctionType func_230425_b_() {
-		return UCoreLootTableRegistry.SET_TILEENTITY_NBT;
+		return UCoreLootFunctions.SET_TILEENTITY_NBT;
 	}
 	
 	public static class Serializer extends LootFunction.Serializer<SetTileEntityNBTLootFunction> {
