@@ -14,7 +14,7 @@ public class TestGlobalLootModifiers {
 	
 	public static final RegistryObject<AutoSmeltLootModifier.Serializer> AUTO_SMELT = GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("auto_smelt", AutoSmeltLootModifier.Serializer::new);
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(bus);
 	}
 	
