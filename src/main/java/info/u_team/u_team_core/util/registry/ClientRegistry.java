@@ -9,10 +9,8 @@ import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.*;
 import net.minecraft.inventory.container.*;
 import net.minecraft.tileentity.*;
-import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fml.client.registry.*;
 
-@OnlyIn(Dist.CLIENT)
 public class ClientRegistry {
 	
 	public static <M extends Container, U extends Screen & IHasContainer<M>> void registerScreen(Supplier<? extends ContainerType<? extends M>> supplier, ScreenManager.IScreenFactory<M, U> factory) {

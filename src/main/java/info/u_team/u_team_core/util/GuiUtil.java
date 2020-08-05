@@ -4,14 +4,12 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.gui.AbstractGui;
-import net.minecraftforge.api.distmarker.*;
 
 /**
  * Some utility methods for guis
  * 
  * @author HyCraftHD
  */
-@OnlyIn(Dist.CLIENT)
 public class GuiUtil {
 	
 	/**

@@ -9,9 +9,7 @@ import com.google.common.collect.*;
 import net.minecraft.block.*;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.api.distmarker.*;
 
-@OnlyIn(Dist.CLIENT)
 public class ModelUtil {
 	
 	static {

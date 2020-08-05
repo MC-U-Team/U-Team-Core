@@ -13,11 +13,9 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.*;
-import net.minecraftforge.api.distmarker.*;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
-@OnlyIn(Dist.CLIENT)
 public abstract class FluidContainerScreen<T extends Container> extends ContainerScreen<T> {
 	
 	private static final FluidInventoryRender FLUID_RENDERER = new FluidInventoryRender();
