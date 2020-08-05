@@ -24,7 +24,7 @@ public class TestItems {
 	public static final ToolSet BASIC_TOOL = ToolSetCreator.create(ITEMS, "basictool", TestItemGroups.GROUP, new Properties(), TestToolMaterial.BASIC);
 	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create(ITEMS, "basicarmor", TestItemGroups.GROUP, new Properties(), TestArmorMaterial.BASIC);
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		ITEMS.register(bus);
 	}
 }
