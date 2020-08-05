@@ -14,7 +14,7 @@ public class TestEffects {
 	
 	public static final RegistryObject<Effect> RADIATION = EFFECTS.register("radiation", RadiationEffect::new);
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		EFFECTS.register(bus);
 	}
 	
