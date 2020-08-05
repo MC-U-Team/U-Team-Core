@@ -5,7 +5,7 @@ import info.u_team.u_team_core.util.registry.BusRegister;
 public class TestCommonBusRegister {
 	
 	public static void register() {
-		BusRegister.registerMod(TestBiomes::register);
+		BusRegister.registerMod(TestBiomes::registerMod);
 		BusRegister.registerMod(TestBlocks::register);
 		BusRegister.registerMod(TestContainers::register);
 		BusRegister.registerMod(TestEffects::register);

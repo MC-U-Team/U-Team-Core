@@ -14,7 +14,7 @@ public class TestBiomes {
 	
 	public static final RegistryObject<BasicBiome> BASIC = BIOMES.register("basic", BasicBiome::new);
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		BIOMES.register(bus);
 	}
 }
