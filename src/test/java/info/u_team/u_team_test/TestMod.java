@@ -1,5 +1,7 @@
 package info.u_team.u_team_test;
 
+import org.apache.logging.log4j.*;
+
 import info.u_team.u_team_core.util.verify.JarSignVerifier;
 import info.u_team.u_team_test.init.*;
 import net.minecraftforge.api.distmarker.Dist;
@@ -10,11 +12,12 @@ import net.minecraftforge.fml.common.Mod;
 public class TestMod {
 	
 	public static final String MODID = "uteamtest";
+	public static final Logger LOGGER = LogManager.getLogger("UTeamTest");
 	
 	public TestMod() {
 		JarSignVerifier.checkSigned(MODID);
 		
-		System.out.println("--------------------------------------- LOADING TEST MOD ---------------------------------------");
+		LOGGER.info("--------------------------------------- LOADING TEST MOD ---------------------------------------");
 		
 		TestCommonBusRegister.register();
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> TestClientBusRegister::register);
