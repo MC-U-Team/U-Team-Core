@@ -19,7 +19,7 @@ public class TestContainers {
 	
 	public static final RegistryObject<ContainerType<BasicFluidInventoryContainer>> BASIC_FLUID_INVENTORY = CONTAINER_TYPES.register("fluid_inventory", () -> new UContainerType<>(BasicFluidInventoryContainer::new));
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		CONTAINER_TYPES.register(bus);
 	}
 }
