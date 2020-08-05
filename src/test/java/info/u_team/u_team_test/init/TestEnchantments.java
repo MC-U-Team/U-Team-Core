@@ -14,7 +14,7 @@ public class TestEnchantments {
 	
 	public static final RegistryObject<Enchantment> AUTO_SMELT = ENCHANTMENTS.register("auto_smelt", AutoSmeltEnchantment::new);
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		ENCHANTMENTS.register(bus);
 	}
 	
