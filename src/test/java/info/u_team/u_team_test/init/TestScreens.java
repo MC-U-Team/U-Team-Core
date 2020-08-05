@@ -7,7 +7,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class TestScreens {
 	
-	public static void setup(FMLClientSetupEvent event) {
+	private static void setup(FMLClientSetupEvent event) {
 		MainThreadWorker.run(() -> {
 			ClientRegistry.registerScreen(TestContainers.BASIC, BasicTileEntityScreen::new);
 			ClientRegistry.registerScreen(TestContainers.BASIC_ENERGY_CREATOR, BasicEnergyCreatorScreen::new);
