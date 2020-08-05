@@ -16,7 +16,7 @@ public class TestCommonBusRegister {
 		BusRegister.registerMod(TestModDimensions::registerMod);
 		BusRegister.registerMod(TestPotions::registerMod);
 		BusRegister.registerMod(TestSounds::registerMod);
-		BusRegister.registerMod(TestTileEntityTypes::register);
+		BusRegister.registerMod(TestTileEntityTypes::registerMod);
 	}
 	
 }

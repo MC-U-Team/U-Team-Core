@@ -17,7 +17,7 @@ public class TestTileEntityTypes {
 	
 	public static final RegistryObject<TileEntityType<BasicFluidInventoryTileEntity>> BASIC_FLUID_INVENTORY = TILE_ENTITY_TYPES.register("fluid_inventory", () -> TileEntityType.Builder.create(BasicFluidInventoryTileEntity::new, TestBlocks.BASIC_FLUID_INVENTORY.get()));
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		TILE_ENTITY_TYPES.register(bus);
 	}
 	
