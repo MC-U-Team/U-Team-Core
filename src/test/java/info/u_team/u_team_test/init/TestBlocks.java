@@ -18,7 +18,7 @@ public class TestBlocks {
 	
 	public static final BlockRegistryObject<BasicFluidInventoryBlock, BlockItem> BASIC_FLUID_INVENTORY = BLOCKS.register("fluid_inventory", BasicFluidInventoryBlock::new);
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		BLOCKS.register(bus);
 	}
 	

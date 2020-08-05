@@ -6,7 +6,7 @@ public class TestCommonBusRegister {
 	
 	public static void register() {
 		BusRegister.registerMod(TestBiomes::registerMod);
-		BusRegister.registerMod(TestBlocks::register);
+		BusRegister.registerMod(TestBlocks::registerMod);
 		BusRegister.registerMod(TestContainers::register);
 		BusRegister.registerMod(TestEffects::register);
 		BusRegister.registerMod(TestEnchantments::register);
