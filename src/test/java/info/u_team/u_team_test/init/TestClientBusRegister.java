@@ -7,6 +7,7 @@ public class TestClientBusRegister {
 	public static void register() {
 		BusRegister.registerMod(TestColors::registerMod);
 		BusRegister.registerMod(TestKeys::registerMod);
+		BusRegister.registerMod(TestModels::registerMod);
 		
 		BusRegister.registerForge(TestKeys::registerForge);
 	}
