@@ -1,10 +1,5 @@
 package info.u_team.u_team_test.init;
 
-import info.u_team.u_team_test.TestMod;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-
-@EventBusSubscriber(modid = TestMod.MODID, bus = Bus.FORGE)
 public class TestDimensions {
 	
 	// TODO wait for forge replacement
