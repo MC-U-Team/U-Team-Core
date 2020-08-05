@@ -13,7 +13,7 @@ public class TestEntityTypes {
 	
 	public static final RegistryObject<EntityType<BetterEnderPearlEntity>> BETTER_ENDERPEARL = ENTITY_TYPES.register("better_enderpearl", () -> EntityType.Builder.<BetterEnderPearlEntity> create(BetterEnderPearlEntity::new, EntityClassification.MISC).size(0.25F, 0.25F).setTrackingRange(128).setUpdateInterval(20).setShouldReceiveVelocityUpdates(true));
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		ENTITY_TYPES.register(bus);
 	}
 }

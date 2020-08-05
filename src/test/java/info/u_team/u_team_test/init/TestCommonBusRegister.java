@@ -10,7 +10,7 @@ public class TestCommonBusRegister {
 		BusRegister.registerMod(TestContainers::registerMod);
 		BusRegister.registerMod(TestEffects::registerMod);
 		BusRegister.registerMod(TestEnchantments::registerMod);
-		BusRegister.registerMod(TestEntityTypes::register);
+		BusRegister.registerMod(TestEntityTypes::registerMod);
 		BusRegister.registerMod(TestGlobalLootModifiers::register);
 		BusRegister.registerMod(TestItems::register);
 		BusRegister.registerMod(TestModDimensions::register);
