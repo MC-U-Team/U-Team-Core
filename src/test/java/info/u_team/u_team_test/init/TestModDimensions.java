@@ -10,7 +10,7 @@ public class TestModDimensions {
 	// public static final RegistryObject<ModDimension> BASIC = MOD_DIMENSIONS.register("basic", () ->
 	// ModDimension.withFactory(BasicDimension::new));
 	
-	public static void register(IEventBus bus) {
+	public static void registerMod(IEventBus bus) {
 		// MOD_DIMENSIONS.register(bus);
 	}
 }
