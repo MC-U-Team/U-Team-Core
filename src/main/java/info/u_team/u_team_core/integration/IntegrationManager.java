@@ -13,9 +13,7 @@ public class IntegrationManager {
 	private static final Logger LOGGER = LogManager.getLogger("IntegrationManager");
 	
 	public static void constructIntegrations(String modid) {
-		final Type type = Type.getType(Integration.class);
-		
-		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, type)) {
+		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
 			final String integrationModid = (String) data.getAnnotationData().get("value");
 			if (ModList.get().isLoaded(integrationModid)) {
 				LOGGER.info("Try to load " + integrationModid + " integration for mod " + modid);
