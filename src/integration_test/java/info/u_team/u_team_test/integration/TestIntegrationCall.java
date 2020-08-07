@@ -9,6 +9,10 @@ public class TestIntegrationCall implements IModIntegration {
 	
 	public static final Logger LOGGER = LogManager.getLogger("IntegrationCall");
 	
+	static {
+		LOGGER.info("Integration call is cinit!");
+	}
+	
 	@Override
 	public void construct() {
 		LOGGER.info("Integration call is constructed!");
