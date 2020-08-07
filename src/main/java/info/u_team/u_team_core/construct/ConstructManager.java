@@ -15,8 +15,8 @@ public class ConstructManager {
 	
 	public static void constructConstructs(String modid) {
 		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
-			final boolean client = (boolean) data.getAnnotationData().get("client");
-			if ((client && FMLEnvironment.dist == Dist.CLIENT) || !client) {
+			final Boolean client = (Boolean) data.getAnnotationData().get("client");
+			if (client == null || !client || client && FMLEnvironment.dist == Dist.CLIENT) {
 				LOGGER.info("Try to load construct for mod " + modid);
 				try {
 					Class.forName(data.getMemberName()).asSubclass(IModConstruct.class).newInstance().construct();
