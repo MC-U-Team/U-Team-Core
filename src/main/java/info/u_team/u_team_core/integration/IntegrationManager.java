@@ -12,7 +12,7 @@ import net.minecraftforge.forgespi.language.ModFileScanData.AnnotationData;
 
 public class IntegrationManager {
 	
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogManager.getLogger("IntegrationManager");
 	
 	public static void constructIntegrations(String modid) {
 		final Type type = Type.getType(Integration.class);
