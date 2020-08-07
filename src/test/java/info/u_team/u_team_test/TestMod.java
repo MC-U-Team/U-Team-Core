@@ -2,6 +2,7 @@ package info.u_team.u_team_test;
 
 import org.apache.logging.log4j.*;
 
+import info.u_team.u_team_core.integration.IntegrationManager;
 import info.u_team.u_team_core.util.verify.JarSignVerifier;
 import info.u_team.u_team_test.init.*;
 import net.minecraftforge.api.distmarker.Dist;
@@ -18,6 +19,8 @@ public class TestMod {
 		JarSignVerifier.checkSigned(MODID);
 		
 		LOGGER.info("--------------------------------------- LOADING TEST MOD ---------------------------------------");
+		
+		IntegrationManager.constructIntegrations(MODID);
 		
 		TestCommonBusRegister.register();
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> TestClientBusRegister::register);
