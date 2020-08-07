@@ -27,7 +27,9 @@ public class IntegrationManager {
 				.collect(Collectors.toList());
 		
 		for (AnnotationData data : annotations) {
-			if (ModList.get().isLoaded((String) data.getAnnotationData().get("value"))) {
+			final String integrationModid = (String) data.getAnnotationData().get("value");
+			if (ModList.get().isLoaded(integrationModid)) {
+				LOGGER.info("Try to load " + integrationModid + " integration for mod " + modid);
 				try {
 					Class.forName(data.getMemberName()).asSubclass(IModIntegration.class).newInstance().construct();
 				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
