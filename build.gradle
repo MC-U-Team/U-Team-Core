@@ -184,6 +184,7 @@ sourceSets {
    	test {
 		java {
 			srcDirs += "src/data_test/java"
+			srcDirs += "src/integration_test/java"
 		}
 		resources {
 			srcDirs += "src/generated_test/resources"
