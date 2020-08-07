@@ -1,12 +1,10 @@
 package info.u_team.u_team_core.integration;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import org.apache.logging.log4j.*;
 import org.objectweb.asm.Type;
 
 import info.u_team.u_team_core.api.integration.*;
+import info.u_team.u_team_core.util.AnnotationUtil;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.ModFileScanData.AnnotationData;
 
@@ -17,16 +15,7 @@ public class IntegrationManager {
 	public static void constructIntegrations(String modid) {
 		final Type type = Type.getType(Integration.class);
 		
-		final List<AnnotationData> annotations = ModList.get() //
-				.getModFileById(modid) //
-				.getFile() //
-				.getScanResult() //
-				.getAnnotations() //
-				.stream() //
-				.filter(data -> type.equals(data.getAnnotationType())) //
-				.collect(Collectors.toList());
-		
-		for (AnnotationData data : annotations) {
+		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, type)) {
 			final String integrationModid = (String) data.getAnnotationData().get("value");
 			if (ModList.get().isLoaded(integrationModid)) {
 				LOGGER.info("Try to load " + integrationModid + " integration for mod " + modid);
