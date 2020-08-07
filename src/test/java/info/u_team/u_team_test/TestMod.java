@@ -20,9 +20,9 @@ public class TestMod {
 		
 		LOGGER.info("--------------------------------------- LOADING TEST MOD ---------------------------------------");
 		
-		IntegrationManager.constructIntegrations(MODID);
-		
 		TestCommonBusRegister.register();
 		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> TestClientBusRegister::register);
+		
+		IntegrationManager.constructIntegrations(MODID);
 	}
 }
