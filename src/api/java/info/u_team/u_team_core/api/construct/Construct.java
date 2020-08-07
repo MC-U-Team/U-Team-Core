@@ -8,6 +8,4 @@ public @interface Construct {
 	
 	boolean client() default false;
 	
-	String modid() default "";
-	
 }
