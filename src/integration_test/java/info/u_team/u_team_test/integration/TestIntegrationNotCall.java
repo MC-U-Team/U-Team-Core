@@ -9,9 +9,13 @@ public class TestIntegrationNotCall implements IModIntegration {
 	
 	public static final Logger LOGGER = LogManager.getLogger("IntegrationNotCall");
 	
+	static {
+		LOGGER.fatal("Integration not call is cinit!");
+	}
+	
 	@Override
 	public void construct() {
-		LOGGER.error("Integration not call is constructed! THIS SHOULD NEVER HAPPEN!!");
+		LOGGER.fatal("Integration not call is constructed! THIS SHOULD NEVER HAPPEN!!");
 		throw new RuntimeException("Integration should not be constructed");
 	}
 	
