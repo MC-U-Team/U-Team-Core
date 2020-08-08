@@ -8,6 +8,6 @@ public @interface Integration {
 	
 	String modid();
 	
-	String value();
+	String integration();
 	
 }
