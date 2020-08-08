@@ -18,3 +18,16 @@ authors="HyCraftHD"
 	    versionRange="${file.jarVersion}"
 	    ordering="NONE"
 	    side="BOTH"
+	    
+[[mods]]
+	modId="uteamtest2"
+	version="1.0.0"
+	displayName="U Team Test 2"
+	description="This is just a test mod 2 for some other stuff"
+	
+	[[dependencies.uteamtest2]]
+	    modId="uteamcore"
+	    mandatory=true
+	    versionRange="${file.jarVersion}"
+	    ordering="NONE"
+	    side="BOTH"
