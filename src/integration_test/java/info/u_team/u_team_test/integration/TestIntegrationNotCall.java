@@ -3,8 +3,9 @@ package info.u_team.u_team_test.integration;
 import org.apache.logging.log4j.*;
 
 import info.u_team.u_team_core.api.integration.*;
+import info.u_team.u_team_test.TestMod;
 
-@Integration("xyz")
+@Integration(modid = TestMod.MODID, integration = "xyz")
 public class TestIntegrationNotCall implements IModIntegration {
 	
 	public static final Logger LOGGER = LogManager.getLogger("IntegrationNotCall");
