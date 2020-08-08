@@ -6,6 +6,8 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 public @interface Construct {
 	
+	String modid();
+	
 	boolean client() default false;
 	
 }
