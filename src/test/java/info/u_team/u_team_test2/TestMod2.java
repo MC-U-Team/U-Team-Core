@@ -14,6 +14,6 @@ public class TestMod2 {
 	public TestMod2() {
 		JarSignVerifier.checkSigned(MODID);
 		
-		LOGGER.info("--------------------------------------- LOADING TEST MOD 2 ---------------------------------------");
+		LOGGER.info("-------------------------------------- LOADING TEST MOD 2 -------------------------------------");
 	}
 }
