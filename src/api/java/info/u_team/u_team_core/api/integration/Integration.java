@@ -6,6 +6,8 @@ import java.lang.annotation.*;
 @Target(ElementType.TYPE)
 public @interface Integration {
 	
+	String modid();
+	
 	String value();
 	
 }
