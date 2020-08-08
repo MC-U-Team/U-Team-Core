@@ -2,8 +2,9 @@ package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_core.api.construct.*;
 import info.u_team.u_team_core.util.registry.BusRegister;
+import info.u_team.u_team_test.TestMod;
 
-@Construct(client = true)
+@Construct(modid = TestMod.MODID, client = true)
 public class TestClientBusRegister implements IModConstruct {
 	
 	@Override
