@@ -14,14 +14,17 @@ public class IntegrationManager {
 	
 	public static void constructIntegrations(String modid) {
 		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
+			final String annotationModid = (String) data.getAnnotationData().get("modid");
 			final String integrationModid = (String) data.getAnnotationData().get("value");
-			if (ModList.get().isLoaded(integrationModid)) {
-				LOGGER.info("Try to load " + integrationModid + " integration for mod " + modid);
-				try {
-					Class.forName(data.getMemberName()).asSubclass(IModIntegration.class).newInstance().construct();
-				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
-					LOGGER.error("Failed to load and construct integration : {}", data.getMemberName(), ex);
-					throw new RuntimeException(ex);
+			if (modid.equals(annotationModid)) {
+				if (ModList.get().isLoaded(integrationModid)) {
+					LOGGER.info("Try to load " + integrationModid + " integration for mod " + modid);
+					try {
+						Class.forName(data.getMemberName()).asSubclass(IModIntegration.class).newInstance().construct();
+					} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
+						LOGGER.error("Failed to load and construct integration : {}", data.getMemberName(), ex);
+						throw new RuntimeException(ex);
+					}
 				}
 			}
 		}
