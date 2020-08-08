@@ -15,14 +15,17 @@ public class ConstructManager {
 	
 	public static void constructConstructs(String modid) {
 		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
+			final String annotationModid = (String) data.getAnnotationData().get("modid");
 			final Boolean client = (Boolean) data.getAnnotationData().get("client");
-			if (client == null || !client || client && FMLEnvironment.dist == Dist.CLIENT) {
-				LOGGER.info("Try to load construct for mod " + modid);
-				try {
-					Class.forName(data.getMemberName()).asSubclass(IModConstruct.class).newInstance().construct();
-				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
-					LOGGER.error("Failed to load and construct mod construct : {}", data.getMemberName(), ex);
-					throw new RuntimeException(ex);
+			if (modid.equals(annotationModid)) {
+				if (client == null || !client || client && FMLEnvironment.dist == Dist.CLIENT) {
+					LOGGER.info("Try to load construct for mod " + modid);
+					try {
+						Class.forName(data.getMemberName()).asSubclass(IModConstruct.class).newInstance().construct();
+					} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
+						LOGGER.error("Failed to load and construct mod construct : {}", data.getMemberName(), ex);
+						throw new RuntimeException(ex);
+					}
 				}
 			}
 		}
