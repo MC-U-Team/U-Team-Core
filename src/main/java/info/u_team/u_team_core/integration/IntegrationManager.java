@@ -15,7 +15,7 @@ public class IntegrationManager {
 	public static void constructIntegrations(String modid) {
 		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
 			final String annotationModid = (String) data.getAnnotationData().get("modid");
-			final String integrationModid = (String) data.getAnnotationData().get("value");
+			final String integrationModid = (String) data.getAnnotationData().get("integration");
 			if (modid.equals(annotationModid)) {
 				if (ModList.get().isLoaded(integrationModid)) {
 					LOGGER.info("Try to load " + integrationModid + " integration for mod " + modid);
