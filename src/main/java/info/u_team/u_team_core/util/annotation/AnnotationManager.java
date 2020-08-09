@@ -35,6 +35,7 @@ public class AnnotationManager {
 	public static void callIntegrations(String modid) {
 		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
 			final String annotationModid = (String) data.getAnnotationData().get("modid");
+			final Boolean client = (Boolean) data.getAnnotationData().get("client");
 			final String integrationModid = (String) data.getAnnotationData().get("integration");
 			if (modid.equals(annotationModid)) {
 				if (ModList.get().isLoaded(integrationModid)) {
@@ -48,6 +49,12 @@ public class AnnotationManager {
 				}
 			}
 		}
+	}
+	
+	private static boolean canBeCalled(String modid, AnnotationData data) {
+		final String annotationModid = (String) data.getAnnotationData().get("modid");
+		final Boolean client = (Boolean) data.getAnnotationData().get("client");
+		return modid.equals(annotationModid) && (client == null || !client || client && FMLEnvironment.dist == Dist.CLIENT);
 	}
 	
 }
