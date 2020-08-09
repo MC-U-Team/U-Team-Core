@@ -3,10 +3,9 @@ package info.u_team.u_team_core;
 import org.apache.logging.log4j.*;
 
 import info.u_team.u_team_core.intern.config.ClientConfig;
-import info.u_team.u_team_core.intern.init.*;
+import info.u_team.u_team_core.util.annotation.AnnotationManager;
 import info.u_team.u_team_core.util.verify.JarSignVerifier;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.*;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig.Type;
 
@@ -21,7 +20,6 @@ public class UCoreMod {
 		
 		ModLoadingContext.get().registerConfig(Type.CLIENT, ClientConfig.CONFIG);
 		
-		UCoreCommonBusRegister.register();
-		DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> UCoreClientBusRegister::register);
+		AnnotationManager.callAnnotations(MODID);
 	}
 }
