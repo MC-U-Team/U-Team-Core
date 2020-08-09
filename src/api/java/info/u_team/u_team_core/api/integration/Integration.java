@@ -8,6 +8,8 @@ public @interface Integration {
 	
 	String modid();
 	
+	boolean client() default false;
+	
 	String integration();
 	
 }
