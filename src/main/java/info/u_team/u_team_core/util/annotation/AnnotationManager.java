@@ -14,7 +14,7 @@ public class AnnotationManager {
 	
 	private static final Logger LOGGER = LogManager.getLogger("AnnotationManager");
 	
-	public static void constructConstructs(String modid) {
+	public static void callConstructs(String modid) {
 		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
 			final String annotationModid = (String) data.getAnnotationData().get("modid");
 			final Boolean client = (Boolean) data.getAnnotationData().get("client");
@@ -32,7 +32,7 @@ public class AnnotationManager {
 		}
 	}
 	
-	public static void constructIntegrations(String modid) {
+	public static void callIntegrations(String modid) {
 		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
 			final String annotationModid = (String) data.getAnnotationData().get("modid");
 			final String integrationModid = (String) data.getAnnotationData().get("integration");
