@@ -2,8 +2,6 @@ package info.u_team.u_team_test;
 
 import org.apache.logging.log4j.*;
 
-import info.u_team.u_team_core.construct.ConstructManager;
-import info.u_team.u_team_core.integration.IntegrationManager;
 import info.u_team.u_team_core.util.annotation.AnnotationManager;
 import info.u_team.u_team_core.util.verify.JarSignVerifier;
 import net.minecraftforge.fml.common.Mod;
