@@ -16,17 +16,13 @@ public class AnnotationManager {
 	
 	public static void callConstructs(String modid) {
 		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
-			final String annotationModid = (String) data.getAnnotationData().get("modid");
-			final Boolean client = (Boolean) data.getAnnotationData().get("client");
-			if (modid.equals(annotationModid)) {
-				if (client == null || !client || client && FMLEnvironment.dist == Dist.CLIENT) {
-					LOGGER.info("Try to load construct for mod " + modid);
-					try {
-						Class.forName(data.getMemberName()).asSubclass(IModConstruct.class).newInstance().construct();
-					} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
-						LOGGER.error("Failed to load and construct mod construct : {}", data.getMemberName(), ex);
-						throw new RuntimeException(ex);
-					}
+			if (canBeCalled(modid, data)) {
+				LOGGER.info("Try to load construct for mod " + modid);
+				try {
+					Class.forName(data.getMemberName()).asSubclass(IModConstruct.class).newInstance().construct();
+				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
+					LOGGER.error("Failed to load and construct mod construct : {}", data.getMemberName(), ex);
+					throw new RuntimeException(ex);
 				}
 			}
 		}
@@ -34,18 +30,14 @@ public class AnnotationManager {
 	
 	public static void callIntegrations(String modid) {
 		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
-			final String annotationModid = (String) data.getAnnotationData().get("modid");
-			final Boolean client = (Boolean) data.getAnnotationData().get("client");
 			final String integrationModid = (String) data.getAnnotationData().get("integration");
-			if (modid.equals(annotationModid)) {
-				if (ModList.get().isLoaded(integrationModid)) {
-					LOGGER.info("Try to load " + integrationModid + " integration for mod " + modid);
-					try {
-						Class.forName(data.getMemberName()).asSubclass(IModIntegration.class).newInstance().construct();
-					} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
-						LOGGER.error("Failed to load and construct integration : {}", data.getMemberName(), ex);
-						throw new RuntimeException(ex);
-					}
+			if (canBeCalled(modid, data) && ModList.get().isLoaded(integrationModid)) {
+				LOGGER.info("Try to load " + integrationModid + " integration for mod " + modid);
+				try {
+					Class.forName(data.getMemberName()).asSubclass(IModIntegration.class).newInstance().construct();
+				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
+					LOGGER.error("Failed to load and construct integration : {}", data.getMemberName(), ex);
+					throw new RuntimeException(ex);
 				}
 			}
 		}
