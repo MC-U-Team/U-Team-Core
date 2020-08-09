@@ -15,7 +15,7 @@ public class AnnotationManager {
 	private static final Logger LOGGER = LogManager.getLogger("AnnotationManager");
 	
 	public static void callConstructs(String modid) {
-		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
+		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
 			if (canBeCalled(modid, data)) {
 				LOGGER.info("Try to load construct for mod " + modid);
 				try {
@@ -29,7 +29,7 @@ public class AnnotationManager {
 	}
 	
 	public static void callIntegrations(String modid) {
-		for (AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
+		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
 			final String integrationModid = (String) data.getAnnotationData().get("integration");
 			if (canBeCalled(modid, data) && ModList.get().isLoaded(integrationModid)) {
 				LOGGER.info("Try to load " + integrationModid + " integration for mod " + modid);
