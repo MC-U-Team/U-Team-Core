@@ -1,6 +1,14 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.1-3.1.3.168] - 2020-08-09
+### Changed
+ - Changed the annotation integration system. This is a breaking change, but since no mod is using it right now it does not matter
+ - Changed many internal stuff
+ 
+### Added
+ - Added @Construct annotation to call classes like the integration system but in the mod construct
+
 ## [1.16.1-3.1.2.167] - 2020-08-03
 ### Changed
  - Remove the tag validation in the generators for existing tags. We need to include forge tags in our tags and that will not work with this change. Invalid tags can now be included, but there is no easy fix.
