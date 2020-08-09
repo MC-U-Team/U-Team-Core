@@ -6,7 +6,7 @@ import info.u_team.u_team_core.intern.discord.UpdateDiscordEventHandler;
 import info.u_team.u_team_core.util.registry.BusRegister;
 
 @Construct(modid = UCoreMod.MODID, client = true)
-public class UCoreClientBusRegister implements IModConstruct {
+public class UCoreClientConstruct implements IModConstruct {
 	
 	@Override
 	public void construct() {

@@ -8,7 +8,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.config.ModConfig.Type;
 
 @Construct(modid = UCoreMod.MODID)
-public class UCoreCommonBusRegister implements IModConstruct {
+public class UCoreCommonConstruct implements IModConstruct {
 	
 	@Override
 	public void construct() {
