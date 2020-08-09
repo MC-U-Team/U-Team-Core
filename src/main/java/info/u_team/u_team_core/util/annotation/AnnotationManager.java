@@ -16,6 +16,11 @@ public class AnnotationManager {
 	private static final Marker CONSTRUCT_MARKER = MarkerManager.getMarker("Construct");
 	private static final Marker INTEGRATION_MARKER = MarkerManager.getMarker("Integration");
 	
+	public static void callAnnotations(String modid) {
+		callConstructs(modid);
+		callIntegrations(modid);
+	}
+	
 	public static void callConstructs(String modid) {
 		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
 			if (canBeCalled(modid, data)) {
