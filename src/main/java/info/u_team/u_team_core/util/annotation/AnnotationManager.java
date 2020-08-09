@@ -24,7 +24,7 @@ public class AnnotationManager {
 	public static void callConstructs(String modid) {
 		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
 			if (canBeCalled(modid, data)) {
-				LOGGER.info(CONSTRUCT_MARKER, "Load construct (" + data.getMemberName() + ") for mod " + modid);
+				LOGGER.debug(CONSTRUCT_MARKER, "Load construct (" + data.getMemberName() + ") for mod " + modid);
 				try {
 					Class.forName(data.getMemberName()).asSubclass(IModConstruct.class).newInstance().construct();
 				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
@@ -39,7 +39,7 @@ public class AnnotationManager {
 		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
 			final String integrationModid = (String) data.getAnnotationData().get("integration");
 			if (canBeCalled(modid, data) && ModList.get().isLoaded(integrationModid)) {
-				LOGGER.info(INTEGRATION_MARKER, "Load " + integrationModid + " integration (" + data.getMemberName() + ") for mod " + modid);
+				LOGGER.debug(INTEGRATION_MARKER, "Load " + integrationModid + " integration (" + data.getMemberName() + ") for mod " + modid);
 				try {
 					Class.forName(data.getMemberName()).asSubclass(IModIntegration.class).newInstance().construct();
 				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
