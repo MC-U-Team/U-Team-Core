@@ -5,7 +5,6 @@ import org.objectweb.asm.Type;
 
 import info.u_team.u_team_core.api.construct.*;
 import info.u_team.u_team_core.api.integration.*;
-import info.u_team.u_team_core.util.AnnotationUtil;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
