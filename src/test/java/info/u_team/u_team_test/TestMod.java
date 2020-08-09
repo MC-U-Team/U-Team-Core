@@ -17,9 +17,6 @@ public class TestMod {
 		
 		LOGGER.info("--------------------------------------- LOADING TEST MOD ---------------------------------------");
 		
-		// TestCommonBusRegister.register();
-		// DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> TestClientBusRegister::register);
-		
 		AnnotationManager.callAnnotations(MODID);
 	}
 }
