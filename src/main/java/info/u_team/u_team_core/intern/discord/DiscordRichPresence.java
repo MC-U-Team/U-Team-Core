@@ -49,7 +49,9 @@ public class DiscordRichPresence {
 	}
 	
 	public static void stop() {
+		boolean wasConnected = false;
 		if (timerTask != null) {
+			wasConnected = true;
 			timerTask.cancel();
 			timerTask = null;
 		}
@@ -59,7 +61,9 @@ public class DiscordRichPresence {
 		}
 		errorCount = 0;
 		isEnabled = false;
-		UCoreMain.LOGGER.info("Discord client closed.");
+		if (wasConnected) {
+			UCoreMain.LOGGER.info("Discord client closed.");
+		}
 	}
 	
 	public static void setIdling() {
