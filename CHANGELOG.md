@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.2-3.0.2.169] - 2020-08-12
+### Added
+ - Now only print the discord client close message if the discord client was connected before
+ - Backported annotation system for integration and construct
+
 ## [1.15.2-3.0.1.164] - 2020-07-23
 ### Added
  - Backported jei integration from 1.16.1 to display if an item can be dyed
