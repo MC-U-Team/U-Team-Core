@@ -4,10 +4,9 @@ import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.command.*;
-import net.minecraft.command.arguments.ResourceLocationArgument;
+import net.minecraft.command.arguments.*;
 import net.minecraft.command.impl.LocateBiomeCommand;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class LocateBiomeSubCommand {
 	
@@ -15,7 +14,7 @@ public class LocateBiomeSubCommand {
 		return Commands.literal("locatebiome") //
 				.requires(source -> source.hasPermissionLevel(2)) //
 				.then(Commands.argument("biome", ResourceLocationArgument.resourceLocation()) //
-						.suggests((context, builder) -> ISuggestionProvider.suggest(ForgeRegistries.BIOMES.getKeys().stream().map(ResourceLocation::toString), builder)) //
+						.suggests(SuggestionProviders.field_239574_d_) //
 						.executes(context -> locateBiome(context.getSource(), context.getArgument("biome", ResourceLocation.class))));
 	}
 	
