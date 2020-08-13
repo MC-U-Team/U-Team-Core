@@ -31,7 +31,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		registerTags();
 		
 		tagToBuilder.forEach((location, builder) -> {
-			final List<ITag.Proxy> list = builder.func_232963_b_(id -> Tag.func_241284_a_(), id -> registry.getValue(id).orElse(null)).collect(Collectors.toList());
+			final List<ITag.Proxy> list = builder.func_232963_b_(id -> Tag.func_241284_a_(), id -> registry.func_241873_b(id).orElse(null)).collect(Collectors.toList());
 			if (!list.isEmpty()) {
 				throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", location, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
 			}
