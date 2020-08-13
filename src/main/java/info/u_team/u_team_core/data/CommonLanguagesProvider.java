@@ -11,7 +11,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.*;
 import net.minecraft.potion.Effect;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.util.text.*;
 
 public abstract class CommonLanguagesProvider extends CommonProvider {
 	
@@ -44,7 +44,10 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(ItemGroup key, String name) {
-		add(key.getTranslationKey(), name);
+		final ITextComponent component = key.func_242392_c();
+		if (component instanceof TranslationTextComponent) {
+			add(((TranslationTextComponent) component).getKey(), name);
+		}
 	}
 	
 	protected void addBlock(Supplier<? extends Block> key, String name) {
@@ -79,14 +82,6 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(key.getName(), name);
 	}
 	
-	protected void addBiome(Supplier<? extends Biome> key, String name) {
-		add(key.get(), name);
-	}
-	
-	protected void add(Biome key, String name) {
-		add(key.getTranslationKey(), name);
-	}
-	
 	protected void addEffect(Supplier<? extends Effect> key, String name) {
 		add(key.get(), name);
 	}
@@ -116,7 +111,10 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, ItemGroup key, String name) {
-		add(locale, key.getTranslationKey(), name);
+		final ITextComponent component = key.func_242392_c();
+		if (component instanceof TranslationTextComponent) {
+			add(locale, ((TranslationTextComponent) component).getKey(), name);
+		}
 	}
 	
 	protected void addBlock(String locale, Supplier<? extends Block> key, String name) {
@@ -149,14 +147,6 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	
 	protected void add(String locale, Enchantment key, String name) {
 		add(locale, key.getName(), name);
-	}
-	
-	protected void addBiome(String locale, Supplier<? extends Biome> key, String name) {
-		add(locale, key.get(), name);
-	}
-	
-	protected void add(String locale, Biome key, String name) {
-		add(locale, key.getTranslationKey(), name);
 	}
 	
 	protected void addEffect(String locale, Supplier<? extends Effect> key, String name) {
