@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.1-3.1.3.170] - 2020-08-13
+### Changed
+ - Update network protocol version to 1.16.1-1
+ - Update to forge 32.0.108
+
 ## [1.16.1-3.1.3.168] - 2020-08-09
 ### Changed
  - Changed the annotation integration system. This is a breaking change, but since no mod is using it right now it does not matter
