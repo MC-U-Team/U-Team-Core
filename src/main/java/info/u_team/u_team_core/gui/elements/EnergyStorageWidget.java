@@ -70,7 +70,7 @@ public class EnergyStorageWidget extends Widget {
 			final Minecraft minecraft = Minecraft.getInstance();
 			final MainWindow mainWindow = minecraft.getMainWindow();
 			final List<ITextComponent> list = new ArrayList<>();
-			list.add(ITextComponent.func_241827_a_(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
+			list.add(ITextComponent.func_244388_a(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
 			GuiUtils.drawHoveringText(matrixStack, list, mouseX, mouseY, mainWindow.getWidth(), mainWindow.getHeight(), 300, minecraft.fontRenderer);
 		}
 	}
