@@ -32,7 +32,7 @@ public class EnergyStorageWidget extends Widget {
 	}
 	
 	public EnergyStorageWidget(int x, int y, int height, LongSupplier capacity, LongSupplier storage) {
-		super(x, y, 14, height < 3 ? 3 : height, ITextComponent.func_241827_a_(null));
+		super(x, y, 14, height < 3 ? 3 : height, ITextComponent.func_244388_a(null));
 		this.capacity = capacity;
 		this.storage = storage;
 	}
