@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.integration.jei;
 
+// TODO uncomment when jei is available again
 //import java.util.List;
 //import java.util.stream.Collectors;
 //
