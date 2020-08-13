@@ -63,7 +63,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		super.func_230459_a_(matrixStack, mouseX, mouseY);
 		
 		if (minecraft.player.inventory.getItemStack().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
-			func_243308_b(matrixStack, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
+			func_243308_b(matrixStack, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY); // TODO 1.16.2 is this right??
 		}
 		
 	}
