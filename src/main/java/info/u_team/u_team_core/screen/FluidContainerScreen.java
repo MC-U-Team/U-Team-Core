@@ -63,7 +63,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		super.func_230459_a_(matrixStack, mouseX, mouseY);
 		
 		if (minecraft.player.inventory.getItemStack().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
-			renderTooltip(matrixStack, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
+			func_243308_b(matrixStack, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
 		}
 		
 	}
@@ -94,10 +94,10 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		return super.getSlotColor(index);
 	}
 	
-	public List<ITextProperties> getTooltipFromFluid(FluidSlot fluidSlot) {
+	public List<ITextComponent> getTooltipFromFluid(FluidSlot fluidSlot) {
 		final FluidStack stack = fluidSlot.getStack();
 		
-		final List<ITextProperties> list = new ArrayList<>();
+		final List<ITextComponent> list = new ArrayList<>();
 		
 		list.add(stack.getDisplayName());
 		list.add(new StringTextComponent(stack.getAmount() + " / " + fluidSlot.getSlotCapacity()).mergeStyle(TextFormatting.GRAY));
