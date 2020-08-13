@@ -9,7 +9,6 @@ public class TestCommonConstruct implements IModConstruct {
 	
 	@Override
 	public void construct() {
-		BusRegister.registerMod(TestBiomes::registerMod);
 		BusRegister.registerMod(TestBlocks::registerMod);
 		BusRegister.registerMod(TestContainers::registerMod);
 		BusRegister.registerMod(TestEffects::registerMod);
