@@ -10,7 +10,7 @@ import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class UCoreNetwork {
 	
-	public static final String PROTOCOL = "1.15.2-2";
+	public static final String PROTOCOL = "1.16.1-1";
 	
 	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMod.MODID, "network"), () -> PROTOCOL, PROTOCOL::equals, PROTOCOL::equals);
 	
