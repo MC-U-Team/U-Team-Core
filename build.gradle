@@ -196,7 +196,7 @@ dependencies {
     minecraft getForgeDependency()
     compile fg.deobf(getJeiApiDependency())
     runtime fg.deobf(getJeiDependency())
-    //compile fg.deobf(getPatchouliDependency())
+    runtime fg.deobf(getPatchouliDependency())
 }
 
 curseforge {	
