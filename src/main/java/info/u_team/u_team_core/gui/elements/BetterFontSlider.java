@@ -24,7 +24,7 @@ public class BetterFontSlider extends Slider {
 	protected void renderBg(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY) {
 		if (visible) {
 			if (dragging) {
-				sliderValue = (x - (x + 4)) / (float) (width - 8);
+				sliderValue = (mouseX - (x + 4)) / (float) (width - 8);
 				updateSlider();
 			}
 			GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset());
