@@ -21,7 +21,7 @@ public class BetterFontSlider extends Slider {
 	}
 	
 	@Override
-	protected void renderBg(MatrixStack matrixStack, Minecraft minecraft, int x, int y) {
+	protected void renderBg(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY) {
 		if (visible) {
 			if (dragging) {
 				sliderValue = (x - (x + 4)) / (float) (width - 8);
