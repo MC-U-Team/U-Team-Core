@@ -23,7 +23,7 @@ public class JarSignVerifier {
 		final Stopwatch watch = Stopwatch.createStarted();
 		final VerifyStatus status = verify(modid);
 		watch.stop();
-		LOGGER.debug("Took " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms to check if mod " + modid + "is signed.");
+		LOGGER.debug("Took " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms to check if mod " + modid + " is signed.");
 		if (status == VerifyStatus.SIGNED) {
 			LOGGER.info("Mod " + modid + " is signed with a valid certificate.");
 		} else if (status == VerifyStatus.UNSIGNED) {
