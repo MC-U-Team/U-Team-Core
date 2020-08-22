@@ -20,7 +20,12 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<Block> createBlockTag(ResourceLocation location) {
-		return BlockTags.makeWrapperTag(location.toString());
+		final Optional<? extends INamedTag<Block>> optional = BlockTags.func_242174_b().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		if (optional.isPresent()) {
+			return optional.get();
+		} else {
+			return BlockTags.makeWrapperTag(location.toString());
+		}
 	}
 	
 	public static INamedTag<Item> createItemTag(String modid, String name) {
@@ -28,7 +33,12 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<Item> createItemTag(ResourceLocation location) {
-		return ItemTags.makeWrapperTag(location.toString());
+		final Optional<? extends INamedTag<Item>> optional = ItemTags.func_242177_b().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		if (optional.isPresent()) {
+			return optional.get();
+		} else {
+			return ItemTags.makeWrapperTag(location.toString());
+		}
 	}
 	
 	public static INamedTag<Fluid> createFluidTag(String modid, String name) {
@@ -36,7 +46,12 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<Fluid> createFluidTag(ResourceLocation location) {
-		return FluidTags.makeWrapperTag(location.toString());
+		final Optional<? extends INamedTag<Fluid>> optional = FluidTags.func_241280_c_().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		if (optional.isPresent()) {
+			return optional.get();
+		} else {
+			return FluidTags.makeWrapperTag(location.toString());
+		}
 	}
 	
 	public static INamedTag<EntityType<?>> createEntityTypeTag(String modid, String name) {
@@ -44,7 +59,12 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<EntityType<?>> createEntityTypeTag(ResourceLocation location) {
-		return EntityTypeTags.func_232896_a_(location.toString());
+		final Optional<? extends INamedTag<EntityType<?>>> optional = EntityTypeTags.func_242175_b().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		if (optional.isPresent()) {
+			return optional.get();
+		} else {
+			return EntityTypeTags.func_232896_a_(location.toString());
+		}
 	}
 	
 	public static INamedTag<Block> fromItemTag(INamedTag<Item> block) {
