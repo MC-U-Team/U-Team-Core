@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.2-3.1.5.174] - 2020-08-22
+### Changed
+ - TagUtil now checks for existing tags first
+
 ## [1.16.2-3.1.4.173] - 2020-08-21
 ### Changed
  - Fixed [#45](https://github.com/MC-U-Team/U-Team-Core/issues/45 to fix sliders
