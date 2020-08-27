@@ -75,7 +75,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			return super.addItemEntry(item);
 		}
 		
-		private <C extends ITagEntry> Builder<T> canAdd(Class<C> clazz, Predicate<? super C> predicate, Supplier<Builder<T>> add) {
+		private <C extends ITagEntry> Builder<T> addUnique(Class<C> clazz, Predicate<? super C> predicate, Supplier<Builder<T>> add) {
 			final boolean duplicate = getInternalBuilder().getProxyStream() //
 					.map(Proxy::getEntry) //
 					.filter(clazz::isInstance) //
