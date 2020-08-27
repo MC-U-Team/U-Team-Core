@@ -30,3 +30,5 @@ f851e1799036332af39c2aa6b9c63fa8c3577018 data/uteamtest/loot_tables/blocks/energ
 c8436e3c3abc78d70af0fee8534d8e5d6c0f1b10 data/uteamtest/loot_tables/blocks/tileentity.json
 690ba09a548aac5697657f1e581db4bce938b0af data/uteamtest/tags/blocks/test_1.json
 ee283c4f30368e827d50afc216ae062f04b15c2d data/uteamtest/tags/blocks/test_2.json
+690ba09a548aac5697657f1e581db4bce938b0af data/uteamtest/tags/items/test_1.json
+ee283c4f30368e827d50afc216ae062f04b15c2d data/uteamtest/tags/items/test_2.json
