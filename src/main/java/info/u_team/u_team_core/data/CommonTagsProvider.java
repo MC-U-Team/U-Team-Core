@@ -52,14 +52,14 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	
 	protected TagsProvider.Builder<T> getBuilder(ITag.INamedTag<T> tag) {
 		final ITag.Builder tagBuilder = getTagBuilder(tag);
-		return new UniqueBuilder<>(tagBuilder, registry, modid);
+		return new Builder<>(tagBuilder, registry, modid);
 	}
 	
 	protected ITag.Builder getTagBuilder(ITag.INamedTag<T> tag) {
 		return this.tagToBuilder.computeIfAbsent(tag.getName(), location -> new ITag.Builder());
 	}
 	
-	public static class UniqueBuilder<T> extends TagsProvider.Builder<T> {
+	/*public static class UniqueBuilder<T> extends TagsProvider.Builder<T> {
 		
 		private final Registry<T> registry;
 		
@@ -78,6 +78,11 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		public Builder<T> addTag(INamedTag<T> tag) {
 			final ResourceLocation location = tag.getName();
 			return addUniqueTagEntry(TagEntry.class, entry -> entry.id.equals(location), () -> super.addTag(tag));
+		}
+		
+		@Override
+		public Builder<T> add(ITagEntry tag) {
+			return super.add(tag);
 		}
 		
 		private <C extends ItemEntry> Builder<T> addUniqueItemEntry(Class<C> clazz, Predicate<C> predicate, Supplier<Builder<T>> add) {
@@ -108,5 +113,5 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			return this;
 		}
 		
-	}
+	}*/
 }
