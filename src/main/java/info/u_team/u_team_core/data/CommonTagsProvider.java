@@ -3,7 +3,6 @@ package info.u_team.u_team_core.data;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.function.*;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Maps;
@@ -12,7 +11,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.data.*;
 import net.minecraft.data.TagsProvider.Builder;
 import net.minecraft.tags.*;
-import net.minecraft.tags.ITag.*;
+import net.minecraft.tags.ITag.Proxy;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
@@ -61,61 +60,18 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	
 	private static class UniqueBuilder extends ITag.Builder {
 		
-	}
-	
-	/*public static class UniqueBuilder<T> extends TagsProvider.Builder<T> {
-		
-		private final Registry<T> registry;
-		
-		public UniqueBuilder(ITag.Builder builder, Registry<T> registry, String id) {
-			super(builder, registry, id);
-			this.registry = registry;
-		}
-		
 		@Override
-		public Builder<T> addItemEntry(T item) {
-			final ResourceLocation location = registry.getKey(item);
-			return addUniqueItemEntry(ItemEntry.class, entry -> entry.identifier.equals(location), () -> super.addItemEntry(item));
-		}
-		
-		@Override
-		public Builder<T> addTag(INamedTag<T> tag) {
-			final ResourceLocation location = tag.getName();
-			return addUniqueTagEntry(TagEntry.class, entry -> entry.id.equals(location), () -> super.addTag(tag));
-		}
-		
-		@Override
-		public Builder<T> add(ITagEntry tag) {
-			return super.add(tag);
-		}
-		
-		private <C extends ItemEntry> Builder<T> addUniqueItemEntry(Class<C> clazz, Predicate<C> predicate, Supplier<Builder<T>> add) {
-			return addUnique(clazz, predicate, add);
-		}
-		
-		private <C extends OptionalItemEntry> Builder<T> addUniqueOptionalItemEntry(Class<C> clazz, Predicate<C> predicate, Supplier<Builder<T>> add) {
-			return addUnique(clazz, predicate, add);
-		}
-		
-		private <C extends TagEntry> Builder<T> addUniqueTagEntry(Class<C> clazz, Predicate<C> predicate, Supplier<Builder<T>> add) {
-			return addUnique(clazz, predicate, add);
-		}
-		
-		private <C extends OptionalTagEntry> Builder<T> addUniqueOptionalTagEntry(Class<C> clazz, Predicate<C> predicate, Supplier<Builder<T>> add) {
-			return addUnique(clazz, predicate, add);
-		}
-		
-		private <C extends ITagEntry> Builder<T> addUnique(Class<C> clazz, Predicate<C> predicate, Supplier<Builder<T>> add) {
-			final boolean duplicate = getInternalBuilder().getProxyStream() //
+		public net.minecraft.tags.ITag.Builder addProxyTag(Proxy proxyTag) {
+			final boolean duplicate = getProxyStream() //
 					.map(Proxy::getEntry) //
-					.filter(clazz::isInstance) //
-					.map(clazz::cast) //
-					.anyMatch(predicate);
+					.anyMatch(entry -> {
+						return false;
+					});
+			
 			if (!duplicate) {
-				return add.get();
+				return super.addProxyTag(proxyTag);
 			}
 			return this;
 		}
-		
-	}*/
+	}
 }
