@@ -49,10 +49,18 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	
 	protected TagsProvider.Builder<T> getBuilder(ITag.INamedTag<T> tag) {
 		final ITag.Builder tagBuilder = getTagBuilder(tag);
-		return new TagsProvider.Builder<>(tagBuilder, registry, modid);
+		return new UniqueBuilder<>(tagBuilder, registry, modid);
 	}
 	
 	protected ITag.Builder getTagBuilder(ITag.INamedTag<T> tag) {
 		return this.tagToBuilder.computeIfAbsent(tag.getName(), location -> new ITag.Builder());
+	}
+	
+	public static class UniqueBuilder<T> extends TagsProvider.Builder<T> {
+		
+		public UniqueBuilder(ITag.Builder builder, Registry<T> registry, String id) {
+			super(builder, registry, id);
+		}
+		
 	}
 }
