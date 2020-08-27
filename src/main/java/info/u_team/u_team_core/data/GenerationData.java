@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.data;
 
-import java.util.function.Function;
+import java.util.function.*;
 
 import net.minecraft.data.*;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
@@ -11,6 +11,8 @@ public class GenerationData {
 	private final String modid;
 	private final DataGenerator generator;
 	private final ExistingFileHelper existingFileHelper;
+	
+	private CommonBlockTagsProvider blockTagsProvider;
 	
 	public GenerationData(String modid, GatherDataEvent event) {
 		this(modid, event.getGenerator(), event.getExistingFileHelper());
@@ -35,7 +37,15 @@ public class GenerationData {
 	}
 	
 	public void addProvider(Function<GenerationData, IDataProvider> function) {
-		generator.addProvider(function.apply(this));
+		final IDataProvider provider = function.apply(this);
+		if (provider instanceof CommonBlockTagsProvider) {
+			blockTagsProvider = (CommonBlockTagsProvider) provider;
+		}
+		generator.addProvider(provider);
+	}
+	
+	public void addProvider(BiFunction<GenerationData, CommonBlockTagsProvider, IDataProvider> function) {
+		generator.addProvider(function.apply(this, blockTagsProvider));
 	}
 	
 }
