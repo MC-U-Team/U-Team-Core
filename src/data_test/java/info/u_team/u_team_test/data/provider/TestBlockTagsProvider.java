@@ -5,7 +5,6 @@ import info.u_team.u_team_core.data.*;
 import net.minecraft.block.Blocks;
 import net.minecraft.tags.*;
 
-
 public class TestBlockTagsProvider extends CommonBlockTagsProvider {
 	
 	public TestBlockTagsProvider(GenerationData data) {
@@ -15,10 +14,15 @@ public class TestBlockTagsProvider extends CommonBlockTagsProvider {
 	@Override
 	protected void registerTags() {
 		getBuilder(TEST_TAG_1).add(Blocks.ACACIA_BUTTON, Blocks.ACACIA_DOOR);
+		
 		getBuilder(TEST_TAG_2).addTag(TEST_TAG_1).add(Blocks.ACACIA_LOG);
 		
 		getBuilder(TEST_TAG_1).add(Blocks.BIRCH_LEAVES);
 		getBuilder(TEST_TAG_1).addTag(BlockTags.BEDS);
+
+		
+		getBuilder(TEST_TAG_2).add(Blocks.ACACIA_LOG);
+		getBuilder(TEST_TAG_2).addTag(TEST_TAG_1);
 	}
 	
 }
