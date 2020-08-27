@@ -71,10 +71,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		@Override
 		public Builder<T> addItemEntry(T item) {
 			final ResourceLocation location = registry.getKey(item);
-			
-			// addUnique(ItemEntry.class, entry -> entry, add)
-			
-			return super.addItemEntry(item);
+			return addUniqueItemEntry(ItemEntry.class, entry -> entry.identifier.equals(location), () -> super.addItemEntry(item));
 		}
 		
 		private <C extends ItemEntry> Builder<T> addUniqueItemEntry(Class<C> clazz, Predicate<C> predicate, Supplier<Builder<T>> add) {
