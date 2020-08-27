@@ -56,7 +56,11 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	}
 	
 	protected ITag.Builder getTagBuilder(ITag.INamedTag<T> tag) {
-		return tagToBuilder.computeIfAbsent(tag.getName(), location -> new ITag.Builder());
+		return tagToBuilder.computeIfAbsent(tag.getName(), location -> new UniqueBuilder());
+	}
+	
+	private static class UniqueBuilder extends ITag.Builder {
+		
 	}
 	
 	/*public static class UniqueBuilder<T> extends TagsProvider.Builder<T> {
