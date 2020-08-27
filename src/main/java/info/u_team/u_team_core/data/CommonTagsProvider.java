@@ -3,7 +3,7 @@ package info.u_team.u_team_core.data;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.function.Predicate;
+import java.util.function.*;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Maps;
@@ -71,18 +71,20 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		@Override
 		public Builder<T> addItemEntry(T item) {
 			final ResourceLocation location = registry.getKey(item);
+			
 			return super.addItemEntry(item);
 		}
 		
-		private <C extends ITagEntry> void canAdd(Class<C> clazz, Predicate<? super C> predicate, Runnable add) {
+		private <C extends ITagEntry> Builder<T> canAdd(Class<C> clazz, Predicate<? super C> predicate, Supplier<Builder<T>> add) {
 			final boolean duplicate = getInternalBuilder().getProxyStream() //
 					.map(Proxy::getEntry) //
 					.filter(clazz::isInstance) //
 					.map(clazz::cast) //
 					.anyMatch(predicate);
 			if (!duplicate) {
-				add.run();
+				return add.get();
 			}
+			return this;
 		}
 		
 	}
