@@ -74,6 +74,12 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			return addUniqueItemEntry(ItemEntry.class, entry -> entry.identifier.equals(location), () -> super.addItemEntry(item));
 		}
 		
+		@Override
+		public Builder<T> addTag(INamedTag<T> tag) {
+			final ResourceLocation location = tag.getName();
+			return addUniqueTagEntry(TagEntry.class, entry -> entry.id.equals(location), () -> super.addTag(tag));
+		}
+		
 		private <C extends ItemEntry> Builder<T> addUniqueItemEntry(Class<C> clazz, Predicate<C> predicate, Supplier<Builder<T>> add) {
 			return addUnique(clazz, predicate, add);
 		}
