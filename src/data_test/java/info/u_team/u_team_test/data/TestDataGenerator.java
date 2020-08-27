@@ -16,6 +16,7 @@ public class TestDataGenerator {
 		final GenerationData data = new GenerationData(TestMod.MODID, event);
 		if (event.includeServer()) {
 			data.addProvider(TestBlockTagsProvider::new);
+			data.addProvider(TestItemTagsProvider::new);
 			data.addProvider(TestLootTablesProvider::new);
 		}
 		if (event.includeClient()) {
