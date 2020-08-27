@@ -62,11 +62,10 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		
 		@Override
 		public net.minecraft.tags.ITag.Builder addProxyTag(Proxy proxyTag) {
+			final ResourceLocation identifier = getIdentifier(proxyTag.getEntry());
 			final boolean duplicate = getProxyStream() //
 					.map(Proxy::getEntry) //
-					.anyMatch(entry -> {
-						return false;
-					});
+					.anyMatch(entry -> getIdentifier(entry).equals(identifier));
 			
 			if (!duplicate) {
 				return super.addProxyTag(proxyTag);
