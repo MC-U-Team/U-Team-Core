@@ -11,7 +11,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.data.*;
 import net.minecraft.data.TagsProvider.Builder;
 import net.minecraft.tags.*;
-import net.minecraft.tags.ITag.Proxy;
+import net.minecraft.tags.ITag.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
@@ -72,6 +72,22 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 				return super.addProxyTag(proxyTag);
 			}
 			return this;
+		}
+		
+		private ResourceLocation getIdentifier(ITagEntry entry) {
+			final ResourceLocation identifier;
+			if (entry instanceof ItemEntry) {
+				identifier = ((ItemEntry) entry).identifier;
+			} else if (entry instanceof OptionalItemEntry) {
+				identifier = ((OptionalItemEntry) entry).field_242200_a;
+			} else if (entry instanceof TagEntry) {
+				identifier = ((TagEntry) entry).id;
+			} else if (entry instanceof OptionalTagEntry) {
+				identifier = ((OptionalTagEntry) entry).field_242201_a;
+			} else {
+				throw new IllegalArgumentException("Unknown implementation of ITagEntry");
+			}
+			return identifier;
 		}
 	}
 }
