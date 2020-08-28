@@ -85,14 +85,14 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			return this;
 		}
 		
-		public final BetterBuilder<T> addOptional(ResourceLocation location) {
-			internalBuilder.addOptional(location);
-			return this;
-		}
-		
 		@SafeVarargs
 		public final BetterBuilder<T> addOptional(INamedTag<T>... values) {
 			Stream.of(values).map(INamedTag::getName).forEach(internalBuilder::addOptionalTag);
+			return this;
+		}
+		
+		public final BetterBuilder<T> addOptional(ResourceLocation location) {
+			internalBuilder.addOptional(location);
 			return this;
 		}
 		
