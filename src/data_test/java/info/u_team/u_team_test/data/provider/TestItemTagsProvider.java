@@ -18,9 +18,9 @@ public class TestItemTagsProvider extends CommonItemTagsProvider {
 		copy(TestTags.Blocks.TEST_TAG_2, TestTags.Items.TEST_TAG_2);
 		
 		getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).addTag(TestTags.Items.TEST_TAG_2).add(Items.BARREL).add(Items.BEACON, Items.ACACIA_BUTTON);
-
+		
 		IntStream.range(0, 10).forEach(index -> {
-			getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).addTag(TestTags.Items.TEST_TAG_2).add(Item.getItemById(index));
+			getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).addTag(TestTags.Items.TEST_TAG_2).add(Item.getItemById(index + 1));
 		});
 	}
 	
