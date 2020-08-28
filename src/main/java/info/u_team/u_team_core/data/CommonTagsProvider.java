@@ -91,12 +91,12 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			return this;
 		}
 		
-		public final BetterBuilder<T> addOptional(ResourceLocation location) {
+		public BetterBuilder<T> addOptional(ResourceLocation location) {
 			internalBuilder.addOptional(location);
 			return this;
 		}
 		
-		public final BetterBuilder<T> addOptionalTag(ResourceLocation location) {
+		public BetterBuilder<T> addOptionalTag(ResourceLocation location) {
 			internalBuilder.addOptionalTag(location);
 			return this;
 		}
