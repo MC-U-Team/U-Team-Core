@@ -18,6 +18,7 @@ public class TestTags {
 		
 		public static INamedTag<Item> TEST_TAG_1 = TagUtil.fromBlockTag(Blocks.TEST_TAG_1);
 		public static INamedTag<Item> TEST_TAG_2 = TagUtil.fromBlockTag(Blocks.TEST_TAG_2);
+		public static INamedTag<Item> TEST_TAG_3 = TagUtil.createItemTag(TestMod.MODID, "test_3");
 	}
 	
 }

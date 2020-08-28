@@ -1,7 +1,10 @@
 package info.u_team.u_team_test.data.provider;
 
+import java.util.stream.IntStream;
+
 import info.u_team.u_team_core.data.*;
-import info.u_team.u_team_test.init.TestTags.*;
+import info.u_team.u_team_test.init.TestTags;
+import net.minecraft.item.*;
 
 public class TestItemTagsProvider extends CommonItemTagsProvider {
 	
@@ -11,8 +14,14 @@ public class TestItemTagsProvider extends CommonItemTagsProvider {
 	
 	@Override
 	protected void registerTags() {
-		copy(Blocks.TEST_TAG_1, Items.TEST_TAG_1);
-		copy(Blocks.TEST_TAG_2, Items.TEST_TAG_2);
+		copy(TestTags.Blocks.TEST_TAG_1, TestTags.Items.TEST_TAG_1);
+		copy(TestTags.Blocks.TEST_TAG_2, TestTags.Items.TEST_TAG_2);
+		
+		getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).addTag(TestTags.Items.TEST_TAG_2).add(Items.BARREL).add(Items.BEACON, Items.ACACIA_BUTTON);
+
+		IntStream.range(0, 10).forEach(index -> {
+			getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).addTag(TestTags.Items.TEST_TAG_2).add(Item.getItemById(index));
+		});
 	}
 	
 }
