@@ -181,9 +181,9 @@ public class WorldUtil {
 			final ServerPlayerEntity player = (ServerPlayerEntity) entity;
 			world.getChunkProvider().registerTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getEntityId());
 			player.stopRiding(); // TODO mark this (added new)
-			if (player.isSleeping()) { // TODO mark this (added new)
-				player.stopSleepInBed(true, true); // TODO mark this (added new)
-			} // TODO mark this (added new)
+			if (player.isSleeping()) {
+				player.stopSleepInBed(true, true);
+			}
 			if (world == entity.world) {
 				player.connection.setPlayerLocation(x, y, z, yaw, pitch);
 			} else {
@@ -213,9 +213,8 @@ public class WorldUtil {
 			}
 		}
 		
-		// TODO mark this (added new)
 		if (!(entity instanceof LivingEntity) || !((LivingEntity) entity).isElytraFlying()) {
-			entity.setMotion(entity.getMotion().mul(1.0D, 0.0D, 1.0D));
+			entity.setMotion(entity.getMotion().mul(1, 0, 1));
 			entity.setOnGround(true);
 		}
 		
