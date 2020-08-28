@@ -9,6 +9,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.*;
+import net.minecraft.data.TagsProvider.Builder;
 import net.minecraft.tags.*;
 import net.minecraft.tags.ITag.*;
 import net.minecraft.util.ResourceLocation;
@@ -61,6 +62,12 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		
 		public BetterBuilder(ITag.Builder builder, Registry<T> registry, String id) {
 			super(builder, registry, id);
+		}
+		
+		@Override
+		@SafeVarargs
+		public final Builder<T> addTags(INamedTag<T>... values) {
+			return super.addTags(values);
 		}
 		
 	}
