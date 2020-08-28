@@ -14,23 +14,22 @@ public class TestItemTagsProvider extends CommonItemTagsProvider {
 		super(data, blockProvider);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void registerTags() {
 		copy(TestTags.Blocks.TEST_TAG_1, TestTags.Items.TEST_TAG_1);
 		copy(TestTags.Blocks.TEST_TAG_2, TestTags.Items.TEST_TAG_2);
 		
-		getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).addTag(TestTags.Items.TEST_TAG_2).add(Items.BARREL).add(Items.BEACON, Items.ACACIA_BUTTON);
+		getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).add(TestTags.Items.TEST_TAG_2).add(Items.BARREL).add(Items.BEACON, Items.ACACIA_BUTTON);
 		
 		IntStream.range(0, 10).forEach(index -> {
-			getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).addTag(TestTags.Items.TEST_TAG_2).add(Item.getItemById(index + 1));
+			getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).add(TestTags.Items.TEST_TAG_2).add(Item.getItemById(index + 1));
 		});
 		
 		getBuilder(TestTags.Items.TEST_TAG_4) //
-				.addItemEntry(Items.BLACKSTONE) //
-				.addTag(ItemTags.LOGS) //
+				.add(Items.BLACKSTONE) //
+				.add(ItemTags.LOGS) //
 				.add(Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE) //
-				.addTags(Tags.Items.CHESTS_TRAPPED, Tags.Items.CHESTS_WOODEN) //
+				.add(Tags.Items.CHESTS_TRAPPED, Tags.Items.CHESTS_WOODEN) //
 				.addOptional(Items.ANCIENT_DEBRIS.getRegistryName()) //
 				.addOptionalTag(ItemTags.ANVIL.getName());
 	}
