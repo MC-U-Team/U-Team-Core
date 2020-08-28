@@ -91,6 +91,16 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			return this;
 		}
 		
+		public BetterBuilder<T> add(T value) {
+			internalBuilder.addItemEntry(value);
+			return this;
+		}
+		
+		public BetterBuilder<T> add(INamedTag<T> value) {
+			internalBuilder.addTag(value);
+			return this;
+		}
+		
 		public BetterBuilder<T> addOptional(ResourceLocation location) {
 			internalBuilder.addOptional(location);
 			return this;
