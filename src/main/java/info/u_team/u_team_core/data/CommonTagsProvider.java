@@ -9,7 +9,6 @@ import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.*;
-import net.minecraft.data.TagsProvider.Builder;
 import net.minecraft.tags.*;
 import net.minecraft.tags.ITag.*;
 import net.minecraft.util.ResourceLocation;
@@ -51,17 +50,25 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	
 	protected TagsProvider.Builder<T> getBuilder(ITag.INamedTag<T> tag) {
 		final ITag.Builder tagBuilder = getTagBuilder(tag);
-		return new Builder<>(tagBuilder, registry, modid);
+		return new BetterBuilder<>(tagBuilder, registry, modid);
 	}
 	
 	protected ITag.Builder getTagBuilder(ITag.INamedTag<T> tag) {
 		return tagToBuilder.computeIfAbsent(tag.getName(), location -> new UniqueBuilder());
 	}
 	
+	private static class BetterBuilder<T> extends TagsProvider.Builder<T> {
+		
+		public BetterBuilder(ITag.Builder builder, Registry<T> registry, String id) {
+			super(builder, registry, id);
+		}
+		
+	}
+	
 	private static class UniqueBuilder extends ITag.Builder {
 		
 		@Override
-		public net.minecraft.tags.ITag.Builder addProxyTag(Proxy proxyTag) {
+		public ITag.Builder addProxyTag(Proxy proxyTag) {
 			final ResourceLocation identifier = getIdentifier(proxyTag.getEntry());
 			final boolean duplicate = getProxyStream() //
 					.map(Proxy::getEntry) //
