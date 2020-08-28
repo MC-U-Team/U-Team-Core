@@ -177,10 +177,29 @@ public class WorldUtil {
 	 * @param pitch Pitch
 	 */
 	public static void teleportEntity(Entity entity, ServerWorld world, double x, double y, double z, float yaw, float pitch) {
+		teleportEntity(entity, world, x, y, z, yaw, pitch, true);
+	}
+	
+	/**
+	 * Teleports any entity to a given location in a given {@link ServerWorld}.
+	 * 
+	 * @param entity The entity to teleport
+	 * @param world The server world where the entity should be teleported. Can be the same as the current world or a
+	 *        different one
+	 * @param x X-Coordinate
+	 * @param y Y-Coordinate
+	 * @param z Z-Coordinate
+	 * @param yaw Yaw
+	 * @param pitch Pitch
+	 * @param detach Detach the entity
+	 */
+	public static void teleportEntity(Entity entity, ServerWorld world, double x, double y, double z, float yaw, float pitch, boolean detach) {
 		if (entity instanceof ServerPlayerEntity) {
 			final ServerPlayerEntity player = (ServerPlayerEntity) entity;
 			world.getChunkProvider().registerTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getEntityId());
-			player.stopRiding(); // TODO mark this (added new)
+			if (detach) {
+				player.stopRiding();
+			}
 			if (player.isSleeping()) {
 				player.stopSleepInBed(true, true);
 			}
@@ -197,7 +216,9 @@ public class WorldUtil {
 				entity.setLocationAndAngles(x, y, z, wrapedYaw, wrapedPitch);
 				entity.setRotationYawHead(wrapedYaw);
 			} else {
-				entity.detach(); // TODO mark this (added new)
+				if (detach) {
+					entity.detach();
+				}
 				final Entity entityOld = entity;
 				entity = entity.getType().create(world);
 				if (entity == null) {
