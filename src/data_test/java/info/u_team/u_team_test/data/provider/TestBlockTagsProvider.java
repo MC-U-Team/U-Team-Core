@@ -15,14 +15,13 @@ public class TestBlockTagsProvider extends CommonBlockTagsProvider {
 	protected void registerTags() {
 		getBuilder(TEST_TAG_1).add(Blocks.ACACIA_BUTTON, Blocks.ACACIA_DOOR);
 		
-		getBuilder(TEST_TAG_2).addTag(TEST_TAG_1).add(Blocks.ACACIA_LOG);
+		getBuilder(TEST_TAG_2).add(TEST_TAG_1).add(Blocks.ACACIA_LOG);
 		
 		getBuilder(TEST_TAG_1).add(Blocks.BIRCH_LEAVES);
-		getBuilder(TEST_TAG_1).addTag(BlockTags.BEDS);
-
+		getBuilder(TEST_TAG_1).add(BlockTags.BEDS);
 		
 		getBuilder(TEST_TAG_2).add(Blocks.ACACIA_LOG);
-		getBuilder(TEST_TAG_2).addTag(TEST_TAG_1);
+		getBuilder(TEST_TAG_2).add(TEST_TAG_1);
 	}
 	
 }
