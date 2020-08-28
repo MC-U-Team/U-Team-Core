@@ -3,13 +3,12 @@ package info.u_team.u_team_core.data;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.*;
 
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.*;
-import net.minecraft.data.TagsProvider.Builder;
 import net.minecraft.tags.*;
 import net.minecraft.tags.ITag.*;
 import net.minecraft.util.ResourceLocation;
@@ -49,7 +48,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	
 	protected abstract Path makePath(ResourceLocation location);
 	
-	protected TagsProvider.Builder<T> getBuilder(ITag.INamedTag<T> tag) {
+	protected BetterBuilder<T> getBuilder(ITag.INamedTag<T> tag) {
 		final ITag.Builder tagBuilder = getTagBuilder(tag);
 		return new BetterBuilder<>(tagBuilder, registry, modid);
 	}
@@ -58,16 +57,48 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		return tagToBuilder.computeIfAbsent(tag.getName(), location -> new UniqueBuilder());
 	}
 	
-	private static class BetterBuilder<T> extends TagsProvider.Builder<T> {
+	protected static class BetterBuilder<T> {
+		
+		private final Registry<T> registry;
+		private final TagsProvider.Builder<T> internalBuilder;
 		
 		public BetterBuilder(ITag.Builder builder, Registry<T> registry, String id) {
-			super(builder, registry, id);
+			this.registry = registry;
+			internalBuilder = new TagsProvider.Builder<T>(builder, registry, id);
 		}
 		
-		@Override
 		@SafeVarargs
-		public final Builder<T> addTags(INamedTag<T>... values) {
-			return super.addTags(values);
+		public final BetterBuilder<T> add(T... values) {
+			internalBuilder.add(values);
+			return this;
+		}
+		
+		@SafeVarargs
+		public final BetterBuilder<T> add(INamedTag<T>... values) {
+			internalBuilder.addTags(values);
+			return this;
+		}
+		
+		@SafeVarargs
+		public final BetterBuilder<T> addOptional(T... values) {
+			Stream.of(values).map(registry::getKey).forEach(internalBuilder::addOptional);
+			return this;
+		}
+		
+		public final BetterBuilder<T> addOptional(ResourceLocation location) {
+			internalBuilder.addOptional(location);
+			return this;
+		}
+		
+		@SafeVarargs
+		public final BetterBuilder<T> addOptional(INamedTag<T>... values) {
+			Stream.of(values).map(INamedTag::getName).forEach(internalBuilder::addOptionalTag);
+			return this;
+		}
+		
+		public final BetterBuilder<T> addOptionalTag(ResourceLocation location) {
+			internalBuilder.addOptionalTag(location);
+			return this;
 		}
 		
 	}
