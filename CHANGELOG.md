@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.2-3.1.6.177] - 2020-08-28
+### Changed
+ - Changed world util teleport function to include a boolean to decide whether the entity should be detached or not
+
 ## [1.16.2-3.1.5.176] - 2020-08-28
 ### Changed
  - Changed the tags provider to filter out duplicates
