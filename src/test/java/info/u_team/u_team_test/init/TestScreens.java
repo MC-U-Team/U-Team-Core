@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.init;
 
-import info.u_team.u_team_core.util.registry.*;
+import info.u_team.u_team_core.util.registry.ClientRegistry;
 import info.u_team.u_team_test.screen.*;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -8,7 +8,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class TestScreens {
 	
 	private static void setup(FMLClientSetupEvent event) {
-		MainThreadWorker.run(() -> {
+		event.enqueueWork(() -> {
 			ClientRegistry.registerScreen(TestContainers.BASIC, BasicTileEntityScreen::new);
 			ClientRegistry.registerScreen(TestContainers.BASIC_ENERGY_CREATOR, BasicEnergyCreatorScreen::new);
 			ClientRegistry.registerScreen(TestContainers.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
