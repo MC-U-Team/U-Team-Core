@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.2-3.1.7.178] - 2020-09-01
+### Changed
+ - Update to forge 33.0.31
+ - Marked as beta because some users have issues with the latest forge changes. See on github [#7293](https://github.com/MinecraftForge/MinecraftForge/issues/7293)
+
 ## [1.16.2-3.1.6.177] - 2020-08-28
 ### Changed
  - Changed world util teleport function to include a boolean to decide whether the entity should be detached or not
