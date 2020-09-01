@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.container;
 
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
@@ -73,7 +73,7 @@ public abstract class FluidContainer extends Container {
 		
 		final FluidSlot fluidSlot = fluidSlots.get(index);
 		
-		final LazyOptional<FluidStack> containedFluidOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(serverClickStack, 1)).map(handler -> handler.drain(Integer.MAX_VALUE, FluidAction.SIMULATE));
+		final Optional<FluidStack> containedFluidOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(serverClickStack, 1)).map(handler -> handler.drain(Integer.MAX_VALUE, FluidAction.SIMULATE));
 		
 		// Check if the item stack can hold fluids
 		if (!containedFluidOptional.isPresent()) {
