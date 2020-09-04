@@ -9,6 +9,7 @@ import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.*;
+import net.minecraft.resources.ResourcePackType;
 import net.minecraft.tags.*;
 import net.minecraft.tags.ITag.*;
 import net.minecraft.util.ResourceLocation;
@@ -32,7 +33,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		registerTags();
 		
 		tagToBuilder.forEach((location, builder) -> {
-			final List<ITag.Proxy> list = builder.func_232963_b_(id -> Tag.func_241284_a_(), id -> registry.func_241873_b(id).orElse(null)).collect(Collectors.toList());
+			final List<ITag.Proxy> list = builder.func_232963_b_(id -> tagToBuilder.containsKey(id) ? Tag.func_241284_a_() : null, id -> registry.func_241873_b(id).orElse(null)).filter(this::missing).collect(Collectors.toList());
 			if (!list.isEmpty()) {
 				throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", location, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
 			}
@@ -45,6 +46,16 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			}
 		});
 	}
+	
+	private boolean missing(Proxy proxy) {
+		final ITagEntry entry = proxy.getEntry();
+		if (entry instanceof TagEntry) {
+			return !data.getExistingFileHelper().exists(((TagEntry) entry).id, ResourcePackType.SERVER_DATA, ".json", "tags/" + getTagFolder());
+		}
+		return false;
+	}
+	
+	protected abstract String getTagFolder();
 	
 	protected abstract Path makePath(ResourceLocation location);
 	
