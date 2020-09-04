@@ -14,8 +14,13 @@ public abstract class CommonEntityTypeTagsProvider extends CommonTagsProvider<En
 	}
 	
 	@Override
+	protected String getTagFolder() {
+		return "entity_types";
+	}
+	
+	@Override
 	protected Path makePath(ResourceLocation location) {
-		return resolveData(location).resolve("tags").resolve("entity_types").resolve(location.getPath() + ".json");
+		return resolveData(location).resolve("tags").resolve(getTagFolder()).resolve(location.getPath() + ".json");
 	}
 	
 	@Override
