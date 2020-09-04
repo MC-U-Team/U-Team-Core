@@ -3,7 +3,7 @@ package info.u_team.u_team_core.data;
 import java.util.function.*;
 
 import net.minecraft.data.*;
-import net.minecraftforge.client.model.generators.ExistingFileHelper;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
 public class GenerationData {
