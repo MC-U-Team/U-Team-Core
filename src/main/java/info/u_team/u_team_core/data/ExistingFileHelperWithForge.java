@@ -8,11 +8,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.loading.FMLLoader;
 
-public class ExistingFileHelperWithForge extends ExistingFileHelper {
+class ExistingFileHelperWithForge extends ExistingFileHelper {
 	
 	private final ExistingFileHelper existingFileHelper;
 	
-	public ExistingFileHelperWithForge(ExistingFileHelper helper) {
+	protected ExistingFileHelperWithForge(ExistingFileHelper helper) {
 		super(Arrays.asList(FMLLoader.getForgePath()), helper.isEnabled());
 		this.existingFileHelper = helper;
 	}
