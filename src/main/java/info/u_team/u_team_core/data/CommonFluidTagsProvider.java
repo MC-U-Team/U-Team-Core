@@ -14,8 +14,13 @@ public abstract class CommonFluidTagsProvider extends CommonTagsProvider<Fluid> 
 	}
 	
 	@Override
+	protected String getTagFolder() {
+		return "fluids";
+	}
+	
+	@Override
 	protected Path makePath(ResourceLocation location) {
-		return resolveData(location).resolve("tags").resolve("fluids").resolve(location.getPath() + ".json");
+		return resolveData(location).resolve("tags").resolve(getTagFolder()).resolve(location.getPath() + ".json");
 	}
 	
 	@Override
