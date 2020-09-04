@@ -57,7 +57,9 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	
 	protected abstract String getTagFolder();
 	
-	protected abstract Path makePath(ResourceLocation location);
+	protected Path makePath(ResourceLocation location) {
+		return resolveData(location).resolve("tags").resolve(getTagFolder()).resolve(location.getPath() + ".json");
+	}
 	
 	protected BetterBuilder<T> getBuilder(ITag.INamedTag<T> tag) {
 		final ITag.Builder tagBuilder = getTagBuilder(tag);

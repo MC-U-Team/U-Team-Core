@@ -1,12 +1,10 @@
 package info.u_team.u_team_core.data;
 
-import java.nio.file.Path;
 import java.util.function.Function;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
 public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
@@ -31,11 +29,6 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	@Override
 	protected String getTagFolder() {
 		return "items";
-	}
-	
-	@Override
-	protected Path makePath(ResourceLocation location) {
-		return resolveData(location).resolve("tags").resolve(getTagFolder()).resolve(location.getPath() + ".json");
 	}
 	
 	@Override
