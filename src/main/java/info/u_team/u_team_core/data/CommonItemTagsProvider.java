@@ -29,8 +29,13 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	}
 	
 	@Override
+	protected String getTagFolder() {
+		return "items";
+	}
+	
+	@Override
 	protected Path makePath(ResourceLocation location) {
-		return resolveData(location).resolve("tags").resolve("items").resolve(location.getPath() + ".json");
+		return resolveData(location).resolve("tags").resolve(getTagFolder()).resolve(location.getPath() + ".json");
 	}
 	
 	@Override
