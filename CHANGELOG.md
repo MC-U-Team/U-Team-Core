@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.2-3.1.8.179] - 2020-09-04
+### Changed
+ - Update to forge 33.0.37
+ - Validate tags again with the existing resource packs
+
 ## [1.16.2-3.1.7.178] - 2020-09-01
 ### Changed
  - Update to forge 33.0.31
