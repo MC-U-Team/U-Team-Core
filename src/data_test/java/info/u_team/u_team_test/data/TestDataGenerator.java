@@ -18,6 +18,7 @@ public class TestDataGenerator {
 			data.addProvider(TestBlockTagsProvider::new);
 			data.addProvider(TestItemTagsProvider::new);
 			data.addProvider(TestLootTablesProvider::new);
+			data.addProvider(TestGlobalLootModifiersProvider::new);
 		}
 		if (event.includeClient()) {
 			data.addProvider(TestBlockStatesProvider::new);
