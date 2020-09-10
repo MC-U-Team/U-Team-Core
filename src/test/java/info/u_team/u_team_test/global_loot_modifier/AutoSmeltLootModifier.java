@@ -26,7 +26,12 @@ public class AutoSmeltLootModifier extends LootModifier {
 	}
 	
 	private static ItemStack smeltItem(ItemStack stack, LootContext context) {
-		return context.getWorld().getRecipeManager().getRecipe(IRecipeType.SMELTING, new Inventory(stack), context.getWorld()).map(FurnaceRecipe::getRecipeOutput).filter(itemStack -> !itemStack.isEmpty()).map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount())).orElse(stack);
+		return context.getWorld() //
+				.getRecipeManager() //
+				.getRecipe(IRecipeType.SMELTING, new Inventory(stack), context.getWorld()) //
+				.map(FurnaceRecipe::getRecipeOutput).filter(itemStack -> !itemStack.isEmpty()) //
+				.map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount())) //
+				.orElse(stack);
 	}
 	
 	public static class Serializer extends GlobalLootModifierSerializer<AutoSmeltLootModifier> {
@@ -35,7 +40,7 @@ public class AutoSmeltLootModifier extends LootModifier {
 		public AutoSmeltLootModifier read(ResourceLocation name, JsonObject json, ILootCondition[] conditions) {
 			return new AutoSmeltLootModifier(conditions);
 		}
-
+		
 		@Override
 		public JsonObject write(AutoSmeltLootModifier instance) {
 			return makeConditions(instance.conditions);
