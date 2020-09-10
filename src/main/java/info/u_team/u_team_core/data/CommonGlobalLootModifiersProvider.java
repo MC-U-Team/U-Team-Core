@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import com.google.gson.JsonObject;
 
-import info.u_team.u_team_core.util.TriConsumer;
+import info.u_team.u_team_core.util.*;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.util.*;
 import net.minecraftforge.common.loot.*;
@@ -25,7 +25,7 @@ public abstract class CommonGlobalLootModifiersProvider extends CommonProvider {
 		final Map<String, Tuple<GlobalLootModifierSerializer<?>, JsonObject>> serializers = new TreeMap<>();
 		
 		registerGlobalLootModifiers((modifier, serializerSupplier, instance) -> {
-			final GlobalLootModifierSerializer<IGlobalLootModifier> serializer = serializerSupplier.get();
+			final GlobalLootModifierSerializer<IGlobalLootModifier> serializer = CastUtil.uncheckedCast(serializerSupplier.get());
 			serializers.put(modifier, new Tuple<>(serializer, serializer.write(instance)));
 		});
 		
@@ -59,7 +59,7 @@ public abstract class CommonGlobalLootModifiersProvider extends CommonProvider {
 		replace = true;
 	}
 	
-	protected abstract <T extends IGlobalLootModifier> void registerGlobalLootModifiers(TriConsumer<String, Supplier<GlobalLootModifierSerializer<T>>, T> consumer);
+	protected abstract void registerGlobalLootModifiers(TriConsumer<String, Supplier<? extends GlobalLootModifierSerializer<? extends IGlobalLootModifier>>, ? super IGlobalLootModifier> consumer);
 	
 	@Override
 	public String getName() {
