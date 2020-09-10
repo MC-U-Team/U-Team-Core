@@ -1,5 +1,4 @@
 {
-	"type": "uteamtest:auto_smelt",
 	"conditions": [
 		{
 			"condition": "minecraft:match_tool",
@@ -14,5 +13,6 @@
 				]
 			}
 		}
-	]
+	],
+	"type": "uteamtest:auto_smelt"
 }
