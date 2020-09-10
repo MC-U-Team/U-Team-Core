@@ -16,7 +16,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 public class AutoSmeltLootModifier extends LootModifier {
 	
-	private AutoSmeltLootModifier(ILootCondition[] conditions) {
+	public AutoSmeltLootModifier(ILootCondition[] conditions) {
 		super(conditions);
 	}
 	
