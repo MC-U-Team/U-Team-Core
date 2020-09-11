@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.2-3.1.9.180] - 2020-09-11
+### Changed
+ - Update to forge 33.0.61
+ 
+### Added
+ - Added global loot modifier data generator
+
 ## [1.16.2-3.1.8.179] - 2020-09-04
 ### Changed
  - Update to forge 33.0.37
