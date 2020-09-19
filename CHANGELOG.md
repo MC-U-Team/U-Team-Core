@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.1-3.1.4.182] - 2020-09-19
+### Changed
+ - Fixed [#45](https://github.com/MC-U-Team/U-Team-Core/issues/45) to fix sliders
+
 ## [1.16.1-3.1.3.170] - 2020-08-13
 ### Changed
  - Update network protocol version to 1.16.1-1
