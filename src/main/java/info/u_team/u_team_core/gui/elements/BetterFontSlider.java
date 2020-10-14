@@ -27,7 +27,7 @@ public class BetterFontSlider extends Slider {
 				sliderValue = (mouseX - (x + 4)) / (float) (width - 8);
 				updateSlider();
 			}
-			GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset());
+			GuiUtils.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset());
 		}
 	}
 	
@@ -38,7 +38,7 @@ public class BetterFontSlider extends Slider {
 		
 		String message = getMessage().getString();
 		
-		GuiUtils.drawContinuousTexturedBox(WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0);
+		GuiUtils.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0);
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 		
 		final int messageWidth = MathHelper.ceil(scale * fontRenderer.getStringWidth(message));
