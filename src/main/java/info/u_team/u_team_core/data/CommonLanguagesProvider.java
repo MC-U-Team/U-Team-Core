@@ -44,7 +44,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(ItemGroup key, String name) {
-		final ITextComponent component = key.func_242392_c();
+		final ITextComponent component = key.getGroupName();
 		if (component instanceof TranslationTextComponent) {
 			add(((TranslationTextComponent) component).getKey(), name);
 		}
@@ -111,7 +111,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, ItemGroup key, String name) {
-		final ITextComponent component = key.func_242392_c();
+		final ITextComponent component = key.getGroupName();
 		if (component instanceof TranslationTextComponent) {
 			add(locale, ((TranslationTextComponent) component).getKey(), name);
 		}

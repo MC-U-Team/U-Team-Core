@@ -74,12 +74,12 @@ public class DiscordRichPresence {
 	}
 	
 	public static State getStateFromDimension(World world) {
-		final ResourceLocation dimensionKey = world.func_234923_W_().func_240901_a_();
-		if (dimensionKey.equals(World.field_234918_g_.func_240901_a_())) {
+		final ResourceLocation dimensionKey = world.getDimensionKey().getLocation();
+		if (dimensionKey.equals(World.OVERWORLD.getLocation())) {
 			return new State(EnumState.OVERWORLD);
-		} else if (dimensionKey.equals(World.field_234919_h_.func_240901_a_())) {
+		} else if (dimensionKey.equals(World.THE_NETHER.getLocation())) {
 			return new State(EnumState.NETHER);
-		} else if (dimensionKey.equals(World.field_234920_i_.func_240901_a_())) {
+		} else if (dimensionKey.equals(World.THE_END.getLocation())) {
 			return new State(EnumState.END);
 		} else {
 			return new State(EnumState.DIM, dimensionKey.getPath());

@@ -39,9 +39,9 @@ public class DimensionTeleportSubCommand {
 	private static int execute(CommandSource source, Collection<? extends Entity> targets, ServerWorld world) {
 		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, entity.getPositionVec()));
 		if (targets.size() == 1) {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), world.func_234923_W_().func_240901_a_()), true);
+			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), world.getDimensionKey().getLocation()), true);
 		} else {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), world.func_234923_W_().func_240901_a_()), true);
+			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), world.getDimensionKey().getLocation()), true);
 		}
 		return 0;
 	}
@@ -60,9 +60,9 @@ public class DimensionTeleportSubCommand {
 	
 	private static void sendPositionInfo(CommandSource source, Collection<? extends Entity> targets, ServerWorld world, Vector3d pos) {
 		if (targets.size() == 1) {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), world.func_234923_W_().func_240901_a_(), pos.x, pos.y, pos.z), true);
+			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), world.getDimensionKey().getLocation(), pos.x, pos.y, pos.z), true);
 		} else {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), world.func_234923_W_().func_240901_a_(), pos.x, pos.y, pos.z), true);
+			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), world.getDimensionKey().getLocation(), pos.x, pos.y, pos.z), true);
 		}
 	}
 }

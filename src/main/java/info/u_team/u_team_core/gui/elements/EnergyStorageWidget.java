@@ -31,7 +31,7 @@ public class EnergyStorageWidget extends Widget {
 	}
 	
 	public EnergyStorageWidget(int x, int y, int height, LongSupplier capacity, LongSupplier storage) {
-		super(x, y, 14, height < 3 ? 3 : height, ITextComponent.func_244388_a(null));
+		super(x, y, 14, height < 3 ? 3 : height, ITextComponent.getTextComponentOrEmpty(null));
 		this.capacity = capacity;
 		this.storage = storage;
 	}
@@ -69,7 +69,7 @@ public class EnergyStorageWidget extends Widget {
 			final Minecraft minecraft = Minecraft.getInstance();
 			// final MainWindow mainWindow = minecraft.getMainWindow();
 			final List<ITextComponent> list = new ArrayList<>();
-			list.add(ITextComponent.func_244388_a(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
+			list.add(ITextComponent.getTextComponentOrEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
 			
 			minecraft.currentScreen.func_243308_b(matrixStack, list, mouseX, mouseY);
 			

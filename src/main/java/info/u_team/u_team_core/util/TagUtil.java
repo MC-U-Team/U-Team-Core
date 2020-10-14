@@ -20,7 +20,7 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<Block> createBlockTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<Block>> optional = BlockTags.func_242174_b().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final Optional<? extends INamedTag<Block>> optional = BlockTags.getAllTags().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -33,7 +33,7 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<Item> createItemTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<Item>> optional = ItemTags.func_242177_b().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final Optional<? extends INamedTag<Item>> optional = ItemTags.getAllTags().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -46,7 +46,7 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<Fluid> createFluidTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<Fluid>> optional = FluidTags.func_241280_c_().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final Optional<? extends INamedTag<Fluid>> optional = FluidTags.getAllTags().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -59,11 +59,11 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<EntityType<?>> createEntityTypeTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<EntityType<?>>> optional = EntityTypeTags.func_242175_b().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final Optional<? extends INamedTag<EntityType<?>>> optional = EntityTypeTags.getAllTags().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
-			return EntityTypeTags.func_232896_a_(location.toString());
+			return EntityTypeTags.getTagById(location.toString());
 		}
 	}
 	

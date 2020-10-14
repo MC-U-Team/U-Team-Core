@@ -33,7 +33,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		registerTags();
 		
 		tagToBuilder.forEach((location, builder) -> {
-			final List<ITag.Proxy> list = builder.func_232963_b_(id -> tagToBuilder.containsKey(id) ? Tag.func_241284_a_() : null, id -> registry.func_241873_b(id).orElse(null)).filter(this::missing).collect(Collectors.toList());
+			final List<ITag.Proxy> list = builder.getProxyTags(id -> tagToBuilder.containsKey(id) ? Tag.getEmptyTag() : null, id -> registry.getOptional(id).orElse(null)).filter(this::missing).collect(Collectors.toList());
 			if (!list.isEmpty()) {
 				throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", location, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
 			}
@@ -146,11 +146,11 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			if (entry instanceof ItemEntry) {
 				identifier = ((ItemEntry) entry).identifier;
 			} else if (entry instanceof OptionalItemEntry) {
-				identifier = ((OptionalItemEntry) entry).field_242200_a;
+				identifier = ((OptionalItemEntry) entry).id;
 			} else if (entry instanceof TagEntry) {
 				identifier = ((TagEntry) entry).id;
 			} else if (entry instanceof OptionalTagEntry) {
-				identifier = ((OptionalTagEntry) entry).field_242201_a;
+				identifier = ((OptionalTagEntry) entry).id;
 			} else {
 				throw new IllegalArgumentException("Unknown implementation of ITagEntry");
 			}

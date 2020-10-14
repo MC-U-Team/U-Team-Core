@@ -200,7 +200,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		
 		public JsonObject serialize() {
 			final JsonObject jsonObject = new JsonObject();
-			jsonObject.addProperty("tag", TagCollectionManager.func_242178_a().func_241837_c().func_232975_b_(tag).toString());
+			jsonObject.addProperty("tag", TagCollectionManager.getManager().getFluidTags().getValidatedIdFromTag(tag).toString());
 			return jsonObject;
 		}
 	}

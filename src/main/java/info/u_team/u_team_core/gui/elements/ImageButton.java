@@ -17,7 +17,7 @@ public class ImageButton extends UButton {
 	}
 	
 	public ImageButton(int x, int y, int width, int height, ResourceLocation resource, IPressable pressable) {
-		super(x, y, width, height, ITextComponent.func_244388_a(null), pressable);
+		super(x, y, width, height, ITextComponent.getTextComponentOrEmpty(null), pressable);
 		this.resource = resource;
 	}
 	

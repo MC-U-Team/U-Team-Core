@@ -23,7 +23,7 @@ public class UBasicContainerScreen<T extends Container> extends UContainerScreen
 		renderBackground(matrixStack);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 		buttons.forEach(widget -> widget.renderToolTip(matrixStack, mouseX, mouseY));
-		func_230459_a_(matrixStack, mouseX, mouseY);
+		renderHoveredTooltip(matrixStack, mouseX, mouseY);
 	}
 	
 }

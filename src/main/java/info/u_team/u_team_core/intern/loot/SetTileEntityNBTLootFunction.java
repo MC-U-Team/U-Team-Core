@@ -37,7 +37,7 @@ public class SetTileEntityNBTLootFunction extends LootFunction {
 	}
 	
 	@Override
-	public LootFunctionType func_230425_b_() {
+	public LootFunctionType getFunctionType() {
 		return UCoreLootFunctions.SET_TILEENTITY_NBT;
 	}
 	
