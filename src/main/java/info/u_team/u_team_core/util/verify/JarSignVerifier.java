@@ -3,7 +3,6 @@ package info.u_team.u_team_core.util.verify;
 import java.io.InputStream;
 import java.nio.file.*;
 import java.util.Optional;
-import java.util.concurrent.TimeUnit;
 import java.util.jar.*;
 import java.util.stream.Stream;
 
@@ -23,7 +22,7 @@ public class JarSignVerifier {
 		final Stopwatch watch = Stopwatch.createStarted();
 		final VerifyStatus status = verify(modid);
 		watch.stop();
-		LOGGER.debug("Took " + watch.elapsed(TimeUnit.MILLISECONDS) + " ms to check if mod " + modid + " is signed.");
+		LOGGER.debug("Took " + watch.toString() + " to check if mod " + modid + " is signed.");
 		if (status == VerifyStatus.SIGNED) {
 			LOGGER.info("Mod " + modid + " is signed with a valid certificate.");
 		} else if (status == VerifyStatus.UNSIGNED) {
