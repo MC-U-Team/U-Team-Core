@@ -24,11 +24,11 @@ public class ButtonTestScreen extends Screen {
 	
 	@Override
 	protected void init() {
-		addButton(new UButton(10, 10, 200, 15, ITextComponent.func_244388_a("U Button"), button -> System.out.println("Pressed UButton")));
+		addButton(new UButton(10, 10, 200, 15, ITextComponent.getTextComponentOrEmpty("U Button"), button -> System.out.println("Pressed UButton")));
 		
-		addButton(new BetterButton(10, 30, 200, 15, 0.75F, ITextComponent.func_244388_a("Better button"), button -> System.out.println("Pressed UButton")));
+		addButton(new BetterButton(10, 30, 200, 15, 0.75F, ITextComponent.getTextComponentOrEmpty("Better button"), button -> System.out.println("Pressed UButton")));
 		
-		final ActiveButton activeButton = addButton(new ActiveButton(10, 50, 200, 15, ITextComponent.func_244388_a("Basic Test button"), 0x006442FF));
+		final ActiveButton activeButton = addButton(new ActiveButton(10, 50, 200, 15, ITextComponent.getTextComponentOrEmpty("Basic Test button"), 0x006442FF));
 		activeButton.setPressable(() -> {
 			System.out.println("Pressed ActiveButton");
 			activeButton.setActive(!activeButton.isActive());
@@ -47,11 +47,11 @@ public class ButtonTestScreen extends Screen {
 			System.out.println("Pressed ToggleImageButton");
 		});
 		
-		addButton(new BetterFontSlider(300, 10, 200, 15, ITextComponent.func_244388_a("Test: "), ITextComponent.func_244388_a("%"), 0, 100, 20, false, true, 0.75F, slider -> {
+		addButton(new BetterFontSlider(300, 10, 200, 15, ITextComponent.getTextComponentOrEmpty("Test: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 0.75F, slider -> {
 			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
 		}));
 		
-		addButton(new BetterFontSlider(300, 30, 200, 40, ITextComponent.func_244388_a("Test: "), ITextComponent.func_244388_a("%"), 0, 100, 20, false, true, 2, slider -> {
+		addButton(new BetterFontSlider(300, 30, 200, 40, ITextComponent.getTextComponentOrEmpty("Test: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 2, slider -> {
 			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
 		}));
 		

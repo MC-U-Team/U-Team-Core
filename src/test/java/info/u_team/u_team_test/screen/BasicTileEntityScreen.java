@@ -25,11 +25,11 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 	@Override
 	protected void init() {
 		super.init();
-		addButton(new UButton(guiLeft + xSize / 2 - 25, guiTop + 3, 50, 15, ITextComponent.func_244388_a("Add 100"), button -> {
+		addButton(new UButton(guiLeft + xSize / 2 - 25, guiTop + 3, 50, 15, ITextComponent.getTextComponentOrEmpty("Add 100"), button -> {
 			container.getValueMessage().triggerMessage();
 		}));
 		
-		slider = addButton(new BetterFontSlider(guiLeft + 7, guiTop + 19, 162, 20, ITextComponent.func_244388_a("Cooldown: "), ITextComponent.func_244388_a(" Ticks"), 0, 100, container.getTileEntity().cooldown, false, true, 1, slider -> {
+		slider = addButton(new BetterFontSlider(guiLeft + 7, guiTop + 19, 162, 20, ITextComponent.getTextComponentOrEmpty("Cooldown: "), ITextComponent.getTextComponentOrEmpty(" Ticks"), 0, 100, container.getTileEntity().cooldown, false, true, 1, slider -> {
 			container.getCooldownMessage().triggerMessage(() -> new PacketBuffer(Unpooled.copyShort(slider.getValueInt())));
 		}));
 	}
@@ -43,7 +43,7 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 	@Override
 	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
 		super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
-		font.func_243248_b(matrixStack, ITextComponent.func_244388_a("" + container.getTileEntity().value), xSize / 2 + 32, 6, 4210752);
+		font.func_243248_b(matrixStack, ITextComponent.getTextComponentOrEmpty("" + container.getTileEntity().value), xSize / 2 + 32, 6, 4210752);
 	}
 	
 	@Override
