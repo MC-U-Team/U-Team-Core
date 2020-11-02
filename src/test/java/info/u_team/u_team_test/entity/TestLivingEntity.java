@@ -47,7 +47,7 @@ public class TestLivingEntity extends ZombieEntity {
 	
 	@Override
 	public boolean attackEntityAsMob(Entity entity) {
-		boolean flag = super.attackEntityAsMob(entity);
+		final boolean flag = super.attackEntityAsMob(entity);
 		if (flag && getHeldItemMainhand().isEmpty() && entity instanceof LivingEntity) {
 			final float localDifficulty = world.getDifficultyForLocation(getPosition()).getAdditionalDifficulty();
 			((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.LEVITATION, (int) (500 * localDifficulty)));
