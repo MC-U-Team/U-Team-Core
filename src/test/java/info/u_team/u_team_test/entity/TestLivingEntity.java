@@ -16,8 +16,8 @@ public class TestLivingEntity extends ZombieEntity {
 		super(type, worldIn);
 	}
 	
-	public static boolean func_223334_b(EntityType<HuskEntity> p_223334_0_, IServerWorld p_223334_1_, SpawnReason reason, BlockPos p_223334_3_, Random p_223334_4_) {
-		return canMonsterSpawnInLight(p_223334_0_, p_223334_1_, reason, p_223334_3_, p_223334_4_) && (reason == SpawnReason.SPAWNER || p_223334_1_.canSeeSky(p_223334_3_));
+	public static boolean canSpawn(EntityType<TestLivingEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random random) {
+		return canMonsterSpawn(entityType, world, reason, pos, random) && (reason == SpawnReason.SPAWNER || world.canSeeSky(pos));
 	}
 	
 	@Override
