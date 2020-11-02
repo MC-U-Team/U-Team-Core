@@ -4,6 +4,8 @@ import java.util.Random;
 
 import info.u_team.u_team_test.init.TestEntityTypes;
 import net.minecraft.entity.*;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap.MutableAttribute;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.item.*;
 import net.minecraft.potion.*;
@@ -19,6 +21,11 @@ public class TestLivingEntity extends ZombieEntity {
 	
 	public TestLivingEntity(EntityType<? extends ZombieEntity> type, World world) {
 		super(type, world);
+	}
+	
+	public static MutableAttribute registerAttributes() {
+		return ZombieEntity.func_234342_eQ_() //
+				.createMutableAttribute(Attributes.ATTACK_DAMAGE, 6);
 	}
 	
 	public static boolean canSpawn(EntityType<TestLivingEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random random) {
