@@ -28,7 +28,7 @@ public class JarSignVerifier {
 		final VerifyType type = result.getLeft();
 		final VerifyStatus status = result.getRight();
 		watch.stop();
-		LOGGER.debug("Took {} to check if mod {} is signed with type {}.", watch, modid, type);
+		LOGGER.debug("Took {} to check if mod {} is signed with check type {}.", watch, modid, type);
 		if (status == VerifyStatus.SIGNED) {
 			LOGGER.info("Mod " + modid + " is signed with a valid certificate.");
 		} else if (status == VerifyStatus.UNSIGNED) {
