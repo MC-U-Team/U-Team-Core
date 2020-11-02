@@ -18,4 +18,3 @@ public class UCoreMod {
 		AnnotationManager.callAnnotations(MODID);
 	}
 }
-
