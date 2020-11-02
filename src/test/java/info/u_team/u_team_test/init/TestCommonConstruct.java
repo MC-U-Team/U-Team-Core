@@ -13,6 +13,7 @@ public class TestCommonConstruct implements IModConstruct {
 		BusRegister.registerMod(TestContainers::registerMod);
 		BusRegister.registerMod(TestEffects::registerMod);
 		BusRegister.registerMod(TestEnchantments::registerMod);
+		BusRegister.registerMod(TestEntitySpawnPlacementRegistries::registerMod);
 		BusRegister.registerMod(TestEntityTypes::registerMod);
 		BusRegister.registerMod(TestGlobalEntityTypeAttributes::registerMod);
 		BusRegister.registerMod(TestGlobalLootModifiers::registerMod);
