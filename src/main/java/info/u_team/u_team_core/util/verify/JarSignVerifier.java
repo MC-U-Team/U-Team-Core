@@ -2,12 +2,10 @@ package info.u_team.u_team_core.util.verify;
 
 import java.io.InputStream;
 import java.nio.file.*;
-import java.security.cert.Certificate;
 import java.util.Optional;
 import java.util.jar.*;
 import java.util.stream.Stream;
 
-import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.*;
 
 import com.google.common.base.Stopwatch;
@@ -15,7 +13,7 @@ import com.google.common.io.ByteStreams;
 
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.CertificateHelper;
-import net.minecraftforge.fml.loading.*;
+import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
 
 public class JarSignVerifier {
@@ -24,11 +22,9 @@ public class JarSignVerifier {
 	
 	public static void checkSigned(String modid) {
 		final Stopwatch watch = Stopwatch.createStarted();
-		final Pair<VerifyType, VerifyStatus> result = verify(modid);
-		final VerifyType type = result.getLeft();
-		final VerifyStatus status = result.getRight();
+		final VerifyStatus status = verify(modid);
 		watch.stop();
-		LOGGER.debug("Took {} to check if mod {} is signed with check type {}.", watch, modid, type);
+		LOGGER.debug("Took {} to check if mod {} is signed.", watch, modid);
 		if (status == VerifyStatus.SIGNED) {
 			LOGGER.info("Mod " + modid + " is signed with a valid certificate.");
 		} else if (status == VerifyStatus.UNSIGNED) {
@@ -41,43 +37,15 @@ public class JarSignVerifier {
 		}
 	}
 	
-	public static Pair<VerifyType, VerifyStatus> verify(String modid) {
+	public static VerifyStatus verify(String modid) {
 		
 		// We don't need to check sign in dev environment
 		if (!FMLEnvironment.production) {
-			return Pair.of(VerifyType.NONE, VerifyStatus.DEV);
+			return VerifyStatus.DEV;
 		}
 		
 		final ModFileInfo info = ModList.get().getModFileById(modid);
 		
-		if (FMLEnvironment.secureJarsEnabled) {
-			return Pair.of(VerifyType.FORGE, verifyWithForge(info));
-		} else {
-			return Pair.of(VerifyType.JAR, verifyWithJarEntry(info));
-		}
-	}
-	
-	private static VerifyStatus verifyWithForge(ModFileInfo info) {
-		final Optional<String> fingerPrintOptional = getFingerPrint(info.getManifest());
-		
-		if (!fingerPrintOptional.isPresent()) {
-			return VerifyStatus.UNSIGNED;
-		}
-		
-		final String fingerprint = fingerPrintOptional.get();
-		
-		final Certificate[] certificates = Java9BackportUtils.toStream(info.getCodeSigners()) //
-				.flatMap(csa -> csa[0].getSignerCertPath().getCertificates().stream()) //
-				.toArray(Certificate[]::new);
-		
-		if (CertificateHelper.getFingerprints(certificates).stream().filter(fingerprint::equals).findAny().isPresent()) {
-			return VerifyStatus.SIGNED;
-		} else {
-			return VerifyStatus.UNSIGNED;
-		}
-	}
-	
-	private static VerifyStatus verifyWithJarEntry(ModFileInfo info) {
 		final Path path = info.getFile().getFilePath();
 		
 		if (Files.isDirectory(path)) {
@@ -95,7 +63,7 @@ public class JarSignVerifier {
 			
 			final String fingerprint = fingerPrintOptional.get();
 			
-			try (Stream<JarEntry> entryStream = jarFile.stream()) {
+			try (final Stream<JarEntry> entryStream = jarFile.stream()) {
 				// Check sign on every resource excluding directories and the certificate files
 				if (entryStream.filter(JarSignVerifier::checkEntryForSign).allMatch(entry -> {
 					// Read everything so the certificate gets loaded but trash the input
@@ -126,12 +94,6 @@ public class JarSignVerifier {
 	
 	private static Optional<String> getFingerPrint(Optional<Manifest> manifest) {
 		return manifest.map(Manifest::getMainAttributes).map(attributes -> attributes.getValue("Fingerprint")).map(fingerPrint -> fingerPrint.replace(":", "").toLowerCase());
-	}
-	
-	public static enum VerifyType {
-		FORGE,
-		JAR,
-		NONE;
 	}
 	
 	public static enum VerifyStatus {
