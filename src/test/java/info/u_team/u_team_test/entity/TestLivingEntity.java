@@ -2,8 +2,9 @@ package info.u_team.u_team_test.entity;
 
 import java.util.Random;
 
+import info.u_team.u_team_test.init.TestEntityTypes;
 import net.minecraft.entity.*;
-import net.minecraft.entity.monster.*;
+import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.item.*;
 import net.minecraft.potion.*;
 import net.minecraft.util.*;
@@ -12,8 +13,12 @@ import net.minecraft.world.*;
 
 public class TestLivingEntity extends ZombieEntity {
 	
-	public TestLivingEntity(EntityType<? extends ZombieEntity> type, World worldIn) {
-		super(type, worldIn);
+	public TestLivingEntity(World world) {
+		this(TestEntityTypes.TEST_LIVING.get(), world);
+	}
+	
+	public TestLivingEntity(EntityType<? extends ZombieEntity> type, World world) {
+		super(type, world);
 	}
 	
 	public static boolean canSpawn(EntityType<TestLivingEntity> entityType, IServerWorld world, SpawnReason reason, BlockPos pos, Random random) {
