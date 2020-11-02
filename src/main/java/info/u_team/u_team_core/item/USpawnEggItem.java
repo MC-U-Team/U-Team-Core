@@ -11,16 +11,12 @@ import net.minecraft.util.LazyValue;
 
 public class USpawnEggItem extends SpawnEggItem {
 	
-	private static final List<Pair<LazyValue<? extends EntityType<?>>, USpawnEggItem>> LAZY_EGGS = new ArrayList<>();
+	public static final List<Pair<LazyValue<? extends EntityType<?>>, USpawnEggItem>> LAZY_EGGS = new ArrayList<>();
 	
 	public USpawnEggItem(Supplier<? extends EntityType<?>> entityType, int primaryColor, int secondaryColor, Properties builder) {
 		super(null, primaryColor, secondaryColor, builder);
 		EGGS.remove(null);
 		LAZY_EGGS.add(Pair.of(new LazyValue<>(entityType), this));
 	}
-	
-//	public static List<Pair<LazyValue<? extends EntityType<?>>, USpawnEggItem>> getLazyEggs() {
-//		return LAZY_EGGS;
-//	}
 	
 }
