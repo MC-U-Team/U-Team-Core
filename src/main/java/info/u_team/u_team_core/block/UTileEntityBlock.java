@@ -21,12 +21,12 @@ public class UTileEntityBlock extends UBlock implements ITileEntityBlock {
 		this(group, properties, null, tileEntityType);
 	}
 	
-	public UTileEntityBlock(Properties properties, Item.Properties itemblockproperties, Supplier<? extends TileEntityType<?>> tileEntityType) {
-		this(null, properties, itemblockproperties, tileEntityType);
+	public UTileEntityBlock(Properties properties, Item.Properties blockItemProperties, Supplier<? extends TileEntityType<?>> tileEntityType) {
+		this(null, properties, blockItemProperties, tileEntityType);
 	}
 	
-	public UTileEntityBlock(ItemGroup group, Properties properties, Item.Properties itemblockproperties, Supplier<? extends TileEntityType<?>> tileEntityType) {
-		super(group, properties, itemblockproperties);
+	public UTileEntityBlock(ItemGroup group, Properties properties, Item.Properties blockItemProperties, Supplier<? extends TileEntityType<?>> tileEntityType) {
+		super(group, properties, blockItemProperties);
 		this.tileEntityType = tileEntityType;
 	}
 	
