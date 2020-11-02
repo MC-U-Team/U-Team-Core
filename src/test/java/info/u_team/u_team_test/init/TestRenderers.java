@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-public class TestModels {
+public class TestRenderers {
 	
 	private static void setup(FMLClientSetupEvent event) {
 		ClientRegistry.registerEntityRenderer(TestEntityTypes.BETTER_ENDERPEARL, manager -> new SpriteRenderer<>(manager, Minecraft.getInstance().getItemRenderer()));
@@ -15,6 +15,6 @@ public class TestModels {
 	}
 	
 	public static void registerMod(IEventBus bus) {
-		bus.addListener(TestModels::setup);
+		bus.addListener(TestRenderers::setup);
 	}
 }

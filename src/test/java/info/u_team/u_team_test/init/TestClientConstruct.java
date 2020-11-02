@@ -11,7 +11,7 @@ public class TestClientConstruct implements IModConstruct {
 	public void construct() {
 		BusRegister.registerMod(TestColors::registerMod);
 		BusRegister.registerMod(TestKeys::registerMod);
-		BusRegister.registerMod(TestModels::registerMod);
+		BusRegister.registerMod(TestRenderers::registerMod);
 		BusRegister.registerMod(TestScreens::registerMod);
 		
 		BusRegister.registerForge(TestKeys::registerForge);
