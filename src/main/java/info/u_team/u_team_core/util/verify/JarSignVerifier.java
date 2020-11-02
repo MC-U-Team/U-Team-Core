@@ -68,7 +68,7 @@ public class JarSignVerifier {
 				if (entryStream.filter(JarSignVerifier::checkEntryForSign).allMatch(entry -> {
 					// Read everything so the certificate gets loaded but trash the input
 					try (final InputStream stream = jarFile.getInputStream(entry)) {
-						ByteStreams.toByteArray(stream);
+						ByteStreams.copy(stream, ByteStreams.nullOutputStream());
 					} catch (final Exception ex) {
 						return false;
 					}
