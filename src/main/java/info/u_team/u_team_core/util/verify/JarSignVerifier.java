@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.jar.*;
 import java.util.stream.Stream;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.apache.logging.log4j.*;
 
 import com.google.common.base.Stopwatch;
@@ -23,9 +24,11 @@ public class JarSignVerifier {
 	
 	public static void checkSigned(String modid) {
 		final Stopwatch watch = Stopwatch.createStarted();
-		final VerifyStatus status = verify(modid);
+		final Pair<VerifyType, VerifyStatus> result = verify(modid);
+		final VerifyType type = result.getLeft();
+		final VerifyStatus status = result.getRight();
 		watch.stop();
-		LOGGER.debug("Took " + watch.toString() + " to check if mod " + modid + " is signed.");
+		LOGGER.debug("Took {} to check if mod {} is signed with type {}.", watch, modid, type);
 		if (status == VerifyStatus.SIGNED) {
 			LOGGER.info("Mod " + modid + " is signed with a valid certificate.");
 		} else if (status == VerifyStatus.UNSIGNED) {
@@ -33,24 +36,24 @@ public class JarSignVerifier {
 			LOGGER.warn("Mod " + modid + " is not signed with a valid certificate but should be signed.");
 			LOGGER.warn("Please download the mod only from trusted sources such as curseforge.com!");
 			LOGGER.warn("---------------------------------------------------------------------------------");
-		} else {
+		} else if (status == VerifyStatus.DEV) {
 			LOGGER.info("Mod " + modid + " is loaded in dev environment.");
 		}
 	}
 	
-	public static VerifyStatus verify(String modid) {
+	public static Pair<VerifyType, VerifyStatus> verify(String modid) {
 		
 		// We don't need to check sign in dev environment
 		if (!FMLEnvironment.production) {
-			return VerifyStatus.DEV;
+			return Pair.of(VerifyType.NONE, VerifyStatus.DEV);
 		}
 		
 		final ModFileInfo info = ModList.get().getModFileById(modid);
 		
 		if (FMLEnvironment.secureJarsEnabled) {
-			return verifyWithForge(info);
+			return Pair.of(VerifyType.FORGE, verifyWithForge(info));
 		} else {
-			return verifyWithJarEntry(info);
+			return Pair.of(VerifyType.JAR, verifyWithJarEntry(info));
 		}
 	}
 	
@@ -123,6 +126,12 @@ public class JarSignVerifier {
 	
 	private static Optional<String> getFingerPrint(Optional<Manifest> manifest) {
 		return manifest.map(Manifest::getMainAttributes).map(attributes -> attributes.getValue("Fingerprint")).map(fingerPrint -> fingerPrint.replace(":", "").toLowerCase());
+	}
+	
+	public static enum VerifyType {
+		FORGE,
+		JAR,
+		NONE;
 	}
 	
 	public static enum VerifyStatus {
