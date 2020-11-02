@@ -16,6 +16,7 @@ public class UCoreCommonConstruct implements IModConstruct {
 		
 		BusRegister.registerMod(UCoreNetwork::registerMod);
 		BusRegister.registerMod(UCoreRecipeSerializers::registerMod);
+		BusRegister.registerMod(UCoreLazySpawnEggs::registerMod);
 		BusRegister.registerMod(UCoreLootFunctions::registerMod);
 		
 		BusRegister.registerForge(UCoreCommands::registerForge);
