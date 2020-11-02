@@ -1,5 +1,6 @@
 package info.u_team.u_team_test.init;
 
+import info.u_team.u_team_core.item.USpawnEggItem;
 import info.u_team.u_team_core.item.armor.*;
 import info.u_team.u_team_core.item.tool.*;
 import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
@@ -23,6 +24,8 @@ public class TestItems {
 	
 	public static final ToolSet BASIC_TOOL = ToolSetCreator.create(ITEMS, "basictool", TestItemGroups.GROUP, new Properties(), TestToolMaterial.BASIC);
 	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create(ITEMS, "basicarmor", TestItemGroups.GROUP, new Properties(), TestArmorMaterial.BASIC);
+	
+	public static final RegistryObject<USpawnEggItem> TEST_LIVING_SPAWN_EGG = ITEMS.register("test_living_spawn_egg", () -> new USpawnEggItem(TestItemGroups.GROUP, new Properties(), TestEntityTypes.TEST_LIVING, 0xFF0000, 0x00FF00));
 	
 	public static void registerMod(IEventBus bus) {
 		ITEMS.register(bus);
