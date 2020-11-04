@@ -62,8 +62,10 @@ public class BlockDeferredRegister {
 			final Block block = blockObject.get();
 			if (block instanceof IBlockItemProvider) {
 				final BlockItem blockItem = ((IBlockItemProvider) block).getBlockItem();
-				registry.register(blockItem.setRegistryName(itemObject.getId()));
-				((RegistryObject<Item>) itemObject).updateReference(registry);
+				if (blockItem != null) {
+					registry.register(blockItem.setRegistryName(itemObject.getId()));
+					((RegistryObject<Item>) itemObject).updateReference(registry);
+				}
 			}
 		});
 	}
