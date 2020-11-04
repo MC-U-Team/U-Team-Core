@@ -61,7 +61,7 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	}
 	
 	protected void spawnEgg(IItemProvider provider) {
-		simpleParent(provider, "item/template_spawn_egg");
+		withExistingParent(provider.asItem().getRegistryName().getPath(), "item/template_spawn_egg");
 	}
 	
 	protected void simpleParent(IItemProvider provider, final String parent) {
