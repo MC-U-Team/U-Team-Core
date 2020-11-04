@@ -1,6 +1,15 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.3-3.1.11.184] - 2020-11-04
+### Changed
+ - Increase network protocol version to 1.16.3
+ - Fix NullPointerException in block registry if no item block is there
+ - Speedup jar sign verifier
+ 
+### Added
+ - Added lazy spawn egg
+
 ## [1.16.3-3.1.10.183] - 2020-10-14
 ### Changed
  - Update to first RB for 1.16.3
