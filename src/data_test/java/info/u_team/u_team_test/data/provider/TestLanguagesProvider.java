@@ -29,12 +29,15 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		addItem(TestItems.BASIC_TOOL.getShovel(), "Basic Shovel");
 		addItem(TestItems.BASIC_TOOL.getSword(), "Basic Sword");
 		
+		addItem(TestItems.TEST_LIVING_SPAWN_EGG, "Test Living Entity Spawn Egg");
+		
 		addBlock(TestBlocks.BASIC, "Basic Block");
 		addBlock(TestBlocks.BASIC_TILEENTITY, "Tile Entity Block");
 		addBlock(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
 		addBlock(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
 		
 		addEntityType(TestEntityTypes.BETTER_ENDERPEARL, "Better Enderpearl");
+		addEntityType(TestEntityTypes.TEST_LIVING, "Test Living Entity");
 		
 		addEnchantment(TestEnchantments.AUTO_SMELT, "Auto Smelt");
 		
