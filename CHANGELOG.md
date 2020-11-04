@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.16.3-3.1.11.184] - 2020-11-04
+## [1.16.3-3.1.11.184] - 2020-11-05
 ### Changed
  - Increase network protocol version to 1.16.3
  - Fix NullPointerException in block registry if no item block is there
