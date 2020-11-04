@@ -17,7 +17,7 @@ public class TestLivingEntityRenderer extends ZombieRenderer {
 	
 	@Override
 	protected void preRenderCallback(ZombieEntity zombie, MatrixStack matrixStack, float partialTickTime) {
-		matrixStack.scale(1.0625F, 1.0625F, 1.0625F);
+		matrixStack.scale(1.8F, 1.8F, 1.8F);
 		super.preRenderCallback(zombie, matrixStack, partialTickTime);
 	}
 	

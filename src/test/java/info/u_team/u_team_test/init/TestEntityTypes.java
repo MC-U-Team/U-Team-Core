@@ -13,7 +13,7 @@ public class TestEntityTypes {
 	
 	public static final RegistryObject<EntityType<BetterEnderPearlEntity>> BETTER_ENDERPEARL = ENTITY_TYPES.register("better_enderpearl", () -> EntityType.Builder.<BetterEnderPearlEntity> create(BetterEnderPearlEntity::new, EntityClassification.MISC).size(0.25F, 0.25F).setTrackingRange(128).setUpdateInterval(20).setShouldReceiveVelocityUpdates(true));
 	
-	public static final RegistryObject<EntityType<TestLivingEntity>> TEST_LIVING = ENTITY_TYPES.register("test_living", () -> EntityType.Builder.<TestLivingEntity> create(TestLivingEntity::new, EntityClassification.MONSTER).size(0.6F, 1.95F).trackingRange(8));
+	public static final RegistryObject<EntityType<TestLivingEntity>> TEST_LIVING = ENTITY_TYPES.register("test_living", () -> EntityType.Builder.<TestLivingEntity> create(TestLivingEntity::new, EntityClassification.MONSTER).size(1.05F, 3.4125F).trackingRange(8));
 	
 	public static void registerMod(IEventBus bus) {
 		ENTITY_TYPES.register(bus);
