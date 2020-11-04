@@ -7,6 +7,7 @@
 	"effect.uteamtest.radiation": "Radiation",
 	"enchantment.uteamtest.auto_smelt": "Auto Smelt",
 	"entity.uteamtest.better_enderpearl": "Better Enderpearl",
+	"entity.uteamtest.test_living": "Test Living Entity",
 	"item.minecraft.lingering_potion.effect.radiation": "Lingering Potion of Radiation",
 	"item.minecraft.potion.effect.radiation": "Potion of Radiation",
 	"item.minecraft.splash_potion.effect.radiation": "Splash Potion of Radiation",
@@ -23,5 +24,6 @@
 	"item.uteamtest.basictool_shovel": "Basic Shovel",
 	"item.uteamtest.basictool_sword": "Basic Sword",
 	"item.uteamtest.better_enderpearl": "Better Enderpearl",
+	"item.uteamtest.test_living_spawn_egg": "Test Living Entity Spawn Egg",
 	"itemGroup.uteamtest.group": "UTeamTest Tab"
 }
