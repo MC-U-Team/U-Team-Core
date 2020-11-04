@@ -21,6 +21,8 @@ public class TestCommonConstruct implements IModConstruct {
 		BusRegister.registerMod(TestPotions::registerMod);
 		BusRegister.registerMod(TestSounds::registerMod);
 		BusRegister.registerMod(TestTileEntityTypes::registerMod);
+		
+		BusRegister.registerForge(TestBiomeLoadingAdditions::registerForge);
 	}
 	
 }
