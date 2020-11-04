@@ -8,10 +8,12 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap.MutableAttribute;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.item.*;
+import net.minecraft.network.IPacket;
 import net.minecraft.potion.*;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.*;
+import net.minecraftforge.fml.network.NetworkHooks;
 
 public class TestLivingEntity extends ZombieEntity {
 	
@@ -75,5 +77,10 @@ public class TestLivingEntity extends ZombieEntity {
 	@Override
 	protected ItemStack getSkullDrop() {
 		return new ItemStack(Items.GHAST_TEAR);
+	}
+	
+	@Override
+	public IPacket<?> createSpawnPacket() {
+		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }
