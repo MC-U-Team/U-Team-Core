@@ -60,6 +60,10 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 		simpleParent(provider, "item/handheld");
 	}
 	
+	protected void spawnEgg(IItemProvider provider) {
+		simpleParent(provider, "item/template_spawn_egg");
+	}
+	
 	protected void simpleParent(IItemProvider provider, final String parent) {
 		final String registryPath = provider.asItem().getRegistryName().getPath();
 		getBuilder(registryPath).parent(new UncheckedModelFile(parent)).texture("layer0", "item/" + registryPath);
