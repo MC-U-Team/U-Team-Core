@@ -5,7 +5,6 @@ import net.minecraft.block.DispenserBlock;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Direction;
-import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.*;
 
@@ -30,16 +29,6 @@ public class UCoreLazySpawnEggs {
 		});
 	}
 	
-	private static void colorItem(ColorHandlerEvent.Item event) {
-		USpawnEggItem.LAZY_EGGS.forEach(pair -> {
-			final USpawnEggItem item = pair.getValue();
-			
-			event.getItemColors().register((stack, color) -> {
-				return item.getColor(color);
-			}, item);
-		});
-	}
-	
 	private static void loadComplete(FMLLoadCompleteEvent event) {
 		event.enqueueWork(() -> {
 			USpawnEggItem.LAZY_EGGS.forEach(pair -> {
@@ -53,8 +42,6 @@ public class UCoreLazySpawnEggs {
 	
 	public static void registerMod(IEventBus bus) {
 		bus.addListener(UCoreLazySpawnEggs::setup);
-		bus.addListener(UCoreLazySpawnEggs::colorItem);
 		bus.addListener(UCoreLazySpawnEggs::loadComplete);
 	}
-	
 }

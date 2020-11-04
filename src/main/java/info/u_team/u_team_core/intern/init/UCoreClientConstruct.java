@@ -11,6 +11,7 @@ public class UCoreClientConstruct implements IModConstruct {
 	@Override
 	public void construct() {
 		BusRegister.registerMod(UpdateDiscordEventHandler::registerMod);
+		BusRegister.registerMod(UCoreClientLazySpawnEggs::registerMod);
 		BusRegister.registerMod(UCoreColors::registerMod);
 		
 		BusRegister.registerForge(UpdateDiscordEventHandler::registerForge);
