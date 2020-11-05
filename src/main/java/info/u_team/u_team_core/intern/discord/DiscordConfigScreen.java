@@ -19,12 +19,13 @@ public class DiscordConfigScreen extends Screen {
 	
 	@Override
 	protected void init() {
+		
 		final BooleanValue discordRichPresence = ClientConfig.getInstance().discordRichPresence;
 		
 		final ITextComponent on = ITextComponent.getTextComponentOrEmpty("Discord connection is on");
 		final ITextComponent off = ITextComponent.getTextComponentOrEmpty("Discord connection is off");
 		
-		final ActiveButton toggleDiscordRichPresenceButton = addButton(new ActiveButton(30, 50, 200, 20, discordRichPresence.get() ? on : off, 0x006442FF));
+		final ActiveButton toggleDiscordRichPresenceButton = addButton(new ActiveButton(width / 2 - 100, 50, 200, 20, discordRichPresence.get() ? on : off, 0x006442FF));
 		toggleDiscordRichPresenceButton.setActive(discordRichPresence.get());
 		toggleDiscordRichPresenceButton.setPressable(() -> {
 			discordRichPresence.set(!discordRichPresence.get());
@@ -44,12 +45,13 @@ public class DiscordConfigScreen extends Screen {
 			toggleDiscordRichPresenceButton.setMessage(discordRichPresence.get() ? on : off);
 		});
 		
-		addButton(new UButton(30, 80, 200, 20, ITextComponent.getTextComponentOrEmpty("Done"), button -> closeScreen()));
+		addButton(new UButton(width / 2 - 100, 80, 200, 20, ITextComponent.getTextComponentOrEmpty("Done"), button -> closeScreen()));
 	}
 	
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		renderBackground(matrixStack);
+		drawCenteredString(matrixStack, font, title, width / 2, 15, 0xFFFFFF);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
