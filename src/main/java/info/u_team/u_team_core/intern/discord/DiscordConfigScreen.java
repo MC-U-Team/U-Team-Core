@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.intern.discord;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import info.u_team.u_team_core.gui.elements.ActiveButton;
 import info.u_team.u_team_core.intern.config.ClientConfig;
 import net.minecraft.client.gui.screen.Screen;
@@ -29,6 +31,12 @@ public class DiscordConfigScreen extends Screen {
 			button.setActive(discordRichPresence.get());
 			button.setMessage(discordRichPresence.get() ? on : off);
 		});
+	}
+	
+	@Override
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		renderBackground(matrixStack);
+		super.render(matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
