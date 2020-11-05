@@ -12,6 +12,12 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class UpdateDiscordEventHandler {
 	
+	private static void setup(FMLCommonSetupEvent event) {
+		if (ClientConfig.getInstance().discordRichPresence.get()) {
+			DiscordRichPresence.start();
+		}
+	}
+	
 	private static void onInitGuiPre(InitGuiEvent.Pre event) {
 		if (!DiscordRichPresence.isEnabled()) {
 			return;
@@ -33,12 +39,6 @@ public class UpdateDiscordEventHandler {
 			if (player.getUniqueID().equals(Minecraft.getInstance().player.getUniqueID())) {
 				DiscordRichPresence.setDimension(player.getEntityWorld());
 			}
-		}
-	}
-	
-	private static void setup(FMLCommonSetupEvent event) {
-		if (ClientConfig.getInstance().discordRichPresence.get()) {
-			DiscordRichPresence.start();
 		}
 	}
 	
