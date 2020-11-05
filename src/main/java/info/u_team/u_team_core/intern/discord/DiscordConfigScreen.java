@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.intern.discord;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+
 import info.u_team.u_team_core.gui.elements.*;
 import info.u_team.u_team_core.intern.config.ClientConfig;
 import net.minecraft.client.gui.screen.Screen;
@@ -27,6 +28,18 @@ public class DiscordConfigScreen extends Screen {
 		toggleDiscordRichPresenceButton.setActive(discordRichPresence.get());
 		toggleDiscordRichPresenceButton.setPressable(() -> {
 			discordRichPresence.set(!discordRichPresence.get());
+			
+			if (discordRichPresence.get() && !DiscordRichPresence.isEnabled()) {
+				DiscordRichPresence.start();
+				if (minecraft.world == null) {
+					DiscordRichPresence.setIdling();
+				} else {
+					DiscordRichPresence.setDimension(minecraft.world);
+				}
+			} else if (!discordRichPresence.get() && DiscordRichPresence.isEnabled()) {
+				DiscordRichPresence.stop();
+			}
+			
 			toggleDiscordRichPresenceButton.setActive(discordRichPresence.get());
 			toggleDiscordRichPresenceButton.setMessage(discordRichPresence.get() ? on : off);
 		});
