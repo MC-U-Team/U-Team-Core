@@ -19,7 +19,6 @@ public class DiscordConfigScreen extends Screen {
 	
 	@Override
 	protected void init() {
-		
 		final BooleanValue discordRichPresence = ClientConfig.getInstance().discordRichPresence;
 		
 		final ITextComponent on = ITextComponent.getTextComponentOrEmpty("Discord connection is on");
