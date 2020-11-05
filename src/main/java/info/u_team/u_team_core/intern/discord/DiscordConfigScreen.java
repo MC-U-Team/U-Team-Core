@@ -5,7 +5,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import info.u_team.u_team_core.gui.elements.*;
 import info.u_team.u_team_core.intern.config.ClientConfig;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.*;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 
 public class DiscordConfigScreen extends Screen {
@@ -13,7 +13,7 @@ public class DiscordConfigScreen extends Screen {
 	private final Screen screenBefore;
 	
 	public DiscordConfigScreen(Screen screenBefore) {
-		super(ITextComponent.getTextComponentOrEmpty("discord"));
+		super(new TranslationTextComponent("screen.uteamcore.config.discord.title"));
 		this.screenBefore = screenBefore;
 	}
 	
@@ -21,8 +21,8 @@ public class DiscordConfigScreen extends Screen {
 	protected void init() {
 		final BooleanValue discordRichPresence = ClientConfig.getInstance().discordRichPresence;
 		
-		final ITextComponent on = ITextComponent.getTextComponentOrEmpty("Discord connection is on");
-		final ITextComponent off = ITextComponent.getTextComponentOrEmpty("Discord connection is off");
+		final ITextComponent on = new TranslationTextComponent("screen.uteamcore.config.discord.on");
+		final ITextComponent off = new TranslationTextComponent("screen.uteamcore.config.discord.off");
 		
 		final ActiveButton toggleDiscordRichPresenceButton = addButton(new ActiveButton(width / 2 - 100, 50, 200, 20, discordRichPresence.get() ? on : off, 0x006442FF));
 		toggleDiscordRichPresenceButton.setActive(discordRichPresence.get());
@@ -44,7 +44,7 @@ public class DiscordConfigScreen extends Screen {
 			toggleDiscordRichPresenceButton.setMessage(discordRichPresence.get() ? on : off);
 		});
 		
-		addButton(new UButton(width / 2 - 100, 80, 200, 20, ITextComponent.getTextComponentOrEmpty("Done"), button -> closeScreen()));
+		addButton(new UButton(width / 2 - 100, 80, 200, 20, new TranslationTextComponent("screen.uteamcore.config.discord.done"), button -> closeScreen()));
 	}
 	
 	@Override
