@@ -42,5 +42,13 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 		// Jei
 		// English
 		add("jei.uteamcore.dyeable.info", "These items can be dyed with dye in the crafting field.");
+		
+		// Discord config
+		// English
+		final String discordConfigScreen = "screen.uteamcore.config.discord.";
+		add(discordConfigScreen + "title", "U-Team-Core Discord Config Options");
+		add(discordConfigScreen + "on", "Discord connection is on");
+		add(discordConfigScreen + "off", "Discord connection is off");
+		add(discordConfigScreen + "done", "Done");
 	}
 }
