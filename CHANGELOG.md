@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.3-3.1.12.185] - 2020-11-05
+### Added
+ - Added config gui for discord rich presence
+
 ## [1.16.3-3.1.11.184] - 2020-11-05
 ### Changed
  - Increase network protocol version to 1.16.3
