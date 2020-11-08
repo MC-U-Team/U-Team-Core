@@ -1,8 +1,8 @@
 package info.u_team.u_team_test.init;
 
-import net.minecraft.entity.*;
-import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.world.biome.Biome.Category;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.*;
 
