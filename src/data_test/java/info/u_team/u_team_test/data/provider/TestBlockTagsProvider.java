@@ -1,9 +1,10 @@
 package info.u_team.u_team_test.data.provider;
 
 import static info.u_team.u_team_test.init.TestTags.Blocks.*;
+
 import info.u_team.u_team_core.data.*;
 import net.minecraft.block.Blocks;
-import net.minecraft.tags.*;
+import net.minecraft.tags.BlockTags;
 
 public class TestBlockTagsProvider extends CommonBlockTagsProvider {
 	
