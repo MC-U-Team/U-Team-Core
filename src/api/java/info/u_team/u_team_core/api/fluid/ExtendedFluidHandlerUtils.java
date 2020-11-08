@@ -27,14 +27,14 @@ public class ExtendedFluidHandlerUtils {
 	 * Util method for a generic insert implementation for various handlers. Mainly for internal use only
 	 */
 	public static FluidStack insert(FluidStack stack, InteractionType action, IntSupplier tankCount, Int2ObjectFunction<FluidStack> inTankGetter, InsertFluid insertFluid) {
-		int tanks = tankCount.getAsInt();
+		final int tanks = tankCount.getAsInt();
 		if (tanks == 1) {
 			return insertFluid.insert(0, stack, action);
 		}
-		IntList matchingTanks = new IntArrayList();
-		IntList emptyTanks = new IntArrayList();
+		final IntList matchingTanks = new IntArrayList();
+		final IntList emptyTanks = new IntArrayList();
 		for (int tank = 0; tank < tanks; tank++) {
-			FluidStack inTank = inTankGetter.get(tank);
+			final FluidStack inTank = inTankGetter.get(tank);
 			if (inTank.isEmpty()) {
 				emptyTanks.add(tank);
 			} else if (inTank.isFluidEqual(stack)) {
@@ -43,8 +43,8 @@ public class ExtendedFluidHandlerUtils {
 		}
 		FluidStack toInsert = stack;
 		// Start by trying to insert into the tanks that have the same type
-		for (int tank : matchingTanks) {
-			FluidStack remainder = insertFluid.insert(tank, toInsert, action);
+		for (final int tank : matchingTanks) {
+			final FluidStack remainder = insertFluid.insert(tank, toInsert, action);
 			if (remainder.isEmpty()) {
 				// If we have no remaining fluid, return that we fit it all
 				return FluidStack.EMPTY;
@@ -52,8 +52,8 @@ public class ExtendedFluidHandlerUtils {
 			// Update what we have left to insert, to be the amount we were unable to insert
 			toInsert = remainder;
 		}
-		for (int tank : emptyTanks) {
-			FluidStack remainder = insertFluid.insert(tank, toInsert, action);
+		for (final int tank : emptyTanks) {
+			final FluidStack remainder = insertFluid.insert(tank, toInsert, action);
 			if (remainder.isEmpty()) {
 				// If we have no remaining fluid, return that we fit it all
 				return FluidStack.EMPTY;
@@ -68,7 +68,7 @@ public class ExtendedFluidHandlerUtils {
 	 * Util method for a generic extraction implementation for various handlers. Mainly for internal use only
 	 */
 	public static FluidStack extract(int amount, InteractionType action, IntSupplier tankCount, Int2ObjectFunction<FluidStack> inTankGetter, ExtractFluid extractFluid) {
-		int tanks = tankCount.getAsInt();
+		final int tanks = tankCount.getAsInt();
 		if (tanks == 1) {
 			return extractFluid.extract(0, amount, action);
 		}
@@ -77,7 +77,7 @@ public class ExtendedFluidHandlerUtils {
 		for (int tank = 0; tank < tanks; tank++) {
 			if (extracted.isEmpty() || extracted.isFluidEqual(inTankGetter.get(tank))) {
 				// If there is fluid in the tank that matches the type we have started draining, or we haven't found a type yet
-				FluidStack drained = extractFluid.extract(tank, toDrain, action);
+				final FluidStack drained = extractFluid.extract(tank, toDrain, action);
 				if (!drained.isEmpty()) {
 					// If we were able to drain something, set it as the type we have extracted/increase how much we have extracted
 					if (extracted.isEmpty()) {
@@ -102,9 +102,9 @@ public class ExtendedFluidHandlerUtils {
 	 * Util method for a generic extraction implementation for various handlers. Mainly for internal use only
 	 */
 	public static FluidStack extract(FluidStack stack, InteractionType action, IntSupplier tankCount, Int2ObjectFunction<FluidStack> inTankGetter, ExtractFluid extractFluid) {
-		int tanks = tankCount.getAsInt();
+		final int tanks = tankCount.getAsInt();
 		if (tanks == 1) {
-			FluidStack inTank = inTankGetter.get(0);
+			final FluidStack inTank = inTankGetter.get(0);
 			if (inTank.isEmpty() || !inTank.isFluidEqual(stack)) {
 				return FluidStack.EMPTY;
 			}
@@ -115,7 +115,7 @@ public class ExtendedFluidHandlerUtils {
 		for (int tank = 0; tank < tanks; tank++) {
 			if (stack.isFluidEqual(inTankGetter.get(tank))) {
 				// If there is fluid in the tank that matches the type we are trying to drain, try to draining from it
-				FluidStack drained = extractFluid.extract(tank, toDrain, action);
+				final FluidStack drained = extractFluid.extract(tank, toDrain, action);
 				if (!drained.isEmpty()) {
 					// If we were able to drain something, set it as the type we have extracted/increase how much we have extracted
 					if (extracted.isEmpty()) {

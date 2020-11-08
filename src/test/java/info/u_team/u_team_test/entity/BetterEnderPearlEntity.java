@@ -115,7 +115,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	@Override
 	public Entity changeDimension(ServerWorld world) {
-		Entity entity = func_234616_v_();
+		final Entity entity = func_234616_v_();
 		if (entity != null && entity.world.getDimensionKey() != world.getDimensionKey()) {
 			setShooter((Entity) null);
 		}
