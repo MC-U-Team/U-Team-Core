@@ -14,7 +14,6 @@ public class UCoreClientConstruct implements IModConstruct {
 		ModLoadingContext.get().registerExtensionPoint(ExtensionPoint.CONFIGGUIFACTORY, () -> (minecraft, screen) -> new DiscordConfigScreen(screen));
 		
 		BusRegister.registerMod(UpdateDiscordEventHandler::registerMod);
-		BusRegister.registerMod(UCoreClientLazySpawnEggs::registerMod);
 		BusRegister.registerMod(UCoreColors::registerMod);
 		
 		BusRegister.registerForge(UpdateDiscordEventHandler::registerForge);
