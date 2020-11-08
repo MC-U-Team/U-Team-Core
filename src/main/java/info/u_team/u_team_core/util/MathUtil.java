@@ -185,8 +185,8 @@ public class MathUtil {
 	 * @return The distance between these two coordinates
 	 */
 	public static float getPlaneDistance(int x1, int z1, int x2, int z2) {
-		int xDiff = x2 - x1;
-		int zDiff = z2 - z1;
+		final int xDiff = x2 - x1;
+		final int zDiff = z2 - z1;
 		return MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff);
 	}
 	

@@ -41,7 +41,7 @@ public class ItemIngredient extends Ingredient {
 			return stack.isEmpty();
 		} else {
 			determineMatchingStacks();
-			for (ItemStack itemstack : matchingStacks) {
+			for (final ItemStack itemstack : matchingStacks) {
 				if (itemstack.getItem() == stack.getItem()) {
 					return stack.getCount() >= amount;
 				}
@@ -111,7 +111,7 @@ public class ItemIngredient extends Ingredient {
 			buffer.writeInt(ingredient.amount);
 			buffer.writeVarInt(items.length);
 			
-			for (ItemStack stack : items) {
+			for (final ItemStack stack : items) {
 				buffer.writeItemStack(stack);
 			}
 		}

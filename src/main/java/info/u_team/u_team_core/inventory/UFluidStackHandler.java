@@ -61,7 +61,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 		
 		validateTankIndex(tank);
 		
-		FluidStack existing = stacks.get(tank);
+		final FluidStack existing = stacks.get(tank);
 		
 		int limit = getTankCapacity(tank);
 		
@@ -75,7 +75,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 		if (limit <= 0)
 			return stack;
 		
-		boolean reachedLimit = stack.getAmount() > limit;
+		final boolean reachedLimit = stack.getAmount() > limit;
 		
 		if (action.isExecute()) {
 			if (existing.isEmpty()) {
@@ -96,12 +96,12 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 		
 		validateTankIndex(tank);
 		
-		FluidStack existing = stacks.get(tank);
+		final FluidStack existing = stacks.get(tank);
 		
 		if (existing.isEmpty())
 			return FluidStack.EMPTY;
 		
-		int toExtract = amount;
+		final int toExtract = amount;
 		
 		if (existing.getAmount() <= toExtract) {
 			if (action.isExecute()) {

@@ -17,6 +17,7 @@ class ExistingFileHelperWithForge extends ExistingFileHelper {
 		this.existingFileHelper = helper;
 	}
 	
+	@Override
 	public boolean exists(ResourceLocation loc, ResourcePackType type, String pathSuffix, String pathPrefix) {
 		final boolean exists = existingFileHelper.exists(loc, type, pathSuffix, pathPrefix);
 		if (!exists) {
@@ -25,10 +26,11 @@ class ExistingFileHelperWithForge extends ExistingFileHelper {
 		return exists;
 	}
 	
+	@Override
 	public IResource getResource(ResourceLocation loc, ResourcePackType type, String pathSuffix, String pathPrefix) throws IOException {
 		try {
 			return existingFileHelper.getResource(loc, type, pathSuffix, pathPrefix);
-		} catch (IOException ex) {
+		} catch (final IOException ex) {
 			return super.getResource(loc, type, pathSuffix, pathPrefix);
 		}
 	}

@@ -4,6 +4,7 @@ import info.u_team.u_team_core.item.USpawnEggItem;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.Direction;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.*;
@@ -35,7 +36,7 @@ public class UCoreLazySpawnEggs {
 				final EntityType<?> type = pair.getKey().getValue();
 				final USpawnEggItem item = pair.getValue();
 				
-				USpawnEggItem.EGGS.put(type, item);
+				SpawnEggItem.EGGS.put(type, item);
 			});
 		});
 	}

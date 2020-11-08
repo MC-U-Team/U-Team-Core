@@ -24,7 +24,7 @@ public class FluidSetAllContainerMessage {
 	public static void encode(FluidSetAllContainerMessage message, PacketBuffer sendBuffer) {
 		sendBuffer.writeByte(message.id);
 		sendBuffer.writeShort(message.stacks.size());
-		for (FluidStack stack : message.stacks) {
+		for (final FluidStack stack : message.stacks) {
 			sendBuffer.writeFluidStack(stack);
 		}
 	}

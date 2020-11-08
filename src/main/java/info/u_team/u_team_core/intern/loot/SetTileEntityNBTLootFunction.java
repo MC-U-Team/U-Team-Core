@@ -16,6 +16,7 @@ public class SetTileEntityNBTLootFunction extends LootFunction {
 		super(conditions);
 	}
 	
+	@Override
 	public ItemStack doApply(ItemStack stack, LootContext context) {
 		if (context.has(LootParameters.BLOCK_ENTITY)) {
 			final CompoundNBT compound = new CompoundNBT();

@@ -48,7 +48,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		} else if (matchingFluids.length == 0) {
 			return stack.isEmpty();
 		} else {
-			for (FluidStack fluidStack : matchingFluids) {
+			for (final FluidStack fluidStack : matchingFluids) {
 				if (fluidStack.getFluid() == stack.getFluid()) {
 					return stack.getAmount() >= amount;
 				}
@@ -66,7 +66,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		buffer.writeInt(amount);
 		buffer.writeVarInt(matchingFluids.length);
 		
-		for (FluidStack stack : matchingFluids) {
+		for (final FluidStack stack : matchingFluids) {
 			buffer.writeFluidStack(stack);
 		}
 	}
@@ -89,7 +89,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		} else {
 			final JsonArray jsonArray = new JsonArray();
 			
-			for (IFluidList list : acceptedFluids) {
+			for (final IFluidList list : acceptedFluids) {
 				jsonArray.add(list.serialize());
 			}
 			jsonObject.add("fluids", jsonArray);
@@ -166,10 +166,12 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			this.stack = stack;
 		}
 		
+		@Override
 		public Collection<FluidStack> getStacks() {
 			return Collections.singleton(stack);
 		}
 		
+		@Override
 		public JsonObject serialize() {
 			final JsonObject jsonObject = new JsonObject();
 			jsonObject.addProperty("fluid", ForgeRegistries.FLUIDS.getKey(this.stack.getFluid()).toString());
@@ -185,10 +187,11 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			this.tag = tag;
 		}
 		
+		@Override
 		public Collection<FluidStack> getStacks() {
 			final List<FluidStack> list = Lists.newArrayList();
 			
-			for (Fluid fluid : tag.getAllElements()) {
+			for (final Fluid fluid : tag.getAllElements()) {
 				list.add(new FluidStack(fluid, 1000));
 			}
 			
@@ -198,6 +201,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			return list;
 		}
 		
+		@Override
 		public JsonObject serialize() {
 			final JsonObject jsonObject = new JsonObject();
 			jsonObject.addProperty("tag", TagCollectionManager.getManager().getFluidTags().getValidatedIdFromTag(tag).toString());
