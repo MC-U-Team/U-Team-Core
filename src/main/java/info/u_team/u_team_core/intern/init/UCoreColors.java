@@ -9,10 +9,10 @@ import net.minecraftforge.eventbus.api.IEventBus;
 public class UCoreColors {
 	
 	private static void colorItem(ColorHandlerEvent.Item event) {
-		event.getItemColors().register((itemstack, index) -> {
-			final Item item = itemstack.getItem();
+		event.getItemColors().register((stack, index) -> {
+			final Item item = stack.getItem();
 			if (item instanceof IDyeableItem) {
-				return ((IDyeableItem) item).getColor(itemstack);
+				return ((IDyeableItem) item).getColor(stack);
 			}
 			return 0;
 		}, DyeableItemsRegistry.getDyeableItems().stream().toArray(Item[]::new));
