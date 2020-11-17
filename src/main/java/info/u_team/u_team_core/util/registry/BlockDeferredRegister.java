@@ -26,7 +26,7 @@ public class BlockDeferredRegister {
 	protected BlockDeferredRegister(String modid) {
 		blocks = CommonDeferredRegister.create(ForgeRegistries.BLOCKS, modid);
 		items = CommonDeferredRegister.create(ForgeRegistries.ITEMS, modid);
-		blockToItemsMap = new HashMap<>();
+		blockToItemsMap = new LinkedHashMap<>();
 	}
 	
 	public <B extends Block & IBlockItemProvider, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
