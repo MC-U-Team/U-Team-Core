@@ -70,7 +70,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		return tagToBuilder.computeIfAbsent(tag.getName(), location -> new UniqueBuilder());
 	}
 	
-	protected static class BetterBuilder<T> {
+	public static class BetterBuilder<T> {
 		
 		private final Registry<T> registry;
 		private final TagsProvider.Builder<T> internalBuilder;
