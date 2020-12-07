@@ -15,7 +15,7 @@ public class GenerationData {
 	private CommonBlockTagsProvider blockTagsProvider;
 	
 	public GenerationData(String modid, GatherDataEvent event) {
-		this(modid, event.getGenerator(), new ExistingFileHelperWithForge(event.getExistingFileHelper()));
+		this(modid, event.getGenerator(), event.getExistingFileHelper());
 	}
 	
 	public GenerationData(String modid, DataGenerator generator, ExistingFileHelper existingFileHelper) {
