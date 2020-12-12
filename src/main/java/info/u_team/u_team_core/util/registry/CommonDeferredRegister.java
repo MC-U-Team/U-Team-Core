@@ -45,7 +45,7 @@ public class CommonDeferredRegister<R extends IForgeRegistryEntry<R>> implements
 	
 	@Override
 	public Iterator<RegistryObject<R>> iterator() {
-		return register.getEntries().iterator();
+		return getEntries().iterator();
 	}
 	
 }
