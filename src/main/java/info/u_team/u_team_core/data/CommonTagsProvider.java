@@ -14,15 +14,20 @@ import net.minecraft.tags.*;
 import net.minecraft.tags.ITag.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraftforge.common.data.ExistingFileHelper.*;
 
 public abstract class CommonTagsProvider<T> extends CommonProvider {
 	
 	protected final Registry<T> registry;
-	protected final Map<ResourceLocation, ITag.Builder> tagToBuilder = Maps.newLinkedHashMap();
+	protected final Map<ResourceLocation, ITag.Builder> tagToBuilder;
+	
+	protected final IResourceType resourceType;
 	
 	public CommonTagsProvider(GenerationData data, Registry<T> registry) {
 		super(data);
 		this.registry = registry;
+		this.tagToBuilder = Maps.newLinkedHashMap();
+		resourceType = new ResourceType(ResourcePackType.SERVER_DATA, ".json", "tags/" + getTagFolder());
 	}
 	
 	protected abstract void registerTags();
@@ -50,7 +55,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	private boolean missing(Proxy proxy) {
 		final ITagEntry entry = proxy.getEntry();
 		if (entry instanceof TagEntry) {
-			return !data.getExistingFileHelper().exists(((TagEntry) entry).id, ResourcePackType.SERVER_DATA, ".json", "tags/" + getTagFolder());
+			return !data.getExistingFileHelper().exists(((TagEntry) entry).id, resourceType);
 		}
 		return false;
 	}
@@ -67,7 +72,10 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	}
 	
 	protected ITag.Builder getTagBuilder(ITag.INamedTag<T> tag) {
-		return tagToBuilder.computeIfAbsent(tag.getName(), location -> new UniqueBuilder());
+		return tagToBuilder.computeIfAbsent(tag.getName(), location -> {
+			data.getExistingFileHelper().trackGenerated(location, resourceType);
+			return new UniqueBuilder();
+		});
 	}
 	
 	public static class BetterBuilder<T> {
