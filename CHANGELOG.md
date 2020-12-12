@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.4-3.1.16.190] - 2020-12-12
+### Changed
+ - Update to forge 35.1.13
+
 ## [1.16.4-3.1.15.189] - 2020-12-08
 ### Changed
  - Make the BetterBuilder in CommonTagsProvider public
