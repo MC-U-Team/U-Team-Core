@@ -136,6 +136,15 @@ public abstract class UContainer extends FluidContainer {
 	}
 	
 	/**
+	 * Return the current {@link IContainerListener} that are subscribed to our container
+	 * 
+	 * @return Container listener
+	 */
+	protected List<IContainerListener> getListeners() {
+		return listeners;
+	}
+	
+	/**
 	 * This methods adds a player inventory to the container.
 	 * 
 	 * @param playerInventory Player inventory
