@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.4-3.1.17.191] - 2020-12-19
+### Changed
+ - Expose some private fields with methods in the container class
+ - Add method to add new render materials that should be loaded and stitched
+
 ## [1.16.4-3.1.16.190] - 2020-12-12
 ### Changed
  - Update to forge 35.1.13
