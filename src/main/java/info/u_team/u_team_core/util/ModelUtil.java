@@ -47,6 +47,11 @@ public class ModelUtil {
 		LOCATIONS_BUILTIN_TEXTURES.add(material);
 	}
 	
+	/**
+	 * Utility class for an empty state container
+	 * 
+	 * @author HyCraftHD
+	 */
 	public static class EmptyStateContainer extends StateContainer<Block, BlockState> {
 		
 		public EmptyStateContainer(Block block) {
