@@ -11,6 +11,7 @@ import info.u_team.u_team_core.screen.UContainerScreen;
 import net.minecraft.entity.player.*;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.*;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.*;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -142,6 +143,16 @@ public abstract class UContainer extends FluidContainer {
 	 */
 	protected List<IContainerListener> getListeners() {
 		return listeners;
+	}
+	
+	/**
+	 * Returns a list of item stacks that are in the Slots in the container. This list is used to compare if something
+	 * changed and needs to be synchronized to the client with the {@link #detectAndSendChanges()} method
+	 * 
+	 * @return ItemStack list
+	 */
+	protected List<ItemStack> getInventoryItemStacks() {
+		return inventoryItemStacks;
 	}
 	
 	/**
