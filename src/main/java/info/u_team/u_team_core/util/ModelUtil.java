@@ -1,12 +1,13 @@
 package info.u_team.u_team_core.util;
 
-import static net.minecraft.client.renderer.model.ModelBakery.STATE_CONTAINER_OVERRIDES;
+import static net.minecraft.client.renderer.model.ModelBakery.*;
 
 import java.util.*;
 
 import com.google.common.collect.*;
 
 import net.minecraft.block.*;
+import net.minecraft.client.renderer.model.RenderMaterial;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.ResourceLocation;
 
@@ -22,6 +23,10 @@ public class ModelUtil {
 	
 	public static void addCustomStateContainer(ResourceLocation location, StateContainer<Block, BlockState> container) {
 		STATE_CONTAINER_OVERRIDES.put(location, container);
+	}
+	
+	public static void addTexture(RenderMaterial material) {
+		LOCATIONS_BUILTIN_TEXTURES.add(material);
 	}
 	
 	public static class EmptyStateContainer extends StateContainer<Block, BlockState> {
