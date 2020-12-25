@@ -80,7 +80,7 @@ public class ScalingTextRender {
 	protected void updatedText() {
 	}
 	
-	public void draw(MatrixStack matrixStack, float x, float y) {
+	public void render(MatrixStack matrixStack, float x, float y) {
 		// Get new text and set if has changed
 		setText(textSupplier.get());
 		renderFont(matrixStack, x, y);
@@ -96,7 +96,7 @@ public class ScalingTextRender {
 	
 	@Deprecated
 	public void draw(float x, float y) {
-		draw(new MatrixStack(), x, y);
+		render(new MatrixStack(), x, y);
 	}
 	
 	@Deprecated

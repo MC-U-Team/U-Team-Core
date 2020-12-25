@@ -69,7 +69,7 @@ public class ScrollingTextRender extends ScalingTextRender {
 	}
 	
 	@Override
-	public void draw(MatrixStack matrixStack, float x, float y) {
+	public void render(MatrixStack matrixStack, float x, float y) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		final MainWindow window = minecraft.getMainWindow();
 		
@@ -87,7 +87,7 @@ public class ScrollingTextRender extends ScalingTextRender {
 		GL11.glScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 		// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0xFF00FF00); // test scissor
 		
-		super.draw(matrixStack, getMovingX(x), y + 2);
+		super.render(matrixStack, getMovingX(x), y + 2);
 		
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
 		GL11.glPopMatrix();
