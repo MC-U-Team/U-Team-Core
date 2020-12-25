@@ -4,8 +4,10 @@ import java.util.function.Supplier;
 
 import org.lwjgl.opengl.GL11;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+
 import net.minecraft.client.*;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.*;
 import net.minecraft.util.math.MathHelper;
 
 public class ScrollingTextRender extends ScalingTextRender {
@@ -67,7 +69,7 @@ public class ScrollingTextRender extends ScalingTextRender {
 	}
 	
 	@Override
-	public void draw(float x, float y) {
+	public void draw(MatrixStack matrixStack, float x, float y) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		final MainWindow window = minecraft.getMainWindow();
 		
@@ -83,9 +85,9 @@ public class ScrollingTextRender extends ScalingTextRender {
 		GL11.glEnable(GL11.GL_SCISSOR_TEST);
 		
 		GL11.glScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
-		// AbstractGui.fill(0, 0, window.getScaledWidth(), window.getScaledHeight(), 0xFF00FF00); // test scissor
+		// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0xFF00FF00); // test scissor
 		
-		super.draw(getMovingX(x), y + 2);
+		super.draw(matrixStack, getMovingX(x), y + 2);
 		
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
 		GL11.glPopMatrix();
