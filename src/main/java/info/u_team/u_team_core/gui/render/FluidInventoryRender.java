@@ -38,7 +38,7 @@ public class FluidInventoryRender extends AbstractGui {
 		RenderSystem.disableBlend();
 	}
 	
-	protected TextureAtlasSprite getFluidSprite(FluidStack stack) {
+	private TextureAtlasSprite getFluidSprite(FluidStack stack) {
 		return Minecraft.getInstance().getAtlasSpriteGetter(ATLAS).apply(stack.getFluid().getAttributes().getStillTexture(stack));
 	}
 }
