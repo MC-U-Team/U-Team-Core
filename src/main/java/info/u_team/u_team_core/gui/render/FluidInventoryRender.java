@@ -11,11 +11,11 @@ import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
+@Deprecated
 public class FluidInventoryRender extends AbstractGui {
 	
 	private static final ResourceLocation ATLAS = PlayerContainer.LOCATION_BLOCKS_TEXTURE;
 	
-	@SuppressWarnings("deprecation")
 	public void drawFluid(MatrixStack matrixStack, int x, int y, FluidStack stack) {
 		if (stack == null || stack.isEmpty()) {
 			return;
