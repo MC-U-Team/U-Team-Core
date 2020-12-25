@@ -69,8 +69,8 @@ public class ButtonTestScreen extends Screen {
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		renderBackground(matrixStack);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
-		scalingRender.draw(matrixStack, 10, 145);
-		scrollingRender.draw(matrixStack, 10, 170);
+		scalingRender.render(matrixStack, 10, 145);
+		scrollingRender.render(matrixStack, 10, 170);
 	}
 	
 }
