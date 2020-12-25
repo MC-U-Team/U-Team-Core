@@ -3,7 +3,7 @@ package info.u_team.u_team_test.screen;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.gui.elements.*;
-import info.u_team.u_team_core.gui.render.*;
+import info.u_team.u_team_core.gui.renderer.*;
 import info.u_team.u_team_test.TestMod;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
@@ -18,9 +18,9 @@ public class ButtonTestScreen extends Screen {
 		super(new StringTextComponent("test"));
 	}
 	
-	private ScalingTextRender scalingRender;
+	private ScalingTextRenderer scalingRender;
 	
-	private ScrollingTextRender scrollingRender;
+	private ScrollingTextRenderer scrollingRender;
 	
 	@Override
 	protected void init() {
@@ -55,11 +55,11 @@ public class ButtonTestScreen extends Screen {
 			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
 		}));
 		
-		scalingRender = new ScalingTextRender(() -> font, () -> "This is a test for the scaling text renderer");
+		scalingRender = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer");
 		scalingRender.setColor(0xFFFFFF);
 		scalingRender.setScale(2);
 		
-		scrollingRender = new ScrollingTextRender(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling");
+		scrollingRender = new ScrollingTextRenderer(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling");
 		scrollingRender.setColor(0xFFFFFF);
 		scrollingRender.setWidth(200);
 		scrollingRender.setScale(0.75F);
