@@ -8,6 +8,7 @@ import net.minecraft.client.*;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.math.MathHelper;
 
+@Deprecated
 public class ScrollingTextRender extends ScalingTextRender {
 	
 	protected int width;
