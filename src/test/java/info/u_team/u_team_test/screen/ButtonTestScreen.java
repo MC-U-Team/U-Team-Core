@@ -57,18 +57,20 @@ public class ButtonTestScreen extends Screen {
 		
 		scalingRender = new ScalingTextRender(() -> font, () -> "This is a test for the scaling text renderer");
 		scalingRender.setColor(0xFFFFFF);
+		scalingRender.setScale(2);
 		
 		scrollingRender = new ScrollingTextRender(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling");
 		scrollingRender.setColor(0xFFFFFF);
 		scrollingRender.setWidth(200);
+		scrollingRender.setScale(0.75F);
 	}
 	
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		renderBackground(matrixStack);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
-		scalingRender.draw(10, 145);
-		scrollingRender.draw(10, 170);
+		scalingRender.draw(matrixStack, 10, 145);
+		scrollingRender.draw(matrixStack, 10, 170);
 	}
 	
 }
