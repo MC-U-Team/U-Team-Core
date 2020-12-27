@@ -22,9 +22,9 @@ public class ButtonTestScreen extends Screen {
 		super(new StringTextComponent("test"));
 	}
 	
-	private ScalingTextRenderer scalingRender;
+	private ScalingTextRenderer scalingRenderer;
 	
-	private ScrollingTextRenderer scrollingRender;
+	private ScrollingTextRenderer scrollingRenderer;
 	
 	@Override
 	protected void init() {
@@ -59,22 +59,22 @@ public class ButtonTestScreen extends Screen {
 			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
 		}));
 		
-		scalingRender = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer");
-		scalingRender.setColor(0xFFFFFF);
-		scalingRender.setScale(2);
+		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer");
+		scalingRenderer.setColor(0xFFFFFF);
+		scalingRenderer.setScale(2);
 		
-		scrollingRender = new ScrollingTextRenderer(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling");
-		scrollingRender.setColor(0xFFFFFF);
-		scrollingRender.setWidth(200);
-		scrollingRender.setScale(0.75F);
+		scrollingRenderer = new ScrollingTextRenderer(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling");
+		scrollingRenderer.setColor(0xFFFFFF);
+		scrollingRenderer.setWidth(200);
+		scrollingRenderer.setScale(0.75F);
 	}
 	
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		renderBackground(matrixStack);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
-		scalingRender.render(matrixStack, 10, 145);
-		scrollingRender.render(matrixStack, 10, 170);
+		scalingRenderer.render(matrixStack, 10, 145);
+		scrollingRenderer.render(matrixStack, 10, 170);
 		buttons.forEach(widget -> widget.renderToolTip(matrixStack, mouseX, mouseY));
 	}
 	
