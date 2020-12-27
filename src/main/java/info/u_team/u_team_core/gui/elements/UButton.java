@@ -69,22 +69,23 @@ public class UButton extends Button {
 		final Minecraft minecraft = Minecraft.getInstance();
 		final FontRenderer fontRenderer = minecraft.fontRenderer;
 		
-		ITextComponent message = getMessage();
-		
 		GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0, getCurrentButtonColor(matrixStack, mouseY, mouseY, partialTicks));
 		
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 		
-		final int messageWidth = fontRenderer.getStringPropertyWidth(message);
-		final int ellipsisWidth = fontRenderer.getStringWidth("...");
-		
-		if (messageWidth > width - 6 && messageWidth > ellipsisWidth) {
-			message = new StringTextComponent(fontRenderer.func_238417_a_(message, width - 6 - ellipsisWidth).getString() + "...");
+		ITextComponent message = getMessage();
+		if (message != StringTextComponent.EMPTY) {
+			final int messageWidth = fontRenderer.getStringPropertyWidth(message);
+			final int ellipsisWidth = fontRenderer.getStringWidth("...");
+			
+			if (messageWidth > width - 6 && messageWidth > ellipsisWidth) {
+				message = new StringTextComponent(fontRenderer.func_238417_a_(message, width - 6 - ellipsisWidth).getString() + "...");
+			}
+			
+			final float xStart = (x + (width / 2) - messageWidth / 2);
+			final float yStart = (y + ((int) (height - 8)) / 2);
+			
+			fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getFGColor());
 		}
-		
-		final float xStart = (x + (width / 2) - messageWidth / 2);
-		final float yStart = (y + ((int) (height - 8)) / 2);
-		
-		fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getFGColor());
 	}
 }
