@@ -45,7 +45,7 @@ public class GuiUtil {
 		AbstractGui.fill(matrixStack, x + width - 1, y + 1, x + width, y + height, brightColor);
 	}
 	
-	@SuppressWarnings("deprecation")
+	@Deprecated
 	public static void clearColor() {
 		RenderSystem.color4f(1, 1, 1, 1);
 	}
