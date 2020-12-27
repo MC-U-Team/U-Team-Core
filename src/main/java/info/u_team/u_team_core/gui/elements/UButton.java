@@ -2,14 +2,15 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import info.u_team.u_team_core.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.text.*;
-import net.minecraftforge.fml.client.gui.GuiUtils;
 
 /**
- * A button that fixes vanilla not drawing the continuous border if the button is smaller than 20.
+ * A button that fixes vanilla not drawing the continuous border if the button is smaller than 20. Also adds utility
+ * methods to add an {@link IPressable} and {@link ITooltip}
  * 
  * @author HyCraftHD
  */
@@ -19,6 +20,8 @@ public class UButton extends Button {
 	};
 	
 	protected static ITooltip EMPTY_TOOLTIP = field_238486_s_;
+	
+	protected RGBA buttonColor;
 	
 	public UButton(int x, int y, int width, int height, ITextComponent display) {
 		this(x, y, width, height, display, EMTPY_PRESSABLE);
@@ -34,6 +37,7 @@ public class UButton extends Button {
 	
 	public UButton(int x, int y, int width, int height, ITextComponent display, IPressable pessable, ITooltip tooltip) {
 		super(x, y, width, height, display, pessable);
+		buttonColor = RGBA.WHITE;
 	}
 	
 	public void setPressable(IPressable pressable) {
@@ -48,6 +52,14 @@ public class UButton extends Button {
 		onTooltip = tooltip;
 	}
 	
+	public RGBA getButtonColor() {
+		return buttonColor;
+	}
+	
+	public void setButtonColor(RGBA buttonColor) {
+		this.buttonColor = buttonColor;
+	}
+	
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
@@ -55,7 +67,8 @@ public class UButton extends Button {
 		
 		ITextComponent message = getMessage();
 		
-		GuiUtils.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0);
+		GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0, getButtonColor());
+		
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 		
 		final int messageWidth = fontRenderer.getStringPropertyWidth(message);
