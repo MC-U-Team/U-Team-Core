@@ -1,5 +1,7 @@
 package info.u_team.u_team_test.screen;
 
+import org.apache.logging.log4j.*;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.gui.elements.*;
@@ -10,6 +12,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.*;
 
 public class ButtonTestScreen extends Screen {
+	
+	private static final Logger LOGGER = LogManager.getLogger();
 	
 	private static final ResourceLocation TEXTURE1 = new ResourceLocation(TestMod.MODID, "textures/item/better_enderpearl.png");
 	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMod.MODID, "textures/item/basicitem.png");
@@ -24,9 +28,9 @@ public class ButtonTestScreen extends Screen {
 	
 	@Override
 	protected void init() {
-		addButton(new UButton(10, 10, 200, 15, ITextComponent.getTextComponentOrEmpty("U Button"), button -> System.out.println("Pressed UButton")));
+		addButton(new UButton(10, 10, 200, 15, ITextComponent.getTextComponentOrEmpty("U Button"), button -> LOGGER.info("Pressed UButton")));
 		
-		addButton(new BetterButton(10, 30, 200, 15, 0.75F, ITextComponent.getTextComponentOrEmpty("Better button"), button -> System.out.println("Pressed UButton")));
+		addButton(new ScalableButton(10, 30, 200, 15, 0.75F, ITextComponent.getTextComponentOrEmpty("Better button"), button -> LOGGER.info("Pressed ScalableButton")));
 		
 		final ActiveButton activeButton = addButton(new ActiveButton(10, 50, 200, 15, ITextComponent.getTextComponentOrEmpty("Basic Test button"), 0x006442FF));
 		activeButton.setPressable(() -> {
