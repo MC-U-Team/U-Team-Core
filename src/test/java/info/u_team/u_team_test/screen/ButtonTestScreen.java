@@ -6,6 +6,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.gui.elements.*;
 import info.u_team.u_team_core.gui.renderer.*;
+import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_test.TestMod;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
@@ -30,7 +31,7 @@ public class ButtonTestScreen extends Screen {
 	protected void init() {
 		// U Button Test
 		final UButton uButton = addButton(new UButton(10, 10, 200, 15, ITextComponent.getTextComponentOrEmpty("U Button")));
-		uButton.setPressable(() -> LOGGER.info("Pressed UButton"));
+		uButton.setPressable(() -> LOGGER.info("Pressed U Button"));
 		uButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("U Button Tooltip"), mouseX, mouseY);
@@ -38,15 +39,16 @@ public class ButtonTestScreen extends Screen {
 		});
 		
 		// Scalable Button Test
-		final ScalableButton scalableButton = addButton(new ScalableButton(10, 30, 200, 15, ITextComponent.getTextComponentOrEmpty("Better button"), 0.75F));
-		scalableButton.setPressable(button -> LOGGER.info("Pressed ScalableButton"));
+		final ScalableButton scalableButton = addButton(new ScalableButton(10, 30, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Button"), 0.75F));
+		scalableButton.setPressable(button -> LOGGER.info("Pressed Scalable Button"));
 		scalableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
-				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("ScalableButton Tooltip"), mouseX, mouseY);
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
-		final ActiveButton activeButton = addButton(new ActiveButton(10, 50, 200, 15, ITextComponent.getTextComponentOrEmpty("Basic Test button"), 0x006442FF));
+		// Scalable Active Button Test
+		final ScalableActiveButton activeButton = addButton(new ScalableActiveButton(10, 50, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Active Button"), 0.75F, false, new RGBA(0x006442FF)));
 		activeButton.setPressable(() -> {
 			System.out.println("Pressed ActiveButton");
 			activeButton.setActive(!activeButton.isActive());
