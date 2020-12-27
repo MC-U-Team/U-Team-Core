@@ -38,7 +38,7 @@ public class ButtonTestScreen extends Screen {
 		});
 		
 		// Scalable Button Test
-		final ScalableButton scalableButton = addButton(new ScalableButton(10, 30, 200, 15, 0.75F, ITextComponent.getTextComponentOrEmpty("Better button")));
+		final ScalableButton scalableButton = addButton(new ScalableButton(10, 30, 200, 15, ITextComponent.getTextComponentOrEmpty("Better button"), 0.75F));
 		scalableButton.setPressable(button -> LOGGER.info("Pressed ScalableButton"));
 		scalableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
