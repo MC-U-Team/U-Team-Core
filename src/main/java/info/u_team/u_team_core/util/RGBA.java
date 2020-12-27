@@ -11,6 +11,8 @@ import net.minecraftforge.api.distmarker.*;
  */
 public class RGBA {
 	
+	public static final RGBA WHITE = new RGBA(0xFFFFFFFF);
+	
 	private final int red, green, blue, alpha;
 	
 	/**
