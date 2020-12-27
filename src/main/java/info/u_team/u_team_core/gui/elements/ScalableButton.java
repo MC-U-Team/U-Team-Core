@@ -3,11 +3,11 @@ package info.u_team.u_team_core.gui.elements;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.api.gui.IScaleable;
+import info.u_team.u_team_core.util.GuiUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.*;
-import net.minecraftforge.fml.client.gui.GuiUtils;
 
 public class ScalableButton extends UButton implements IScaleable {
 	
@@ -45,7 +45,8 @@ public class ScalableButton extends UButton implements IScaleable {
 		
 		ITextComponent message = getMessage();
 		
-		GuiUtils.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0);
+		GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0, getButtonColor());
+		
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 		
 		final int messageWidth = MathHelper.ceil(scale * fontRenderer.getStringPropertyWidth(message));
