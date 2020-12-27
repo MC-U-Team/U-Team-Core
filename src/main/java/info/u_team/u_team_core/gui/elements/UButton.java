@@ -65,6 +65,9 @@ public class UButton extends Button {
 			message = new StringTextComponent(fontRenderer.func_238417_a_(message, width - 6 - ellipsisWidth).getString() + "...");
 		}
 		
-		drawCenteredString(matrixStack, fontRenderer, message, x + width / 2, y + (height - 8) / 2, getFGColor());
+		final float xStart = (x + (width / 2) - messageWidth / 2);
+		final float yStart = (y + ((int) (height - 8)) / 2);
+		
+		fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getFGColor());
 	}
 }
