@@ -48,7 +48,7 @@ public class ScalableButton extends UButton implements IScaleable {
 			
 			ITextComponent message = getMessage();
 			
-			GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0, getButtonColor());
+			GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0, getCurrentButtonColor(matrixStack, mouseX, mouseY, partialTicks));
 			
 			renderBg(matrixStack, minecraft, mouseX, mouseY);
 			
