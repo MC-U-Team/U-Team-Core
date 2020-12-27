@@ -11,20 +11,20 @@ public class ScalableActiveButton extends ScalableButton {
 	
 	protected RGBA activeColor;
 	
-	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent display, float scale, boolean active, RGBA activeColor) {
-		this(x, y, width, height, display, scale, active, activeColor, EMTPY_PRESSABLE);
+	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean active, RGBA activeColor) {
+		this(x, y, width, height, text, scale, active, activeColor, EMTPY_PRESSABLE);
 	}
 	
-	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent display, float scale, boolean active, RGBA activeColor, IPressable pessable) {
-		this(x, y, width, height, display, scale, active, activeColor, pessable, EMPTY_TOOLTIP);
+	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean active, RGBA activeColor, IPressable pessable) {
+		this(x, y, width, height, text, scale, active, activeColor, pessable, EMPTY_TOOLTIP);
 	}
 	
-	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent display, float scale, boolean active, RGBA activeColor, ITooltip tooltip) {
-		this(x, y, width, height, display, scale, active, activeColor, EMTPY_PRESSABLE, tooltip);
+	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean active, RGBA activeColor, ITooltip tooltip) {
+		this(x, y, width, height, text, scale, active, activeColor, EMTPY_PRESSABLE, tooltip);
 	}
 	
-	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent display, float scale, boolean active, RGBA activeColor, IPressable pessable, ITooltip tooltip) {
-		super(x, y, width, height, display, scale, pessable, tooltip);
+	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean active, RGBA activeColor, IPressable pessable, ITooltip tooltip) {
+		super(x, y, width, height, text, scale, pessable, tooltip);
 		this.active = active;
 		this.activeColor = activeColor;
 	}

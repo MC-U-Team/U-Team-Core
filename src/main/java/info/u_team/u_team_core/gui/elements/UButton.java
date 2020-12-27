@@ -23,20 +23,20 @@ public class UButton extends Button {
 	
 	protected RGBA buttonColor;
 	
-	public UButton(int x, int y, int width, int height, ITextComponent display) {
-		this(x, y, width, height, display, EMTPY_PRESSABLE);
+	public UButton(int x, int y, int width, int height, ITextComponent text) {
+		this(x, y, width, height, text, EMTPY_PRESSABLE);
 	}
 	
-	public UButton(int x, int y, int width, int height, ITextComponent display, IPressable pessable) {
-		this(x, y, width, height, display, pessable, EMPTY_TOOLTIP);
+	public UButton(int x, int y, int width, int height, ITextComponent text, IPressable pessable) {
+		this(x, y, width, height, text, pessable, EMPTY_TOOLTIP);
 	}
 	
-	public UButton(int x, int y, int width, int height, ITextComponent display, ITooltip tooltip) {
-		this(x, y, width, height, display, EMTPY_PRESSABLE, tooltip);
+	public UButton(int x, int y, int width, int height, ITextComponent text, ITooltip tooltip) {
+		this(x, y, width, height, text, EMTPY_PRESSABLE, tooltip);
 	}
 	
-	public UButton(int x, int y, int width, int height, ITextComponent display, IPressable pessable, ITooltip tooltip) {
-		super(x, y, width, height, display, pessable);
+	public UButton(int x, int y, int width, int height, ITextComponent text, IPressable pessable, ITooltip tooltip) {
+		super(x, y, width, height, text, pessable);
 		buttonColor = RGBA.WHITE;
 	}
 	
