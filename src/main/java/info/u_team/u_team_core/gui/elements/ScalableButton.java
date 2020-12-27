@@ -13,19 +13,19 @@ public class ScalableButton extends UButton implements IScaleable {
 	
 	protected float scale;
 	
-	public ScalableButton(int x, int y, int width, int height, float scale, ITextComponent display) {
-		this(x, y, width, height, scale, display, EMTPY_PRESSABLE);
+	public ScalableButton(int x, int y, int width, int height, ITextComponent display, float scale) {
+		this(x, y, width, height, display, scale, EMTPY_PRESSABLE);
 	}
 	
-	public ScalableButton(int x, int y, int width, int height, float scale, ITextComponent display, IPressable pessable) {
-		this(x, y, width, height, scale, display, pessable, EMPTY_TOOLTIP);
+	public ScalableButton(int x, int y, int width, int height, ITextComponent display, float scale, IPressable pessable) {
+		this(x, y, width, height, display, scale, pessable, EMPTY_TOOLTIP);
 	}
 	
-	public ScalableButton(int x, int y, int width, int height, float scale, ITextComponent display, ITooltip tooltip) {
-		this(x, y, width, height, scale, display, EMTPY_PRESSABLE, tooltip);
+	public ScalableButton(int x, int y, int width, int height, ITextComponent display, float scale, ITooltip tooltip) {
+		this(x, y, width, height, display, scale, EMTPY_PRESSABLE, tooltip);
 	}
 	
-	public ScalableButton(int x, int y, int width, int height, float scale, ITextComponent display, IPressable pessable, ITooltip tooltip) {
+	public ScalableButton(int x, int y, int width, int height, ITextComponent display, float scale, IPressable pessable, ITooltip tooltip) {
 		super(x, y, width, height, display, pessable, tooltip);
 		this.scale = scale;
 	}
