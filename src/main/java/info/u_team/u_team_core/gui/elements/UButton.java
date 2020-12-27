@@ -28,6 +28,10 @@ public class UButton extends Button {
 		this(x, y, width, height, display, pessable, EMPTY_TOOLTIP);
 	}
 	
+	public UButton(int x, int y, int width, int height, ITextComponent display, ITooltip tooltip) {
+		this(x, y, width, height, display, EMTPY_PRESSABLE, tooltip);
+	}
+	
 	public UButton(int x, int y, int width, int height, ITextComponent display, IPressable pessable, ITooltip tooltip) {
 		super(x, y, width, height, display, pessable);
 	}
