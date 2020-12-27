@@ -75,6 +75,7 @@ public class ButtonTestScreen extends Screen {
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 		scalingRender.render(matrixStack, 10, 145);
 		scrollingRender.render(matrixStack, 10, 170);
+		buttons.forEach(widget -> widget.renderToolTip(matrixStack, mouseX, mouseY));
 	}
 	
 }
