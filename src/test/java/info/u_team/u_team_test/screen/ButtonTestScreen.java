@@ -28,9 +28,23 @@ public class ButtonTestScreen extends Screen {
 	
 	@Override
 	protected void init() {
-		addButton(new UButton(10, 10, 200, 15, ITextComponent.getTextComponentOrEmpty("U Button"), button -> LOGGER.info("Pressed UButton")));
+		// U Button Test
+		final UButton uButton = addButton(new UButton(10, 10, 200, 15, ITextComponent.getTextComponentOrEmpty("U Button")));
+		uButton.setPressable(() -> LOGGER.info("Pressed UButton"));
+		uButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("U Button Tooltip"), mouseX, mouseY);
+			}
+		});
 		
-		addButton(new ScalableButton(10, 30, 200, 15, 0.75F, ITextComponent.getTextComponentOrEmpty("Better button"), button -> LOGGER.info("Pressed ScalableButton")));
+		// Scalable Button Test
+		final ScalableButton scalableButton = addButton(new ScalableButton(10, 30, 200, 15, 0.75F, ITextComponent.getTextComponentOrEmpty("Better button")));
+		scalableButton.setPressable(button -> LOGGER.info("Pressed ScalableButton"));
+		scalableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("ScalableButton Tooltip"), mouseX, mouseY);
+			}
+		});
 		
 		final ActiveButton activeButton = addButton(new ActiveButton(10, 50, 200, 15, ITextComponent.getTextComponentOrEmpty("Basic Test button"), 0x006442FF));
 		activeButton.setPressable(() -> {
