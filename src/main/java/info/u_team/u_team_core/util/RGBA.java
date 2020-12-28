@@ -142,6 +142,7 @@ public class RGBA {
 	 * Calls {@link GL11#glColor4f(float, float, float, float)} to color something with gl
 	 */
 	@OnlyIn(Dist.CLIENT)
+	@Deprecated
 	public void glColor() {
 		GL11.glColor4f(getRedComponent(), getGreenComponent(), getBlueComponent(), getAlphaComponent());
 	}
