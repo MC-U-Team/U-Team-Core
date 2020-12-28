@@ -70,6 +70,19 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
+		
+		final ImageButton imageButton2 = addButton(new ImageButton(30, 70, 20, 20, TEXTURE1));
+		imageButton2.setButtonColor(new RGBA(0xFFFF2080));
+		imageButton2.setImageColor(new RGBA(0x00FFFF80));
+		imageButton2.setPressable(() -> {
+			System.out.println("Pressed Image Button 2");
+		});
+		imageButton2.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Image Button 2 Tooltip"), mouseX, mouseY);
+			}
+		});
+		
 		final ActiveImageButton activeImageButton = addButton(new ActiveImageButton(10, 90, 20, 20, TEXTURE1, 0x006442FF));
 		activeImageButton.setPressable(() -> {
 			System.out.println("Pressed ActiveImageButton");
