@@ -49,14 +49,14 @@ public class ButtonTestScreen extends Screen {
 		});
 		
 		// Scalable Active Button Test
-		final ScalableActiveButton activeButton = addButton(new ScalableActiveButton(10, 50, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Active Button"), 0.75F, false, new RGBA(0x006442FF)));
-		activeButton.setPressable(() -> {
-			System.out.println("Pressed Scalable Active Button");
-			activeButton.setActive(!activeButton.isActive());
+		final ScalableActivatableButton activatedButton = addButton(new ScalableActivatableButton(10, 50, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Activated Button"), 0.75F, false, new RGBA(0x006442FF)));
+		activatedButton.setPressable(() -> {
+			System.out.println("Pressed Scalable Activated Button");
+			activatedButton.setActivated(!activatedButton.isActivated());
 		});
-		activeButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+		activatedButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
-				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Active Button Tooltip"), mouseX, mouseY);
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Activated Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
