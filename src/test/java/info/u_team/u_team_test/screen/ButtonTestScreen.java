@@ -84,7 +84,7 @@ public class ButtonTestScreen extends Screen {
 		});
 		
 		// Image Activatable Button Test
-		final ImageActivatableButton imageActivatableButton = addButton(new ImageActivatableButton(10, 90, 20, 20, TEXTURE1, false, new RGBA(0x006442FF)));
+		final ImageActivatableButton imageActivatableButton = addButton(new ImageActivatableButton(10, 90, 15, 15, TEXTURE1, false, new RGBA(0x006442FF)));
 		imageActivatableButton.setPressable(() -> {
 			System.out.println("Pressed Image Activatable Button");
 			imageActivatableButton.setActivated(!imageActivatableButton.isActivated());
@@ -95,9 +95,27 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		final ToggleImageButton toggleImageButton = addButton(new ToggleImageButton(10, 115, 20, 20, TEXTURE1, TEXTURE2));
-		toggleImageButton.setPressable(() -> {
-			System.out.println("Pressed ToggleImageButton");
+		// Image Toggle Button Test
+		final ImageToggleButton imageToggleButton = addButton(new ImageToggleButton(10, 110, 15, 15, TEXTURE1, TEXTURE2, false));
+		imageToggleButton.setPressable(() -> {
+			System.out.println("Pressed Image Toggle Button");
+		});
+		imageToggleButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Image Toggle Button Tooltip"), mouseX, mouseY);
+			}
+		});
+		
+		final ImageToggleButton imageToggleButton2 = addButton(new ImageToggleButton(30, 110, 15, 15, TEXTURE1, TEXTURE1, false));
+		imageToggleButton2.setImageColor(new RGBA(0x0000FFFF));
+		imageToggleButton2.setToggleImageColor(new RGBA(0xFF0000FF));
+		imageToggleButton2.setPressable(() -> {
+			System.out.println("Pressed Image Toggle Button 2");
+		});
+		imageToggleButton2.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Image Toggle Button 2 Tooltip"), mouseX, mouseY);
+			}
 		});
 		
 		addButton(new BetterFontSlider(300, 10, 200, 15, ITextComponent.getTextComponentOrEmpty("Test: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 0.75F, slider -> {
