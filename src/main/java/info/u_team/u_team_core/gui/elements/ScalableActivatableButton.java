@@ -5,25 +5,25 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.util.text.ITextComponent;
 
-public class ScalableActiveButton extends ScalableButton {
+public class ScalableActivatableButton extends ScalableButton {
 	
 	protected boolean activated;
 	
 	protected RGBA activatedColor;
 	
-	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor) {
+	public ScalableActivatableButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor) {
 		this(x, y, width, height, text, scale, activated, activatedColor, EMTPY_PRESSABLE);
 	}
 	
-	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor, IPressable pessable) {
+	public ScalableActivatableButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor, IPressable pessable) {
 		this(x, y, width, height, text, scale, activated, activatedColor, pessable, EMPTY_TOOLTIP);
 	}
 	
-	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor, ITooltip tooltip) {
+	public ScalableActivatableButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor, ITooltip tooltip) {
 		this(x, y, width, height, text, scale, activated, activatedColor, EMTPY_PRESSABLE, tooltip);
 	}
 	
-	public ScalableActiveButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor, IPressable pessable, ITooltip tooltip) {
+	public ScalableActivatableButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor, IPressable pessable, ITooltip tooltip) {
 		super(x, y, width, height, text, scale, pessable, tooltip);
 		this.activated = activated;
 		this.activatedColor = activatedColor;
