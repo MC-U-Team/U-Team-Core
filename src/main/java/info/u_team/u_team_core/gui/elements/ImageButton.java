@@ -3,6 +3,7 @@ package info.u_team.u_team_core.gui.elements;
 import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.util.*;
 import net.minecraft.client.Minecraft;
@@ -68,7 +69,9 @@ public class ImageButton extends UButton {
 	@Override
 	protected void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		minecraft.getTextureManager().bindTexture(image);
-		GuiUtil.addTexturedColoredQuad(matrixStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 0, 1, 0, 1, imageColor);
+		RenderSystem.enableBlend();
+		GuiUtil.addTexturedColoredQuad(matrixStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, imageColor);
+		RenderSystem.disableBlend();
 	}
 	
 	@Deprecated
