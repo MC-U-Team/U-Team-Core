@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.util.*;
 import net.minecraft.client.Minecraft;
@@ -63,9 +62,10 @@ public class UButton extends Button {
 	
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		RenderSystem.enableBlend();
+		RenderUtil.enableBlend();
+		RenderUtil.defaultBlendFunc();
 		GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0, getCurrentButtonColor(matrixStack, mouseY, mouseY, partialTicks));
-		RenderSystem.disableBlend();
+		RenderUtil.disableBlend();
 		
 		final Minecraft minecraft = Minecraft.getInstance();
 		
