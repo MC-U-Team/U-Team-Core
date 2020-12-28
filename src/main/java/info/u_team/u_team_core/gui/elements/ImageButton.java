@@ -35,7 +35,7 @@ public class ImageButton extends UButton {
 		super(x, y, width, height, StringTextComponent.EMPTY, pessable, tooltip);
 		this.image = image;
 		this.resource = image;
-		imageColor = RGBA.WHITE;
+		imageColor = WHITE;
 	}
 	
 	@Deprecated
