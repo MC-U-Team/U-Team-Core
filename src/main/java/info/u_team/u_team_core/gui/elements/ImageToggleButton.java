@@ -32,6 +32,22 @@ public class ImageToggleButton extends ImageButton {
 		this.toggled = toggled;
 	}
 	
+	public ResourceLocation getToggleImage() {
+		return toggleImage;
+	}
+	
+	public void setToggleImage(ResourceLocation toggleImage) {
+		this.toggleImage = toggleImage;
+	}
+	
+	public RGBA getToggleImageColor() {
+		return toggleImageColor;
+	}
+	
+	public void setToggleImageColor(RGBA toggleImageColor) {
+		this.toggleImageColor = toggleImageColor;
+	}
+	
 	public boolean isToggled() {
 		return toggled;
 	}
