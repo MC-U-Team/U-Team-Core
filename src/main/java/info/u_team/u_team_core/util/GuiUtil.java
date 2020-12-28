@@ -4,6 +4,7 @@ import org.lwjgl.opengl.GL11;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
@@ -156,7 +157,7 @@ public class GuiUtil {
 	}
 	
 	/**
-	 * Adds a textured rectangle with that can be colored to the buffer builder. The vertex format must be
+	 * Adds a textured rectangle that can be colored to the buffer builder. The vertex format must be
 	 * {@link DefaultVertexFormats#POSITION_COLOR_TEX} and the glMode must be {@link GL11#GL_QUADS}
 	 * 
 	 * @param bufferBuilder The buffer builder to add the vertices
@@ -177,6 +178,43 @@ public class GuiUtil {
 		bufferBuilder.pos(matrix, x + width, y + height, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).tex((u + width) * uScale, ((v + height) * vScale)).endVertex();
 		bufferBuilder.pos(matrix, x + width, y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).tex((u + width) * uScale, (v * vScale)).endVertex();
 		bufferBuilder.pos(matrix, x, y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).tex(u * uScale, (v * vScale)).endVertex();
+	}
+	
+	/**
+	 * Adds a textured quad that can be colored to the buffer builder. The vertex format must be
+	 * {@link DefaultVertexFormats#POSITION_COLOR_TEX} and the glMode must be {@link GL11#GL_QUADS}
+	 * 
+	 * @param bufferBuilder The buffer builder to add the vertices
+	 * @param matrixStack The gui matrix stack
+	 * @param x1 X1 coordinate of the drawing
+	 * @param x2 X2 coordinate of the drawing
+	 * @param y1 Y1 coordinate of the drawing
+	 * @param y2 Y2 coordinate of the drawing
+	 * @param u1 U1 coordinate of the image
+	 * @param u2 U2 coordinate of the image
+	 * @param v1 V1 coordinate of the image
+	 * @param v2 V2 coordinate of the image
+	 * @param zLevel zLevel of the drawing
+	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
+	 */
+	public static void addTexturedColoredQuad(BufferBuilder bufferBuilder, MatrixStack matrixStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float zLevel, RGBA color) {
+		final Matrix4f matrix = matrixStack.getLast().getMatrix();
+		
+		addVertexColor(bufferBuilder.pos(matrix, x1, y2, zLevel), color).tex(u1, v2).endVertex();
+		addVertexColor(bufferBuilder.pos(matrix, x2, y2, zLevel), color).tex(u2, v2).endVertex();
+		addVertexColor(bufferBuilder.pos(matrix, x2, y1, zLevel), color).tex(u2, v1).endVertex();
+		addVertexColor(bufferBuilder.pos(matrix, x1, y1, zLevel), color).tex(u1, v1).endVertex();
+	}
+	
+	/**
+	 * Append the color of the RGBA to the current vetex on the vertex builder
+	 * 
+	 * @param builder The vertex builder
+	 * @param color The color to append
+	 * @return The vertex builder for chaining
+	 */
+	public static IVertexBuilder addVertexColor(IVertexBuilder builder, RGBA color) {
+		return builder.color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 	}
 	
 }
