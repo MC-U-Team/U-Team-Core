@@ -59,7 +59,16 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		addButton(new ImageButton(10, 70, 16, 16, TEXTURE1, button -> System.out.println("Pressed ImageButton")));
+		// Image Button Test
+		final ImageButton imageButton = addButton(new ImageButton(10, 70, 16, 16, TEXTURE1));
+		imageButton.setPressable(() -> {
+			System.out.println("Pressed Image Button");
+		});
+		imageButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Image Button Tooltip"), mouseX, mouseY);
+			}
+		});
 		
 		final ActiveImageButton activeImageButton = addButton(new ActiveImageButton(10, 90, 20, 20, TEXTURE1, 0x006442FF));
 		activeImageButton.setPressable(() -> {
