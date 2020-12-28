@@ -116,7 +116,7 @@ public class UButton extends Button {
 			final float xStart = (x + (width / 2) - messageWidth / 2);
 			final float yStart = (y + ((int) (height - 8)) / 2);
 			
-			fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColor());
+			fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
 	}
 	
