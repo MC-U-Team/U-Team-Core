@@ -104,7 +104,7 @@ public class UButton extends Button {
 	protected void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		final FontRenderer fontRenderer = minecraft.fontRenderer;
 		
-		ITextComponent message = getMessage();
+		ITextComponent message = getCurrentMessage();
 		if (message != StringTextComponent.EMPTY) {
 			final int messageWidth = fontRenderer.getStringPropertyWidth(message);
 			final int ellipsisWidth = fontRenderer.getStringWidth("...");
@@ -118,6 +118,10 @@ public class UButton extends Button {
 			
 			fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
+	}
+	
+	protected ITextComponent getCurrentMessage() {
+		return getMessage();
 	}
 	
 	protected RGBA getCurrentButtonColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
