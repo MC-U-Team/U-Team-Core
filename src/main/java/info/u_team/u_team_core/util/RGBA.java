@@ -16,7 +16,7 @@ public class RGBA {
 	private final int red, green, blue, alpha;
 	
 	private final int colorRGBA;
-	// private final int colorARGB;
+	private final int colorARGB;
 	
 	/**
 	 * Creates a new RGBA object from a color integer
@@ -29,6 +29,7 @@ public class RGBA {
 		blue = (color >> 8 & 255);
 		alpha = (color & 255);
 		colorRGBA = color;
+		colorARGB = ((this.alpha & 0x0ff) << 24) | ((this.red & 0x0ff) << 16) | ((this.green & 0x0ff) << 8) | (this.blue & 0x0ff);
 	}
 	
 	/**
@@ -45,6 +46,7 @@ public class RGBA {
 		this.blue = blue;
 		this.alpha = alpha;
 		colorRGBA = ((this.red & 0x0ff) << 24) | ((this.green & 0x0ff) << 16) | ((this.blue & 0x0ff) << 8) | (this.alpha & 0x0ff);
+		colorARGB = ((this.alpha & 0x0ff) << 24) | ((this.red & 0x0ff) << 16) | ((this.green & 0x0ff) << 8) | (this.blue & 0x0ff);
 	}
 	
 	/**
@@ -61,6 +63,7 @@ public class RGBA {
 		this.blue = (int) (blue * 255);
 		this.alpha = (int) (alpha * 255);
 		colorRGBA = ((this.red & 0x0ff) << 24) | ((this.green & 0x0ff) << 16) | ((this.blue & 0x0ff) << 8) | (this.alpha & 0x0ff);
+		colorARGB = ((this.alpha & 0x0ff) << 24) | ((this.red & 0x0ff) << 16) | ((this.green & 0x0ff) << 8) | (this.blue & 0x0ff);
 	}
 	
 	/**
@@ -142,6 +145,15 @@ public class RGBA {
 	 */
 	public int getColor() {
 		return colorRGBA;
+	}
+	
+	/**
+	 * Get the integer (hex) representation of this color in argb format
+	 * 
+	 * @return Color as an integer
+	 */
+	public int getColorARGB() {
+		return colorARGB;
 	}
 	
 	/**
