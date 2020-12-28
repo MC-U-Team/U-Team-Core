@@ -21,7 +21,12 @@ public class UButton extends Button {
 	
 	protected static ITooltip EMPTY_TOOLTIP = field_238486_s_;
 	
+	protected static final RGBA LIGHT_GRAY = new RGBA(0xA0A0A0FF);
+	
 	protected RGBA buttonColor;
+	
+	protected RGBA textColor;
+	protected RGBA disabledTextColor;
 	
 	public UButton(int x, int y, int width, int height, ITextComponent text) {
 		this(x, y, width, height, text, EMTPY_PRESSABLE);
@@ -38,6 +43,8 @@ public class UButton extends Button {
 	public UButton(int x, int y, int width, int height, ITextComponent text, IPressable pessable, ITooltip tooltip) {
 		super(x, y, width, height, text, pessable);
 		buttonColor = RGBA.WHITE;
+		textColor = RGBA.WHITE;
+		disabledTextColor = LIGHT_GRAY;
 	}
 	
 	public void setPressable(IPressable pressable) {
@@ -73,10 +80,6 @@ public class UButton extends Button {
 		renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 	
-	protected RGBA getCurrentButtonColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		return buttonColor;
-	}
-	
 	protected void renderBackground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 	}
@@ -96,7 +99,15 @@ public class UButton extends Button {
 			final float xStart = (x + (width / 2) - messageWidth / 2);
 			final float yStart = (y + ((int) (height - 8)) / 2);
 			
-			fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getFGColor());
+			fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColor());
 		}
+	}
+	
+	protected RGBA getCurrentButtonColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		return buttonColor;
+	}
+	
+	protected RGBA getCurrentTextColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		return active ? textColor : disabledTextColor;
 	}
 }
