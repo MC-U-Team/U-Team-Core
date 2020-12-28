@@ -61,7 +61,7 @@ public class ScalableButton extends UButton implements IScaleable {
 				
 				matrixStack.push();
 				matrixStack.scale(scale, scale, 0);
-				fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getFGColor());
+				fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColor());
 				matrixStack.pop();
 			}
 		}
