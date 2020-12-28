@@ -21,6 +21,7 @@ public class UButton extends Button {
 	
 	protected static ITooltip EMPTY_TOOLTIP = field_238486_s_;
 	
+	protected static final RGBA WHITE = RGBA.WHITE;
 	protected static final RGBA LIGHT_GRAY = new RGBA(0xA0A0A0FF);
 	
 	protected RGBA buttonColor;
@@ -42,8 +43,8 @@ public class UButton extends Button {
 	
 	public UButton(int x, int y, int width, int height, ITextComponent text, IPressable pessable, ITooltip tooltip) {
 		super(x, y, width, height, text, pessable);
-		buttonColor = RGBA.WHITE;
-		textColor = RGBA.WHITE;
+		buttonColor = WHITE;
+		textColor = WHITE;
 		disabledTextColor = LIGHT_GRAY;
 	}
 	
