@@ -67,6 +67,22 @@ public class UButton extends Button {
 		this.buttonColor = buttonColor;
 	}
 	
+	public RGBA getTextColor() {
+		return textColor;
+	}
+	
+	public void setTextColor(RGBA textColor) {
+		this.textColor = textColor;
+	}
+	
+	public RGBA getDisabledTextColor() {
+		return disabledTextColor;
+	}
+	
+	public void setDisabledTextColor(RGBA disabledTextColor) {
+		this.disabledTextColor = disabledTextColor;
+	}
+	
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		RenderUtil.enableBlend();
