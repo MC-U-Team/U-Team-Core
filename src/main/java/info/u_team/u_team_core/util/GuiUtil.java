@@ -181,6 +181,32 @@ public class GuiUtil {
 	}
 	
 	/**
+	 * Draw a textured quad that can be colored.
+	 * 
+	 * @param matrixStack The gui matrix stack
+	 * @param x1 X1 coordinate of the drawing
+	 * @param x2 X2 coordinate of the drawing
+	 * @param y1 Y1 coordinate of the drawing
+	 * @param y2 Y2 coordinate of the drawing
+	 * @param u1 U1 coordinate of the image
+	 * @param u2 U2 coordinate of the image
+	 * @param v1 V1 coordinate of the image
+	 * @param v2 V2 coordinate of the image
+	 * @param zLevel zLevel of the drawing
+	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
+	 */
+	public static void addTexturedColoredQuad(MatrixStack matrixStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float zLevel, RGBA color) {
+		final Tessellator tessellator = Tessellator.getInstance();
+		final BufferBuilder bufferBuilder = tessellator.getBuffer();
+		
+		bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_COLOR_TEX);
+		
+		addTexturedColoredQuad(bufferBuilder, matrixStack, x1, x2, y1, y2, u1, u2, v1, v2, zLevel, color);
+		
+		tessellator.draw();
+	}
+	
+	/**
 	 * Adds a textured quad that can be colored to the buffer builder. The vertex format must be
 	 * {@link DefaultVertexFormats#POSITION_COLOR_TEX} and the glMode must be {@link GL11#GL_QUADS}
 	 * 
