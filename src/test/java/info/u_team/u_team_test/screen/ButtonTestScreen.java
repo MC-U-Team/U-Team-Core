@@ -40,6 +40,7 @@ public class ButtonTestScreen extends Screen {
 		
 		// Scalable Button Test
 		final ScalableButton scalableButton = addButton(new ScalableButton(10, 30, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Button"), 0.75F));
+		scalableButton.setTextColor(new RGBA(0x00FFFF80));
 		scalableButton.setPressable(button -> LOGGER.info("Pressed Scalable Button"));
 		scalableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
@@ -60,7 +61,7 @@ public class ButtonTestScreen extends Screen {
 		});
 		
 		// Image Button Test
-		final ImageButton imageButton = addButton(new ImageButton(10, 70, 16, 16, TEXTURE1));
+		final ImageButton imageButton = addButton(new ImageButton(10, 70, 15, 15, TEXTURE1));
 		imageButton.setPressable(() -> {
 			System.out.println("Pressed Image Button");
 		});
@@ -70,8 +71,7 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		
-		final ImageButton imageButton2 = addButton(new ImageButton(30, 70, 20, 20, TEXTURE1));
+		final ImageButton imageButton2 = addButton(new ImageButton(30, 70, 15, 15, TEXTURE1));
 		imageButton2.setButtonColor(new RGBA(0xFFFF2080));
 		imageButton2.setImageColor(new RGBA(0x00FFFF80));
 		imageButton2.setPressable(() -> {
