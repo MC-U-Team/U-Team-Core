@@ -48,15 +48,15 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		// Scalable Active Button Test
-		final ScalableActivatableButton activatedButton = addButton(new ScalableActivatableButton(10, 50, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Activated Button"), 0.75F, false, new RGBA(0x006442FF)));
-		activatedButton.setPressable(() -> {
-			System.out.println("Pressed Scalable Activated Button");
-			activatedButton.setActivated(!activatedButton.isActivated());
+		// Scalable Activatable Button Test
+		final ScalableActivatableButton scalableActivatableButton = addButton(new ScalableActivatableButton(10, 50, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Activatable Button"), 0.75F, false, new RGBA(0x006442FF)));
+		scalableActivatableButton.setPressable(() -> {
+			System.out.println("Pressed Scalable Activatable Button");
+			scalableActivatableButton.setActivated(!scalableActivatableButton.isActivated());
 		});
-		activatedButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+		scalableActivatableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
-				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Activated Button Tooltip"), mouseX, mouseY);
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Activatable Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
@@ -83,10 +83,16 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		final ActiveImageButton activeImageButton = addButton(new ActiveImageButton(10, 90, 20, 20, TEXTURE1, 0x006442FF));
-		activeImageButton.setPressable(() -> {
-			System.out.println("Pressed ActiveImageButton");
-			activeImageButton.setActive(!activeImageButton.isActive());
+		// Image Activatable Button Test
+		final ImageActivatableButton imageActivatableButton = addButton(new ImageActivatableButton(10, 90, 20, 20, TEXTURE1, false, new RGBA(0x006442FF)));
+		imageActivatableButton.setPressable(() -> {
+			System.out.println("Pressed Image Activatable Button");
+			imageActivatableButton.setActivated(!imageActivatableButton.isActivated());
+		});
+		imageActivatableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Image Activatable Button Tooltip"), mouseX, mouseY);
+			}
 		});
 		
 		final ToggleImageButton toggleImageButton = addButton(new ToggleImageButton(10, 115, 20, 20, TEXTURE1, TEXTURE2));
