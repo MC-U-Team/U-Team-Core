@@ -10,6 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
+@Deprecated
 public class BetterFontSlider extends Slider {
 	
 	protected float scale;
