@@ -43,10 +43,10 @@ public class UButton extends Button {
 	
 	public UButton(int x, int y, int width, int height, ITextComponent text, IPressable pessable, ITooltip tooltip) {
 		super(x, y, width, height, text, pessable);
+		onTooltip = tooltip;
 		buttonColor = WHITE;
 		textColor = WHITE;
 		disabledTextColor = LIGHT_GRAY;
-		onTooltip = tooltip;
 	}
 	
 	public void setPressable(IPressable pressable) {
