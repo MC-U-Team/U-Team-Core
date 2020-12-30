@@ -7,7 +7,7 @@ import net.minecraft.util.text.ITextComponent;
 
 public interface ITextProvider {
 	
-	ITextComponent getCurrentMessage();
+	ITextComponent getCurrentText();
 	
 	RGBA getCurrentTextColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks);
 	
