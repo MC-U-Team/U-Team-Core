@@ -46,6 +46,7 @@ public class UButton extends Button {
 		buttonColor = WHITE;
 		textColor = WHITE;
 		disabledTextColor = LIGHT_GRAY;
+		onTooltip = tooltip;
 	}
 	
 	public void setPressable(IPressable pressable) {
