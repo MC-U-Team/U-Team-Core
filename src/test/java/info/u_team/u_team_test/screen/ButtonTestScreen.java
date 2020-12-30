@@ -107,7 +107,7 @@ public class ButtonTestScreen extends Screen {
 		});
 		
 		final ImageToggleButton imageToggleButton2 = addButton(new ImageToggleButton(30, 110, 15, 15, TEXTURE1, TEXTURE1, false));
-		imageToggleButton2.setImageColor(new RGBA(0x0000FFFF));
+		imageToggleButton2.setImageColor(new RGBA(0x00FF00FF));
 		imageToggleButton2.setToggleImageColor(new RGBA(0xFF0000FF));
 		imageToggleButton2.setPressable(() -> {
 			System.out.println("Pressed Image Toggle Button 2");
