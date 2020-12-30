@@ -2,12 +2,11 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
+import info.u_team.u_team_core.api.gui.*;
 import info.u_team.u_team_core.util.*;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
 
 /**
  * A button that fixes vanilla not drawing the continuous border if the button is smaller than 20. Also adds utility
@@ -15,7 +14,7 @@ import net.minecraft.util.text.*;
  * 
  * @author HyCraftHD
  */
-public class UButton extends Button implements IPerspectiveRenderable {
+public class UButton extends Button implements IPerspectiveRenderable, ITextProvider {
 	
 	protected static IPressable EMTPY_PRESSABLE = button -> {
 	};
@@ -99,38 +98,28 @@ public class UButton extends Button implements IPerspectiveRenderable {
 		renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 	
+	@Override
 	public void renderBackground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 	}
 	
+	@Override
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		final FontRenderer fontRenderer = minecraft.fontRenderer;
-		
-		ITextComponent message = getCurrentMessage();
-		if (message != StringTextComponent.EMPTY) {
-			final int messageWidth = fontRenderer.getStringPropertyWidth(message);
-			final int ellipsisWidth = fontRenderer.getStringWidth("...");
-			
-			if (messageWidth > width - 6 && messageWidth > ellipsisWidth) {
-				message = new StringTextComponent(fontRenderer.func_238417_a_(message, width - 6 - ellipsisWidth).getString() + "...");
-			}
-			
-			final float xStart = (x + (width / 2) - messageWidth / 2);
-			final float yStart = (y + ((int) (height - 8)) / 2);
-			
-			fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
-		}
+		WidgetUtil.renderText(this, matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 	
-	protected ITextComponent getCurrentMessage() {
-		return getMessage();
-	}
-	
-	protected RGBA getCurrentButtonColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentButtonColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return buttonColor;
 	}
 	
-	protected RGBA getCurrentTextColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	@Override
+	public ITextComponent getCurrentText() {
+		return getMessage();
+	}
+	
+	@Override
+	public RGBA getCurrentTextColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return active ? textColor : disabledTextColor;
 	}
+	
 }
