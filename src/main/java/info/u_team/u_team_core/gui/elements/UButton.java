@@ -2,6 +2,7 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
 import info.u_team.u_team_core.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -14,7 +15,7 @@ import net.minecraft.util.text.*;
  * 
  * @author HyCraftHD
  */
-public class UButton extends Button {
+public class UButton extends Button implements IPerspectiveRenderable {
 	
 	protected static IPressable EMTPY_PRESSABLE = button -> {
 	};
@@ -98,11 +99,11 @@ public class UButton extends Button {
 		renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 	
-	protected void renderBackground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderBackground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 	}
 	
-	protected void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		final FontRenderer fontRenderer = minecraft.fontRenderer;
 		
 		ITextComponent message = getCurrentMessage();
