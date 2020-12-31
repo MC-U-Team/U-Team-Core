@@ -14,7 +14,7 @@ import net.minecraft.util.text.ITextComponent;
  * 
  * @author HyCraftHD
  */
-public class UButton extends Button implements IPerspectiveRenderable, ITextProvider {
+public class UButton extends Button implements IPerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
 	
 	protected static IPressable EMTPY_PRESSABLE = button -> {
 	};
@@ -87,15 +87,7 @@ public class UButton extends Button implements IPerspectiveRenderable, ITextProv
 	
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		RenderUtil.enableBlend();
-		RenderUtil.defaultBlendFunc();
-		GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x, y, 0, 46 + getYImage(isHovered()) * 20, width, height, 200, 20, 2, 3, 2, 2, 0, getCurrentButtonColor(matrixStack, mouseY, mouseY, partialTicks));
-		RenderUtil.disableBlend();
-		
-		final Minecraft minecraft = Minecraft.getInstance();
-		
-		renderBackground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
-		renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
+		WidgetUtil.renderButtonLikeWidget(this, matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
@@ -108,7 +100,8 @@ public class UButton extends Button implements IPerspectiveRenderable, ITextProv
 		WidgetUtil.renderText(this, matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 	
-	public RGBA getCurrentButtonColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	@Override
+	public RGBA getCurrentBackgroundColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return buttonColor;
 	}
 	
