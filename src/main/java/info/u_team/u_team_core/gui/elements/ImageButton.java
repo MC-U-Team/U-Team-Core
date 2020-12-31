@@ -66,7 +66,7 @@ public class ImageButton extends UButton {
 	}
 	
 	@Override
-	protected void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		minecraft.getTextureManager().bindTexture(getCurrentImage());
 		
 		RenderUtil.enableBlend();
@@ -80,11 +80,11 @@ public class ImageButton extends UButton {
 		GL11.glColor4f(1, 1, 1, 1);
 	}
 	
-	protected ResourceLocation getCurrentImage() {
+	public ResourceLocation getCurrentImage() {
 		return image;
 	}
 	
-	protected RGBA getCurrentImageColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentImageColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return imageColor;
 	}
 }
