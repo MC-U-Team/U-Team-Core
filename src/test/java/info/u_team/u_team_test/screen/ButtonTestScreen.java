@@ -119,24 +119,34 @@ public class ButtonTestScreen extends Screen {
 		});
 		
 		// U Slider Test
-		final USlider uSlider = addButton(new USlider(30, 130, 200, 15, ITextComponent.getTextComponentOrEmpty("U Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true));
+		final USlider uSlider = addButton(new USlider(10, 130, 200, 20, ITextComponent.getTextComponentOrEmpty("U Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true));
 		uSlider.setSlider(() -> {
 			System.out.println("Updated U Slider: " + uSlider.getValueInt());
 		});
-		uSlider.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+		uSlider.setTooltip((slider, matrixStack, mouseX, mouseY) -> {
+			if (slider.isHovered()) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("U Slider Tooltip"), mouseX, mouseY);
 			}
 		});
 		
 		// Scalable Slider Test
-		final ScalableSlider scalableSlider = addButton(new ScalableSlider(30, 150, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 0.5F));
+		final ScalableSlider scalableSlider = addButton(new ScalableSlider(10, 155, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 0.5F));
 		scalableSlider.setSlider(() -> {
 			System.out.println("Updated Scalable Slider: " + scalableSlider.getValueInt());
 		});
-		scalableSlider.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+		scalableSlider.setTooltip((slider, matrixStack, mouseX, mouseY) -> {
+			if (slider.isHovered()) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Slider Tooltip"), mouseX, mouseY);
+			}
+		});
+		
+		final ScalableSlider scalableSlider2 = addButton(new ScalableSlider(10, 175, 200, 30, ITextComponent.getTextComponentOrEmpty("Scalable Slider 2: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 1.5F));
+		scalableSlider2.setSlider(() -> {
+			System.out.println("Updated Scalable Slider 2: " + scalableSlider2.getValueInt());
+		});
+		scalableSlider2.setTooltip((slider, matrixStack, mouseX, mouseY) -> {
+			if (slider.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Slider 2 Tooltip"), mouseX, mouseY);
 			}
 		});
 		
