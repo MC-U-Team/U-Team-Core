@@ -14,7 +14,7 @@ public class WidgetUtil {
 	public static <T extends Widget & IPerspectiveRenderable & IBackgroundColorProvider> void renderButtonLikeWidget(T widget, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		RenderUtil.enableBlend();
 		RenderUtil.defaultBlendFunc();
-		GuiUtil.drawContinuousTexturedBox(matrixStack, Widget.WIDGETS_LOCATION, widget.x, widget.y, 0, 46 + widget.getYImage(widget.isHovered()) * 20, widget.width, widget.height, 200, 20, 2, 3, 2, 2, 0, widget.getCurrentBackgroundColor(matrixStack, mouseY, mouseY, partialTicks));
+		GuiUtil.drawContinuousTexturedBox(matrixStack, Widget.WIDGETS_LOCATION, widget.x, widget.y, 0, 46 + widget.getYImage(widget.isHovered()) * 20, widget.width, widget.height, 200, 20, 2, 3, 2, 2, widget.getBlitOffset(), widget.getCurrentBackgroundColor(matrixStack, mouseY, mouseY, partialTicks));
 		RenderUtil.disableBlend();
 		
 		final Minecraft minecraft = Minecraft.getInstance();
