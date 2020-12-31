@@ -147,7 +147,7 @@ public class ButtonTestScreen extends Screen {
 		scalableSlider2.setDisabledTextColor(new RGBA(0xFFFF0080));
 		scalableSlider2.setSlider(() -> {
 			LOGGER.info("Updated Scalable Slider 2: " + scalableSlider2.getValueInt());
-			if (scalableSlider2.getValueInt() <= 100) {
+			if (scalableSlider2.getValueInt() == 100) {
 				scalableSlider2.active = false;
 			}
 		});
