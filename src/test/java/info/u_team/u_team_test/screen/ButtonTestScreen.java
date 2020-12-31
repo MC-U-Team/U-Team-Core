@@ -118,13 +118,27 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		addButton(new BetterFontSlider(300, 10, 200, 15, ITextComponent.getTextComponentOrEmpty("Test: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 0.75F, slider -> {
-			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
-		}));
+		// U Slider Test
+		final USlider uSlider = addButton(new USlider(30, 130, 200, 15, ITextComponent.getTextComponentOrEmpty("U Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true));
+		uSlider.setSlider(() -> {
+			System.out.println("Updated U Slider: " + uSlider.getValueInt());
+		});
+		uSlider.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("U Slider Tooltip"), mouseX, mouseY);
+			}
+		});
 		
-		addButton(new BetterFontSlider(300, 30, 200, 40, ITextComponent.getTextComponentOrEmpty("Test: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 2, slider -> {
-			System.out.println("Updated slider value: " + slider.getValueInt() + " --> draging: " + slider.dragging);
-		}));
+		// Scalable Slider Test
+		final ScalableSlider scalableSlider = addButton(new ScalableSlider(30, 150, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 0.5F));
+		scalableSlider.setSlider(() -> {
+			System.out.println("Updated Scalable Slider: " + scalableSlider.getValueInt());
+		});
+		scalableSlider.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Slider Tooltip"), mouseX, mouseY);
+			}
+		});
 		
 		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer");
 		scalingRenderer.setColor(0xFFFFFF);
@@ -140,8 +154,8 @@ public class ButtonTestScreen extends Screen {
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		renderBackground(matrixStack);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
-		scalingRenderer.render(matrixStack, 10, 145);
-		scrollingRenderer.render(matrixStack, 10, 170);
+		// scalingRenderer.render(matrixStack, 10, 145);
+		// scrollingRenderer.render(matrixStack, 10, 170);
 		buttons.forEach(widget -> widget.renderToolTip(matrixStack, mouseX, mouseY));
 	}
 	
