@@ -141,12 +141,20 @@ public class ButtonTestScreen extends Screen {
 		});
 		
 		final ScalableSlider scalableSlider2 = addButton(new ScalableSlider(10, 175, 200, 30, ITextComponent.getTextComponentOrEmpty("Scalable Slider 2: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 1.5F));
+		scalableSlider2.setSliderBackgroundColor(new RGBA(0x0000FFFF));
+		scalableSlider2.setSliderColor(new RGBA(0x00FF00FF));
+		scalableSlider2.setTextColor(new RGBA(0xFF0000FF));
+		scalableSlider2.setDisabledTextColor(new RGBA(0xFFFF0080));
 		scalableSlider2.setSlider(() -> {
 			System.out.println("Updated Scalable Slider 2: " + scalableSlider2.getValueInt());
+			if (scalableSlider2.getValueInt() <= 100) {
+				scalableSlider2.active = false;
+			}
 		});
 		scalableSlider2.setTooltip((slider, matrixStack, mouseX, mouseY) -> {
 			if (slider.isHovered()) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Slider 2 Tooltip"), mouseX, mouseY);
+				scalableSlider2.active = true;
 			}
 		});
 		
