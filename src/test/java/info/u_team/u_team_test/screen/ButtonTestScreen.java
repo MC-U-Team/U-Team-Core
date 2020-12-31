@@ -51,7 +51,7 @@ public class ButtonTestScreen extends Screen {
 		// Scalable Activatable Button Test
 		final ScalableActivatableButton scalableActivatableButton = addButton(new ScalableActivatableButton(10, 50, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Activatable Button"), 0.75F, false, new RGBA(0x006442FF)));
 		scalableActivatableButton.setPressable(() -> {
-			System.out.println("Pressed Scalable Activatable Button");
+			LOGGER.info("Pressed Scalable Activatable Button");
 			scalableActivatableButton.setActivated(!scalableActivatableButton.isActivated());
 		});
 		scalableActivatableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
@@ -63,7 +63,7 @@ public class ButtonTestScreen extends Screen {
 		// Image Button Test
 		final ImageButton imageButton = addButton(new ImageButton(10, 70, 15, 15, TEXTURE1));
 		imageButton.setPressable(() -> {
-			System.out.println("Pressed Image Button");
+			LOGGER.info("Pressed Image Button");
 		});
 		imageButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
@@ -75,7 +75,7 @@ public class ButtonTestScreen extends Screen {
 		imageButton2.setButtonColor(new RGBA(0xFFFF2080));
 		imageButton2.setImageColor(new RGBA(0x00FFFF80));
 		imageButton2.setPressable(() -> {
-			System.out.println("Pressed Image Button 2");
+			LOGGER.info("Pressed Image Button 2");
 		});
 		imageButton2.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
@@ -86,7 +86,7 @@ public class ButtonTestScreen extends Screen {
 		// Image Activatable Button Test
 		final ImageActivatableButton imageActivatableButton = addButton(new ImageActivatableButton(10, 90, 15, 15, TEXTURE1, false, new RGBA(0x006442FF)));
 		imageActivatableButton.setPressable(() -> {
-			System.out.println("Pressed Image Activatable Button");
+			LOGGER.info("Pressed Image Activatable Button");
 			imageActivatableButton.setActivated(!imageActivatableButton.isActivated());
 		});
 		imageActivatableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
@@ -98,7 +98,7 @@ public class ButtonTestScreen extends Screen {
 		// Image Toggle Button Test
 		final ImageToggleButton imageToggleButton = addButton(new ImageToggleButton(10, 110, 15, 15, TEXTURE1, TEXTURE2, false));
 		imageToggleButton.setPressable(() -> {
-			System.out.println("Pressed Image Toggle Button");
+			LOGGER.info("Pressed Image Toggle Button");
 		});
 		imageToggleButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
@@ -110,7 +110,7 @@ public class ButtonTestScreen extends Screen {
 		imageToggleButton2.setImageColor(new RGBA(0x00FF00FF));
 		imageToggleButton2.setToggleImageColor(new RGBA(0xFF0000FF));
 		imageToggleButton2.setPressable(() -> {
-			System.out.println("Pressed Image Toggle Button 2");
+			LOGGER.info("Pressed Image Toggle Button 2");
 		});
 		imageToggleButton2.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
@@ -121,7 +121,7 @@ public class ButtonTestScreen extends Screen {
 		// U Slider Test
 		final USlider uSlider = addButton(new USlider(10, 130, 200, 20, ITextComponent.getTextComponentOrEmpty("U Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true));
 		uSlider.setSlider(() -> {
-			System.out.println("Updated U Slider: " + uSlider.getValueInt());
+			LOGGER.info("Updated U Slider: " + uSlider.getValueInt());
 		});
 		uSlider.setTooltip((slider, matrixStack, mouseX, mouseY) -> {
 			if (slider.isHovered()) {
@@ -132,7 +132,7 @@ public class ButtonTestScreen extends Screen {
 		// Scalable Slider Test
 		final ScalableSlider scalableSlider = addButton(new ScalableSlider(10, 155, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 0.5F));
 		scalableSlider.setSlider(() -> {
-			System.out.println("Updated Scalable Slider: " + scalableSlider.getValueInt());
+			LOGGER.info("Updated Scalable Slider: " + scalableSlider.getValueInt());
 		});
 		scalableSlider.setTooltip((slider, matrixStack, mouseX, mouseY) -> {
 			if (slider.isHovered()) {
@@ -146,7 +146,7 @@ public class ButtonTestScreen extends Screen {
 		scalableSlider2.setTextColor(new RGBA(0xFF0000FF));
 		scalableSlider2.setDisabledTextColor(new RGBA(0xFFFF0080));
 		scalableSlider2.setSlider(() -> {
-			System.out.println("Updated Scalable Slider 2: " + scalableSlider2.getValueInt());
+			LOGGER.info("Updated Scalable Slider 2: " + scalableSlider2.getValueInt());
 			if (scalableSlider2.getValueInt() <= 100) {
 				scalableSlider2.active = false;
 			}
