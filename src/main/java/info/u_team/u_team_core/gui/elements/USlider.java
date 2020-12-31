@@ -91,16 +91,6 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	
 	@Override
 	protected void renderBg(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY) {
-		if (visible) {
-			if (dragging) {
-				sliderValue = (mouseX - (x + 4)) / (float) (width - 8);
-				updateSlider();
-			}
-			RenderUtil.enableBlend();
-			RenderUtil.defaultBlendFunc();
-			GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset(), getCurrentSliderColor(matrixStack, mouseX, mouseY, 0));
-			RenderUtil.disableBlend();
-		}
 	}
 	
 	@Override
@@ -110,6 +100,16 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	
 	@Override
 	public void renderBackground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+		if (visible) {
+			if (dragging) {
+				sliderValue = (mouseX - (x + 4)) / (float) (width - 8);
+				updateSlider();
+			}
+			RenderUtil.enableBlend();
+			RenderUtil.defaultBlendFunc();
+			GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset(), getCurrentSliderColor(matrixStack, mouseX, mouseY, partialTicks));
+			RenderUtil.disableBlend();
+		}
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 	}
 	
