@@ -46,7 +46,7 @@ public class ScalableActivatableButton extends ScalableButton {
 	}
 	
 	@Override
-	public RGBA getCurrentButtonColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return activated ? activatedColor : buttonColor;
 	}
 }
