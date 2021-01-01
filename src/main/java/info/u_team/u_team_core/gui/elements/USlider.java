@@ -7,7 +7,7 @@ import info.u_team.u_team_core.util.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.*;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
 public class USlider extends Slider implements IPerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
@@ -162,6 +162,11 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	
 	@Override
 	public void playDownSound(SoundHandler handler) {
+	}
+	
+	@Override
+	protected IFormattableTextComponent getNarrationMessage() {
+		return new TranslationTextComponent("gui.narrate.slider", getMessage());
 	}
 	
 	protected void changeSliderValue(double mouseX) {
