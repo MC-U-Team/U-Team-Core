@@ -29,4 +29,12 @@ public class RenderUtil {
 		RenderSystem.defaultAlphaFunc();
 	}
 	
+	public static void enableScissor(int x, int y, int width, int height) {
+		RenderSystem.enableScissor(x, y, width, height);
+	}
+	
+	public static void disableScissor() {
+		RenderSystem.disableScissor();
+	}
+	
 }

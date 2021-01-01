@@ -3,8 +3,8 @@ package info.u_team.u_team_core.gui.renderer;
 import java.util.function.Supplier;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.systems.RenderSystem;
 
+import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.math.MathHelper;
@@ -80,21 +80,13 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		final int nativeWidth = MathHelper.ceil(width * scaleFactor);
 		final int nativeHeight = MathHelper.ceil((fontRenderSupplier.get().FONT_HEIGHT + 1) * scale * scaleFactor);
 		
-//		GL11.glPushMatrix();
-//		GL11.glEnable(GL11.GL_SCISSOR_TEST);
-		
-		RenderSystem.enableScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
-		
-//		GL11.glScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
+		RenderUtil.enableScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 		// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0xFF00FF00); // test scissor
 		
 		setText(textSupplier.get());
 		renderFont(matrixStack, fontRenderSupplier.get(), getMovingX(x), y + 2);
 		
-		RenderSystem.disableScissor();
-		
-//		GL11.glDisable(GL11.GL_SCISSOR_TEST);
-//		GL11.glPopMatrix();
+		RenderUtil.disableScissor();
 	}
 	
 	protected float getMovingX(float x) {
