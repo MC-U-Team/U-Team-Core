@@ -158,12 +158,10 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer");
-		scalingRenderer.setColor(0xFFFFFF);
+		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer", 10, 195);
 		scalingRenderer.setScale(2);
 		
-		scrollingRenderer = new ScrollingTextRenderer(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling");
-		scrollingRenderer.setColor(0xFFFFFF);
+		scrollingRenderer = new ScrollingTextRenderer(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling", 10, 215);
 		scrollingRenderer.setWidth(200);
 		scrollingRenderer.setScale(0.75F);
 	}
@@ -172,8 +170,8 @@ public class ButtonTestScreen extends Screen {
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		renderBackground(matrixStack);
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
-		// scalingRenderer.render(matrixStack, 10, 145);
-		// scrollingRenderer.render(matrixStack, 10, 170);
+		scalingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);
+		scrollingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);
 		buttons.forEach(widget -> widget.renderToolTip(matrixStack, mouseX, mouseY));
 	}
 	
