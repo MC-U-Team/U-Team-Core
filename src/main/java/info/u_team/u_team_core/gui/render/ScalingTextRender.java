@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.math.vector.Matrix4f;
 
+@Deprecated
 public class ScalingTextRender {
 	
 	protected final Supplier<FontRenderer> fontRenderSupplier;

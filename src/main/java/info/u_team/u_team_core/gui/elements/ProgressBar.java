@@ -67,7 +67,7 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 	}
 	
 	protected boolean isPressable(double mouseX, double mouseY) {
-		return enabled && visible && mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
+		return enabled && visible && mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 	}
 	
 	public void playPressSound(SoundHandler soundHandler) {

@@ -6,7 +6,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.container.*;
-import info.u_team.u_team_core.gui.render.FluidInventoryRender;
+import info.u_team.u_team_core.gui.renderer.FluidInventoryRenderer;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -18,9 +18,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class FluidContainerScreen<T extends Container> extends ContainerScreen<T> {
 	
-	private static final FluidInventoryRender FLUID_RENDERER = new FluidInventoryRender();
+	private static final FluidInventoryRenderer FLUID_RENDERER = new FluidInventoryRenderer();
 	
-	protected FluidInventoryRender fluidRenderer;
+	protected FluidInventoryRenderer fluidRenderer;
 	
 	protected FluidSlot hoveredFluidSlot;
 	

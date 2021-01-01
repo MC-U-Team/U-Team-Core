@@ -2,6 +2,7 @@ package info.u_team.u_team_core.gui.elements;
 
 import net.minecraft.util.ResourceLocation;
 
+@Deprecated
 public class ToggleImageButton extends ImageButton {
 	
 	protected ResourceLocation defaultResource;

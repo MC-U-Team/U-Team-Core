@@ -16,7 +16,7 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 	
 	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png");
 	
-	private BetterFontSlider slider;
+	private USlider slider;
 	
 	public BasicTileEntityScreen(BasicTileEntityContainer container, PlayerInventory playerInventory, ITextComponent text) {
 		super(container, playerInventory, text, BACKGROUND, 176, 173);
@@ -29,7 +29,7 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 			container.getValueMessage().triggerMessage();
 		}));
 		
-		slider = addButton(new BetterFontSlider(guiLeft + 7, guiTop + 19, 162, 20, ITextComponent.getTextComponentOrEmpty("Cooldown: "), ITextComponent.getTextComponentOrEmpty(" Ticks"), 0, 100, container.getTileEntity().cooldown, false, true, 1, slider -> {
+		slider = addButton(new USlider(guiLeft + 7, guiTop + 19, 162, 20, ITextComponent.getTextComponentOrEmpty("Cooldown: "), ITextComponent.getTextComponentOrEmpty(" Ticks"), 0, 100, container.getTileEntity().cooldown, false, true, true, slider -> {
 			container.getCooldownMessage().triggerMessage(() -> new PacketBuffer(Unpooled.copyShort(slider.getValueInt())));
 		}));
 	}
@@ -47,8 +47,8 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 	}
 	
 	@Override
-	public boolean mouseReleased(double p_mouseReleased_1_, double p_mouseReleased_3_, int p_mouseReleased_5_) {
-		slider.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_);
-		return super.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_);
+	public boolean mouseReleased(double mouseX, double mouseY, int button) {
+		slider.mouseReleased(mouseX, mouseY, button);
+		return super.mouseReleased(mouseX, mouseY, button);
 	}
 }

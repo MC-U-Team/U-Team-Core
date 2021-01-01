@@ -9,6 +9,7 @@ import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 
+@Deprecated
 public class BetterButton extends UButton {
 	
 	protected float scale;

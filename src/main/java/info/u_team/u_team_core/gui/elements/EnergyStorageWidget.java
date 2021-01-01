@@ -7,13 +7,14 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.util.GuiUtil;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.*;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
+import net.minecraftforge.fml.client.gui.GuiUtils;
 
 public class EnergyStorageWidget extends Widget {
 	
@@ -67,15 +68,12 @@ public class EnergyStorageWidget extends Widget {
 	public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
 		if (isHovered) {
 			final Minecraft minecraft = Minecraft.getInstance();
-			// final MainWindow mainWindow = minecraft.getMainWindow();
+			final MainWindow mainWindow = minecraft.getMainWindow();
+			
 			final List<ITextComponent> list = new ArrayList<>();
 			list.add(ITextComponent.getTextComponentOrEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
 			
-			minecraft.currentScreen.func_243308_b(matrixStack, list, mouseX, mouseY);
-			
-			// TODO 1.16.2 update to the old way if it is implemented again
-			// GuiUtils.drawHoveringText(matrixStack, list, mouseX, mouseY, mainWindow.getWidth(), mainWindow.getHeight(), 300,
-			// minecraft.fontRenderer);
+			GuiUtils.drawHoveringText(matrixStack, list, mouseX, mouseY, mainWindow.getWidth(), mainWindow.getHeight(), 300, minecraft.fontRenderer);
 		}
 	}
 	

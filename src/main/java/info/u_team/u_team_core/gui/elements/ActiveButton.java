@@ -7,6 +7,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import info.u_team.u_team_core.util.*;
 import net.minecraft.util.text.ITextComponent;
 
+@Deprecated
 public class ActiveButton extends UButton {
 	
 	protected boolean active;
