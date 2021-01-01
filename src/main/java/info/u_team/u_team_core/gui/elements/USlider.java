@@ -5,6 +5,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import info.u_team.u_team_core.api.gui.*;
 import info.u_team.u_team_core.util.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
@@ -101,10 +103,6 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	@Override
 	public void renderBackground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (visible) {
-			if (dragging) {
-				sliderValue = (mouseX - (x + 4)) / (float) (width - 8);
-				updateSlider();
-			}
 			RenderUtil.enableBlend();
 			RenderUtil.defaultBlendFunc();
 			GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset(), getCurrentSliderColor(matrixStack, mouseX, mouseY, partialTicks));
@@ -137,4 +135,34 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 		return active ? textColor : disabledTextColor;
 	}
 	
+	@Override
+	public void onClick(double mouseX, double mouseY) {
+		changeSliderValue(mouseX);
+	}
+	
+	@Override
+	protected void onDrag(double mouseX, double mouseY, double dragX, double dragY) {
+		changeSliderValue(mouseX);
+	}
+	
+	@Override
+	public void onRelease(double mouseX, double mouseY) {
+		super.playDownSound(Minecraft.getInstance().getSoundHandler());
+	}
+	
+	@Override
+	public void playDownSound(SoundHandler handler) {
+	}
+	
+	protected void changeSliderValue(double mouseX) {
+		this.setSliderValue((mouseX - (double) (this.x + 4)) / (double) (this.width - 8));
+	}
+	
+	protected void setSliderValue(double value) {
+		final double oldValue = sliderValue;
+		sliderValue = MathHelper.clamp(value, 0, 1);
+		if (oldValue != sliderValue) {
+			updateSlider();
+		}
+	}
 }
