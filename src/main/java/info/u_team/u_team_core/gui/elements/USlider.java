@@ -20,6 +20,8 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	protected static final RGBA WHITE = UButton.WHITE;
 	protected static final RGBA LIGHT_GRAY = UButton.LIGHT_GRAY;
 	
+	protected final boolean isInContainer;
+	
 	protected RGBA sliderBackgroundColor;
 	protected RGBA sliderColor;
 	
@@ -40,6 +42,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	
 	public USlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, ISlider slider, ITooltip tooltip) {
 		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, UButton.EMTPY_PRESSABLE, slider);
+		isInContainer = false;
 		onTooltip = tooltip;
 		sliderBackgroundColor = WHITE;
 		sliderColor = WHITE;
@@ -92,10 +95,6 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	protected void renderBg(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY) {
-	}
-	
-	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderButtonLikeWidget(this, matrixStack, mouseX, mouseY, partialTicks);
 	}
@@ -138,16 +137,31 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	@Override
 	public void onClick(double mouseX, double mouseY) {
 		changeSliderValue(mouseX);
+		if (isInContainer) {
+			dragging = true;
+		}
 	}
 	
 	@Override
 	protected void onDrag(double mouseX, double mouseY, double dragX, double dragY) {
-		changeSliderValue(mouseX);
+		if (!isInContainer) {
+			changeSliderValue(mouseX);
+		}
 	}
 	
 	@Override
 	public void onRelease(double mouseX, double mouseY) {
 		super.playDownSound(Minecraft.getInstance().getSoundHandler());
+		if (isInContainer) {
+			dragging = false;
+		}
+	}
+	
+	@Override
+	protected void renderBg(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY) {
+		if (isInContainer && visible && dragging) {
+			changeSliderValue(mouseX);
+		}
 	}
 	
 	@Override
