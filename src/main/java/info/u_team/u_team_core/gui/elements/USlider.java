@@ -155,7 +155,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 		final boolean flag = keyCode == 263;
 		if (flag || keyCode == 262) {
 			final float direction = flag ? -1.0F : 1.0F;
-			setSliderValue(this.sliderValue + direction / (this.width - 8));
+			setSliderValue(sliderValue + direction / (width - 8));
 		}
 		return false;
 	}
@@ -170,7 +170,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	protected void changeSliderValue(double mouseX) {
-		this.setSliderValue((mouseX - (this.x + 4)) / (this.width - 8));
+		this.setSliderValue((mouseX - (x + 4)) / (width - 8));
 	}
 	
 	protected void setSliderValue(double value) {
