@@ -8,7 +8,6 @@ import info.u_team.u_team_core.gui.elements.*;
 import info.u_team.u_team_core.gui.renderer.*;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_test.TestMod;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.*;
@@ -163,11 +162,21 @@ public class ButtonTestScreen extends Screen {
 		final CheckboxButton checkboxButton = addButton(new CheckboxButton(10, 210, 15, 15, ITextComponent.getTextComponentOrEmpty("Checkbox Button"), false, true));
 		checkboxButton.setPressable(() -> {
 			LOGGER.info("Pressed Checkbox Button");
-			Minecraft.getInstance().gameSettings.skipMultiplayerWarning = false;
 		});
 		checkboxButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
 			if (button.isHovered()) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Checkbox Button Tooltip"), mouseX, mouseY);
+			}
+		});
+		
+		// Scalable Checkbox Button Test
+		final ScalableCheckboxButton scalableCheckboxButton = addButton(new ScalableCheckboxButton(10, 230, 15, 15, ITextComponent.getTextComponentOrEmpty("Scalable Checkbox Button"), false, true, 0.75F));
+		scalableCheckboxButton.setPressable(() -> {
+			LOGGER.info("Pressed Scalable Checkbox Button");
+		});
+		scalableCheckboxButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Checkbox Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
