@@ -151,7 +151,9 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	
 	@Override
 	public void onRelease(double mouseX, double mouseY) {
-		super.playDownSound(Minecraft.getInstance().getSoundHandler());
+		if (isHovered()) {
+			super.playDownSound(Minecraft.getInstance().getSoundHandler());
+		}
 		if (isInContainer) {
 			dragging = false;
 		}
