@@ -9,6 +9,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
@@ -178,6 +179,22 @@ public class GuiUtil {
 		bufferBuilder.pos(matrix, x + width, y + height, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).tex((u + width) * uScale, ((v + height) * vScale)).endVertex();
 		bufferBuilder.pos(matrix, x + width, y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).tex((u + width) * uScale, (v * vScale)).endVertex();
 		bufferBuilder.pos(matrix, x, y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).tex(u * uScale, (v * vScale)).endVertex();
+	}
+	
+	/**
+	 * Draw a {@link TextureAtlasSprite} that can be colored.
+	 * 
+	 * @param matrixStack The gui matrix stack
+	 * @param x X coordinate of the drawing
+	 * @param y Y coordinate of the drawing
+	 * @param width Width of the drawing
+	 * @param height Height of the drawing
+	 * @param zLevel zLevel zLevel of the drawing
+	 * @param sprite The Atlas Sprite to define the uvs
+	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
+	 */
+	public static void drawTexturedColoredQuad(MatrixStack matrixStack, int x, int y, int width, int height, float zLevel, TextureAtlasSprite sprite, RGBA color) {
+		addTexturedColoredQuad(matrixStack, x, x + width, y, y + height, sprite.getMinU(), sprite.getMaxU(), sprite.getMinV(), sprite.getMaxV(), zLevel, color);
 	}
 	
 	/**
