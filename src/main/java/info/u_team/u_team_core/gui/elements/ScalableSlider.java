@@ -28,10 +28,12 @@ public class ScalableSlider extends USlider implements IScaleable, IScaleProvide
 		this.scale = scale;
 	}
 	
+	@Override
 	public float getScale() {
 		return scale;
 	}
 	
+	@Override
 	public void setScale(float scale) {
 		this.scale = scale;
 	}
