@@ -158,12 +158,14 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer", 10, 195);
-		scalingRenderer.setScale(2);
+		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer", 220, 10);
+		scalingRenderer.setColor(new RGBA(0xFF00FF40));
+		scalingRenderer.setScale(1.5F);
 		
-		scrollingRenderer = new ScrollingTextRenderer(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling", 10, 215);
+		scrollingRenderer = new ScrollingTextRenderer(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling", 220, 25);
+		scrollingRenderer.setColor(new RGBA(0x00FFFFFF));
 		scrollingRenderer.setWidth(200);
-		scrollingRenderer.setScale(0.75F);
+		scrollingRenderer.setScale(2F);
 	}
 	
 	@Override
