@@ -5,25 +5,31 @@ import java.util.function.Supplier;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import net.minecraft.client.gui.FontRenderer;
+import info.u_team.u_team_core.util.RGBA;
+import net.minecraft.client.gui.*;
 
-public class ScalingTextRenderer {
+public class ScalingTextRenderer implements IRenderable {
 	
 	protected final Supplier<FontRenderer> fontRenderSupplier;
 	
 	protected Supplier<String> textSupplier;
 	
+	protected float x;
+	protected float y;
+	
 	private String text;
 	private int textWidth;
 	
-	protected int color;
+	protected RGBA color;
 	protected boolean shadow;
 	protected float scale;
 	private float positionFactor;
 	
-	public ScalingTextRenderer(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier) {
+	public ScalingTextRenderer(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier, float x, float y) {
 		this.fontRenderSupplier = fontRenderSupplier;
 		this.textSupplier = textSupplier;
+		this.x = x;
+		this.y = y;
 		scale = 1;
 		positionFactor = 1;
 	}
@@ -37,29 +43,45 @@ public class ScalingTextRenderer {
 		return textSupplier;
 	}
 	
-	public void setColor(int color) {
-		this.color = color;
+	public float getX() {
+		return x;
 	}
 	
-	public int getColor() {
+	public void setX(float x) {
+		this.x = x;
+	}
+	
+	public float getY() {
+		return y;
+	}
+	
+	public void setY(float y) {
+		this.y = y;
+	}
+	
+	public RGBA getColor() {
 		return color;
 	}
 	
-	public void setShadow(boolean shadow) {
-		this.shadow = shadow;
+	public void setColor(RGBA color) {
+		this.color = color;
 	}
 	
 	public boolean isShadow() {
 		return shadow;
 	}
 	
-	public void setScale(float scale) {
-		this.scale = scale;
-		positionFactor = 1 / scale;
+	public void setShadow(boolean shadow) {
+		this.shadow = shadow;
 	}
 	
 	public float getScale() {
 		return scale;
+	}
+	
+	public void setScale(float scale) {
+		this.scale = scale;
+		positionFactor = 1 / scale;
 	}
 	
 	public float getTextWidth() {
@@ -80,17 +102,17 @@ public class ScalingTextRenderer {
 	protected void updatedText() {
 	}
 	
-	public void render(MatrixStack matrixStack, float x, float y) {
+	@Override
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		// Get new text and set if has changed
 		setText(textSupplier.get());
-		renderFont(matrixStack, x, y);
+		renderFont(matrixStack, fontRenderSupplier.get(), x, y);
 	}
 	
-	protected void renderFont(MatrixStack matrixStack, float x, float y) {
+	protected void renderFont(MatrixStack matrixStack, FontRenderer fontRenderer, float x, float y) {
 		matrixStack.push();
 		matrixStack.scale(scale, scale, 0);
-		fontRenderSupplier.get().renderString(text, x * positionFactor, y * positionFactor, color, matrixStack.getLast().getMatrix(), shadow, fontRenderSupplier.get().getBidiFlag());
+		fontRenderer.renderString(text, x * positionFactor, y * positionFactor, color.getColorARGB(), matrixStack.getLast().getMatrix(), shadow, fontRenderer.getBidiFlag());
 		matrixStack.pop();
 	}
-	
 }
