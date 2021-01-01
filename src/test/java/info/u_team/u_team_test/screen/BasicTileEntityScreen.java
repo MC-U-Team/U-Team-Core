@@ -45,4 +45,10 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 		super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
 		font.func_243248_b(matrixStack, ITextComponent.getTextComponentOrEmpty("" + container.getTileEntity().value), xSize / 2 + 32, 6, 4210752);
 	}
+	
+	@Override
+	public boolean mouseReleased(double mouseX, double mouseY, int button) {
+		slider.mouseReleased(mouseX, mouseY, button);
+		return super.mouseReleased(mouseX, mouseY, button);
+	}
 }
