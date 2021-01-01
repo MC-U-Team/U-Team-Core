@@ -91,7 +91,7 @@ public class ScalingTextRenderer implements IRenderable {
 		return textWidth * scale;
 	}
 	
-	private void setText(String newText) {
+	protected void setText(String newText) {
 		if ((newText != null && !newText.equals(text)) || newText == null) {
 			this.text = newText;
 			this.textWidth = fontRenderSupplier.get().getStringWidth(newText);

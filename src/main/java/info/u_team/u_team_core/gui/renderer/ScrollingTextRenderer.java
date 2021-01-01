@@ -7,7 +7,7 @@ import org.lwjgl.opengl.GL11;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.math.MathHelper;
 
 public class ScrollingTextRenderer extends ScalingTextRenderer {
@@ -21,44 +21,44 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 	protected long lastTime = 0;
 	protected State state = State.WAITING;
 	
-	public ScrollingTextRenderer(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier) {
-		super(fontRenderSupplier, textSupplier);
+	public ScrollingTextRenderer(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier, float x, float y) {
+		super(fontRenderSupplier, textSupplier, x, y);
 		width = 100;
 		stepSize = 1;
 		speedTime = 20;
 		waitTime = 4000;
 	}
 	
-	public void setWidth(int width) {
-		this.width = width;
-	}
-	
 	public int getWidth() {
 		return width;
 	}
 	
-	public void setStepSize(float stepSize) {
-		this.stepSize = stepSize;
+	public void setWidth(int width) {
+		this.width = width;
 	}
 	
 	public float getStepSize() {
 		return stepSize;
 	}
 	
-	public void setSpeedTime(int speedtime) {
-		this.speedTime = speedtime;
+	public void setStepSize(float stepSize) {
+		this.stepSize = stepSize;
 	}
 	
 	public int getSpeedTime() {
 		return speedTime;
 	}
 	
-	public void setWaitTime(int waittime) {
-		this.waitTime = waittime;
+	public void setSpeedTime(int speedtime) {
+		this.speedTime = speedtime;
 	}
 	
 	public int getWaitTime() {
 		return waitTime;
+	}
+	
+	public void setWaitTime(int waittime) {
+		this.waitTime = waittime;
 	}
 	
 	@Override
@@ -69,7 +69,7 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 	}
 	
 	@Override
-	public void render(MatrixStack matrixStack, float x, float y) {
+	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		final MainWindow window = minecraft.getMainWindow();
 		
@@ -87,7 +87,8 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		GL11.glScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 		// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0xFF00FF00); // test scissor
 		
-		super.render(matrixStack, getMovingX(x), y + 2);
+		setText(textSupplier.get());
+		renderFont(matrixStack, fontRenderSupplier.get(), getMovingX(x), y + 2);
 		
 		GL11.glDisable(GL11.GL_SCISSOR_TEST);
 		GL11.glPopMatrix();
