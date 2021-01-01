@@ -194,7 +194,7 @@ public class GuiUtil {
 	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
 	public static void drawTexturedColoredQuad(MatrixStack matrixStack, int x, int y, int width, int height, float zLevel, TextureAtlasSprite sprite, RGBA color) {
-		addTexturedColoredQuad(matrixStack, x, x + width, y, y + height, sprite.getMinU(), sprite.getMaxU(), sprite.getMinV(), sprite.getMaxV(), zLevel, color);
+		drawTexturedColoredQuad(matrixStack, x, x + width, y, y + height, sprite.getMinU(), sprite.getMaxU(), sprite.getMinV(), sprite.getMaxV(), zLevel, color);
 	}
 	
 	/**
@@ -212,7 +212,7 @@ public class GuiUtil {
 	 * @param zLevel zLevel of the drawing
 	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
-	public static void addTexturedColoredQuad(MatrixStack matrixStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float zLevel, RGBA color) {
+	public static void drawTexturedColoredQuad(MatrixStack matrixStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float zLevel, RGBA color) {
 		final Tessellator tessellator = Tessellator.getInstance();
 		final BufferBuilder bufferBuilder = tessellator.getBuffer();
 		

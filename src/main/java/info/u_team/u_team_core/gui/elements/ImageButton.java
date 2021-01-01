@@ -71,7 +71,7 @@ public class ImageButton extends UButton {
 		
 		RenderUtil.enableBlend();
 		RenderUtil.defaultBlendFunc();
-		GuiUtil.addTexturedColoredQuad(matrixStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, getCurrentImageColor(matrixStack, mouseX, mouseY, partialTicks));
+		GuiUtil.drawTexturedColoredQuad(matrixStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, getCurrentImageColor(matrixStack, mouseX, mouseY, partialTicks));
 		RenderUtil.disableBlend();
 	}
 	
