@@ -151,6 +151,16 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
+	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+		final boolean flag = keyCode == 263;
+		if (flag || keyCode == 262) {
+			final float direction = flag ? -1.0F : 1.0F;
+			setSliderValue(this.sliderValue + (double) (direction / (float) (this.width - 8)));
+		}
+		return false;
+	}
+	
+	@Override
 	public void playDownSound(SoundHandler handler) {
 	}
 	
