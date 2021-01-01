@@ -16,7 +16,7 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 	
 	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png");
 	
-	private ScalableSlider slider;
+	private USlider slider;
 	
 	public BasicTileEntityScreen(BasicTileEntityContainer container, PlayerInventory playerInventory, ITextComponent text) {
 		super(container, playerInventory, text, BACKGROUND, 176, 173);
@@ -29,7 +29,7 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 			container.getValueMessage().triggerMessage();
 		}));
 		
-		slider = addButton(new ScalableSlider(guiLeft + 7, guiTop + 19, 162, 20, ITextComponent.getTextComponentOrEmpty("Cooldown: "), ITextComponent.getTextComponentOrEmpty(" Ticks"), 0, 100, container.getTileEntity().cooldown, false, true, 1, slider -> {
+		slider = addButton(new USlider(guiLeft + 7, guiTop + 19, 162, 20, ITextComponent.getTextComponentOrEmpty("Cooldown: "), ITextComponent.getTextComponentOrEmpty(" Ticks"), 0, 100, container.getTileEntity().cooldown, false, true, true, slider -> {
 			container.getCooldownMessage().triggerMessage(() -> new PacketBuffer(Unpooled.copyShort(slider.getValueInt())));
 		}));
 	}
