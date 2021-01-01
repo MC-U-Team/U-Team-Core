@@ -181,6 +181,23 @@ public class GuiUtil {
 		bufferBuilder.pos(matrix, x, y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).tex(u * uScale, (v * vScale)).endVertex();
 	}
 	
+	/**
+	 * Draw a textured quad that can be colored.
+	 * 
+	 * @param matrixStack The gui matrix stack
+	 * @param x X coordinate of the drawing
+	 * @param y Y coordinate of the drawing
+	 * @param width Width of the drawing
+	 * @param height Height of the drawing
+	 * @param uWidth Width of the image
+	 * @param vHeight Height of the image
+	 * @param uOffset Offset u of the image
+	 * @param vOffset Offset v of the image
+	 * @param textureWidth Width of the whole image texture
+	 * @param textureHeight Height of the whole image texture
+	 * @param zLevel zLevel zLevel of the drawing
+	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
+	 */
 	public static void drawTexturedColoredQuad(MatrixStack matrixStack, int x, int y, int width, int height, int uWidth, int vHeight, float uOffset, float vOffset, int textureWidth, int textureHeight, float zLevel, RGBA color) {
 		drawTexturedColoredQuad(matrixStack, x, x + width, y, y + height, uOffset / (float) textureWidth, (uOffset + uWidth) / (float) textureWidth, vOffset / (float) textureHeight, (vOffset + vHeight) / (float) textureHeight, zLevel, color);
 	}
