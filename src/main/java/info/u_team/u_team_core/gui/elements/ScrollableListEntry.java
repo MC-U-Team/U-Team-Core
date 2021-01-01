@@ -12,28 +12,28 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	
 	protected final Minecraft minecraft;
 	
-	private final List<Widget> widget;
+	private final List<Widget> widgets;
 	
 	public ScrollableListEntry() {
 		minecraft = Minecraft.getInstance();
-		widget = new ArrayList<>();
+		widgets = new ArrayList<>();
 	}
 	
 	protected <B extends Widget> B addButton(B button) {
-		widget.add(button);
+		widgets.add(button);
 		return button;
 	}
 	
 	@Override
-	public boolean mouseClicked(double p_mouseClicked_1_, double p_mouseClicked_3_, int p_mouseClicked_5_) {
-		widget.forEach(button -> button.mouseClicked(p_mouseClicked_1_, p_mouseClicked_3_, p_mouseClicked_5_));
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		widgets.forEach(widget -> widget.mouseClicked(mouseX, mouseY, button));
 		return true;
 	}
 	
 	@Override
-	public boolean mouseReleased(double p_mouseReleased_1_, double p_mouseReleased_3_, int p_mouseReleased_5_) {
-		for (final Widget button : widget) {
-			if (button.mouseReleased(p_mouseReleased_1_, p_mouseReleased_3_, p_mouseReleased_5_)) {
+	public boolean mouseReleased(double mouseX, double mouseY, int button) {
+		for (final Widget widget : widgets) {
+			if (widget.mouseReleased(mouseX, mouseY, button)) {
 				return true;
 			}
 		}
@@ -41,9 +41,9 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	}
 	
 	@Override
-	public boolean mouseDragged(double p_mouseDragged_1_, double p_mouseDragged_3_, int p_mouseDragged_5_, double p_mouseDragged_6_, double p_mouseDragged_8_) {
-		for (final Widget button : widget) {
-			if (button.mouseDragged(p_mouseDragged_1_, p_mouseDragged_3_, p_mouseDragged_5_, p_mouseDragged_6_, p_mouseDragged_8_)) {
+	public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+		for (final Widget widget : widgets) {
+			if (widget.mouseDragged(mouseX, mouseY, button, dragX, dragY)) {
 				return true;
 			}
 		}
