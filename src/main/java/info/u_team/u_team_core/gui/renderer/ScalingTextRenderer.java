@@ -30,6 +30,7 @@ public class ScalingTextRenderer implements IRenderable {
 		this.textSupplier = textSupplier;
 		this.x = x;
 		this.y = y;
+		color = RGBA.WHITE;
 		scale = 1;
 		positionFactor = 1;
 	}
