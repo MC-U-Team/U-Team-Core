@@ -119,7 +119,7 @@ public class ButtonTestScreen extends Screen {
 		});
 		
 		// U Slider Test
-		final USlider uSlider = addButton(new USlider(10, 130, 200, 20, ITextComponent.getTextComponentOrEmpty("U Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true));
+		final USlider uSlider = addButton(new USlider(10, 130, 200, 20, ITextComponent.getTextComponentOrEmpty("U Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, false));
 		uSlider.setSlider(() -> {
 			LOGGER.info("Updated U Slider: " + uSlider.getValueInt());
 		});
@@ -130,7 +130,7 @@ public class ButtonTestScreen extends Screen {
 		});
 		
 		// Scalable Slider Test
-		final ScalableSlider scalableSlider = addButton(new ScalableSlider(10, 155, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 0.5F));
+		final ScalableSlider scalableSlider = addButton(new ScalableSlider(10, 155, 200, 15, ITextComponent.getTextComponentOrEmpty("Scalable Slider: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, false, 0.5F));
 		scalableSlider.setSlider(() -> {
 			LOGGER.info("Updated Scalable Slider: " + scalableSlider.getValueInt());
 		});
@@ -140,7 +140,7 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		final ScalableSlider scalableSlider2 = addButton(new ScalableSlider(10, 175, 200, 30, ITextComponent.getTextComponentOrEmpty("Scalable Slider 2: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, 1.5F));
+		final ScalableSlider scalableSlider2 = addButton(new ScalableSlider(10, 175, 200, 30, ITextComponent.getTextComponentOrEmpty("Scalable Slider 2: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, false, 1.5F));
 		scalableSlider2.setSliderBackgroundColor(new RGBA(0x0000FFFF));
 		scalableSlider2.setSliderColor(new RGBA(0x00FF00FF));
 		scalableSlider2.setTextColor(new RGBA(0xFF0000FF));
