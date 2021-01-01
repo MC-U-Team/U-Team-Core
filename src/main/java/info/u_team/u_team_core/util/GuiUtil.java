@@ -181,6 +181,10 @@ public class GuiUtil {
 		bufferBuilder.pos(matrix, x, y, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).tex(u * uScale, (v * vScale)).endVertex();
 	}
 	
+	public static void drawTexturedColoredQuad(MatrixStack matrixStack, int x, int y, int width, int height, int uWidth, int vHeight, float uOffset, float vOffset, int textureWidth, int textureHeight, float zLevel, RGBA color) {
+		drawTexturedColoredQuad(matrixStack, x, x + width, y, y + height, uOffset / (float) textureWidth, (uOffset + uWidth) / (float) textureWidth, vOffset / (float) textureHeight, (vOffset + vHeight) / (float) textureHeight, zLevel, color);
+	}
+	
 	/**
 	 * Draw a {@link TextureAtlasSprite} that can be colored.
 	 * 
@@ -189,11 +193,11 @@ public class GuiUtil {
 	 * @param y Y coordinate of the drawing
 	 * @param width Width of the drawing
 	 * @param height Height of the drawing
-	 * @param zLevel zLevel zLevel of the drawing
 	 * @param sprite The Atlas Sprite to define the uvs
+	 * @param zLevel zLevel zLevel of the drawing
 	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
-	public static void drawTexturedColoredQuad(MatrixStack matrixStack, int x, int y, int width, int height, float zLevel, TextureAtlasSprite sprite, RGBA color) {
+	public static void drawTexturedColoredQuad(MatrixStack matrixStack, int x, int y, int width, int height, TextureAtlasSprite sprite, float zLevel, RGBA color) {
 		drawTexturedColoredQuad(matrixStack, x, x + width, y, y + height, sprite.getMinU(), sprite.getMaxU(), sprite.getMinV(), sprite.getMaxV(), zLevel, color);
 	}
 	

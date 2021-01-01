@@ -27,7 +27,7 @@ public class FluidInventoryRenderer extends AbstractGui {
 		
 		final RGBA rgba = RGBA.fromARGB(stack.getFluid().getAttributes().getColor(stack));
 		
-		GuiUtil.drawTexturedColoredQuad(matrixStack, x, y, 16, 16, 100, sprite, rgba);
+		GuiUtil.drawTexturedColoredQuad(matrixStack, x, y, 16, 16, sprite, 100, rgba);
 		
 		RenderUtil.disableAlphaTest();
 		RenderUtil.disableBlend();

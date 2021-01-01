@@ -66,8 +66,7 @@ public class CheckboxButton extends UButton {
 		
 		RenderUtil.enableBlend();
 		RenderUtil.defaultBlendFunc();
-		GuiUtil.drawTexturedColoredQuad(matrixStack, x, x + width, y, y + height, 0, 1, 0, 1, 0, getCurrentBackgroundColor(matrixStack, mouseX, mouseY, partialTicks));
-		
+		GuiUtil.drawTexturedColoredQuad(matrixStack, x, y, width, height, 20, 20, isHovered() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, getCurrentBackgroundColor(matrixStack, mouseX, mouseY, partialTicks));
 		RenderUtil.disableBlend();
 		
 		renderBackground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
@@ -76,6 +75,8 @@ public class CheckboxButton extends UButton {
 	
 	@Override
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+		if (drawText) {
+			drawString(matrixStack, minecraft.fontRenderer, getCurrentText(), x + 24, y + (height - 8) / 2, getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
+		}
 	}
-	
 }

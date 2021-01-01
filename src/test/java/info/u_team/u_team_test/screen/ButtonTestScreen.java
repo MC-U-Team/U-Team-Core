@@ -8,6 +8,7 @@ import info.u_team.u_team_core.gui.elements.*;
 import info.u_team.u_team_core.gui.renderer.*;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_test.TestMod;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.*;
@@ -140,17 +141,6 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		// Checkbox Button Test
-		final CheckboxButton checkboxButton = addButton(new CheckboxButton(10, 180, 15, 15, ITextComponent.getTextComponentOrEmpty("Checkbox Button"), false, true));
-		checkboxButton.setPressable(() -> {
-			LOGGER.info("Pressed Checkbox Button");
-		});
-		checkboxButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
-				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Checkbox Button Tooltip"), mouseX, mouseY);
-			}
-		});
-		
 		final ScalableSlider scalableSlider2 = addButton(new ScalableSlider(10, 175, 200, 30, ITextComponent.getTextComponentOrEmpty("Scalable Slider 2: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, false, 1.5F));
 		scalableSlider2.setSliderBackgroundColor(new RGBA(0x0000FFFF));
 		scalableSlider2.setSliderColor(new RGBA(0x00FF00FF));
@@ -166,6 +156,18 @@ public class ButtonTestScreen extends Screen {
 			if (slider.isHovered()) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Slider 2 Tooltip"), mouseX, mouseY);
 				scalableSlider2.active = true;
+			}
+		});
+		
+		// Checkbox Button Test
+		final CheckboxButton checkboxButton = addButton(new CheckboxButton(10, 210, 15, 15, ITextComponent.getTextComponentOrEmpty("Checkbox Button"), false, true));
+		checkboxButton.setPressable(() -> {
+			LOGGER.info("Pressed Checkbox Button");
+			Minecraft.getInstance().gameSettings.skipMultiplayerWarning = false;
+		});
+		checkboxButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Checkbox Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
