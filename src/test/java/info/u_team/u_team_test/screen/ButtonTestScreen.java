@@ -140,6 +140,17 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
+		// Checkbox Button Test
+		final CheckboxButton checkboxButton = addButton(new CheckboxButton(10, 180, 15, 15, ITextComponent.getTextComponentOrEmpty("Checkbox Button"), false, true));
+		checkboxButton.setPressable(() -> {
+			LOGGER.info("Pressed Checkbox Button");
+		});
+		checkboxButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Checkbox Button Tooltip"), mouseX, mouseY);
+			}
+		});
+		
 		final ScalableSlider scalableSlider2 = addButton(new ScalableSlider(10, 175, 200, 30, ITextComponent.getTextComponentOrEmpty("Scalable Slider 2: "), ITextComponent.getTextComponentOrEmpty("%"), 0, 100, 20, false, true, false, 1.5F));
 		scalableSlider2.setSliderBackgroundColor(new RGBA(0x0000FFFF));
 		scalableSlider2.setSliderColor(new RGBA(0x00FF00FF));
