@@ -11,20 +11,20 @@ public class ScalableSlider extends USlider implements IScaleable, IScaleProvide
 	
 	protected float scale;
 	
-	public ScalableSlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, float scale) {
-		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, scale, EMTPY_SLIDER);
+	public ScalableSlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, float scale) {
+		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, scale, EMTPY_SLIDER);
 	}
 	
-	public ScalableSlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, float scale, ISlider slider) {
-		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, scale, slider, EMPTY_TOOLTIP);
+	public ScalableSlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, float scale, ISlider slider) {
+		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, scale, slider, EMPTY_TOOLTIP);
 	}
 	
-	public ScalableSlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, float scale, ITooltip tooltip) {
-		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, scale, EMTPY_SLIDER, tooltip);
+	public ScalableSlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, float scale, ITooltip tooltip) {
+		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, scale, EMTPY_SLIDER, tooltip);
 	}
 	
-	public ScalableSlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, float scale, ISlider slider, ITooltip tooltip) {
-		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, slider, tooltip);
+	public ScalableSlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, float scale, ISlider slider, ITooltip tooltip) {
+		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, slider, tooltip);
 		this.scale = scale;
 	}
 	
