@@ -37,7 +37,7 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 	@Override
 	public void tick() {
 		super.tick();
-		slider.setValue(container.getTileEntity().cooldown);
+		// slider.setValue(container.getTileEntity().cooldown);
 	}
 	
 	@Override
