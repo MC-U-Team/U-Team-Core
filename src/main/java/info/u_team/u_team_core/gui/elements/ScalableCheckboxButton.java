@@ -43,13 +43,15 @@ public class ScalableCheckboxButton extends CheckboxButton implements IScaleable
 		if (drawText) {
 			final FontRenderer fontRenderer = minecraft.fontRenderer;
 			
-			final float positionFactor = 1 / scale;
+			final float currentScale = getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
+			
+			final float positionFactor = 1 / currentScale;
 			
 			final float xStart = (x + 24) * positionFactor;
-			final float yStart = (y + ((int) (height - 8 * scale)) / 2) * positionFactor;
+			final float yStart = (y + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
 			
 			matrixStack.push();
-			matrixStack.scale(scale, scale, 0);
+			matrixStack.scale(currentScale, currentScale, 0);
 			fontRenderer.func_243246_a(matrixStack, getCurrentText(), xStart, yStart, getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 			matrixStack.pop();
 		}
