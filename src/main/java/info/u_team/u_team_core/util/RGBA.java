@@ -169,7 +169,7 @@ public class RGBA {
 	/**
 	 * Set the green component in range from 0 to 255
 	 * 
-	 * @param red Green component
+	 * @param green Green component
 	 * @return A new RGBA instance with the green value set
 	 */
 	public RGBA setGreen(int green) {
@@ -179,7 +179,7 @@ public class RGBA {
 	/**
 	 * Set the blue component in range from 0 to 255
 	 * 
-	 * @param red Blue component
+	 * @param blue Blue component
 	 * @return A new RGBA instance with the blue value set
 	 */
 	public RGBA setBlue(int blue) {
@@ -189,7 +189,7 @@ public class RGBA {
 	/**
 	 * Set the alpha component in range from 0 to 255
 	 * 
-	 * @param red Alpha component
+	 * @param alpha Alpha component
 	 * @return A new RGBA instance with the alpha value set
 	 */
 	public RGBA setAlpha(int alpha) {
@@ -209,7 +209,7 @@ public class RGBA {
 	/**
 	 * Set the green component in range from 0 to 1
 	 * 
-	 * @param red Green component
+	 * @param green Green component
 	 * @return A new RGBA instance with the green value set
 	 */
 	public RGBA setGreenComponent(float green) {
@@ -219,7 +219,7 @@ public class RGBA {
 	/**
 	 * Set the blue component in range from 0 to 1
 	 * 
-	 * @param red Blue component
+	 * @param blue Blue component
 	 * @return A new RGBA instance with the blue value set
 	 */
 	public RGBA setBlueComponent(float blue) {
@@ -229,7 +229,7 @@ public class RGBA {
 	/**
 	 * Set the alpha component in range from 0 to 1
 	 * 
-	 * @param red Alpha component
+	 * @param alpha Alpha component
 	 * @return A new RGBA instance with the alpha value set
 	 */
 	public RGBA setAlphaComponent(float alpha) {
