@@ -169,8 +169,19 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
+		final CheckboxButton checkboxButton2 = addButton(new CheckboxButton(110, 230, 15, 15, ITextComponent.getTextComponentOrEmpty("Checkbox Button 2"), false, true));
+		checkboxButton2.setLeftSideText(true);
+		checkboxButton2.setPressable(() -> {
+			LOGGER.info("Pressed Checkbox Button 2");
+		});
+		checkboxButton2.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Checkbox Button 2 Tooltip"), mouseX, mouseY);
+			}
+		});
+		
 		// Scalable Checkbox Button Test
-		final ScalableCheckboxButton scalableCheckboxButton = addButton(new ScalableCheckboxButton(10, 230, 15, 15, ITextComponent.getTextComponentOrEmpty("Scalable Checkbox Button"), false, true, 0.75F));
+		final ScalableCheckboxButton scalableCheckboxButton = addButton(new ScalableCheckboxButton(10, 250, 15, 15, ITextComponent.getTextComponentOrEmpty("Scalable Checkbox Button"), false, true, 0.75F));
 		scalableCheckboxButton.setPressable(() -> {
 			LOGGER.info("Pressed Scalable Checkbox Button");
 		});
