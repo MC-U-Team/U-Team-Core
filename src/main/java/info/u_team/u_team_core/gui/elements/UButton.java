@@ -24,6 +24,8 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 	protected static final RGBA WHITE = RGBA.WHITE;
 	protected static final RGBA LIGHT_GRAY = new RGBA(0xA0A0A0FF);
 	
+	protected ITextureProvider buttonTextureProvider;
+	
 	protected RGBA buttonColor;
 	
 	protected RGBA textColor;
@@ -44,6 +46,7 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 	public UButton(int x, int y, int width, int height, ITextComponent text, IPressable pessable, ITooltip tooltip) {
 		super(x, y, width, height, text, pessable);
 		onTooltip = tooltip;
+		buttonTextureProvider = new WidgetTextureProvider(this, this::getYImage);
 		buttonColor = WHITE;
 		textColor = WHITE;
 		disabledTextColor = LIGHT_GRAY;
@@ -87,7 +90,7 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 	
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderButtonLikeWidget(this, matrixStack, mouseX, mouseY, partialTicks);
+		WidgetUtil.renderButtonLikeWidget(this, buttonTextureProvider, matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override

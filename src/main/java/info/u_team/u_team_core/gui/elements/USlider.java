@@ -22,6 +22,8 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	
 	protected final boolean isInContainer;
 	
+	protected ITextureProvider sliderBackgroundTextureProvider;
+	
 	protected RGBA sliderBackgroundColor;
 	protected RGBA sliderColor;
 	
@@ -44,6 +46,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, UButton.EMTPY_PRESSABLE, slider);
 		this.isInContainer = isInContainer;
 		onTooltip = tooltip;
+		sliderBackgroundTextureProvider = new WidgetTextureProvider(this, this::getYImage);
 		sliderBackgroundColor = WHITE;
 		sliderColor = WHITE;
 		textColor = WHITE;
@@ -96,7 +99,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	
 	@Override
 	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderButtonLikeWidget(this, matrixStack, mouseX, mouseY, partialTicks);
+		WidgetUtil.renderButtonLikeWidget(this, sliderBackgroundTextureProvider, matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
