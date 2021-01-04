@@ -98,7 +98,7 @@ public class CheckboxButton extends UButton {
 				final float yStart = y + (height - 8) / 2;
 				
 				if (leftSideText) {
-					xStart = x - (fontRenderer.getStringPropertyWidth(message) + 24);
+					xStart = x - (fontRenderer.getStringPropertyWidth(message) + (24 - width));
 				} else {
 					xStart = x + 24;
 				}
