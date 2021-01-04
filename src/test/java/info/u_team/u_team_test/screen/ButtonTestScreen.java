@@ -191,7 +191,7 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
-		final ScalableCheckboxButton scalableCheckboxButton2 = addButton(new ScalableCheckboxButton(110, 270, 15, 15, ITextComponent.getTextComponentOrEmpty("Scalable Checkbox Button 2"), false, true, 0.75F));
+		final ScalableCheckboxButton scalableCheckboxButton2 = addButton(new ScalableCheckboxButton(110, 270, 15, 15, ITextComponent.getTextComponentOrEmpty("Scalable Checkbox Button 2"), false, true, 0.65F));
 		scalableCheckboxButton2.setLeftSideText(true);
 		scalableCheckboxButton2.setButtonColor(new RGBA(0x0000F0FF));
 		scalableCheckboxButton2.setTextColor(new RGBA(0xA0A0A0FF));
