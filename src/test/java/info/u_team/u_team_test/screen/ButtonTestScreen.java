@@ -191,6 +191,19 @@ public class ButtonTestScreen extends Screen {
 			}
 		});
 		
+		final ScalableCheckboxButton scalableCheckboxButton2 = addButton(new ScalableCheckboxButton(110, 270, 15, 15, ITextComponent.getTextComponentOrEmpty("Scalable Checkbox Button 2"), false, true, 0.75F));
+		scalableCheckboxButton2.setLeftSideText(true);
+		scalableCheckboxButton2.setButtonColor(new RGBA(0x0000F0FF));
+		scalableCheckboxButton2.setTextColor(new RGBA(0xA0A0A0FF));
+		scalableCheckboxButton2.setPressable(() -> {
+			LOGGER.info("Pressed Scalable Checkbox Button 2");
+		});
+		scalableCheckboxButton2.setTooltip((button, matrixStack, mouseX, mouseY) -> {
+			if (button.isHovered()) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Checkbox Button 2 Tooltip"), mouseX, mouseY);
+			}
+		});
+		
 		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer", 220, 10);
 		scalingRenderer.setColor(new RGBA(0xFF00FF40));
 		scalingRenderer.setScale(1.5F);
