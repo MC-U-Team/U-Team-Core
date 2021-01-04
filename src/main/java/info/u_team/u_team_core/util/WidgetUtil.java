@@ -11,10 +11,10 @@ import net.minecraft.util.text.*;
 
 public class WidgetUtil {
 	
-	public static <T extends Widget & IPerspectiveRenderable & IBackgroundColorProvider> void renderButtonLikeWidget(T widget, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends Widget & IPerspectiveRenderable & IBackgroundColorProvider> void renderButtonLikeWidget(T widget, ITextureProvider textureProvider, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		RenderUtil.enableBlend();
 		RenderUtil.defaultBlendFunc();
-		GuiUtil.drawContinuousTexturedBox(matrixStack, Widget.WIDGETS_LOCATION, widget.x, widget.y, 0, 46 + widget.getYImage(widget.isHovered()) * 20, widget.width, widget.height, 200, 20, 2, 3, 2, 2, widget.getBlitOffset(), widget.getCurrentBackgroundColor(matrixStack, mouseY, mouseY, partialTicks));
+		GuiUtil.drawContinuousTexturedBox(matrixStack, textureProvider.getTexture(), widget.x, widget.y, textureProvider.getU(), textureProvider.getV(), widget.width, widget.height, textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, widget.getBlitOffset(), widget.getCurrentBackgroundColor(matrixStack, mouseY, mouseY, partialTicks));
 		RenderUtil.disableBlend();
 		
 		final Minecraft minecraft = Minecraft.getInstance();
