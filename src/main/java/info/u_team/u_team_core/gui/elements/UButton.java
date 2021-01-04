@@ -10,7 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 
 /**
  * A button that fixes vanilla not drawing the continuous border if the button is smaller than 20. Also adds utility
- * methods to add an {@link IPressable} and {@link ITooltip}
+ * methods to add an IPressable and ITooltip
  * 
  * @author HyCraftHD
  */
