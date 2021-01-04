@@ -4,15 +4,19 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.util.*;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.*;
 
 public class CheckboxButton extends UButton {
 	
 	protected static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/checkbox.png");
 	
 	protected boolean checked;
+	
 	protected boolean drawText;
+	protected boolean leftSideText;
+	protected boolean dropShadow;
 	
 	public CheckboxButton(int x, int y, int width, int height, ITextComponent text, boolean checked, boolean drawText) {
 		this(x, y, width, height, text, checked, drawText, EMTPY_PRESSABLE);
@@ -30,6 +34,8 @@ public class CheckboxButton extends UButton {
 		super(x, y, width, height, text, pessable, tooltip);
 		this.checked = checked;
 		this.drawText = drawText;
+		leftSideText = false;
+		dropShadow = false;
 	}
 	
 	public boolean isChecked() {
@@ -46,6 +52,14 @@ public class CheckboxButton extends UButton {
 	
 	public void setDrawText(boolean drawText) {
 		this.drawText = drawText;
+	}
+	
+	public boolean isLeftSideText() {
+		return leftSideText;
+	}
+	
+	public void setLeftSideText(boolean leftSideText) {
+		this.leftSideText = leftSideText;
 	}
 	
 	public void toggle() {
@@ -76,7 +90,27 @@ public class CheckboxButton extends UButton {
 	@Override
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			drawString(matrixStack, minecraft.fontRenderer, getCurrentText(), x + 24, y + (height - 8) / 2, getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
+			final FontRenderer fontRenderer = minecraft.fontRenderer;
+			
+			final ITextComponent message = getCurrentText();
+			if (message != StringTextComponent.EMPTY) {
+				final float xStart;
+				final float yStart = y + (height - 8) / 2;
+				
+				if (leftSideText) {
+					xStart = x - (fontRenderer.getStringPropertyWidth(message) + 24);
+				} else {
+					xStart = x + 24;
+				}
+				
+				final int color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
+				
+				if (dropShadow) {
+					fontRenderer.func_243246_a(matrixStack, getCurrentText(), xStart, yStart, color);
+				} else {
+					fontRenderer.func_243248_b(matrixStack, getCurrentText(), xStart, yStart, color);
+				}
+			}
 		}
 	}
 }
