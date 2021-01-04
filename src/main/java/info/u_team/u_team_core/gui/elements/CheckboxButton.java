@@ -98,9 +98,9 @@ public class CheckboxButton extends UButton {
 				final float yStart = y + (height - 8) / 2;
 				
 				if (leftSideText) {
-					xStart = x - (fontRenderer.getStringPropertyWidth(message) + (24 - width));
+					xStart = x - (fontRenderer.getStringPropertyWidth(message) + 4);
 				} else {
-					xStart = x + 24;
+					xStart = x + width + 4;
 				}
 				
 				final int color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
