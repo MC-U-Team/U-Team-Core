@@ -11,6 +11,10 @@ import net.minecraft.util.text.*;
 
 public class WidgetUtil {
 	
+	public static boolean isHovered(Widget widget) {
+		return widget.isHovered;
+	}
+	
 	public static <T extends Widget & IPerspectiveRenderable & IBackgroundColorProvider> void renderButtonLikeWidget(T widget, ITextureProvider textureProvider, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		RenderUtil.enableBlend();
 		RenderUtil.defaultBlendFunc();
