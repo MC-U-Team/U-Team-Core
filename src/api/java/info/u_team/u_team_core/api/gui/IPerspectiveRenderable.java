@@ -14,4 +14,6 @@ public interface IPerspectiveRenderable extends IRenderable {
 	
 	void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks);
 	
+	void renderToolTip(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks);
+	
 }

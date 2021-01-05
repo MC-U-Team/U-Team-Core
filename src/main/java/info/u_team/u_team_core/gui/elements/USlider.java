@@ -119,6 +119,11 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
+	public void renderToolTip(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+		renderToolTip(matrixStack, mouseX, mouseY);
+	}
+	
+	@Override
 	public RGBA getCurrentBackgroundColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return sliderBackgroundColor;
 	}

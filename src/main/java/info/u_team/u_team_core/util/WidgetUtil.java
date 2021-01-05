@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.util;
 
+import java.util.List;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.api.gui.*;
@@ -74,5 +76,15 @@ public class WidgetUtil {
 				matrixStack.pop();
 			}
 		}
+	}
+	
+	public static void renderTooltips(List<Widget> widgets, MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+		widgets.forEach(widget -> {
+			if (widget instanceof IPerspectiveRenderable) {
+				((IPerspectiveRenderable) widget).renderToolTip(matrixStack, minecraft, mouseX, mouseY, partialTicks);
+			} else {
+				widget.renderToolTip(matrixStack, mouseX, mouseY);
+			}
+		});
 	}
 }
