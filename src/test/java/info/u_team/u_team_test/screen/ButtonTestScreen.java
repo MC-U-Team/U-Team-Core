@@ -210,7 +210,8 @@ public class ButtonTestScreen extends UBasicScreen {
 		// U Text Field Test
 		minecraft.keyboardListener.enableRepeatEvents(true);
 		
-		textFieldWidget = addButton(new UTextField(font, 10, 290, 200, 20, textFieldWidget, ITextComponent.getTextComponentOrEmpty("U Text Field")));
+		textFieldWidget = addButton(new UTextField(font, 10, 290, 200, 20, ITextComponent.getTextComponentOrEmpty("U Text Field")));
+		textFieldWidget.setPreviousText(textFieldWidget);
 		textFieldWidget.setCanLoseFocus(false);
 		textFieldWidget.setMaxStringLength(500);
 		setFocusedDefault(textFieldWidget);

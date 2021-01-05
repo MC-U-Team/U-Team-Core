@@ -17,11 +17,13 @@ public class UTextField extends TextFieldWidget implements IRenderTickable {
 	}
 	
 	public void setPreviousText(UTextField textField) {
-		text = textField.text;
-		maxStringLength = textField.maxStringLength;
-		lineScrollOffset = textField.lineScrollOffset;
-		cursorPosition = textField.cursorPosition;
-		selectionEnd = textField.selectionEnd;
+		if (textField != null) {
+			text = textField.text;
+			maxStringLength = textField.maxStringLength;
+			lineScrollOffset = textField.lineScrollOffset;
+			cursorPosition = textField.cursorPosition;
+			selectionEnd = textField.selectionEnd;
+		}
 	}
 	
 }
