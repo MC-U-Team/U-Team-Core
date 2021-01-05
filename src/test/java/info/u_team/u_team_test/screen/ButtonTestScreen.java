@@ -6,9 +6,10 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.gui.elements.*;
 import info.u_team.u_team_core.gui.renderer.*;
-import info.u_team.u_team_core.util.RGBA;
+import info.u_team.u_team_core.util.*;
 import info.u_team.u_team_test.TestMod;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.*;
 
@@ -19,13 +20,15 @@ public class ButtonTestScreen extends Screen {
 	private static final ResourceLocation TEXTURE1 = new ResourceLocation(TestMod.MODID, "textures/item/better_enderpearl.png");
 	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMod.MODID, "textures/item/basicitem.png");
 	
-	public ButtonTestScreen() {
-		super(new StringTextComponent("test"));
-	}
+	private TextFieldWidget textFieldWidget;
 	
 	private ScalingTextRenderer scalingRenderer;
 	
 	private ScrollingTextRenderer scrollingRenderer;
+	
+	public ButtonTestScreen() {
+		super(new StringTextComponent("test"));
+	}
 	
 	@Override
 	protected void init() {
@@ -33,7 +36,7 @@ public class ButtonTestScreen extends Screen {
 		final UButton uButton = addButton(new UButton(10, 10, 200, 15, ITextComponent.getTextComponentOrEmpty("U Button")));
 		uButton.setPressable(() -> LOGGER.info("Pressed U Button"));
 		uButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("U Button Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -43,7 +46,7 @@ public class ButtonTestScreen extends Screen {
 		scalableButton.setTextColor(new RGBA(0x00FFFF80));
 		scalableButton.setPressable(button -> LOGGER.info("Pressed Scalable Button"));
 		scalableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Button Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -55,7 +58,7 @@ public class ButtonTestScreen extends Screen {
 			scalableActivatableButton.setActivated(!scalableActivatableButton.isActivated());
 		});
 		scalableActivatableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Activatable Button Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -66,7 +69,7 @@ public class ButtonTestScreen extends Screen {
 			LOGGER.info("Pressed Image Button");
 		});
 		imageButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Image Button Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -78,7 +81,7 @@ public class ButtonTestScreen extends Screen {
 			LOGGER.info("Pressed Image Button 2");
 		});
 		imageButton2.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Image Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -90,7 +93,7 @@ public class ButtonTestScreen extends Screen {
 			imageActivatableButton.setActivated(!imageActivatableButton.isActivated());
 		});
 		imageActivatableButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Image Activatable Button Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -101,7 +104,7 @@ public class ButtonTestScreen extends Screen {
 			LOGGER.info("Pressed Image Toggle Button");
 		});
 		imageToggleButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Image Toggle Button Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -113,7 +116,7 @@ public class ButtonTestScreen extends Screen {
 			LOGGER.info("Pressed Image Toggle Button 2");
 		});
 		imageToggleButton2.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Image Toggle Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -164,7 +167,7 @@ public class ButtonTestScreen extends Screen {
 			LOGGER.info("Pressed Checkbox Button");
 		});
 		checkboxButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Checkbox Button Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -175,7 +178,7 @@ public class ButtonTestScreen extends Screen {
 			LOGGER.info("Pressed Checkbox Button 2");
 		});
 		checkboxButton2.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Checkbox Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -186,7 +189,7 @@ public class ButtonTestScreen extends Screen {
 			LOGGER.info("Pressed Scalable Checkbox Button");
 		});
 		scalableCheckboxButton.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Checkbox Button Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -199,10 +202,16 @@ public class ButtonTestScreen extends Screen {
 			LOGGER.info("Pressed Scalable Checkbox Button 2");
 		});
 		scalableCheckboxButton2.setTooltip((button, matrixStack, mouseX, mouseY) -> {
-			if (button.isHovered()) {
+			if (WidgetUtil.isHovered(button)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Checkbox Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
+		
+		// TEST TEST
+		this.minecraft.keyboardListener.enableRepeatEvents(true);
+		textFieldWidget = addButton(new TextFieldWidget(font, 10, 290, 200, 20, null, new TranslationTextComponent("mco.configure.world.invite.profile.name")));
+		textFieldWidget.setCanLoseFocus(false);
+		setFocusedDefault(textFieldWidget);
 		
 		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer", 220, 10);
 		scalingRenderer.setColor(new RGBA(0xFF00FF40));
@@ -212,6 +221,16 @@ public class ButtonTestScreen extends Screen {
 		scrollingRenderer.setColor(new RGBA(0x00FFFFFF));
 		scrollingRenderer.setWidth(200);
 		scrollingRenderer.setScale(2F);
+	}
+	
+	@Override
+	public void onClose() {
+		this.minecraft.keyboardListener.enableRepeatEvents(false);
+	}
+	
+	@Override
+	public void tick() {
+		textFieldWidget.tick();
 	}
 	
 	@Override
