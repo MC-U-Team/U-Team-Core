@@ -6,14 +6,15 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.gui.elements.*;
 import info.u_team.u_team_core.gui.renderer.*;
+import info.u_team.u_team_core.screen.UBasicScreen;
 import info.u_team.u_team_core.util.*;
 import info.u_team.u_team_test.TestMod;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.*;
 
-public class ButtonTestScreen extends Screen {
+public class ButtonTestScreen extends UBasicScreen {
 	
 	private static final Logger LOGGER = LogManager.getLogger();
 	
@@ -211,6 +212,7 @@ public class ButtonTestScreen extends Screen {
 		this.minecraft.keyboardListener.enableRepeatEvents(true);
 		textFieldWidget = addButton(new TextFieldWidget(font, 10, 290, 200, 20, null, new TranslationTextComponent("mco.configure.world.invite.profile.name")));
 		textFieldWidget.setCanLoseFocus(false);
+		textFieldWidget.setMaxStringLength(500);
 		setFocusedDefault(textFieldWidget);
 		
 		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer", 220, 10);
@@ -229,17 +231,9 @@ public class ButtonTestScreen extends Screen {
 	}
 	
 	@Override
-	public void tick() {
-		textFieldWidget.tick();
-	}
-	
-	@Override
-	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		renderBackground(matrixStack);
-		super.render(matrixStack, mouseX, mouseY, partialTicks);
+	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		scalingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);
 		scrollingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);
-		buttons.forEach(widget -> widget.renderToolTip(matrixStack, mouseX, mouseY));
 	}
 	
 }
