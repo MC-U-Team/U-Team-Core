@@ -2,6 +2,7 @@ package info.u_team.u_team_core.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import info.u_team.u_team_core.api.gui.IRenderTickable;
 import info.u_team.u_team_core.container.UContainer;
 import info.u_team.u_team_core.util.GuiUtil;
 import net.minecraft.entity.player.PlayerInventory;
@@ -69,6 +70,11 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	@Override
 	public void tick() {
 		super.tick();
+		children.forEach(listener -> {
+			if (listener instanceof IRenderTickable) {
+				((IRenderTickable) listener).renderTick();
+			}
+		});
 		if (container instanceof UContainer) {
 			((UContainer) container).updateTrackedServerToClient();
 		}
