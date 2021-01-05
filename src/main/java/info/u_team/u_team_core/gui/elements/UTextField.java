@@ -7,8 +7,9 @@ import net.minecraft.util.text.ITextComponent;
 
 public class UTextField extends TextFieldWidget implements IRenderTickable {
 	
-	public UTextField(FontRenderer fontRenderer, int x, int y, int width, int height, ITextComponent title) {
+	public UTextField(FontRenderer fontRenderer, int x, int y, int width, int height, UTextField previousTextField, ITextComponent title) {
 		super(fontRenderer, x, y, width, height, title);
+		setPreviousText(previousTextField);
 	}
 	
 	@Override
