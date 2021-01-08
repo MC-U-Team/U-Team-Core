@@ -252,7 +252,7 @@ public class RGBA {
 	}
 	
 	/**
-	 * Returns an {@link RGBA} object from an argb integer. This encoding is used in fluids
+	 * Returns an {@link RGBA} object from an argb integer. This encoding is used in many minecraft stuff
 	 * 
 	 * @param color ARBA color
 	 * @return RGBA object
