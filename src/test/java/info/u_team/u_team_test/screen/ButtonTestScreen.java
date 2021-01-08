@@ -127,7 +127,7 @@ public class ButtonTestScreen extends UBasicScreen {
 			LOGGER.info("Updated U Slider: " + uSlider.getValueInt());
 		});
 		uSlider.setTooltip((slider, matrixStack, mouseX, mouseY) -> {
-			if (slider.isHovered()) {
+			if (WidgetUtil.isHovered(slider)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("U Slider Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -138,7 +138,7 @@ public class ButtonTestScreen extends UBasicScreen {
 			LOGGER.info("Updated Scalable Slider: " + scalableSlider.getValueInt());
 		});
 		scalableSlider.setTooltip((slider, matrixStack, mouseX, mouseY) -> {
-			if (slider.isHovered()) {
+			if (WidgetUtil.isHovered(slider)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Slider Tooltip"), mouseX, mouseY);
 			}
 		});
@@ -155,7 +155,7 @@ public class ButtonTestScreen extends UBasicScreen {
 			}
 		});
 		scalableSlider2.setTooltip((slider, matrixStack, mouseX, mouseY) -> {
-			if (slider.isHovered()) {
+			if (WidgetUtil.isHovered(slider)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Slider 2 Tooltip"), mouseX, mouseY);
 				scalableSlider2.active = true;
 			}
@@ -211,7 +211,7 @@ public class ButtonTestScreen extends UBasicScreen {
 		minecraft.keyboardListener.enableRepeatEvents(true);
 		
 		textFieldWidget = addButton(new UTextField(font, 10, 290, 200, 20, textFieldWidget, ITextComponent.getTextComponentOrEmpty("U Text Field")));
-		textFieldWidget.setPreviousText(textFieldWidget);
+		textFieldWidget.setEnabled(true);
 		textFieldWidget.setCanLoseFocus(false);
 		textFieldWidget.setMaxStringLength(500);
 		setFocusedDefault(textFieldWidget);
