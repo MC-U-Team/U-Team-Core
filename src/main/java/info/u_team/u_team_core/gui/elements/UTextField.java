@@ -112,6 +112,18 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 		this.cursorColor = cursorColor;
 	}
 	
+	@Override
+	public void setTextColor(int color) {
+		super.setTextColor(color);
+		setTextColor(RGBA.fromARGB(color));
+	}
+	
+	@Override
+	public void setDisabledTextColour(int color) {
+		super.setDisabledTextColour(color);
+		setDisabledTextColor(RGBA.fromARGB(color));
+	}
+	
 	public void setPreviousText(UTextField textField) {
 		if (textField != null) {
 			text = textField.text;
