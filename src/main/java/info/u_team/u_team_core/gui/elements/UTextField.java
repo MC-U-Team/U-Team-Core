@@ -52,9 +52,64 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 		cursorColor = LIGHTER_GRAY;
 	}
 	
-	@Override
-	public void renderTick() {
-		tick();
+	public void setTooltip(ITooltip tooltip) {
+		onTooltip = tooltip;
+	}
+	
+	public RGBA getBackgroundFrameColor() {
+		return backgroundFrameColor;
+	}
+	
+	public void setBackgroundFrameColor(RGBA backgroundFrameColor) {
+		this.backgroundFrameColor = backgroundFrameColor;
+	}
+	
+	public RGBA getUnfocusedBackgroundFrameColor() {
+		return unfocusedBackgroundFrameColor;
+	}
+	
+	public void setUnfocusedBackgroundFrameColor(RGBA unfocusedBackgroundFrameColor) {
+		this.unfocusedBackgroundFrameColor = unfocusedBackgroundFrameColor;
+	}
+	
+	public RGBA getBackgroundColor() {
+		return backgroundColor;
+	}
+	
+	public void setBackgroundColor(RGBA backgroundColor) {
+		this.backgroundColor = backgroundColor;
+	}
+	
+	public RGBA getTextColor() {
+		return textColor;
+	}
+	
+	public void setTextColor(RGBA textColor) {
+		this.textColor = textColor;
+	}
+	
+	public RGBA getDisabledTextColor() {
+		return disabledTextColor;
+	}
+	
+	public void setDisabledTextColor(RGBA disabledTextColor) {
+		this.disabledTextColor = disabledTextColor;
+	}
+	
+	public RGBA getSuggestionTextColor() {
+		return suggestionTextColor;
+	}
+	
+	public void setSuggestionTextColor(RGBA suggestionTextColor) {
+		this.suggestionTextColor = suggestionTextColor;
+	}
+	
+	public RGBA getCursorColor() {
+		return cursorColor;
+	}
+	
+	public void setCursorColor(RGBA cursorColor) {
+		this.cursorColor = cursorColor;
 	}
 	
 	public void setPreviousText(UTextField textField) {
@@ -65,6 +120,11 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 			cursorPosition = textField.cursorPosition;
 			selectionEnd = textField.selectionEnd;
 		}
+	}
+	
+	@Override
+	public void renderTick() {
+		tick();
 	}
 	
 	@Override
