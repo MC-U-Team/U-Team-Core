@@ -35,7 +35,10 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		final float currentScale = getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
 		
+		final float positionFactor = 1 / scale;
+		
 		matrixStack.push();
+		matrixStack.scale(currentScale, currentScale, 0);
 		
 		final RGBA currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
 		
@@ -48,8 +51,8 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 		final boolean shouldCursorBlink = isFocused() && cursorCounter / 6 % 2 == 0 && isCursorInText;
 		final boolean isCursorInTheMiddle = cursorPosition < text.length() || text.length() >= maxStringLength;
 		
-		final int xOffset = enableBackgroundDrawing ? x + 4 : x;
-		final int yOffset = enableBackgroundDrawing ? y + (height - 8) / 2 : y;
+		final int xOffset = (int) ((enableBackgroundDrawing ? x + 4 : x) * positionFactor);
+		final int yOffset = (int) ((enableBackgroundDrawing ? y + (int) (height - 8 * scale) / 2 : y) * positionFactor);
 		
 		int leftRenderedTextX = xOffset;
 		
@@ -85,7 +88,7 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 		
 		if (selectionOffset != cursorOffset) {
 			final int selectedX = xOffset + fontRenderer.getStringWidth(currentText.substring(0, selectionOffset));
-			drawSelectionBox(rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
+			drawSelectionBox((int) (rightRenderedTextX * currentScale), (int) ((yOffset - 1) * currentScale), (int) ((selectedX - 1) * currentScale), (int) ((yOffset + 1 + 9) * currentScale));
 		}
 		
 		matrixStack.pop();
