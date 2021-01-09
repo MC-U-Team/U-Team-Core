@@ -220,7 +220,7 @@ public class ButtonTestScreen extends UBasicScreen {
 		});
 		
 		// Scalable Text Field Test
-		scalableTextFieldWidget = addButton(new ScalableTextField(font, 10, 310, 200, 40, textFieldWidget, ITextComponent.getTextComponentOrEmpty("U Text Field"), 1.5F));
+		scalableTextFieldWidget = addButton(new ScalableTextField(font, 10, 310, 200, 40, scalableTextFieldWidget, ITextComponent.getTextComponentOrEmpty("U Text Field"), 1.5F));
 		scalableTextFieldWidget.setMaxStringLength(500);
 		scalableTextFieldWidget.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
