@@ -21,6 +21,7 @@ public class ButtonTestScreen extends UBasicScreen {
 	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMod.MODID, "textures/item/basicitem.png");
 	
 	private UTextField textFieldWidget;
+	private ScalableTextField scalableTextFieldWidget;
 	
 	private ScalingTextRenderer scalingRenderer;
 	
@@ -215,6 +216,15 @@ public class ButtonTestScreen extends UBasicScreen {
 		textFieldWidget.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("U Text Field Tooltip"), mouseX, mouseY);
+			}
+		});
+		
+		// Scalable Text Field Test
+		scalableTextFieldWidget = addButton(new ScalableTextField(font, 10, 310, 200, 40, textFieldWidget, ITextComponent.getTextComponentOrEmpty("U Text Field"), 1.5F));
+		scalableTextFieldWidget.setMaxStringLength(500);
+		scalableTextFieldWidget.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
+			if (WidgetUtil.isHovered(textField)) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Text Field Tooltip"), mouseX, mouseY);
 			}
 		});
 		

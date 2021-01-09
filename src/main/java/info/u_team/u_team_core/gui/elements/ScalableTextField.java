@@ -33,6 +33,10 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 	
 	@Override
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+		final float currentScale = getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
+		
+		matrixStack.push();
+		
 		final RGBA currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
 		
 		final String currentText = fontRenderer.func_238412_a_(text.substring(lineScrollOffset), getAdjustedWidth());
@@ -83,6 +87,8 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 			final int selectedX = xOffset + fontRenderer.getStringWidth(currentText.substring(0, selectionOffset));
 			drawSelectionBox(rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
 		}
+		
+		matrixStack.pop();
 	}
 	
 	@Override
