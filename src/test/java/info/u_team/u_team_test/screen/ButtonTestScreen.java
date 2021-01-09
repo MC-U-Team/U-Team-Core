@@ -211,10 +211,12 @@ public class ButtonTestScreen extends UBasicScreen {
 		minecraft.keyboardListener.enableRepeatEvents(true);
 		
 		textFieldWidget = addButton(new UTextField(font, 10, 290, 200, 20, textFieldWidget, ITextComponent.getTextComponentOrEmpty("U Text Field")));
-		textFieldWidget.setEnabled(true);
-		textFieldWidget.setCanLoseFocus(false);
 		textFieldWidget.setMaxStringLength(500);
-		setFocusedDefault(textFieldWidget);
+		textFieldWidget.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
+			if (WidgetUtil.isHovered(textField)) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("U Text Field Tooltip"), mouseX, mouseY);
+			}
+		});
 		
 		// Scaling Renderer Test
 		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer", 220, 10);
