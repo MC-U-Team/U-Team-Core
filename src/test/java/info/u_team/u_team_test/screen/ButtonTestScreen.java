@@ -28,6 +28,8 @@ public class ButtonTestScreen extends UBasicScreen {
 	
 	private ScrollingTextRenderer scrollingRenderer;
 	
+	private BasicTestList scrollingList;
+	
 	public ButtonTestScreen() {
 		super(new StringTextComponent("test"));
 	}
@@ -247,6 +249,10 @@ public class ButtonTestScreen extends UBasicScreen {
 		scrollingRenderer.setColor(new RGBA(0x00FFFFFF));
 		scrollingRenderer.setWidth(200);
 		scrollingRenderer.setScale(2F);
+		
+		// Scrolling List Test
+		// scrollingList = addListener(new BasicTestList(410, 300, 210, 300, 220, 420));
+		scrollingList = addListener(new BasicTestList(220, 210, 200, 90));
 	}
 	
 	@Override
@@ -258,6 +264,7 @@ public class ButtonTestScreen extends UBasicScreen {
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		scalingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);
 		scrollingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);
+		scrollingList.render(matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
 }
