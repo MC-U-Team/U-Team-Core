@@ -97,6 +97,10 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 	
 	@Override
 	public float getCurrentScale(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		return getCurrentScale(mouseX, mouseY);
+	}
+	
+	public float getCurrentScale(double mouseX, double mouseY) {
 		return scale;
 	}
 	
@@ -117,7 +121,7 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 					clickOffset -= 4;
 				}
 				
-				clickOffset /= scale;
+				clickOffset /= getCurrentScale(mouseX, mouseY);
 				
 				final String currentText = fontRenderer.func_238412_a_(text.substring(lineScrollOffset), getAdjustedWidth());
 				setCursorPosition(fontRenderer.func_238412_a_(currentText, clickOffset).length() + lineScrollOffset);
