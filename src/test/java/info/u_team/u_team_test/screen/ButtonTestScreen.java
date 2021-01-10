@@ -22,6 +22,7 @@ public class ButtonTestScreen extends UBasicScreen {
 	
 	private UTextField textFieldWidget;
 	private ScalableTextField scalableTextFieldWidget;
+	private ScalableTextField scalableTextFieldWidget2;
 	
 	private ScalingTextRenderer scalingRenderer;
 	
@@ -220,11 +221,19 @@ public class ButtonTestScreen extends UBasicScreen {
 		});
 		
 		// Scalable Text Field Test
-		scalableTextFieldWidget = addButton(new ScalableTextField(font, 10, 310, 200, 40, scalableTextFieldWidget, ITextComponent.getTextComponentOrEmpty("U Text Field"), 1.5F));
+		scalableTextFieldWidget = addButton(new ScalableTextField(font, 220, 100, 200, 30, scalableTextFieldWidget, ITextComponent.getTextComponentOrEmpty("Scalable Text Field"), 1.5F));
 		scalableTextFieldWidget.setMaxStringLength(500);
 		scalableTextFieldWidget.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
 				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Text Field Tooltip"), mouseX, mouseY);
+			}
+		});
+		
+		scalableTextFieldWidget2 = addButton(new ScalableTextField(font, 220, 140, 200, 15, scalableTextFieldWidget, ITextComponent.getTextComponentOrEmpty("Scalable Text Field 2"), 0.5F));
+		scalableTextFieldWidget2.setMaxStringLength(500);
+		scalableTextFieldWidget2.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
+			if (WidgetUtil.isHovered(textField)) {
+				renderTooltip(matrixStack, ITextComponent.getTextComponentOrEmpty("Scalable Text Field 2 Tooltip"), mouseX, mouseY);
 			}
 		});
 		
