@@ -12,6 +12,8 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	protected int listWidth;
 	protected int scrollbarPos;
 	
+	protected boolean shouldUseScissor;
+	
 	public ScrollableList(int x, int y, int width, int height, int slotHeight, int listWidth, int scrollbarPos) {
 		super(Minecraft.getInstance(), 0, 0, 0, 0, slotHeight);
 		updateSettings(x, y, width, height);
@@ -51,19 +53,23 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	
 	@Override
 	protected void renderList(MatrixStack matrixStack, int rowLeft, int scrollAmount, int mouseX, int mouseY, float partialTicks) {
-		final MainWindow window = minecraft.getMainWindow();
-		final double scaleFactor = window.getGuiScaleFactor();
-		
-		final int nativeX = MathHelper.ceil(x0 * scaleFactor);
-		final int nativeY = MathHelper.ceil(y0 * scaleFactor);
-		
-		final int nativeWidth = MathHelper.ceil((x1 - x0) * scaleFactor);
-		final int nativeHeight = MathHelper.ceil((y1 - y0) * scaleFactor);
-		
-		RenderUtil.enableScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
-		
-		// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0xFF00FF00); // test scissor
-		super.renderList(matrixStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
-		RenderUtil.disableScissor();
+		if (shouldUseScissor) {
+			final MainWindow window = minecraft.getMainWindow();
+			final double scaleFactor = window.getGuiScaleFactor();
+			
+			final int nativeX = MathHelper.ceil(x0 * scaleFactor);
+			final int nativeY = MathHelper.ceil(y0 * scaleFactor);
+			
+			final int nativeWidth = MathHelper.ceil((x1 - x0) * scaleFactor);
+			final int nativeHeight = MathHelper.ceil((y1 - y0) * scaleFactor);
+			
+			RenderUtil.enableScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
+			
+			// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0xFF00FF00); // test scissor
+			super.renderList(matrixStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
+			RenderUtil.disableScissor();
+		} else {
+			super.renderList(matrixStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
+		}
 	}
 }
