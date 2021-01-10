@@ -6,6 +6,7 @@ import info.u_team.u_team_core.api.gui.*;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 
 public class ScalableTextField extends UTextField implements IScaleable, IScaleProvider {
@@ -97,6 +98,34 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 	@Override
 	public float getCurrentScale(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return scale;
+	}
+	
+	@Override
+	public boolean mouseClicked(double mouseX, double mouseY, int button) {
+		if (!visible) {
+			return false;
+		} else {
+			final boolean clicked = clicked(mouseX, mouseY);
+			
+			if (canLoseFocus) {
+				setFocused2(clicked);
+			}
+			
+			if (isFocused() && clicked && button == 0) {
+				int clickOffset = MathHelper.floor(mouseX) - x;
+				if (enableBackgroundDrawing) {
+					clickOffset -= 4;
+				}
+				
+				clickOffset /= scale;
+				
+				final String currentText = fontRenderer.func_238412_a_(text.substring(lineScrollOffset), getAdjustedWidth());
+				setCursorPosition(fontRenderer.func_238412_a_(currentText, clickOffset).length() + lineScrollOffset);
+				return true;
+			} else {
+				return false;
+			}
+		}
 	}
 	
 }
