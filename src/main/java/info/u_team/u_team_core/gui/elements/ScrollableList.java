@@ -27,7 +27,7 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	}
 	
 	public void updateSettings(int x, int y, int width, int height) {
-		updateSettings(width, height, y, y + height, x, x + width);
+		updateSettings(x + width - 5, height, y, y + height, x, x + width);
 	}
 	
 	public void updateSettings(int width, int height, int top, int bottom, int left, int right) {
