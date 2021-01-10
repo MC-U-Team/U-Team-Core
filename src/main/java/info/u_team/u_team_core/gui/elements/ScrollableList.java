@@ -9,23 +9,20 @@ import net.minecraft.util.math.MathHelper;
 
 public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>> extends ExtendedList<T> {
 	
-	protected int listWidth;
-	protected int scrollbarPos;
+	protected int sideDistance;
 	
 	protected boolean shouldUseScissor;
 	
-	public ScrollableList(int x, int y, int width, int height, int slotHeight, int listWidth, int scrollbarPos) {
+	public ScrollableList(int x, int y, int width, int height, int slotHeight, int sideDistance) {
 		super(Minecraft.getInstance(), 0, 0, 0, 0, slotHeight);
 		updateSettings(x, y, width, height);
-		this.listWidth = listWidth;
-		this.scrollbarPos = scrollbarPos;
+		this.sideDistance = sideDistance;
 	}
 	
-	public ScrollableList(int width, int height, int top, int bottom, int left, int right, int slotHeight, int listWidth, int scrollbarPos) {
+	public ScrollableList(int width, int height, int top, int bottom, int left, int right, int slotHeight, int sideDistance) {
 		super(Minecraft.getInstance(), 0, 0, 0, 0, slotHeight);
 		updateSettings(width, height, top, bottom, left, right);
-		this.listWidth = listWidth;
-		this.scrollbarPos = scrollbarPos;
+		this.sideDistance = sideDistance;
 	}
 	
 	public void updateSettings(int x, int y, int width, int height) {
@@ -43,7 +40,7 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	
 	@Override
 	public int getRowWidth() {
-		return width - listWidth;
+		return width - sideDistance;
 	}
 	
 	@Override
