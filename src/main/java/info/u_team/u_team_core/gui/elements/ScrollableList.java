@@ -12,11 +12,22 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	protected int listWidth;
 	protected int scrollbarPos;
 	
+	public ScrollableList(int x, int y, int width, int height, int slotHeight, int listWidth, int scrollbarPos) {
+		super(Minecraft.getInstance(), 0, 0, 0, 0, slotHeight);
+		updateSettings(x, y, width, height);
+		this.listWidth = listWidth;
+		this.scrollbarPos = scrollbarPos;
+	}
+	
 	public ScrollableList(int width, int height, int top, int bottom, int left, int right, int slotHeight, int listWidth, int scrollbarPos) {
 		super(Minecraft.getInstance(), 0, 0, 0, 0, slotHeight);
 		updateSettings(width, height, top, bottom, left, right);
 		this.listWidth = listWidth;
 		this.scrollbarPos = scrollbarPos;
+	}
+	
+	public void updateSettings(int x, int y, int width, int height) {
+		updateSettings(width, height, y, y + height, x, x + width);
 	}
 	
 	public void updateSettings(int width, int height, int top, int bottom, int left, int right) {
