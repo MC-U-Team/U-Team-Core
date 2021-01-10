@@ -52,4 +52,9 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	
 	@Override
 	public abstract void render(MatrixStack matrixStack, int slotIndex, int entryY, int entryX, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float partialTicks);
+	
+	@SuppressWarnings("deprecation")
+	protected net.minecraft.client.gui.widget.list.AbstractList<T> getList() {
+		return list;
+	}
 }
