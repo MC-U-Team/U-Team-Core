@@ -251,7 +251,6 @@ public class ButtonTestScreen extends UBasicScreen {
 		scrollingRenderer.setScale(2F);
 		
 		// Scrolling List Test
-		// scrollingList = addListener(new BasicTestList(410, 300, 210, 300, 220, 420));
 		scrollingList = addListener(new BasicTestList(220, 210, 200, 90));
 	}
 	

@@ -27,7 +27,7 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	}
 	
 	public void updateSettings(int x, int y, int width, int height) {
-		updateSettings(x + width - 5, height, y, y + height, x, x + width);
+		updateSettings(width, minecraft.getMainWindow().getScaledHeight(), y, y + height, x, x + width);
 	}
 	
 	public void updateSettings(int width, int height, int top, int bottom, int left, int right) {
@@ -46,7 +46,7 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	
 	@Override
 	protected int getScrollbarPosition() {
-		return width + scrollbarPos;
+		return x0 + width - 5;
 	}
 	
 	@Override
