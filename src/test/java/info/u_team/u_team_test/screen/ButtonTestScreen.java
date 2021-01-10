@@ -212,7 +212,7 @@ public class ButtonTestScreen extends UBasicScreen {
 		// U Text Field Test
 		minecraft.keyboardListener.enableRepeatEvents(true);
 		
-		textFieldWidget = addButton(new UTextField(font, 10, 290, 200, 20, textFieldWidget, ITextComponent.getTextComponentOrEmpty("U Text Field")));
+		textFieldWidget = addButton(new UTextField(font, 220, 110, 200, 20, textFieldWidget, ITextComponent.getTextComponentOrEmpty("U Text Field")));
 		textFieldWidget.setMaxStringLength(500);
 		textFieldWidget.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
@@ -221,7 +221,7 @@ public class ButtonTestScreen extends UBasicScreen {
 		});
 		
 		// Scalable Text Field Test
-		scalableTextFieldWidget = addButton(new ScalableTextField(font, 220, 100, 200, 30, scalableTextFieldWidget, ITextComponent.getTextComponentOrEmpty("Scalable Text Field"), 1.5F));
+		scalableTextFieldWidget = addButton(new ScalableTextField(font, 220, 140, 200, 30, scalableTextFieldWidget, ITextComponent.getTextComponentOrEmpty("Scalable Text Field"), 1.5F));
 		scalableTextFieldWidget.setMaxStringLength(500);
 		scalableTextFieldWidget.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
@@ -229,7 +229,7 @@ public class ButtonTestScreen extends UBasicScreen {
 			}
 		});
 		
-		scalableTextFieldWidget2 = addButton(new ScalableTextField(font, 220, 140, 200, 15, scalableTextFieldWidget, ITextComponent.getTextComponentOrEmpty("Scalable Text Field 2"), 0.5F));
+		scalableTextFieldWidget2 = addButton(new ScalableTextField(font, 220, 180, 200, 15, scalableTextFieldWidget, ITextComponent.getTextComponentOrEmpty("Scalable Text Field 2"), 0.5F));
 		scalableTextFieldWidget2.setMaxStringLength(500);
 		scalableTextFieldWidget2.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
