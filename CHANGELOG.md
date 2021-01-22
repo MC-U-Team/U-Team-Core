@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.4-3.1.17.192] - 2021-01-22
+### Changed
+ - Updated to final 1.16.4 forge 35.1.37
+
 ## [1.16.4-3.1.17.191] - 2020-12-19
 ### Changed
  - Expose some private fields with methods in the container class
