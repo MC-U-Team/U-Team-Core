@@ -1,13 +1,16 @@
 buildscript {
 	repositories {
-		maven { url = "https://files.minecraftforge.net/maven" }
-		maven { url = "https://plugins.gradle.org/m2/" }
+		maven {
+			url = "https://files.minecraftforge.net/maven"
+		}
+		maven {
+			url = "https://repo.u-team.info"
+		}
 		jcenter()
-		mavenCentral()
 	}
 	dependencies {
-		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "3.+", changing: true
-		classpath "gradle.plugin.com.matthewprenger:CurseGradle:1.4.0"
+		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "4.+", changing: true
+		classpath group: "info.u-team.curse_gradle_uploader", name: "curse_gradle_uploader", version: "1.4.1"
 	}
 }
 
@@ -15,19 +18,24 @@ apply from: "https://gradle-files.u-team.info/default-project.gradle"
 
 apply plugin: "net.minecraftforge.gradle"
 apply plugin: "eclipse"
-apply plugin: "com.matthewprenger.cursegradle"
-apply plugin: "maven"
+apply plugin: "info.u_team.curse_gradle_uploader"
+apply plugin: "maven-publish"
 
 group = "info.u-team"
 archivesBaseName = generateArchivesBaseName()
 version = generateVersion()
 
-sourceCompatibility = targetCompatibility = "1.8"
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(8)
+	}
+}
 
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
+
 	accessTransformer = file("$rootDir/src/main/resources/META-INF/accesstransformer.cfg")
-	
+
 	runs {
 		client = {
 			workingDirectory project.file("run/client").canonicalPath
@@ -36,7 +44,7 @@ minecraft {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest {
 					source sourceSets.test
 				}
@@ -49,7 +57,7 @@ minecraft {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest {
 					source sourceSets.test
 				}
@@ -80,43 +88,43 @@ minecraft {
 }
 
 jar {
-	classifier = ""
-	
+	archiveClassifier = ""
+
 	from "LICENSE"
 	from "src/repack/resources/LICENSE-DEPENDENCIES"
-	
+
 	exclude(".cache")
-	
+
 	manifest normalManifest
 }
 
 task deobfJar(type: Jar) {
-	classifier = "dev"
-	
+	archiveClassifier = "dev"
+
 	from sourceSets.main.output
 	from "LICENSE"
 	from "src/repack/resources/LICENSE-DEPENDENCIES"
-	
+
 	exclude(".cache")
-	
+
 	manifest normalManifest
 }
 
 task sourcesJar(type: Jar) {
-	classifier = "sources"
-	
+	archiveClassifier = "sources"
+
 	from sourceSets.main.allJava
 	from "LICENSE"
 	from "src/repack/resources/LICENSE-DEPENDENCIES"
 }
 
 task docJar(type: Jar) {
-	classifier = "javadoc"
-	
+	archiveClassifier = "javadoc"
+
 	from javadoc
 	from "LICENSE"
 	from "src/repack/resources/LICENSE-DEPENDENCIES"
-	
+
 	tasks.withType(Javadoc) {
 		options.addStringOption('Xdoclint:none', '-quiet')
 		options.addStringOption('encoding', 'UTF-8')
@@ -125,46 +133,46 @@ task docJar(type: Jar) {
 }
 
 task testJar(type: Jar) {
-	classifier = "test"
-	
+	archiveClassifier = "test"
+
 	from sourceSets.test.output
 	from "LICENSE"
-	
+
 	exclude(".cache")
-	
+
 	afterEvaluate {
 		reobf.create("testJar");
 		reobfTestJar.dependsOn createMcpToSrg
 		reobfTestJar.setMappings(createMcpToSrg.getOutput())
 		reobfTestJar.setClasspath(reobfTestJar.getClasspath().plus(files(jar)))
 	}
-	
+
 	manifest normalManifest
 }
 
 task testDeobfJar(type: Jar) {
-	classifier = "testdev"
-	
+	archiveClassifier = "testdev"
+
 	from sourceSets.test.output
 	from "LICENSE"
-	
+
 	exclude(".cache")
-	
+
 	manifest normalManifest
 }
 
 task testSourcesJar(type: Jar) {
-	classifier = "testsources"
-	
+	archiveClassifier = "testsources"
+
 	from sourceSets.test.allJava
 	from "LICENSE"
 }
 
 artifacts {
+	archives jar
 	archives deobfJar
 	archives sourcesJar
 	archives docJar
-	archives jar
 	archives testJar
 	archives testDeobfJar
 	archives testSourcesJar
@@ -198,10 +206,9 @@ sourceSets {
 
 dependencies {
 	minecraft getForgeDependency()
-	compile fg.deobf(getJeiApiDependency())
-	runtime fg.deobf(getJeiDependency())
-	compile fg.deobf(getPatchouliApiDependency())
-	runtime fg.deobf(getPatchouliDependency())
+	compileOnly fg.deobf(getJeiApiDependency())
+	runtimeOnly fg.deobf(getJeiDependency())
+	runtimeOnly fg.deobf(getPatchouliDependency())
 }
 
 curseforge {
@@ -210,88 +217,100 @@ curseforge {
 			getValue("token") != null
 		}
 	}
-	
+
 	tasks.curseforge.dependsOn build
-	
+
 	apiKey = getValueDefault("token")
-	
+
 	project {
 		id = config.curse.id
 		releaseType = config.curse.type
-		
+
 		addGameVersion config.forge.mcversion
 		addGameVersion "Forge"
-		
-		options {
-			forgeGradleIntegration = false
-		}
-		
+		addGameVersion "Java 8"
+		addGameVersion "Java 9"
+		addGameVersion "Java 10"
+
 		relations {
 			optionalDependency "jei"
 		}
-		
+
 		mainArtifact(jar) {
 			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}"
 			changelogType = "html"
 			changelog = "<a href=\"" + generateChangelogUrl() + "\">Changelog of ${project.version}</a>"
 		}
-		
+
 		addArtifact(deobfJar) {
 			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}-dev"
 			changelogType = "text"
-			changelog = "Mappings: ${config.forge.mapping_channel}_${config.forge.mapping}"
+			changelog = "ONLY for development environment!\nMappings: ${config.forge.mapping_channel}_${config.forge.mapping}"
 		}
 	}
 }
 
-uploadArchives {
+tasks.withType(PublishToMavenRepository) {
 	onlyIf {
 		getValue("mavenpass") != null
 	}
-	
-	tasks.uploadArchives.dependsOn build
-	
+}
+
+publishing {
+	publish.dependsOn build
+
 	repositories {
-		mavenDeployer {
-			repository(url: "https://repo.u-team.info") {
-				authentication(userName: "maven", password: getValue("mavenpass"))
+		maven {
+			url "https://repo.u-team.info"
+			credentials {
+				username = "maven"
+				password = getValue("mavenpass")
 			}
+		}
+	}
+	publications {
+		mavenJava(MavenPublication) {
+			artifact jar
+			artifact deobfJar
+			artifact sourcesJar
+			artifact docJar
+			artifact testJar
+			artifact testDeobfJar
+			artifact testSourcesJar
+
+			groupId = project.group
+			artifactId = project.archivesBaseName
+			version = project.version
+
 			pom {
-				groupId = project.group
-				artifactId = project.archivesBaseName
-				version = project.version
-				project {
-					name project.archivesBaseName
-					packaging "jar"
-					description "${config.github.name}"
-					url "https://github.com/MC-U-Team/${config.github.name}"
-					scm {
-						url "https://github.com/MC-U-Team/${config.github.name}"
-						connection "scm:git:git://github.com/MC-U-Team/${config.github.name}.git"
-						developerConnection "scm:git:git@github.com:MC-U-Team/${config.github.name}.git"
-					}
-					issueManagement {
-						system "github"
-						url "https://github.com/MC-U-Team/${config.github.name}/issues"
-					}
-					licenses {
-						license {
-							name "Apache License 2.0"
-							url "https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/LICENSE"
-							distribution "repo"
-						}
-					}
-					
-					developers {
-						developer {
-							name "HyCraftHD"
-						}
-						developer {
-							name "MrTroble"
-						}
+				name = project.archivesBaseName
+				description = "${config.github.name}"
+				url = "https://github.com/MC-U-Team/${config.github.name}"
+				scm {
+					url = "https://github.com/MC-U-Team/${config.github.name}"
+					connection = "scm:git:git://github.com/MC-U-Team/${config.github.name}.git"
+					developerConnection = "scm:git:git@github.com:MC-U-Team/${config.github.name}.git"
+				}
+
+				issueManagement {
+					system = "github"
+					url = "https://github.com/MC-U-Team/${config.github.name}/issues"
+				}
+				licenses {
+					license {
+						name = "Apache License 2.0"
+						url = "https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/LICENSE"
+						distribution = "repo"
 					}
 				}
-				setConfigurations(null) // Prevent all dependencies in the pom file
+				developers {
+					developer {
+						name = "HyCraftHD"
+					}
+					developer {
+						name = "MrTroble"
+					}
+				}
 			}
 		}
 	}
@@ -299,7 +318,7 @@ uploadArchives {
 
 task uploadBoth {
 	tasks.uploadBoth.dependsOn build
-	tasks.uploadBoth.dependsOn uploadArchives
+	tasks.uploadBoth.dependsOn publish
 	tasks.uploadBoth.dependsOn "curseforge${config.curse.id}"
 	tasks.uploadBoth.dependsOn setBuildNumber
 	doLast {
