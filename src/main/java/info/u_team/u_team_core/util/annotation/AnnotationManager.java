@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.util.annotation;
 
+import java.lang.reflect.InvocationTargetException;
+
 import org.apache.logging.log4j.*;
 import org.objectweb.asm.Type;
 
@@ -26,8 +28,8 @@ public class AnnotationManager {
 			if (canBeCalled(modid, data)) {
 				LOGGER.debug(CONSTRUCT_MARKER, "Load construct (" + data.getMemberName() + ") for mod " + modid);
 				try {
-					Class.forName(data.getMemberName()).asSubclass(IModConstruct.class).newInstance().construct();
-				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
+					Class.forName(data.getMemberName()).asSubclass(IModConstruct.class).getConstructor().newInstance().construct();
+				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
 					LOGGER.error(CONSTRUCT_MARKER, "Failed to load and call mod construct : {}", data.getMemberName(), ex);
 					throw new RuntimeException(ex);
 				}
@@ -41,8 +43,8 @@ public class AnnotationManager {
 			if (canBeCalled(modid, data) && ModList.get().isLoaded(integrationModid)) {
 				LOGGER.debug(INTEGRATION_MARKER, "Load " + integrationModid + " integration (" + data.getMemberName() + ") for mod " + modid);
 				try {
-					Class.forName(data.getMemberName()).asSubclass(IModIntegration.class).newInstance().construct();
-				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException ex) {
+					Class.forName(data.getMemberName()).asSubclass(IModIntegration.class).getConstructor().newInstance().construct();
+				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
 					LOGGER.error(INTEGRATION_MARKER, "Failed to load and call integration : {}", data.getMemberName(), ex);
 					throw new RuntimeException(ex);
 				}
