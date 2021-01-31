@@ -19,11 +19,6 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 		this.sideDistance = sideDistance;
 	}
 	
-	@Deprecated
-	public ScrollableList(int width, int height, int top, int bottom, int left, int right, int slotHeight, int sideDistance, int dep) {
-		this(width, height, top, bottom, left, right, slotHeight, sideDistance);
-	}
-	
 	public ScrollableList(int width, int height, int top, int bottom, int left, int right, int slotHeight, int sideDistance) {
 		super(Minecraft.getInstance(), 0, 0, 0, 0, slotHeight);
 		updateSettings(width, height, top, bottom, left, right);

@@ -1,7 +1,5 @@
 package info.u_team.u_team_core.gui.elements;
 
-import org.lwjgl.opengl.GL11;
-
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.util.*;
@@ -10,9 +8,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 
 public class ImageButton extends UButton {
-	
-	@Deprecated
-	protected ResourceLocation resource;
 	
 	protected ResourceLocation image;
 	
@@ -33,19 +28,7 @@ public class ImageButton extends UButton {
 	public ImageButton(int x, int y, int width, int height, ResourceLocation image, IPressable pessable, ITooltip tooltip) {
 		super(x, y, width, height, StringTextComponent.EMPTY, pessable, tooltip);
 		this.image = image;
-		this.resource = image;
 		imageColor = WHITE;
-	}
-	
-	@Deprecated
-	public ResourceLocation getResource() {
-		return resource;
-	}
-	
-	@Deprecated
-	public void setResource(ResourceLocation resource) {
-		this.resource = resource;
-		this.image = resource;
 	}
 	
 	public ResourceLocation getImage() {
@@ -54,7 +37,6 @@ public class ImageButton extends UButton {
 	
 	public void setImage(ResourceLocation image) {
 		this.image = image;
-		this.resource = image;
 	}
 	
 	public RGBA getImageColor() {
@@ -73,11 +55,6 @@ public class ImageButton extends UButton {
 		RenderUtil.defaultBlendFunc();
 		GuiUtil.drawTexturedColoredQuad(matrixStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, getCurrentImageColor(matrixStack, mouseX, mouseY, partialTicks));
 		RenderUtil.disableBlend();
-	}
-	
-	@Deprecated
-	protected void resetColor() {
-		GL11.glColor4f(1, 1, 1, 1);
 	}
 	
 	public ResourceLocation getCurrentImage() {
