@@ -33,9 +33,9 @@ java {
 
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
-
+	
 	accessTransformer = file("$rootDir/src/main/resources/META-INF/accesstransformer.cfg")
-
+	
 	runs {
 		client = {
 			workingDirectory project.file("run/client").canonicalPath
@@ -44,7 +44,7 @@ minecraft {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-
+				
 				uteamtest {
 					source sourceSets.test
 				}
@@ -57,7 +57,7 @@ minecraft {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-
+				
 				uteamtest {
 					source sourceSets.test
 				}
@@ -89,30 +89,30 @@ minecraft {
 
 jar {
 	archiveClassifier = ""
-
+	
 	from "LICENSE"
 	from "src/repack/resources/LICENSE-DEPENDENCIES"
-
+	
 	exclude(".cache")
-
+	
 	manifest normalManifest
 }
 
 task deobfJar(type: Jar) {
 	archiveClassifier = "dev"
-
+	
 	from sourceSets.main.output
 	from "LICENSE"
 	from "src/repack/resources/LICENSE-DEPENDENCIES"
-
+	
 	exclude(".cache")
-
+	
 	manifest normalManifest
 }
 
 task sourcesJar(type: Jar) {
 	archiveClassifier = "sources"
-
+	
 	from sourceSets.main.allJava
 	from "LICENSE"
 	from "src/repack/resources/LICENSE-DEPENDENCIES"
@@ -120,11 +120,11 @@ task sourcesJar(type: Jar) {
 
 task docJar(type: Jar) {
 	archiveClassifier = "javadoc"
-
+	
 	from javadoc
 	from "LICENSE"
 	from "src/repack/resources/LICENSE-DEPENDENCIES"
-
+	
 	tasks.withType(Javadoc) {
 		options.addStringOption('Xdoclint:none', '-quiet')
 		options.addStringOption('encoding', 'UTF-8')
@@ -134,36 +134,36 @@ task docJar(type: Jar) {
 
 task testJar(type: Jar) {
 	archiveClassifier = "test"
-
+	
 	from sourceSets.test.output
 	from "LICENSE"
-
+	
 	exclude(".cache")
-
+	
 	afterEvaluate {
 		reobf.create("testJar");
 		reobfTestJar.dependsOn createMcpToSrg
 		reobfTestJar.setMappings(createMcpToSrg.getOutput())
 		reobfTestJar.setClasspath(reobfTestJar.getClasspath().plus(files(jar)))
 	}
-
+	
 	manifest normalManifest
 }
 
 task testDeobfJar(type: Jar) {
 	archiveClassifier = "testdev"
-
+	
 	from sourceSets.test.output
 	from "LICENSE"
-
+	
 	exclude(".cache")
-
+	
 	manifest normalManifest
 }
 
 task testSourcesJar(type: Jar) {
 	archiveClassifier = "testsources"
-
+	
 	from sourceSets.test.allJava
 	from "LICENSE"
 }
@@ -217,31 +217,31 @@ curseforge {
 			getValue("token") != null
 		}
 	}
-
+	
 	tasks.curseforge.dependsOn build
-
+	
 	apiKey = getValueDefault("token")
-
+	
 	project {
 		id = config.curse.id
 		releaseType = config.curse.type
-
+		
 		addGameVersion config.forge.mcversion
 		addGameVersion "Forge"
 		addGameVersion "Java 8"
 		addGameVersion "Java 9"
 		addGameVersion "Java 10"
-
+		
 		relations {
 			optionalDependency "jei"
 		}
-
+		
 		mainArtifact(jar) {
 			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}"
 			changelogType = "html"
 			changelog = "<a href=\"" + generateChangelogUrl() + "\">Changelog of ${project.version}</a>"
 		}
-
+		
 		addArtifact(deobfJar) {
 			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}-dev"
 			changelogType = "text"
@@ -258,7 +258,7 @@ tasks.withType(PublishToMavenRepository) {
 
 publishing {
 	publish.dependsOn build
-
+	
 	repositories {
 		maven {
 			url "https://repo.u-team.info"
@@ -277,11 +277,11 @@ publishing {
 			artifact testJar
 			artifact testDeobfJar
 			artifact testSourcesJar
-
+			
 			groupId = project.group
 			artifactId = project.archivesBaseName
 			version = project.version
-
+			
 			pom {
 				name = project.archivesBaseName
 				description = "${config.github.name}"
@@ -291,7 +291,7 @@ publishing {
 					connection = "scm:git:git://github.com/MC-U-Team/${config.github.name}.git"
 					developerConnection = "scm:git:git@github.com:MC-U-Team/${config.github.name}.git"
 				}
-
+				
 				issueManagement {
 					system = "github"
 					url = "https://github.com/MC-U-Team/${config.github.name}/issues"
