@@ -38,6 +38,22 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 		this.x1 = right;
 	}
 	
+	public int getSideDistance() {
+		return sideDistance;
+	}
+	
+	public void setSideDistance(int sideDistance) {
+		this.sideDistance = sideDistance;
+	}
+	
+	public boolean isShouldUseScissor() {
+		return shouldUseScissor;
+	}
+	
+	public void setShouldUseScissor(boolean shouldUseScissor) {
+		this.shouldUseScissor = shouldUseScissor;
+	}
+	
 	@Override
 	public int getRowWidth() {
 		return width - sideDistance;
