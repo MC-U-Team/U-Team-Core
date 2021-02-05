@@ -21,12 +21,26 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	public UContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background) {
 		super(container, playerInventory, title);
 		this.background = background;
-		backgroundWidth = backgroundHeight = 256;
-		drawTitleText = drawInventoryText = true;
+		setBackgroundDimensions(256);
+		setDrawText(true, true);
 	}
 	
 	public void setBackground(ResourceLocation background) {
 		this.background = background;
+	}
+	
+	protected void setBackgroundDimensions(int size) {
+		setBackgroundDimensions(size, size);
+	}
+	
+	protected void setBackgroundDimensions(int backgroundWidth, int backgroundHeight) {
+		this.backgroundWidth = backgroundWidth;
+		this.backgroundHeight = backgroundHeight;
+	}
+	
+	protected void setDrawText(boolean drawTitleText, boolean drawInventoryText) {
+		this.drawTitleText = drawTitleText;
+		this.drawInventoryText = drawInventoryText;
 	}
 	
 	protected void setSize(int x, int y) {
