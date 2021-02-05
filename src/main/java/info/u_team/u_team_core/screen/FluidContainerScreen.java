@@ -26,7 +26,11 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	
 	public FluidContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title) {
 		super(container, playerInventory, title);
-		fluidRenderer = FLUID_RENDERER;
+		setFluidRenderer(FLUID_RENDERER);
+	}
+	
+	protected void setFluidRenderer(FluidInventoryRenderer fluidRenderer) {
+		this.fluidRenderer = fluidRenderer;
 	}
 	
 	@Override
