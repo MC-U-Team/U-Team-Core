@@ -180,4 +180,22 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		}
 	}
 	
+	// Special item tooltips
+	
+	protected void addBlockTooltip(Supplier<? extends Block> key, int line, String value) {
+		addItemTooltip(() -> key.get().asItem(), line, value);
+	}
+	
+	protected void addBlockTooltip(String locale, Supplier<? extends Block> key, int line, String value) {
+		addItemTooltip(locale, () -> key.get().asItem(), line, value);
+	}
+	
+	protected void addItemTooltip(Supplier<? extends Item> key, int line, String value) {
+		add(key.get().getTranslationKey() + ".tooltip." + line, value);
+	}
+	
+	protected void addItemTooltip(String locale, Supplier<? extends Item> key, int line, String value) {
+		add(locale, key.get().getTranslationKey() + ".tooltip." + line, value);
+	}
+	
 }
