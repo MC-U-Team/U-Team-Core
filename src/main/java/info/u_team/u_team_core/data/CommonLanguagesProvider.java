@@ -194,7 +194,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		if (!category.isEmpty()) {
 			category += ".";
 		}
-		add(key.get().getTranslationKey() + ".tooltip." + category + "." + line, value);
+		add(key.get().getTranslationKey() + ".tooltip." + category + line, value);
 	}
 	
 	protected void addItemTooltip(String locale, Supplier<? extends Item> key, String category, int line, String value) {
