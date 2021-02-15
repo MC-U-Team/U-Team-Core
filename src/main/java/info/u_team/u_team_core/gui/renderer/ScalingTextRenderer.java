@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.gui.renderer;
 
 import java.util.Objects;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
@@ -9,6 +9,9 @@ import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.gui.*;
 
 public class ScalingTextRenderer implements IRenderable {
+	
+	protected static final Consumer<ScalingTextRenderer> EMPTY_TEXT_CHANGED = renderer -> {
+	};
 	
 	protected final Supplier<FontRenderer> fontRenderSupplier;
 	
@@ -25,6 +28,8 @@ public class ScalingTextRenderer implements IRenderable {
 	protected float scale;
 	private float positionFactor;
 	
+	protected Consumer<ScalingTextRenderer> textChanged;
+	
 	public ScalingTextRenderer(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier, float x, float y) {
 		this.fontRenderSupplier = fontRenderSupplier;
 		this.textSupplier = textSupplier;
@@ -33,6 +38,7 @@ public class ScalingTextRenderer implements IRenderable {
 		color = RGBA.WHITE;
 		scale = 1;
 		positionFactor = 1;
+		textChanged = EMPTY_TEXT_CHANGED;
 	}
 	
 	public void setTextSupplier(Supplier<String> textSupplier) {
@@ -85,6 +91,10 @@ public class ScalingTextRenderer implements IRenderable {
 		positionFactor = 1 / scale;
 	}
 	
+	public void setTextChanged(Consumer<ScalingTextRenderer> textChanged) {
+		this.textChanged = textChanged;
+	}
+	
 	public float getTextWidth() {
 		if (textWidth == 0) { // If text width has never been set
 			setText(textSupplier.get());
@@ -101,6 +111,7 @@ public class ScalingTextRenderer implements IRenderable {
 	}
 	
 	protected void updatedText() {
+		textChanged.accept(this);
 	}
 	
 	@Override
