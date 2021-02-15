@@ -4,6 +4,7 @@ import java.util.function.*;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
+import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.*;
 import net.minecraft.client.gui.*;
@@ -11,23 +12,23 @@ import net.minecraft.util.SoundEvents;
 
 public class ProgressBar extends AbstractGui implements IGuiEventListener, IRenderable {
 	
-	private Supplier<Double> progress;
-	private Consumer<Double> click;
+	protected Supplier<Double> progress;
+	protected Consumer<Double> click;
 	
-	private int width = 200;
-	private int height = 5;
-	private int x;
-	private int y;
+	protected int width = 200;
+	protected int height = 5;
+	protected int x;
+	protected int y;
 	
-	private int backgroundColor;
-	private int progressColor;
+	protected RGBA backgroundColor;
+	protected RGBA progressColor;
 	
-	private boolean enabled = true;
-	private boolean visible = true;
+	protected boolean enabled = true;
+	protected boolean visible = true;
 	
-	private boolean hovered;
+	protected boolean hovered;
 	
-	public ProgressBar(int x, int y, int width, int height, int backgroundColor, int progressColor, Supplier<Double> progress, Consumer<Double> click) {
+	public ProgressBar(int x, int y, int width, int height, RGBA backgroundColor, RGBA progressColor, Supplier<Double> progress, Consumer<Double> click) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -43,8 +44,8 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 		if (visible) {
 			hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 			
-			fill(matrixStack, x, y, x + width, y + height, backgroundColor);
-			fill(matrixStack, x, y, (int) (x + (progress.get() * width)), y + height, progressColor);
+			fill(matrixStack, x, y, x + width, y + height, backgroundColor.getColorARGB());
+			fill(matrixStack, x, y, (int) (x + (progress.get() * width)), y + height, progressColor.getColorARGB());
 		}
 	}
 	
@@ -134,19 +135,19 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 		return hovered;
 	}
 	
-	public int getBackgroundColor() {
+	public RGBA getBackgroundColor() {
 		return backgroundColor;
 	}
 	
-	public void setBackgroundColor(int backGroundColor) {
+	public void setBackgroundColor(RGBA backGroundColor) {
 		this.backgroundColor = backGroundColor;
 	}
 	
-	public int getProgressColor() {
+	public RGBA getProgressColor() {
 		return progressColor;
 	}
 	
-	public void setProgressColor(int progressColor) {
+	public void setProgressColor(RGBA progressColor) {
 		this.progressColor = progressColor;
 	}
 	
