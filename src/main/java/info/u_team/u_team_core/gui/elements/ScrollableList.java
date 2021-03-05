@@ -78,7 +78,12 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 			
 			RenderUtil.enableScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 			
-			// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0xFF00FF00); // test scissor
+			// Uncomment to test scissor
+			// matrixStack.push();
+			// matrixStack.getLast().getMatrix().setIdentity();
+			// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0x8F00FF00);
+			// matrixStack.pop();
+			
 			super.renderList(matrixStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
 			RenderUtil.disableScissor();
 		} else {
