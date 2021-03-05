@@ -240,12 +240,12 @@ public class ButtonTestScreen extends UBasicScreen {
 		});
 		
 		// Scaling Renderer Test
-		scalingRenderer = new ScalingTextRenderer(() -> font, () -> "This is a test for the scaling text renderer", 220, 10);
+		scalingRenderer = new ScalingTextRenderer(font, () -> "This is a test for the scaling text renderer", 220, 10);
 		scalingRenderer.setColor(new RGBA(0xFF00FF40));
 		scalingRenderer.setScale(1.5F);
 		
 		// Scrolling Renderer Test
-		scrollingRenderer = new ScrollingTextRenderer(() -> font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling", 220, 25);
+		scrollingRenderer = new ScrollingTextRenderer(font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling", 220, 25);
 		scrollingRenderer.setColor(new RGBA(0x00FFFFFF));
 		scrollingRenderer.setWidth(200);
 		scrollingRenderer.setScale(2F);
