@@ -8,6 +8,7 @@ public class BasicTestList extends ScrollableList<BasicTestListEntry> {
 		super(x, y, width, height, 20, 15);
 		func_244606_c(false);
 		func_244605_b(false);
+		setShouldUseScissor(true);
 		
 		for (int i = 0; i < 50; i++) {
 			addEntry(new BasicTestListEntry());
