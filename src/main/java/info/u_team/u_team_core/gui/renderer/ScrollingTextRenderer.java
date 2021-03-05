@@ -5,9 +5,11 @@ import java.util.function.Supplier;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.util.RenderUtil;
+import info.u_team.u_team_core.util.RenderUtil.Matrix4fExtended;
 import net.minecraft.client.*;
-import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.*;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector4f;
 
 public class ScrollingTextRenderer extends ScalingTextRenderer {
 	
@@ -72,19 +74,30 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		final Minecraft minecraft = Minecraft.getInstance();
 		final MainWindow window = minecraft.getMainWindow();
 		
+		final Matrix4fExtended matrix = new Matrix4fExtended(matrixStack.getLast().getMatrix());
 		final double scaleFactor = window.getGuiScaleFactor();
 		
-		final int nativeX = MathHelper.ceil(x * scaleFactor);
-		final int nativeY = MathHelper.ceil(y * scaleFactor);
+		final Vector4f vectorXY = new Vector4f(x, y, 0, 1);
+		vectorXY.transform(matrix);
 		
-		final int nativeWidth = MathHelper.ceil(width * scaleFactor);
-		final int nativeHeight = MathHelper.ceil((fontRenderSupplier.get().FONT_HEIGHT + 1) * scale * scaleFactor);
+		final Vector4f vectorWH = new Vector4f(width * matrix.getM00(), (fontRenderSupplier.get().FONT_HEIGHT + 1) * scale * matrix.getM11(), 0, 1);
+		
+		final int nativeX = MathHelper.ceil(vectorXY.getX() * scaleFactor);
+		final int nativeY = MathHelper.ceil(vectorXY.getY() * scaleFactor);
+		
+		final int nativeWidth = MathHelper.ceil(vectorWH.getX() * scaleFactor);
+		final int nativeHeight = MathHelper.ceil(vectorWH.getY() * scaleFactor);
 		
 		RenderUtil.enableScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
-		// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0xFF00FF00); // test scissor
+		
+		// Uncomment to test scissor
+		// matrixStack.push();
+		// matrixStack.getLast().getMatrix().setIdentity();
+		// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0x8F00FF00);
+		// matrixStack.pop();
 		
 		setText(textSupplier.get());
-		renderFont(matrixStack, fontRenderSupplier.get(), getMovingX(x), y + 2);
+		renderFont(matrixStack, fontRenderSupplier.get(), getMovingX(x), y + 2 * scale);
 		
 		RenderUtil.disableScissor();
 	}
