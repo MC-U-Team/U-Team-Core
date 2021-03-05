@@ -10,7 +10,6 @@ import info.u_team.u_team_core.screen.UBasicScreen;
 import info.u_team.u_team_core.util.*;
 import info.u_team.u_team_test.TestMod;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.*;
 
@@ -263,7 +262,6 @@ public class ButtonTestScreen extends UBasicScreen {
 	@Override
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		scalingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);
-		AbstractGui.fill(matrixStack, 220, 25, 220 + 200, 25 + (font.FONT_HEIGHT + 1) * 2, 0xFFFF00F0);
 		scrollingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);
 		scrollingList.render(matrixStack, mouseX, mouseY, partialTicks);
 	}
