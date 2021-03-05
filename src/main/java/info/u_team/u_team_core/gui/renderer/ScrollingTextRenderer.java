@@ -7,7 +7,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.RenderUtil.Matrix4fExtended;
 import net.minecraft.client.*;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector4f;
 
@@ -22,8 +22,8 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 	protected long lastTime = 0;
 	protected State state = State.WAITING;
 	
-	public ScrollingTextRenderer(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier, float x, float y) {
-		super(fontRenderSupplier, textSupplier, x, y);
+	public ScrollingTextRenderer(FontRenderer fontRenderer, Supplier<String> textSupplier, float x, float y) {
+		super(fontRenderer, textSupplier, x, y);
 		width = 100;
 		stepSize = 1;
 		speedTime = 20;
@@ -80,7 +80,8 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		final Vector4f vectorXY = new Vector4f(x, y, 0, 1);
 		vectorXY.transform(matrix);
 		
-		final Vector4f vectorWH = new Vector4f(width * matrix.getM00(), (fontRenderSupplier.get().FONT_HEIGHT + 1) * scale * matrix.getM11(), 0, 1);
+		// Cannot use transform here, because we only care about the scaling. M00 and M11 should have the right scaling
+		final Vector4f vectorWH = new Vector4f(width * matrix.getM00(), (fontRenderer.FONT_HEIGHT + 1) * scale * matrix.getM11(), 0, 1);
 		
 		final int nativeX = MathHelper.ceil(vectorXY.getX() * scaleFactor);
 		final int nativeY = MathHelper.ceil(vectorXY.getY() * scaleFactor);
@@ -97,7 +98,7 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		// matrixStack.pop();
 		
 		setText(textSupplier.get());
-		renderFont(matrixStack, fontRenderSupplier.get(), getMovingX(x), y + 2 * scale);
+		renderFont(matrixStack, fontRenderer, getMovingX(x), y + 2 * scale);
 		
 		RenderUtil.disableScissor();
 	}
