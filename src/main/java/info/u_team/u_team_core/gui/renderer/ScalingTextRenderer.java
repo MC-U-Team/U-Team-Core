@@ -13,7 +13,7 @@ public class ScalingTextRenderer implements IRenderable {
 	protected static final Consumer<ScalingTextRenderer> EMPTY_TEXT_CHANGED = renderer -> {
 	};
 	
-	protected final Supplier<FontRenderer> fontRenderSupplier;
+	protected final FontRenderer fontRenderer;
 	
 	protected Supplier<String> textSupplier;
 	
@@ -30,8 +30,8 @@ public class ScalingTextRenderer implements IRenderable {
 	
 	protected Consumer<ScalingTextRenderer> textChanged;
 	
-	public ScalingTextRenderer(Supplier<FontRenderer> fontRenderSupplier, Supplier<String> textSupplier, float x, float y) {
-		this.fontRenderSupplier = fontRenderSupplier;
+	public ScalingTextRenderer(FontRenderer fontRenderer, Supplier<String> textSupplier, float x, float y) {
+		this.fontRenderer = fontRenderer;
 		this.textSupplier = textSupplier;
 		this.x = x;
 		this.y = y;
@@ -105,7 +105,7 @@ public class ScalingTextRenderer implements IRenderable {
 	protected void setText(String newText) {
 		if ((newText != null && !newText.equals(text)) || newText == null) {
 			this.text = newText;
-			this.textWidth = fontRenderSupplier.get().getStringWidth(newText);
+			this.textWidth = fontRenderer.getStringWidth(newText);
 			updatedText();
 		}
 	}
@@ -118,7 +118,7 @@ public class ScalingTextRenderer implements IRenderable {
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		// Get new text and set if has changed
 		setText(textSupplier.get());
-		renderFont(matrixStack, fontRenderSupplier.get(), x, y);
+		renderFont(matrixStack, fontRenderer, x, y);
 	}
 	
 	protected void renderFont(MatrixStack matrixStack, FontRenderer fontRenderer, float x, float y) {
