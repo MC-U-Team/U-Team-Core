@@ -62,6 +62,12 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		this.waitTime = waittime;
 	}
 	
+	public void copyState(ScrollingTextRenderer renderer) {
+		state = renderer.state;
+		moveDifference = renderer.moveDifference;
+		lastTime = renderer.lastTime;
+	}
+	
 	@Override
 	protected void updatedText() {
 		state = State.WAITING;
