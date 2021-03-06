@@ -63,6 +63,7 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 	}
 	
 	public void copyState(ScrollingTextRenderer renderer) {
+		setText(textSupplier.get());
 		state = renderer.state;
 		moveDifference = renderer.moveDifference;
 		lastTime = renderer.lastTime;
