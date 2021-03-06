@@ -227,6 +227,7 @@ curseforge {
 		addGameVersion "Java 10"
 		
 		relations {
+			optionalDependency "basic-discord-rich-presence"
 			optionalDependency "jei"
 		}
 		
