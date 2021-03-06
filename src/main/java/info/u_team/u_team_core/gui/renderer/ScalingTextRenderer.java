@@ -35,6 +35,7 @@ public class ScalingTextRenderer implements IRenderable {
 		this.textSupplier = textSupplier;
 		this.x = x;
 		this.y = y;
+		textWidth = -1;
 		color = RGBA.WHITE;
 		scale = 1;
 		positionFactor = 1;
@@ -96,7 +97,7 @@ public class ScalingTextRenderer implements IRenderable {
 	}
 	
 	public float getTextWidth() {
-		if (textWidth == 0) { // If text width has never been set
+		if (textWidth == -1) { // If text width has never been set
 			setText(textSupplier.get());
 		}
 		return textWidth * scale;
