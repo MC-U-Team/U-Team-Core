@@ -91,7 +91,6 @@ jar {
 	archiveClassifier = ""
 	
 	from "LICENSE"
-	from "src/repack/resources/LICENSE-DEPENDENCIES"
 	
 	exclude(".cache")
 	
@@ -103,7 +102,6 @@ task deobfJar(type: Jar) {
 	
 	from sourceSets.main.output
 	from "LICENSE"
-	from "src/repack/resources/LICENSE-DEPENDENCIES"
 	
 	exclude(".cache")
 	
@@ -115,7 +113,6 @@ task sourcesJar(type: Jar) {
 	
 	from sourceSets.main.allJava
 	from "LICENSE"
-	from "src/repack/resources/LICENSE-DEPENDENCIES"
 }
 
 task docJar(type: Jar) {
@@ -123,7 +120,6 @@ task docJar(type: Jar) {
 	
 	from javadoc
 	from "LICENSE"
-	from "src/repack/resources/LICENSE-DEPENDENCIES"
 	
 	tasks.withType(Javadoc) {
 		options.addStringOption('Xdoclint:none', '-quiet')
@@ -184,12 +180,10 @@ sourceSets {
 	main {
 		java {
 			srcDirs += "src/data/java"
-			srcDirs += "src/repack/java"
 			srcDirs += "src/api/java"
 			srcDirs += "src/integration/java"
 		}
 		resources {
-			srcDirs += "src/repack/resources"
 			srcDirs += "src/generated/resources"
 		}
 	}
