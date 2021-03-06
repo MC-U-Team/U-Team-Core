@@ -67,6 +67,7 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		state = State.WAITING;
 		moveDifference = 0;
 		lastTime = 0;
+		super.updatedText();
 	}
 	
 	@Override
