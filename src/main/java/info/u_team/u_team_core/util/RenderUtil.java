@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.util;
 
+import com.mojang.blaze3d.platform.GlStateManager.*;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.util.math.vector.Matrix4f;
@@ -17,6 +18,14 @@ public class RenderUtil {
 	
 	public static void defaultBlendFunc() {
 		RenderSystem.defaultBlendFunc();
+	}
+	
+	public static void blendFunc(SourceFactor srcFactor, DestFactor dstFactor) {
+		RenderSystem.blendFunc(srcFactor, dstFactor);
+	}
+	
+	public static void blendFuncSeparate(SourceFactor srcFactor, DestFactor dstFactor, SourceFactor srcFactorAlpha, DestFactor dstFactorAlpha) {
+		RenderSystem.blendFuncSeparate(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
 	}
 	
 	public static void enableAlphaTest() {
@@ -37,6 +46,18 @@ public class RenderUtil {
 	
 	public static void disableScissor() {
 		RenderSystem.disableScissor();
+	}
+	
+	public static void enableTexture() {
+		RenderSystem.enableTexture();
+	}
+	
+	public static void disableTexture() {
+		RenderSystem.disableTexture();
+	}
+	
+	public static void shadeModel(int mode) {
+		RenderSystem.shadeModel(mode);
 	}
 	
 	public static class Matrix4fExtended extends Matrix4f {
