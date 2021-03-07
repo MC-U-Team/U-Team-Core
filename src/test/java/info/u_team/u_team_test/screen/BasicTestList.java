@@ -9,6 +9,8 @@ public class BasicTestList extends ScrollableList<BasicTestListEntry> {
 		func_244606_c(false);
 		func_244605_b(false);
 		setShouldUseScissor(true);
+		setShouldRenderTransparentBorder(true);
+		setTransparentBorderSize(10);
 		
 		for (int i = 0; i < 50; i++) {
 			addEntry(new BasicTestListEntry());
