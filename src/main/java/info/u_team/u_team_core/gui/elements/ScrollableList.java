@@ -1,10 +1,15 @@
 package info.u_team.u_team_core.gui.elements;
 
+import org.lwjgl.opengl.GL11;
+
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager.*;
 
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.*;
 import net.minecraft.client.gui.widget.list.*;
+import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.math.MathHelper;
 
 public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>> extends ExtendedList<T> {
@@ -12,17 +17,21 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	protected int sideDistance;
 	
 	protected boolean shouldUseScissor;
+	protected boolean shouldRenderTransparentBorder;
+	protected float transparentBorderSize;
 	
 	public ScrollableList(int x, int y, int width, int height, int slotHeight, int sideDistance) {
 		super(Minecraft.getInstance(), 0, 0, 0, 0, slotHeight);
 		updateSettings(x, y, width, height);
 		this.sideDistance = sideDistance;
+		transparentBorderSize = 4;
 	}
 	
 	public ScrollableList(int width, int height, int top, int bottom, int left, int right, int slotHeight, int sideDistance) {
 		super(Minecraft.getInstance(), 0, 0, 0, 0, slotHeight);
 		updateSettings(width, height, top, bottom, left, right);
 		this.sideDistance = sideDistance;
+		transparentBorderSize = 4;
 	}
 	
 	public void updateSettings(int x, int y, int width, int height) {
@@ -52,6 +61,22 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	
 	public void setShouldUseScissor(boolean shouldUseScissor) {
 		this.shouldUseScissor = shouldUseScissor;
+	}
+	
+	public boolean isShouldRenderTransparentBorder() {
+		return shouldRenderTransparentBorder;
+	}
+	
+	public void setShouldRenderTransparentBorder(boolean shouldRenderTransparentBorder) {
+		this.shouldRenderTransparentBorder = shouldRenderTransparentBorder;
+	}
+	
+	public float getTransparentBorderSize() {
+		return transparentBorderSize;
+	}
+	
+	public void setTransparentBorderSize(float transparentBorderSize) {
+		this.transparentBorderSize = transparentBorderSize;
 	}
 	
 	@Override
@@ -89,5 +114,31 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 		} else {
 			super.renderList(matrixStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
 		}
+		
+		if (shouldRenderTransparentBorder) {
+			final Tessellator tessellator = Tessellator.getInstance();
+			final BufferBuilder buffer = tessellator.getBuffer();
+			
+			RenderUtil.enableBlend();
+			RenderUtil.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ZERO, DestFactor.ONE);
+			RenderUtil.shadeModel(GL11.GL_SMOOTH);
+			RenderUtil.disableTexture();
+			
+			buffer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+			buffer.pos(x0, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
+			buffer.pos(x1, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
+			buffer.pos(x1, y0, 0).color(0, 0, 0, 255).endVertex();
+			buffer.pos(x0, y0, 0).color(0, 0, 0, 255).endVertex();
+			buffer.pos(x0, y1, 0).color(0, 0, 0, 255).endVertex();
+			buffer.pos(x1, y1, 0).color(0, 0, 0, 255).endVertex();
+			buffer.pos(x1, y1 - transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
+			buffer.pos(x0, y1 - transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
+			
+			tessellator.draw();
+			
+			RenderUtil.enableTexture();
+			RenderUtil.disableBlend();
+		}
 	}
+	
 }
