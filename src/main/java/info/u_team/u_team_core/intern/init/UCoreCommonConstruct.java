@@ -9,7 +9,7 @@ public class UCoreCommonConstruct implements IModConstruct {
 	
 	@Override
 	public void construct() {
-		BusRegister.registerMod(UCoreNetwork::registerMod);	
+		BusRegister.registerMod(UCoreNetwork::registerMod);
 		BusRegister.registerMod(UCoreRecipeSerializers::registerMod);
 		BusRegister.registerMod(UCoreLazySpawnEggs::registerMod);
 		BusRegister.registerMod(UCoreLootFunctions::registerMod);
