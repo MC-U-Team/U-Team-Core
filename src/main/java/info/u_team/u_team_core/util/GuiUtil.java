@@ -202,7 +202,7 @@ public class GuiUtil {
 	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
 	public static void drawTexturedColoredQuad(MatrixStack matrixStack, int x, int y, int width, int height, int uWidth, int vHeight, float uOffset, float vOffset, int textureWidth, int textureHeight, float zLevel, RGBA color) {
-		drawTexturedColoredQuad(matrixStack, x, x + width, y, y + height, uOffset / (float) textureWidth, (uOffset + uWidth) / (float) textureWidth, vOffset / (float) textureHeight, (vOffset + vHeight) / (float) textureHeight, zLevel, color);
+		drawTexturedColoredQuad(matrixStack, x, x + width, y, y + height, uOffset / textureWidth, (uOffset + uWidth) / textureWidth, vOffset / textureHeight, (vOffset + vHeight) / textureHeight, zLevel, color);
 	}
 	
 	/**

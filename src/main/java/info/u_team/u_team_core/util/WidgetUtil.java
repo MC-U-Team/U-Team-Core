@@ -42,7 +42,7 @@ public class WidgetUtil {
 			}
 			
 			final float xStart = (widget.x + (widget.width / 2) - messageWidth / 2);
-			final float yStart = (widget.y + ((int) (widget.height - 8)) / 2);
+			final float yStart = (widget.y + (widget.height - 8) / 2);
 			
 			fontRenderer.func_243246_a(matrixStack, message, xStart, yStart, widget.getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}

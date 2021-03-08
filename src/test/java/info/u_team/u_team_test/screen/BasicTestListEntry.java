@@ -11,6 +11,7 @@ public class BasicTestListEntry extends ScrollableListEntry<BasicTestListEntry> 
 		minecraft.fontRenderer.drawString(matrixStack, "Test, Entry!", entryX + 10, entryY + 5, 0xFFFFFF);
 	}
 	
+	@Override
 	@SuppressWarnings("deprecation")
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		list.setSelected(this);
