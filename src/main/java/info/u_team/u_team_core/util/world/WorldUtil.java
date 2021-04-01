@@ -3,6 +3,7 @@ package info.u_team.u_team_core.util.world;
 import java.util.function.*;
 
 import net.minecraft.entity.*;
+import net.minecraft.entity.item.minecart.ContainerMinecartEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.RegistryKey;
@@ -225,6 +226,10 @@ public class WorldUtil {
 					return;
 				}
 				entity.copyDataFromOld(entityOld);
+				if (entityOld instanceof ContainerMinecartEntity) {
+					// Prevent duplication
+					((ContainerMinecartEntity) entityOld).dropContentsWhenDead(false);
+				}
 				// Need to remove the old entity (Why the heck does TeleportCommand don't do
 				// this and it works ?????)
 				entityOld.remove(false);
