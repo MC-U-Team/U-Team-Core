@@ -1,7 +1,8 @@
 package info.u_team.u_team_core.container;
 
 import info.u_team.u_team_core.inventory.UItemStackHandler;
-import net.minecraftforge.items.*;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 public class ItemSlot extends SlotItemHandler {
 	

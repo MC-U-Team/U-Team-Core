@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.intern.data.provider;
 
-import info.u_team.u_team_core.data.*;
+import info.u_team.u_team_core.data.CommonBlockStatesProvider;
+import info.u_team.u_team_core.data.GenerationData;
 
 public class UCoreBlockStatesProvider extends CommonBlockStatesProvider {
 	

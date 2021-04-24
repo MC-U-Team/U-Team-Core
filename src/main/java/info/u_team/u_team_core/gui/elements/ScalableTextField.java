@@ -2,10 +2,12 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import info.u_team.u_team_core.api.gui.*;
+import info.u_team.u_team_core.api.gui.IScaleProvider;
+import info.u_team.u_team_core.api.gui.IScaleable;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 

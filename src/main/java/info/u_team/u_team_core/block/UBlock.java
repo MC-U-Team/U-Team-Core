@@ -2,7 +2,9 @@ package info.u_team.u_team_core.block;
 
 import info.u_team.u_team_core.api.registry.IBlockItemProvider;
 import net.minecraft.block.Block;
-import net.minecraft.item.*;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 
 public class UBlock extends Block implements IBlockItemProvider {
 	

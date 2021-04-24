@@ -3,8 +3,9 @@ package info.u_team.u_team_core.item.tool;
 import info.u_team.u_team_core.api.IToolMaterial;
 import info.u_team.u_team_core.util.ItemProperties;
 import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.Item.Properties;
+import net.minecraft.item.ItemGroup;
 import net.minecraftforge.fml.RegistryObject;
 
 public class ToolSetCreator {

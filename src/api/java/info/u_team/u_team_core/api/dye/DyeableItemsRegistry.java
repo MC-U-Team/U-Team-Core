@@ -1,6 +1,8 @@
 package info.u_team.u_team_core.api.dye;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.minecraft.item.Item;
 

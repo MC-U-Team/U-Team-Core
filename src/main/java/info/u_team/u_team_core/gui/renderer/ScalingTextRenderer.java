@@ -1,12 +1,14 @@
 package info.u_team.u_team_core.gui.renderer;
 
 import java.util.Objects;
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.util.RGBA;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.IRenderable;
 
 public class ScalingTextRenderer implements IRenderable {
 	

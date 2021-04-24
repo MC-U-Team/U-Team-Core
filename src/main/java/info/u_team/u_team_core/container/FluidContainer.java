@@ -1,21 +1,26 @@
 package info.u_team.u_team_core.container;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import com.google.common.collect.Lists;
 
 import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
-import info.u_team.u_team_core.intern.network.*;
+import info.u_team.u_team_core.intern.network.FluidSetAllContainerMessage;
+import info.u_team.u_team_core.intern.network.FluidSetSlotContainerMessage;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.*;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.inventory.container.IContainerListener;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.network.PacketDistributor;

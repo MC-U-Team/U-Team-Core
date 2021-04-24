@@ -1,16 +1,21 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 import com.google.gson.JsonObject;
 
-import info.u_team.u_team_core.util.*;
+import info.u_team.u_team_core.util.CastUtil;
+import info.u_team.u_team_core.util.TriConsumer;
 import net.minecraft.data.DirectoryCache;
-import net.minecraft.util.*;
-import net.minecraftforge.common.loot.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Tuple;
+import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
+import net.minecraftforge.common.loot.IGlobalLootModifier;
 
 public abstract class CommonGlobalLootModifiersProvider extends CommonProvider {
 	

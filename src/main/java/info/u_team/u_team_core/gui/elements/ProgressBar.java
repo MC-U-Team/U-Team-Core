@@ -1,13 +1,17 @@
 package info.u_team.u_team_core.gui.elements;
 
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.*;
-import net.minecraft.client.gui.*;
+import net.minecraft.client.audio.SimpleSound;
+import net.minecraft.client.audio.SoundHandler;
+import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.IGuiEventListener;
+import net.minecraft.client.gui.IRenderable;
 import net.minecraft.util.SoundEvents;
 
 public class ProgressBar extends AbstractGui implements IGuiEventListener, IRenderable {

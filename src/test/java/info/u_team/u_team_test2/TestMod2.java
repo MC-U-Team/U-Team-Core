@@ -1,6 +1,7 @@
 package info.u_team.u_team_test2;
 
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import info.u_team.u_team_core.util.annotation.AnnotationManager;
 import info.u_team.u_team_core.util.verify.JarSignVerifier;

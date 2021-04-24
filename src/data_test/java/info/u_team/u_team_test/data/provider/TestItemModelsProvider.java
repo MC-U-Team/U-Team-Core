@@ -1,7 +1,9 @@
 package info.u_team.u_team_test.data.provider;
 
-import info.u_team.u_team_core.data.*;
-import info.u_team.u_team_test.init.*;
+import info.u_team.u_team_core.data.CommonItemModelsProvider;
+import info.u_team.u_team_core.data.GenerationData;
+import info.u_team.u_team_test.init.TestBlocks;
+import info.u_team.u_team_test.init.TestItems;
 
 public class TestItemModelsProvider extends CommonItemModelsProvider {
 	

@@ -1,8 +1,10 @@
 package info.u_team.u_team_core.data;
 
-import java.util.function.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
-import net.minecraft.data.*;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.IDataProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 

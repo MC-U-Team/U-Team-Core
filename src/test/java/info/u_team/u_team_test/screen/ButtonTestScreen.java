@@ -1,17 +1,32 @@
 package info.u_team.u_team_test.screen;
 
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import info.u_team.u_team_core.gui.elements.*;
-import info.u_team.u_team_core.gui.renderer.*;
+import info.u_team.u_team_core.gui.elements.CheckboxButton;
+import info.u_team.u_team_core.gui.elements.ImageActivatableButton;
+import info.u_team.u_team_core.gui.elements.ImageButton;
+import info.u_team.u_team_core.gui.elements.ImageToggleButton;
+import info.u_team.u_team_core.gui.elements.ScalableActivatableButton;
+import info.u_team.u_team_core.gui.elements.ScalableButton;
+import info.u_team.u_team_core.gui.elements.ScalableCheckboxButton;
+import info.u_team.u_team_core.gui.elements.ScalableSlider;
+import info.u_team.u_team_core.gui.elements.ScalableTextField;
+import info.u_team.u_team_core.gui.elements.UButton;
+import info.u_team.u_team_core.gui.elements.USlider;
+import info.u_team.u_team_core.gui.elements.UTextField;
+import info.u_team.u_team_core.gui.renderer.ScalingTextRenderer;
+import info.u_team.u_team_core.gui.renderer.ScrollingTextRenderer;
 import info.u_team.u_team_core.screen.UBasicScreen;
-import info.u_team.u_team_core.util.*;
+import info.u_team.u_team_core.util.RGBA;
+import info.u_team.u_team_core.util.WidgetUtil;
 import info.u_team.u_team_test.TestMod;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
 public class ButtonTestScreen extends UBasicScreen {
 	

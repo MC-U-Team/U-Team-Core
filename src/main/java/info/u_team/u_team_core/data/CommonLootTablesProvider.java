@@ -1,17 +1,28 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
-import java.util.function.*;
+import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 
 import info.u_team.u_team_core.intern.loot.SetTileEntityNBTLootFunction;
-import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.criterion.EnchantmentPredicate;
+import net.minecraft.advancements.criterion.ItemPredicate;
+import net.minecraft.advancements.criterion.MinMaxBounds;
 import net.minecraft.block.Block;
 import net.minecraft.data.DirectoryCache;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.loot.*;
-import net.minecraft.loot.conditions.*;
-import net.minecraft.loot.functions.*;
-import net.minecraft.util.*;
+import net.minecraft.loot.ConstantRange;
+import net.minecraft.loot.ItemLootEntry;
+import net.minecraft.loot.LootParameterSets;
+import net.minecraft.loot.LootPool;
+import net.minecraft.loot.LootTable;
+import net.minecraft.loot.LootTableManager;
+import net.minecraft.loot.conditions.MatchTool;
+import net.minecraft.loot.conditions.SurvivesExplosion;
+import net.minecraft.loot.functions.ApplyBonus;
+import net.minecraft.loot.functions.ExplosionDecay;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 
 public abstract class CommonLootTablesProvider extends CommonProvider {
 	

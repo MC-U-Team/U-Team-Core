@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.gui.elements;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 

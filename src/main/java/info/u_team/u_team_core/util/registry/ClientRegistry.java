@@ -1,15 +1,22 @@
 package info.u_team.u_team_core.util.registry;
 
-import java.util.function.*;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
-import net.minecraft.client.gui.*;
+import net.minecraft.client.gui.IHasContainer;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.renderer.tileentity.*;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.entity.*;
-import net.minecraft.inventory.container.*;
-import net.minecraft.tileentity.*;
-import net.minecraftforge.fml.client.registry.*;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.fml.client.registry.IRenderFactory;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class ClientRegistry {
 	

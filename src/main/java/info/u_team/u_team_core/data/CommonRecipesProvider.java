@@ -5,13 +5,17 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import info.u_team.u_team_core.util.TagUtil;
-import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.criterion.EntityPredicate;
+import net.minecraft.advancements.criterion.InventoryChangeTrigger;
+import net.minecraft.advancements.criterion.ItemPredicate;
 import net.minecraft.advancements.criterion.MinMaxBounds.IntBound;
-import net.minecraft.data.*;
+import net.minecraft.data.DirectoryCache;
+import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ITag;
-import net.minecraft.util.*;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 
 public abstract class CommonRecipesProvider extends CommonProvider {
 	

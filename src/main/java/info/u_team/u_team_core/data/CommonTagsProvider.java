@@ -2,19 +2,31 @@ package info.u_team.u_team_core.data;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.*;
-import java.util.stream.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.*;
+import net.minecraft.data.DirectoryCache;
+import net.minecraft.data.TagsProvider;
 import net.minecraft.resources.ResourcePackType;
-import net.minecraft.tags.*;
-import net.minecraft.tags.ITag.*;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.ITag.INamedTag;
+import net.minecraft.tags.ITag.ITagEntry;
+import net.minecraft.tags.ITag.ItemEntry;
+import net.minecraft.tags.ITag.OptionalItemEntry;
+import net.minecraft.tags.ITag.OptionalTagEntry;
+import net.minecraft.tags.ITag.Proxy;
+import net.minecraft.tags.ITag.TagEntry;
+import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraftforge.common.data.ExistingFileHelper.*;
+import net.minecraftforge.common.data.ExistingFileHelper.IResourceType;
+import net.minecraftforge.common.data.ExistingFileHelper.ResourceType;
 
 public abstract class CommonTagsProvider<T> extends CommonProvider {
 	

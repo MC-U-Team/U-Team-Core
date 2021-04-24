@@ -1,7 +1,13 @@
 package info.u_team.u_team_test.data.provider;
 
-import info.u_team.u_team_core.data.*;
-import info.u_team.u_team_test.init.*;
+import info.u_team.u_team_core.data.CommonLanguagesProvider;
+import info.u_team.u_team_core.data.GenerationData;
+import info.u_team.u_team_test.init.TestBlocks;
+import info.u_team.u_team_test.init.TestEffects;
+import info.u_team.u_team_test.init.TestEnchantments;
+import info.u_team.u_team_test.init.TestEntityTypes;
+import info.u_team.u_team_test.init.TestItemGroups;
+import info.u_team.u_team_test.init.TestItems;
 
 public class TestLanguagesProvider extends CommonLanguagesProvider {
 	

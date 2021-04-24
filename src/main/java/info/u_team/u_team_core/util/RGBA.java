@@ -2,7 +2,8 @@ package info.u_team.u_team_core.util;
 
 import org.lwjgl.opengl.GL11;
 
-import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 /**
  * Basic rgba representation of a color with some conversion methods

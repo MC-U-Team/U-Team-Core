@@ -18,7 +18,9 @@ package info.u_team.u_team_core.api.fluid;
 import java.util.function.IntSupplier;
 
 import info.u_team.u_team_core.api.InteractionType;
-import it.unimi.dsi.fastutil.ints.*;
+import it.unimi.dsi.fastutil.ints.Int2ObjectFunction;
+import it.unimi.dsi.fastutil.ints.IntArrayList;
+import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraftforge.fluids.FluidStack;
 
 public class ExtendedFluidHandlerUtils {

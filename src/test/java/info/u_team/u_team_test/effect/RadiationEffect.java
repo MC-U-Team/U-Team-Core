@@ -5,7 +5,8 @@ import java.util.Random;
 import info.u_team.u_team_test.init.TestDamageSources;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.*;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectType;
 
 public class RadiationEffect extends Effect {
 	

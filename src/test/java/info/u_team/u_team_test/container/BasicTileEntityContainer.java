@@ -1,6 +1,7 @@
 package info.u_team.u_team_test.container;
 
-import info.u_team.u_team_core.api.sync.*;
+import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
+import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
 import info.u_team.u_team_core.container.UTileEntityContainer;
 import info.u_team.u_team_test.init.TestContainers;

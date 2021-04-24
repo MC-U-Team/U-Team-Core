@@ -7,8 +7,11 @@ import com.google.common.collect.Lists;
 import info.u_team.u_team_core.api.dye.IDyeableItem;
 import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
 import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.*;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.DyeItem;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.SpecialRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 

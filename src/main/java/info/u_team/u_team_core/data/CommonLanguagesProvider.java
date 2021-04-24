@@ -1,7 +1,9 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 import java.util.function.Supplier;
 
 import net.minecraft.block.Block;
@@ -9,9 +11,12 @@ import net.minecraft.data.DirectoryCache;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityType;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Effect;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 
 public abstract class CommonLanguagesProvider extends CommonProvider {
 	

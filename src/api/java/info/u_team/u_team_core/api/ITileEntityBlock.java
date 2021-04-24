@@ -4,13 +4,17 @@ import java.util.Optional;
 
 import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
 import io.netty.buffer.Unpooled;
-import net.minecraft.entity.player.*;
-import net.minecraft.inventory.container.*;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.IContainerProvider;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.*;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.*;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 /**

@@ -2,9 +2,12 @@ package info.u_team.u_team_core.itemgroup;
 
 import java.util.function.Supplier;
 
-import net.minecraft.item.*;
-import net.minecraft.util.*;
-import net.minecraftforge.api.distmarker.*;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class UItemGroup extends ItemGroup {
 	

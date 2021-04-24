@@ -2,9 +2,13 @@ package info.u_team.u_team_test.item;
 
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_test.init.TestItemGroups;
-import net.minecraft.item.*;
-import net.minecraft.potion.*;
-import net.minecraftforge.api.distmarker.*;
+import net.minecraft.item.Food;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Rarity;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class BasicFoodItem extends UItem {
 	

@@ -1,16 +1,29 @@
 package info.u_team.u_team_core.ingredient;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.*;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import com.google.common.collect.Lists;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 
-import net.minecraft.fluid.*;
+import net.minecraft.fluid.Fluid;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tags.*;
-import net.minecraft.util.*;
+import net.minecraft.tags.FluidTags;
+import net.minecraft.tags.ITag;
+import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagCollectionManager;
+import net.minecraft.util.JSONUtils;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.ForgeConfig;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;

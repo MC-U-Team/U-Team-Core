@@ -1,8 +1,12 @@
 package info.u_team.u_team_core.util;
 
-import java.io.*;
-import java.nio.file.*;
-import java.util.function.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;

@@ -1,11 +1,15 @@
 package info.u_team.u_team_core.intern.loot;
 
-import com.google.gson.*;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
 
 import info.u_team.u_team_core.intern.init.UCoreLootFunctions;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.loot.*;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootFunction;
+import net.minecraft.loot.LootFunctionType;
+import net.minecraft.loot.LootParameters;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;

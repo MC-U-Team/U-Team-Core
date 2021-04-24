@@ -1,18 +1,22 @@
 package info.u_team.u_team_core.screen;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
-import info.u_team.u_team_core.container.*;
+import info.u_team.u_team_core.container.FluidContainer;
+import info.u_team.u_team_core.container.FluidSlot;
 import info.u_team.u_team_core.gui.renderer.FluidInventoryRenderer;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 

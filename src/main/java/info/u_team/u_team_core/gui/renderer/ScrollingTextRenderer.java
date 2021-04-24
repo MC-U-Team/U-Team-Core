@@ -6,7 +6,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.RenderUtil.Matrix4fExtended;
-import net.minecraft.client.*;
+import net.minecraft.client.MainWindow;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector4f;

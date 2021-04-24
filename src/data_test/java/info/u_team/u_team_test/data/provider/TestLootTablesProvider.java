@@ -2,8 +2,10 @@ package info.u_team.u_team_test.data.provider;
 
 import java.util.function.BiConsumer;
 
-import info.u_team.u_team_core.data.*;
-import info.u_team.u_team_test.init.*;
+import info.u_team.u_team_core.data.CommonLootTablesProvider;
+import info.u_team.u_team_core.data.GenerationData;
+import info.u_team.u_team_test.init.TestBlocks;
+import info.u_team.u_team_test.init.TestItems;
 import net.minecraft.loot.LootTable;
 import net.minecraft.util.ResourceLocation;
 

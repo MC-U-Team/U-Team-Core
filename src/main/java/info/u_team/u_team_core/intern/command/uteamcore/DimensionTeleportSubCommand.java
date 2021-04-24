@@ -6,8 +6,11 @@ import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 
 import info.u_team.u_team_core.util.world.WorldUtil;
-import net.minecraft.command.*;
-import net.minecraft.command.arguments.*;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.command.arguments.DimensionArgument;
+import net.minecraft.command.arguments.EntityArgument;
+import net.minecraft.command.arguments.Vec3Argument;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.TranslationTextComponent;

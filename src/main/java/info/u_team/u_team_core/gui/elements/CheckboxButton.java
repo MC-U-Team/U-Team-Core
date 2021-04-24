@@ -2,11 +2,13 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import info.u_team.u_team_core.util.*;
+import info.u_team.u_team_core.util.GuiUtil;
+import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
 public class CheckboxButton extends UButton {
 	

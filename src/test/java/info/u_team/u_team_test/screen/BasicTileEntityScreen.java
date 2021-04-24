@@ -2,7 +2,8 @@ package info.u_team.u_team_test.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import info.u_team.u_team_core.gui.elements.*;
+import info.u_team.u_team_core.gui.elements.UButton;
+import info.u_team.u_team_core.gui.elements.USlider;
 import info.u_team.u_team_core.screen.UBasicContainerScreen;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;

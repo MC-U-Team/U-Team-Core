@@ -1,6 +1,7 @@
 package info.u_team.u_team_test.enchantment;
 
-import net.minecraft.enchantment.*;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.inventory.EquipmentSlotType;
 
 public class AutoSmeltEnchantment extends Enchantment {

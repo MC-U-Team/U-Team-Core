@@ -2,9 +2,11 @@ package info.u_team.u_team_core.recipeserializer;
 
 import java.util.Map;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.util.NonNullList;
 
 public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> extends URecipeSerializer<T> {

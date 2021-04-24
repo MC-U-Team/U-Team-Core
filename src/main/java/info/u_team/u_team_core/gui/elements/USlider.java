@@ -2,12 +2,20 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
-import info.u_team.u_team_core.api.gui.*;
-import info.u_team.u_team_core.util.*;
+import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
+import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
+import info.u_team.u_team_core.api.gui.ITextProvider;
+import info.u_team.u_team_core.api.gui.ITextureProvider;
+import info.u_team.u_team_core.util.GuiUtil;
+import info.u_team.u_team_core.util.RGBA;
+import info.u_team.u_team_core.util.RenderUtil;
+import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.IFormattableTextComponent;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
 public class USlider extends Slider implements IPerspectiveRenderable, IBackgroundColorProvider, ITextProvider {

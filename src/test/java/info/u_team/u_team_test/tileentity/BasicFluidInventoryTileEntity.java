@@ -1,15 +1,21 @@
 package info.u_team.u_team_test.tileentity;
 
-import info.u_team.u_team_core.inventory.*;
+import info.u_team.u_team_core.inventory.TileEntityUFluidStackHandler;
+import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
+import info.u_team.u_team_core.inventory.UFluidStackHandler;
+import info.u_team.u_team_core.inventory.UItemStackHandler;
 import info.u_team.u_team_core.tileentity.UTickableTileEntity;
 import info.u_team.u_team_test.container.BasicFluidInventoryContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.player.*;
-import net.minecraft.inventory.container.*;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
-import net.minecraft.util.text.*;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;

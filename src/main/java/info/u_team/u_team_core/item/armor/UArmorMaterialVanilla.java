@@ -4,7 +4,8 @@ import java.util.function.Supplier;
 
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
-import net.minecraftforge.api.distmarker.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class UArmorMaterialVanilla extends UArmorMaterial {
 	

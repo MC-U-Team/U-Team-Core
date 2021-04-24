@@ -2,7 +2,8 @@ package info.u_team.u_team_test2.init;
 
 import org.apache.logging.log4j.LogManager;
 
-import info.u_team.u_team_core.api.construct.*;
+import info.u_team.u_team_core.api.construct.Construct;
+import info.u_team.u_team_core.api.construct.IModConstruct;
 import info.u_team.u_team_test2.TestMod2;
 import net.minecraft.block.Block;
 import net.minecraftforge.event.RegistryEvent.Register;

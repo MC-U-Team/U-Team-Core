@@ -2,7 +2,10 @@ package info.u_team.u_team_core.item.armor;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
+import net.minecraft.item.ArmorItem;
+import net.minecraft.item.IArmorMaterial;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 
 public class UArmorItem extends ArmorItem {
 	

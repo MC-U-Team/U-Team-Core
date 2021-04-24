@@ -2,9 +2,11 @@ package info.u_team.u_team_core.intern.init;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.ingredient.ItemIngredient;
-import info.u_team.u_team_core.intern.recipe.*;
+import info.u_team.u_team_core.intern.recipe.DyeableItemDyeRecipe;
+import info.u_team.u_team_core.intern.recipe.NoMirrorShapedRecipe;
 import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
-import net.minecraft.item.crafting.*;
+import net.minecraft.item.crafting.IRecipeSerializer;
+import net.minecraft.item.crafting.SpecialRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent.Register;

@@ -1,13 +1,16 @@
 package info.u_team.u_team_core.gui.elements;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.LongSupplier;
+import java.util.function.Supplier;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.util.GuiUtil;
-import net.minecraft.client.*;
+import net.minecraft.client.MainWindow;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.SoundHandler;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.util.ResourceLocation;

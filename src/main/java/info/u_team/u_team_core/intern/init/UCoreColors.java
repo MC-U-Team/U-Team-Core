@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.intern.init;
 
-import info.u_team.u_team_core.api.dye.*;
+import info.u_team.u_team_core.api.dye.DyeableItemsRegistry;
+import info.u_team.u_team_core.api.dye.IDyeableItem;
 import info.u_team.u_team_core.item.USpawnEggItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ColorHandlerEvent;

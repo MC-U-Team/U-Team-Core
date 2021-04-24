@@ -1,16 +1,20 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import com.google.common.collect.Streams;
 
 import net.minecraft.block.Block;
-import net.minecraft.data.*;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DirectoryCache;
 import net.minecraft.item.Item;
-import net.minecraft.util.*;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.fml.RegistryObject;

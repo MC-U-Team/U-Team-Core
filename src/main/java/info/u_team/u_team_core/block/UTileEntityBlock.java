@@ -4,8 +4,10 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.ITileEntityBlock;
 import net.minecraft.block.BlockState;
-import net.minecraft.item.*;
-import net.minecraft.tileentity.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 

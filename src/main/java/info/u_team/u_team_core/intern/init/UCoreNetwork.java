@@ -1,7 +1,10 @@
 package info.u_team.u_team_core.intern.init;
 
 import info.u_team.u_team_core.UCoreMod;
-import info.u_team.u_team_core.intern.network.*;
+import info.u_team.u_team_core.intern.network.BufferPropertyContainerMessage;
+import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
+import info.u_team.u_team_core.intern.network.FluidSetAllContainerMessage;
+import info.u_team.u_team_core.intern.network.FluidSetSlotContainerMessage;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;

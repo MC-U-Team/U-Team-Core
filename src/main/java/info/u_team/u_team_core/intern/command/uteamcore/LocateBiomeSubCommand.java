@@ -3,8 +3,10 @@ package info.u_team.u_team_core.intern.command.uteamcore;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
-import net.minecraft.command.*;
-import net.minecraft.command.arguments.*;
+import net.minecraft.command.CommandSource;
+import net.minecraft.command.Commands;
+import net.minecraft.command.arguments.ResourceLocationArgument;
+import net.minecraft.command.arguments.SuggestionProviders;
 import net.minecraft.command.impl.LocateBiomeCommand;
 import net.minecraft.util.ResourceLocation;
 

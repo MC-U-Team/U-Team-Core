@@ -5,8 +5,10 @@ import java.util.function.Supplier;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.*;
-import net.minecraftforge.api.distmarker.*;
+import net.minecraft.util.LazyValue;
+import net.minecraft.util.SoundEvent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class UArmorMaterial implements IArmorMaterial {
 	

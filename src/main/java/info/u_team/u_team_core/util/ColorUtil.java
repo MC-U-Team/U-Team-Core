@@ -1,9 +1,12 @@
 package info.u_team.u_team_core.util;
 
-import com.google.common.collect.*;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
-import net.minecraft.block.*;
-import net.minecraft.item.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.DyeColor;
+import net.minecraft.item.Item;
 
 public class ColorUtil {
 	

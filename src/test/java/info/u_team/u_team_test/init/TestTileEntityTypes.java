@@ -2,7 +2,9 @@ package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_core.util.registry.TileEntityTypeDeferredRegister;
 import info.u_team.u_team_test.TestMod;
-import info.u_team.u_team_test.tileentity.*;
+import info.u_team.u_team_test.tileentity.BasicEnergyCreatorTileEntity;
+import info.u_team.u_team_test.tileentity.BasicFluidInventoryTileEntity;
+import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;

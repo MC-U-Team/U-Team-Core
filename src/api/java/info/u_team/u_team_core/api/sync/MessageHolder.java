@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.api.sync;
 
-import java.util.function.*;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.PacketBuffer;

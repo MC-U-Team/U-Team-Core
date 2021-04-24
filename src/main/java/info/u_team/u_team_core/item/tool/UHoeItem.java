@@ -2,7 +2,8 @@ package info.u_team.u_team_core.item.tool;
 
 import info.u_team.u_team_core.api.IToolMaterial;
 import info.u_team.u_team_core.api.IToolMaterial.Tools;
-import net.minecraft.item.*;
+import net.minecraft.item.HoeItem;
+import net.minecraft.item.ItemGroup;
 
 public class UHoeItem extends HoeItem {
 	

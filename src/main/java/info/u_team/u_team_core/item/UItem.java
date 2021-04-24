@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.item;
 
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 
 public class UItem extends Item {
 	

@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.tileentity;
 
-import net.minecraft.tileentity.*;
+import net.minecraft.tileentity.ITickableTileEntity;
+import net.minecraft.tileentity.TileEntityType;
 
 public abstract class UTickableTileEntity extends UTileEntity implements ITickableTileEntity {
 	

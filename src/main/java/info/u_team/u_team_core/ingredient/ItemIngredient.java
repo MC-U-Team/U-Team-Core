@@ -1,16 +1,23 @@
 package info.u_team.u_team_core.ingredient;
 
 import java.util.Arrays;
-import java.util.stream.*;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.tags.Tag;
-import net.minecraft.util.*;
-import net.minecraftforge.common.crafting.*;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.JSONUtils;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.IIngredientSerializer;
 
 public class ItemIngredient extends Ingredient {
 	

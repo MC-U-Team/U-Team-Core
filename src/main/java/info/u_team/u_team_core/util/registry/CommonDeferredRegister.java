@@ -1,12 +1,16 @@
 package info.u_team.u_team_core.util.registry;
 
-import java.util.*;
-import java.util.function.*;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.*;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class CommonDeferredRegister<R extends IForgeRegistryEntry<R>> implements Iterable<RegistryObject<R>> {
 	

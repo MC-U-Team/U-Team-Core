@@ -1,7 +1,9 @@
 package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_core.util.registry.ClientRegistry;
-import info.u_team.u_team_test.screen.*;
+import info.u_team.u_team_test.screen.BasicEnergyCreatorScreen;
+import info.u_team.u_team_test.screen.BasicFluidInventoryScreen;
+import info.u_team.u_team_test.screen.BasicTileEntityScreen;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 

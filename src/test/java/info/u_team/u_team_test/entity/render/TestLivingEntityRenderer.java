@@ -3,7 +3,8 @@ package info.u_team.u_team_test.entity.render;
 import com.mojang.blaze3d.matrix.MatrixStack;
 
 import info.u_team.u_team_test.TestMod;
-import net.minecraft.client.renderer.entity.*;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.ZombieRenderer;
 import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.util.ResourceLocation;
 

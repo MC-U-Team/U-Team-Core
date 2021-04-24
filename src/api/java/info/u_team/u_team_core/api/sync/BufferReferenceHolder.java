@@ -1,6 +1,12 @@
 package info.u_team.u_team_core.api.sync;
 
-import java.util.function.*;
+import java.util.function.BooleanSupplier;
+import java.util.function.Consumer;
+import java.util.function.IntConsumer;
+import java.util.function.IntSupplier;
+import java.util.function.LongConsumer;
+import java.util.function.LongSupplier;
+import java.util.function.Supplier;
 
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;

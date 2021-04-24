@@ -2,11 +2,16 @@ package info.u_team.u_team_core.util.annotation;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 import org.objectweb.asm.Type;
 
-import info.u_team.u_team_core.api.construct.*;
-import info.u_team.u_team_core.api.integration.*;
+import info.u_team.u_team_core.api.construct.Construct;
+import info.u_team.u_team_core.api.construct.IModConstruct;
+import info.u_team.u_team_core.api.integration.IModIntegration;
+import info.u_team.u_team_core.api.integration.Integration;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;

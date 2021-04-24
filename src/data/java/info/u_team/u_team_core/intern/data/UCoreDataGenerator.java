@@ -2,7 +2,9 @@ package info.u_team.u_team_core.intern.data;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.data.GenerationData;
-import info.u_team.u_team_core.intern.data.provider.*;
+import info.u_team.u_team_core.intern.data.provider.UCoreBlockStatesProvider;
+import info.u_team.u_team_core.intern.data.provider.UCoreLanguagesProvider;
+import info.u_team.u_team_core.intern.data.provider.UCoreRecipesProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;

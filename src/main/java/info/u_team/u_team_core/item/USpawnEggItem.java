@@ -1,12 +1,14 @@
 package info.u_team.u_team_core.item;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Supplier;
 
 import org.apache.commons.lang3.tuple.Pair;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.util.LazyValue;
 
 public class USpawnEggItem extends SpawnEggItem {

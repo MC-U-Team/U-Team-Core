@@ -1,12 +1,15 @@
 package info.u_team.u_team_test.block;
 
 import info.u_team.u_team_core.block.UTileEntityBlock;
-import info.u_team.u_team_test.init.*;
+import info.u_team.u_team_test.init.TestItemGroups;
+import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.*;
-import net.minecraft.util.math.*;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
 public class BasicEnergyCreatorBlock extends UTileEntityBlock {

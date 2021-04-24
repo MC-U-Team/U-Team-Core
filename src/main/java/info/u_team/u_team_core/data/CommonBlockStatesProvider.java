@@ -3,17 +3,23 @@ package info.u_team.u_team_core.data;
 import java.io.IOException;
 import java.util.function.Function;
 
-import org.apache.logging.log4j.*;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import com.google.common.base.Preconditions;
 
 import info.u_team.u_team_core.UCoreMod;
-import net.minecraft.block.*;
-import net.minecraft.data.*;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.DirectoryCache;
 import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.*;
-import net.minecraftforge.client.model.generators.*;
+import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 
 public abstract class CommonBlockStatesProvider extends BlockStateProvider {
