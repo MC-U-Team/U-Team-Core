@@ -74,23 +74,20 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 			if (livingentity instanceof ServerPlayerEntity) {
 				final ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) livingentity;
 				if (serverplayerentity.connection.getNetworkManager().isChannelOpen() && serverplayerentity.world == this.world && !serverplayerentity.isSleeping()) {
-					final net.minecraftforge.event.entity.living.EnderTeleportEvent event = new net.minecraftforge.event.entity.living.EnderTeleportEvent(serverplayerentity, this.getPosX(), this.getPosY(), this.getPosZ(), 5.0F);
-					if (!net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event)) {
-						if (this.rand.nextFloat() < 0.05F && this.world.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING)) {
-							final EndermiteEntity endermiteentity = EntityType.ENDERMITE.create(this.world);
-							endermiteentity.setSpawnedByPlayer(true);
-							endermiteentity.setLocationAndAngles(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ(), livingentity.rotationYaw, livingentity.rotationPitch);
-							this.world.addEntity(endermiteentity);
-						}
-						
-						if (livingentity.isPassenger()) {
-							livingentity.stopRiding();
-						}
-						
-						livingentity.setPositionAndUpdate(event.getTargetX(), event.getTargetY(), event.getTargetZ());
-						livingentity.fallDistance = 0.0F;
-						livingentity.attackEntityFrom(DamageSource.FALL, event.getAttackDamage());
+					if (this.rand.nextFloat() < 0.05F && this.world.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING)) {
+						final EndermiteEntity endermiteentity = EntityType.ENDERMITE.create(this.world);
+						endermiteentity.setSpawnedByPlayer(true);
+						endermiteentity.setLocationAndAngles(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ(), livingentity.rotationYaw, livingentity.rotationPitch);
+						this.world.addEntity(endermiteentity);
 					}
+					
+					if (livingentity.isPassenger()) {
+						livingentity.stopRiding();
+					}
+					
+					livingentity.setPositionAndUpdate(getPosX(), getPosY(), getPosZ());
+					livingentity.fallDistance = 0.0F;
+					livingentity.attackEntityFrom(DamageSource.FALL, 10F);
 				}
 			} else if (livingentity != null) {
 				livingentity.setPositionAndUpdate(this.getPosX(), this.getPosY(), this.getPosZ());
