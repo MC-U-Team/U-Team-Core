@@ -11,7 +11,7 @@ import net.minecraft.util.text.ITextComponent;
 
 public class UTextField extends TextFieldWidget implements IRenderTickable, IPerspectiveRenderable, IBackgroundColorProvider, ITextColorProvider {
 	
-	protected static ITooltip EMPTY_TOOLTIP = (textField, matrixStack, mouseX, mouseY) -> {
+	protected static final ITooltip EMPTY_TOOLTIP = (textField, matrixStack, mouseX, mouseY) -> {
 	};
 	
 	protected static final RGBA BLACK = RGBA.BLACK;

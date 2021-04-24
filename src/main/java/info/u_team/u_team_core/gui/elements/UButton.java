@@ -16,10 +16,10 @@ import net.minecraft.util.text.ITextComponent;
  */
 public class UButton extends Button implements IPerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
 	
-	protected static IPressable EMTPY_PRESSABLE = button -> {
+	protected static final IPressable EMTPY_PRESSABLE = button -> {
 	};
 	
-	protected static ITooltip EMPTY_TOOLTIP = Button.EMPTY_TOOLTIP;
+	protected static final ITooltip EMPTY_TOOLTIP = Button.EMPTY_TOOLTIP;
 	
 	protected static final RGBA WHITE = RGBA.WHITE;
 	protected static final RGBA LIGHT_GRAY = new RGBA(0xA0A0A0FF);

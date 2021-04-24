@@ -12,10 +12,10 @@ import net.minecraftforge.fml.client.gui.widget.Slider;
 
 public class USlider extends Slider implements IPerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
 	
-	protected static ISlider EMTPY_SLIDER = slider -> {
+	protected static final ISlider EMTPY_SLIDER = slider -> {
 	};
 	
-	protected static ITooltip EMPTY_TOOLTIP = UButton.EMPTY_TOOLTIP;
+	protected static final ITooltip EMPTY_TOOLTIP = UButton.EMPTY_TOOLTIP;
 	
 	protected static final RGBA WHITE = UButton.WHITE;
 	protected static final RGBA LIGHT_GRAY = UButton.LIGHT_GRAY;
