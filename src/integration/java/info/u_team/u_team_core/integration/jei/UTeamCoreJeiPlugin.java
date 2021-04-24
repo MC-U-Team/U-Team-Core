@@ -13,6 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -43,7 +44,7 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 					return world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, new CraftingRecipeWrapper(handler, 3, 3), world).isPresent();
 				}).collect(Collectors.toList());
 		
-		registration.addIngredientInfo(items, VanillaTypes.ITEM, "jei.uteamcore.dyeable.info");
+		registration.addIngredientInfo(items, VanillaTypes.ITEM, new TranslationTextComponent("jei.uteamcore.dyeable.info"));
 	}
 	
 }
