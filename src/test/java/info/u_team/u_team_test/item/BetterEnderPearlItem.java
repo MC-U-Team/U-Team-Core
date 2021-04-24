@@ -22,7 +22,7 @@ public class BetterEnderPearlItem extends UItem {
 		
 		if (!world.isRemote) {
 			final BetterEnderPearlEntity pearl = new BetterEnderPearlEntity(world, player);
-			pearl.func_234612_a_(player, player.rotationPitch, player.rotationYaw, 0.0F, 2.5F, 1.2F);
+			pearl.setDirectionAndMovement(player, player.rotationPitch, player.rotationYaw, 0.0F, 2.5F, 1.2F);
 			world.addEntity(pearl);
 		}
 		return new ActionResult<>(ActionResultType.SUCCESS, stack);

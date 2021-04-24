@@ -38,7 +38,7 @@ public class EnergyStorageWidget extends Widget {
 	}
 	
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		minecraft.getTextureManager().bindTexture(ENERGY_TEXTURE);
 		

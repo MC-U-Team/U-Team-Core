@@ -43,7 +43,7 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 		
 		final RGBA currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
 		
-		final String currentText = fontRenderer.func_238412_a_(text.substring(lineScrollOffset), getAdjustedWidth());
+		final String currentText = fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), getAdjustedWidth());
 		
 		final int cursorOffset = cursorPosition - lineScrollOffset;
 		final int selectionOffset = Math.min(selectionEnd - lineScrollOffset, currentText.length());
@@ -59,7 +59,7 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 		
 		if (!currentText.isEmpty()) {
 			final String firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
-			leftRenderedTextX = fontRenderer.func_238407_a_(matrixStack, textFormatter.apply(firstTextPart, lineScrollOffset), xOffset, yOffset, currentTextColor.getColorARGB());
+			leftRenderedTextX = fontRenderer.drawTextWithShadow(matrixStack, textFormatter.apply(firstTextPart, lineScrollOffset), xOffset, yOffset, currentTextColor.getColorARGB());
 		}
 		
 		int rightRenderedTextX = leftRenderedTextX;
@@ -72,7 +72,7 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 		}
 		
 		if (!currentText.isEmpty() && isCursorInText && cursorOffset < currentText.length()) {
-			fontRenderer.func_238407_a_(matrixStack, textFormatter.apply(currentText.substring(cursorOffset), cursorPosition), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
+			fontRenderer.drawTextWithShadow(matrixStack, textFormatter.apply(currentText.substring(cursorOffset), cursorPosition), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
 		}
 		
 		if (!isCursorInTheMiddle && suggestion != null) {
@@ -123,8 +123,8 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 				
 				clickOffset /= getCurrentScale(mouseX, mouseY);
 				
-				final String currentText = fontRenderer.func_238412_a_(text.substring(lineScrollOffset), getAdjustedWidth());
-				setCursorPosition(fontRenderer.func_238412_a_(currentText, clickOffset).length() + lineScrollOffset);
+				final String currentText = fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), getAdjustedWidth());
+				setCursorPosition(fontRenderer.trimStringToWidth(currentText, clickOffset).length() + lineScrollOffset);
 				return true;
 			} else {
 				return false;

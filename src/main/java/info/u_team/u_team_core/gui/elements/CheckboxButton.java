@@ -73,7 +73,7 @@ public class CheckboxButton extends UButton {
 	}
 	
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		
 		minecraft.getTextureManager().bindTexture(TEXTURE);
@@ -106,9 +106,9 @@ public class CheckboxButton extends UButton {
 				final int color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
 				
 				if (dropShadow) {
-					fontRenderer.func_243246_a(matrixStack, getCurrentText(), xStart, yStart, color);
+					fontRenderer.drawTextWithShadow(matrixStack, getCurrentText(), xStart, yStart, color);
 				} else {
-					fontRenderer.func_243248_b(matrixStack, getCurrentText(), xStart, yStart, color);
+					fontRenderer.drawText(matrixStack, getCurrentText(), xStart, yStart, color);
 				}
 			}
 		}

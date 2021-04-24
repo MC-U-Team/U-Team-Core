@@ -140,7 +140,7 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	}
 	
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		renderBackground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 		renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
@@ -158,7 +158,7 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		final RGBA currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
 		
-		final String currentText = fontRenderer.func_238412_a_(text.substring(lineScrollOffset), getAdjustedWidth());
+		final String currentText = fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), getAdjustedWidth());
 		
 		final int cursorOffset = cursorPosition - lineScrollOffset;
 		final int selectionOffset = Math.min(selectionEnd - lineScrollOffset, currentText.length());
@@ -174,7 +174,7 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 		
 		if (!currentText.isEmpty()) {
 			final String firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
-			leftRenderedTextX = fontRenderer.func_238407_a_(matrixStack, textFormatter.apply(firstTextPart, lineScrollOffset), xOffset, yOffset, currentTextColor.getColorARGB());
+			leftRenderedTextX = fontRenderer.drawTextWithShadow(matrixStack, textFormatter.apply(firstTextPart, lineScrollOffset), xOffset, yOffset, currentTextColor.getColorARGB());
 		}
 		
 		int rightRenderedTextX = leftRenderedTextX;
@@ -187,7 +187,7 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 		}
 		
 		if (!currentText.isEmpty() && isCursorInText && cursorOffset < currentText.length()) {
-			fontRenderer.func_238407_a_(matrixStack, textFormatter.apply(currentText.substring(cursorOffset), cursorPosition), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
+			fontRenderer.drawTextWithShadow(matrixStack, textFormatter.apply(currentText.substring(cursorOffset), cursorPosition), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
 		}
 		
 		if (!isCursorInTheMiddle && suggestion != null) {

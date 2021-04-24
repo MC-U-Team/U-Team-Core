@@ -64,9 +64,9 @@ public class ScalableCheckboxButton extends CheckboxButton implements IScaleable
 				matrixStack.scale(currentScale, currentScale, 0);
 				
 				if (dropShadow) {
-					fontRenderer.func_243246_a(matrixStack, getCurrentText(), xStart, yStart, color);
+					fontRenderer.drawTextWithShadow(matrixStack, getCurrentText(), xStart, yStart, color);
 				} else {
-					fontRenderer.func_243248_b(matrixStack, getCurrentText(), xStart, yStart, color);
+					fontRenderer.drawText(matrixStack, getCurrentText(), xStart, yStart, color);
 				}
 				
 				matrixStack.pop();

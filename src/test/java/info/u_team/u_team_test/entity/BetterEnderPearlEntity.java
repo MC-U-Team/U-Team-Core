@@ -36,7 +36,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	@Override
 	protected void onImpact(RayTraceResult result) {
-		final LivingEntity livingentity = (LivingEntity) func_234616_v_();
+		final LivingEntity livingentity = (LivingEntity) getShooter();
 		if (result.getType() == RayTraceResult.Type.ENTITY) {
 			final Entity entity = ((EntityRayTraceResult) result).getEntity();
 			if (entity == this.thrower) {
@@ -104,7 +104,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	@Override
 	public void tick() {
-		final Entity livingentity = func_234616_v_();
+		final Entity livingentity = getShooter();
 		if (livingentity != null && livingentity instanceof PlayerEntity && !livingentity.isAlive()) {
 			this.remove();
 		} else {
@@ -115,7 +115,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	
 	@Override
 	public Entity changeDimension(ServerWorld world) {
-		final Entity entity = func_234616_v_();
+		final Entity entity = getShooter();
 		if (entity != null && entity.world.getDimensionKey() != world.getDimensionKey()) {
 			setShooter((Entity) null);
 		}

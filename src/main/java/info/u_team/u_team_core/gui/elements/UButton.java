@@ -19,7 +19,7 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 	protected static IPressable EMTPY_PRESSABLE = button -> {
 	};
 	
-	protected static ITooltip EMPTY_TOOLTIP = field_238486_s_;
+	protected static ITooltip EMPTY_TOOLTIP = Button.EMPTY_TOOLTIP;
 	
 	protected static final RGBA WHITE = RGBA.WHITE;
 	protected static final RGBA LIGHT_GRAY = new RGBA(0xA0A0A0FF);
@@ -89,7 +89,7 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderButtonLikeWidget(this, buttonTextureProvider, matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
