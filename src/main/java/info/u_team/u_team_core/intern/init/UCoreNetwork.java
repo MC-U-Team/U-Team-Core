@@ -15,7 +15,13 @@ public class UCoreNetwork {
 	
 	public static final String PROTOCOL = "1.16.5-1";
 	
-	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMod.MODID, "network"), () -> PROTOCOL, PROTOCOL::equals, PROTOCOL::equals);
+	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMod.MODID, "network"), () -> PROTOCOL, version -> {
+		// Allow clients to join / view servers without errors when uteamcore is not present there
+		if (version.equals(NetworkRegistry.ABSENT) || version.equals(NetworkRegistry.ACCEPTVANILLA)) {
+			return true;
+		}
+		return PROTOCOL.equals(version);
+	}, PROTOCOL::equals);
 	
 	public static void setup(FMLCommonSetupEvent event) {
 		NETWORK.registerMessage(0, BufferPropertyContainerMessage.class, BufferPropertyContainerMessage::encode, BufferPropertyContainerMessage::decode, BufferPropertyContainerMessage.Handler::handle);
