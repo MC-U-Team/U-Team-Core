@@ -14,7 +14,7 @@ buildscript {
 	}
 }
 
-apply from: "https://gradle-files.u-team.info/default-project.gradle"
+apply from: "gradle_files/default-project.gradle"
 
 apply plugin: "net.minecraftforge.gradle"
 apply plugin: "eclipse"
@@ -181,7 +181,7 @@ sourceSets {
 		java {
 			srcDirs += "src/data/java"
 			srcDirs += "src/api/java"
-			srcDirs += "src/integration/java"
+			//srcDirs += "src/integration/java"
 		}
 		resources {
 			srcDirs += "src/generated/resources"
