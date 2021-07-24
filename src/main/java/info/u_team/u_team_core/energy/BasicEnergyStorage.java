@@ -1,11 +1,9 @@
 package info.u_team.u_team_core.energy;
 
 import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.energy.EnergyStorage;
 
-public class BasicEnergyStorage extends EnergyStorage implements INBTSerializable<CompoundTag> {
+public class BasicEnergyStorage extends EnergyStorage {
 	
 	public BasicEnergyStorage(int capacity) {
 		this(capacity, capacity, capacity, 0);
@@ -62,18 +60,6 @@ public class BasicEnergyStorage extends EnergyStorage implements INBTSerializabl
 	
 	public void removeEnergy(int energy) {
 		addEnergy(-energy);
-	}
-	
-	@Override
-	public CompoundTag serializeNBT() {
-		final CompoundTag compound = new CompoundTag();
-		compound.putInt("energy", getEnergyStored());
-		return compound;
-	}
-	
-	@Override
-	public void deserializeNBT(CompoundTag compound) {
-		setEnergy(compound.getInt("energy"));
 	}
 	
 	public void onEnergyChanged() {
