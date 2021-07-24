@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.Minecraft;
@@ -51,9 +52,8 @@ public class GuiUtil {
 	/**
 	 * Set global color state to white
 	 */
-	@SuppressWarnings("deprecation")
-	public static void clearColor() {
-		RenderSystem.color4f(1, 1, 1, 1);
+	public static void clearColor() { // TODO needed??
+		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class GuiUtil {
 	 * @param color The color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
 	public static void drawContinuousTexturedBox(PoseStack matrixStack, ResourceLocation location, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder, float zLevel, RGBA color) {
-		Minecraft.getInstance().getTextureManager().bind(location);
+		Minecraft.getInstance().getTextureManager().bindForSetup(location);
 		drawContinuousTexturedBox(matrixStack, x, y, u, v, width, height, textureWidth, textureHeight, topBorder, bottomBorder, leftBorder, rightBorder, zLevel, color);
 	}
 	
@@ -126,7 +126,7 @@ public class GuiUtil {
 		final Tesselator tessellator = Tesselator.getInstance();
 		final BufferBuilder bufferBuilder = tessellator.getBuilder();
 		
-		bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
 		
 		// Draw Border
 		// Top Left
@@ -241,7 +241,7 @@ public class GuiUtil {
 		final Tesselator tessellator = Tesselator.getInstance();
 		final BufferBuilder bufferBuilder = tessellator.getBuilder();
 		
-		bufferBuilder.begin(GL11.GL_QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
 		
 		addTexturedColoredQuad(bufferBuilder, matrixStack, x1, x2, y1, y2, u1, u2, v1, v2, zLevel, color);
 		
