@@ -41,6 +41,6 @@ public class UBasicContainerScreen<T extends Container> extends UContainerScreen
 	@Override
 	public void renderToolTip(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderTooltips(buttons, matrixStack, minecraft, mouseX, mouseY, partialTicks);
-		renderHoveredTooltip(matrixStack, mouseX, mouseY);
+		renderTooltip(matrixStack, mouseX, mouseY);
 	}
 }

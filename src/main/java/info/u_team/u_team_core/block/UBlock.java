@@ -6,6 +6,8 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class UBlock extends Block implements IBlockItemProvider {
 	
 	protected final BlockItem blockItem;
@@ -24,7 +26,7 @@ public class UBlock extends Block implements IBlockItemProvider {
 	
 	public UBlock(ItemGroup group, Properties properties, Item.Properties blockItemProperties) {
 		super(properties);
-		blockItem = createBlockItem(blockItemProperties == null ? new Item.Properties().group(group) : group == null ? blockItemProperties : blockItemProperties.group(group));
+		blockItem = createBlockItem(blockItemProperties == null ? new Item.Properties().tab(group) : group == null ? blockItemProperties : blockItemProperties.tab(group));
 	}
 	
 	protected BlockItem createBlockItem(Item.Properties blockItemProperties) {

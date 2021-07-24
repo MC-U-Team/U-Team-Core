@@ -24,7 +24,7 @@ public class NoMirrorShapedRecipeBuilder extends ShapedRecipeBuilder {
 	}
 	
 	@Override
-	public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation location) {
-		super.build(recipe -> consumer.accept(RecipeBuilderUtil.getRecipeWithSerializer(recipe, UCoreRecipeSerializers.NO_MIRROR_SHAPED.get())), location);
+	public void save(Consumer<IFinishedRecipe> consumer, ResourceLocation location) {
+		super.save(recipe -> consumer.accept(RecipeBuilderUtil.getRecipeWithSerializer(recipe, UCoreRecipeSerializers.NO_MIRROR_SHAPED.get())), location);
 	}
 }

@@ -45,13 +45,13 @@ public class FluidSetAllContainerMessage {
 		public static void handle(FluidSetAllContainerMessage message, Supplier<Context> contextSupplier) {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
-				getFluidContainer(Minecraft.getInstance().player.openContainer, message.id).ifPresent(container -> container.setAllFluidSlots(message.stacks));
+				getFluidContainer(Minecraft.getInstance().player.containerMenu, message.id).ifPresent(container -> container.setAllFluidSlots(message.stacks));
 			});
 			context.setPacketHandled(true);
 		}
 		
 		private static final Optional<FluidContainer> getFluidContainer(Container container, int id) {
-			if (container instanceof FluidContainer && container.windowId == id) {
+			if (container instanceof FluidContainer && container.containerId == id) {
 				return Optional.of((FluidContainer) container);
 			}
 			return Optional.empty();

@@ -53,10 +53,10 @@ public class WorldUtil {
 	 * @return Raytrace result with information about the trace
 	 */
 	public static RayTraceResult rayTraceServerSide(Entity entity, double range, BlockMode blockMode, FluidMode fluidMode) {
-		final Vector3d playerVector = entity.getPositionVec().add(0, entity.getEyeHeight(), 0);
-		final Vector3d lookVector = entity.getLookVec();
+		final Vector3d playerVector = entity.position().add(0, entity.getEyeHeight(), 0);
+		final Vector3d lookVector = entity.getLookAngle();
 		final Vector3d locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
-		return entity.world.rayTraceBlocks(new RayTraceContext(playerVector, locationVector, blockMode, fluidMode, entity));
+		return entity.level.clip(new RayTraceContext(playerVector, locationVector, blockMode, fluidMode, entity));
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class WorldUtil {
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
 	public static <T extends WorldSavedData> T getSaveData(ServerWorld world, String name, Supplier<T> defaultData) {
-		return world.getSavedData().getOrCreate(defaultData, name);
+		return world.getDataStorage().computeIfAbsent(defaultData, name);
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public class WorldUtil {
 	 * @return The server world for the given type
 	 */
 	public static ServerWorld getServerWorld(MinecraftServer server, RegistryKey<World> type) {
-		return server.getWorld(type);
+		return server.getLevel(type);
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class WorldUtil {
 	 * @param pos The position the entity should be teleported to
 	 */
 	public static void teleportEntity(Entity entity, RegistryKey<World> type, BlockPos pos) {
-		teleportEntity(entity, type, Vector3d.copyCentered(pos));
+		teleportEntity(entity, type, Vector3d.atCenterOf(pos));
 	}
 	
 	/**
@@ -143,7 +143,7 @@ public class WorldUtil {
 	 * @param pos The position the entity should be teleported to
 	 */
 	public static void teleportEntity(Entity entity, ServerWorld world, BlockPos pos) {
-		teleportEntity(entity, world, Vector3d.copyCentered(pos));
+		teleportEntity(entity, world, Vector3d.atCenterOf(pos));
 	}
 	
 	/**
@@ -156,7 +156,7 @@ public class WorldUtil {
 	 * @param pos The position the entity should be teleported to
 	 */
 	public static void teleportEntity(Entity entity, ServerWorld world, Vector3d pos) {
-		teleportEntity(entity, world, pos.getX(), pos.getY(), pos.getZ(), entity.rotationYaw, entity.rotationPitch);
+		teleportEntity(entity, world, pos.x(), pos.y(), pos.z(), entity.yRot, entity.xRot);
 	}
 	
 	/**
@@ -207,35 +207,35 @@ public class WorldUtil {
 	public static void teleportEntity(Entity entity, ServerWorld world, double x, double y, double z, float yaw, float pitch, boolean detach) {
 		if (entity instanceof ServerPlayerEntity) {
 			final ServerPlayerEntity player = (ServerPlayerEntity) entity;
-			world.getChunkProvider().registerTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getEntityId());
+			world.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getId());
 			if (detach) {
 				player.stopRiding();
 			}
 			if (player.isSleeping()) {
 				player.stopSleepInBed(true, true);
 			}
-			if (world == entity.world) {
-				player.connection.setPlayerLocation(x, y, z, yaw, pitch);
+			if (world == entity.level) {
+				player.connection.teleport(x, y, z, yaw, pitch);
 			} else {
-				player.teleport(world, x, y, z, yaw, pitch);
+				player.teleportTo(world, x, y, z, yaw, pitch);
 			}
-			entity.setRotationYawHead(yaw);
+			entity.setYHeadRot(yaw);
 		} else {
 			final float wrapedYaw = MathHelper.wrapDegrees(yaw);
 			final float wrapedPitch = MathHelper.clamp(MathHelper.wrapDegrees(pitch), -90.0F, 90.0F);
-			if (world == entity.world) {
-				entity.setLocationAndAngles(x, y, z, wrapedYaw, wrapedPitch);
-				entity.setRotationYawHead(wrapedYaw);
+			if (world == entity.level) {
+				entity.moveTo(x, y, z, wrapedYaw, wrapedPitch);
+				entity.setYHeadRot(wrapedYaw);
 			} else {
 				if (detach) {
-					entity.detach();
+					entity.unRide();
 				}
 				final Entity entityOld = entity;
 				entity = entity.getType().create(world);
 				if (entity == null) {
 					return;
 				}
-				entity.copyDataFromOld(entityOld);
+				entity.restoreFrom(entityOld);
 				if (entityOld instanceof ContainerMinecartEntity) {
 					// Prevent duplication
 					((ContainerMinecartEntity) entityOld).dropContentsWhenDead(false);
@@ -243,19 +243,19 @@ public class WorldUtil {
 				// Need to remove the old entity (Why the heck does TeleportCommand don't do
 				// this and it works ?????)
 				entityOld.remove(false);
-				entity.setLocationAndAngles(x, y, z, wrapedYaw, wrapedPitch);
-				entity.setRotationYawHead(wrapedYaw);
+				entity.moveTo(x, y, z, wrapedYaw, wrapedPitch);
+				entity.setYHeadRot(wrapedYaw);
 				world.addFromAnotherDimension(entity);
 			}
 		}
 		
-		if (!(entity instanceof LivingEntity) || !((LivingEntity) entity).isElytraFlying()) {
-			entity.setMotion(entity.getMotion().mul(1, 0, 1));
+		if (!(entity instanceof LivingEntity) || !((LivingEntity) entity).isFallFlying()) {
+			entity.setDeltaMovement(entity.getDeltaMovement().multiply(1, 0, 1));
 			entity.setOnGround(true);
 		}
 		
 		if (entity instanceof CreatureEntity) {
-			((CreatureEntity) entity).getNavigator().clearPath();
+			((CreatureEntity) entity).getNavigation().stop();
 		}
 	}
 }

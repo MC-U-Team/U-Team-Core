@@ -35,7 +35,7 @@ public class FluidClickContainerMessage {
 		final int id = sendBuffer.readByte();
 		final int slot = sendBuffer.readShort();
 		final boolean shift = sendBuffer.readBoolean();
-		final ItemStack stack = sendBuffer.readItemStack();
+		final ItemStack stack = sendBuffer.readItem();
 		
 		return new FluidClickContainerMessage(id, slot, shift, stack);
 	}
@@ -46,13 +46,13 @@ public class FluidClickContainerMessage {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
 				final ServerPlayerEntity player = context.getSender();
-				getFluidContainer(player.openContainer, message.id).ifPresent(container -> container.fluidSlotClick(player, message.slot, message.shift, message.stack));
+				getFluidContainer(player.containerMenu, message.id).ifPresent(container -> container.fluidSlotClick(player, message.slot, message.shift, message.stack));
 			});
 			context.setPacketHandled(true);
 		}
 		
 		private static final Optional<FluidContainer> getFluidContainer(Container container, int id) {
-			if (container instanceof FluidContainer && container.windowId == id) {
+			if (container instanceof FluidContainer && container.containerId == id) {
 				return Optional.of((FluidContainer) container);
 			}
 			return Optional.empty();

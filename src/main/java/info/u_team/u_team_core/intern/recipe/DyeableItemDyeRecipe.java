@@ -26,8 +26,8 @@ public class DyeableItemDyeRecipe extends SpecialRecipe {
 		ItemStack dyeableItem = ItemStack.EMPTY;
 		final List<ItemStack> dyeList = Lists.newArrayList();
 		
-		for (int index = 0; index < inventory.getSizeInventory(); ++index) {
-			final ItemStack slotStack = inventory.getStackInSlot(index);
+		for (int index = 0; index < inventory.getContainerSize(); ++index) {
+			final ItemStack slotStack = inventory.getItem(index);
 			if (!slotStack.isEmpty()) {
 				final Item item = slotStack.getItem();
 				if (item instanceof IDyeableItem) {
@@ -48,12 +48,12 @@ public class DyeableItemDyeRecipe extends SpecialRecipe {
 	}
 	
 	@Override
-	public ItemStack getCraftingResult(CraftingInventory inventory) {
+	public ItemStack assemble(CraftingInventory inventory) {
 		ItemStack dyeableItem = ItemStack.EMPTY;
 		final List<DyeItem> dyeItemList = Lists.newArrayList();
 		
-		for (int index = 0; index < inventory.getSizeInventory(); ++index) {
-			final ItemStack slotStack = inventory.getStackInSlot(index);
+		for (int index = 0; index < inventory.getContainerSize(); ++index) {
+			final ItemStack slotStack = inventory.getItem(index);
 			if (!slotStack.isEmpty()) {
 				final Item item = slotStack.getItem();
 				if (item instanceof IDyeableItem) {
@@ -78,7 +78,7 @@ public class DyeableItemDyeRecipe extends SpecialRecipe {
 	}
 	
 	@Override
-	public boolean canFit(int width, int height) {
+	public boolean canCraftInDimensions(int width, int height) {
 		return width * height >= 2;
 	}
 	

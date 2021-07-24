@@ -26,10 +26,10 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 public class ModelUtil {
 	
 	static {
-		if (STATE_CONTAINER_OVERRIDES instanceof ImmutableMap) {
+		if (STATIC_DEFINITIONS instanceof ImmutableMap) {
 			final Map<ResourceLocation, StateContainer<Block, BlockState>> mutableMap = new HashMap<>();
-			STATE_CONTAINER_OVERRIDES.forEach(mutableMap::put);
-			STATE_CONTAINER_OVERRIDES = mutableMap;
+			STATIC_DEFINITIONS.forEach(mutableMap::put);
+			STATIC_DEFINITIONS = mutableMap;
 		}
 	}
 	
@@ -40,7 +40,7 @@ public class ModelUtil {
 	 * @param container Custom state container
 	 */
 	public static void addCustomStateContainer(ResourceLocation location, StateContainer<Block, BlockState> container) {
-		STATE_CONTAINER_OVERRIDES.put(location, container);
+		STATIC_DEFINITIONS.put(location, container);
 	}
 	
 	/**
@@ -49,7 +49,7 @@ public class ModelUtil {
 	 * @param material Render Material
 	 */
 	public static void addTexture(RenderMaterial material) {
-		LOCATIONS_BUILTIN_TEXTURES.add(material);
+		UNREFERENCED_TEXTURES.add(material);
 	}
 	
 	/**
@@ -60,12 +60,12 @@ public class ModelUtil {
 	public static class EmptyStateContainer extends StateContainer<Block, BlockState> {
 		
 		public EmptyStateContainer(Block block) {
-			super(Block::getDefaultState, block, BlockState::new, new HashMap<>());
+			super(Block::defaultBlockState, block, BlockState::new, new HashMap<>());
 		}
 		
 		@Override
-		public ImmutableList<BlockState> getValidStates() {
-			return getOwner().getStateContainer().getValidStates();
+		public ImmutableList<BlockState> getPossibleStates() {
+			return getOwner().getStateDefinition().getPossibleStates();
 		}
 		
 	}

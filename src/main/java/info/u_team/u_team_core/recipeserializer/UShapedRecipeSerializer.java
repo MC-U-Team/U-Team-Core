@@ -12,7 +12,7 @@ import net.minecraft.util.NonNullList;
 public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> extends URecipeSerializer<T> {
 	
 	protected static Map<String, Ingredient> deserializeKey(JsonObject json) {
-		return ShapedRecipe.deserializeKey(json);
+		return ShapedRecipe.keyFromJson(json);
 	}
 	
 	protected static String[] shrink(String... shrink) {
@@ -24,7 +24,7 @@ public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> extends UR
 	}
 	
 	protected static NonNullList<Ingredient> deserializeIngredients(String[] pattern, Map<String, Ingredient> keys, int width, int height) {
-		return ShapedRecipe.deserializeIngredients(pattern, keys, width, height);
+		return ShapedRecipe.dissolvePattern(pattern, keys, width, height);
 	}
 	
 }

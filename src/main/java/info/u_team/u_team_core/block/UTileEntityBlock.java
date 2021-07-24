@@ -11,6 +11,8 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 
+import net.minecraft.block.AbstractBlock.Properties;
+
 public class UTileEntityBlock extends UBlock implements ITileEntityBlock {
 	
 	protected final Supplier<? extends TileEntityType<?>> tileEntityType;

@@ -11,6 +11,8 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
+import net.minecraft.item.Item.Properties;
+
 public class NoPlaceUBucketItem extends UBucketItem {
 	
 	public NoPlaceUBucketItem(ItemGroup group, Properties properties, Supplier<? extends Fluid> fluid) {
@@ -22,8 +24,8 @@ public class NoPlaceUBucketItem extends UBucketItem {
 	}
 	
 	@Override
-	public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-		return new ActionResult<ItemStack>(ActionResultType.PASS, player.getHeldItem(hand));
+	public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+		return new ActionResult<ItemStack>(ActionResultType.PASS, player.getItemInHand(hand));
 	}
 	
 }

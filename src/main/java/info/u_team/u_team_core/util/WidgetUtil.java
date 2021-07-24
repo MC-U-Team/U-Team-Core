@@ -35,21 +35,21 @@ public class WidgetUtil {
 	}
 	
 	public static <T extends Widget & ITextProvider> void renderText(T widget, MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		final FontRenderer fontRenderer = minecraft.fontRenderer;
+		final FontRenderer fontRenderer = minecraft.font;
 		
 		ITextComponent message = widget.getCurrentText();
 		if (message != StringTextComponent.EMPTY) {
-			final int messageWidth = fontRenderer.getStringPropertyWidth(message);
-			final int ellipsisWidth = fontRenderer.getStringWidth("...");
+			final int messageWidth = fontRenderer.width(message);
+			final int ellipsisWidth = fontRenderer.width("...");
 			
 			if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
-				message = new StringTextComponent(fontRenderer.func_238417_a_(message, widget.width - 6 - ellipsisWidth).getString() + "...");
+				message = new StringTextComponent(fontRenderer.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
 			}
 			
 			final float xStart = (widget.x + (widget.width / 2) - messageWidth / 2);
 			final float yStart = (widget.y + (widget.height - 8) / 2);
 			
-			fontRenderer.drawTextWithShadow(matrixStack, message, xStart, yStart, widget.getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
+			fontRenderer.drawShadow(matrixStack, message, xStart, yStart, widget.getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
 	}
 	
@@ -59,15 +59,15 @@ public class WidgetUtil {
 		if (scale == 1) {
 			renderText(widget, matrixStack, minecraft, mouseX, mouseY, partialTicks);
 		} else {
-			final FontRenderer fontRenderer = minecraft.fontRenderer;
+			final FontRenderer fontRenderer = minecraft.font;
 			
 			ITextComponent message = widget.getCurrentText();
 			if (message != StringTextComponent.EMPTY) {
-				final int messageWidth = MathHelper.ceil(scale * fontRenderer.getStringPropertyWidth(message));
-				final int ellipsisWidth = MathHelper.ceil(scale * fontRenderer.getStringWidth("..."));
+				final int messageWidth = MathHelper.ceil(scale * fontRenderer.width(message));
+				final int ellipsisWidth = MathHelper.ceil(scale * fontRenderer.width("..."));
 				
 				if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
-					message = new StringTextComponent(fontRenderer.func_238417_a_(message, widget.width - 6 - ellipsisWidth).getString() + "...");
+					message = new StringTextComponent(fontRenderer.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
 				}
 				
 				final float positionFactor = 1 / scale;
@@ -75,10 +75,10 @@ public class WidgetUtil {
 				final float xStart = (widget.x + (widget.width / 2) - messageWidth / 2) * positionFactor;
 				final float yStart = (widget.y + ((int) (widget.height - 8 * scale)) / 2) * positionFactor;
 				
-				matrixStack.push();
+				matrixStack.pushPose();
 				matrixStack.scale(scale, scale, 0);
-				fontRenderer.drawTextWithShadow(matrixStack, message, xStart, yStart, widget.getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
-				matrixStack.pop();
+				fontRenderer.drawShadow(matrixStack, message, xStart, yStart, widget.getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
+				matrixStack.popPose();
 			}
 		}
 	}

@@ -18,7 +18,7 @@ public class TileEntityUFluidStackHandler extends UFluidStackHandler {
 	
 	@Override
 	public void onContentsChanged(int tank) {
-		tileEntity.markDirty();
+		tileEntity.setChanged();
 	}
 	
 }

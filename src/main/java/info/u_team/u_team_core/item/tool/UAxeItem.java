@@ -6,6 +6,8 @@ import net.minecraft.item.AxeItem;
 import net.minecraft.item.ItemGroup;
 import net.minecraftforge.common.ToolType;
 
+import net.minecraft.item.Item.Properties;
+
 public class UAxeItem extends AxeItem {
 	
 	public UAxeItem(Properties properties, IToolMaterial material) {
@@ -13,10 +15,10 @@ public class UAxeItem extends AxeItem {
 	}
 	
 	public UAxeItem(ItemGroup group, Properties properties, IToolMaterial material) {
-		super(material, material.getAdditionalDamage(Tools.AXE), material.getAttackSpeed(Tools.AXE), applyToolType(group == null ? properties : properties.group(group), material));
+		super(material, material.getAdditionalDamage(Tools.AXE), material.getAttackSpeed(Tools.AXE), applyToolType(group == null ? properties : properties.tab(group), material));
 	}
 	
 	private static Properties applyToolType(Properties properties, IToolMaterial material) {
-		return properties.addToolType(ToolType.AXE, material.getHarvestLevel());
+		return properties.addToolType(ToolType.AXE, material.getLevel());
 	}
 }

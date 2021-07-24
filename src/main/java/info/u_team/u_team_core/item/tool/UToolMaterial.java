@@ -6,6 +6,8 @@ import info.u_team.u_team_core.api.IToolMaterial;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.LazyValue;
 
+import info.u_team.u_team_core.api.IToolMaterial.Tools;
+
 public class UToolMaterial implements IToolMaterial {
 	
 	private final float[] additionalDamage;
@@ -29,33 +31,33 @@ public class UToolMaterial implements IToolMaterial {
 	}
 	
 	@Override
-	public int getMaxUses() {
+	public int getUses() {
 		return durability;
 	}
 	
 	@Override
-	public float getEfficiency() {
+	public float getSpeed() {
 		return efficiency;
 	}
 	
 	@Override
-	public float getAttackDamage() {
+	public float getAttackDamageBonus() {
 		return baseDamage;
 	}
 	
 	@Override
-	public int getHarvestLevel() {
+	public int getLevel() {
 		return harvestlevel;
 	}
 	
 	@Override
-	public int getEnchantability() {
+	public int getEnchantmentValue() {
 		return enchantability;
 	}
 	
 	@Override
-	public Ingredient getRepairMaterial() {
-		return repair.getValue();
+	public Ingredient getRepairIngredient() {
+		return repair.get();
 	}
 	
 	@Override

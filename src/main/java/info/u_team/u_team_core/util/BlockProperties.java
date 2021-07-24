@@ -16,27 +16,27 @@ public class BlockProperties extends Properties {
 	}
 	
 	public BlockProperties(Properties properties) {
-		super(properties.material, properties.blockColors);
-		blocksMovement = properties.blocksMovement;
+		super(properties.material, properties.materialColor);
+		hasCollision = properties.hasCollision;
 		soundType = properties.soundType;
-		lightLevel = properties.lightLevel;
-		resistance = properties.resistance;
-		hardness = properties.hardness;
-		requiresTool = properties.requiresTool;
-		ticksRandomly = properties.ticksRandomly;
-		slipperiness = properties.slipperiness;
+		lightEmission = properties.lightEmission;
+		explosionResistance = properties.explosionResistance;
+		destroyTime = properties.destroyTime;
+		requiresCorrectToolForDrops = properties.requiresCorrectToolForDrops;
+		isRandomlyTicking = properties.isRandomlyTicking;
+		friction = properties.friction;
 		speedFactor = properties.speedFactor;
 		jumpFactor = properties.jumpFactor;
-		lootTable = properties.lootTable;
-		isSolid = properties.isSolid;
+		drops = properties.drops;
+		canOcclude = properties.canOcclude;
 		isAir = properties.isAir;
-		allowsSpawn = properties.allowsSpawn;
-		isOpaque = properties.isOpaque;
-		suffocates = properties.suffocates;
-		blocksVision = properties.blocksVision;
-		needsPostProcessing = properties.needsPostProcessing;
-		emmissiveRendering = properties.emmissiveRendering;
-		variableOpacity = properties.variableOpacity;
+		isValidSpawn = properties.isValidSpawn;
+		isRedstoneConductor = properties.isRedstoneConductor;
+		isSuffocating = properties.isSuffocating;
+		isViewBlocking = properties.isViewBlocking;
+		hasPostProcess = properties.hasPostProcess;
+		emissiveRendering = properties.emissiveRendering;
+		dynamicShape = properties.dynamicShape;
 		
 		setValueHarvestLevel(getValueHarvestLevel(properties));
 		setValueHarvestTool(getValueHarvestTool(properties));

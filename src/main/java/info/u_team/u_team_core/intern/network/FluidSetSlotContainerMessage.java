@@ -41,13 +41,13 @@ public class FluidSetSlotContainerMessage {
 		public static void handle(FluidSetSlotContainerMessage message, Supplier<Context> contextSupplier) {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
-				getFluidContainer(Minecraft.getInstance().player.openContainer, message.id).ifPresent(container -> container.setFluidStackInSlot(message.slot, message.stack));
+				getFluidContainer(Minecraft.getInstance().player.containerMenu, message.id).ifPresent(container -> container.setFluidStackInSlot(message.slot, message.stack));
 			});
 			context.setPacketHandled(true);
 		}
 		
 		private static final Optional<FluidContainer> getFluidContainer(Container container, int id) {
-			if (container instanceof FluidContainer && container.windowId == id) {
+			if (container instanceof FluidContainer && container.containerId == id) {
 				return Optional.of((FluidContainer) container);
 			}
 			return Optional.empty();

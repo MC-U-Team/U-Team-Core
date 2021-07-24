@@ -45,16 +45,16 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	protected abstract void registerTags();
 	
 	@Override
-	public void act(DirectoryCache cache) {
+	public void run(DirectoryCache cache) {
 		tagToBuilder.clear();
 		registerTags();
 		
 		tagToBuilder.forEach((location, builder) -> {
-			final List<ITag.Proxy> list = builder.getProxyTags(id -> tagToBuilder.containsKey(id) ? Tag.getEmptyTag() : null, id -> registry.getOptional(id).orElse(null)).filter(this::missing).collect(Collectors.toList());
+			final List<ITag.Proxy> list = builder.getUnresolvedEntries(id -> tagToBuilder.containsKey(id) ? Tag.empty() : null, id -> registry.getOptional(id).orElse(null)).filter(this::missing).collect(Collectors.toList());
 			if (!list.isEmpty()) {
 				throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", location, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
 			}
-			final JsonObject object = builder.serialize();
+			final JsonObject object = builder.serializeToJson();
 			final Path path = makePath(location);
 			try {
 				write(cache, object, path);
@@ -125,7 +125,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		}
 		
 		public BetterBuilder<T> add(T value) {
-			internalBuilder.addItemEntry(value);
+			internalBuilder.add(value);
 			return this;
 		}
 		
@@ -149,14 +149,14 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	private static class UniqueBuilder extends ITag.Builder {
 		
 		@Override
-		public ITag.Builder addProxyTag(Proxy proxyTag) {
+		public ITag.Builder add(Proxy proxyTag) {
 			final ResourceLocation identifier = getIdentifier(proxyTag.getEntry());
-			final boolean duplicate = getProxyStream() //
+			final boolean duplicate = getEntries() //
 					.map(Proxy::getEntry) //
 					.anyMatch(entry -> getIdentifier(entry).equals(identifier));
 			
 			if (!duplicate) {
-				return super.addProxyTag(proxyTag);
+				return super.add(proxyTag);
 			}
 			return this;
 		}
@@ -164,7 +164,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		private ResourceLocation getIdentifier(ITagEntry entry) {
 			final ResourceLocation identifier;
 			if (entry instanceof ItemEntry) {
-				identifier = ((ItemEntry) entry).identifier;
+				identifier = ((ItemEntry) entry).id;
 			} else if (entry instanceof OptionalItemEntry) {
 				identifier = ((OptionalItemEntry) entry).id;
 			} else if (entry instanceof TagEntry) {

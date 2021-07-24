@@ -22,29 +22,29 @@ public class DimensionTeleportSubCommand {
 	
 	public static ArgumentBuilder<CommandSource, ?> register() {
 		return Commands.literal("dimteleport") //
-				.requires(source -> source.hasPermissionLevel(2)) //
+				.requires(source -> source.hasPermission(2)) //
 				.then(Commands.argument("targets", EntityArgument.entities()) //
-						.then(Commands.argument("dimension", DimensionArgument.getDimension()) //
+						.then(Commands.argument("dimension", DimensionArgument.dimension()) //
 								.executes(context -> {
-									return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.getDimensionArgument(context, "dimension"));
+									return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.getDimension(context, "dimension"));
 								}) //
 								.then(Commands.argument("location", Vec3Argument.vec3()) //
 										.executes(context -> {
-											return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.getDimensionArgument(context, "dimension"), Vec3Argument.getVec3(context, "location"));
+											return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.getDimension(context, "dimension"), Vec3Argument.getVec3(context, "location"));
 										}) //
 										.then(Commands.argument("yaw", FloatArgumentType.floatArg(0, 360)) //
 												.then(Commands.argument("pitch", FloatArgumentType.floatArg(-90, 90)) //
 														.executes(context -> {
-															return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.getDimensionArgument(context, "dimension"), Vec3Argument.getVec3(context, "location"), FloatArgumentType.getFloat(context, "yaw"), FloatArgumentType.getFloat(context, "pitch"));
+															return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.getDimension(context, "dimension"), Vec3Argument.getVec3(context, "location"), FloatArgumentType.getFloat(context, "yaw"), FloatArgumentType.getFloat(context, "pitch"));
 														}))))));
 	}
 	
 	private static int execute(CommandSource source, Collection<? extends Entity> targets, ServerWorld world) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, entity.getPositionVec()));
+		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, entity.position()));
 		if (targets.size() == 1) {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), world.getDimensionKey().getLocation()), true);
+			source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), world.dimension().location()), true);
 		} else {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), world.getDimensionKey().getLocation()), true);
+			source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), world.dimension().location()), true);
 		}
 		return 0;
 	}
@@ -56,16 +56,16 @@ public class DimensionTeleportSubCommand {
 	}
 	
 	private static int execute(CommandSource source, Collection<? extends Entity> targets, ServerWorld world, Vector3d pos, float yaw, float pitch) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, pos.getX(), pos.getY(), pos.getZ(), yaw, pitch));
+		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, pos.x(), pos.y(), pos.z(), yaw, pitch));
 		sendPositionInfo(source, targets, world, pos);
 		return 0;
 	}
 	
 	private static void sendPositionInfo(CommandSource source, Collection<? extends Entity> targets, ServerWorld world, Vector3d pos) {
 		if (targets.size() == 1) {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), world.getDimensionKey().getLocation(), pos.x, pos.y, pos.z), true);
+			source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), world.dimension().location(), pos.x, pos.y, pos.z), true);
 		} else {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), world.getDimensionKey().getLocation(), pos.x, pos.y, pos.z), true);
+			source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), world.dimension().location(), pos.x, pos.y, pos.z), true);
 		}
 	}
 }

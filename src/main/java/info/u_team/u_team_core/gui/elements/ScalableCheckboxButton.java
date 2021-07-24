@@ -9,6 +9,9 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
+import net.minecraft.client.gui.widget.button.Button.IPressable;
+import net.minecraft.client.gui.widget.button.Button.ITooltip;
+
 public class ScalableCheckboxButton extends CheckboxButton implements IScaleable, IScaleProvider {
 	
 	protected float scale;
@@ -43,7 +46,7 @@ public class ScalableCheckboxButton extends CheckboxButton implements IScaleable
 	@Override
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			final FontRenderer fontRenderer = minecraft.fontRenderer;
+			final FontRenderer fontRenderer = minecraft.font;
 			
 			final ITextComponent message = getCurrentText();
 			if (message != StringTextComponent.EMPTY) {
@@ -55,23 +58,23 @@ public class ScalableCheckboxButton extends CheckboxButton implements IScaleable
 				final float yStart = (y + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
 				
 				if (leftSideText) {
-					xStart = (x - ((fontRenderer.getStringPropertyWidth(message) * currentScale) + 4)) * positionFactor;
+					xStart = (x - ((fontRenderer.width(message) * currentScale) + 4)) * positionFactor;
 				} else {
 					xStart = (x + width + 4) * positionFactor;
 				}
 				
 				final int color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
 				
-				matrixStack.push();
+				matrixStack.pushPose();
 				matrixStack.scale(currentScale, currentScale, 0);
 				
 				if (dropShadow) {
-					fontRenderer.drawTextWithShadow(matrixStack, getCurrentText(), xStart, yStart, color);
+					fontRenderer.drawShadow(matrixStack, getCurrentText(), xStart, yStart, color);
 				} else {
-					fontRenderer.drawText(matrixStack, getCurrentText(), xStart, yStart, color);
+					fontRenderer.draw(matrixStack, getCurrentText(), xStart, yStart, color);
 				}
 				
-				matrixStack.pop();
+				matrixStack.popPose();
 			}
 		}
 	}

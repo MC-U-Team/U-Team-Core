@@ -83,13 +83,13 @@ public abstract class CommonProvider implements IDataProvider {
 	}
 	
 	public static void write(DirectoryCache cache, String string, Path path) throws IOException {
-		final String hash = HASH_FUNCTION.hashUnencodedChars(string).toString();
-		if (!Objects.equals(cache.getPreviousHash(path), hash) || !Files.exists(path)) {
+		final String hash = SHA1.hashUnencodedChars(string).toString();
+		if (!Objects.equals(cache.getHash(path), hash) || !Files.exists(path)) {
 			Files.createDirectories(path.getParent());
 			try (final BufferedWriter writer = Files.newBufferedWriter(path)) {
 				writer.write(string);
 			}
 		}
-		cache.recordHash(path, hash);
+		cache.putNew(path, hash);
 	}
 }

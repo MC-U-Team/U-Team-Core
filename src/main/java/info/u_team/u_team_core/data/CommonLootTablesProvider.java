@@ -31,10 +31,10 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void act(DirectoryCache cache) throws IOException {
+	public void run(DirectoryCache cache) throws IOException {
 		registerLootTables((location, lootTable) -> {
 			try {
-				write(cache, LootTableManager.toJson(lootTable), resolveData(location).resolve("loot_tables").resolve(location.getPath() + ".json"));
+				write(cache, LootTableManager.serialize(lootTable), resolveData(location).resolve("loot_tables").resolve(location.getPath() + ".json"));
 			} catch (final IOException ex) {
 				LOGGER.error(marker, "Could not write data.", ex);
 			}
@@ -58,37 +58,37 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	}
 	
 	protected static LootTable addBasicBlockLootTable(IItemProvider item) {
-		return LootTable.builder() //
-				.setParameterSet(LootParameterSets.BLOCK) //
-				.addLootPool(LootPool.builder() //
-						.rolls(ConstantRange.of(1)) //
-						.addEntry(ItemLootEntry.builder(item)) //
-						.acceptCondition(SurvivesExplosion.builder())) //
+		return LootTable.lootTable() //
+				.setParamSet(LootParameterSets.BLOCK) //
+				.withPool(LootPool.lootPool() //
+						.setRolls(ConstantRange.exactly(1)) //
+						.add(ItemLootEntry.lootTableItem(item)) //
+						.when(SurvivesExplosion.survivesExplosion())) //
 				.build();
 	}
 	
 	protected static LootTable addTileEntityBlockLootTable(IItemProvider item) {
-		return LootTable.builder() //
-				.setParameterSet(LootParameterSets.BLOCK) //
-				.addLootPool(LootPool.builder() //
-						.rolls(ConstantRange.of(1)) //
-						.addEntry(ItemLootEntry.builder(item)) //
-						.acceptFunction(SetTileEntityNBTLootFunction.builder()) //
-						.acceptCondition(SurvivesExplosion.builder())) //
+		return LootTable.lootTable() //
+				.setParamSet(LootParameterSets.BLOCK) //
+				.withPool(LootPool.lootPool() //
+						.setRolls(ConstantRange.exactly(1)) //
+						.add(ItemLootEntry.lootTableItem(item)) //
+						.apply(SetTileEntityNBTLootFunction.builder()) //
+						.when(SurvivesExplosion.survivesExplosion())) //
 				.build();
 	}
 	
 	protected static LootTable addFortuneBlockLootTable(Block block, IItemProvider item) {
-		return LootTable.builder() //
-				.setParameterSet(LootParameterSets.BLOCK) //
-				.addLootPool(LootPool.builder() //
-						.rolls(ConstantRange.of(1)) //
-						.addEntry(ItemLootEntry.builder(block) //
-								.acceptCondition(MatchTool.builder(ItemPredicate.Builder.create() //
-										.enchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)))) //
-								).alternatively(ItemLootEntry.builder(item) //
-										.acceptFunction(ApplyBonus.oreDrops(Enchantments.FORTUNE)) //
-										.acceptFunction(ExplosionDecay.builder()))))
+		return LootTable.lootTable() //
+				.setParamSet(LootParameterSets.BLOCK) //
+				.withPool(LootPool.lootPool() //
+						.setRolls(ConstantRange.exactly(1)) //
+						.add(ItemLootEntry.lootTableItem(block) //
+								.when(MatchTool.toolMatches(ItemPredicate.Builder.item() //
+										.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)))) //
+								).otherwise(ItemLootEntry.lootTableItem(item) //
+										.apply(ApplyBonus.addOreBonusCount(Enchantments.BLOCK_FORTUNE)) //
+										.apply(ExplosionDecay.explosionDecay()))))
 				.build();
 	}
 	

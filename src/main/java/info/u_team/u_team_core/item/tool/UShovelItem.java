@@ -6,6 +6,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ShovelItem;
 import net.minecraftforge.common.ToolType;
 
+import net.minecraft.item.Item.Properties;
+
 public class UShovelItem extends ShovelItem {
 	
 	public UShovelItem(Properties properties, IToolMaterial material) {
@@ -13,11 +15,11 @@ public class UShovelItem extends ShovelItem {
 	}
 	
 	public UShovelItem(ItemGroup group, Properties properties, IToolMaterial material) {
-		super(material, material.getAdditionalDamage(Tools.SHOVEL), material.getAttackSpeed(Tools.SHOVEL), applyToolType(group == null ? properties : properties.group(group), material));
+		super(material, material.getAdditionalDamage(Tools.SHOVEL), material.getAttackSpeed(Tools.SHOVEL), applyToolType(group == null ? properties : properties.tab(group), material));
 	}
 	
 	private static Properties applyToolType(Properties properties, IToolMaterial material) {
-		return properties.addToolType(ToolType.SHOVEL, material.getHarvestLevel());
+		return properties.addToolType(ToolType.SHOVEL, material.getLevel());
 	}
 	
 }

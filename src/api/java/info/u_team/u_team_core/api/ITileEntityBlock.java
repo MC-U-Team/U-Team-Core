@@ -59,7 +59,7 @@ public interface ITileEntityBlock {
 	 * @return If the container could be opened
 	 */
 	default ActionResultType openContainer(World world, BlockPos pos, PlayerEntity player, boolean canOpenSneak) {
-		if (world.isRemote || !(player instanceof ServerPlayerEntity)) {
+		if (world.isClientSide || !(player instanceof ServerPlayerEntity)) {
 			return ActionResultType.SUCCESS;
 		}
 		
@@ -76,7 +76,7 @@ public interface ITileEntityBlock {
 			return ActionResultType.PASS;
 		}
 		
-		if (!canOpenSneak && serverPlayer.isSneaking()) {
+		if (!canOpenSneak && serverPlayer.isShiftKeyDown()) {
 			return ActionResultType.SUCCESS;
 		}
 		
@@ -105,7 +105,7 @@ public interface ITileEntityBlock {
 	 */
 	@SuppressWarnings("unchecked")
 	default <T extends TileEntity> Optional<T> isTileEntityFromType(IBlockReader world, BlockPos pos) {
-		final TileEntity tileEntity = world.getTileEntity(pos);
+		final TileEntity tileEntity = world.getBlockEntity(pos);
 		if (tileEntity == null || getTileEntityType(world, pos) != tileEntity.getType()) {
 			return Optional.empty();
 		}

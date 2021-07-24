@@ -14,7 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class FluidInventoryRenderer extends AbstractGui {
 	
-	private static final ResourceLocation ATLAS = PlayerContainer.LOCATION_BLOCKS_TEXTURE;
+	private static final ResourceLocation ATLAS = PlayerContainer.BLOCK_ATLAS;
 	
 	public void drawFluid(MatrixStack matrixStack, int x, int y, FluidStack stack) {
 		if (stack == null || stack.isEmpty()) {
@@ -22,7 +22,7 @@ public class FluidInventoryRenderer extends AbstractGui {
 		}
 		
 		final TextureAtlasSprite sprite = getFluidSprite(stack);
-		Minecraft.getInstance().getTextureManager().bindTexture(ATLAS);
+		Minecraft.getInstance().getTextureManager().bind(ATLAS);
 		
 		RenderUtil.enableBlend();
 		RenderUtil.enableAlphaTest();
@@ -36,7 +36,7 @@ public class FluidInventoryRenderer extends AbstractGui {
 	}
 	
 	protected TextureAtlasSprite getFluidSprite(FluidStack stack) {
-		return Minecraft.getInstance().getAtlasSpriteGetter(ATLAS).apply(stack.getFluid().getAttributes().getStillTexture(stack));
+		return Minecraft.getInstance().getTextureAtlas(ATLAS).apply(stack.getFluid().getAttributes().getStillTexture(stack));
 	}
 	
 }

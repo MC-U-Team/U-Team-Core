@@ -4,6 +4,8 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemGroup;
 
+import net.minecraft.item.Item.Properties;
+
 public class UChestplateItem extends UArmorItem {
 	
 	public UChestplateItem(String textureName, Properties properties, IArmorMaterial material) {

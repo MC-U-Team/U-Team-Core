@@ -44,41 +44,41 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	}
 	
 	protected void setSize(int x, int y) {
-		xSize = x;
-		ySize = y;
+		imageWidth = x;
+		imageHeight = y;
 		setTextLocation();
 	}
 	
 	protected void setTextLocation() {
-		setTextLocation(8, 6, 8, ySize - 94);
+		setTextLocation(8, 6, 8, imageHeight - 94);
 	}
 	
 	protected void setTextLocation(int xTitle, int yTitle, int xInventory, int yInventory) {
-		titleX = xTitle;
-		titleY = yTitle;
-		playerInventoryTitleX = xInventory;
-		playerInventoryTitleY = yInventory;
+		titleLabelX = xTitle;
+		titleLabelY = yTitle;
+		inventoryLabelX = xInventory;
+		inventoryLabelY = yInventory;
 	}
 	
 	@Override
-	protected void drawGuiContainerForegroundLayer(MatrixStack matrixStack, int mouseX, int mouseY) {
-		super.drawGuiContainerForegroundLayer(matrixStack, mouseX, mouseY);
+	protected void renderLabels(MatrixStack matrixStack, int mouseX, int mouseY) {
+		super.renderLabels(matrixStack, mouseX, mouseY);
 		if (drawTitleText) {
-			font.drawText(matrixStack, title, titleX, titleY, 4210752);
+			font.draw(matrixStack, title, titleLabelX, titleLabelY, 4210752);
 		}
 		if (drawInventoryText) {
-			font.drawText(matrixStack, playerInventory.getDisplayName(), playerInventoryTitleX, playerInventoryTitleY, 4210752);
+			font.draw(matrixStack, inventory.getDisplayName(), inventoryLabelX, inventoryLabelY, 4210752);
 		}
 	}
 	
 	@Override
-	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
 		GuiUtil.clearColor();
-		minecraft.getTextureManager().bindTexture(background);
-		final int xStart = (width - xSize) / 2;
-		final int yStart = (height - ySize) / 2;
+		minecraft.getTextureManager().bind(background);
+		final int xStart = (width - imageWidth) / 2;
+		final int yStart = (height - imageHeight) / 2;
 		
-		blit(matrixStack, xStart, yStart, 0, 0, xSize, ySize, backgroundWidth, backgroundHeight);
+		blit(matrixStack, xStart, yStart, 0, 0, imageWidth, imageHeight, backgroundWidth, backgroundHeight);
 	}
 	
 	@Override
@@ -89,8 +89,8 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 				((IRenderTickable) listener).renderTick();
 			}
 		});
-		if (container instanceof UContainer) {
-			((UContainer) container).updateTrackedServerToClient();
+		if (menu instanceof UContainer) {
+			((UContainer) menu).updateTrackedServerToClient();
 		}
 	}
 }

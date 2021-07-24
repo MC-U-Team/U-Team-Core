@@ -4,6 +4,8 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.fml.network.IContainerFactory;
 
+import net.minecraft.inventory.container.ContainerType.IFactory;
+
 public class UContainerType<T extends Container> extends ContainerType<T> {
 	
 	public UContainerType(IContainerFactory<T> forgeFactory) {

@@ -12,6 +12,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.text.ITextComponent;
 
+import net.minecraft.client.gui.widget.button.Button.IPressable;
+import net.minecraft.client.gui.widget.button.Button.ITooltip;
+
 /**
  * A button that fixes vanilla not drawing the continuous border if the button is smaller than 20. Also adds utility
  * methods to add an IPressable and ITooltip
@@ -23,7 +26,7 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 	protected static final IPressable EMTPY_PRESSABLE = button -> {
 	};
 	
-	protected static final ITooltip EMPTY_TOOLTIP = Button.EMPTY_TOOLTIP;
+	protected static final ITooltip EMPTY_TOOLTIP = Button.NO_TOOLTIP;
 	
 	protected static final RGBA WHITE = RGBA.WHITE;
 	protected static final RGBA LIGHT_GRAY = new RGBA(0xA0A0A0FF);
@@ -93,7 +96,7 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderButtonLikeWidget(this, buttonTextureProvider, matrixStack, mouseX, mouseY, partialTicks);
 	}
 	

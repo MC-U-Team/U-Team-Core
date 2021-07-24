@@ -9,6 +9,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 
+import net.minecraft.client.gui.widget.button.Button.IPressable;
+import net.minecraft.client.gui.widget.button.Button.ITooltip;
+
 public class ImageButton extends UButton {
 	
 	protected ResourceLocation image;
@@ -51,7 +54,7 @@ public class ImageButton extends UButton {
 	
 	@Override
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		minecraft.getTextureManager().bindTexture(getCurrentImage());
+		minecraft.getTextureManager().bind(getCurrentImage());
 		
 		RenderUtil.enableBlend();
 		RenderUtil.defaultBlendFunc();

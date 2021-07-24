@@ -16,7 +16,7 @@ public class TooltipCreator {
 		if (!category.isEmpty()) {
 			category += ".";
 		}
-		return new TranslationTextComponent(item.getTranslationKey() + ".tooltip." + category + line, args);
+		return new TranslationTextComponent(item.getDescriptionId() + ".tooltip." + category + line, args);
 	}
 	
 	public static TranslationTextComponent create(Block block, String category, int line) {
@@ -27,7 +27,7 @@ public class TooltipCreator {
 		if (!category.isEmpty()) {
 			category += ".";
 		}
-		return new TranslationTextComponent(block.getTranslationKey() + ".tooltip." + category + line, args);
+		return new TranslationTextComponent(block.getDescriptionId() + ".tooltip." + category + line, args);
 	}
 	
 	public static TranslationTextComponent create(String modid, String key, String category, int line) {

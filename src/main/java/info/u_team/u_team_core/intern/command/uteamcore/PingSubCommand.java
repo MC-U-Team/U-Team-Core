@@ -18,18 +18,18 @@ public class PingSubCommand {
 	public static LiteralArgumentBuilder<CommandSource> register() {
 		return Commands.literal("ping") //
 				.executes(context -> execute(context.getSource())) //
-				.requires(source -> source.hasPermissionLevel(2)) //
+				.requires(source -> source.hasPermission(2)) //
 				.then(Commands.argument("target", EntityArgument.player()) //
 						.executes(context -> execute(context.getSource(), EntityArgument.getPlayer(context, "target"))));
 	}
 	
 	private static int execute(CommandSource source) throws CommandSyntaxException {
-		source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "self", new StringTextComponent(String.valueOf(source.asPlayer().ping)).mergeStyle(TextFormatting.GOLD)), false);
+		source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "self", new StringTextComponent(String.valueOf(source.getPlayerOrException().latency)).withStyle(TextFormatting.GOLD)), false);
 		return 0;
 	}
 	
 	private static int execute(CommandSource source, ServerPlayerEntity player) {
-		source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "other", player.getName(), new StringTextComponent(String.valueOf(player.ping)).mergeStyle(TextFormatting.GOLD)), false);
+		source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "other", player.getName(), new StringTextComponent(String.valueOf(player.latency)).withStyle(TextFormatting.GOLD)), false);
 		return 0;
 	}
 	

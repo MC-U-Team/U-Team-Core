@@ -40,28 +40,28 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 		
 		final float positionFactor = 1 / scale;
 		
-		matrixStack.push();
+		matrixStack.pushPose();
 		matrixStack.scale(currentScale, currentScale, 0);
 		
 		final RGBA currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
 		
-		final String currentText = fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), getAdjustedWidth());
+		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
 		
-		final int cursorOffset = cursorPosition - lineScrollOffset;
-		final int selectionOffset = Math.min(selectionEnd - lineScrollOffset, currentText.length());
+		final int cursorOffset = cursorPos - displayPos;
+		final int selectionOffset = Math.min(highlightPos - displayPos, currentText.length());
 		
 		final boolean isCursorInText = cursorOffset >= 0 && cursorOffset <= currentText.length();
-		final boolean shouldCursorBlink = isFocused() && cursorCounter / 6 % 2 == 0 && isCursorInText;
-		final boolean isCursorInTheMiddle = cursorPosition < text.length() || text.length() >= maxStringLength;
+		final boolean shouldCursorBlink = isFocused() && frame / 6 % 2 == 0 && isCursorInText;
+		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 		
-		final int xOffset = (int) ((enableBackgroundDrawing ? x + 4 : x) * positionFactor);
-		final int yOffset = (int) ((enableBackgroundDrawing ? y + (int) (height - 8 * scale) / 2 : y) * positionFactor);
+		final int xOffset = (int) ((bordered ? x + 4 : x) * positionFactor);
+		final int yOffset = (int) ((bordered ? y + (int) (height - 8 * scale) / 2 : y) * positionFactor);
 		
 		int leftRenderedTextX = xOffset;
 		
 		if (!currentText.isEmpty()) {
 			final String firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
-			leftRenderedTextX = fontRenderer.drawTextWithShadow(matrixStack, textFormatter.apply(firstTextPart, lineScrollOffset), xOffset, yOffset, currentTextColor.getColorARGB());
+			leftRenderedTextX = font.drawShadow(matrixStack, formatter.apply(firstTextPart, displayPos), xOffset, yOffset, currentTextColor.getColorARGB());
 		}
 		
 		int rightRenderedTextX = leftRenderedTextX;
@@ -74,27 +74,27 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 		}
 		
 		if (!currentText.isEmpty() && isCursorInText && cursorOffset < currentText.length()) {
-			fontRenderer.drawTextWithShadow(matrixStack, textFormatter.apply(currentText.substring(cursorOffset), cursorPosition), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
+			font.drawShadow(matrixStack, formatter.apply(currentText.substring(cursorOffset), cursorPos), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
 		}
 		
 		if (!isCursorInTheMiddle && suggestion != null) {
-			fontRenderer.drawStringWithShadow(matrixStack, suggestion, rightRenderedTextX - 1, yOffset, getCurrentSuggestionTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
+			font.drawShadow(matrixStack, suggestion, rightRenderedTextX - 1, yOffset, getCurrentSuggestionTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
 		
 		if (shouldCursorBlink) {
 			if (isCursorInTheMiddle) {
 				AbstractGui.fill(matrixStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, getCurrentCursorColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 			} else {
-				fontRenderer.drawStringWithShadow(matrixStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
+				font.drawShadow(matrixStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
 			}
 		}
 		
 		if (selectionOffset != cursorOffset) {
-			final int selectedX = xOffset + fontRenderer.getStringWidth(currentText.substring(0, selectionOffset));
-			drawSelectionBox((int) (rightRenderedTextX * currentScale), (int) ((yOffset - 1) * currentScale), (int) ((selectedX - 1) * currentScale), (int) ((yOffset + 1 + 9) * currentScale));
+			final int selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
+			renderHighlight((int) (rightRenderedTextX * currentScale), (int) ((yOffset - 1) * currentScale), (int) ((selectedX - 1) * currentScale), (int) ((yOffset + 1 + 9) * currentScale));
 		}
 		
-		matrixStack.pop();
+		matrixStack.popPose();
 	}
 	
 	@Override
@@ -114,19 +114,19 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 			final boolean clicked = clicked(mouseX, mouseY);
 			
 			if (canLoseFocus) {
-				setFocused2(clicked);
+				setFocus(clicked);
 			}
 			
 			if (isFocused() && clicked && button == 0) {
 				int clickOffset = MathHelper.floor(mouseX) - x;
-				if (enableBackgroundDrawing) {
+				if (bordered) {
 					clickOffset -= 4;
 				}
 				
 				clickOffset /= getCurrentScale(mouseX, mouseY);
 				
-				final String currentText = fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), getAdjustedWidth());
-				setCursorPosition(fontRenderer.trimStringToWidth(currentText, clickOffset).length() + lineScrollOffset);
+				final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
+				moveCursorTo(font.plainSubstrByWidth(currentText, clickOffset).length() + displayPos);
 				return true;
 			} else {
 				return false;

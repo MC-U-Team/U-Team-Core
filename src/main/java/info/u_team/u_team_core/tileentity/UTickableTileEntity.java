@@ -17,7 +17,7 @@ public abstract class UTickableTileEntity extends UTileEntity implements ITickab
 			first = true;
 			firstTick();
 		}
-		if (world.isRemote()) {
+		if (level.isClientSide()) {
 			tickClient();
 		} else {
 			tickServer();

@@ -8,6 +8,9 @@ import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ITextComponent;
 
+import net.minecraft.client.gui.widget.button.Button.ITooltip;
+import net.minecraftforge.fml.client.gui.widget.Slider.ISlider;
+
 public class ScalableSlider extends USlider implements IScaleable, IScaleProvider {
 	
 	protected float scale;

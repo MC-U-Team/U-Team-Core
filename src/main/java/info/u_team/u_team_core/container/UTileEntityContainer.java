@@ -94,7 +94,7 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	@SuppressWarnings("unchecked")
 	@OnlyIn(Dist.CLIENT)
 	private T getClientTileEntity(PacketBuffer buffer) {
-		final TileEntity tile = Minecraft.getInstance().world.getTileEntity(buffer.readBlockPos());
+		final TileEntity tile = Minecraft.getInstance().level.getBlockEntity(buffer.readBlockPos());
 		if (tile == null) {
 			throw new IllegalStateException("The client tile entity must be present.");
 		}

@@ -35,15 +35,15 @@ public class EnergyStorageWidget extends Widget {
 	}
 	
 	public EnergyStorageWidget(int x, int y, int height, LongSupplier capacity, LongSupplier storage) {
-		super(x, y, 14, height < 3 ? 3 : height, ITextComponent.getTextComponentOrEmpty(null));
+		super(x, y, 14, height < 3 ? 3 : height, ITextComponent.nullToEmpty(null));
 		this.capacity = capacity;
 		this.storage = storage;
 	}
 	
 	@Override
-	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
-		minecraft.getTextureManager().bindTexture(ENERGY_TEXTURE);
+		minecraft.getTextureManager().bind(ENERGY_TEXTURE);
 		
 		double ratio = (double) storage.getAsLong() / capacity.getAsLong();
 		if (ratio > 1) {
@@ -71,12 +71,12 @@ public class EnergyStorageWidget extends Widget {
 	public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
 		if (isHovered) {
 			final Minecraft minecraft = Minecraft.getInstance();
-			final MainWindow mainWindow = minecraft.getMainWindow();
+			final MainWindow mainWindow = minecraft.getWindow();
 			
 			final List<ITextComponent> list = new ArrayList<>();
-			list.add(ITextComponent.getTextComponentOrEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
+			list.add(ITextComponent.nullToEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
 			
-			GuiUtils.drawHoveringText(matrixStack, list, mouseX, mouseY, mainWindow.getWidth(), mainWindow.getHeight(), 300, minecraft.fontRenderer);
+			GuiUtils.drawHoveringText(matrixStack, list, mouseX, mouseY, mainWindow.getScreenWidth(), mainWindow.getScreenHeight(), 300, minecraft.font);
 		}
 	}
 	

@@ -6,6 +6,8 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.PickaxeItem;
 import net.minecraftforge.common.ToolType;
 
+import net.minecraft.item.Item.Properties;
+
 public class UPickaxeItem extends PickaxeItem {
 	
 	public UPickaxeItem(Properties properties, IToolMaterial material) {
@@ -13,10 +15,10 @@ public class UPickaxeItem extends PickaxeItem {
 	}
 	
 	public UPickaxeItem(ItemGroup group, Properties properties, IToolMaterial material) {
-		super(material, (int) material.getAdditionalDamage(Tools.PICKAXE), material.getAttackSpeed(Tools.PICKAXE), applyToolType(group == null ? properties : properties.group(group), material));
+		super(material, (int) material.getAdditionalDamage(Tools.PICKAXE), material.getAttackSpeed(Tools.PICKAXE), applyToolType(group == null ? properties : properties.tab(group), material));
 	}
 	
 	private static Properties applyToolType(Properties properties, IToolMaterial material) {
-		return properties.addToolType(ToolType.PICKAXE, material.getHarvestLevel());
+		return properties.addToolType(ToolType.PICKAXE, material.getLevel());
 	}
 }

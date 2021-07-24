@@ -12,28 +12,28 @@ public class RecipeBuilderUtil {
 		return new IFinishedRecipe() {
 			
 			@Override
-			public void serialize(JsonObject json) {
-				recipe.serialize(json);
+			public void serializeRecipeData(JsonObject json) {
+				recipe.serializeRecipeData(json);
 			}
 			
 			@Override
-			public IRecipeSerializer<?> getSerializer() {
+			public IRecipeSerializer<?> getType() {
 				return serializer;
 			}
 			
 			@Override
-			public ResourceLocation getID() {
-				return recipe.getID();
+			public ResourceLocation getId() {
+				return recipe.getId();
 			}
 			
 			@Override
-			public JsonObject getAdvancementJson() {
-				return recipe.getAdvancementJson();
+			public JsonObject serializeAdvancement() {
+				return recipe.serializeAdvancement();
 			}
 			
 			@Override
-			public ResourceLocation getAdvancementID() {
-				return recipe.getAdvancementID();
+			public ResourceLocation getAdvancementId() {
+				return recipe.getAdvancementId();
 			}
 		};
 	}

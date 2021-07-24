@@ -21,7 +21,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 public class ClientRegistry {
 	
 	public static <M extends Container, U extends Screen & IHasContainer<M>> void registerScreen(Supplier<? extends ContainerType<? extends M>> supplier, ScreenManager.IScreenFactory<M, U> factory) {
-		ScreenManager.registerFactory(supplier.get(), factory);
+		ScreenManager.register(supplier.get(), factory);
 	}
 	
 	public static <T extends Entity> void registerEntityRenderer(Supplier<? extends EntityType<T>> supplier, IRenderFactory<? super T> rendererFactory) {

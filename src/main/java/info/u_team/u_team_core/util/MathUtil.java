@@ -14,13 +14,13 @@ public class MathUtil {
 	}
 	
 	public static Vector3d rotateVectorCC(Vector3d vec, Vector3d axis, double angle) {
-		final double x = vec.getX();
-		final double y = vec.getY();
-		final double z = vec.getZ();
+		final double x = vec.x();
+		final double y = vec.y();
+		final double z = vec.z();
 		
-		final double u = axis.getX();
-		final double v = axis.getY();
-		final double w = axis.getZ();
+		final double u = axis.x();
+		final double v = axis.y();
+		final double w = axis.z();
 		
 		final double rotationX = u * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + x * Math.cos(angle) + (-w * y + v * z) * Math.sin(angle);
 		final double rotationY = v * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + y * Math.cos(angle) + (w * x - u * z) * Math.sin(angle);

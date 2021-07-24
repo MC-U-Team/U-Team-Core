@@ -26,7 +26,7 @@ public abstract class CommonGlobalLootModifiersProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void act(DirectoryCache cache) throws IOException {
+	public void run(DirectoryCache cache) throws IOException {
 		final Map<String, Tuple<GlobalLootModifierSerializer<?>, JsonObject>> serializers = new TreeMap<>();
 		
 		registerGlobalLootModifiers((modifier, serializerSupplier, instance) -> {

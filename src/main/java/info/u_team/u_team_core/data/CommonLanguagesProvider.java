@@ -28,7 +28,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void act(DirectoryCache cache) throws IOException {
+	public void run(DirectoryCache cache) throws IOException {
 		addTranslations();
 		data.forEach((locale, map) -> {
 			if (!map.isEmpty()) {
@@ -49,7 +49,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(ItemGroup key, String name) {
-		final ITextComponent component = key.getGroupName();
+		final ITextComponent component = key.getDisplayName();
 		if (component instanceof TranslationTextComponent) {
 			add(((TranslationTextComponent) component).getKey(), name);
 		}
@@ -60,7 +60,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(Block key, String name) {
-		add(key.getTranslationKey(), name);
+		add(key.getDescriptionId(), name);
 	}
 	
 	protected void addItem(Supplier<? extends Item> key, String name) {
@@ -68,7 +68,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(Item key, String name) {
-		add(key.getTranslationKey(), name);
+		add(key.getDescriptionId(), name);
 	}
 	
 	protected void addItemStack(Supplier<? extends ItemStack> key, String name) {
@@ -76,7 +76,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(ItemStack key, String name) {
-		add(key.getTranslationKey(), name);
+		add(key.getDescriptionId(), name);
 	}
 	
 	protected void addEnchantment(Supplier<? extends Enchantment> key, String name) {
@@ -84,7 +84,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(Enchantment key, String name) {
-		add(key.getName(), name);
+		add(key.getDescriptionId(), name);
 	}
 	
 	protected void addEffect(Supplier<? extends Effect> key, String name) {
@@ -92,7 +92,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(Effect key, String name) {
-		add(key.getName(), name);
+		add(key.getDescriptionId(), name);
 	}
 	
 	protected void addEntityType(Supplier<? extends EntityType<?>> key, String name) {
@@ -100,7 +100,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(EntityType<?> key, String name) {
-		add(key.getTranslationKey(), name);
+		add(key.getDescriptionId(), name);
 	}
 	
 	protected void add(Supplier<? extends Fluid> key, String name) {
@@ -116,7 +116,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, ItemGroup key, String name) {
-		final ITextComponent component = key.getGroupName();
+		final ITextComponent component = key.getDisplayName();
 		if (component instanceof TranslationTextComponent) {
 			add(locale, ((TranslationTextComponent) component).getKey(), name);
 		}
@@ -127,7 +127,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, Block key, String name) {
-		add(locale, key.getTranslationKey(), name);
+		add(locale, key.getDescriptionId(), name);
 	}
 	
 	protected void addItem(String locale, Supplier<? extends Item> key, String name) {
@@ -135,7 +135,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, Item key, String name) {
-		add(locale, key.getTranslationKey(), name);
+		add(locale, key.getDescriptionId(), name);
 	}
 	
 	protected void addItemStack(String locale, Supplier<? extends ItemStack> key, String name) {
@@ -143,7 +143,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, ItemStack key, String name) {
-		add(locale, key.getTranslationKey(), name);
+		add(locale, key.getDescriptionId(), name);
 	}
 	
 	protected void addEnchantment(String locale, Supplier<? extends Enchantment> key, String name) {
@@ -151,7 +151,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, Enchantment key, String name) {
-		add(locale, key.getName(), name);
+		add(locale, key.getDescriptionId(), name);
 	}
 	
 	protected void addEffect(String locale, Supplier<? extends Effect> key, String name) {
@@ -159,7 +159,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, Effect key, String name) {
-		add(locale, key.getName(), name);
+		add(locale, key.getDescriptionId(), name);
 	}
 	
 	protected void addEntityType(String locale, Supplier<? extends EntityType<?>> key, String name) {
@@ -167,7 +167,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, EntityType<?> key, String name) {
-		add(locale, key.getTranslationKey(), name);
+		add(locale, key.getDescriptionId(), name);
 	}
 	
 	protected void addFluid(String locale, Supplier<? extends Fluid> key, String name) {
@@ -199,14 +199,14 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		if (!category.isEmpty()) {
 			category += ".";
 		}
-		add(key.get().getTranslationKey() + ".tooltip." + category + line, value);
+		add(key.get().getDescriptionId() + ".tooltip." + category + line, value);
 	}
 	
 	protected void addItemTooltip(String locale, Supplier<? extends Item> key, String category, int line, String value) {
 		if (!category.isEmpty()) {
 			category += ".";
 		}
-		add(locale, key.get().getTranslationKey() + ".tooltip." + category + line, value);
+		add(locale, key.get().getDescriptionId() + ".tooltip." + category + line, value);
 	}
 	
 	protected void addTooltip(String key, String category, int line, String value) {

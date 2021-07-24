@@ -36,7 +36,7 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	}
 	
 	@Override
-	public void act(DirectoryCache cache) throws IOException {
+	public void run(DirectoryCache cache) throws IOException {
 		generatedModels.clear();
 		registerModels();
 		generatedModels.values().forEach(model -> {

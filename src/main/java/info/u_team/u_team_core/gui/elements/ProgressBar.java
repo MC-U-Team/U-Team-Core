@@ -63,7 +63,7 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		if (button == 0) {
 			if (isPressable(mouseX, mouseY)) {
-				playPressSound(Minecraft.getInstance().getSoundHandler());
+				playPressSound(Minecraft.getInstance().getSoundManager());
 				onClick(mouseX, mouseY);
 				return true;
 			}
@@ -76,7 +76,7 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 	}
 	
 	public void playPressSound(SoundHandler soundHandler) {
-		soundHandler.play(SimpleSound.master(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+		soundHandler.play(SimpleSound.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 	}
 	
 	public void setProgressSupplier(Supplier<Double> progress) {

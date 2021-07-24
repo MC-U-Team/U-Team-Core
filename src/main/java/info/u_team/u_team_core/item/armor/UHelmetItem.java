@@ -4,6 +4,8 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemGroup;
 
+import net.minecraft.item.Item.Properties;
+
 public class UHelmetItem extends UArmorItem {
 	
 	public UHelmetItem(String textureName, Properties properties, IArmorMaterial material) {

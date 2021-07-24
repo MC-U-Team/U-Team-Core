@@ -108,7 +108,7 @@ public class ScalingTextRenderer implements IRenderable {
 	protected void setText(String newText) {
 		if ((newText != null && !newText.equals(text)) || (newText == null && text != null)) {
 			this.text = newText;
-			this.textWidth = fontRenderer.getStringWidth(newText);
+			this.textWidth = fontRenderer.width(newText);
 			updatedText();
 		}
 	}
@@ -125,9 +125,9 @@ public class ScalingTextRenderer implements IRenderable {
 	}
 	
 	protected void renderFont(MatrixStack matrixStack, FontRenderer fontRenderer, float x, float y) {
-		matrixStack.push();
+		matrixStack.pushPose();
 		matrixStack.scale(scale, scale, 0);
-		fontRenderer.renderString(text, x * positionFactor, y * positionFactor, color.getColorARGB(), matrixStack.getLast().getMatrix(), shadow, fontRenderer.getBidiFlag());
-		matrixStack.pop();
+		fontRenderer.drawInternal(text, x * positionFactor, y * positionFactor, color.getColorARGB(), matrixStack.last().pose(), shadow, fontRenderer.isBidirectional());
+		matrixStack.popPose();
 	}
 }

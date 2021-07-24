@@ -81,24 +81,24 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 	@Override
 	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
-		final MainWindow window = minecraft.getMainWindow();
+		final MainWindow window = minecraft.getWindow();
 		
-		final Matrix4fExtended matrix = new Matrix4fExtended(matrixStack.getLast().getMatrix());
-		final double scaleFactor = window.getGuiScaleFactor();
+		final Matrix4fExtended matrix = new Matrix4fExtended(matrixStack.last().pose());
+		final double scaleFactor = window.getGuiScale();
 		
 		final Vector4f vectorXY = new Vector4f(x, y, 0, 1);
 		vectorXY.transform(matrix);
 		
 		// Cannot use transform here, because we only care about the scaling. M00 and M11 should have the right scaling
-		final Vector4f vectorWH = new Vector4f(width * matrix.getM00(), (fontRenderer.FONT_HEIGHT + 1) * scale * matrix.getM11(), 0, 1);
+		final Vector4f vectorWH = new Vector4f(width * matrix.getM00(), (fontRenderer.lineHeight + 1) * scale * matrix.getM11(), 0, 1);
 		
-		final int nativeX = MathHelper.ceil(vectorXY.getX() * scaleFactor);
-		final int nativeY = MathHelper.ceil(vectorXY.getY() * scaleFactor);
+		final int nativeX = MathHelper.ceil(vectorXY.x() * scaleFactor);
+		final int nativeY = MathHelper.ceil(vectorXY.y() * scaleFactor);
 		
-		final int nativeWidth = MathHelper.ceil(vectorWH.getX() * scaleFactor);
-		final int nativeHeight = MathHelper.ceil(vectorWH.getY() * scaleFactor);
+		final int nativeWidth = MathHelper.ceil(vectorWH.x() * scaleFactor);
+		final int nativeHeight = MathHelper.ceil(vectorWH.y() * scaleFactor);
 		
-		RenderUtil.enableScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
+		RenderUtil.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 		
 		// Uncomment to test scissor
 		// matrixStack.push();

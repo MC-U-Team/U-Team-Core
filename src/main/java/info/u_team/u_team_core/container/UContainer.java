@@ -100,15 +100,15 @@ public abstract class UContainer extends FluidContainer {
 	 * We use this method to send the tracked values to the client
 	 */
 	@Override
-	public void detectAndSendChanges() {
-		super.detectAndSendChanges();
+	public void broadcastChanges() {
+		super.broadcastChanges();
 		
-		final List<NetworkManager> networkManagers = listeners.stream() //
+		final List<NetworkManager> networkManagers = containerListeners.stream() //
 				.filter(listener -> listener instanceof ServerPlayerEntity) //
-				.map(listener -> ((ServerPlayerEntity) listener).connection.getNetworkManager()) //
+				.map(listener -> ((ServerPlayerEntity) listener).connection.getConnection()) //
 				.collect(Collectors.toList());
 		getDirtyMap(syncServerToClient).forEach((property, holder) -> {
-			UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new BufferPropertyContainerMessage(windowId, property, holder.get()));
+			UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new BufferPropertyContainerMessage(containerId, property, holder.get()));
 		});
 	}
 	
@@ -119,7 +119,7 @@ public abstract class UContainer extends FluidContainer {
 	 */
 	public void updateTrackedServerToClient() {
 		getDirtyMap(syncClientToServer).forEach((property, holder) -> {
-			UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new BufferPropertyContainerMessage(windowId, property, holder.get()));
+			UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new BufferPropertyContainerMessage(containerId, property, holder.get()));
 		});
 	}
 	
@@ -140,7 +140,7 @@ public abstract class UContainer extends FluidContainer {
 	 * Player can interact with this container
 	 */
 	@Override
-	public boolean canInteractWith(PlayerEntity player) {
+	public boolean stillValid(PlayerEntity player) {
 		return true;
 	}
 	
@@ -150,7 +150,7 @@ public abstract class UContainer extends FluidContainer {
 	 * @return Container listener
 	 */
 	protected List<IContainerListener> getListeners() {
-		return listeners;
+		return containerListeners;
 	}
 	
 	/**
@@ -160,7 +160,7 @@ public abstract class UContainer extends FluidContainer {
 	 * @return ItemStack list
 	 */
 	protected List<ItemStack> getInventoryItemStacks() {
-		return inventoryItemStacks;
+		return lastSlots;
 	}
 	
 	/**

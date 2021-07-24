@@ -22,24 +22,24 @@ public interface IDyeableItem {
 	}
 	
 	default boolean hasColor(ItemStack stack) {
-		final CompoundNBT compound = stack.getChildTag("display");
+		final CompoundNBT compound = stack.getTagElement("display");
 		return compound != null && compound.contains("color", 99);
 	}
 	
 	default int getColor(ItemStack stack) {
-		final CompoundNBT compound = stack.getChildTag("display");
+		final CompoundNBT compound = stack.getTagElement("display");
 		return compound != null && compound.contains("color", 99) ? compound.getInt("color") : getDefaultColor();
 	}
 	
 	default void removeColor(ItemStack stack) {
-		final CompoundNBT compound = stack.getChildTag("display");
+		final CompoundNBT compound = stack.getTagElement("display");
 		if (compound != null && compound.contains("color")) {
 			compound.remove("color");
 		}
 	}
 	
 	default void setColor(ItemStack stack, int color) {
-		stack.getOrCreateChildTag("display").putInt("color", color);
+		stack.getOrCreateTagElement("display").putInt("color", color);
 	}
 	
 	default int getDefaultColor() {
@@ -75,7 +75,7 @@ public interface IDyeableItem {
 		}
 		
 		for (final DyeColor dye : dyeList) {
-			final float[] colorComponents = dye.getColorComponentValues();
+			final float[] colorComponents = dye.getTextureDiffuseColors();
 			
 			final int red = (int) (colorComponents[0] * 255.0F);
 			final int green = (int) (colorComponents[1] * 255.0F);

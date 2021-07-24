@@ -39,6 +39,6 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	protected void copy(ITag.INamedTag<Block> blockTag, ITag.INamedTag<Item> itemTag) {
 		final ITag.Builder itemTagBuilder = getTagBuilder(itemTag);
 		final ITag.Builder blockTagBuilder = blockTagBuilderFunction.apply(blockTag);
-		blockTagBuilder.getProxyStream().forEach(itemTagBuilder::addProxyTag);
+		blockTagBuilder.getEntries().forEach(itemTagBuilder::add);
 	}
 }

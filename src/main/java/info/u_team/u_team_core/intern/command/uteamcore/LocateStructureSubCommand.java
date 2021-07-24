@@ -16,13 +16,13 @@ public class LocateStructureSubCommand {
 	
 	public static ArgumentBuilder<CommandSource, ?> register() {
 		return Commands.literal("locatestructure") //
-				.requires(source -> source.hasPermissionLevel(2)) //
-				.then(Commands.argument("structure", ResourceLocationArgument.resourceLocation()) //
+				.requires(source -> source.hasPermission(2)) //
+				.then(Commands.argument("structure", ResourceLocationArgument.id()) //
 						.suggests((context, builder) -> ISuggestionProvider.suggest(ForgeRegistries.STRUCTURE_FEATURES.getKeys().stream().map(ResourceLocation::toString), builder)) //
 						.executes(context -> locateStructure(context.getSource(), ForgeRegistries.STRUCTURE_FEATURES.getValue(context.getArgument("structure", ResourceLocation.class)))));
 	}
 	
 	private static int locateStructure(CommandSource source, Structure<?> structure) throws CommandSyntaxException {
-		return LocateCommand.func_241053_a_(source, structure);
+		return LocateCommand.locate(source, structure);
 	}
 }

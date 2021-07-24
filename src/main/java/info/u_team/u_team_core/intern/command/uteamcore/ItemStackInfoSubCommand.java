@@ -27,17 +27,17 @@ public class ItemStackInfoSubCommand {
 	}
 	
 	private static int execute(CommandSource source) throws CommandSyntaxException {
-		final ItemStack stack = source.asPlayer().getHeldItemMainhand();
+		final ItemStack stack = source.getPlayerOrException().getMainHandItem();
 		final Item item = stack.getItem();
 		
-		source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item)), false);
+		source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item)), false);
 		
 		if (item instanceof BlockItem) {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(((BlockItem) item).getBlock())), false);
+			source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(((BlockItem) item).getBlock())), false);
 		}
 		
 		if (stack.hasTag()) {
-			source.sendFeedback(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "nbt", stack.getTag().toFormattedComponent()), false);
+			source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "nbt", stack.getTag().getPrettyDisplay()), false);
 		}
 		return 0;
 	}
@@ -46,9 +46,9 @@ public class ItemStackInfoSubCommand {
 		final IFormattableTextComponent component = new StringTextComponent(entry.getRegistryName().toString());
 		Style style = component.getStyle();
 		final String className = getClassString(entry);
-		style = style.setFormatting(TextFormatting.AQUA);
-		style = style.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(className).mergeStyle(TextFormatting.YELLOW)));
-		style = style.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
+		style = style.withColor(TextFormatting.AQUA);
+		style = style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new StringTextComponent(className).withStyle(TextFormatting.YELLOW)));
+		style = style.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
 		component.setStyle(style);
 		return component;
 	}

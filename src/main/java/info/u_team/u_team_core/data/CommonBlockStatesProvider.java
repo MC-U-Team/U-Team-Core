@@ -39,7 +39,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	}
 	
 	@Override
-	public void act(DirectoryCache cache) throws IOException {
+	public void run(DirectoryCache cache) throws IOException {
 		models().generatedModels.clear();
 		registerModels0(cache);
 		models().generatedModels.values().forEach(model -> {
@@ -83,11 +83,11 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	
 	protected void facingBlock(Block block, Function<BlockState, ModelFile> modelFunc, int angleOffset) {
 		getVariantBuilder(block).forAllStates(state -> {
-			final Direction direction = state.get(BlockStateProperties.FACING);
+			final Direction direction = state.getValue(BlockStateProperties.FACING);
 			return ConfiguredModel.builder() //
 					.modelFile(modelFunc.apply(state)) //
 					.rotationX(direction == Direction.DOWN ? 90 : direction == Direction.UP ? 270 : 0) //
-					.rotationY(direction.getAxis().isVertical() ? 0 : (((int) direction.getHorizontalAngle()) + angleOffset + 180) % 360) //
+					.rotationY(direction.getAxis().isVertical() ? 0 : (((int) direction.toYRot()) + angleOffset + 180) % 360) //
 					.build(); //
 		});
 	}

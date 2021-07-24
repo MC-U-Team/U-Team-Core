@@ -39,7 +39,7 @@ public class ColorUtil {
 	}
 	
 	public static DyeColor getColorFromWool(Item item) {
-		return getColorFromWool(Block.getBlockFromItem(item));
+		return getColorFromWool(Block.byItem(item));
 	}
 	
 	public static DyeColor getColorFromWool(Block block) {

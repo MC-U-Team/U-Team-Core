@@ -5,6 +5,8 @@ import info.u_team.u_team_core.api.IToolMaterial.Tools;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.SwordItem;
 
+import net.minecraft.item.Item.Properties;
+
 public class USwordItem extends SwordItem {
 	
 	public USwordItem(Properties properties, IToolMaterial material) {
@@ -12,6 +14,6 @@ public class USwordItem extends SwordItem {
 	}
 	
 	public USwordItem(ItemGroup group, Properties properties, IToolMaterial material) {
-		super(material, (int) material.getAdditionalDamage(Tools.SWORD), material.getAttackSpeed(Tools.SWORD), group == null ? properties : properties.group(group));
+		super(material, (int) material.getAdditionalDamage(Tools.SWORD), material.getAttackSpeed(Tools.SWORD), group == null ? properties : properties.tab(group));
 	}
 }

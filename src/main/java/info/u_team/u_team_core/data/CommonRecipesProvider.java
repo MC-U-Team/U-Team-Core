@@ -24,7 +24,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void act(DirectoryCache cache) throws IOException {
+	public void run(DirectoryCache cache) throws IOException {
 		registerRecipes(recipe -> generateRecipe(cache, recipe, false));
 		registerDefaultAdvancementsRecipes(recipe -> generateRecipe(cache, recipe, true));
 	}
@@ -36,17 +36,17 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	
 	private void generateRecipe(DirectoryCache cache, IFinishedRecipe recipe, boolean vanillaAdvancement) {
 		try {
-			final ResourceLocation recipeLocation = recipe.getID();
-			write(cache, recipe.getRecipeJson(), resolveData(recipeLocation).resolve("recipes").resolve(recipe.getID().getPath() + ".json"));
-			if (recipe.getAdvancementJson() != null) {
+			final ResourceLocation recipeLocation = recipe.getId();
+			write(cache, recipe.serializeRecipe(), resolveData(recipeLocation).resolve("recipes").resolve(recipe.getId().getPath() + ".json"));
+			if (recipe.serializeAdvancement() != null) {
 				final Path advancementPath;
 				if (vanillaAdvancement) {
-					final ResourceLocation advancementLocation = recipe.getAdvancementID();
+					final ResourceLocation advancementLocation = recipe.getAdvancementId();
 					advancementPath = resolveData(advancementLocation).resolve("advancements").resolve(advancementLocation.getPath() + ".json");
 				} else {
 					advancementPath = resolveData(recipeLocation).resolve("advancements").resolve("recipes").resolve(recipeLocation.getPath() + ".json");
 				}
-				write(cache, recipe.getAdvancementJson(), advancementPath);
+				write(cache, recipe.serializeAdvancement(), advancementPath);
 			}
 		} catch (final IOException ex) {
 			LOGGER.error(marker, "Could not write data.", ex);
@@ -64,15 +64,15 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	}
 	
 	protected InventoryChangeTrigger.Instance hasItem(ITag<Item> tag) {
-		return hasItem(ItemPredicate.Builder.create().tag(tag).build());
+		return hasItem(ItemPredicate.Builder.item().of(tag).build());
 	}
 	
 	protected InventoryChangeTrigger.Instance hasItem(IItemProvider item) {
-		return hasItem(ItemPredicate.Builder.create().item(item).build());
+		return hasItem(ItemPredicate.Builder.item().of(item).build());
 	}
 	
 	protected InventoryChangeTrigger.Instance hasItem(ItemPredicate... predicates) {
-		return new InventoryChangeTrigger.Instance(EntityPredicate.AndPredicate.ANY_AND, IntBound.UNBOUNDED, IntBound.UNBOUNDED, IntBound.UNBOUNDED, predicates);
+		return new InventoryChangeTrigger.Instance(EntityPredicate.AndPredicate.ANY, IntBound.ANY, IntBound.ANY, IntBound.ANY, predicates);
 	}
 	
 	public static Ingredient getIngredientOfTag(ITag<Item> tag) {

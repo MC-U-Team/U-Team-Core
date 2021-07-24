@@ -20,15 +20,15 @@ public abstract class UTileEntity extends TileEntity {
 	}
 	
 	@Override
-	public CompoundNBT write(CompoundNBT compound) {
-		super.write(compound);
+	public CompoundNBT save(CompoundNBT compound) {
+		super.save(compound);
 		writeNBT(compound);
 		return compound;
 	}
 	
 	@Override
-	public void read(BlockState state, CompoundNBT compound) {
-		super.read(state, compound);
+	public void load(BlockState state, CompoundNBT compound) {
+		super.load(state, compound);
 		readNBT(state, compound);
 	}
 	
@@ -62,7 +62,7 @@ public abstract class UTileEntity extends TileEntity {
 	
 	@Override
 	public void handleUpdateTag(BlockState state, CompoundNBT compound) {
-		super.read(state, compound);
+		super.load(state, compound);
 		handleChunkLoadData(compound);
 	}
 	
@@ -91,14 +91,14 @@ public abstract class UTileEntity extends TileEntity {
 		final CompoundNBT compound = new CompoundNBT();
 		sendUpdateStateData(compound);
 		if (!compound.isEmpty()) {
-			return new SUpdateTileEntityPacket(pos, -1, compound);
+			return new SUpdateTileEntityPacket(worldPosition, -1, compound);
 		}
 		return null;
 	}
 	
 	@Override
 	public void onDataPacket(NetworkManager manager, SUpdateTileEntityPacket packet) {
-		handleUpdateStateData(packet.getNbtCompound());
+		handleUpdateStateData(packet.getTag());
 	}
 	
 	/**
@@ -136,7 +136,7 @@ public abstract class UTileEntity extends TileEntity {
 	 */
 	public void sendChangesToClient(int flags) {
 		final BlockState state = getBlockState();
-		world.notifyBlockUpdate(pos, state, state, flags);
+		level.sendBlockUpdated(worldPosition, state, state, flags);
 	}
 	
 }

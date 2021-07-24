@@ -5,6 +5,9 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.util.ResourceLocation;
 
+import net.minecraft.client.gui.widget.button.Button.IPressable;
+import net.minecraft.client.gui.widget.button.Button.ITooltip;
+
 public class ImageToggleButton extends ImageButton {
 	
 	protected ResourceLocation toggleImage;

@@ -16,11 +16,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 public class SerializeUtil {
 	
 	public static JsonElement serializeItemIngredient(Ingredient ingredient) {
-		return ingredient.serialize();
+		return ingredient.toJson();
 	}
 	
 	public static Ingredient deserializeItemIngredient(JsonElement json) {
-		return Ingredient.deserialize(json);
+		return Ingredient.fromJson(json);
 	}
 	
 	public static JsonElement serializeFluidIngredient(FluidIngredient ingredient) {

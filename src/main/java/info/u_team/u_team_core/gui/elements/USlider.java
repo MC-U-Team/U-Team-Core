@@ -18,6 +18,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
+import net.minecraft.client.gui.widget.button.Button.ITooltip;
+import net.minecraftforge.fml.client.gui.widget.Slider.ISlider;
+
 public class USlider extends Slider implements IPerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
 	
 	protected static final ISlider EMTPY_SLIDER = slider -> {
@@ -106,7 +109,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderButtonLikeWidget(this, sliderBackgroundTextureProvider, matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
@@ -168,7 +171,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	@Override
 	public void onRelease(double mouseX, double mouseY) {
 		if (isHovered()) {
-			super.playDownSound(Minecraft.getInstance().getSoundHandler());
+			super.playDownSound(Minecraft.getInstance().getSoundManager());
 		}
 		if (isInContainer) {
 			dragging = false;
@@ -197,7 +200,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	protected IFormattableTextComponent getNarrationMessage() {
+	protected IFormattableTextComponent createNarrationMessage() {
 		return new TranslationTextComponent("gui.narrate.slider", getMessage());
 	}
 	

@@ -16,15 +16,15 @@ public class UCoreLazySpawnEggs {
 	private static void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			USpawnEggItem.LAZY_EGGS.forEach(pair -> {
-				final EntityType<?> type = pair.getKey().getValue();
+				final EntityType<?> type = pair.getKey().get();
 				final USpawnEggItem item = pair.getValue();
 				
-				item.typeIn = type;
+				item.defaultType = type;
 				
-				DispenserBlock.registerDispenseBehavior(item, (source, stack) -> {
-					final Direction direction = source.getBlockState().get(DispenserBlock.FACING);
+				DispenserBlock.registerBehavior(item, (source, stack) -> {
+					final Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
 					final EntityType<?> entityType = ((USpawnEggItem) stack.getItem()).getType(stack.getTag());
-					entityType.spawn(source.getWorld(), stack, (PlayerEntity) null, source.getBlockPos().offset(direction), SpawnReason.DISPENSER, direction != Direction.UP, false);
+					entityType.spawn(source.getLevel(), stack, (PlayerEntity) null, source.getPos().relative(direction), SpawnReason.DISPENSER, direction != Direction.UP, false);
 					stack.shrink(1);
 					return stack;
 				});
@@ -35,10 +35,10 @@ public class UCoreLazySpawnEggs {
 	private static void loadComplete(FMLLoadCompleteEvent event) {
 		event.enqueueWork(() -> {
 			USpawnEggItem.LAZY_EGGS.forEach(pair -> {
-				final EntityType<?> type = pair.getKey().getValue();
+				final EntityType<?> type = pair.getKey().get();
 				final USpawnEggItem item = pair.getValue();
 				
-				SpawnEggItem.EGGS.put(type, item);
+				SpawnEggItem.BY_ID.put(type, item);
 			});
 		});
 	}

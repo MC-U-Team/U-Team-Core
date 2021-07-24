@@ -10,6 +10,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
+import net.minecraft.client.gui.widget.button.Button.IPressable;
+import net.minecraft.client.gui.widget.button.Button.ITooltip;
+
 public class CheckboxButton extends UButton {
 	
 	protected static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/checkbox.png");
@@ -75,10 +78,10 @@ public class CheckboxButton extends UButton {
 	}
 	
 	@Override
-	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		
-		minecraft.getTextureManager().bindTexture(TEXTURE);
+		minecraft.getTextureManager().bind(TEXTURE);
 		
 		RenderUtil.enableBlend();
 		RenderUtil.defaultBlendFunc();
@@ -92,7 +95,7 @@ public class CheckboxButton extends UButton {
 	@Override
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			final FontRenderer fontRenderer = minecraft.fontRenderer;
+			final FontRenderer fontRenderer = minecraft.font;
 			
 			final ITextComponent message = getCurrentText();
 			if (message != StringTextComponent.EMPTY) {
@@ -100,7 +103,7 @@ public class CheckboxButton extends UButton {
 				final float yStart = y + (height - 8) / 2;
 				
 				if (leftSideText) {
-					xStart = x - (fontRenderer.getStringPropertyWidth(message) + 4);
+					xStart = x - (fontRenderer.width(message) + 4);
 				} else {
 					xStart = x + width + 4;
 				}
@@ -108,9 +111,9 @@ public class CheckboxButton extends UButton {
 				final int color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
 				
 				if (dropShadow) {
-					fontRenderer.drawTextWithShadow(matrixStack, getCurrentText(), xStart, yStart, color);
+					fontRenderer.drawShadow(matrixStack, getCurrentText(), xStart, yStart, color);
 				} else {
-					fontRenderer.drawText(matrixStack, getCurrentText(), xStart, yStart, color);
+					fontRenderer.draw(matrixStack, getCurrentText(), xStart, yStart, color);
 				}
 			}
 		}

@@ -19,6 +19,9 @@ import net.minecraft.util.JSONUtils;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 
+import net.minecraft.item.crafting.Ingredient.IItemList;
+import net.minecraft.item.crafting.Ingredient.SingleItemList;
+
 public class ItemIngredient extends Ingredient {
 	
 	private final int amount;
@@ -44,11 +47,11 @@ public class ItemIngredient extends Ingredient {
 	public boolean test(ItemStack stack) {
 		if (stack == null) {
 			return false;
-		} else if (acceptedItems.length == 0) {
+		} else if (values.length == 0) {
 			return stack.isEmpty();
 		} else {
-			determineMatchingStacks();
-			for (final ItemStack itemstack : matchingStacks) {
+			dissolve();
+			for (final ItemStack itemstack : itemStacks) {
 				if (itemstack.getItem() == stack.getItem()) {
 					return stack.getCount() >= amount;
 				}
@@ -67,11 +70,11 @@ public class ItemIngredient extends Ingredient {
 	}
 	
 	@Override
-	public JsonElement serialize() {
+	public JsonElement toJson() {
 		final JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("type", CraftingHelper.getID(Serializer.INSTANCE).toString());
 		jsonObject.addProperty("amount", amount);
-		jsonObject.add("items", super.serialize());
+		jsonObject.add("items", super.toJson());
 		return jsonObject;
 	}
 	
@@ -85,18 +88,18 @@ public class ItemIngredient extends Ingredient {
 				throw new JsonSyntaxException("Expected amount and items");
 			}
 			
-			final int amount = JSONUtils.getInt(jsonObject, "amount");
+			final int amount = JSONUtils.getAsInt(jsonObject, "amount");
 			final JsonElement ingredientJsonElement = jsonObject.get("items");
 			
 			if (ingredientJsonElement.isJsonObject()) {
-				return new ItemIngredient(amount, Stream.of(deserializeItemList(ingredientJsonElement.getAsJsonObject())));
+				return new ItemIngredient(amount, Stream.of(valueFromJson(ingredientJsonElement.getAsJsonObject())));
 			} else if (ingredientJsonElement.isJsonArray()) {
 				final JsonArray jsonArray = ingredientJsonElement.getAsJsonArray();
 				if (jsonArray.size() == 0) {
 					throw new JsonSyntaxException("Item array cannot be empty, at least one item must be defined");
 				} else {
 					return new ItemIngredient(amount, StreamSupport.stream(jsonArray.spliterator(), false).map((jsonArrayElement) -> {
-						return deserializeItemList(JSONUtils.getJsonObject(jsonArrayElement, "item"));
+						return valueFromJson(JSONUtils.convertToJsonObject(jsonArrayElement, "item"));
 					}));
 				}
 			} else {
@@ -109,17 +112,17 @@ public class ItemIngredient extends Ingredient {
 			final int amount = buffer.readInt();
 			final int length = buffer.readVarInt();
 			
-			return new ItemIngredient(amount, Stream.generate(() -> new SingleItemList(buffer.readItemStack())).limit(length));
+			return new ItemIngredient(amount, Stream.generate(() -> new SingleItemList(buffer.readItem())).limit(length));
 		}
 		
 		@Override
 		public void write(PacketBuffer buffer, ItemIngredient ingredient) {
-			final ItemStack[] items = ingredient.getMatchingStacks();
+			final ItemStack[] items = ingredient.getItems();
 			buffer.writeInt(ingredient.amount);
 			buffer.writeVarInt(items.length);
 			
 			for (final ItemStack stack : items) {
-				buffer.writeItemStack(stack);
+				buffer.writeItem(stack);
 			}
 		}
 	}

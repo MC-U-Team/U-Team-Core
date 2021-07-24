@@ -31,28 +31,28 @@ public class UArmorMaterial implements IArmorMaterial {
 	}
 	
 	@Override
-	public int getDurability(EquipmentSlotType slot) {
+	public int getDurabilityForSlot(EquipmentSlotType slot) {
 		return durability[slot.getIndex()];
 	}
 	
 	@Override
-	public int getDamageReductionAmount(EquipmentSlotType slot) {
+	public int getDefenseForSlot(EquipmentSlotType slot) {
 		return armorPoints[slot.getIndex()];
 	}
 	
 	@Override
-	public int getEnchantability() {
+	public int getEnchantmentValue() {
 		return enchantability;
 	}
 	
 	@Override
-	public SoundEvent getSoundEvent() {
-		return soundEvent.getValue();
+	public SoundEvent getEquipSound() {
+		return soundEvent.get();
 	}
 	
 	@Override
-	public Ingredient getRepairMaterial() {
-		return repair.getValue();
+	public Ingredient getRepairIngredient() {
+		return repair.get();
 	}
 	
 	@Override

@@ -25,7 +25,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 	public boolean matches(CraftingInventory inventory, World world) {
 		for (int i = 0; i <= inventory.getWidth() - getWidth(); ++i) {
 			for (int j = 0; j <= inventory.getHeight() - getHeight(); ++j) {
-				if (checkMatch(inventory, i, j, false)) {
+				if (matches(inventory, i, j, false)) {
 					return true;
 				}
 			}
@@ -41,38 +41,38 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 	public static class Serializer extends UShapedRecipeSerializer<NoMirrorShapedRecipe> {
 		
 		@Override
-		public NoMirrorShapedRecipe read(ResourceLocation location, JsonObject json) {
-			final String[] pattern = patternFromJson(JSONUtils.getJsonArray(json, "pattern"));
+		public NoMirrorShapedRecipe fromJson(ResourceLocation location, JsonObject json) {
+			final String[] pattern = patternFromJson(JSONUtils.getAsJsonArray(json, "pattern"));
 			final int recipeWidth = pattern[0].length();
 			final int recipeHeight = pattern.length;
-			final String group = JSONUtils.getString(json, "group", "");
-			final NonNullList<Ingredient> ingredients = deserializeIngredients(pattern, deserializeKey(JSONUtils.getJsonObject(json, "key")), recipeWidth, recipeHeight);
-			final ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "result"));
+			final String group = JSONUtils.getAsString(json, "group", "");
+			final NonNullList<Ingredient> ingredients = deserializeIngredients(pattern, deserializeKey(JSONUtils.getAsJsonObject(json, "key")), recipeWidth, recipeHeight);
+			final ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "result"));
 			return new NoMirrorShapedRecipe(location, group, recipeWidth, recipeHeight, ingredients, output);
 		}
 		
 		@Override
-		public NoMirrorShapedRecipe read(ResourceLocation location, PacketBuffer buffer) {
+		public NoMirrorShapedRecipe fromNetwork(ResourceLocation location, PacketBuffer buffer) {
 			final int recipeWidth = buffer.readVarInt();
 			final int recipeHeight = buffer.readVarInt();
-			final String group = buffer.readString(32767);
+			final String group = buffer.readUtf(32767);
 			final NonNullList<Ingredient> ingredients = NonNullList.withSize(recipeWidth * recipeHeight, Ingredient.EMPTY);
 			for (int k = 0; k < ingredients.size(); ++k) {
-				ingredients.set(k, Ingredient.read(buffer));
+				ingredients.set(k, Ingredient.fromNetwork(buffer));
 			}
-			final ItemStack output = buffer.readItemStack();
+			final ItemStack output = buffer.readItem();
 			return new NoMirrorShapedRecipe(location, group, recipeWidth, recipeHeight, ingredients, output);
 		}
 		
 		@Override
-		public void write(PacketBuffer buffer, NoMirrorShapedRecipe recipe) {
+		public void toNetwork(PacketBuffer buffer, NoMirrorShapedRecipe recipe) {
 			buffer.writeVarInt(recipe.getRecipeWidth());
 			buffer.writeVarInt(recipe.getRecipeHeight());
-			buffer.writeString(recipe.getGroup());
+			buffer.writeUtf(recipe.getGroup());
 			for (final Ingredient ingredient : recipe.getIngredients()) {
-				ingredient.write(buffer);
+				ingredient.toNetwork(buffer);
 			}
-			buffer.writeItemStack(recipe.getRecipeOutput());
+			buffer.writeItem(recipe.getResultItem());
 		}
 	}
 }

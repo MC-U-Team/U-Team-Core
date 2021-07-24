@@ -19,11 +19,11 @@ public class ItemProperties extends Properties {
 	public ItemProperties(Properties properties) {
 		maxStackSize = properties.maxStackSize;
 		maxDamage = properties.maxDamage;
-		containerItem = properties.containerItem;
-		group = properties.group;
+		craftingRemainingItem = properties.craftingRemainingItem;
+		category = properties.category;
 		rarity = properties.rarity;
-		food = properties.food;
-		immuneToFire = properties.immuneToFire;
+		foodProperties = properties.foodProperties;
+		isFireResistant = properties.isFireResistant;
 		setValueCanRepair(getValueCanRepair(properties));
 		setValueToolClasses(Maps.newHashMap(getValueToolClasses(properties)));
 		setValueIster(getValueIster(properties));

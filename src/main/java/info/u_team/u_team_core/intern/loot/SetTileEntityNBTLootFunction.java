@@ -21,28 +21,28 @@ public class SetTileEntityNBTLootFunction extends LootFunction {
 	}
 	
 	@Override
-	public ItemStack doApply(ItemStack stack, LootContext context) {
-		if (context.has(LootParameters.BLOCK_ENTITY)) {
+	public ItemStack run(ItemStack stack, LootContext context) {
+		if (context.hasParam(LootParameters.BLOCK_ENTITY)) {
 			final CompoundNBT compound = new CompoundNBT();
-			final TileEntity tileEntity = context.get(LootParameters.BLOCK_ENTITY);
+			final TileEntity tileEntity = context.getParamOrNull(LootParameters.BLOCK_ENTITY);
 			if (tileEntity instanceof UTileEntity) {
 				((UTileEntity) tileEntity).writeNBT(compound);
 			} else {
-				tileEntity.write(compound);
+				tileEntity.save(compound);
 			}
 			if (!compound.isEmpty()) {
-				stack.setTagInfo("BlockEntityTag", compound);
+				stack.addTagElement("BlockEntityTag", compound);
 			}
 		}
 		return stack;
 	}
 	
 	public static LootFunction.Builder<?> builder() {
-		return builder((conditions) -> new SetTileEntityNBTLootFunction(conditions));
+		return simpleBuilder((conditions) -> new SetTileEntityNBTLootFunction(conditions));
 	}
 	
 	@Override
-	public LootFunctionType getFunctionType() {
+	public LootFunctionType getType() {
 		return UCoreLootFunctions.SET_TILEENTITY_NBT;
 	}
 	

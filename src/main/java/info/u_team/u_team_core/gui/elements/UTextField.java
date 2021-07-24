@@ -123,18 +123,18 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	}
 	
 	@Override
-	public void setDisabledTextColour(int color) {
-		super.setDisabledTextColour(color);
+	public void setTextColorUneditable(int color) {
+		super.setTextColorUneditable(color);
 		setDisabledTextColor(RGBA.fromARGB(color));
 	}
 	
 	public void setPreviousText(UTextField textField) {
 		if (textField != null) {
-			text = textField.text;
-			maxStringLength = textField.maxStringLength;
-			lineScrollOffset = textField.lineScrollOffset;
-			cursorPosition = textField.cursorPosition;
-			selectionEnd = textField.selectionEnd;
+			value = textField.value;
+			maxLength = textField.maxLength;
+			displayPos = textField.displayPos;
+			cursorPos = textField.cursorPos;
+			highlightPos = textField.highlightPos;
 		}
 	}
 	
@@ -144,7 +144,7 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	}
 	
 	@Override
-	public void renderWidget(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		renderBackground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 		renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
@@ -152,7 +152,7 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	
 	@Override
 	public void renderBackground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		if (enableBackgroundDrawing) {
+		if (bordered) {
 			fill(matrixStack, x - 1, y - 1, x + width + 1, y + height + 1, getCurrentBackgroundFrameColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 			fill(matrixStack, x, y, x + width, y + height, getCurrentBackgroundColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
@@ -162,23 +162,23 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		final RGBA currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
 		
-		final String currentText = fontRenderer.trimStringToWidth(text.substring(lineScrollOffset), getAdjustedWidth());
+		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
 		
-		final int cursorOffset = cursorPosition - lineScrollOffset;
-		final int selectionOffset = Math.min(selectionEnd - lineScrollOffset, currentText.length());
+		final int cursorOffset = cursorPos - displayPos;
+		final int selectionOffset = Math.min(highlightPos - displayPos, currentText.length());
 		
 		final boolean isCursorInText = cursorOffset >= 0 && cursorOffset <= currentText.length();
-		final boolean shouldCursorBlink = isFocused() && cursorCounter / 6 % 2 == 0 && isCursorInText;
-		final boolean isCursorInTheMiddle = cursorPosition < text.length() || text.length() >= maxStringLength;
+		final boolean shouldCursorBlink = isFocused() && frame / 6 % 2 == 0 && isCursorInText;
+		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 		
-		final int xOffset = enableBackgroundDrawing ? x + 4 : x;
-		final int yOffset = enableBackgroundDrawing ? y + (height - 8) / 2 : y;
+		final int xOffset = bordered ? x + 4 : x;
+		final int yOffset = bordered ? y + (height - 8) / 2 : y;
 		
 		int leftRenderedTextX = xOffset;
 		
 		if (!currentText.isEmpty()) {
 			final String firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
-			leftRenderedTextX = fontRenderer.drawTextWithShadow(matrixStack, textFormatter.apply(firstTextPart, lineScrollOffset), xOffset, yOffset, currentTextColor.getColorARGB());
+			leftRenderedTextX = font.drawShadow(matrixStack, formatter.apply(firstTextPart, displayPos), xOffset, yOffset, currentTextColor.getColorARGB());
 		}
 		
 		int rightRenderedTextX = leftRenderedTextX;
@@ -191,24 +191,24 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 		}
 		
 		if (!currentText.isEmpty() && isCursorInText && cursorOffset < currentText.length()) {
-			fontRenderer.drawTextWithShadow(matrixStack, textFormatter.apply(currentText.substring(cursorOffset), cursorPosition), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
+			font.drawShadow(matrixStack, formatter.apply(currentText.substring(cursorOffset), cursorPos), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
 		}
 		
 		if (!isCursorInTheMiddle && suggestion != null) {
-			fontRenderer.drawStringWithShadow(matrixStack, suggestion, rightRenderedTextX - 1, yOffset, getCurrentSuggestionTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
+			font.drawShadow(matrixStack, suggestion, rightRenderedTextX - 1, yOffset, getCurrentSuggestionTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
 		
 		if (shouldCursorBlink) {
 			if (isCursorInTheMiddle) {
 				AbstractGui.fill(matrixStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, getCurrentCursorColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 			} else {
-				fontRenderer.drawStringWithShadow(matrixStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
+				font.drawShadow(matrixStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
 			}
 		}
 		
 		if (selectionOffset != cursorOffset) {
-			final int selectedX = xOffset + fontRenderer.getStringWidth(currentText.substring(0, selectionOffset));
-			drawSelectionBox(rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
+			final int selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
+			renderHighlight(rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
 		}
 	}
 	
@@ -233,7 +233,7 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	
 	@Override
 	public RGBA getCurrentTextColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		return isEnabled ? textColor : disabledTextColor;
+		return isEditable ? textColor : disabledTextColor;
 	}
 	
 	public RGBA getCurrentSuggestionTextColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {

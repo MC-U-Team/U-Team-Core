@@ -39,7 +39,7 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	}
 	
 	public void updateSettings(int x, int y, int width, int height) {
-		updateSettings(width, minecraft.getMainWindow().getScaledHeight(), y, y + height, x, x + width);
+		updateSettings(width, minecraft.getWindow().getGuiScaledHeight(), y, y + height, x, x + width);
 	}
 	
 	public void updateSettings(int width, int height, int top, int bottom, int left, int right) {
@@ -96,8 +96,8 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	@Override
 	protected void renderList(MatrixStack matrixStack, int rowLeft, int scrollAmount, int mouseX, int mouseY, float partialTicks) {
 		if (shouldUseScissor) {
-			final MainWindow window = minecraft.getMainWindow();
-			final double scaleFactor = window.getGuiScaleFactor();
+			final MainWindow window = minecraft.getWindow();
+			final double scaleFactor = window.getGuiScale();
 			
 			final int nativeX = MathHelper.ceil(x0 * scaleFactor);
 			final int nativeY = MathHelper.ceil(y0 * scaleFactor);
@@ -105,7 +105,7 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 			final int nativeWidth = MathHelper.ceil((x1 - x0) * scaleFactor);
 			final int nativeHeight = MathHelper.ceil((y1 - y0) * scaleFactor);
 			
-			RenderUtil.enableScissor(nativeX, window.getHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
+			RenderUtil.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 			
 			// Uncomment to test scissor
 			// matrixStack.push();
@@ -121,7 +121,7 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 		
 		if (shouldRenderTransparentBorder) {
 			final Tessellator tessellator = Tessellator.getInstance();
-			final BufferBuilder buffer = tessellator.getBuffer();
+			final BufferBuilder buffer = tessellator.getBuilder();
 			
 			RenderUtil.enableBlend();
 			RenderUtil.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ZERO, DestFactor.ONE);
@@ -129,16 +129,16 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 			RenderUtil.disableTexture();
 			
 			buffer.begin(7, DefaultVertexFormats.POSITION_COLOR);
-			buffer.pos(x0, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
-			buffer.pos(x1, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
-			buffer.pos(x1, y0, 0).color(0, 0, 0, 255).endVertex();
-			buffer.pos(x0, y0, 0).color(0, 0, 0, 255).endVertex();
-			buffer.pos(x0, y1, 0).color(0, 0, 0, 255).endVertex();
-			buffer.pos(x1, y1, 0).color(0, 0, 0, 255).endVertex();
-			buffer.pos(x1, y1 - transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
-			buffer.pos(x0, y1 - transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
+			buffer.vertex(x0, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
+			buffer.vertex(x1, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
+			buffer.vertex(x1, y0, 0).color(0, 0, 0, 255).endVertex();
+			buffer.vertex(x0, y0, 0).color(0, 0, 0, 255).endVertex();
+			buffer.vertex(x0, y1, 0).color(0, 0, 0, 255).endVertex();
+			buffer.vertex(x1, y1, 0).color(0, 0, 0, 255).endVertex();
+			buffer.vertex(x1, y1 - transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
+			buffer.vertex(x0, y1 - transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
 			
-			tessellator.draw();
+			tessellator.end();
 			
 			RenderUtil.enableTexture();
 			RenderUtil.disableBlend();

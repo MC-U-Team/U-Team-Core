@@ -66,16 +66,16 @@ public class BufferPropertyContainerMessage {
 		}
 		
 		private static void handleServer(BufferPropertyContainerMessage message, Context context) {
-			getUContainer(context.getSender().openContainer, message.id).ifPresent(container -> container.updateValue(message, LogicalSide.SERVER));
+			getUContainer(context.getSender().containerMenu, message.id).ifPresent(container -> container.updateValue(message, LogicalSide.SERVER));
 		}
 		
 		@OnlyIn(Dist.CLIENT)
 		private static void handleClient(BufferPropertyContainerMessage message) {
-			getUContainer(Minecraft.getInstance().player.openContainer, message.id).ifPresent(container -> container.updateValue(message, LogicalSide.CLIENT));
+			getUContainer(Minecraft.getInstance().player.containerMenu, message.id).ifPresent(container -> container.updateValue(message, LogicalSide.CLIENT));
 		}
 		
 		private static final Optional<UContainer> getUContainer(Container container, int id) {
-			if (container instanceof UContainer && container.windowId == id) {
+			if (container instanceof UContainer && container.containerId == id) {
 				return Optional.of((UContainer) container);
 			}
 			return Optional.empty();

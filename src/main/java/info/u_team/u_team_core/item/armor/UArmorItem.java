@@ -7,6 +7,8 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 
+import net.minecraft.item.Item.Properties;
+
 public class UArmorItem extends ArmorItem {
 	
 	protected final String textureName;
@@ -16,7 +18,7 @@ public class UArmorItem extends ArmorItem {
 	}
 	
 	public UArmorItem(String textureName, ItemGroup group, Properties properties, IArmorMaterial material, EquipmentSlotType slot) {
-		super(material, slot, group == null ? properties : properties.group(group));
+		super(material, slot, group == null ? properties : properties.tab(group));
 		this.textureName = textureName;
 	}
 	

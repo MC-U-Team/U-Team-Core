@@ -28,11 +28,11 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<Block> createBlockTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<Block>> optional = BlockTags.getAllTags().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final Optional<? extends INamedTag<Block>> optional = BlockTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
-			return BlockTags.makeWrapperTag(location.toString());
+			return BlockTags.bind(location.toString());
 		}
 	}
 	
@@ -41,11 +41,11 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<Item> createItemTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<Item>> optional = ItemTags.getAllTags().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final Optional<? extends INamedTag<Item>> optional = ItemTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
-			return ItemTags.makeWrapperTag(location.toString());
+			return ItemTags.bind(location.toString());
 		}
 	}
 	
@@ -54,11 +54,11 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<Fluid> createFluidTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<Fluid>> optional = FluidTags.getAllTags().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final Optional<? extends INamedTag<Fluid>> optional = FluidTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
-			return FluidTags.makeWrapperTag(location.toString());
+			return FluidTags.bind(location.toString());
 		}
 	}
 	
@@ -67,11 +67,11 @@ public class TagUtil {
 	}
 	
 	public static INamedTag<EntityType<?>> createEntityTypeTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<EntityType<?>>> optional = EntityTypeTags.getAllTags().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final Optional<? extends INamedTag<EntityType<?>>> optional = EntityTypeTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
-			return EntityTypeTags.getTagById(location.toString());
+			return EntityTypeTags.bind(location.toString());
 		}
 	}
 	
@@ -84,10 +84,10 @@ public class TagUtil {
 	}
 	
 	public static Ingredient getSerializableIngredientOfTag(ITag<Item> tag) {
-		return Ingredient.fromItemListStream(Stream.of(new TagList(tag) {
+		return Ingredient.fromValues(Stream.of(new TagList(tag) {
 			
 			@Override
-			public Collection<ItemStack> getStacks() {
+			public Collection<ItemStack> getItems() {
 				return Arrays.asList(new ItemStack(Items.ACACIA_BOAT)); // Return default value, so the ingredient will serialize our tag.
 			}
 		}));

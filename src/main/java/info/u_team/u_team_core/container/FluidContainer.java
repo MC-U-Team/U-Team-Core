@@ -59,7 +59,7 @@ public abstract class FluidContainer extends Container {
 	// Called when a client clicks on a fluid slot
 	
 	public void fluidSlotClick(ServerPlayerEntity player, int index, boolean shift, ItemStack clientClickStack) {
-		final ItemStack serverClickStack = player.inventory.getItemStack();
+		final ItemStack serverClickStack = player.inventory.getCarried();
 		
 		// Check if an item is in the hand
 		if (serverClickStack.isEmpty()) {
@@ -67,7 +67,7 @@ public abstract class FluidContainer extends Container {
 		}
 		
 		// Check if the client item is the same as the server item stack
-		if (!ItemStack.areItemStacksEqual(clientClickStack, serverClickStack)) {
+		if (!ItemStack.matches(clientClickStack, serverClickStack)) {
 			return;
 		}
 		
@@ -107,7 +107,7 @@ public abstract class FluidContainer extends Container {
 		
 		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.inventory);
 		
-		final ItemStack stack = player.inventory.getItemStack();
+		final ItemStack stack = player.inventory.getCarried();
 		
 		final LazyOptional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
 		
@@ -143,7 +143,7 @@ public abstract class FluidContainer extends Container {
 				fluidSlot.getStack().grow(drainedFluidStack.getAmount());
 				fluidSlot.onSlotChanged();
 			}
-			player.inventory.setItemStack(outputStack);
+			player.inventory.setCarried(outputStack);
 		} else {
 			if (ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, true).isEmpty()) {
 				if (slotEmpty) {
@@ -155,11 +155,11 @@ public abstract class FluidContainer extends Container {
 				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
 				stack.shrink(1);
 				if (stack.isEmpty()) {
-					player.inventory.setItemStack(ItemStack.EMPTY);
+					player.inventory.setCarried(ItemStack.EMPTY);
 				}
 			}
 		}
-		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
+		player.connection.send(new SSetSlotPacket(-1, -1, player.inventory.getCarried()));
 		return true;
 	}
 	
@@ -168,7 +168,7 @@ public abstract class FluidContainer extends Container {
 		
 		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.inventory);
 		
-		final ItemStack stack = player.inventory.getItemStack();
+		final ItemStack stack = player.inventory.getCarried();
 		
 		final LazyOptional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
 		
@@ -193,7 +193,7 @@ public abstract class FluidContainer extends Container {
 			} else {
 				fluidSlot.onSlotChanged();
 			}
-			player.inventory.setItemStack(outputStack);
+			player.inventory.setCarried(outputStack);
 		} else {
 			if (ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, true).isEmpty()) {
 				fluidSlot.getStack().shrink(amountFilled);
@@ -205,11 +205,11 @@ public abstract class FluidContainer extends Container {
 				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
 				stack.shrink(1);
 				if (stack.isEmpty()) {
-					player.inventory.setItemStack(ItemStack.EMPTY);
+					player.inventory.setCarried(ItemStack.EMPTY);
 				}
 			}
 		}
-		player.connection.sendPacket(new SSetSlotPacket(-1, -1, player.inventory.getItemStack()));
+		player.connection.send(new SSetSlotPacket(-1, -1, player.inventory.getCarried()));
 		return true;
 	}
 	
@@ -228,16 +228,16 @@ public abstract class FluidContainer extends Container {
 	// Send packets for client sync
 	
 	@Override
-	public void addListener(IContainerListener listener) {
-		super.addListener(listener);
+	public void addSlotListener(IContainerListener listener) {
+		super.addSlotListener(listener);
 		if (listener instanceof ServerPlayerEntity) {
-			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) listener), new FluidSetAllContainerMessage(windowId, getFluids()));
+			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) listener), new FluidSetAllContainerMessage(containerId, getFluids()));
 		}
 	}
 	
 	@Override
-	public void detectAndSendChanges() {
-		super.detectAndSendChanges();
+	public void broadcastChanges() {
+		super.broadcastChanges();
 		for (int index = 0; index < fluidSlots.size(); index++) {
 			final FluidStack stackSlot = fluidSlots.get(index).getStack();
 			final FluidStack stackSynced = fluidStacks.get(index);
@@ -245,12 +245,12 @@ public abstract class FluidContainer extends Container {
 				final FluidStack stackNewSynced = stackSlot.copy();
 				fluidStacks.set(index, stackNewSynced);
 				
-				final List<NetworkManager> networkManagers = listeners.stream() //
+				final List<NetworkManager> networkManagers = containerListeners.stream() //
 						.filter(listener -> listener instanceof ServerPlayerEntity) //
-						.map(listener -> ((ServerPlayerEntity) listener).connection.getNetworkManager()) //
+						.map(listener -> ((ServerPlayerEntity) listener).connection.getConnection()) //
 						.collect(Collectors.toList());
 				
-				UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new FluidSetSlotContainerMessage(windowId, index, stackNewSynced));
+				UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new FluidSetSlotContainerMessage(containerId, index, stackNewSynced));
 			}
 		}
 	}
