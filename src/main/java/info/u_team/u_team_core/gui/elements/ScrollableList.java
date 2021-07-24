@@ -9,14 +9,14 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.util.Mth;
 
-public abstract class ScrollableList<T extends AbstractSelectionList.Entry<T>> extends ObjectSelectionList<T> {
+public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> extends ObjectSelectionList<T> {
 	
 	protected int sideDistance;
 	
@@ -128,7 +128,7 @@ public abstract class ScrollableList<T extends AbstractSelectionList.Entry<T>> e
 			RenderUtil.shadeModel(GL11.GL_SMOOTH);
 			RenderUtil.disableTexture();
 			
-			buffer.begin(7, DefaultVertexFormat.POSITION_COLOR);
+			buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 			buffer.vertex(x0, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
 			buffer.vertex(x1, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
 			buffer.vertex(x1, y0, 0).color(0, 0, 0, 255).endVertex();

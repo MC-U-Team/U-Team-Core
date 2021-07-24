@@ -78,7 +78,7 @@ public class CheckboxButton extends UButton {
 	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		
-		minecraft.getTextureManager().bind(TEXTURE);
+		minecraft.getTextureManager().bindForSetup(TEXTURE);
 		
 		RenderUtil.enableBlend();
 		RenderUtil.defaultBlendFunc();

@@ -12,6 +12,7 @@ import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.util.GuiUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -43,7 +44,7 @@ public class EnergyStorageWidget extends AbstractWidget {
 	@Override
 	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
-		minecraft.getTextureManager().bind(ENERGY_TEXTURE);
+		minecraft.getTextureManager().bindForSetup(ENERGY_TEXTURE);
 		
 		double ratio = (double) storage.getAsLong() / capacity.getAsLong();
 		if (ratio > 1) {
@@ -83,5 +84,9 @@ public class EnergyStorageWidget extends AbstractWidget {
 	@Override
 	public void playDownSound(SoundManager handler) {
 		// Don't play click sound
+	}
+
+	@Override
+	public void updateNarration(NarrationElementOutput p_169152_) {
 	}
 }

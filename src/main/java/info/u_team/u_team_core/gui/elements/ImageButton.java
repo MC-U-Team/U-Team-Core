@@ -51,7 +51,7 @@ public class ImageButton extends UButton {
 	
 	@Override
 	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		minecraft.getTextureManager().bind(getCurrentImage());
+		minecraft.getTextureManager().bindForSetup(getCurrentImage());
 		
 		RenderUtil.enableBlend();
 		RenderUtil.defaultBlendFunc();

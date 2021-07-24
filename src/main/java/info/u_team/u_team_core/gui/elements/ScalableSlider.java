@@ -6,9 +6,7 @@ import info.u_team.u_team_core.api.gui.IScaleProvider;
 import info.u_team.u_team_core.api.gui.IScaleable;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.components.Button.OnTooltip;
 import net.minecraft.network.chat.Component;
-import net.minecraftforge.fmlclient.gui.widget.Slider.ISlider;
 
 public class ScalableSlider extends USlider implements IScaleable, IScaleProvider {
 	
