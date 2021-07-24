@@ -22,7 +22,7 @@ public class FluidInventoryRenderer extends GuiComponent {
 		}
 		
 		final TextureAtlasSprite sprite = getFluidSprite(stack);
-		Minecraft.getInstance().getTextureManager().bind(ATLAS);
+		Minecraft.getInstance().getTextureManager().bindForSetup(ATLAS);
 		
 		RenderUtil.enableBlend();
 		RenderUtil.enableAlphaTest();
