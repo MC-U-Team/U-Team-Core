@@ -12,6 +12,7 @@ import info.u_team.u_team_core.api.gui.ITextureProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.Widget;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
@@ -83,12 +84,12 @@ public class WidgetUtil {
 		}
 	}
 	
-	public static void renderTooltips(List<AbstractWidget> widgets, PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public static void renderTooltips(List<Widget> widgets, PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		widgets.forEach(widget -> {
-			if (widget instanceof IPerspectiveRenderable) {
-				((IPerspectiveRenderable) widget).renderToolTip(matrixStack, minecraft, mouseX, mouseY, partialTicks);
-			} else {
-				widget.renderToolTip(matrixStack, mouseX, mouseY);
+			if (widget instanceof IPerspectiveRenderable perspectiveRenderable) {
+				perspectiveRenderable.renderToolTip(matrixStack, minecraft, mouseX, mouseY, partialTicks);
+			} else if (widget instanceof AbstractWidget abstractWidget) {
+				abstractWidget.renderToolTip(matrixStack, mouseX, mouseY);
 			}
 		});
 	}

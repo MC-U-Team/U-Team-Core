@@ -67,14 +67,14 @@ public class UContainerScreen<T extends AbstractContainerMenu> extends FluidCont
 			font.draw(matrixStack, title, titleLabelX, titleLabelY, 4210752);
 		}
 		if (drawInventoryText) {
-			font.draw(matrixStack, inventory.getDisplayName(), inventoryLabelX, inventoryLabelY, 4210752);
+			font.draw(matrixStack, playerInventoryTitle, inventoryLabelX, inventoryLabelY, 4210752);
 		}
 	}
 	
 	@Override
 	protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY) {
 		GuiUtil.clearColor();
-		minecraft.getTextureManager().bind(background);
+		minecraft.getTextureManager().bindForSetup(background);
 		final int xStart = (width - imageWidth) / 2;
 		final int yStart = (height - imageHeight) / 2;
 		
@@ -82,9 +82,8 @@ public class UContainerScreen<T extends AbstractContainerMenu> extends FluidCont
 	}
 	
 	@Override
-	public void tick() {
-		super.tick();
-		children.forEach(listener -> {
+	public void containerTick() {
+		children().forEach(listener -> { // TODO change to direct variable?
 			if (listener instanceof IRenderTickable) {
 				((IRenderTickable) listener).renderTick();
 			}

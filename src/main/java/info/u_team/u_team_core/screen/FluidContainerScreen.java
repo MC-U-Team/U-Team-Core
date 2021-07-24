@@ -70,7 +70,7 @@ public abstract class FluidContainerScreen<T extends AbstractContainerMenu> exte
 	protected void renderTooltip(PoseStack matrixStack, int mouseX, int mouseY) {
 		super.renderTooltip(matrixStack, mouseX, mouseY);
 		
-		if (minecraft.player.inventory.getCarried().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
+		if (menu.getCarried().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
 			renderComponentTooltip(matrixStack, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
 		}
 		
@@ -81,8 +81,8 @@ public abstract class FluidContainerScreen<T extends AbstractContainerMenu> exte
 		if (button == 0) {
 			final FluidSlot fluidSlot = getSelectedFluidSlot(mouseX, mouseY);
 			if (fluidSlot != null) {
-				if (!inventory.getCarried().isEmpty()) {
-					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(menu.containerId, fluidSlot.slotNumber, hasShiftDown(), inventory.getCarried()));
+				if (!menu.getCarried().isEmpty()) {
+					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(menu.containerId, fluidSlot.slotNumber, hasShiftDown(), menu.getCarried()));
 				}
 				return true;
 			}

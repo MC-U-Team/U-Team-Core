@@ -40,7 +40,7 @@ public class UBasicContainerScreen<T extends AbstractContainerMenu> extends UCon
 	
 	@Override
 	public void renderToolTip(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderTooltips(buttons, matrixStack, minecraft, mouseX, mouseY, partialTicks);
+		WidgetUtil.renderTooltips(renderables, matrixStack, minecraft, mouseX, mouseY, partialTicks);
 		renderTooltip(matrixStack, mouseX, mouseY);
 	}
 }

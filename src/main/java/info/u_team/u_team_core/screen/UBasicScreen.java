@@ -32,6 +32,6 @@ public class UBasicScreen extends UScreen implements IPerspectiveRenderable {
 	
 	@Override
 	public void renderToolTip(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderTooltips(buttons, matrixStack, minecraft, mouseX, mouseY, partialTicks);
+		WidgetUtil.renderTooltips(renderables, matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 }

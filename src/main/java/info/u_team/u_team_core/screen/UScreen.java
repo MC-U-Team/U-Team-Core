@@ -12,7 +12,7 @@ public class UScreen extends Screen {
 	
 	@Override
 	public void tick() {
-		children.forEach(listener -> {
+		children().forEach(listener -> { // TODO change to direct variable?
 			if (listener instanceof IRenderTickable) {
 				((IRenderTickable) listener).renderTick();
 			}
