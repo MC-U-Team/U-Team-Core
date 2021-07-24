@@ -140,7 +140,7 @@ task testJar(type: Jar) {
 		reobf.create("testJar");
 		reobfTestJar.dependsOn createMcpToSrg
 		reobfTestJar.setMappings(createMcpToSrg.getOutput())
-		reobfTestJar.setClasspath(reobfTestJar.getClasspath().plus(files(jar)))
+		reobfTestJar.getClasspath().plus(files(jar))
 	}
 	
 	manifest normalManifest
@@ -200,9 +200,9 @@ sourceSets {
 
 dependencies {
 	minecraft getForgeDependency()
-	compileOnly fg.deobf(getJeiApiDependency())
-	runtimeOnly fg.deobf(getJeiDependency())
-	runtimeOnly fg.deobf(getPatchouliDependency())
+	//compileOnly fg.deobf(getJeiApiDependency())
+	//runtimeOnly fg.deobf(getJeiDependency())
+	//runtimeOnly fg.deobf(getPatchouliDependency())
 }
 
 curseforge {
