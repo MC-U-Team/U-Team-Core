@@ -4,6 +4,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
@@ -13,7 +14,6 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.vehicle.AbstractMinecartContainer;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.ClipContext.Block;
@@ -68,8 +68,8 @@ public class WorldUtil {
 	 * @param defaultData Function for creating an instance and for the default instance
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
-	public static <T extends SavedData> T getSaveData(ServerLevel world, String name, Function<String, T> defaultData) {
-		return getSaveData(world, name, () -> defaultData.apply(name));
+	public static <T extends SavedData> T getSaveData(ServerLevel world, Function<CompoundTag, T> load, String name, Function<String, T> defaultData) {
+		return getSaveData(world, name, load, () -> defaultData.apply(name));
 	}
 	
 	/**
@@ -81,8 +81,8 @@ public class WorldUtil {
 	 * @param defaultData Supplier for creating an instance and for the default instance
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
-	public static <T extends SavedData> T getSaveData(ServerLevel world, String name, Supplier<T> defaultData) {
-		return world.getDataStorage().computeIfAbsent(defaultData, name);
+	public static <T extends SavedData> T getSaveData(ServerLevel world, String name, Function<CompoundTag, T> load, Supplier<T> defaultData) {
+		return world.getDataStorage().computeIfAbsent(load, defaultData, name);
 	}
 	
 	/**
@@ -156,7 +156,7 @@ public class WorldUtil {
 	 * @param pos The position the entity should be teleported to
 	 */
 	public static void teleportEntity(Entity entity, ServerLevel world, Vec3 pos) {
-		teleportEntity(entity, world, pos.x(), pos.y(), pos.z(), entity.yRot, entity.xRot);
+		teleportEntity(entity, world, pos.x(), pos.y(), pos.z(), entity.getYRot(), entity.getXRot());
 	}
 	
 	/**
@@ -236,16 +236,14 @@ public class WorldUtil {
 					return;
 				}
 				entity.restoreFrom(entityOld);
-				if (entityOld instanceof AbstractMinecartContainer) {
-					// Prevent duplication
-					((AbstractMinecartContainer) entityOld).dropContentsWhenDead(false);
-				}
-				// Need to remove the old entity (Why the heck does TeleportCommand don't do
-				// this and it works ?????)
-				entityOld.remove(false);
+				// if (entityOld instanceof AbstractMinecartContainer) { // TODO is this still needed?
+				// // Prevent duplication
+				// ((AbstractMinecartContainer) entityOld).dropContentsWhenDead(false);
+				// }
 				entity.moveTo(x, y, z, wrapedYaw, wrapedPitch);
 				entity.setYHeadRot(wrapedYaw);
-				world.addFromAnotherDimension(entity);
+				entityOld.setRemoved(Entity.RemovalReason.CHANGED_DIMENSION);
+				world.addDuringTeleport(entity);
 			}
 		}
 		
