@@ -18,7 +18,7 @@ public class TileEntityTypeDeferredRegister {
 	private final CommonDeferredRegister<BlockEntityType<?>> register;
 	
 	protected TileEntityTypeDeferredRegister(String modid) {
-		register = CommonDeferredRegister.create(ForgeRegistries.TILE_ENTITIES, modid);
+		register = CommonDeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, modid);
 	}
 	
 	public <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String name, Supplier<Builder<T>> supplier) {
