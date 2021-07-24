@@ -1,25 +1,25 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IScaleProvider;
 import info.u_team.u_team_core.api.gui.IScaleable;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.util.Mth;
+import net.minecraft.network.chat.Component;
 
 public class ScalableTextField extends UTextField implements IScaleable, IScaleProvider {
 	
 	protected float scale;
 	
-	public ScalableTextField(FontRenderer fontRenderer, int x, int y, int width, int height, UTextField previousTextField, ITextComponent title, float scale) {
+	public ScalableTextField(Font fontRenderer, int x, int y, int width, int height, UTextField previousTextField, Component title, float scale) {
 		this(fontRenderer, x, y, width, height, previousTextField, title, scale, EMPTY_TOOLTIP);
 	}
 	
-	public ScalableTextField(FontRenderer fontRenderer, int x, int y, int width, int height, UTextField previousTextField, ITextComponent title, float scale, ITooltip tooltip) {
+	public ScalableTextField(Font fontRenderer, int x, int y, int width, int height, UTextField previousTextField, Component title, float scale, ITooltip tooltip) {
 		super(fontRenderer, x, y, width, height, previousTextField, title, tooltip);
 		this.scale = scale;
 	}
@@ -35,7 +35,7 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 	}
 	
 	@Override
-	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		final float currentScale = getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
 		
 		final float positionFactor = 1 / scale;
@@ -83,7 +83,7 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 		
 		if (shouldCursorBlink) {
 			if (isCursorInTheMiddle) {
-				AbstractGui.fill(matrixStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, getCurrentCursorColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
+				GuiComponent.fill(matrixStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, getCurrentCursorColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 			} else {
 				font.drawShadow(matrixStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
 			}
@@ -98,7 +98,7 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 	}
 	
 	@Override
-	public float getCurrentScale(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public float getCurrentScale(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return getCurrentScale(mouseX, mouseY);
 	}
 	
@@ -118,7 +118,7 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 			}
 			
 			if (isFocused() && clicked && button == 0) {
-				int clickOffset = MathHelper.floor(mouseX) - x;
+				int clickOffset = Mth.floor(mouseX) - x;
 				if (bordered) {
 					clickOffset -= 4;
 				}

@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.api.item;
 
 import info.u_team.u_team_core.api.InteractionType;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 public interface IExtendedItemHandler extends IItemHandlerModifiable {

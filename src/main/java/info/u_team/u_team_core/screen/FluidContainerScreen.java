@@ -3,7 +3,7 @@ package info.u_team.u_team_core.screen;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 
 import info.u_team.u_team_core.container.FluidContainer;
@@ -11,16 +11,16 @@ import info.u_team.u_team_core.container.FluidSlot;
 import info.u_team.u_team_core.gui.renderer.FluidInventoryRenderer;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
+import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.ChatFormatting;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public abstract class FluidContainerScreen<T extends Container> extends ContainerScreen<T> {
+public abstract class FluidContainerScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 	
 	private static final FluidInventoryRenderer FLUID_RENDERER = new FluidInventoryRenderer();
 	
@@ -28,7 +28,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	
 	protected FluidSlot hoveredFluidSlot;
 	
-	public FluidContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title) {
+	public FluidContainerScreen(T container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);
 		setFluidRenderer(FLUID_RENDERER);
 	}
@@ -38,7 +38,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	}
 	
 	@Override
-	protected void renderLabels(MatrixStack matrixStack, int mouseX, int mouseY) {
+	protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
 		if (menu instanceof FluidContainer) {
 			hoveredFluidSlot = null;
 			
@@ -67,7 +67,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 	}
 	
 	@Override
-	protected void renderTooltip(MatrixStack matrixStack, int mouseX, int mouseY) {
+	protected void renderTooltip(PoseStack matrixStack, int mouseX, int mouseY) {
 		super.renderTooltip(matrixStack, mouseX, mouseY);
 		
 		if (minecraft.player.inventory.getCarried().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) {
@@ -90,7 +90,7 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		return super.mouseClicked(mouseX, mouseY, button);
 	}
 	
-	protected void drawFluidSlot(MatrixStack matrixStack, FluidSlot fluidSlot) {
+	protected void drawFluidSlot(PoseStack matrixStack, FluidSlot fluidSlot) {
 		fluidRenderer.drawFluid(matrixStack, fluidSlot.getX(), fluidSlot.getY(), fluidSlot.getStack());
 	}
 	
@@ -102,16 +102,16 @@ public abstract class FluidContainerScreen<T extends Container> extends Containe
 		return super.getSlotColor(index);
 	}
 	
-	public List<ITextComponent> getTooltipFromFluid(FluidSlot fluidSlot) {
+	public List<Component> getTooltipFromFluid(FluidSlot fluidSlot) {
 		final FluidStack stack = fluidSlot.getStack();
 		
-		final List<ITextComponent> list = new ArrayList<>();
+		final List<Component> list = new ArrayList<>();
 		
 		list.add(stack.getDisplayName());
-		list.add(new StringTextComponent(stack.getAmount() + " / " + fluidSlot.getSlotCapacity()).withStyle(TextFormatting.GRAY));
+		list.add(new TextComponent(stack.getAmount() + " / " + fluidSlot.getSlotCapacity()).withStyle(ChatFormatting.GRAY));
 		
 		if (minecraft.options.advancedItemTooltips) {
-			list.add((new StringTextComponent(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString())).withStyle(TextFormatting.DARK_GRAY));
+			list.add((new TextComponent(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString())).withStyle(ChatFormatting.DARK_GRAY));
 		}
 		
 		return list;

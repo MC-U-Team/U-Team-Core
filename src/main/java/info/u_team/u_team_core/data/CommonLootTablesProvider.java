@@ -5,24 +5,24 @@ import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.intern.loot.SetTileEntityNBTLootFunction;
-import net.minecraft.advancements.criterion.EnchantmentPredicate;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds;
-import net.minecraft.block.Block;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.loot.ConstantRange;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootParameterSets;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.LootTableManager;
-import net.minecraft.loot.conditions.MatchTool;
-import net.minecraft.loot.conditions.SurvivesExplosion;
-import net.minecraft.loot.functions.ApplyBonus;
-import net.minecraft.loot.functions.ExplosionDecay;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.data.HashCache;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.storage.loot.ConstantIntValue;
+import net.minecraft.world.level.storage.loot.entries.LootItem;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraft.world.level.storage.loot.LootPool;
+import net.minecraft.world.level.storage.loot.LootTable;
+import net.minecraft.world.level.storage.loot.LootTables;
+import net.minecraft.world.level.storage.loot.predicates.MatchTool;
+import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
+import net.minecraft.world.level.storage.loot.functions.ApplyBonusCount;
+import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.resources.ResourceLocation;
 
 public abstract class CommonLootTablesProvider extends CommonProvider {
 	
@@ -31,10 +31,10 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void run(DirectoryCache cache) throws IOException {
+	public void run(HashCache cache) throws IOException {
 		registerLootTables((location, lootTable) -> {
 			try {
-				write(cache, LootTableManager.serialize(lootTable), resolveData(location).resolve("loot_tables").resolve(location.getPath() + ".json"));
+				write(cache, LootTables.serialize(lootTable), resolveData(location).resolve("loot_tables").resolve(location.getPath() + ".json"));
 			} catch (final IOException ex) {
 				LOGGER.error(marker, "Could not write data.", ex);
 			}
@@ -57,38 +57,38 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 		consumer.accept(new ResourceLocation(registryName.getNamespace(), "blocks/" + registryName.getPath()), lootTable);
 	}
 	
-	protected static LootTable addBasicBlockLootTable(IItemProvider item) {
+	protected static LootTable addBasicBlockLootTable(ItemLike item) {
 		return LootTable.lootTable() //
-				.setParamSet(LootParameterSets.BLOCK) //
+				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
-						.setRolls(ConstantRange.exactly(1)) //
-						.add(ItemLootEntry.lootTableItem(item)) //
-						.when(SurvivesExplosion.survivesExplosion())) //
+						.setRolls(ConstantIntValue.exactly(1)) //
+						.add(LootItem.lootTableItem(item)) //
+						.when(ExplosionCondition.survivesExplosion())) //
 				.build();
 	}
 	
-	protected static LootTable addTileEntityBlockLootTable(IItemProvider item) {
+	protected static LootTable addTileEntityBlockLootTable(ItemLike item) {
 		return LootTable.lootTable() //
-				.setParamSet(LootParameterSets.BLOCK) //
+				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
-						.setRolls(ConstantRange.exactly(1)) //
-						.add(ItemLootEntry.lootTableItem(item)) //
+						.setRolls(ConstantIntValue.exactly(1)) //
+						.add(LootItem.lootTableItem(item)) //
 						.apply(SetTileEntityNBTLootFunction.builder()) //
-						.when(SurvivesExplosion.survivesExplosion())) //
+						.when(ExplosionCondition.survivesExplosion())) //
 				.build();
 	}
 	
-	protected static LootTable addFortuneBlockLootTable(Block block, IItemProvider item) {
+	protected static LootTable addFortuneBlockLootTable(Block block, ItemLike item) {
 		return LootTable.lootTable() //
-				.setParamSet(LootParameterSets.BLOCK) //
+				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
-						.setRolls(ConstantRange.exactly(1)) //
-						.add(ItemLootEntry.lootTableItem(block) //
+						.setRolls(ConstantIntValue.exactly(1)) //
+						.add(LootItem.lootTableItem(block) //
 								.when(MatchTool.toolMatches(ItemPredicate.Builder.item() //
-										.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.IntBound.atLeast(1)))) //
-								).otherwise(ItemLootEntry.lootTableItem(item) //
-										.apply(ApplyBonus.addOreBonusCount(Enchantments.BLOCK_FORTUNE)) //
-										.apply(ExplosionDecay.explosionDecay()))))
+										.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))) //
+								).otherwise(LootItem.lootTableItem(item) //
+										.apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)) //
+										.apply(ApplyExplosionDecay.explosionDecay()))))
 				.build();
 	}
 	

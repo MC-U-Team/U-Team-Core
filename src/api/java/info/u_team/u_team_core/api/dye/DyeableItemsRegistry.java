@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import net.minecraft.item.Item;
+import net.minecraft.world.item.Item;
 
 public class DyeableItemsRegistry {
 	

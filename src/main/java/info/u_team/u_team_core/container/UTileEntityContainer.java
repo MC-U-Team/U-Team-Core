@@ -3,18 +3,18 @@ package info.u_team.u_team_core.container;
 import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 
-public abstract class UTileEntityContainer<T extends TileEntity> extends UContainer {
+public abstract class UTileEntityContainer<T extends BlockEntity> extends UContainer {
 	
-	protected final PlayerInventory playerInventory;
+	protected final Inventory playerInventory;
 	protected final T tileEntity;
 	
 	/**
@@ -25,7 +25,7 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	 * @param playerInventory Player inventory
 	 * @param tileEntity Tile entity
 	 */
-	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, T tileEntity) {
+	public UTileEntityContainer(MenuType<?> type, int id, Inventory playerInventory, T tileEntity) {
 		this(type, id, playerInventory, tileEntity, true);
 	}
 	
@@ -38,7 +38,7 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	 * @param tileEntity Tile entity
 	 * @param init If the constructor should call {@link #init(boolean)}
 	 */
-	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, T tileEntity, boolean init) {
+	public UTileEntityContainer(MenuType<?> type, int id, Inventory playerInventory, T tileEntity, boolean init) {
 		super(type, id);
 		this.playerInventory = playerInventory;
 		this.tileEntity = tileEntity;
@@ -57,7 +57,7 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	 * @param buffer Initial data (specified with
 	 *        {@link NetworkHooks#openGui(net.minecraft.entity.player.ServerPlayerEntity, net.minecraft.inventory.container.INamedContainerProvider, java.util.function.Consumer)})
 	 */
-	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer) {
+	public UTileEntityContainer(MenuType<?> type, int id, Inventory playerInventory, FriendlyByteBuf buffer) {
 		this(type, id, playerInventory, buffer, true);
 	}
 	
@@ -72,12 +72,12 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	 *        {@link NetworkHooks#openGui(net.minecraft.entity.player.ServerPlayerEntity, net.minecraft.inventory.container.INamedContainerProvider, java.util.function.Consumer)})
 	 * @param init If the constructor should call {@link #init(boolean)}
 	 */
-	public UTileEntityContainer(ContainerType<?> type, int id, PlayerInventory playerInventory, PacketBuffer buffer, boolean init) {
+	public UTileEntityContainer(MenuType<?> type, int id, Inventory playerInventory, FriendlyByteBuf buffer, boolean init) {
 		super(type, id);
 		this.playerInventory = playerInventory;
 		this.tileEntity = getClientTileEntity(buffer);
 		if (tileEntity instanceof IInitSyncedTileEntity) {
-			((IInitSyncedTileEntity) tileEntity).handleInitialDataBuffer(new PacketBuffer(Unpooled.wrappedBuffer(buffer.readByteArray(32592)))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
+			((IInitSyncedTileEntity) tileEntity).handleInitialDataBuffer(new FriendlyByteBuf(Unpooled.wrappedBuffer(buffer.readByteArray(32592)))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
 		}
 		if (init) {
 			init(false);
@@ -93,8 +93,8 @@ public abstract class UTileEntityContainer<T extends TileEntity> extends UContai
 	 */
 	@SuppressWarnings("unchecked")
 	@OnlyIn(Dist.CLIENT)
-	private T getClientTileEntity(PacketBuffer buffer) {
-		final TileEntity tile = Minecraft.getInstance().level.getBlockEntity(buffer.readBlockPos());
+	private T getClientTileEntity(FriendlyByteBuf buffer) {
+		final BlockEntity tile = Minecraft.getInstance().level.getBlockEntity(buffer.readBlockPos());
 		if (tile == null) {
 			throw new IllegalStateException("The client tile entity must be present.");
 		}

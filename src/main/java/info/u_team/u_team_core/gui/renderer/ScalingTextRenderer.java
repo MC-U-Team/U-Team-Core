@@ -4,18 +4,18 @@ import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.RGBA;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.IRenderable;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.components.Widget;
 
-public class ScalingTextRenderer implements IRenderable {
+public class ScalingTextRenderer implements Widget {
 	
 	protected static final Consumer<ScalingTextRenderer> EMPTY_TEXT_CHANGED = renderer -> {
 	};
 	
-	protected final FontRenderer fontRenderer;
+	protected final Font fontRenderer;
 	
 	protected Supplier<String> textSupplier;
 	
@@ -32,7 +32,7 @@ public class ScalingTextRenderer implements IRenderable {
 	
 	protected Consumer<ScalingTextRenderer> textChanged;
 	
-	public ScalingTextRenderer(FontRenderer fontRenderer, Supplier<String> textSupplier, float x, float y) {
+	public ScalingTextRenderer(Font fontRenderer, Supplier<String> textSupplier, float x, float y) {
 		this.fontRenderer = fontRenderer;
 		this.textSupplier = textSupplier;
 		this.x = x;
@@ -118,13 +118,13 @@ public class ScalingTextRenderer implements IRenderable {
 	}
 	
 	@Override
-	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		// Get new text and set if has changed
 		setText(textSupplier.get());
 		renderFont(matrixStack, fontRenderer, x, y);
 	}
 	
-	protected void renderFont(MatrixStack matrixStack, FontRenderer fontRenderer, float x, float y) {
+	protected void renderFont(PoseStack matrixStack, Font fontRenderer, float x, float y) {
 		matrixStack.pushPose();
 		matrixStack.scale(scale, scale, 0);
 		fontRenderer.drawInternal(text, x * positionFactor, y * positionFactor, color.getColorARGB(), matrixStack.last().pose(), shadow, fontRenderer.isBidirectional());

@@ -11,8 +11,8 @@ import com.google.gson.JsonObject;
 
 import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.TriConsumer;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
@@ -26,7 +26,7 @@ public abstract class CommonGlobalLootModifiersProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void run(DirectoryCache cache) throws IOException {
+	public void run(HashCache cache) throws IOException {
 		final Map<String, Tuple<GlobalLootModifierSerializer<?>, JsonObject>> serializers = new TreeMap<>();
 		
 		registerGlobalLootModifiers((modifier, serializerSupplier, instance) -> {

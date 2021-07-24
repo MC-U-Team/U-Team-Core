@@ -11,27 +11,27 @@ import java.util.stream.Stream;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.TagsProvider;
-import net.minecraft.resources.ResourcePackType;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.ITag.INamedTag;
-import net.minecraft.tags.ITag.ITagEntry;
-import net.minecraft.tags.ITag.ItemEntry;
-import net.minecraft.tags.ITag.OptionalItemEntry;
-import net.minecraft.tags.ITag.OptionalTagEntry;
-import net.minecraft.tags.ITag.Proxy;
-import net.minecraft.tags.ITag.TagEntry;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.server.packs.PackType;
 import net.minecraft.tags.Tag;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.tags.Tag.Named;
+import net.minecraft.tags.Tag.Entry;
+import net.minecraft.tags.Tag.ElementEntry;
+import net.minecraft.tags.Tag.OptionalElementEntry;
+import net.minecraft.tags.Tag.OptionalTagEntry;
+import net.minecraft.tags.Tag.BuilderEntry;
+import net.minecraft.tags.Tag.TagEntry;
+import net.minecraft.tags.SetTag;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.core.Registry;
 import net.minecraftforge.common.data.ExistingFileHelper.IResourceType;
 import net.minecraftforge.common.data.ExistingFileHelper.ResourceType;
 
 public abstract class CommonTagsProvider<T> extends CommonProvider {
 	
 	protected final Registry<T> registry;
-	protected final Map<ResourceLocation, ITag.Builder> tagToBuilder;
+	protected final Map<ResourceLocation, Tag.Builder> tagToBuilder;
 	
 	protected final IResourceType resourceType;
 	
@@ -39,18 +39,18 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		super(data);
 		this.registry = registry;
 		this.tagToBuilder = Maps.newLinkedHashMap();
-		resourceType = new ResourceType(ResourcePackType.SERVER_DATA, ".json", "tags/" + getTagFolder());
+		resourceType = new ResourceType(PackType.SERVER_DATA, ".json", "tags/" + getTagFolder());
 	}
 	
 	protected abstract void registerTags();
 	
 	@Override
-	public void run(DirectoryCache cache) {
+	public void run(HashCache cache) {
 		tagToBuilder.clear();
 		registerTags();
 		
 		tagToBuilder.forEach((location, builder) -> {
-			final List<ITag.Proxy> list = builder.getUnresolvedEntries(id -> tagToBuilder.containsKey(id) ? Tag.empty() : null, id -> registry.getOptional(id).orElse(null)).filter(this::missing).collect(Collectors.toList());
+			final List<Tag.BuilderEntry> list = builder.getUnresolvedEntries(id -> tagToBuilder.containsKey(id) ? SetTag.empty() : null, id -> registry.getOptional(id).orElse(null)).filter(this::missing).collect(Collectors.toList());
 			if (!list.isEmpty()) {
 				throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", location, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
 			}
@@ -64,8 +64,8 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		});
 	}
 	
-	private boolean missing(Proxy proxy) {
-		final ITagEntry entry = proxy.getEntry();
+	private boolean missing(BuilderEntry proxy) {
+		final Entry entry = proxy.getEntry();
 		if (entry instanceof TagEntry) {
 			return !data.getExistingFileHelper().exists(((TagEntry) entry).id, resourceType);
 		}
@@ -78,12 +78,12 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		return resolveData(location).resolve("tags").resolve(getTagFolder()).resolve(location.getPath() + ".json");
 	}
 	
-	protected BetterBuilder<T> getBuilder(ITag.INamedTag<T> tag) {
-		final ITag.Builder tagBuilder = getTagBuilder(tag);
+	protected BetterBuilder<T> getBuilder(Tag.Named<T> tag) {
+		final Tag.Builder tagBuilder = getTagBuilder(tag);
 		return new BetterBuilder<>(tagBuilder, registry, modid);
 	}
 	
-	protected ITag.Builder getTagBuilder(ITag.INamedTag<T> tag) {
+	protected Tag.Builder getTagBuilder(Tag.Named<T> tag) {
 		return tagToBuilder.computeIfAbsent(tag.getName(), location -> {
 			data.getExistingFileHelper().trackGenerated(location, resourceType);
 			return new UniqueBuilder();
@@ -93,11 +93,11 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	public static class BetterBuilder<T> {
 		
 		private final Registry<T> registry;
-		private final TagsProvider.Builder<T> internalBuilder;
+		private final TagsProvider.TagAppender<T> internalBuilder;
 		
-		public BetterBuilder(ITag.Builder builder, Registry<T> registry, String id) {
+		public BetterBuilder(Tag.Builder builder, Registry<T> registry, String id) {
 			this.registry = registry;
-			internalBuilder = new TagsProvider.Builder<T>(builder, registry, id);
+			internalBuilder = new TagsProvider.TagAppender<T>(builder, registry, id);
 		}
 		
 		@SafeVarargs
@@ -107,7 +107,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		}
 		
 		@SafeVarargs
-		public final BetterBuilder<T> add(INamedTag<T>... values) {
+		public final BetterBuilder<T> add(Named<T>... values) {
 			internalBuilder.addTags(values);
 			return this;
 		}
@@ -119,8 +119,8 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		}
 		
 		@SafeVarargs
-		public final BetterBuilder<T> addOptional(INamedTag<T>... values) {
-			Stream.of(values).map(INamedTag::getName).forEach(internalBuilder::addOptionalTag);
+		public final BetterBuilder<T> addOptional(Named<T>... values) {
+			Stream.of(values).map(Named::getName).forEach(internalBuilder::addOptionalTag);
 			return this;
 		}
 		
@@ -129,7 +129,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			return this;
 		}
 		
-		public BetterBuilder<T> add(INamedTag<T> value) {
+		public BetterBuilder<T> add(Named<T> value) {
 			internalBuilder.addTag(value);
 			return this;
 		}
@@ -146,13 +146,13 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		
 	}
 	
-	private static class UniqueBuilder extends ITag.Builder {
+	private static class UniqueBuilder extends Tag.Builder {
 		
 		@Override
-		public ITag.Builder add(Proxy proxyTag) {
+		public Tag.Builder add(BuilderEntry proxyTag) {
 			final ResourceLocation identifier = getIdentifier(proxyTag.getEntry());
 			final boolean duplicate = getEntries() //
-					.map(Proxy::getEntry) //
+					.map(BuilderEntry::getEntry) //
 					.anyMatch(entry -> getIdentifier(entry).equals(identifier));
 			
 			if (!duplicate) {
@@ -161,12 +161,12 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			return this;
 		}
 		
-		private ResourceLocation getIdentifier(ITagEntry entry) {
+		private ResourceLocation getIdentifier(Entry entry) {
 			final ResourceLocation identifier;
-			if (entry instanceof ItemEntry) {
-				identifier = ((ItemEntry) entry).id;
-			} else if (entry instanceof OptionalItemEntry) {
-				identifier = ((OptionalItemEntry) entry).id;
+			if (entry instanceof ElementEntry) {
+				identifier = ((ElementEntry) entry).id;
+			} else if (entry instanceof OptionalElementEntry) {
+				identifier = ((OptionalElementEntry) entry).id;
 			} else if (entry instanceof TagEntry) {
 				identifier = ((TagEntry) entry).id;
 			} else if (entry instanceof OptionalTagEntry) {

@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.data;
 
-import net.minecraft.fluid.Fluid;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.core.Registry;
 
 public abstract class CommonFluidTagsProvider extends CommonTagsProvider<Fluid> {
 	

@@ -1,13 +1,13 @@
 package info.u_team.u_team_core.tileentity;
 
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 
-public abstract class UTickableTileEntity extends UTileEntity implements ITickableTileEntity {
+public abstract class UTickableTileEntity extends UTileEntity implements TickableBlockEntity {
 	
 	private boolean first;
 	
-	public UTickableTileEntity(TileEntityType<?> type) {
+	public UTickableTileEntity(BlockEntityType<?> type) {
 		super(type);
 	}
 	

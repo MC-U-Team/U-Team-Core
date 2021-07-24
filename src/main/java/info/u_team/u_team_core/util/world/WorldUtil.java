@@ -3,26 +3,26 @@ package info.u_team.u_team_core.util.world;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.item.minecart.ContainerMinecartEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.vehicle.AbstractMinecartContainer;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.RayTraceContext;
-import net.minecraft.util.math.RayTraceContext.BlockMode;
-import net.minecraft.util.math.RayTraceContext.FluidMode;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.util.Mth;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.ClipContext.Block;
+import net.minecraft.world.level.ClipContext.Fluid;
+import net.minecraft.world.phys.HitResult;
+import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.DimensionType;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.server.TicketType;
-import net.minecraft.world.storage.WorldSavedData;
+import net.minecraft.world.level.Level;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.TicketType;
+import net.minecraft.world.level.saveddata.SavedData;
 
 /**
  * Some utility methods for world interaction.
@@ -39,8 +39,8 @@ public class WorldUtil {
 	 * @param range Range in blocks
 	 * @return Raytrace result with information about the trace
 	 */
-	public static RayTraceResult rayTraceServerSide(Entity entity, double range) {
-		return rayTraceServerSide(entity, range, BlockMode.OUTLINE, FluidMode.NONE);
+	public static HitResult rayTraceServerSide(Entity entity, double range) {
+		return rayTraceServerSide(entity, range, Block.OUTLINE, Fluid.NONE);
 	}
 	
 	/**
@@ -52,11 +52,11 @@ public class WorldUtil {
 	 * @param fluidMode Mode for fluid collisions
 	 * @return Raytrace result with information about the trace
 	 */
-	public static RayTraceResult rayTraceServerSide(Entity entity, double range, BlockMode blockMode, FluidMode fluidMode) {
-		final Vector3d playerVector = entity.position().add(0, entity.getEyeHeight(), 0);
-		final Vector3d lookVector = entity.getLookAngle();
-		final Vector3d locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
-		return entity.level.clip(new RayTraceContext(playerVector, locationVector, blockMode, fluidMode, entity));
+	public static HitResult rayTraceServerSide(Entity entity, double range, Block blockMode, Fluid fluidMode) {
+		final Vec3 playerVector = entity.position().add(0, entity.getEyeHeight(), 0);
+		final Vec3 lookVector = entity.getLookAngle();
+		final Vec3 locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
+		return entity.level.clip(new ClipContext(playerVector, locationVector, blockMode, fluidMode, entity));
 	}
 	
 	/**
@@ -68,7 +68,7 @@ public class WorldUtil {
 	 * @param defaultData Function for creating an instance and for the default instance
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
-	public static <T extends WorldSavedData> T getSaveData(ServerWorld world, String name, Function<String, T> defaultData) {
+	public static <T extends SavedData> T getSaveData(ServerLevel world, String name, Function<String, T> defaultData) {
 		return getSaveData(world, name, () -> defaultData.apply(name));
 	}
 	
@@ -81,7 +81,7 @@ public class WorldUtil {
 	 * @param defaultData Supplier for creating an instance and for the default instance
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
-	public static <T extends WorldSavedData> T getSaveData(ServerWorld world, String name, Supplier<T> defaultData) {
+	public static <T extends SavedData> T getSaveData(ServerLevel world, String name, Supplier<T> defaultData) {
 		return world.getDataStorage().computeIfAbsent(defaultData, name);
 	}
 	
@@ -92,7 +92,7 @@ public class WorldUtil {
 	 * @param type The dimension type
 	 * @return The server world for the given type
 	 */
-	public static ServerWorld getServerWorld(Entity entity, RegistryKey<World> type) {
+	public static ServerLevel getServerWorld(Entity entity, ResourceKey<Level> type) {
 		return getServerWorld(entity.getServer(), type);
 	}
 	
@@ -103,7 +103,7 @@ public class WorldUtil {
 	 * @param type The dimension type
 	 * @return The server world for the given type
 	 */
-	public static ServerWorld getServerWorld(MinecraftServer server, RegistryKey<World> type) {
+	public static ServerLevel getServerWorld(MinecraftServer server, ResourceKey<Level> type) {
 		return server.getLevel(type);
 	}
 	
@@ -116,8 +116,8 @@ public class WorldUtil {
 	 *        or a different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, RegistryKey<World> type, BlockPos pos) {
-		teleportEntity(entity, type, Vector3d.atCenterOf(pos));
+	public static void teleportEntity(Entity entity, ResourceKey<Level> type, BlockPos pos) {
+		teleportEntity(entity, type, Vec3.atCenterOf(pos));
 	}
 	
 	/**
@@ -129,7 +129,7 @@ public class WorldUtil {
 	 *        or a different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, RegistryKey<World> type, Vector3d pos) {
+	public static void teleportEntity(Entity entity, ResourceKey<Level> type, Vec3 pos) {
 		teleportEntity(entity, getServerWorld(entity, type), pos);
 	}
 	
@@ -142,8 +142,8 @@ public class WorldUtil {
 	 *        different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, ServerWorld world, BlockPos pos) {
-		teleportEntity(entity, world, Vector3d.atCenterOf(pos));
+	public static void teleportEntity(Entity entity, ServerLevel world, BlockPos pos) {
+		teleportEntity(entity, world, Vec3.atCenterOf(pos));
 	}
 	
 	/**
@@ -155,7 +155,7 @@ public class WorldUtil {
 	 *        different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, ServerWorld world, Vector3d pos) {
+	public static void teleportEntity(Entity entity, ServerLevel world, Vec3 pos) {
 		teleportEntity(entity, world, pos.x(), pos.y(), pos.z(), entity.yRot, entity.xRot);
 	}
 	
@@ -171,7 +171,7 @@ public class WorldUtil {
 	 * @param yaw Yaw
 	 * @param pitch Pitch
 	 */
-	public static void teleportEntity(Entity entity, RegistryKey<World> type, double x, double y, double z, float yaw, float pitch) {
+	public static void teleportEntity(Entity entity, ResourceKey<Level> type, double x, double y, double z, float yaw, float pitch) {
 		teleportEntity(entity, getServerWorld(entity, type), x, y, z, yaw, pitch);
 	}
 	
@@ -187,7 +187,7 @@ public class WorldUtil {
 	 * @param yaw Yaw
 	 * @param pitch Pitch
 	 */
-	public static void teleportEntity(Entity entity, ServerWorld world, double x, double y, double z, float yaw, float pitch) {
+	public static void teleportEntity(Entity entity, ServerLevel world, double x, double y, double z, float yaw, float pitch) {
 		teleportEntity(entity, world, x, y, z, yaw, pitch, true);
 	}
 	
@@ -204,9 +204,9 @@ public class WorldUtil {
 	 * @param pitch Pitch
 	 * @param detach Detach the entity
 	 */
-	public static void teleportEntity(Entity entity, ServerWorld world, double x, double y, double z, float yaw, float pitch, boolean detach) {
-		if (entity instanceof ServerPlayerEntity) {
-			final ServerPlayerEntity player = (ServerPlayerEntity) entity;
+	public static void teleportEntity(Entity entity, ServerLevel world, double x, double y, double z, float yaw, float pitch, boolean detach) {
+		if (entity instanceof ServerPlayer) {
+			final ServerPlayer player = (ServerPlayer) entity;
 			world.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getId());
 			if (detach) {
 				player.stopRiding();
@@ -221,8 +221,8 @@ public class WorldUtil {
 			}
 			entity.setYHeadRot(yaw);
 		} else {
-			final float wrapedYaw = MathHelper.wrapDegrees(yaw);
-			final float wrapedPitch = MathHelper.clamp(MathHelper.wrapDegrees(pitch), -90.0F, 90.0F);
+			final float wrapedYaw = Mth.wrapDegrees(yaw);
+			final float wrapedPitch = Mth.clamp(Mth.wrapDegrees(pitch), -90.0F, 90.0F);
 			if (world == entity.level) {
 				entity.moveTo(x, y, z, wrapedYaw, wrapedPitch);
 				entity.setYHeadRot(wrapedYaw);
@@ -236,9 +236,9 @@ public class WorldUtil {
 					return;
 				}
 				entity.restoreFrom(entityOld);
-				if (entityOld instanceof ContainerMinecartEntity) {
+				if (entityOld instanceof AbstractMinecartContainer) {
 					// Prevent duplication
-					((ContainerMinecartEntity) entityOld).dropContentsWhenDead(false);
+					((AbstractMinecartContainer) entityOld).dropContentsWhenDead(false);
 				}
 				// Need to remove the old entity (Why the heck does TeleportCommand don't do
 				// this and it works ?????)
@@ -254,8 +254,8 @@ public class WorldUtil {
 			entity.setOnGround(true);
 		}
 		
-		if (entity instanceof CreatureEntity) {
-			((CreatureEntity) entity).getNavigation().stop();
+		if (entity instanceof PathfinderMob) {
+			((PathfinderMob) entity).getNavigation().stop();
 		}
 	}
 }

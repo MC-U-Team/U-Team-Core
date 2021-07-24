@@ -1,11 +1,11 @@
 package info.u_team.u_team_core.inventory;
 
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.RecipeItemHelper;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.entity.player.StackedContents;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public class CraftingRecipeWrapper extends CraftingInventory {
+public class CraftingRecipeWrapper extends CraftingContainer {
 	
 	protected final IItemHandlerModifiable inventory;
 	
@@ -68,7 +68,7 @@ public class CraftingRecipeWrapper extends CraftingInventory {
 	}
 	
 	@Override
-	public void fillStackedContents(RecipeItemHelper helper) {
+	public void fillStackedContents(StackedContents helper) {
 		for (int index = 0; index < inventory.getSlots(); index++) {
 			final ItemStack stack = inventory.getStackInSlot(index);
 			helper.accountSimpleStack(stack);

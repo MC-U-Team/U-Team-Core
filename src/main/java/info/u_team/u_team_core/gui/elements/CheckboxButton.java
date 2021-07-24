@@ -1,17 +1,17 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.GuiUtil;
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 
-import net.minecraft.client.gui.widget.button.Button.IPressable;
-import net.minecraft.client.gui.widget.button.Button.ITooltip;
+import net.minecraft.client.gui.components.Button.OnPress;
+import net.minecraft.client.gui.components.Button.OnTooltip;
 
 public class CheckboxButton extends UButton {
 	
@@ -23,19 +23,19 @@ public class CheckboxButton extends UButton {
 	protected boolean leftSideText;
 	protected boolean dropShadow;
 	
-	public CheckboxButton(int x, int y, int width, int height, ITextComponent text, boolean checked, boolean drawText) {
+	public CheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText) {
 		this(x, y, width, height, text, checked, drawText, EMTPY_PRESSABLE);
 	}
 	
-	public CheckboxButton(int x, int y, int width, int height, ITextComponent text, boolean checked, boolean drawText, IPressable pessable) {
+	public CheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, OnPress pessable) {
 		this(x, y, width, height, text, checked, drawText, pessable, EMPTY_TOOLTIP);
 	}
 	
-	public CheckboxButton(int x, int y, int width, int height, ITextComponent text, boolean checked, boolean drawText, ITooltip tooltip) {
+	public CheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, OnTooltip tooltip) {
 		this(x, y, width, height, text, checked, drawText, EMTPY_PRESSABLE, tooltip);
 	}
 	
-	public CheckboxButton(int x, int y, int width, int height, ITextComponent text, boolean checked, boolean drawText, IPressable pessable, ITooltip tooltip) {
+	public CheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, OnPress pessable, OnTooltip tooltip) {
 		super(x, y, width, height, text, pessable, tooltip);
 		this.checked = checked;
 		this.drawText = drawText;
@@ -78,7 +78,7 @@ public class CheckboxButton extends UButton {
 	}
 	
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		
 		minecraft.getTextureManager().bind(TEXTURE);
@@ -93,12 +93,12 @@ public class CheckboxButton extends UButton {
 	}
 	
 	@Override
-	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			final FontRenderer fontRenderer = minecraft.font;
+			final Font fontRenderer = minecraft.font;
 			
-			final ITextComponent message = getCurrentText();
-			if (message != StringTextComponent.EMPTY) {
+			final Component message = getCurrentText();
+			if (message != TextComponent.EMPTY) {
 				final float xStart;
 				final float yStart = y + (height - 8) / 2;
 				

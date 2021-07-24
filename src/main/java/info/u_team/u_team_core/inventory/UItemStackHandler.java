@@ -1,8 +1,8 @@
 package info.u_team.u_team_core.inventory;
 
 import info.u_team.u_team_core.api.item.IExtendedItemHandler;
-import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.ContainerHelper;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class UItemStackHandler extends ItemStackHandler implements IExtendedItemHandler {
@@ -17,15 +17,15 @@ public class UItemStackHandler extends ItemStackHandler implements IExtendedItem
 	}
 	
 	@Override
-	public CompoundNBT serializeNBT() {
-		final CompoundNBT compound = new CompoundNBT();
-		ItemStackHelper.saveAllItems(compound, stacks, false);
+	public CompoundTag serializeNBT() {
+		final CompoundTag compound = new CompoundTag();
+		ContainerHelper.saveAllItems(compound, stacks, false);
 		return compound;
 	}
 	
 	@Override
-	public void deserializeNBT(CompoundNBT compound) {
-		ItemStackHelper.loadAllItems(compound, stacks);
+	public void deserializeNBT(CompoundTag compound) {
+		ContainerHelper.loadAllItems(compound, stacks);
 		onLoad();
 	}
 	

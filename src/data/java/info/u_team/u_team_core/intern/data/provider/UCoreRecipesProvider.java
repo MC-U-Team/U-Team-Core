@@ -6,8 +6,8 @@ import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.data.CommonRecipesProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
-import net.minecraft.data.CustomRecipeBuilder;
-import net.minecraft.data.IFinishedRecipe;
+import net.minecraft.data.recipes.SpecialRecipeBuilder;
+import net.minecraft.data.recipes.FinishedRecipe;
 
 public class UCoreRecipesProvider extends CommonRecipesProvider {
 	
@@ -16,8 +16,8 @@ public class UCoreRecipesProvider extends CommonRecipesProvider {
 	}
 	
 	@Override
-	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
-		CustomRecipeBuilder.special(UCoreRecipeSerializers.CRAFTING_SPECIAL_ITEMDYE.get()).save(consumer, UCoreMod.MODID + ":custom_dyeable_item");
+	protected void registerRecipes(Consumer<FinishedRecipe> consumer) {
+		SpecialRecipeBuilder.special(UCoreRecipeSerializers.CRAFTING_SPECIAL_ITEMDYE.get()).save(consumer, UCoreMod.MODID + ":custom_dyeable_item");
 	}
 	
 }

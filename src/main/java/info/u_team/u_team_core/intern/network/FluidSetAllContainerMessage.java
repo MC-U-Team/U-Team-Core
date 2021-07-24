@@ -6,9 +6,9 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.container.FluidContainer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.NonNullList;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.NonNullList;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
 
@@ -22,7 +22,7 @@ public class FluidSetAllContainerMessage {
 		this.stacks = stacks;
 	}
 	
-	public static void encode(FluidSetAllContainerMessage message, PacketBuffer sendBuffer) {
+	public static void encode(FluidSetAllContainerMessage message, FriendlyByteBuf sendBuffer) {
 		sendBuffer.writeByte(message.id);
 		sendBuffer.writeShort(message.stacks.size());
 		for (final FluidStack stack : message.stacks) {
@@ -30,7 +30,7 @@ public class FluidSetAllContainerMessage {
 		}
 	}
 	
-	public static FluidSetAllContainerMessage decode(PacketBuffer sendBuffer) {
+	public static FluidSetAllContainerMessage decode(FriendlyByteBuf sendBuffer) {
 		final int id = sendBuffer.readByte();
 		final int size = sendBuffer.readShort();
 		final List<FluidStack> stacks = NonNullList.withSize(size, FluidStack.EMPTY);
@@ -50,7 +50,7 @@ public class FluidSetAllContainerMessage {
 			context.setPacketHandled(true);
 		}
 		
-		private static final Optional<FluidContainer> getFluidContainer(Container container, int id) {
+		private static final Optional<FluidContainer> getFluidContainer(AbstractContainerMenu container, int id) {
 			if (container instanceof FluidContainer && container.containerId == id) {
 				return Optional.of((FluidContainer) container);
 			}

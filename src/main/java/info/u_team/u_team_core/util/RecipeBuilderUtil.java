@@ -2,14 +2,14 @@ package info.u_team.u_team_core.util;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.resources.ResourceLocation;
 
 public class RecipeBuilderUtil {
 	
-	public static IFinishedRecipe getRecipeWithSerializer(IFinishedRecipe recipe, IRecipeSerializer<?> serializer) {
-		return new IFinishedRecipe() {
+	public static FinishedRecipe getRecipeWithSerializer(FinishedRecipe recipe, RecipeSerializer<?> serializer) {
+		return new FinishedRecipe() {
 			
 			@Override
 			public void serializeRecipeData(JsonObject json) {
@@ -17,7 +17,7 @@ public class RecipeBuilderUtil {
 			}
 			
 			@Override
-			public IRecipeSerializer<?> getType() {
+			public RecipeSerializer<?> getType() {
 				return serializer;
 			}
 			

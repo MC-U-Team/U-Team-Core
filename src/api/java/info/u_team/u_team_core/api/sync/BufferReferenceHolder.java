@@ -10,33 +10,33 @@ import java.util.function.Supplier;
 
 import io.netty.buffer.Unpooled;
 import it.unimi.dsi.fastutil.booleans.BooleanConsumer;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 
 public abstract class BufferReferenceHolder {
 	
-	private PacketBuffer lastKnownValue;
+	private FriendlyByteBuf lastKnownValue;
 	
-	public abstract PacketBuffer get();
+	public abstract FriendlyByteBuf get();
 	
-	public abstract void set(PacketBuffer buffer);
+	public abstract void set(FriendlyByteBuf buffer);
 	
 	public boolean isDirty() {
-		final PacketBuffer buffer = get();
+		final FriendlyByteBuf buffer = get();
 		final boolean dirty = !buffer.equals(lastKnownValue);
 		lastKnownValue = buffer;
 		return dirty;
 	}
 	
-	public static final BufferReferenceHolder createHolder(Supplier<PacketBuffer> get, Consumer<PacketBuffer> set) {
+	public static final BufferReferenceHolder createHolder(Supplier<FriendlyByteBuf> get, Consumer<FriendlyByteBuf> set) {
 		return new BufferReferenceHolder() {
 			
 			@Override
-			public PacketBuffer get() {
+			public FriendlyByteBuf get() {
 				return get.get();
 			}
 			
 			@Override
-			public void set(PacketBuffer buffer) {
+			public void set(FriendlyByteBuf buffer) {
 				set.accept(buffer);
 			}
 		};
@@ -46,12 +46,12 @@ public abstract class BufferReferenceHolder {
 		return new BufferReferenceHolder() {
 			
 			@Override
-			public PacketBuffer get() {
-				return new PacketBuffer(Unpooled.copyInt(get.getAsInt()));
+			public FriendlyByteBuf get() {
+				return new FriendlyByteBuf(Unpooled.copyInt(get.getAsInt()));
 			}
 			
 			@Override
-			public void set(PacketBuffer buffer) {
+			public void set(FriendlyByteBuf buffer) {
 				set.accept(buffer.readInt());
 			}
 		};
@@ -61,12 +61,12 @@ public abstract class BufferReferenceHolder {
 		return new BufferReferenceHolder() {
 			
 			@Override
-			public PacketBuffer get() {
-				return new PacketBuffer(Unpooled.buffer(1).writeByte(get.get()));
+			public FriendlyByteBuf get() {
+				return new FriendlyByteBuf(Unpooled.buffer(1).writeByte(get.get()));
 			}
 			
 			@Override
-			public void set(PacketBuffer buffer) {
+			public void set(FriendlyByteBuf buffer) {
 				set.accept(buffer.readByte());
 			}
 		};
@@ -76,12 +76,12 @@ public abstract class BufferReferenceHolder {
 		return new BufferReferenceHolder() {
 			
 			@Override
-			public PacketBuffer get() {
-				return new PacketBuffer(Unpooled.copyShort(get.get()));
+			public FriendlyByteBuf get() {
+				return new FriendlyByteBuf(Unpooled.copyShort(get.get()));
 			}
 			
 			@Override
-			public void set(PacketBuffer buffer) {
+			public void set(FriendlyByteBuf buffer) {
 				set.accept(buffer.readShort());
 			}
 		};
@@ -91,12 +91,12 @@ public abstract class BufferReferenceHolder {
 		return new BufferReferenceHolder() {
 			
 			@Override
-			public PacketBuffer get() {
-				return new PacketBuffer(Unpooled.copyLong(get.getAsLong()));
+			public FriendlyByteBuf get() {
+				return new FriendlyByteBuf(Unpooled.copyLong(get.getAsLong()));
 			}
 			
 			@Override
-			public void set(PacketBuffer buffer) {
+			public void set(FriendlyByteBuf buffer) {
 				set.accept(buffer.readLong());
 			}
 		};
@@ -106,12 +106,12 @@ public abstract class BufferReferenceHolder {
 		return new BufferReferenceHolder() {
 			
 			@Override
-			public PacketBuffer get() {
-				return new PacketBuffer(Unpooled.copyFloat(get.get()));
+			public FriendlyByteBuf get() {
+				return new FriendlyByteBuf(Unpooled.copyFloat(get.get()));
 			}
 			
 			@Override
-			public void set(PacketBuffer buffer) {
+			public void set(FriendlyByteBuf buffer) {
 				set.accept(buffer.readFloat());
 			}
 		};
@@ -121,12 +121,12 @@ public abstract class BufferReferenceHolder {
 		return new BufferReferenceHolder() {
 			
 			@Override
-			public PacketBuffer get() {
-				return new PacketBuffer(Unpooled.copyDouble(get.get()));
+			public FriendlyByteBuf get() {
+				return new FriendlyByteBuf(Unpooled.copyDouble(get.get()));
 			}
 			
 			@Override
-			public void set(PacketBuffer buffer) {
+			public void set(FriendlyByteBuf buffer) {
 				set.accept(buffer.readDouble());
 			}
 		};
@@ -136,12 +136,12 @@ public abstract class BufferReferenceHolder {
 		return new BufferReferenceHolder() {
 			
 			@Override
-			public PacketBuffer get() {
-				return new PacketBuffer(Unpooled.copyBoolean(get.getAsBoolean()));
+			public FriendlyByteBuf get() {
+				return new FriendlyByteBuf(Unpooled.copyBoolean(get.getAsBoolean()));
 			}
 			
 			@Override
-			public void set(PacketBuffer buffer) {
+			public void set(FriendlyByteBuf buffer) {
 				set.accept(buffer.readBoolean());
 			}
 		};

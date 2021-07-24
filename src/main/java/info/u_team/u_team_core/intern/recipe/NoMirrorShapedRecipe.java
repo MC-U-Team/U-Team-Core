@@ -4,16 +4,16 @@ import com.google.gson.JsonObject;
 
 import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
 import info.u_team.u_team_core.recipeserializer.UShapedRecipeSerializer;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.ShapedRecipe;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.core.NonNullList;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
 public class NoMirrorShapedRecipe extends ShapedRecipe {
 	
@@ -22,7 +22,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 	}
 	
 	@Override
-	public boolean matches(CraftingInventory inventory, World world) {
+	public boolean matches(CraftingContainer inventory, Level world) {
 		for (int i = 0; i <= inventory.getWidth() - getWidth(); ++i) {
 			for (int j = 0; j <= inventory.getHeight() - getHeight(); ++j) {
 				if (matches(inventory, i, j, false)) {
@@ -34,7 +34,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 	}
 	
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return UCoreRecipeSerializers.NO_MIRROR_SHAPED.get();
 	}
 	
@@ -42,17 +42,17 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 		
 		@Override
 		public NoMirrorShapedRecipe fromJson(ResourceLocation location, JsonObject json) {
-			final String[] pattern = patternFromJson(JSONUtils.getAsJsonArray(json, "pattern"));
+			final String[] pattern = patternFromJson(GsonHelper.getAsJsonArray(json, "pattern"));
 			final int recipeWidth = pattern[0].length();
 			final int recipeHeight = pattern.length;
-			final String group = JSONUtils.getAsString(json, "group", "");
-			final NonNullList<Ingredient> ingredients = deserializeIngredients(pattern, deserializeKey(JSONUtils.getAsJsonObject(json, "key")), recipeWidth, recipeHeight);
-			final ItemStack output = ShapedRecipe.itemFromJson(JSONUtils.getAsJsonObject(json, "result"));
+			final String group = GsonHelper.getAsString(json, "group", "");
+			final NonNullList<Ingredient> ingredients = deserializeIngredients(pattern, deserializeKey(GsonHelper.getAsJsonObject(json, "key")), recipeWidth, recipeHeight);
+			final ItemStack output = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "result"));
 			return new NoMirrorShapedRecipe(location, group, recipeWidth, recipeHeight, ingredients, output);
 		}
 		
 		@Override
-		public NoMirrorShapedRecipe fromNetwork(ResourceLocation location, PacketBuffer buffer) {
+		public NoMirrorShapedRecipe fromNetwork(ResourceLocation location, FriendlyByteBuf buffer) {
 			final int recipeWidth = buffer.readVarInt();
 			final int recipeHeight = buffer.readVarInt();
 			final String group = buffer.readUtf(32767);
@@ -65,7 +65,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 		}
 		
 		@Override
-		public void toNetwork(PacketBuffer buffer, NoMirrorShapedRecipe recipe) {
+		public void toNetwork(FriendlyByteBuf buffer, NoMirrorShapedRecipe recipe) {
 			buffer.writeVarInt(recipe.getRecipeWidth());
 			buffer.writeVarInt(recipe.getRecipeHeight());
 			buffer.writeUtf(recipe.getGroup());

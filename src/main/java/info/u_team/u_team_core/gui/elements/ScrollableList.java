@@ -2,21 +2,21 @@ package info.u_team.u_team_core.gui.elements;
 
 import org.lwjgl.opengl.GL11;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 
 import info.u_team.u_team_core.util.RenderUtil;
-import net.minecraft.client.MainWindow;
+import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.list.AbstractList;
-import net.minecraft.client.gui.widget.list.ExtendedList;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.gui.components.AbstractSelectionList;
+import net.minecraft.client.gui.components.ObjectSelectionList;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import net.minecraft.util.Mth;
 
-public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>> extends ExtendedList<T> {
+public abstract class ScrollableList<T extends AbstractSelectionList.Entry<T>> extends ObjectSelectionList<T> {
 	
 	protected int sideDistance;
 	
@@ -94,16 +94,16 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 	}
 	
 	@Override
-	protected void renderList(MatrixStack matrixStack, int rowLeft, int scrollAmount, int mouseX, int mouseY, float partialTicks) {
+	protected void renderList(PoseStack matrixStack, int rowLeft, int scrollAmount, int mouseX, int mouseY, float partialTicks) {
 		if (shouldUseScissor) {
-			final MainWindow window = minecraft.getWindow();
+			final Window window = minecraft.getWindow();
 			final double scaleFactor = window.getGuiScale();
 			
-			final int nativeX = MathHelper.ceil(x0 * scaleFactor);
-			final int nativeY = MathHelper.ceil(y0 * scaleFactor);
+			final int nativeX = Mth.ceil(x0 * scaleFactor);
+			final int nativeY = Mth.ceil(y0 * scaleFactor);
 			
-			final int nativeWidth = MathHelper.ceil((x1 - x0) * scaleFactor);
-			final int nativeHeight = MathHelper.ceil((y1 - y0) * scaleFactor);
+			final int nativeWidth = Mth.ceil((x1 - x0) * scaleFactor);
+			final int nativeHeight = Mth.ceil((y1 - y0) * scaleFactor);
 			
 			RenderUtil.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 			
@@ -120,7 +120,7 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 		}
 		
 		if (shouldRenderTransparentBorder) {
-			final Tessellator tessellator = Tessellator.getInstance();
+			final Tesselator tessellator = Tesselator.getInstance();
 			final BufferBuilder buffer = tessellator.getBuilder();
 			
 			RenderUtil.enableBlend();
@@ -128,7 +128,7 @@ public abstract class ScrollableList<T extends AbstractList.AbstractListEntry<T>
 			RenderUtil.shadeModel(GL11.GL_SMOOTH);
 			RenderUtil.disableTexture();
 			
-			buffer.begin(7, DefaultVertexFormats.POSITION_COLOR);
+			buffer.begin(7, DefaultVertexFormat.POSITION_COLOR);
 			buffer.vertex(x0, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
 			buffer.vertex(x1, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
 			buffer.vertex(x1, y0, 0).color(0, 0, 0, 255).endVertex();

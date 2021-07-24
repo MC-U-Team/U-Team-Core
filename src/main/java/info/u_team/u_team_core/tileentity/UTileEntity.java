@@ -1,11 +1,11 @@
 package info.u_team.u_team_core.tileentity;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.World;
 
 /**
@@ -13,21 +13,21 @@ import net.minecraft.world.World;
  * 
  * @author HyCraftHD
  */
-public abstract class UTileEntity extends TileEntity {
+public abstract class UTileEntity extends BlockEntity {
 	
-	public UTileEntity(TileEntityType<?> type) {
+	public UTileEntity(BlockEntityType<?> type) {
 		super(type);
 	}
 	
 	@Override
-	public CompoundNBT save(CompoundNBT compound) {
+	public CompoundTag save(CompoundTag compound) {
 		super.save(compound);
 		writeNBT(compound);
 		return compound;
 	}
 	
 	@Override
-	public void load(BlockState state, CompoundNBT compound) {
+	public void load(BlockState state, CompoundTag compound) {
 		super.load(state, compound);
 		readNBT(state, compound);
 	}
@@ -37,7 +37,7 @@ public abstract class UTileEntity extends TileEntity {
 	 * 
 	 * @param compound
 	 */
-	public void writeNBT(CompoundNBT compound) {
+	public void writeNBT(CompoundTag compound) {
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public abstract class UTileEntity extends TileEntity {
 	 * @param state
 	 * @param compound
 	 */
-	public void readNBT(BlockState state, CompoundNBT compound) {
+	public void readNBT(BlockState state, CompoundTag compound) {
 	}
 	
 	// sync server -> client
@@ -54,14 +54,14 @@ public abstract class UTileEntity extends TileEntity {
 	// synchronization on chunk load
 	
 	@Override
-	public CompoundNBT getUpdateTag() {
-		final CompoundNBT compound = super.getUpdateTag();
+	public CompoundTag getUpdateTag() {
+		final CompoundTag compound = super.getUpdateTag();
 		sendChunkLoadData(compound);
 		return compound;
 	}
 	
 	@Override
-	public void handleUpdateTag(BlockState state, CompoundNBT compound) {
+	public void handleUpdateTag(BlockState state, CompoundTag compound) {
 		super.load(state, compound);
 		handleChunkLoadData(compound);
 	}
@@ -72,7 +72,7 @@ public abstract class UTileEntity extends TileEntity {
 	 * 
 	 * @param compound
 	 */
-	public void sendChunkLoadData(CompoundNBT compound) {
+	public void sendChunkLoadData(CompoundTag compound) {
 	}
 	
 	/**
@@ -81,23 +81,23 @@ public abstract class UTileEntity extends TileEntity {
 	 * 
 	 * @param compound
 	 */
-	public void handleChunkLoadData(CompoundNBT compound) {
+	public void handleChunkLoadData(CompoundTag compound) {
 	}
 	
 	// synchronization on block update
 	
 	@Override
-	public SUpdateTileEntityPacket getUpdatePacket() {
-		final CompoundNBT compound = new CompoundNBT();
+	public ClientboundBlockEntityDataPacket getUpdatePacket() {
+		final CompoundTag compound = new CompoundTag();
 		sendUpdateStateData(compound);
 		if (!compound.isEmpty()) {
-			return new SUpdateTileEntityPacket(worldPosition, -1, compound);
+			return new ClientboundBlockEntityDataPacket(worldPosition, -1, compound);
 		}
 		return null;
 	}
 	
 	@Override
-	public void onDataPacket(NetworkManager manager, SUpdateTileEntityPacket packet) {
+	public void onDataPacket(Connection manager, ClientboundBlockEntityDataPacket packet) {
 		handleUpdateStateData(packet.getTag());
 	}
 	
@@ -109,7 +109,7 @@ public abstract class UTileEntity extends TileEntity {
 	 * 
 	 * @param compound
 	 */
-	public void sendUpdateStateData(CompoundNBT compound) {
+	public void sendUpdateStateData(CompoundTag compound) {
 	}
 	
 	/**
@@ -118,7 +118,7 @@ public abstract class UTileEntity extends TileEntity {
 	 * 
 	 * @param compound
 	 */
-	public void handleUpdateStateData(CompoundNBT compound) {
+	public void handleUpdateStateData(CompoundTag compound) {
 	}
 	
 	/**

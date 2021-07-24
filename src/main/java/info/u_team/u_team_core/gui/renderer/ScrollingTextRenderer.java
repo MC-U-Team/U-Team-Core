@@ -2,15 +2,15 @@ package info.u_team.u_team_core.gui.renderer;
 
 import java.util.function.Supplier;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.RenderUtil.Matrix4fExtended;
-import net.minecraft.client.MainWindow;
+import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector4f;
+import net.minecraft.client.gui.Font;
+import net.minecraft.util.Mth;
+import com.mojang.math.Vector4f;
 
 public class ScrollingTextRenderer extends ScalingTextRenderer {
 	
@@ -23,7 +23,7 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 	protected long lastTime = 0;
 	protected State state = State.WAITING;
 	
-	public ScrollingTextRenderer(FontRenderer fontRenderer, Supplier<String> textSupplier, float x, float y) {
+	public ScrollingTextRenderer(Font fontRenderer, Supplier<String> textSupplier, float x, float y) {
 		super(fontRenderer, textSupplier, x, y);
 		width = 100;
 		stepSize = 1;
@@ -79,9 +79,9 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 	}
 	
 	@Override
-	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
-		final MainWindow window = minecraft.getWindow();
+		final Window window = minecraft.getWindow();
 		
 		final Matrix4fExtended matrix = new Matrix4fExtended(matrixStack.last().pose());
 		final double scaleFactor = window.getGuiScale();
@@ -92,11 +92,11 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		// Cannot use transform here, because we only care about the scaling. M00 and M11 should have the right scaling
 		final Vector4f vectorWH = new Vector4f(width * matrix.getM00(), (fontRenderer.lineHeight + 1) * scale * matrix.getM11(), 0, 1);
 		
-		final int nativeX = MathHelper.ceil(vectorXY.x() * scaleFactor);
-		final int nativeY = MathHelper.ceil(vectorXY.y() * scaleFactor);
+		final int nativeX = Mth.ceil(vectorXY.x() * scaleFactor);
+		final int nativeY = Mth.ceil(vectorXY.y() * scaleFactor);
 		
-		final int nativeWidth = MathHelper.ceil(vectorWH.x() * scaleFactor);
-		final int nativeHeight = MathHelper.ceil(vectorWH.y() * scaleFactor);
+		final int nativeWidth = Mth.ceil(vectorWH.x() * scaleFactor);
+		final int nativeHeight = Mth.ceil(vectorWH.y() * scaleFactor);
 		
 		RenderUtil.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 		

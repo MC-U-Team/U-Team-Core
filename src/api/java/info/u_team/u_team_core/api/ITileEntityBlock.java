@@ -4,17 +4,17 @@ import java.util.Optional;
 
 import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
 import io.netty.buffer.Unpooled;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.inventory.container.IContainerProvider;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.fml.network.NetworkHooks;
 
 /**
@@ -31,7 +31,7 @@ public interface ITileEntityBlock {
 	 * @param pos The tile entities position
 	 * @return The tile entity type
 	 */
-	TileEntityType<?> getTileEntityType(IBlockReader world, BlockPos pos);
+	BlockEntityType<?> getTileEntityType(BlockGetter world, BlockPos pos);
 	
 	/**
 	 * Opens the container that is specified in the tile entity with {@link IContainerProvider}. If the tile entity
@@ -43,7 +43,7 @@ public interface ITileEntityBlock {
 	 * @param player The player that opens the tile entity
 	 * @return If the container could be opened
 	 */
-	default ActionResultType openContainer(World world, BlockPos pos, PlayerEntity player) {
+	default InteractionResult openContainer(Level world, BlockPos pos, Player player) {
 		return openContainer(world, pos, player, false);
 	}
 	
@@ -58,39 +58,39 @@ public interface ITileEntityBlock {
 	 * @param canOpenSneak If the container can be opened when shift clicking with an item that has no right click function
 	 * @return If the container could be opened
 	 */
-	default ActionResultType openContainer(World world, BlockPos pos, PlayerEntity player, boolean canOpenSneak) {
-		if (world.isClientSide || !(player instanceof ServerPlayerEntity)) {
-			return ActionResultType.SUCCESS;
+	default InteractionResult openContainer(Level world, BlockPos pos, Player player, boolean canOpenSneak) {
+		if (world.isClientSide || !(player instanceof ServerPlayer)) {
+			return InteractionResult.SUCCESS;
 		}
 		
-		final ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-		final Optional<TileEntity> tileEntityOptional = isTileEntityFromType(world, pos);
+		final ServerPlayer serverPlayer = (ServerPlayer) player;
+		final Optional<BlockEntity> tileEntityOptional = isTileEntityFromType(world, pos);
 		
 		if (!tileEntityOptional.isPresent()) {
-			return ActionResultType.PASS;
+			return InteractionResult.PASS;
 		}
 		
-		final TileEntity tileEntity = tileEntityOptional.get();
+		final BlockEntity tileEntity = tileEntityOptional.get();
 		
-		if (!(tileEntity instanceof INamedContainerProvider)) {
-			return ActionResultType.PASS;
+		if (!(tileEntity instanceof MenuProvider)) {
+			return InteractionResult.PASS;
 		}
 		
 		if (!canOpenSneak && serverPlayer.isShiftKeyDown()) {
-			return ActionResultType.SUCCESS;
+			return InteractionResult.SUCCESS;
 		}
 		
-		final PacketBuffer buffer = new PacketBuffer(Unpooled.buffer());
+		final FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
 		if (tileEntity instanceof IInitSyncedTileEntity) {
 			((IInitSyncedTileEntity) tileEntity).sendInitialDataBuffer(buffer);
 		}
 		
-		NetworkHooks.openGui(serverPlayer, (INamedContainerProvider) tileEntity, extraData -> {
+		NetworkHooks.openGui(serverPlayer, (MenuProvider) tileEntity, extraData -> {
 			extraData.writeBlockPos(pos);
 			extraData.writeVarInt(buffer.readableBytes());
 			extraData.writeBytes(buffer);
 		});
-		return ActionResultType.SUCCESS;
+		return InteractionResult.SUCCESS;
 		
 	}
 	
@@ -104,8 +104,8 @@ public interface ITileEntityBlock {
 	 * @return Optional with tile entity or empty
 	 */
 	@SuppressWarnings("unchecked")
-	default <T extends TileEntity> Optional<T> isTileEntityFromType(IBlockReader world, BlockPos pos) {
-		final TileEntity tileEntity = world.getBlockEntity(pos);
+	default <T extends BlockEntity> Optional<T> isTileEntityFromType(BlockGetter world, BlockPos pos) {
+		final BlockEntity tileEntity = world.getBlockEntity(pos);
 		if (tileEntity == null || getTileEntityType(world, pos) != tileEntity.getType()) {
 			return Optional.empty();
 		}

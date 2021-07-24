@@ -1,33 +1,33 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IScaleProvider;
 import info.u_team.u_team_core.api.gui.IScaleable;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 
-import net.minecraft.client.gui.widget.button.Button.IPressable;
-import net.minecraft.client.gui.widget.button.Button.ITooltip;
+import net.minecraft.client.gui.components.Button.OnPress;
+import net.minecraft.client.gui.components.Button.OnTooltip;
 
 public class ScalableButton extends UButton implements IScaleable, IScaleProvider {
 	
 	protected float scale;
 	
-	public ScalableButton(int x, int y, int width, int height, ITextComponent text, float scale) {
+	public ScalableButton(int x, int y, int width, int height, Component text, float scale) {
 		this(x, y, width, height, text, scale, EMTPY_PRESSABLE);
 	}
 	
-	public ScalableButton(int x, int y, int width, int height, ITextComponent text, float scale, IPressable pessable) {
+	public ScalableButton(int x, int y, int width, int height, Component text, float scale, OnPress pessable) {
 		this(x, y, width, height, text, scale, pessable, EMPTY_TOOLTIP);
 	}
 	
-	public ScalableButton(int x, int y, int width, int height, ITextComponent text, float scale, ITooltip tooltip) {
+	public ScalableButton(int x, int y, int width, int height, Component text, float scale, OnTooltip tooltip) {
 		this(x, y, width, height, text, scale, EMTPY_PRESSABLE, tooltip);
 	}
 	
-	public ScalableButton(int x, int y, int width, int height, ITextComponent text, float scale, IPressable pessable, ITooltip tooltip) {
+	public ScalableButton(int x, int y, int width, int height, Component text, float scale, OnPress pessable, OnTooltip tooltip) {
 		super(x, y, width, height, text, pessable, tooltip);
 		this.scale = scale;
 	}
@@ -43,12 +43,12 @@ public class ScalableButton extends UButton implements IScaleable, IScaleProvide
 	}
 	
 	@Override
-	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderScaledText(this, matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public float getCurrentScale(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public float getCurrentScale(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return scale;
 	}
 }

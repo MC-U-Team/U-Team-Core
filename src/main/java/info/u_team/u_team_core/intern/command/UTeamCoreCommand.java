@@ -7,12 +7,12 @@ import info.u_team.u_team_core.intern.command.uteamcore.ItemStackInfoSubCommand;
 import info.u_team.u_team_core.intern.command.uteamcore.LocateBiomeSubCommand;
 import info.u_team.u_team_core.intern.command.uteamcore.LocateStructureSubCommand;
 import info.u_team.u_team_core.intern.command.uteamcore.PingSubCommand;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
 
 public class UTeamCoreCommand {
 	
-	public UTeamCoreCommand(CommandDispatcher<CommandSource> dispatcher) {
+	public UTeamCoreCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("uteamcore") //
 				.then(ItemStackInfoSubCommand.register()) //
 				.then(DimensionTeleportSubCommand.register()) //

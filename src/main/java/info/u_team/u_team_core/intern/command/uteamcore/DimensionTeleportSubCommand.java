@@ -6,21 +6,21 @@ import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 
 import info.u_team.u_team_core.util.world.WorldUtil;
-import net.minecraft.command.CommandSource;
-import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.DimensionArgument;
-import net.minecraft.command.arguments.EntityArgument;
-import net.minecraft.command.arguments.Vec3Argument;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.commands.CommandSourceStack;
+import net.minecraft.commands.Commands;
+import net.minecraft.commands.arguments.DimensionArgument;
+import net.minecraft.commands.arguments.EntityArgument;
+import net.minecraft.commands.arguments.coordinates.Vec3Argument;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.server.level.ServerLevel;
 
 public class DimensionTeleportSubCommand {
 	
 	private static final String SUCCESS_TRANSLATION_STRING = "commands.uteamcore.dimteleport.success.";
 	
-	public static ArgumentBuilder<CommandSource, ?> register() {
+	public static ArgumentBuilder<CommandSourceStack, ?> register() {
 		return Commands.literal("dimteleport") //
 				.requires(source -> source.hasPermission(2)) //
 				.then(Commands.argument("targets", EntityArgument.entities()) //
@@ -39,33 +39,33 @@ public class DimensionTeleportSubCommand {
 														}))))));
 	}
 	
-	private static int execute(CommandSource source, Collection<? extends Entity> targets, ServerWorld world) {
+	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world) {
 		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, entity.position()));
 		if (targets.size() == 1) {
-			source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), world.dimension().location()), true);
+			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), world.dimension().location()), true);
 		} else {
-			source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), world.dimension().location()), true);
+			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), world.dimension().location()), true);
 		}
 		return 0;
 	}
 	
-	private static int execute(CommandSource source, Collection<? extends Entity> targets, ServerWorld world, Vector3d pos) {
+	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world, Vec3 pos) {
 		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, pos));
 		sendPositionInfo(source, targets, world, pos);
 		return 0;
 	}
 	
-	private static int execute(CommandSource source, Collection<? extends Entity> targets, ServerWorld world, Vector3d pos, float yaw, float pitch) {
+	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world, Vec3 pos, float yaw, float pitch) {
 		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, pos.x(), pos.y(), pos.z(), yaw, pitch));
 		sendPositionInfo(source, targets, world, pos);
 		return 0;
 	}
 	
-	private static void sendPositionInfo(CommandSource source, Collection<? extends Entity> targets, ServerWorld world, Vector3d pos) {
+	private static void sendPositionInfo(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world, Vec3 pos) {
 		if (targets.size() == 1) {
-			source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), world.dimension().location(), pos.x, pos.y, pos.z), true);
+			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), world.dimension().location(), pos.x, pos.y, pos.z), true);
 		} else {
-			source.sendSuccess(new TranslationTextComponent(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), world.dimension().location(), pos.x, pos.y, pos.z), true);
+			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), world.dimension().location(), pos.x, pos.y, pos.z), true);
 		}
 	}
 }

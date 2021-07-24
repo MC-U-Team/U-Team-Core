@@ -6,8 +6,8 @@ import java.util.function.Supplier;
 
 import com.google.common.collect.Maps;
 
-import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
-import net.minecraft.item.Item.Properties;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.world.item.Item.Properties;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
@@ -45,11 +45,11 @@ public class ItemProperties extends Properties {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "toolClasses");
 	}
 	
-	private Supplier<Callable<ItemStackTileEntityRenderer>> getValueIster(Properties properties) {
+	private Supplier<Callable<BlockEntityWithoutLevelRenderer>> getValueIster(Properties properties) {
 		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "ister");
 	}
 	
-	private void setValueIster(Supplier<Callable<ItemStackTileEntityRenderer>> value) {
+	private void setValueIster(Supplier<Callable<BlockEntityWithoutLevelRenderer>> value) {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "ister");
 	}
 }

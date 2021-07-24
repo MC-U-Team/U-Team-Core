@@ -2,10 +2,10 @@ package info.u_team.u_team_core.item.tool;
 
 import info.u_team.u_team_core.api.IToolMaterial;
 import info.u_team.u_team_core.api.IToolMaterial.Tools;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.SwordItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.SwordItem;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class USwordItem extends SwordItem {
 	
@@ -13,7 +13,7 @@ public class USwordItem extends SwordItem {
 		this(null, properties, material);
 	}
 	
-	public USwordItem(ItemGroup group, Properties properties, IToolMaterial material) {
+	public USwordItem(CreativeModeTab group, Properties properties, IToolMaterial material) {
 		super(material, (int) material.getAdditionalDamage(Tools.SWORD), material.getAttackSpeed(Tools.SWORD), group == null ? properties : properties.tab(group));
 	}
 }

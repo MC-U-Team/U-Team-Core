@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
@@ -8,12 +8,12 @@ import info.u_team.u_team_core.api.gui.IRenderTickable;
 import info.u_team.u_team_core.api.gui.ITextColorProvider;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.widget.TextFieldWidget;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.network.chat.Component;
 
-public class UTextField extends TextFieldWidget implements IRenderTickable, IPerspectiveRenderable, IBackgroundColorProvider, ITextColorProvider {
+public class UTextField extends EditBox implements IRenderTickable, IPerspectiveRenderable, IBackgroundColorProvider, ITextColorProvider {
 	
 	protected static final ITooltip EMPTY_TOOLTIP = (textField, matrixStack, mouseX, mouseY) -> {
 	};
@@ -39,11 +39,11 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	
 	protected RGBA cursorColor;
 	
-	public UTextField(FontRenderer fontRenderer, int x, int y, int width, int height, UTextField previousTextField, ITextComponent title) {
+	public UTextField(Font fontRenderer, int x, int y, int width, int height, UTextField previousTextField, Component title) {
 		this(fontRenderer, x, y, width, height, previousTextField, title, EMPTY_TOOLTIP);
 	}
 	
-	public UTextField(FontRenderer fontRenderer, int x, int y, int width, int height, UTextField previousTextField, ITextComponent title, ITooltip tooltip) {
+	public UTextField(Font fontRenderer, int x, int y, int width, int height, UTextField previousTextField, Component title, ITooltip tooltip) {
 		super(fontRenderer, x, y, width, height, title);
 		setPreviousText(previousTextField);
 		onTooltip = tooltip;
@@ -144,14 +144,14 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	}
 	
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		renderBackground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 		renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void renderBackground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderBackground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (bordered) {
 			fill(matrixStack, x - 1, y - 1, x + width + 1, y + height + 1, getCurrentBackgroundFrameColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 			fill(matrixStack, x, y, x + width, y + height, getCurrentBackgroundColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
@@ -159,7 +159,7 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	}
 	
 	@Override
-	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		final RGBA currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
 		
 		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
@@ -200,7 +200,7 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 		
 		if (shouldCursorBlink) {
 			if (isCursorInTheMiddle) {
-				AbstractGui.fill(matrixStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, getCurrentCursorColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
+				GuiComponent.fill(matrixStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, getCurrentCursorColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 			} else {
 				font.drawShadow(matrixStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
 			}
@@ -213,41 +213,41 @@ public class UTextField extends TextFieldWidget implements IRenderTickable, IPer
 	}
 	
 	@Override
-	public void renderToolTip(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderToolTip(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		renderToolTip(matrixStack, mouseX, mouseY);
 	}
 	
 	@Override
-	public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+	public void renderToolTip(PoseStack matrixStack, int mouseX, int mouseY) {
 		onTooltip.onTooltip(this, matrixStack, mouseX, mouseY);
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return backgroundColor;
 	}
 	
-	public RGBA getCurrentBackgroundFrameColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundFrameColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return isFocused() ? backgroundFrameColor : unfocusedBackgroundFrameColor;
 	}
 	
 	@Override
-	public RGBA getCurrentTextColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentTextColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return isEditable ? textColor : disabledTextColor;
 	}
 	
-	public RGBA getCurrentSuggestionTextColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentSuggestionTextColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return suggestionTextColor;
 	}
 	
-	public RGBA getCurrentCursorColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentCursorColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return cursorColor;
 	}
 	
 	@FunctionalInterface
 	public interface ITooltip {
 		
-		void onTooltip(UTextField textField, MatrixStack matrixStack, int mouseX, int mouseY);
+		void onTooltip(UTextField textField, PoseStack matrixStack, int mouseX, int mouseY);
 	}
 	
 }

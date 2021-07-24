@@ -3,11 +3,11 @@ package info.u_team.u_team_core.api.dye;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 
 /**
  * Attach this to any item that can be colors. Automatically adds dye color recipes. Call addColoredItem(Item) to also
@@ -22,17 +22,17 @@ public interface IDyeableItem {
 	}
 	
 	default boolean hasColor(ItemStack stack) {
-		final CompoundNBT compound = stack.getTagElement("display");
+		final CompoundTag compound = stack.getTagElement("display");
 		return compound != null && compound.contains("color", 99);
 	}
 	
 	default int getColor(ItemStack stack) {
-		final CompoundNBT compound = stack.getTagElement("display");
+		final CompoundTag compound = stack.getTagElement("display");
 		return compound != null && compound.contains("color", 99) ? compound.getInt("color") : getDefaultColor();
 	}
 	
 	default void removeColor(ItemStack stack) {
-		final CompoundNBT compound = stack.getTagElement("display");
+		final CompoundTag compound = stack.getTagElement("display");
 		if (compound != null && compound.contains("color")) {
 			compound.remove("color");
 		}

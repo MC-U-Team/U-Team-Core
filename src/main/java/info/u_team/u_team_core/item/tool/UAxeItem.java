@@ -2,11 +2,11 @@ package info.u_team.u_team_core.item.tool;
 
 import info.u_team.u_team_core.api.IToolMaterial;
 import info.u_team.u_team_core.api.IToolMaterial.Tools;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.ItemGroup;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.ToolType;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class UAxeItem extends AxeItem {
 	
@@ -14,7 +14,7 @@ public class UAxeItem extends AxeItem {
 		this(null, properties, material);
 	}
 	
-	public UAxeItem(ItemGroup group, Properties properties, IToolMaterial material) {
+	public UAxeItem(CreativeModeTab group, Properties properties, IToolMaterial material) {
 		super(material, material.getAdditionalDamage(Tools.AXE), material.getAttackSpeed(Tools.AXE), applyToolType(group == null ? properties : properties.tab(group), material));
 	}
 	

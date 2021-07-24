@@ -5,30 +5,30 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
 
-import net.minecraft.block.Block;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.Ingredient.TagList;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient.TagValue;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.ITag.INamedTag;
+import net.minecraft.tags.Tag;
+import net.minecraft.tags.Tag.Named;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public class TagUtil {
 	
-	public static INamedTag<Block> createBlockTag(String modid, String name) {
+	public static Named<Block> createBlockTag(String modid, String name) {
 		return createBlockTag(new ResourceLocation(modid, name));
 	}
 	
-	public static INamedTag<Block> createBlockTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<Block>> optional = BlockTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
+	public static Named<Block> createBlockTag(ResourceLocation location) {
+		final Optional<? extends Named<Block>> optional = BlockTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -36,12 +36,12 @@ public class TagUtil {
 		}
 	}
 	
-	public static INamedTag<Item> createItemTag(String modid, String name) {
+	public static Named<Item> createItemTag(String modid, String name) {
 		return createItemTag(new ResourceLocation(modid, name));
 	}
 	
-	public static INamedTag<Item> createItemTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<Item>> optional = ItemTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
+	public static Named<Item> createItemTag(ResourceLocation location) {
+		final Optional<? extends Named<Item>> optional = ItemTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -49,12 +49,12 @@ public class TagUtil {
 		}
 	}
 	
-	public static INamedTag<Fluid> createFluidTag(String modid, String name) {
+	public static Named<Fluid> createFluidTag(String modid, String name) {
 		return createFluidTag(new ResourceLocation(modid, name));
 	}
 	
-	public static INamedTag<Fluid> createFluidTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<Fluid>> optional = FluidTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
+	public static Named<Fluid> createFluidTag(ResourceLocation location) {
+		final Optional<? extends Named<Fluid>> optional = FluidTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -62,12 +62,12 @@ public class TagUtil {
 		}
 	}
 	
-	public static INamedTag<EntityType<?>> createEntityTypeTag(String modid, String name) {
+	public static Named<EntityType<?>> createEntityTypeTag(String modid, String name) {
 		return createEntityTypeTag(new ResourceLocation(modid, name));
 	}
 	
-	public static INamedTag<EntityType<?>> createEntityTypeTag(ResourceLocation location) {
-		final Optional<? extends INamedTag<EntityType<?>>> optional = EntityTypeTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
+	public static Named<EntityType<?>> createEntityTypeTag(ResourceLocation location) {
+		final Optional<? extends Named<EntityType<?>>> optional = EntityTypeTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -75,16 +75,16 @@ public class TagUtil {
 		}
 	}
 	
-	public static INamedTag<Block> fromItemTag(INamedTag<Item> block) {
+	public static Named<Block> fromItemTag(Named<Item> block) {
 		return createBlockTag(block.getName());
 	}
 	
-	public static INamedTag<Item> fromBlockTag(INamedTag<Block> block) {
+	public static Named<Item> fromBlockTag(Named<Block> block) {
 		return createItemTag(block.getName());
 	}
 	
-	public static Ingredient getSerializableIngredientOfTag(ITag<Item> tag) {
-		return Ingredient.fromValues(Stream.of(new TagList(tag) {
+	public static Ingredient getSerializableIngredientOfTag(Tag<Item> tag) {
+		return Ingredient.fromValues(Stream.of(new TagValue(tag) {
 			
 			@Override
 			public Collection<ItemStack> getItems() {

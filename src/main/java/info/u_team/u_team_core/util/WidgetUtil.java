@@ -2,7 +2,7 @@ package info.u_team.u_team_core.util;
 
 import java.util.List;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
@@ -10,19 +10,19 @@ import info.u_team.u_team_core.api.gui.IScaleProvider;
 import info.u_team.u_team_core.api.gui.ITextProvider;
 import info.u_team.u_team_core.api.gui.ITextureProvider;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.util.Mth;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 
 public class WidgetUtil {
 	
-	public static boolean isHovered(Widget widget) {
+	public static boolean isHovered(AbstractWidget widget) {
 		return widget.isHovered;
 	}
 	
-	public static <T extends Widget & IPerspectiveRenderable & IBackgroundColorProvider> void renderButtonLikeWidget(T widget, ITextureProvider textureProvider, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends AbstractWidget & IPerspectiveRenderable & IBackgroundColorProvider> void renderButtonLikeWidget(T widget, ITextureProvider textureProvider, PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		RenderUtil.enableBlend();
 		RenderUtil.defaultBlendFunc();
 		GuiUtil.drawContinuousTexturedBox(matrixStack, textureProvider.getTexture(), widget.x, widget.y, textureProvider.getU(), textureProvider.getV(), widget.width, widget.height, textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, widget.getBlitOffset(), widget.getCurrentBackgroundColor(matrixStack, mouseY, mouseY, partialTicks));
@@ -34,16 +34,16 @@ public class WidgetUtil {
 		widget.renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 	
-	public static <T extends Widget & ITextProvider> void renderText(T widget, MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		final FontRenderer fontRenderer = minecraft.font;
+	public static <T extends AbstractWidget & ITextProvider> void renderText(T widget, PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+		final Font fontRenderer = minecraft.font;
 		
-		ITextComponent message = widget.getCurrentText();
-		if (message != StringTextComponent.EMPTY) {
+		Component message = widget.getCurrentText();
+		if (message != TextComponent.EMPTY) {
 			final int messageWidth = fontRenderer.width(message);
 			final int ellipsisWidth = fontRenderer.width("...");
 			
 			if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
-				message = new StringTextComponent(fontRenderer.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
+				message = new TextComponent(fontRenderer.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
 			}
 			
 			final float xStart = (widget.x + (widget.width / 2) - messageWidth / 2);
@@ -53,21 +53,21 @@ public class WidgetUtil {
 		}
 	}
 	
-	public static <T extends Widget & ITextProvider & IScaleProvider> void renderScaledText(T widget, MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends AbstractWidget & ITextProvider & IScaleProvider> void renderScaledText(T widget, PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		final float scale = widget.getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
 		
 		if (scale == 1) {
 			renderText(widget, matrixStack, minecraft, mouseX, mouseY, partialTicks);
 		} else {
-			final FontRenderer fontRenderer = minecraft.font;
+			final Font fontRenderer = minecraft.font;
 			
-			ITextComponent message = widget.getCurrentText();
-			if (message != StringTextComponent.EMPTY) {
-				final int messageWidth = MathHelper.ceil(scale * fontRenderer.width(message));
-				final int ellipsisWidth = MathHelper.ceil(scale * fontRenderer.width("..."));
+			Component message = widget.getCurrentText();
+			if (message != TextComponent.EMPTY) {
+				final int messageWidth = Mth.ceil(scale * fontRenderer.width(message));
+				final int ellipsisWidth = Mth.ceil(scale * fontRenderer.width("..."));
 				
 				if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
-					message = new StringTextComponent(fontRenderer.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
+					message = new TextComponent(fontRenderer.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
 				}
 				
 				final float positionFactor = 1 / scale;
@@ -83,7 +83,7 @@ public class WidgetUtil {
 		}
 	}
 	
-	public static void renderTooltips(List<Widget> widgets, MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public static void renderTooltips(List<AbstractWidget> widgets, PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		widgets.forEach(widget -> {
 			if (widget instanceof IPerspectiveRenderable) {
 				((IPerspectiveRenderable) widget).renderToolTip(matrixStack, minecraft, mouseX, mouseY, partialTicks);

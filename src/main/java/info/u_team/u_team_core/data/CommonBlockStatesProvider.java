@@ -9,13 +9,13 @@ import org.apache.logging.log4j.MarkerManager;
 import com.google.common.base.Preconditions;
 
 import info.u_team.u_team_core.UCoreMod;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.core.Direction;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.model.generators.BlockModelBuilder;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
@@ -39,7 +39,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	}
 	
 	@Override
-	public void run(DirectoryCache cache) throws IOException {
+	public void run(HashCache cache) throws IOException {
 		models().generatedModels.clear();
 		registerModels0(cache);
 		models().generatedModels.values().forEach(model -> {
@@ -53,7 +53,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	}
 	
 	// We need to overide registerModels, but this method is marked final...
-	private void registerModels0(DirectoryCache cache) {
+	private void registerModels0(HashCache cache) {
 		registeredBlocks.clear();
 		registerStatesAndModels();
 		

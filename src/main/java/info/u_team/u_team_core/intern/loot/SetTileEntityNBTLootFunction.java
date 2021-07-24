@@ -5,26 +5,26 @@ import com.google.gson.JsonObject;
 
 import info.u_team.u_team_core.intern.init.UCoreLootFunctions;
 import info.u_team.u_team_core.tileentity.UTileEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootFunction;
-import net.minecraft.loot.LootFunctionType;
-import net.minecraft.loot.LootParameters;
-import net.minecraft.loot.conditions.ILootCondition;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
+import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
+import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
-public class SetTileEntityNBTLootFunction extends LootFunction {
+public class SetTileEntityNBTLootFunction extends LootItemConditionalFunction {
 	
-	private SetTileEntityNBTLootFunction(ILootCondition[] conditions) {
+	private SetTileEntityNBTLootFunction(LootItemCondition[] conditions) {
 		super(conditions);
 	}
 	
 	@Override
 	public ItemStack run(ItemStack stack, LootContext context) {
-		if (context.hasParam(LootParameters.BLOCK_ENTITY)) {
-			final CompoundNBT compound = new CompoundNBT();
-			final TileEntity tileEntity = context.getParamOrNull(LootParameters.BLOCK_ENTITY);
+		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
+			final CompoundTag compound = new CompoundTag();
+			final BlockEntity tileEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
 			if (tileEntity instanceof UTileEntity) {
 				((UTileEntity) tileEntity).writeNBT(compound);
 			} else {
@@ -37,19 +37,19 @@ public class SetTileEntityNBTLootFunction extends LootFunction {
 		return stack;
 	}
 	
-	public static LootFunction.Builder<?> builder() {
+	public static LootItemConditionalFunction.Builder<?> builder() {
 		return simpleBuilder((conditions) -> new SetTileEntityNBTLootFunction(conditions));
 	}
 	
 	@Override
-	public LootFunctionType getType() {
+	public LootItemFunctionType getType() {
 		return UCoreLootFunctions.SET_TILEENTITY_NBT;
 	}
 	
-	public static class Serializer extends LootFunction.Serializer<SetTileEntityNBTLootFunction> {
+	public static class Serializer extends LootItemConditionalFunction.Serializer<SetTileEntityNBTLootFunction> {
 		
 		@Override
-		public SetTileEntityNBTLootFunction deserialize(JsonObject object, JsonDeserializationContext deserializationContext, ILootCondition[] conditions) {
+		public SetTileEntityNBTLootFunction deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootItemCondition[] conditions) {
 			return new SetTileEntityNBTLootFunction(conditions);
 		}
 	}

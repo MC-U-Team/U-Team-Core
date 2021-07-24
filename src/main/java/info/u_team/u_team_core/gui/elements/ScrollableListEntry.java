@@ -3,24 +3,24 @@ package info.u_team.u_team_core.gui.elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.client.gui.widget.list.ExtendedList;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.ObjectSelectionList;
 
-public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> extends ExtendedList.AbstractListEntry<T> {
+public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> extends ObjectSelectionList.Entry<T> {
 	
 	protected final Minecraft minecraft;
 	
-	private final List<Widget> widgets;
+	private final List<AbstractWidget> widgets;
 	
 	public ScrollableListEntry() {
 		minecraft = Minecraft.getInstance();
 		widgets = new ArrayList<>();
 	}
 	
-	protected <B extends Widget> B addButton(B button) {
+	protected <B extends AbstractWidget> B addButton(B button) {
 		widgets.add(button);
 		return button;
 	}
@@ -33,7 +33,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	
 	@Override
 	public boolean mouseReleased(double mouseX, double mouseY, int button) {
-		for (final Widget widget : widgets) {
+		for (final AbstractWidget widget : widgets) {
 			if (widget.mouseReleased(mouseX, mouseY, button)) {
 				return true;
 			}
@@ -43,7 +43,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	
 	@Override
 	public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-		for (final Widget widget : widgets) {
+		for (final AbstractWidget widget : widgets) {
 			if (widget.mouseDragged(mouseX, mouseY, button, dragX, dragY)) {
 				return true;
 			}
@@ -52,10 +52,10 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	}
 	
 	@Override
-	public abstract void render(MatrixStack matrixStack, int slotIndex, int entryY, int entryX, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float partialTicks);
+	public abstract void render(PoseStack matrixStack, int slotIndex, int entryY, int entryX, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float partialTicks);
 	
 	@SuppressWarnings("deprecation")
-	protected net.minecraft.client.gui.widget.list.AbstractList<T> getList() {
+	protected net.minecraft.client.gui.components.AbstractSelectionList<T> getList() {
 		return list;
 	}
 }

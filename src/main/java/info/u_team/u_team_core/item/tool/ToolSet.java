@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.google.common.collect.Iterators;
 
-import net.minecraft.item.TieredItem;
+import net.minecraft.world.item.TieredItem;
 import net.minecraftforge.fml.RegistryObject;
 
 public class ToolSet implements Iterable<RegistryObject<? extends TieredItem>> {

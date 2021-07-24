@@ -2,7 +2,7 @@ package info.u_team.u_team_core.api;
 
 import info.u_team.u_team_core.item.tool.UToolMaterial;
 import net.minecraft.item.AxeItem;
-import net.minecraft.item.IItemTier;
+import net.minecraft.world.item.Tier;
 import net.minecraft.item.PickaxeItem;
 import net.minecraft.item.ShovelItem;
 import net.minecraft.item.SwordItem;
@@ -12,7 +12,7 @@ import net.minecraft.item.SwordItem;
  * 
  * @author HyCraftHD
  */
-public interface IToolMaterial extends IItemTier {
+public interface IToolMaterial extends Tier {
 	
 	/**
 	 * Returns the additional damage that is added to the {@link #getAttackDamage()} per given tool. {@link AxeItem} and

@@ -2,14 +2,14 @@ package info.u_team.u_team_core.data;
 
 import java.util.function.Function;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.Item;
+import net.minecraft.tags.Tag;
+import net.minecraft.core.Registry;
 
 public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	
-	private final Function<ITag.INamedTag<Block>, ITag.Builder> blockTagBuilderFunction;
+	private final Function<Tag.Named<Block>, Tag.Builder> blockTagBuilderFunction;
 	
 	public CommonItemTagsProvider(GenerationData data) {
 		this(data, new CommonBlockTagsProvider(data) {
@@ -36,9 +36,9 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 		return "Item-Tags";
 	}
 	
-	protected void copy(ITag.INamedTag<Block> blockTag, ITag.INamedTag<Item> itemTag) {
-		final ITag.Builder itemTagBuilder = getTagBuilder(itemTag);
-		final ITag.Builder blockTagBuilder = blockTagBuilderFunction.apply(blockTag);
+	protected void copy(Tag.Named<Block> blockTag, Tag.Named<Item> itemTag) {
+		final Tag.Builder itemTagBuilder = getTagBuilder(itemTag);
+		final Tag.Builder blockTagBuilder = blockTagBuilderFunction.apply(blockTag);
 		blockTagBuilder.getEntries().forEach(itemTagBuilder::add);
 	}
 }

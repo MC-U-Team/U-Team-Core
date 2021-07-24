@@ -5,21 +5,21 @@ import java.util.List;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.util.GuiUtil;
-import net.minecraft.client.MainWindow;
+import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 
-public class EnergyStorageWidget extends Widget {
+public class EnergyStorageWidget extends AbstractWidget {
 	
 	public static final ResourceLocation ENERGY_TEXTURE = new ResourceLocation(UCoreMod.MODID, "textures/gui/energy.png");
 	
@@ -35,13 +35,13 @@ public class EnergyStorageWidget extends Widget {
 	}
 	
 	public EnergyStorageWidget(int x, int y, int height, LongSupplier capacity, LongSupplier storage) {
-		super(x, y, 14, height < 3 ? 3 : height, ITextComponent.nullToEmpty(null));
+		super(x, y, 14, height < 3 ? 3 : height, Component.nullToEmpty(null));
 		this.capacity = capacity;
 		this.storage = storage;
 	}
 	
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final Minecraft minecraft = Minecraft.getInstance();
 		minecraft.getTextureManager().bind(ENERGY_TEXTURE);
 		
@@ -68,20 +68,20 @@ public class EnergyStorageWidget extends Widget {
 	}
 	
 	@Override
-	public void renderToolTip(MatrixStack matrixStack, int mouseX, int mouseY) {
+	public void renderToolTip(PoseStack matrixStack, int mouseX, int mouseY) {
 		if (isHovered) {
 			final Minecraft minecraft = Minecraft.getInstance();
-			final MainWindow mainWindow = minecraft.getWindow();
+			final Window mainWindow = minecraft.getWindow();
 			
-			final List<ITextComponent> list = new ArrayList<>();
-			list.add(ITextComponent.nullToEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
+			final List<Component> list = new ArrayList<>();
+			list.add(Component.nullToEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
 			
 			GuiUtils.drawHoveringText(matrixStack, list, mouseX, mouseY, mainWindow.getScreenWidth(), mainWindow.getScreenHeight(), 300, minecraft.font);
 		}
 	}
 	
 	@Override
-	public void playDownSound(SoundHandler handler) {
+	public void playDownSound(SoundManager handler) {
 		// Don't play click sound
 	}
 }

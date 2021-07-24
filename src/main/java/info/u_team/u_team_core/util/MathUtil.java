@@ -2,18 +2,18 @@ package info.u_team.u_team_core.util;
 
 import java.util.Random;
 
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.Mth;
+import net.minecraft.world.phys.Vec3;
 
 public class MathUtil {
 	
 	public static final Random RANDOM = new Random();
 	
-	public static Vector3d rotateVectorAroundYCC(Vector3d vec, double angle) {
-		return rotateVectorCC(vec, new Vector3d(0, 1, 0), angle);
+	public static Vec3 rotateVectorAroundYCC(Vec3 vec, double angle) {
+		return rotateVectorCC(vec, new Vec3(0, 1, 0), angle);
 	}
 	
-	public static Vector3d rotateVectorCC(Vector3d vec, Vector3d axis, double angle) {
+	public static Vec3 rotateVectorCC(Vec3 vec, Vec3 axis, double angle) {
 		final double x = vec.x();
 		final double y = vec.y();
 		final double z = vec.z();
@@ -25,7 +25,7 @@ public class MathUtil {
 		final double rotationX = u * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + x * Math.cos(angle) + (-w * y + v * z) * Math.sin(angle);
 		final double rotationY = v * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + y * Math.cos(angle) + (w * x - u * z) * Math.sin(angle);
 		final double rotationZ = w * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + z * Math.cos(angle) + (-v * x + u * y) * Math.sin(angle);
-		return new Vector3d(rotationX, rotationY, rotationZ);
+		return new Vec3(rotationX, rotationY, rotationZ);
 	}
 	
 	/**
@@ -157,7 +157,7 @@ public class MathUtil {
 	public static float getPlaneDistance(int x1, int z1, int x2, int z2) {
 		final int xDiff = x2 - x1;
 		final int zDiff = z2 - z1;
-		return MathHelper.sqrt(xDiff * xDiff + zDiff * zDiff);
+		return Mth.sqrt(xDiff * xDiff + zDiff * zDiff);
 	}
 	
 }

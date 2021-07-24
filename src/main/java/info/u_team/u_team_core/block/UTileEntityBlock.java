@@ -3,33 +3,33 @@ package info.u_team.u_team_core.block;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.ITileEntityBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 
-import net.minecraft.block.AbstractBlock.Properties;
+import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class UTileEntityBlock extends UBlock implements ITileEntityBlock {
 	
-	protected final Supplier<? extends TileEntityType<?>> tileEntityType;
+	protected final Supplier<? extends BlockEntityType<?>> tileEntityType;
 	
-	public UTileEntityBlock(Properties properties, Supplier<? extends TileEntityType<?>> tileEntityType) {
+	public UTileEntityBlock(Properties properties, Supplier<? extends BlockEntityType<?>> tileEntityType) {
 		this(null, properties, tileEntityType);
 	}
 	
-	public UTileEntityBlock(ItemGroup group, Properties properties, Supplier<? extends TileEntityType<?>> tileEntityType) {
+	public UTileEntityBlock(CreativeModeTab group, Properties properties, Supplier<? extends BlockEntityType<?>> tileEntityType) {
 		this(group, properties, null, tileEntityType);
 	}
 	
-	public UTileEntityBlock(Properties properties, Item.Properties blockItemProperties, Supplier<? extends TileEntityType<?>> tileEntityType) {
+	public UTileEntityBlock(Properties properties, Item.Properties blockItemProperties, Supplier<? extends BlockEntityType<?>> tileEntityType) {
 		this(null, properties, blockItemProperties, tileEntityType);
 	}
 	
-	public UTileEntityBlock(ItemGroup group, Properties properties, Item.Properties blockItemProperties, Supplier<? extends TileEntityType<?>> tileEntityType) {
+	public UTileEntityBlock(CreativeModeTab group, Properties properties, Item.Properties blockItemProperties, Supplier<? extends BlockEntityType<?>> tileEntityType) {
 		super(group, properties, blockItemProperties);
 		this.tileEntityType = tileEntityType;
 	}
@@ -40,12 +40,12 @@ public class UTileEntityBlock extends UBlock implements ITileEntityBlock {
 	}
 	
 	@Override
-	public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+	public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
 		return tileEntityType.get().create();
 	}
 	
 	@Override
-	public TileEntityType<?> getTileEntityType(IBlockReader world, BlockPos pos) {
+	public BlockEntityType<?> getTileEntityType(BlockGetter world, BlockPos pos) {
 		return tileEntityType.get();
 	}
 	

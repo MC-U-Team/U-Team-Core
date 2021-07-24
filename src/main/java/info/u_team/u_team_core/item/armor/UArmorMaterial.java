@@ -2,41 +2,41 @@ package info.u_team.u_team_core.item.armor;
 
 import java.util.function.Supplier;
 
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.LazyValue;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.util.LazyLoadedValue;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class UArmorMaterial implements IArmorMaterial {
+public class UArmorMaterial implements ArmorMaterial {
 	
 	private final int[] durability;
 	private final int[] armorPoints;
 	private final int enchantability;
-	private final LazyValue<SoundEvent> soundEvent;
+	private final LazyLoadedValue<SoundEvent> soundEvent;
 	private final float toughness;
 	private final float knockbackResistance;
-	private final LazyValue<Ingredient> repair;
+	private final LazyLoadedValue<Ingredient> repair;
 	
 	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> ingredient) {
 		this.durability = durability;
 		this.armorPoints = armorPoints;
 		this.enchantability = enchantability;
-		this.soundEvent = new LazyValue<>(soundEvent);
+		this.soundEvent = new LazyLoadedValue<>(soundEvent);
 		this.toughness = toughness;
 		this.knockbackResistance = knockbackResistance;
-		this.repair = new LazyValue<>(ingredient);
+		this.repair = new LazyLoadedValue<>(ingredient);
 	}
 	
 	@Override
-	public int getDurabilityForSlot(EquipmentSlotType slot) {
+	public int getDurabilityForSlot(EquipmentSlot slot) {
 		return durability[slot.getIndex()];
 	}
 	
 	@Override
-	public int getDefenseForSlot(EquipmentSlotType slot) {
+	public int getDefenseForSlot(EquipmentSlot slot) {
 		return armorPoints[slot.getIndex()];
 	}
 	

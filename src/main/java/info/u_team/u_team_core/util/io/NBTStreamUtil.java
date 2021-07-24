@@ -7,32 +7,32 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompressedStreamTools;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtIo;
 
 public class NBTStreamUtil {
 	
-	public static CompoundNBT readNBTFromFile(File file) throws IOException {
+	public static CompoundTag readNBTFromFile(File file) throws IOException {
 		return readNBTFromStream(new FileInputStream(file));
 	}
 	
-	public static CompoundNBT readNBTFromStream(InputStream stream) throws IOException {
-		CompoundNBT tag;
+	public static CompoundTag readNBTFromStream(InputStream stream) throws IOException {
+		CompoundTag tag;
 		try {
-			tag = CompressedStreamTools.readCompressed(stream);
+			tag = NbtIo.readCompressed(stream);
 		} finally {
 			stream.close();
 		}
 		return tag;
 	}
 	
-	public static void writeNBTToFile(CompoundNBT tag, File file) throws IOException {
+	public static void writeNBTToFile(CompoundTag tag, File file) throws IOException {
 		writeNBTToStream(tag, new FileOutputStream(file));
 	}
 	
-	public static void writeNBTToStream(CompoundNBT tag, OutputStream stream) throws IOException {
+	public static void writeNBTToStream(CompoundTag tag, OutputStream stream) throws IOException {
 		try {
-			CompressedStreamTools.writeCompressed(tag, stream);
+			NbtIo.writeCompressed(tag, stream);
 		} finally {
 			stream.flush();
 			stream.close();

@@ -11,16 +11,16 @@ import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.BufferPropertyContainerMessage;
 import info.u_team.u_team_core.screen.UContainerScreen;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.IContainerListener;
-import net.minecraft.inventory.container.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.Container;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.ContainerListener;
+import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.Connection;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.IItemHandler;
@@ -48,7 +48,7 @@ public abstract class UContainer extends FluidContainer {
 	 * @param type Container type
 	 * @param id Window id
 	 */
-	public UContainer(ContainerType<?> type, int id) {
+	public UContainer(MenuType<?> type, int id) {
 		super(type, id);
 		syncServerToClient = new ArrayList<>();
 		syncClientToServer = new ArrayList<>();
@@ -88,7 +88,7 @@ public abstract class UContainer extends FluidContainer {
 	 */
 	public void updateValue(BufferPropertyContainerMessage message, LogicalSide side) {
 		final int property = message.getProperty();
-		final PacketBuffer buffer = message.getBuffer();
+		final FriendlyByteBuf buffer = message.getBuffer();
 		if (side == LogicalSide.CLIENT) {
 			syncServerToClient.get(property).set(buffer);
 		} else if (side == LogicalSide.SERVER) {
@@ -103,9 +103,9 @@ public abstract class UContainer extends FluidContainer {
 	public void broadcastChanges() {
 		super.broadcastChanges();
 		
-		final List<NetworkManager> networkManagers = containerListeners.stream() //
-				.filter(listener -> listener instanceof ServerPlayerEntity) //
-				.map(listener -> ((ServerPlayerEntity) listener).connection.getConnection()) //
+		final List<Connection> networkManagers = containerListeners.stream() //
+				.filter(listener -> listener instanceof ServerPlayer) //
+				.map(listener -> ((ServerPlayer) listener).connection.getConnection()) //
 				.collect(Collectors.toList());
 		getDirtyMap(syncServerToClient).forEach((property, holder) -> {
 			UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new BufferPropertyContainerMessage(containerId, property, holder.get()));
@@ -140,7 +140,7 @@ public abstract class UContainer extends FluidContainer {
 	 * Player can interact with this container
 	 */
 	@Override
-	public boolean stillValid(PlayerEntity player) {
+	public boolean stillValid(Player player) {
 		return true;
 	}
 	
@@ -149,7 +149,7 @@ public abstract class UContainer extends FluidContainer {
 	 * 
 	 * @return Container listener
 	 */
-	protected List<IContainerListener> getListeners() {
+	protected List<ContainerListener> getListeners() {
 		return containerListeners;
 	}
 	
@@ -170,7 +170,7 @@ public abstract class UContainer extends FluidContainer {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendPlayerInventory(PlayerInventory playerInventory, int x, int y) {
+	protected void appendPlayerInventory(Inventory playerInventory, int x, int y) {
 		for (int height = 0; height < 4; height++) {
 			for (int width = 0; width < 9; width++) {
 				if (height == 3) {
@@ -192,7 +192,7 @@ public abstract class UContainer extends FluidContainer {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendInventory(IInventory inventory, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendInventory(Container inventory, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(inventory, 0, inventoryHeight, inventoryWidth, x, y);
 	}
 	
@@ -208,7 +208,7 @@ public abstract class UContainer extends FluidContainer {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendInventory(IInventory inventory, SlotInventoryFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendInventory(Container inventory, SlotInventoryFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(inventory, function, 0, inventoryHeight, inventoryWidth, x, y);
 	}
 	
@@ -223,7 +223,7 @@ public abstract class UContainer extends FluidContainer {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendInventory(IInventory inventory, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendInventory(Container inventory, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(inventory, Slot::new, startIndex, inventoryHeight, inventoryWidth, x, y);
 	}
 	
@@ -240,7 +240,7 @@ public abstract class UContainer extends FluidContainer {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendInventory(IInventory inventory, SlotInventoryFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendInventory(Container inventory, SlotInventoryFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
 		for (int height = 0; height < inventoryHeight; height++) {
 			for (int width = 0; width < inventoryWidth; width++) {
 				addSlot(function.getSlot(inventory, startIndex + (width + height * inventoryWidth), width * 18 + x, height * 18 + y));
@@ -331,7 +331,7 @@ public abstract class UContainer extends FluidContainer {
 		 * @param yPosition y coordinate
 		 * @return A slot instance
 		 */
-		Slot getSlot(IInventory inventory, int index, int xPosition, int yPosition);
+		Slot getSlot(Container inventory, int index, int xPosition, int yPosition);
 	}
 	
 	/**

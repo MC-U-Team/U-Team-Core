@@ -10,14 +10,14 @@ import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.FluidSetAllContainerMessage;
 import info.u_team.u_team_core.intern.network.FluidSetSlotContainerMessage;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.inventory.container.IContainerListener;
-import net.minecraft.item.ItemStack;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SSetSlotPacket;
-import net.minecraft.util.NonNullList;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.inventory.ContainerListener;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
+import net.minecraft.core.NonNullList;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
@@ -27,12 +27,12 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
-public abstract class FluidContainer extends Container {
+public abstract class FluidContainer extends AbstractContainerMenu {
 	
 	private final NonNullList<FluidStack> fluidStacks = NonNullList.create();
 	public final List<FluidSlot> fluidSlots = Lists.newArrayList();
 	
-	public FluidContainer(ContainerType<?> type, int id) {
+	public FluidContainer(MenuType<?> type, int id) {
 		super(type, id);
 	}
 	
@@ -58,7 +58,7 @@ public abstract class FluidContainer extends Container {
 	
 	// Called when a client clicks on a fluid slot
 	
-	public void fluidSlotClick(ServerPlayerEntity player, int index, boolean shift, ItemStack clientClickStack) {
+	public void fluidSlotClick(ServerPlayer player, int index, boolean shift, ItemStack clientClickStack) {
 		final ItemStack serverClickStack = player.inventory.getCarried();
 		
 		// Check if an item is in the hand
@@ -103,7 +103,7 @@ public abstract class FluidContainer extends Container {
 	}
 	
 	// TODO make this method better
-	private boolean insertFluidFromItem(ServerPlayerEntity player, FluidSlot fluidSlot, boolean shift) {
+	private boolean insertFluidFromItem(ServerPlayer player, FluidSlot fluidSlot, boolean shift) {
 		
 		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.inventory);
 		
@@ -159,12 +159,12 @@ public abstract class FluidContainer extends Container {
 				}
 			}
 		}
-		player.connection.send(new SSetSlotPacket(-1, -1, player.inventory.getCarried()));
+		player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, player.inventory.getCarried()));
 		return true;
 	}
 	
 	// TODO make this method better (maybe extract to an other class??)
-	private boolean extractFluidToItem(ServerPlayerEntity player, FluidSlot fluidSlot, boolean shift) {
+	private boolean extractFluidToItem(ServerPlayer player, FluidSlot fluidSlot, boolean shift) {
 		
 		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.inventory);
 		
@@ -209,7 +209,7 @@ public abstract class FluidContainer extends Container {
 				}
 			}
 		}
-		player.connection.send(new SSetSlotPacket(-1, -1, player.inventory.getCarried()));
+		player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, player.inventory.getCarried()));
 		return true;
 	}
 	
@@ -228,10 +228,10 @@ public abstract class FluidContainer extends Container {
 	// Send packets for client sync
 	
 	@Override
-	public void addSlotListener(IContainerListener listener) {
+	public void addSlotListener(ContainerListener listener) {
 		super.addSlotListener(listener);
-		if (listener instanceof ServerPlayerEntity) {
-			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) listener), new FluidSetAllContainerMessage(containerId, getFluids()));
+		if (listener instanceof ServerPlayer) {
+			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) listener), new FluidSetAllContainerMessage(containerId, getFluids()));
 		}
 	}
 	
@@ -245,9 +245,9 @@ public abstract class FluidContainer extends Container {
 				final FluidStack stackNewSynced = stackSlot.copy();
 				fluidStacks.set(index, stackNewSynced);
 				
-				final List<NetworkManager> networkManagers = containerListeners.stream() //
-						.filter(listener -> listener instanceof ServerPlayerEntity) //
-						.map(listener -> ((ServerPlayerEntity) listener).connection.getConnection()) //
+				final List<Connection> networkManagers = containerListeners.stream() //
+						.filter(listener -> listener instanceof ServerPlayer) //
+						.map(listener -> ((ServerPlayer) listener).connection.getConnection()) //
 						.collect(Collectors.toList());
 				
 				UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new FluidSetSlotContainerMessage(containerId, index, stackNewSynced));

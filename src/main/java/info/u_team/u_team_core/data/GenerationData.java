@@ -4,7 +4,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.IDataProvider;
+import net.minecraft.data.DataProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 
@@ -38,15 +38,15 @@ public class GenerationData {
 		return existingFileHelper;
 	}
 	
-	public void addProvider(Function<GenerationData, IDataProvider> function) {
-		final IDataProvider provider = function.apply(this);
+	public void addProvider(Function<GenerationData, DataProvider> function) {
+		final DataProvider provider = function.apply(this);
 		if (provider instanceof CommonBlockTagsProvider) {
 			blockTagsProvider = (CommonBlockTagsProvider) provider;
 		}
 		generator.addProvider(provider);
 	}
 	
-	public void addProvider(BiFunction<GenerationData, CommonBlockTagsProvider, IDataProvider> function) {
+	public void addProvider(BiFunction<GenerationData, CommonBlockTagsProvider, DataProvider> function) {
 		generator.addProvider(function.apply(this, blockTagsProvider));
 	}
 	

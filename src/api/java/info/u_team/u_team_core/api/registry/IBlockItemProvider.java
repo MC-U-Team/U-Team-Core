@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.api.registry;
 
 import info.u_team.u_team_core.util.registry.BlockDeferredRegister;
-import net.minecraft.item.BlockItem;
+import net.minecraft.world.item.BlockItem;
 
 /**
  * Implement this to a block to get the block item automatically registered with {@link BlockDeferredRegister}

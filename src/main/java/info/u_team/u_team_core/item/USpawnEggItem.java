@@ -6,25 +6,25 @@ import java.util.function.Supplier;
 
 import org.apache.commons.lang3.tuple.Pair;
 
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.SpawnEggItem;
-import net.minecraft.util.LazyValue;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.util.LazyLoadedValue;
 
-import net.minecraft.item.Item.Properties;
+import net.minecraft.world.item.Item.Properties;
 
 public class USpawnEggItem extends SpawnEggItem {
 	
-	public static final List<Pair<LazyValue<? extends EntityType<?>>, USpawnEggItem>> LAZY_EGGS = new ArrayList<>();
+	public static final List<Pair<LazyLoadedValue<? extends EntityType<?>>, USpawnEggItem>> LAZY_EGGS = new ArrayList<>();
 	
 	public USpawnEggItem(Properties properties, Supplier<? extends EntityType<?>> entityType, int primaryColor, int secondaryColor) {
 		this(null, properties, entityType, primaryColor, secondaryColor);
 	}
 	
-	public USpawnEggItem(ItemGroup group, Properties properties, Supplier<? extends EntityType<?>> entityType, int primaryColor, int secondaryColor) {
+	public USpawnEggItem(CreativeModeTab group, Properties properties, Supplier<? extends EntityType<?>> entityType, int primaryColor, int secondaryColor) {
 		super(null, primaryColor, secondaryColor, group == null ? properties : properties.tab(group));
 		BY_ID.remove(null);
-		LAZY_EGGS.add(Pair.of(new LazyValue<>(entityType), this));
+		LAZY_EGGS.add(Pair.of(new LazyLoadedValue<>(entityType), this));
 	}
 	
 }

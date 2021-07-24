@@ -3,22 +3,22 @@ package info.u_team.u_team_core.gui.elements;
 import java.util.function.Function;
 
 import info.u_team.u_team_core.api.gui.ITextureProvider;
-import net.minecraft.client.gui.widget.Widget;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.resources.ResourceLocation;
 
 public class WidgetTextureProvider implements ITextureProvider {
 	
-	protected Widget widget;
+	protected AbstractWidget widget;
 	protected Function<Boolean, Integer> yImage;
 	
-	public WidgetTextureProvider(Widget widget, Function<Boolean, Integer> yImage) {
+	public WidgetTextureProvider(AbstractWidget widget, Function<Boolean, Integer> yImage) {
 		this.widget = widget;
 		this.yImage = yImage;
 	}
 	
 	@Override
 	public ResourceLocation getTexture() {
-		return Widget.WIDGETS_LOCATION;
+		return AbstractWidget.WIDGETS_LOCATION;
 	}
 	
 	@Override

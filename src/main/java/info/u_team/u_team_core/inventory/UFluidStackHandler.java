@@ -3,13 +3,13 @@ package info.u_team.u_team_core.inventory;
 import info.u_team.u_team_core.api.InteractionType;
 import info.u_team.u_team_core.api.fluid.IExtendedFluidHandler;
 import info.u_team.u_team_core.util.FluidHandlerHelper;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.NonNullList;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.ListTag;
+import net.minecraft.core.NonNullList;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 
-public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializable<CompoundNBT> {
+public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializable<CompoundTag> {
 	
 	protected final NonNullList<FluidStack> stacks;
 	
@@ -123,14 +123,14 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 	}
 	
 	@Override
-	public CompoundNBT serializeNBT() {
-		final CompoundNBT compound = new CompoundNBT();
-		final ListNBT list = new ListNBT();
+	public CompoundTag serializeNBT() {
+		final CompoundTag compound = new CompoundTag();
+		final ListTag list = new ListTag();
 		
 		for (int index = 0; index < stacks.size(); index++) {
 			final FluidStack fluidStack = stacks.get(index);
 			if (!fluidStack.isEmpty()) {
-				final CompoundNBT slotCompound = new CompoundNBT();
+				final CompoundTag slotCompound = new CompoundTag();
 				slotCompound.putByte("Slot", (byte) index);
 				fluidStack.writeToNBT(slotCompound);
 				list.add(slotCompound);
@@ -145,11 +145,11 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 	}
 	
 	@Override
-	public void deserializeNBT(CompoundNBT compound) {
-		final ListNBT list = compound.getList("Fluids", 10);
+	public void deserializeNBT(CompoundTag compound) {
+		final ListTag list = compound.getList("Fluids", 10);
 		
 		for (int index = 0; index < list.size(); index++) {
-			final CompoundNBT slotCompound = list.getCompound(index);
+			final CompoundTag slotCompound = list.getCompound(index);
 			final int slot = slotCompound.getByte("Slot") & 255;
 			if (slot >= 0 && slot < stacks.size()) {
 				stacks.set(slot, FluidStack.loadFluidStackFromNBT(slotCompound));

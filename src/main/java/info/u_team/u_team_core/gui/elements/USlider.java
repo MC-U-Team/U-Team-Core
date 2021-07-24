@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
@@ -11,14 +11,14 @@ import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.util.Mth;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 
-import net.minecraft.client.gui.widget.button.Button.ITooltip;
+import net.minecraft.client.gui.components.Button.OnTooltip;
 import net.minecraftforge.fml.client.gui.widget.Slider.ISlider;
 
 public class USlider extends Slider implements IPerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
@@ -26,7 +26,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	protected static final ISlider EMTPY_SLIDER = slider -> {
 	};
 	
-	protected static final ITooltip EMPTY_TOOLTIP = UButton.EMPTY_TOOLTIP;
+	protected static final OnTooltip EMPTY_TOOLTIP = UButton.EMPTY_TOOLTIP;
 	
 	protected static final RGBA WHITE = UButton.WHITE;
 	protected static final RGBA LIGHT_GRAY = UButton.LIGHT_GRAY;
@@ -41,19 +41,19 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	protected RGBA textColor;
 	protected RGBA disabledTextColor;
 	
-	public USlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer) {
+	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer) {
 		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, EMTPY_SLIDER);
 	}
 	
-	public USlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, ISlider slider) {
+	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, ISlider slider) {
 		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, slider, EMPTY_TOOLTIP);
 	}
 	
-	public USlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, ITooltip tooltip) {
+	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnTooltip tooltip) {
 		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, EMTPY_SLIDER, tooltip);
 	}
 	
-	public USlider(int x, int y, int width, int height, ITextComponent prefix, ITextComponent suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, ISlider slider, ITooltip tooltip) {
+	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, ISlider slider, OnTooltip tooltip) {
 		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, UButton.EMTPY_PRESSABLE, slider);
 		this.isInContainer = isInContainer;
 		onTooltip = tooltip;
@@ -72,7 +72,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 		parent = slider -> runnable.run();
 	}
 	
-	public void setTooltip(ITooltip tooltip) {
+	public void setTooltip(OnTooltip tooltip) {
 		onTooltip = tooltip;
 	}
 	
@@ -109,12 +109,12 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderButtonLikeWidget(this, sliderBackgroundTextureProvider, matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void renderBackground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderBackground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 		if (visible) {
 			RenderUtil.enableBlend();
@@ -125,31 +125,31 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderText(this, matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void renderToolTip(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderToolTip(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		renderToolTip(matrixStack, mouseX, mouseY);
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return sliderBackgroundColor;
 	}
 	
-	public RGBA getCurrentSliderColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentSliderColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return sliderColor;
 	}
 	
 	@Override
-	public ITextComponent getCurrentText() {
+	public Component getCurrentText() {
 		return getMessage();
 	}
 	
 	@Override
-	public RGBA getCurrentTextColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentTextColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return active ? textColor : disabledTextColor;
 	}
 	
@@ -179,7 +179,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	protected void renderBg(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY) {
+	protected void renderBg(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY) {
 		if (isInContainer && visible && dragging) {
 			changeSliderValue(mouseX);
 		}
@@ -196,12 +196,12 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	public void playDownSound(SoundHandler handler) {
+	public void playDownSound(SoundManager handler) {
 	}
 	
 	@Override
-	protected IFormattableTextComponent createNarrationMessage() {
-		return new TranslationTextComponent("gui.narrate.slider", getMessage());
+	protected MutableComponent createNarrationMessage() {
+		return new TranslatableComponent("gui.narrate.slider", getMessage());
 	}
 	
 	protected void changeSliderValue(double mouseX) {
@@ -210,7 +210,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	
 	protected void setSliderValue(double value) {
 		final double oldValue = sliderValue;
-		sliderValue = MathHelper.clamp(value, 0, 1);
+		sliderValue = Mth.clamp(value, 0, 1);
 		if (oldValue != sliderValue) {
 			updateSlider();
 		}

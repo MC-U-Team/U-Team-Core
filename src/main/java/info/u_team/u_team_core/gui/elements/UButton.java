@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
@@ -9,11 +9,11 @@ import info.u_team.u_team_core.api.gui.ITextureProvider;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.button.Button;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.network.chat.Component;
 
-import net.minecraft.client.gui.widget.button.Button.IPressable;
-import net.minecraft.client.gui.widget.button.Button.ITooltip;
+import net.minecraft.client.gui.components.Button.OnPress;
+import net.minecraft.client.gui.components.Button.OnTooltip;
 
 /**
  * A button that fixes vanilla not drawing the continuous border if the button is smaller than 20. Also adds utility
@@ -23,10 +23,10 @@ import net.minecraft.client.gui.widget.button.Button.ITooltip;
  */
 public class UButton extends Button implements IPerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
 	
-	protected static final IPressable EMTPY_PRESSABLE = button -> {
+	protected static final OnPress EMTPY_PRESSABLE = button -> {
 	};
 	
-	protected static final ITooltip EMPTY_TOOLTIP = Button.NO_TOOLTIP;
+	protected static final OnTooltip EMPTY_TOOLTIP = Button.NO_TOOLTIP;
 	
 	protected static final RGBA WHITE = RGBA.WHITE;
 	protected static final RGBA LIGHT_GRAY = new RGBA(0xA0A0A0FF);
@@ -38,19 +38,19 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 	protected RGBA textColor;
 	protected RGBA disabledTextColor;
 	
-	public UButton(int x, int y, int width, int height, ITextComponent text) {
+	public UButton(int x, int y, int width, int height, Component text) {
 		this(x, y, width, height, text, EMTPY_PRESSABLE);
 	}
 	
-	public UButton(int x, int y, int width, int height, ITextComponent text, IPressable pessable) {
+	public UButton(int x, int y, int width, int height, Component text, OnPress pessable) {
 		this(x, y, width, height, text, pessable, EMPTY_TOOLTIP);
 	}
 	
-	public UButton(int x, int y, int width, int height, ITextComponent text, ITooltip tooltip) {
+	public UButton(int x, int y, int width, int height, Component text, OnTooltip tooltip) {
 		this(x, y, width, height, text, EMTPY_PRESSABLE, tooltip);
 	}
 	
-	public UButton(int x, int y, int width, int height, ITextComponent text, IPressable pessable, ITooltip tooltip) {
+	public UButton(int x, int y, int width, int height, Component text, OnPress pessable, OnTooltip tooltip) {
 		super(x, y, width, height, text, pessable);
 		onTooltip = tooltip;
 		buttonTextureProvider = new WidgetTextureProvider(this, this::getYImage);
@@ -59,7 +59,7 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 		disabledTextColor = LIGHT_GRAY;
 	}
 	
-	public void setPressable(IPressable pressable) {
+	public void setPressable(OnPress pressable) {
 		onPress = pressable;
 	}
 	
@@ -67,7 +67,7 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 		onPress = button -> runnable.run();
 	}
 	
-	public void setTooltip(ITooltip tooltip) {
+	public void setTooltip(OnTooltip tooltip) {
 		onTooltip = tooltip;
 	}
 	
@@ -96,37 +96,37 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	public void renderButton(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderButtonLikeWidget(this, buttonTextureProvider, matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void renderBackground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderBackground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 	}
 	
 	@Override
-	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderText(this, matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void renderToolTip(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderToolTip(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		renderToolTip(matrixStack, mouseX, mouseY);
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return buttonColor;
 	}
 	
 	@Override
-	public ITextComponent getCurrentText() {
+	public Component getCurrentText() {
 		return getMessage();
 	}
 	
 	@Override
-	public RGBA getCurrentTextColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentTextColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return active ? textColor : disabledTextColor;
 	}
 	

@@ -20,11 +20,11 @@ import com.google.gson.stream.JsonWriter;
 
 import info.u_team.u_team_core.util.GsonUtil;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IDataProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.DataProvider;
+import net.minecraft.resources.ResourceLocation;
 
-public abstract class CommonProvider implements IDataProvider {
+public abstract class CommonProvider implements DataProvider {
 	
 	public static final Logger LOGGER = LogManager.getLogger("DataGenerator");
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
@@ -68,11 +68,11 @@ public abstract class CommonProvider implements IDataProvider {
 		return path.resolve("assets").resolve(location.getNamespace());
 	}
 	
-	public static void write(DirectoryCache cache, JsonElement element, Path path) throws IOException {
+	public static void write(HashCache cache, JsonElement element, Path path) throws IOException {
 		write(cache, element, path, GSON);
 	}
 	
-	public static void write(DirectoryCache cache, JsonElement element, Path path, Gson gson) throws IOException {
+	public static void write(HashCache cache, JsonElement element, Path path, Gson gson) throws IOException {
 		try (final StringWriter writer = new StringWriter(); //
 				final JsonWriter jsonWriter = GsonUtil.createTabWriter(gson, writer)) {
 			GSON.toJson(element, jsonWriter);
@@ -82,7 +82,7 @@ public abstract class CommonProvider implements IDataProvider {
 		}
 	}
 	
-	public static void write(DirectoryCache cache, String string, Path path) throws IOException {
+	public static void write(HashCache cache, String string, Path path) throws IOException {
 		final String hash = SHA1.hashUnencodedChars(string).toString();
 		if (!Objects.equals(cache.getHash(path), hash) || !Files.exists(path)) {
 			Files.createDirectories(path.getParent());

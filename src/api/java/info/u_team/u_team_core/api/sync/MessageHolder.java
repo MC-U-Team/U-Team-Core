@@ -4,26 +4,26 @@ import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import io.netty.buffer.Unpooled;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
 
 public class MessageHolder extends BufferReferenceHolder {
 	
-	private Supplier<PacketBuffer> send;
-	private final Consumer<PacketBuffer> receive;
+	private Supplier<FriendlyByteBuf> send;
+	private final Consumer<FriendlyByteBuf> receive;
 	
 	private boolean isTriggered;
 	
-	public MessageHolder(Consumer<PacketBuffer> receive) {
+	public MessageHolder(Consumer<FriendlyByteBuf> receive) {
 		this.receive = receive;
 	}
 	
 	@Override
-	public PacketBuffer get() {
+	public FriendlyByteBuf get() {
 		return send.get();
 	}
 	
 	@Override
-	public void set(PacketBuffer buffer) {
+	public void set(FriendlyByteBuf buffer) {
 		receive.accept(buffer);
 	}
 	
@@ -36,7 +36,7 @@ public class MessageHolder extends BufferReferenceHolder {
 		return false;
 	}
 	
-	public void triggerMessage(Supplier<PacketBuffer> send) {
+	public void triggerMessage(Supplier<FriendlyByteBuf> send) {
 		isTriggered = true;
 		this.send = send;
 	}
@@ -48,7 +48,7 @@ public class MessageHolder extends BufferReferenceHolder {
 		}
 		
 		public void triggerMessage() {
-			triggerMessage(() -> new PacketBuffer(Unpooled.EMPTY_BUFFER));
+			triggerMessage(() -> new FriendlyByteBuf(Unpooled.EMPTY_BUFFER));
 		}
 		
 	}

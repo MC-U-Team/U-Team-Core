@@ -1,18 +1,18 @@
 package info.u_team.u_team_core.containertype;
 
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.fml.network.IContainerFactory;
 
-import net.minecraft.inventory.container.ContainerType.IFactory;
+import net.minecraft.world.inventory.MenuType.MenuSupplier;
 
-public class UContainerType<T extends Container> extends ContainerType<T> {
+public class UContainerType<T extends AbstractContainerMenu> extends MenuType<T> {
 	
 	public UContainerType(IContainerFactory<T> forgeFactory) {
-		this((IFactory<T>) forgeFactory);
+		this((MenuSupplier<T>) forgeFactory);
 	}
 	
-	public UContainerType(IFactory<T> factory) {
+	public UContainerType(MenuSupplier<T> factory) {
 		super(factory);
 	}
 }

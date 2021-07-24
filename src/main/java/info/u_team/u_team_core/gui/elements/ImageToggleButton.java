@@ -1,12 +1,12 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.RGBA;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
-import net.minecraft.client.gui.widget.button.Button.IPressable;
-import net.minecraft.client.gui.widget.button.Button.ITooltip;
+import net.minecraft.client.gui.components.Button.OnPress;
+import net.minecraft.client.gui.components.Button.OnTooltip;
 
 public class ImageToggleButton extends ImageButton {
 	
@@ -20,15 +20,15 @@ public class ImageToggleButton extends ImageButton {
 		this(x, y, width, height, image, toggleImage, toggled, EMTPY_PRESSABLE);
 	}
 	
-	public ImageToggleButton(int x, int y, int width, int height, ResourceLocation image, ResourceLocation toggleImage, boolean toggled, IPressable pessable) {
+	public ImageToggleButton(int x, int y, int width, int height, ResourceLocation image, ResourceLocation toggleImage, boolean toggled, OnPress pessable) {
 		this(x, y, width, height, image, toggleImage, toggled, pessable, EMPTY_TOOLTIP);
 	}
 	
-	public ImageToggleButton(int x, int y, int width, int height, ResourceLocation image, ResourceLocation toggleImage, boolean toggled, ITooltip tooltip) {
+	public ImageToggleButton(int x, int y, int width, int height, ResourceLocation image, ResourceLocation toggleImage, boolean toggled, OnTooltip tooltip) {
 		this(x, y, width, height, image, toggleImage, toggled, EMTPY_PRESSABLE, tooltip);
 	}
 	
-	public ImageToggleButton(int x, int y, int width, int height, ResourceLocation image, ResourceLocation toggleImage, boolean toggled, IPressable pessable, ITooltip tooltip) {
+	public ImageToggleButton(int x, int y, int width, int height, ResourceLocation image, ResourceLocation toggleImage, boolean toggled, OnPress pessable, OnTooltip tooltip) {
 		super(x, y, width, height, image, pessable, tooltip);
 		this.toggleImage = toggleImage;
 		toggleImageColor = WHITE;
@@ -75,7 +75,7 @@ public class ImageToggleButton extends ImageButton {
 	}
 	
 	@Override
-	public RGBA getCurrentImageColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentImageColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return toggled ? toggleImageColor : imageColor;
 	}
 }

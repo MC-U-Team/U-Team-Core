@@ -1,22 +1,22 @@
 package info.u_team.u_team_core.gui.renderer;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.GuiUtil;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.AbstractGui;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
-public class FluidInventoryRenderer extends AbstractGui {
+public class FluidInventoryRenderer extends GuiComponent {
 	
-	private static final ResourceLocation ATLAS = PlayerContainer.BLOCK_ATLAS;
+	private static final ResourceLocation ATLAS = InventoryMenu.BLOCK_ATLAS;
 	
-	public void drawFluid(MatrixStack matrixStack, int x, int y, FluidStack stack) {
+	public void drawFluid(PoseStack matrixStack, int x, int y, FluidStack stack) {
 		if (stack == null || stack.isEmpty()) {
 			return;
 		}

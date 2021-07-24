@@ -1,12 +1,12 @@
 package info.u_team.u_team_core.inventory;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.level.block.entity.BlockEntity;
 
 public class TileEntityUItemStackHandler extends UItemStackHandler {
 	
-	protected final TileEntity tileEntity;
+	protected final BlockEntity tileEntity;
 	
-	public TileEntityUItemStackHandler(int size, TileEntity tileEntity) {
+	public TileEntityUItemStackHandler(int size, BlockEntity tileEntity) {
 		super(size);
 		this.tileEntity = tileEntity;
 	}

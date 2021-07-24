@@ -5,17 +5,17 @@ import java.nio.file.Path;
 import java.util.function.Consumer;
 
 import info.u_team.u_team_core.util.TagUtil;
-import net.minecraft.advancements.criterion.EntityPredicate;
-import net.minecraft.advancements.criterion.InventoryChangeTrigger;
-import net.minecraft.advancements.criterion.ItemPredicate;
-import net.minecraft.advancements.criterion.MinMaxBounds.IntBound;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
+import net.minecraft.data.HashCache;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.level.ItemLike;
+import net.minecraft.resources.ResourceLocation;
 
 public abstract class CommonRecipesProvider extends CommonProvider {
 	
@@ -24,7 +24,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void run(DirectoryCache cache) throws IOException {
+	public void run(HashCache cache) throws IOException {
 		registerRecipes(recipe -> generateRecipe(cache, recipe, false));
 		registerDefaultAdvancementsRecipes(recipe -> generateRecipe(cache, recipe, true));
 	}
@@ -34,7 +34,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 		return "Recipes";
 	}
 	
-	private void generateRecipe(DirectoryCache cache, IFinishedRecipe recipe, boolean vanillaAdvancement) {
+	private void generateRecipe(HashCache cache, FinishedRecipe recipe, boolean vanillaAdvancement) {
 		try {
 			final ResourceLocation recipeLocation = recipe.getId();
 			write(cache, recipe.serializeRecipe(), resolveData(recipeLocation).resolve("recipes").resolve(recipe.getId().getPath() + ".json"));
@@ -53,29 +53,29 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 		}
 	}
 	
-	protected abstract void registerRecipes(Consumer<IFinishedRecipe> consumer);
+	protected abstract void registerRecipes(Consumer<FinishedRecipe> consumer);
 	
 	/**
 	 * Override this method if you want to add recipes that have the vanilla path for advancements
 	 * 
 	 * @param consumer
 	 */
-	protected void registerDefaultAdvancementsRecipes(Consumer<IFinishedRecipe> consumer) {
+	protected void registerDefaultAdvancementsRecipes(Consumer<FinishedRecipe> consumer) {
 	}
 	
-	protected InventoryChangeTrigger.Instance hasItem(ITag<Item> tag) {
+	protected InventoryChangeTrigger.TriggerInstance hasItem(Tag<Item> tag) {
 		return hasItem(ItemPredicate.Builder.item().of(tag).build());
 	}
 	
-	protected InventoryChangeTrigger.Instance hasItem(IItemProvider item) {
+	protected InventoryChangeTrigger.TriggerInstance hasItem(ItemLike item) {
 		return hasItem(ItemPredicate.Builder.item().of(item).build());
 	}
 	
-	protected InventoryChangeTrigger.Instance hasItem(ItemPredicate... predicates) {
-		return new InventoryChangeTrigger.Instance(EntityPredicate.AndPredicate.ANY, IntBound.ANY, IntBound.ANY, IntBound.ANY, predicates);
+	protected InventoryChangeTrigger.TriggerInstance hasItem(ItemPredicate... predicates) {
+		return new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, Ints.ANY, Ints.ANY, Ints.ANY, predicates);
 	}
 	
-	public static Ingredient getIngredientOfTag(ITag<Item> tag) {
+	public static Ingredient getIngredientOfTag(Tag<Item> tag) {
 		return TagUtil.getSerializableIngredientOfTag(tag);
 	}
 	

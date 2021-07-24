@@ -1,16 +1,16 @@
 package info.u_team.u_team_core.screen;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IRenderTickable;
 import info.u_team.u_team_core.container.UContainer;
 import info.u_team.u_team_core.util.GuiUtil;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.Component;
 
-public class UContainerScreen<T extends Container> extends FluidContainerScreen<T> {
+public class UContainerScreen<T extends AbstractContainerMenu> extends FluidContainerScreen<T> {
 	
 	protected ResourceLocation background;
 	protected int backgroundWidth, backgroundHeight;
@@ -18,7 +18,7 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	protected boolean drawTitleText;
 	protected boolean drawInventoryText;
 	
-	public UContainerScreen(T container, PlayerInventory playerInventory, ITextComponent title, ResourceLocation background) {
+	public UContainerScreen(T container, Inventory playerInventory, Component title, ResourceLocation background) {
 		super(container, playerInventory, title);
 		this.background = background;
 		setBackgroundDimensions(256);
@@ -61,7 +61,7 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	}
 	
 	@Override
-	protected void renderLabels(MatrixStack matrixStack, int mouseX, int mouseY) {
+	protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
 		super.renderLabels(matrixStack, mouseX, mouseY);
 		if (drawTitleText) {
 			font.draw(matrixStack, title, titleLabelX, titleLabelY, 4210752);
@@ -72,7 +72,7 @@ public class UContainerScreen<T extends Container> extends FluidContainerScreen<
 	}
 	
 	@Override
-	protected void renderBg(MatrixStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY) {
 		GuiUtil.clearColor();
 		minecraft.getTextureManager().bind(background);
 		final int xStart = (width - imageWidth) / 2;

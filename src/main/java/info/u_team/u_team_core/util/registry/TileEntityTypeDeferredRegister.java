@@ -2,9 +2,9 @@ package info.u_team.u_team_core.util.registry;
 
 import java.util.function.Supplier;
 
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.tileentity.TileEntityType.Builder;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.BlockEntityType.Builder;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -15,13 +15,13 @@ public class TileEntityTypeDeferredRegister {
 		return new TileEntityTypeDeferredRegister(modid);
 	}
 	
-	private final CommonDeferredRegister<TileEntityType<?>> register;
+	private final CommonDeferredRegister<BlockEntityType<?>> register;
 	
 	protected TileEntityTypeDeferredRegister(String modid) {
 		register = CommonDeferredRegister.create(ForgeRegistries.TILE_ENTITIES, modid);
 	}
 	
-	public <T extends TileEntity> RegistryObject<TileEntityType<T>> register(String name, Supplier<Builder<T>> supplier) {
+	public <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String name, Supplier<Builder<T>> supplier) {
 		return register.register(name, () -> supplier.get().build(null));
 	}
 	
@@ -29,7 +29,7 @@ public class TileEntityTypeDeferredRegister {
 		register.register(bus);
 	}
 	
-	public CommonDeferredRegister<TileEntityType<?>> getRegister() {
+	public CommonDeferredRegister<BlockEntityType<?>> getRegister() {
 		return register;
 	}
 	

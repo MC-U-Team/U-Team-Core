@@ -1,34 +1,34 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IScaleProvider;
 import info.u_team.u_team_core.api.gui.IScaleable;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
 
-import net.minecraft.client.gui.widget.button.Button.IPressable;
-import net.minecraft.client.gui.widget.button.Button.ITooltip;
+import net.minecraft.client.gui.components.Button.OnPress;
+import net.minecraft.client.gui.components.Button.OnTooltip;
 
 public class ScalableCheckboxButton extends CheckboxButton implements IScaleable, IScaleProvider {
 	
 	protected float scale;
 	
-	public ScalableCheckboxButton(int x, int y, int width, int height, ITextComponent text, boolean checked, boolean drawText, float scale) {
+	public ScalableCheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, float scale) {
 		this(x, y, width, height, text, checked, drawText, scale, EMTPY_PRESSABLE);
 	}
 	
-	public ScalableCheckboxButton(int x, int y, int width, int height, ITextComponent text, boolean checked, boolean drawText, float scale, IPressable pessable) {
+	public ScalableCheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, float scale, OnPress pessable) {
 		this(x, y, width, height, text, checked, drawText, scale, pessable, EMPTY_TOOLTIP);
 	}
 	
-	public ScalableCheckboxButton(int x, int y, int width, int height, ITextComponent text, boolean checked, boolean drawText, float scale, ITooltip tooltip) {
+	public ScalableCheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, float scale, OnTooltip tooltip) {
 		this(x, y, width, height, text, checked, drawText, scale, EMTPY_PRESSABLE, tooltip);
 	}
 	
-	public ScalableCheckboxButton(int x, int y, int width, int height, ITextComponent text, boolean checked, boolean drawText, float scale, IPressable pessable, ITooltip tooltip) {
+	public ScalableCheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, float scale, OnPress pessable, OnTooltip tooltip) {
 		super(x, y, width, height, text, checked, drawText, pessable, tooltip);
 		this.scale = scale;
 	}
@@ -44,12 +44,12 @@ public class ScalableCheckboxButton extends CheckboxButton implements IScaleable
 	}
 	
 	@Override
-	public void renderForeground(MatrixStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			final FontRenderer fontRenderer = minecraft.font;
+			final Font fontRenderer = minecraft.font;
 			
-			final ITextComponent message = getCurrentText();
-			if (message != StringTextComponent.EMPTY) {
+			final Component message = getCurrentText();
+			if (message != TextComponent.EMPTY) {
 				final float currentScale = getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
 				
 				final float positionFactor = 1 / currentScale;
@@ -80,7 +80,7 @@ public class ScalableCheckboxButton extends CheckboxButton implements IScaleable
 	}
 	
 	@Override
-	public float getCurrentScale(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public float getCurrentScale(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return scale;
 	}
 }

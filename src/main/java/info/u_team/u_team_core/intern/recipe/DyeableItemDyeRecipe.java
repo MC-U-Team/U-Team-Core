@@ -6,23 +6,23 @@ import com.google.common.collect.Lists;
 
 import info.u_team.u_team_core.api.dye.IDyeableItem;
 import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
-import net.minecraft.inventory.CraftingInventory;
-import net.minecraft.item.DyeItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.SpecialRecipe;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.CustomRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
 
-public class DyeableItemDyeRecipe extends SpecialRecipe {
+public class DyeableItemDyeRecipe extends CustomRecipe {
 	
 	public DyeableItemDyeRecipe(ResourceLocation location) {
 		super(location);
 	}
 	
 	@Override
-	public boolean matches(CraftingInventory inventory, World world) {
+	public boolean matches(CraftingContainer inventory, Level world) {
 		ItemStack dyeableItem = ItemStack.EMPTY;
 		final List<ItemStack> dyeList = Lists.newArrayList();
 		
@@ -48,7 +48,7 @@ public class DyeableItemDyeRecipe extends SpecialRecipe {
 	}
 	
 	@Override
-	public ItemStack assemble(CraftingInventory inventory) {
+	public ItemStack assemble(CraftingContainer inventory) {
 		ItemStack dyeableItem = ItemStack.EMPTY;
 		final List<DyeItem> dyeItemList = Lists.newArrayList();
 		
@@ -83,7 +83,7 @@ public class DyeableItemDyeRecipe extends SpecialRecipe {
 	}
 	
 	@Override
-	public IRecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<?> getSerializer() {
 		return UCoreRecipeSerializers.CRAFTING_SPECIAL_ITEMDYE.get();
 	}
 }

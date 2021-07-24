@@ -1,10 +1,10 @@
 package info.u_team.u_team_core.api.sync;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  * 
  * @author HyCraftHD
  */
-public interface IInitSyncedTileEntity extends INamedContainerProvider {
+public interface IInitSyncedTileEntity extends MenuProvider {
 	
 	/**
 	 * Collect data here that should be sent to the client side when the container will be opened. The data comes to the
@@ -21,7 +21,7 @@ public interface IInitSyncedTileEntity extends INamedContainerProvider {
 	 * 
 	 * @param buffer Buffer for 32kb data
 	 */
-	void sendInitialDataBuffer(PacketBuffer buffer);
+	void sendInitialDataBuffer(FriendlyByteBuf buffer);
 	
 	/**
 	 * The collected data for the initial container opening comes here to the client side. The data is send from the server
@@ -30,9 +30,9 @@ public interface IInitSyncedTileEntity extends INamedContainerProvider {
 	 * @param buffer Buffer for 32kb data
 	 */
 	@OnlyIn(Dist.CLIENT)
-	void handleInitialDataBuffer(PacketBuffer buffer);
+	void handleInitialDataBuffer(FriendlyByteBuf buffer);
 	
 	@Override
-	Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player);
+	AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player);
 	
 }

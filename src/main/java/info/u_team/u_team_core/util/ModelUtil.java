@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.util;
 
 import static net.minecraft.client.renderer.model.ModelBakery.LOCATIONS_BUILTIN_TEXTURES;
-import static net.minecraft.client.renderer.model.ModelBakery.STATE_CONTAINER_OVERRIDES;
+import staticnet.minecraft.client.resources.model.ModelBakeryy.STATE_CONTAINER_OVERRIDES;
 
 import java.util.HashMap;
 import java.util.Map;

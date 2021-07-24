@@ -2,9 +2,9 @@ package info.u_team.u_team_core.util.registry;
 
 import java.util.function.Supplier;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.BlockItem;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fml.RegistryObject;
 
 public class BlockRegistryObject<B extends Block, I extends BlockItem> implements Supplier<B> {

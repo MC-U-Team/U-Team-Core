@@ -6,8 +6,8 @@ import java.util.function.Supplier;
 import info.u_team.u_team_core.container.UContainer;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.LogicalSide;
@@ -17,27 +17,27 @@ public class BufferPropertyContainerMessage {
 	
 	private final int id;
 	private final int property;
-	private final PacketBuffer buffer;
+	private final FriendlyByteBuf buffer;
 	
-	public BufferPropertyContainerMessage(int id, int property, PacketBuffer buffer) {
+	public BufferPropertyContainerMessage(int id, int property, FriendlyByteBuf buffer) {
 		this.id = id;
 		this.property = property;
 		this.buffer = buffer;
 	}
 	
-	public static void encode(BufferPropertyContainerMessage message, PacketBuffer sendBuffer) {
+	public static void encode(BufferPropertyContainerMessage message, FriendlyByteBuf sendBuffer) {
 		sendBuffer.writeByte(message.id);
 		sendBuffer.writeShort(message.property);
 		sendBuffer.writeBytes(message.buffer);
 	}
 	
-	public static BufferPropertyContainerMessage decode(PacketBuffer sendBuffer) {
+	public static BufferPropertyContainerMessage decode(FriendlyByteBuf sendBuffer) {
 		final int id = sendBuffer.readByte();
 		final int property = sendBuffer.readShort();
 		
 		final byte[] bytes = new byte[sendBuffer.readableBytes()]; // Is there a better way to read all bytes??
 		sendBuffer.getBytes(sendBuffer.readerIndex(), bytes);
-		final BufferPropertyContainerMessage buffer = new BufferPropertyContainerMessage(id, property, new PacketBuffer(Unpooled.wrappedBuffer(bytes)));
+		final BufferPropertyContainerMessage buffer = new BufferPropertyContainerMessage(id, property, new FriendlyByteBuf(Unpooled.wrappedBuffer(bytes)));
 		
 		return buffer;
 	}
@@ -46,7 +46,7 @@ public class BufferPropertyContainerMessage {
 		return property;
 	}
 	
-	public PacketBuffer getBuffer() {
+	public FriendlyByteBuf getBuffer() {
 		return buffer;
 	}
 	
@@ -74,7 +74,7 @@ public class BufferPropertyContainerMessage {
 			getUContainer(Minecraft.getInstance().player.containerMenu, message.id).ifPresent(container -> container.updateValue(message, LogicalSide.CLIENT));
 		}
 		
-		private static final Optional<UContainer> getUContainer(Container container, int id) {
+		private static final Optional<UContainer> getUContainer(AbstractContainerMenu container, int id) {
 			if (container instanceof UContainer && container.containerId == id) {
 				return Optional.of((UContainer) container);
 			}

@@ -6,17 +6,17 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 
-import net.minecraft.block.Block;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EntityType;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effect;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.data.HashCache;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 
 public abstract class CommonLanguagesProvider extends CommonProvider {
 	
@@ -28,7 +28,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void run(DirectoryCache cache) throws IOException {
+	public void run(HashCache cache) throws IOException {
 		addTranslations();
 		data.forEach((locale, map) -> {
 			if (!map.isEmpty()) {
@@ -48,10 +48,10 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		return "Languages";
 	}
 	
-	protected void add(ItemGroup key, String name) {
-		final ITextComponent component = key.getDisplayName();
-		if (component instanceof TranslationTextComponent) {
-			add(((TranslationTextComponent) component).getKey(), name);
+	protected void add(CreativeModeTab key, String name) {
+		final Component component = key.getDisplayName();
+		if (component instanceof TranslatableComponent) {
+			add(((TranslatableComponent) component).getKey(), name);
 		}
 	}
 	
@@ -87,11 +87,11 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(key.getDescriptionId(), name);
 	}
 	
-	protected void addEffect(Supplier<? extends Effect> key, String name) {
+	protected void addEffect(Supplier<? extends MobEffect> key, String name) {
 		add(key.get(), name);
 	}
 	
-	protected void add(Effect key, String name) {
+	protected void add(MobEffect key, String name) {
 		add(key.getDescriptionId(), name);
 	}
 	
@@ -115,10 +115,10 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add("en_us", key, value);
 	}
 	
-	protected void add(String locale, ItemGroup key, String name) {
-		final ITextComponent component = key.getDisplayName();
-		if (component instanceof TranslationTextComponent) {
-			add(locale, ((TranslationTextComponent) component).getKey(), name);
+	protected void add(String locale, CreativeModeTab key, String name) {
+		final Component component = key.getDisplayName();
+		if (component instanceof TranslatableComponent) {
+			add(locale, ((TranslatableComponent) component).getKey(), name);
 		}
 	}
 	
@@ -154,11 +154,11 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		add(locale, key.getDescriptionId(), name);
 	}
 	
-	protected void addEffect(String locale, Supplier<? extends Effect> key, String name) {
+	protected void addEffect(String locale, Supplier<? extends MobEffect> key, String name) {
 		add(locale, key.get(), name);
 	}
 	
-	protected void add(String locale, Effect key, String name) {
+	protected void add(String locale, MobEffect key, String name) {
 		add(locale, key.getDescriptionId(), name);
 	}
 	

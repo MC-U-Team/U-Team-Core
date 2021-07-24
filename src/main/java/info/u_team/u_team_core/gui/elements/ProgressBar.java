@@ -3,18 +3,18 @@ package info.u_team.u_team_core.gui.elements;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
-import net.minecraft.client.audio.SoundHandler;
-import net.minecraft.client.gui.AbstractGui;
-import net.minecraft.client.gui.IGuiEventListener;
-import net.minecraft.client.gui.IRenderable;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.client.resources.sounds.SimpleSoundInstance;
+import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.components.events.GuiEventListener;
+import net.minecraft.client.gui.components.Widget;
+import net.minecraft.sounds.SoundEvents;
 
-public class ProgressBar extends AbstractGui implements IGuiEventListener, IRenderable {
+public class ProgressBar extends GuiComponent implements GuiEventListener, Widget {
 	
 	protected Supplier<Double> progress;
 	protected Consumer<Double> click;
@@ -44,7 +44,7 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 	}
 	
 	@Override
-	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		if (visible) {
 			hovered = mouseX >= this.x && mouseY >= this.y && mouseX < this.x + this.width && mouseY < this.y + this.height;
 			
@@ -75,8 +75,8 @@ public class ProgressBar extends AbstractGui implements IGuiEventListener, IRend
 		return enabled && visible && mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 	}
 	
-	public void playPressSound(SoundHandler soundHandler) {
-		soundHandler.play(SimpleSound.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+	public void playPressSound(SoundManager soundHandler) {
+		soundHandler.play(SimpleSoundInstance.forUI(SoundEvents.UI_BUTTON_CLICK, 1.0F));
 	}
 	
 	public void setProgressSupplier(Supplier<Double> progress) {

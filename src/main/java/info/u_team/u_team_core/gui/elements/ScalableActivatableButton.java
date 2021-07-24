@@ -1,12 +1,12 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.RGBA;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.network.chat.Component;
 
-import net.minecraft.client.gui.widget.button.Button.IPressable;
-import net.minecraft.client.gui.widget.button.Button.ITooltip;
+import net.minecraft.client.gui.components.Button.OnPress;
+import net.minecraft.client.gui.components.Button.OnTooltip;
 
 public class ScalableActivatableButton extends ScalableButton {
 	
@@ -14,19 +14,19 @@ public class ScalableActivatableButton extends ScalableButton {
 	
 	protected RGBA activatedColor;
 	
-	public ScalableActivatableButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor) {
+	public ScalableActivatableButton(int x, int y, int width, int height, Component text, float scale, boolean activated, RGBA activatedColor) {
 		this(x, y, width, height, text, scale, activated, activatedColor, EMTPY_PRESSABLE);
 	}
 	
-	public ScalableActivatableButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor, IPressable pessable) {
+	public ScalableActivatableButton(int x, int y, int width, int height, Component text, float scale, boolean activated, RGBA activatedColor, OnPress pessable) {
 		this(x, y, width, height, text, scale, activated, activatedColor, pessable, EMPTY_TOOLTIP);
 	}
 	
-	public ScalableActivatableButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor, ITooltip tooltip) {
+	public ScalableActivatableButton(int x, int y, int width, int height, Component text, float scale, boolean activated, RGBA activatedColor, OnTooltip tooltip) {
 		this(x, y, width, height, text, scale, activated, activatedColor, EMTPY_PRESSABLE, tooltip);
 	}
 	
-	public ScalableActivatableButton(int x, int y, int width, int height, ITextComponent text, float scale, boolean activated, RGBA activatedColor, IPressable pessable, ITooltip tooltip) {
+	public ScalableActivatableButton(int x, int y, int width, int height, Component text, float scale, boolean activated, RGBA activatedColor, OnPress pessable, OnTooltip tooltip) {
 		super(x, y, width, height, text, scale, pessable, tooltip);
 		this.activated = activated;
 		this.activatedColor = activatedColor;
@@ -49,7 +49,7 @@ public class ScalableActivatableButton extends ScalableButton {
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		return activated ? activatedColor : buttonColor;
 	}
 }
