@@ -47,7 +47,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 			final int recipeHeight = pattern.length;
 			final String group = GsonHelper.getAsString(json, "group", "");
 			final NonNullList<Ingredient> ingredients = deserializeIngredients(pattern, deserializeKey(GsonHelper.getAsJsonObject(json, "key")), recipeWidth, recipeHeight);
-			final ItemStack output = ShapedRecipe.itemFromJson(GsonHelper.getAsJsonObject(json, "result"));
+			final ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
 			return new NoMirrorShapedRecipe(location, group, recipeWidth, recipeHeight, ingredients, output);
 		}
 		
