@@ -17,8 +17,8 @@ import com.google.common.io.ByteStreams;
 
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
 import net.minecraftforge.fml.util.CertificateHelper;
+import net.minecraftforge.forgespi.language.IModFileInfo;
 
 public class JarSignVerifier {
 	
@@ -48,7 +48,7 @@ public class JarSignVerifier {
 			return VerifyStatus.DEV;
 		}
 		
-		final ModFileInfo info = ModList.get().getModFileById(modid);
+		final IModFileInfo info = ModList.get().getModFileById(modid);
 		
 		final Path path = info.getFile().getFilePath();
 		
