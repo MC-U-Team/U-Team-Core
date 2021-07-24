@@ -16,9 +16,9 @@ import com.google.common.base.Stopwatch;
 import com.google.common.io.ByteStreams;
 
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.common.CertificateHelper;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
+import net.minecraftforge.fml.util.CertificateHelper;
 
 public class JarSignVerifier {
 	

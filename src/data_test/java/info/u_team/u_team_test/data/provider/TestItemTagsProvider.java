@@ -6,8 +6,6 @@ import info.u_team.u_team_core.data.CommonBlockTagsProvider;
 import info.u_team.u_team_core.data.CommonItemTagsProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestTags;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.tags.ItemTags;
 import net.minecraftforge.common.Tags;
 

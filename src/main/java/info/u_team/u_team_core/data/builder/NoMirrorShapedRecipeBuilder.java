@@ -6,8 +6,8 @@ import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
 import info.u_team.u_team_core.util.RecipeBuilderUtil;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.world.level.ItemLike;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.ItemLike;
 
 public class NoMirrorShapedRecipeBuilder extends ShapedRecipeBuilder {
 	

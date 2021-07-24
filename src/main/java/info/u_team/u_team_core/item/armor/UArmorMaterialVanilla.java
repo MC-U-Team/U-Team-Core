@@ -2,8 +2,8 @@ package info.u_team.u_team_core.item.armor;
 
 import java.util.function.Supplier;
 
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 

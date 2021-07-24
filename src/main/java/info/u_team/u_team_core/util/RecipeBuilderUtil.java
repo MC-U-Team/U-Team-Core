@@ -3,8 +3,8 @@ package info.u_team.u_team_core.util;
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 
 public class RecipeBuilderUtil {
 	

@@ -8,7 +8,7 @@ import info.u_team.u_team_test.container.BasicFluidInventoryContainer;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TestContainers {

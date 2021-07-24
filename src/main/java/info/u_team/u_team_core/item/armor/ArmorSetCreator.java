@@ -3,10 +3,10 @@ package info.u_team.u_team_core.item.armor;
 import info.u_team.u_team_core.util.ItemProperties;
 import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
 import net.minecraft.world.item.ArmorMaterial;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 public class ArmorSetCreator {
 	

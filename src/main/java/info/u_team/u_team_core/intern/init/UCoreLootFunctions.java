@@ -2,10 +2,10 @@ package info.u_team.u_team_core.intern.init;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.intern.loot.SetTileEntityNBTLootFunction;
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.Registry;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.IEventBus;
 

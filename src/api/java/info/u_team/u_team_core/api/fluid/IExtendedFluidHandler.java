@@ -18,8 +18,6 @@ package info.u_team.u_team_core.api.fluid;
 import info.u_team.u_team_core.api.InteractionType;
 import net.minecraftforge.fluids.FluidStack;
 
-import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
-
 public interface IExtendedFluidHandler extends IFluidHandlerModifiable {
 	
 	FluidStack insertFluid(int tank, FluidStack stack, InteractionType action);

@@ -1,11 +1,11 @@
 package info.u_team.u_team_core.api;
 
 import info.u_team.u_team_core.item.tool.UToolMaterial;
-import net.minecraft.item.AxeItem;
+import net.minecraft.world.item.AxeItem;
+import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.ShovelItem;
+import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.Tier;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.SwordItem;
 
 /**
  * This interface extends the {@link IItemTier} interface for tool materials.

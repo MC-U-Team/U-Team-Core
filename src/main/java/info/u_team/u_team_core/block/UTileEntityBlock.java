@@ -3,15 +3,13 @@ package info.u_team.u_team_core.block;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.ITileEntityBlock;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.item.Item;
+import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.core.BlockPos;
-import net.minecraft.world.level.BlockGetter;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class UTileEntityBlock extends UBlock implements ITileEntityBlock {
 	
@@ -35,13 +33,8 @@ public class UTileEntityBlock extends UBlock implements ITileEntityBlock {
 	}
 	
 	@Override
-	public boolean hasTileEntity(BlockState state) {
-		return true;
-	}
-	
-	@Override
-	public BlockEntity createTileEntity(BlockState state, BlockGetter world) {
-		return tileEntityType.get().create();
+	public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		return tileEntityType.get().create(pos, state);
 	}
 	
 	@Override

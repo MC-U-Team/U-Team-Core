@@ -4,8 +4,6 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class UChestplateItem extends UArmorItem {
 	
 	public UChestplateItem(String textureName, Properties properties, ArmorMaterial material) {

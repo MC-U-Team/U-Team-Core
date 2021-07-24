@@ -5,8 +5,6 @@ import info.u_team.u_team_core.api.IToolMaterial.Tools;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.SwordItem;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class USwordItem extends SwordItem {
 	
 	public USwordItem(Properties properties, IToolMaterial material) {

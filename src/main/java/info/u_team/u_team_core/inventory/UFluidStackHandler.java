@@ -3,9 +3,9 @@ package info.u_team.u_team_core.inventory;
 import info.u_team.u_team_core.api.InteractionType;
 import info.u_team.u_team_core.api.fluid.IExtendedFluidHandler;
 import info.u_team.u_team_core.util.FluidHandlerHelper;
+import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.core.NonNullList;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 

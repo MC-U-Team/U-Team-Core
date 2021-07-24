@@ -5,13 +5,13 @@ import info.u_team.u_team_core.ingredient.ItemIngredient;
 import info.u_team.u_team_core.intern.recipe.DyeableItemDyeRecipe;
 import info.u_team.u_team_core.intern.recipe.NoMirrorShapedRecipe;
 import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class UCoreRecipeSerializers {

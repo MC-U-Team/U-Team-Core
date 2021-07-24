@@ -6,8 +6,6 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.PickaxeItem;
 import net.minecraftforge.common.ToolType;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class UPickaxeItem extends PickaxeItem {
 	
 	public UPickaxeItem(Properties properties, IToolMaterial material) {

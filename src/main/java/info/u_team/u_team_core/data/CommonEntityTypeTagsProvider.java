@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.data;
 
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.core.Registry;
+import net.minecraft.world.entity.EntityType;
 
 public abstract class CommonEntityTypeTagsProvider extends CommonTagsProvider<EntityType<?>> {
 	

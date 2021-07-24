@@ -5,10 +5,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.Component;
 
 public class UBasicContainerScreen<T extends AbstractContainerMenu> extends UContainerScreen<T> implements IPerspectiveRenderable {
 	

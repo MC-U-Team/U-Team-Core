@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.tileentity;
 
-import net.minecraft.world.level.block.entity.TickableBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.entity.TickableBlockEntity;
 
 public abstract class UTickableTileEntity extends UTileEntity implements TickableBlockEntity {
 	

@@ -9,7 +9,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.world.item.Item.Properties;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 public class ItemProperties extends Properties {
 	

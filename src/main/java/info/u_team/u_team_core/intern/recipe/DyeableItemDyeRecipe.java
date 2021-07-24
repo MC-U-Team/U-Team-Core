@@ -6,13 +6,13 @@ import com.google.common.collect.Lists;
 
 import info.u_team.u_team_core.api.dye.IDyeableItem;
 import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.CustomRecipe;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class DyeableItemDyeRecipe extends CustomRecipe {

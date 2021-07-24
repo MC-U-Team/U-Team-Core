@@ -6,8 +6,6 @@ import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.ToolType;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class UAxeItem extends AxeItem {
 	
 	public UAxeItem(Properties properties, IToolMaterial material) {

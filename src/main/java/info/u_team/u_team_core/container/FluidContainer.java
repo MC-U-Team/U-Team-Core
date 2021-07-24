@@ -10,20 +10,20 @@ import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.FluidSetAllContainerMessage;
 import info.u_team.u_team_core.intern.network.FluidSetSlotContainerMessage;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.inventory.ContainerListener;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.core.NonNullList;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
-import net.minecraft.core.NonNullList;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.inventory.ContainerListener;
+import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fml.network.PacketDistributor;
+import net.minecraftforge.fmllegacy.network.PacketDistributor;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
@@ -59,7 +59,7 @@ public abstract class FluidContainer extends AbstractContainerMenu {
 	// Called when a client clicks on a fluid slot
 	
 	public void fluidSlotClick(ServerPlayer player, int index, boolean shift, ItemStack clientClickStack) {
-		final ItemStack serverClickStack = player.inventory.getCarried();
+		final ItemStack serverClickStack = getCarried();
 		
 		// Check if an item is in the hand
 		if (serverClickStack.isEmpty()) {
@@ -105,9 +105,9 @@ public abstract class FluidContainer extends AbstractContainerMenu {
 	// TODO make this method better
 	private boolean insertFluidFromItem(ServerPlayer player, FluidSlot fluidSlot, boolean shift) {
 		
-		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.inventory);
+		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.getInventory());
 		
-		final ItemStack stack = player.inventory.getCarried();
+		final ItemStack stack = getCarried();
 		
 		final LazyOptional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
 		
@@ -143,7 +143,7 @@ public abstract class FluidContainer extends AbstractContainerMenu {
 				fluidSlot.getStack().grow(drainedFluidStack.getAmount());
 				fluidSlot.onSlotChanged();
 			}
-			player.inventory.setCarried(outputStack);
+			setCarried(outputStack);
 		} else {
 			if (ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, true).isEmpty()) {
 				if (slotEmpty) {
@@ -155,20 +155,20 @@ public abstract class FluidContainer extends AbstractContainerMenu {
 				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
 				stack.shrink(1);
 				if (stack.isEmpty()) {
-					player.inventory.setCarried(ItemStack.EMPTY);
+					setCarried(ItemStack.EMPTY);
 				}
 			}
 		}
-		player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, player.inventory.getCarried()));
+		player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, 0, getCarried())); // TODO what is state id? Third parameter 0
 		return true;
 	}
 	
 	// TODO make this method better (maybe extract to an other class??)
 	private boolean extractFluidToItem(ServerPlayer player, FluidSlot fluidSlot, boolean shift) {
 		
-		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.inventory);
+		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.getInventory());
 		
-		final ItemStack stack = player.inventory.getCarried();
+		final ItemStack stack = getCarried();
 		
 		final LazyOptional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
 		
@@ -193,7 +193,7 @@ public abstract class FluidContainer extends AbstractContainerMenu {
 			} else {
 				fluidSlot.onSlotChanged();
 			}
-			player.inventory.setCarried(outputStack);
+			setCarried(outputStack);
 		} else {
 			if (ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, true).isEmpty()) {
 				fluidSlot.getStack().shrink(amountFilled);
@@ -205,11 +205,11 @@ public abstract class FluidContainer extends AbstractContainerMenu {
 				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
 				stack.shrink(1);
 				if (stack.isEmpty()) {
-					player.inventory.setCarried(ItemStack.EMPTY);
+					setCarried(ItemStack.EMPTY);
 				}
 			}
 		}
-		player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, player.inventory.getCarried()));
+		player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, 0, getCarried())); // TODO what is state id? Third parameter 0
 		return true;
 	}
 	

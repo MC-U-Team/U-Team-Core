@@ -9,18 +9,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.tags.SetTag;
+import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.tags.SetTag;
 import net.minecraft.world.level.ItemLike;
-import net.minecraft.util.GsonHelper;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
-
-import net.minecraft.world.item.crafting.Ingredient.Value;
-import net.minecraft.world.item.crafting.Ingredient.ItemValue;
 
 public class ItemIngredient extends Ingredient {
 	

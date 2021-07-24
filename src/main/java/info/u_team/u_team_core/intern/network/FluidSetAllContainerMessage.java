@@ -6,11 +6,10 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.container.FluidContainer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.core.NonNullList;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
 
 public class FluidSetAllContainerMessage {
 	

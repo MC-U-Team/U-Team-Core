@@ -1,20 +1,16 @@
 package info.u_team.u_team_core.util;
 
-import static net.minecraft.client.renderer.model.ModelBakery.LOCATIONS_BUILTIN_TEXTURES;
-import staticnet.minecraft.client.resources.model.ModelBakeryy.STATE_CONTAINER_OVERRIDES;
-
 import java.util.HashMap;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.resources.model.ModelBakery;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 
 /**

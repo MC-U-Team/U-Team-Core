@@ -11,15 +11,14 @@ import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.sounds.SoundManager;
-import net.minecraft.util.Mth;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
-import net.minecraftforge.fml.client.gui.widget.Slider;
-
 import net.minecraft.client.gui.components.Button.OnTooltip;
-import net.minecraftforge.fml.client.gui.widget.Slider.ISlider;
+import net.minecraft.client.sounds.SoundManager;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.util.Mth;
+import net.minecraftforge.fmlclient.gui.widget.Slider;
+import net.minecraftforge.fmlclient.gui.widget.Slider.ISlider;
 
 public class USlider extends Slider implements IPerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
 	

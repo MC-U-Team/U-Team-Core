@@ -2,10 +2,10 @@ package info.u_team.u_team_core.data;
 
 import java.util.function.Function;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.item.Item;
-import net.minecraft.tags.Tag;
 import net.minecraft.core.Registry;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	

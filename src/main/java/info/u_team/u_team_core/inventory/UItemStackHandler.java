@@ -1,8 +1,8 @@
 package info.u_team.u_team_core.inventory;
 
 import info.u_team.u_team_core.api.item.IExtendedItemHandler;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.ContainerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class UItemStackHandler extends ItemStackHandler implements IExtendedItemHandler {

@@ -3,10 +3,10 @@ package info.u_team.u_team_test.effect;
 import java.util.Random;
 
 import info.u_team.u_team_test.init.TestDamageSources;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.gui.font.glyphs.BakedGlyph.Effect;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
+import net.minecraft.world.entity.LivingEntity;
 
 public class RadiationEffect extends Effect {
 	

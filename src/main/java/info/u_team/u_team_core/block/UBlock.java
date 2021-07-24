@@ -1,12 +1,10 @@
 package info.u_team.u_team_core.block;
 
 import info.u_team.u_team_core.api.registry.IBlockItemProvider;
-import net.minecraft.world.level.block.Block;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.CreativeModeTab;
-
-import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public class UBlock extends Block implements IBlockItemProvider {
 	

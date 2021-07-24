@@ -7,8 +7,6 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
-import net.minecraft.world.item.Item.Properties;
-
 public class UArmorItem extends ArmorItem {
 	
 	protected final String textureName;

@@ -7,7 +7,7 @@ import info.u_team.u_team_test.tileentity.BasicFluidInventoryTileEntity;
 import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 public class TestTileEntityTypes {
 	

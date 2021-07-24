@@ -5,9 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.network.chat.Component;
 
-import net.minecraft.client.gui.components.Button.OnPress;
-import net.minecraft.client.gui.components.Button.OnTooltip;
-
 public class ScalableActivatableButton extends ScalableButton {
 	
 	protected boolean activated;

@@ -2,10 +2,8 @@ package info.u_team.u_team_core.item.tool;
 
 import info.u_team.u_team_core.api.IToolMaterial;
 import info.u_team.u_team_core.api.IToolMaterial.Tools;
-import net.minecraft.world.item.HoeItem;
 import net.minecraft.world.item.CreativeModeTab;
-
-import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.HoeItem;
 
 public class UHoeItem extends HoeItem {
 	

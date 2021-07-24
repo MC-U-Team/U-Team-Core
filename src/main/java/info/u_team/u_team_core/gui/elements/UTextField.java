@@ -8,8 +8,8 @@ import info.u_team.u_team_core.api.gui.IRenderTickable;
 import info.u_team.u_team_core.api.gui.ITextColorProvider;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 

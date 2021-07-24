@@ -20,8 +20,8 @@ import com.google.gson.stream.JsonWriter;
 
 import info.u_team.u_team_core.util.GsonUtil;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 
 public abstract class CommonProvider implements DataProvider {

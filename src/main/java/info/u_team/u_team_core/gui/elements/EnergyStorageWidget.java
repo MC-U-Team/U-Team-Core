@@ -5,19 +5,19 @@ import java.util.List;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.util.GuiUtil;
-import com.mojang.blaze3d.platform.Window;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fml.client.gui.GuiUtils;
+import net.minecraftforge.fmlclient.gui.GuiUtils;
 
 public class EnergyStorageWidget extends AbstractWidget {
 	

@@ -6,12 +6,10 @@ import java.util.function.Supplier;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.SpawnEggItem;
-import net.minecraft.util.LazyLoadedValue;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class USpawnEggItem extends SpawnEggItem {
 	

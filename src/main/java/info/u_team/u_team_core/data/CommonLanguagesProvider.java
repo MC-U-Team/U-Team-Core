@@ -6,17 +6,17 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 
-import net.minecraft.world.level.block.Block;
 import net.minecraft.data.HashCache;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.level.material.Fluid;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.effect.MobEffect;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.material.Fluid;
 
 public abstract class CommonLanguagesProvider extends CommonProvider {
 	

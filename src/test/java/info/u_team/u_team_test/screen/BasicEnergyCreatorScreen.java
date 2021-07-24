@@ -5,7 +5,7 @@ import info.u_team.u_team_core.screen.UBasicContainerScreen;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.energy.CapabilityEnergy;
 

@@ -7,7 +7,7 @@ import info.u_team.u_team_test.block.BasicBlock;
 import info.u_team.u_team_test.block.BasicEnergyCreatorBlock;
 import info.u_team.u_team_test.block.BasicFluidInventoryBlock;
 import info.u_team.u_team_test.block.BasicTileEntityBlock;
-import net.minecraft.item.BlockItem;
+import net.minecraft.world.item.BlockItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class TestBlocks {

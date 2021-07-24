@@ -7,8 +7,8 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.ResourceLocationArgument;
 import net.minecraft.commands.synchronization.SuggestionProviders;
-import net.minecraft.server.commands.LocateBiomeCommand;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.commands.LocateBiomeCommand;
 
 public class LocateBiomeSubCommand {
 	

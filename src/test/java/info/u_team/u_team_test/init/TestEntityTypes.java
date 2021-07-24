@@ -5,9 +5,9 @@ import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.entity.BetterEnderPearlEntity;
 import info.u_team.u_team_test.entity.TestLivingEntity;
 import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 public class TestEntityTypes {
 	

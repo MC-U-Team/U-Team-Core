@@ -1,12 +1,12 @@
 package info.u_team.u_team_core.tileentity;
 
-import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.World;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.World;
+import net.minecraft.world.level.block.state.BlockState;
 
 /**
  * Basic implementation of {@link TileEntity} with some extra data synchronization methods.

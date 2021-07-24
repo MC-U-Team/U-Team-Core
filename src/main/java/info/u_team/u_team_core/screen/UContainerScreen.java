@@ -5,10 +5,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.api.gui.IRenderTickable;
 import info.u_team.u_team_core.container.UContainer;
 import info.u_team.u_team_core.util.GuiUtil;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.network.chat.Component;
 
 public class UContainerScreen<T extends AbstractContainerMenu> extends FluidContainerScreen<T> {
 	

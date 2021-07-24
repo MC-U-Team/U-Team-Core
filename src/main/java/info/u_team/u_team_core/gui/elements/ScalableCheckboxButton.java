@@ -9,9 +9,6 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 
-import net.minecraft.client.gui.components.Button.OnPress;
-import net.minecraft.client.gui.components.Button.OnTooltip;
-
 public class ScalableCheckboxButton extends CheckboxButton implements IScaleable, IScaleProvider {
 	
 	protected float scale;

@@ -2,15 +2,13 @@ package info.u_team.u_team_core.item;
 
 import java.util.function.Supplier;
 
-import net.minecraft.world.level.material.Fluid;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.BucketItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
-
-import net.minecraft.world.item.Item.Properties;
 
 public class UBucketItem extends BucketItem {
 	

@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.google.common.collect.Iterators;
 
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 public class ArmorSet implements Iterable<RegistryObject<? extends UArmorItem>> {
 	

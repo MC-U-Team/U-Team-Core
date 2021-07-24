@@ -2,7 +2,7 @@ package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_core.item.armor.UArmorMaterialVanilla;
 import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class TestArmorMaterial {
 	

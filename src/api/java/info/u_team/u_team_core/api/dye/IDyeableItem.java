@@ -3,11 +3,11 @@ package info.u_team.u_team_core.api.dye;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
 
 /**
  * Attach this to any item that can be colors. Automatically adds dye color recipes. Call addColoredItem(Item) to also

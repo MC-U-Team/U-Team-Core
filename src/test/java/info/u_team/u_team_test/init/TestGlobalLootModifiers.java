@@ -5,7 +5,7 @@ import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.global_loot_modifier.AutoSmeltLootModifier;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TestGlobalLootModifiers {

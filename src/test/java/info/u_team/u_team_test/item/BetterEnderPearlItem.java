@@ -5,13 +5,12 @@ import info.u_team.u_team_test.entity.BetterEnderPearlEntity;
 import info.u_team.u_team_test.init.TestItemGroups;
 import info.u_team.u_team_test.init.TestSounds;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Rarity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraft.world.item.ItemStack;
 
 public class BetterEnderPearlItem extends UItem {
 	

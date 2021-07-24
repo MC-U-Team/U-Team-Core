@@ -8,9 +8,6 @@ import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 
-import net.minecraft.client.gui.components.Button.OnPress;
-import net.minecraft.client.gui.components.Button.OnTooltip;
-
 public class ScalableButton extends UButton implements IScaleable, IScaleProvider {
 	
 	protected float scale;

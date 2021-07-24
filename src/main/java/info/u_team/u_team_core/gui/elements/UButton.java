@@ -12,9 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
-import net.minecraft.client.gui.components.Button.OnPress;
-import net.minecraft.client.gui.components.Button.OnTooltip;
-
 /**
  * A button that fixes vanilla not drawing the continuous border if the button is smaller than 20. Also adds utility
  * methods to add an IPressable and ITooltip

@@ -1,8 +1,8 @@
 package info.u_team.u_team_core.util;
 
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.item.Item;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public class TooltipCreator {
 	

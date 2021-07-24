@@ -1,11 +1,12 @@
 package info.u_team.u_team_test.init;
 
+import javax.swing.text.JTextComponent.KeyBinding;
+
 import org.lwjgl.glfw.GLFW;
 
 import info.u_team.u_team_core.util.registry.ClientRegistry;
 import info.u_team.u_team_test.screen.ButtonTestScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardKeyPressedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;

@@ -4,25 +4,26 @@ import java.util.Optional;
 
 import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
 import io.netty.buffer.Unpooled;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.inventory.container.IContainerProvider;
-import net.minecraft.world.MenuProvider;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.MenuConstructor;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 /**
  * Implement this in your tile entity block when you want utility functions for opening guis with your tile entity.
  * 
  * @author HyCraftHD
  */
-public interface ITileEntityBlock {
+public interface ITileEntityBlock extends EntityBlock {
 	
 	/**
 	 * Returns the {@link TileEntityType} of the block.
@@ -48,7 +49,7 @@ public interface ITileEntityBlock {
 	}
 	
 	/**
-	 * Opens the container that is specified in the tile entity with {@link IContainerProvider}. If the tile entity
+	 * Opens the container that is specified in the tile entity with {@link MenuConstructor}. If the tile entity
 	 * implements {@link IInitSyncedTileEntity} then the {@link IInitSyncedTileEntity#sendInitialDataBuffer(PacketBuffer)}
 	 * is called and the data will be send to the client.
 	 * 

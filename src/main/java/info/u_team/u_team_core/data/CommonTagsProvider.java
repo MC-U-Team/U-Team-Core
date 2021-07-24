@@ -11,20 +11,20 @@ import java.util.stream.Stream;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 
+import net.minecraft.core.Registry;
 import net.minecraft.data.HashCache;
 import net.minecraft.data.tags.TagsProvider;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
+import net.minecraft.tags.SetTag;
 import net.minecraft.tags.Tag;
-import net.minecraft.tags.Tag.Named;
-import net.minecraft.tags.Tag.Entry;
+import net.minecraft.tags.Tag.BuilderEntry;
 import net.minecraft.tags.Tag.ElementEntry;
+import net.minecraft.tags.Tag.Entry;
+import net.minecraft.tags.Tag.Named;
 import net.minecraft.tags.Tag.OptionalElementEntry;
 import net.minecraft.tags.Tag.OptionalTagEntry;
-import net.minecraft.tags.Tag.BuilderEntry;
 import net.minecraft.tags.Tag.TagEntry;
-import net.minecraft.tags.SetTag;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.core.Registry;
 import net.minecraftforge.common.data.ExistingFileHelper.IResourceType;
 import net.minecraftforge.common.data.ExistingFileHelper.ResourceType;
 

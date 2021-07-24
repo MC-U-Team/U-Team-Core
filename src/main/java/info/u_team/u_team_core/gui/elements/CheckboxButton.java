@@ -6,12 +6,9 @@ import info.u_team.u_team_core.util.GuiUtil;
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
-
-import net.minecraft.client.gui.components.Button.OnPress;
-import net.minecraft.client.gui.components.Button.OnTooltip;
+import net.minecraft.resources.ResourceLocation;
 
 public class CheckboxButton extends UButton {
 	

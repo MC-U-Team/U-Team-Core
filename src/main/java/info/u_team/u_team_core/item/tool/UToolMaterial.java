@@ -3,10 +3,8 @@ package info.u_team.u_team_core.item.tool;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.IToolMaterial;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.util.LazyLoadedValue;
-
-import info.u_team.u_team_core.api.IToolMaterial.Tools;
+import net.minecraft.world.item.crafting.Ingredient;
 
 public class UToolMaterial implements IToolMaterial {
 	

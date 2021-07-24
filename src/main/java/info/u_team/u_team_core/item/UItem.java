@@ -1,9 +1,7 @@
 package info.u_team.u_team_core.item;
 
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.CreativeModeTab;
-
-import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.Item;
 
 public class UItem extends Item {
 	

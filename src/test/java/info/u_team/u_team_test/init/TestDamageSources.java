@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.init;
 
-import net.minecraft.util.DamageSource;
+import net.minecraft.world.damagesource.DamageSource;
 
 public class TestDamageSources {
 	
