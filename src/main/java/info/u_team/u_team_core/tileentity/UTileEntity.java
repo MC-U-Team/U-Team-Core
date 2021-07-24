@@ -1,9 +1,9 @@
 package info.u_team.u_team_core.tileentity;
 
+import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
-import net.minecraft.world.World;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,8 +15,8 @@ import net.minecraft.world.level.block.state.BlockState;
  */
 public abstract class UTileEntity extends BlockEntity {
 	
-	public UTileEntity(BlockEntityType<?> type) {
-		super(type);
+	public UTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+		super(type, pos, state);
 	}
 	
 	@Override
@@ -27,9 +27,9 @@ public abstract class UTileEntity extends BlockEntity {
 	}
 	
 	@Override
-	public void load(BlockState state, CompoundTag compound) {
-		super.load(state, compound);
-		readNBT(state, compound);
+	public void load(CompoundTag compound) {
+		super.load(compound);
+		readNBT(compound);
 	}
 	
 	/**
@@ -46,7 +46,7 @@ public abstract class UTileEntity extends BlockEntity {
 	 * @param state
 	 * @param compound
 	 */
-	public void readNBT(BlockState state, CompoundTag compound) {
+	public void readNBT(CompoundTag compound) {
 	}
 	
 	// sync server -> client
@@ -61,8 +61,8 @@ public abstract class UTileEntity extends BlockEntity {
 	}
 	
 	@Override
-	public void handleUpdateTag(BlockState state, CompoundTag compound) {
-		super.load(state, compound);
+	public void handleUpdateTag(CompoundTag compound) {
+		super.load(compound);
 		handleChunkLoadData(compound);
 	}
 	
