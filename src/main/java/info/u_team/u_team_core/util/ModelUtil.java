@@ -6,11 +6,12 @@ import java.util.Map;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.client.renderer.model.RenderMaterial;
+import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.state.StateContainer;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 
 /**
@@ -22,10 +23,10 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 public class ModelUtil {
 	
 	static {
-		if (STATIC_DEFINITIONS instanceof ImmutableMap) {
-			final Map<ResourceLocation, StateContainer<Block, BlockState>> mutableMap = new HashMap<>();
-			STATIC_DEFINITIONS.forEach(mutableMap::put);
-			STATIC_DEFINITIONS = mutableMap;
+		if (ModelBakery.STATIC_DEFINITIONS instanceof ImmutableMap) {
+			final Map<ResourceLocation, StateDefinition<Block, BlockState>> mutableMap = new HashMap<>();
+			ModelBakery.STATIC_DEFINITIONS.forEach(mutableMap::put);
+			ModelBakery.STATIC_DEFINITIONS = mutableMap;
 		}
 	}
 	
@@ -35,8 +36,8 @@ public class ModelUtil {
 	 * @param location Resource location of the model
 	 * @param container Custom state container
 	 */
-	public static void addCustomStateContainer(ResourceLocation location, StateContainer<Block, BlockState> container) {
-		STATIC_DEFINITIONS.put(location, container);
+	public static void addCustomStateContainer(ResourceLocation location, StateDefinition<Block, BlockState> container) {
+		ModelBakery.STATIC_DEFINITIONS.put(location, container);
 	}
 	
 	/**
@@ -44,8 +45,8 @@ public class ModelUtil {
 	 * 
 	 * @param material Render Material
 	 */
-	public static void addTexture(RenderMaterial material) {
-		UNREFERENCED_TEXTURES.add(material);
+	public static void addTexture(Material material) {
+		ModelBakery.UNREFERENCED_TEXTURES.add(material);
 	}
 	
 	/**
@@ -53,7 +54,7 @@ public class ModelUtil {
 	 * 
 	 * @author HyCraftHD
 	 */
-	public static class EmptyStateContainer extends StateContainer<Block, BlockState> {
+	public static class EmptyStateContainer extends StateDefinition<Block, BlockState> {
 		
 		public EmptyStateContainer(Block block) {
 			super(Block::defaultBlockState, block, BlockState::new, new HashMap<>());
