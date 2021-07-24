@@ -3,6 +3,7 @@ package info.u_team.u_team_core.intern.init;
 import info.u_team.u_team_core.item.USpawnEggItem;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.SpawnEggItem;
@@ -35,7 +36,7 @@ public class UCoreLazySpawnEggs {
 	private static void loadComplete(FMLLoadCompleteEvent event) {
 		event.enqueueWork(() -> {
 			USpawnEggItem.LAZY_EGGS.forEach(pair -> {
-				final EntityType<?> type = pair.getKey().get();
+				final EntityType<? extends Mob> type = (EntityType<? extends Mob>) pair.getKey().get();
 				final USpawnEggItem item = pair.getValue();
 				
 				SpawnEggItem.BY_ID.put(type, item);
