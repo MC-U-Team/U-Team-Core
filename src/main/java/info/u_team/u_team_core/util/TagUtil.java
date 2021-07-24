@@ -5,11 +5,14 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.stream.Stream;
 
+import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.StaticTagHelper;
+import net.minecraft.tags.StaticTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.tags.Tag.Named;
 import net.minecraft.world.entity.EntityType;
@@ -28,7 +31,8 @@ public class TagUtil {
 	}
 	
 	public static Named<Block> createBlockTag(ResourceLocation location) {
-		final Optional<? extends Named<Block>> optional = BlockTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final StaticTagHelper<Block> helper = CastUtil.uncheckedCast(StaticTags.get(Registry.BLOCK_REGISTRY.getRegistryName()));
+		final Optional<? extends Named<Block>> optional = helper.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -41,7 +45,8 @@ public class TagUtil {
 	}
 	
 	public static Named<Item> createItemTag(ResourceLocation location) {
-		final Optional<? extends Named<Item>> optional = ItemTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final StaticTagHelper<Item> helper = CastUtil.uncheckedCast(StaticTags.get(Registry.ITEM_REGISTRY.getRegistryName()));
+		final Optional<? extends Named<Item>> optional = helper.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -54,7 +59,8 @@ public class TagUtil {
 	}
 	
 	public static Named<Fluid> createFluidTag(ResourceLocation location) {
-		final Optional<? extends Named<Fluid>> optional = FluidTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final StaticTagHelper<Fluid> helper = CastUtil.uncheckedCast(StaticTags.get(Registry.FLUID_REGISTRY.getRegistryName()));
+		final Optional<? extends Named<Fluid>> optional = helper.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {
@@ -67,7 +73,8 @@ public class TagUtil {
 	}
 	
 	public static Named<EntityType<?>> createEntityTypeTag(ResourceLocation location) {
-		final Optional<? extends Named<EntityType<?>>> optional = EntityTypeTags.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
+		final StaticTagHelper<EntityType<?>> helper = CastUtil.uncheckedCast(StaticTags.get(Registry.ENTITY_TYPE_REGISTRY.getRegistryName()));
+		final Optional<? extends Named<EntityType<?>>> optional = helper.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
 		if (optional.isPresent()) {
 			return optional.get();
 		} else {

@@ -125,7 +125,7 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			
 			RenderUtil.enableBlend();
 			RenderUtil.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ZERO, DestFactor.ONE);
-			RenderUtil.shadeModel(GL11.GL_SMOOTH);
+			//RenderUtil.shadeModel(GL11.GL_SMOOTH); // TODO fix render
 			RenderUtil.disableTexture();
 			
 			buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);

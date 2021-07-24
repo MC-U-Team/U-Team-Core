@@ -5,7 +5,6 @@ import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Matrix4f;
 
-@SuppressWarnings("deprecation")
 public class RenderUtil {
 	
 	public static void enableBlend() {
@@ -28,18 +27,6 @@ public class RenderUtil {
 		RenderSystem.blendFuncSeparate(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
 	}
 	
-	public static void enableAlphaTest() {
-		RenderSystem.enableAlphaTest();
-	}
-	
-	public static void disableAlphaTest() {
-		RenderSystem.disableAlphaTest();
-	}
-	
-	public static void defaultAlphaFunc() {
-		RenderSystem.defaultAlphaFunc();
-	}
-	
 	public static void enableScissor(int x, int y, int width, int height) {
 		RenderSystem.enableScissor(x, y, width, height);
 	}
@@ -54,10 +41,6 @@ public class RenderUtil {
 	
 	public static void disableTexture() {
 		RenderSystem.disableTexture();
-	}
-	
-	public static void shadeModel(int mode) {
-		RenderSystem.shadeModel(mode);
 	}
 	
 	public static class Matrix4fExtended extends Matrix4f {

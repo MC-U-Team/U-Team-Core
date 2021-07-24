@@ -25,13 +25,13 @@ public class FluidInventoryRenderer extends GuiComponent {
 		Minecraft.getInstance().getTextureManager().bindForSetup(ATLAS);
 		
 		RenderUtil.enableBlend();
-		RenderUtil.enableAlphaTest();
+		//RenderUtil.enableAlphaTest(); // TODO Set shader?
 		
 		final RGBA rgba = RGBA.fromARGB(stack.getFluid().getAttributes().getColor(stack));
 		
 		GuiUtil.drawTexturedColoredQuad(matrixStack, x, y, 16, 16, sprite, 100, rgba);
 		
-		RenderUtil.disableAlphaTest();
+		//RenderUtil.disableAlphaTest();
 		RenderUtil.disableBlend();
 	}
 	
