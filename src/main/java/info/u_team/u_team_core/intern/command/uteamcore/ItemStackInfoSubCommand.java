@@ -6,6 +6,7 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
@@ -37,7 +38,7 @@ public class ItemStackInfoSubCommand {
 		}
 		
 		if (stack.hasTag()) {
-			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "nbt", stack.getTag().getPrettyDisplay()), false);
+			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "nbt", NbtUtils.toPrettyComponent(stack.getTag())), false);
 		}
 		return 0;
 	}
