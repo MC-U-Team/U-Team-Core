@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
 
 public class FluidSetSlotContainerMessage {
 	
