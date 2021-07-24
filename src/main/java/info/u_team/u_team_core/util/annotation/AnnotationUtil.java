@@ -17,7 +17,7 @@ public class AnnotationUtil {
 				.getScanResult() //
 				.getAnnotations() //
 				.stream() //
-				.filter(data -> type.equals(data.getAnnotationType())) //
+				.filter(data -> type.equals(data.annotationType())) //
 				.collect(Collectors.toList());
 	}
 	
