@@ -16,7 +16,6 @@ import net.minecraft.data.HashCache;
 import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.tags.SetTag;
 import net.minecraft.tags.Tag;
 import net.minecraft.tags.Tag.BuilderEntry;
 import net.minecraft.tags.Tag.ElementEntry;
@@ -50,7 +49,10 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		registerTags();
 		
 		tagToBuilder.forEach((location, builder) -> {
-			final List<Tag.BuilderEntry> list = builder.getUnresolvedEntries(id -> tagToBuilder.containsKey(id) ? SetTag.empty() : null, id -> registry.getOptional(id).orElse(null)).filter(this::missing).collect(Collectors.toList());
+			final List<Tag.BuilderEntry> list = builder.getEntries() //
+					.filter(builderEntry -> !builderEntry.getEntry().verifyIfPresent(id -> tagToBuilder.containsKey(id), id -> registry.getOptional(id).isPresent())) // TODO verify that this is the right replacement
+					.filter(this::missing) //
+					.collect(Collectors.toList());
 			if (!list.isEmpty()) {
 				throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", location, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
 			}

@@ -22,7 +22,7 @@ import net.minecraft.world.level.storage.loot.functions.ApplyExplosionDecay;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
-import sun.jvm.hotspot.code.ConstantIntValue;
+import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 public abstract class CommonLootTablesProvider extends CommonProvider {
 	
@@ -61,7 +61,7 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
-						.setRolls(ConstantIntValue.exactly(1)) //
+						.setRolls(ConstantValue.exactly(1)) //
 						.add(LootItem.lootTableItem(item)) //
 						.when(ExplosionCondition.survivesExplosion())) //
 				.build();
@@ -71,7 +71,7 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
-						.setRolls(ConstantIntValue.exactly(1)) //
+						.setRolls(ConstantValue.exactly(1)) //
 						.add(LootItem.lootTableItem(item)) //
 						.apply(SetTileEntityNBTLootFunction.builder()) //
 						.when(ExplosionCondition.survivesExplosion())) //
@@ -82,7 +82,7 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
-						.setRolls(ConstantIntValue.exactly(1)) //
+						.setRolls(ConstantValue.exactly(1)) //
 						.add(LootItem.lootTableItem(block) //
 								.when(MatchTool.toolMatches(ItemPredicate.Builder.item() //
 										.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))) //
