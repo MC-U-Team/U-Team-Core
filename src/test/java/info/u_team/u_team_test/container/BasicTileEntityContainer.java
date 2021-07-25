@@ -6,8 +6,8 @@ import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
 import info.u_team.u_team_core.container.UTileEntityContainer;
 import info.u_team.u_team_test.init.TestContainers;
 import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.world.entity.player.Inventory;
 
 public class BasicTileEntityContainer extends UTileEntityContainer<BasicTileEntityTileEntity> {
 	
@@ -15,12 +15,12 @@ public class BasicTileEntityContainer extends UTileEntityContainer<BasicTileEnti
 	private MessageHolder cooldownMessage;
 	
 	// Client
-	public BasicTileEntityContainer(int id, PlayerInventory playerInventory, PacketBuffer buffer) {
+	public BasicTileEntityContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
 		super(TestContainers.BASIC.get(), id, playerInventory, buffer);
 	}
 	
 	// Server
-	public BasicTileEntityContainer(int id, PlayerInventory playerInventory, BasicTileEntityTileEntity tileEntity) {
+	public BasicTileEntityContainer(int id, Inventory playerInventory, BasicTileEntityTileEntity tileEntity) {
 		super(TestContainers.BASIC.get(), id, playerInventory, tileEntity);
 	}
 	
@@ -34,12 +34,12 @@ public class BasicTileEntityContainer extends UTileEntityContainer<BasicTileEnti
 		
 		valueMessage = addClientToServerTracker(new EmptyMessageHolder(() -> {
 			tileEntity.value += 100;
-			tileEntity.markDirty();
+			tileEntity.setChanged();
 		}));
 		
 		cooldownMessage = addClientToServerTracker(new MessageHolder(packet -> {
 			tileEntity.cooldown = Math.min(packet.readShort(), 100);
-			tileEntity.markDirty();
+			tileEntity.setChanged();
 		}));
 	}
 	
