@@ -1,130 +1,103 @@
 package info.u_team.u_team_test.entity;
 
+import javax.annotation.Nullable;
+
 import info.u_team.u_team_test.init.TestEntityTypes;
 import info.u_team.u_team_test.init.TestItems;
-import net.minecraft.advancements.CriteriaTriggers;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.entity.monster.EndermiteEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
-import net.minecraft.network.IPacket;
-import net.minecraft.tileentity.EndGatewayTileEntity;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.World;
+import net.minecraft.network.protocol.Packet;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.monster.Endermite;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.EntityHitResult;
+import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-public class BetterEnderPearlEntity extends ProjectileItemEntity {
+public class BetterEnderPearlEntity extends ThrowableItemProjectile {
 	
-	private LivingEntity thrower;
-	
-	public BetterEnderPearlEntity(EntityType<? extends BetterEnderPearlEntity> type, World world) {
+	public BetterEnderPearlEntity(EntityType<? extends BetterEnderPearlEntity> type, Level world) {
 		super(type, world);
 	}
 	
-	public BetterEnderPearlEntity(World world, LivingEntity thrower) {
+	public BetterEnderPearlEntity(Level world, LivingEntity thrower) {
 		super(TestEntityTypes.BETTER_ENDERPEARL.get(), thrower, world);
-		this.thrower = thrower;
 	}
 	
 	@Override
-	protected float getGravityVelocity() {
+	protected float getGravity() {
 		return 0.05F;
 	}
 	
-	@Override
-	protected void onImpact(RayTraceResult result) {
-		final LivingEntity livingentity = (LivingEntity) getShooter();
-		if (result.getType() == RayTraceResult.Type.ENTITY) {
-			final Entity entity = ((EntityRayTraceResult) result).getEntity();
-			if (entity == this.thrower) {
-				return;
-			}
-			
-			entity.attackEntityFrom(DamageSource.causeThrownDamage(this, livingentity), 0.0F);
-		}
-		
-		if (result.getType() == RayTraceResult.Type.BLOCK) {
-			final BlockPos blockpos = ((BlockRayTraceResult) result).getPos();
-			final TileEntity tileentity = this.world.getTileEntity(blockpos);
-			if (tileentity instanceof EndGatewayTileEntity) {
-				final EndGatewayTileEntity endgatewaytileentity = (EndGatewayTileEntity) tileentity;
-				if (livingentity != null) {
-					if (livingentity instanceof ServerPlayerEntity) {
-						CriteriaTriggers.ENTER_BLOCK.trigger((ServerPlayerEntity) livingentity, this.world.getBlockState(blockpos));
-					}
-					
-					endgatewaytileentity.teleportEntity(livingentity);
-					this.remove();
-					return;
-				}
-				
-				endgatewaytileentity.teleportEntity(this);
-				return;
-			}
-		}
+	protected void onHitEntity(EntityHitResult result) {
+		super.onHitEntity(result);
+		result.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
+	}
+	
+	protected void onHit(HitResult result) {
+		super.onHit(result);
 		
 		for (int i = 0; i < 32; ++i) {
-			this.world.addParticle(ParticleTypes.PORTAL, this.getPosX(), this.getPosY() + this.rand.nextDouble() * 2.0D, this.getPosZ(), this.rand.nextGaussian(), 0.0D, this.rand.nextGaussian());
+			this.level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
 		}
 		
-		if (!this.world.isRemote) {
-			if (livingentity instanceof ServerPlayerEntity) {
-				final ServerPlayerEntity serverplayerentity = (ServerPlayerEntity) livingentity;
-				if (serverplayerentity.connection.getNetworkManager().isChannelOpen() && serverplayerentity.world == this.world && !serverplayerentity.isSleeping()) {
-					if (this.rand.nextFloat() < 0.05F && this.world.getGameRules().getBoolean(GameRules.DO_MOB_SPAWNING)) {
-						final EndermiteEntity endermiteentity = EntityType.ENDERMITE.create(this.world);
-						endermiteentity.setSpawnedByPlayer(true);
-						endermiteentity.setLocationAndAngles(livingentity.getPosX(), livingentity.getPosY(), livingentity.getPosZ(), livingentity.rotationYaw, livingentity.rotationPitch);
-						this.world.addEntity(endermiteentity);
+		if (!this.level.isClientSide && !this.isRemoved()) {
+			Entity entity = this.getOwner();
+			if (entity instanceof ServerPlayer) {
+				ServerPlayer serverplayer = (ServerPlayer) entity;
+				if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == this.level && !serverplayer.isSleeping()) {
+					if (this.random.nextFloat() < 0.05F && this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
+						Endermite endermite = EntityType.ENDERMITE.create(this.level);
+						endermite.moveTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), entity.getXRot());
+						this.level.addFreshEntity(endermite);
 					}
 					
-					if (livingentity.isPassenger()) {
-						livingentity.stopRiding();
+					if (entity.isPassenger()) {
+						serverplayer.dismountTo(this.getX(), this.getY(), this.getZ());
+					} else {
+						entity.teleportTo(this.getX(), this.getY(), this.getZ());
 					}
 					
-					livingentity.setPositionAndUpdate(getPosX(), getPosY(), getPosZ());
-					livingentity.fallDistance = 0.0F;
-					livingentity.attackEntityFrom(DamageSource.FALL, 10F);
+					entity.teleportTo(this.getX(), this.getY(), this.getZ());
+					entity.fallDistance = 0.0F;
+					entity.hurt(DamageSource.FALL, 2);
 				}
-			} else if (livingentity != null) {
-				livingentity.setPositionAndUpdate(this.getPosX(), this.getPosY(), this.getPosZ());
-				livingentity.fallDistance = 0.0F;
+			} else if (entity != null) {
+				entity.teleportTo(this.getX(), this.getY(), this.getZ());
+				entity.fallDistance = 0.0F;
 			}
 			
-			this.remove();
+			this.discard();
 		}
 		
 	}
 	
-	@Override
 	public void tick() {
-		final Entity livingentity = getShooter();
-		if (livingentity != null && livingentity instanceof PlayerEntity && !livingentity.isAlive()) {
-			this.remove();
+		Entity entity = this.getOwner();
+		if (entity instanceof Player && !entity.isAlive()) {
+			this.discard();
 		} else {
 			super.tick();
 		}
 		
 	}
 	
-	@Override
-	public Entity changeDimension(ServerWorld world) {
-		final Entity entity = getShooter();
-		if (entity != null && entity.world.getDimensionKey() != world.getDimensionKey()) {
-			setShooter((Entity) null);
+	@Nullable
+	public Entity changeDimension(ServerLevel p_37506_, net.minecraftforge.common.util.ITeleporter teleporter) {
+		Entity entity = this.getOwner();
+		if (entity != null && entity.level.dimension() != p_37506_.dimension()) {
+			this.setOwner((Entity) null);
 		}
 		
-		return super.changeDimension(world);
+		return super.changeDimension(p_37506_, teleporter);
 	}
 	
 	@Override
@@ -133,7 +106,7 @@ public class BetterEnderPearlEntity extends ProjectileItemEntity {
 	}
 	
 	@Override
-	public IPacket<?> createSpawnPacket() {
+	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }
