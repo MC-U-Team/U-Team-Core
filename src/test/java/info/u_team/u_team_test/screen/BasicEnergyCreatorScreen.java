@@ -4,22 +4,22 @@ import info.u_team.u_team_core.gui.elements.EnergyStorageWidget;
 import info.u_team.u_team_core.screen.UBasicContainerScreen;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
-import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 public class BasicEnergyCreatorScreen extends UBasicContainerScreen<BasicEnergyCreatorContainer> {
 	
 	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/energy_creator.png");
 	
-	public BasicEnergyCreatorScreen(BasicEnergyCreatorContainer container, PlayerInventory playerInventory, ITextComponent title) {
+	public BasicEnergyCreatorScreen(BasicEnergyCreatorContainer container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title, BACKGROUND, 176, 173);
 	}
 	
 	@Override
 	protected void init() {
 		super.init();
-		addButton(new EnergyStorageWidget(guiLeft + 9, guiTop + 20, 54, container.getTileEntity().getCapability(CapabilityEnergy.ENERGY)));
+		addRenderableWidget(new EnergyStorageWidget(leftPos + 9, topPos + 20, 54, menu.getTileEntity().getCapability(CapabilityEnergy.ENERGY)));
 	}
 }
