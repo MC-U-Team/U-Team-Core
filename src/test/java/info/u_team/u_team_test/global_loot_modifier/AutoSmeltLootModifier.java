@@ -5,20 +5,20 @@ import java.util.stream.Collectors;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.item.crafting.FurnaceRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmeltingRecipe;
 import net.minecraft.world.level.storage.loot.LootContext;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class AutoSmeltLootModifier extends LootModifier {
 	
-	public AutoSmeltLootModifier(ILootCondition[] conditions) {
+	public AutoSmeltLootModifier(LootItemCondition[] conditions) {
 		super(conditions);
 	}
 	
@@ -28,10 +28,10 @@ public class AutoSmeltLootModifier extends LootModifier {
 	}
 	
 	private static ItemStack smeltItem(ItemStack stack, LootContext context) {
-		return context.getWorld() //
+		return context.getLevel() //
 				.getRecipeManager() //
-				.getRecipe(IRecipeType.SMELTING, new Inventory(stack), context.getWorld()) //
-				.map(FurnaceRecipe::getRecipeOutput).filter(itemStack -> !itemStack.isEmpty()) //
+				.getRecipeFor(RecipeType.SMELTING, new SimpleContainer(stack), context.getLevel()) //
+				.map(SmeltingRecipe::getResultItem).filter(itemStack -> !itemStack.isEmpty()) //
 				.map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount())) //
 				.orElse(stack);
 	}
@@ -39,7 +39,7 @@ public class AutoSmeltLootModifier extends LootModifier {
 	public static class Serializer extends GlobalLootModifierSerializer<AutoSmeltLootModifier> {
 		
 		@Override
-		public AutoSmeltLootModifier read(ResourceLocation name, JsonObject json, ILootCondition[] conditions) {
+		public AutoSmeltLootModifier read(ResourceLocation name, JsonObject json, LootItemCondition[] conditions) {
 			return new AutoSmeltLootModifier(conditions);
 		}
 		
