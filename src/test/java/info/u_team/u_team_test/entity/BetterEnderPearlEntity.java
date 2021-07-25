@@ -51,8 +51,7 @@ public class BetterEnderPearlEntity extends ThrowableItemProjectile {
 		
 		if (!this.level.isClientSide && !this.isRemoved()) {
 			Entity entity = this.getOwner();
-			if (entity instanceof ServerPlayer) {
-				ServerPlayer serverplayer = (ServerPlayer) entity;
+			if (entity instanceof ServerPlayer serverplayer) {
 				if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == this.level && !serverplayer.isSleeping()) {
 					if (this.random.nextFloat() < 0.05F && this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
 						Endermite endermite = EntityType.ENDERMITE.create(this.level);
@@ -94,7 +93,7 @@ public class BetterEnderPearlEntity extends ThrowableItemProjectile {
 	public Entity changeDimension(ServerLevel p_37506_, net.minecraftforge.common.util.ITeleporter teleporter) {
 		Entity entity = this.getOwner();
 		if (entity != null && entity.level.dimension() != p_37506_.dimension()) {
-			this.setOwner((Entity) null);
+			this.setOwner(null);
 		}
 		
 		return super.changeDimension(p_37506_, teleporter);
