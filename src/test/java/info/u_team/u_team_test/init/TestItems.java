@@ -10,6 +10,8 @@ import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.item.BasicFoodItem;
 import info.u_team.u_team_test.item.BasicItem;
 import info.u_team.u_team_test.item.BetterEnderPearlItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Item.Properties;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;

@@ -1,28 +1,28 @@
 package info.u_team.u_team_test.init;
 
-import javax.swing.text.JTextComponent.KeyBinding;
-
 import org.lwjgl.glfw.GLFW;
+
+import com.mojang.blaze3d.platform.InputConstants;
 
 import info.u_team.u_team_core.util.registry.ClientRegistry;
 import info.u_team.u_team_test.screen.ButtonTestScreen;
+import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.InputMappings;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardKeyPressedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class TestKeys {
 	
-	public static final KeyBinding BASIC = new KeyBinding("Basic key", GLFW.GLFW_KEY_F8, "Basic category");
+	public static final KeyMapping BASIC = new KeyMapping("Basic key", GLFW.GLFW_KEY_F8, "Basic category");
 	
 	private static void setup(FMLClientSetupEvent event) {
 		ClientRegistry.registerKeybinding(BASIC);
 	}
 	
 	private static void onKeyboardPressed(KeyboardKeyPressedEvent.Post event) {
-		if (BASIC.isActiveAndMatches(InputMappings.getInputByCode(event.getKeyCode(), event.getScanCode()))) {
-			Minecraft.getInstance().displayGuiScreen(new ButtonTestScreen());
+		if (BASIC.isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode()))) {
+			Minecraft.getInstance().setScreen(new ButtonTestScreen());
 			event.setCanceled(true);
 		}
 	}
