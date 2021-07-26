@@ -6,7 +6,6 @@ import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
 import info.u_team.u_team_test.container.BasicFluidInventoryContainer;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fmllegacy.RegistryObject;
