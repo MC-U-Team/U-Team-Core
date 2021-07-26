@@ -6,13 +6,16 @@ import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.tileentity.ITickableTileEntity;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,7 +24,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSyncedTileEntity, ITickableTileEntity {
+public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSyncedTileEntity {
 	
 	private final TileEntityUItemStackHandler slots;
 	private final BasicEnergyStorage energy;
@@ -29,8 +32,8 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	private final LazyOptional<TileEntityUItemStackHandler> slotsOptional;
 	private final LazyOptional<BasicEnergyStorage> energyOptional;
 	
-	public BasicEnergyCreatorTileEntity() {
-		super(TestTileEntityTypes.BASIC_ENERGY_CREATOR.get());
+	public BasicEnergyCreatorTileEntity(BlockPos pos, BlockState state) {
+		super(TestTileEntityTypes.BASIC_ENERGY_CREATOR.get(), pos, state);
 		slots = new TileEntityUItemStackHandler(6, this) {
 			
 			@Override
@@ -46,33 +49,32 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	
 	private boolean action = true;
 	
-	@Override
-	public void tick() {
-		if (world.isRemote) {
+	public static void tick(Level level, BlockPos pos, BlockState state, BasicEnergyCreatorTileEntity blockEntity) {
+		if (level.isClientSide()) {
 			return;
 		}
-		if (action) {
-			energy.addEnergy(3);
-			if (energy.getEnergyStored() == energy.getMaxEnergyStored()) {
-				action = !action;
+		if (blockEntity.action) {
+			blockEntity.energy.addEnergy(3);
+			if (blockEntity.energy.getEnergyStored() == blockEntity.energy.getMaxEnergyStored()) {
+				blockEntity.action = !blockEntity.action;
 			}
 		} else {
-			energy.addEnergy(-3);
-			if (energy.getEnergyStored() == 0) {
-				action = !action;
+			blockEntity.energy.addEnergy(-3);
+			if (blockEntity.energy.getEnergyStored() == 0) {
+				blockEntity.action = !blockEntity.action;
 			}
 		}
-		markDirty();
+		blockEntity.setChanged();
 	}
 	
 	@Override
-	public void sendInitialDataBuffer(PacketBuffer buffer) {
+	public void sendInitialDataBuffer(FriendlyByteBuf buffer) {
 		buffer.writeInt(energy.getEnergyStored());
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void handleInitialDataBuffer(PacketBuffer buffer) {
+	public void handleInitialDataBuffer(FriendlyByteBuf buffer) {
 		energy.setEnergy(buffer.readInt());
 	}
 	
@@ -85,15 +87,15 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	}
 	
 	@Override
-	public void writeNBT(CompoundNBT compound) {
+	public void writeNBT(CompoundTag compound) {
 		super.writeNBT(compound);
 		compound.put("inventory", slots.serializeNBT());
 		compound.put("energy", energy.serializeNBT());
 	}
 	
 	@Override
-	public void readNBT(BlockState state, CompoundNBT compound) {
-		super.readNBT(state, compound);
+	public void readNBT(CompoundTag compound) {
+		super.readNBT(compound);
 		slots.deserializeNBT(compound.getCompound("inventory"));
 		energy.deserializeNBT(compound.getCompound("energy"));
 	}
@@ -112,8 +114,8 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	}
 	
 	@Override
-	public void remove() {
-		super.remove();
+	public void setRemoved() {
+		super.setRemoved();
 		slotsOptional.invalidate();
 		energyOptional.invalidate();
 	}
@@ -121,13 +123,13 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	// Container
 	
 	@Override
-	public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+	public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
 		return new BasicEnergyCreatorContainer(id, playerInventory, this);
 	}
 	
 	@Override
-	public ITextComponent getDisplayName() {
-		return new StringTextComponent("Energy creator");
+	public Component getDisplayName() {
+		return new TextComponent("Energy creator");
 	}
 	
 }
