@@ -11,7 +11,7 @@ import info.u_team.u_team_test.init.TestGlobalLootModifiers;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.loot.conditions.ILootCondition;
+import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
@@ -24,6 +24,6 @@ public class TestGlobalLootModifiersProvider extends CommonGlobalLootModifiersPr
 	
 	@Override
 	protected void registerGlobalLootModifiers(TriConsumer<String, Supplier<? extends GlobalLootModifierSerializer<? extends IGlobalLootModifier>>, ? super IGlobalLootModifier> consumer) {
-		consumer.accept("auto_smelt", TestGlobalLootModifiers.AUTO_SMELT, new AutoSmeltLootModifier(new ILootCondition[] { MatchTool.builder(ItemPredicate.Builder.create().enchantment(new EnchantmentPredicate(TestEnchantments.AUTO_SMELT.get(), MinMaxBounds.IntBound.atLeast(1)))).build() }));
+		consumer.accept("auto_smelt", TestGlobalLootModifiers.AUTO_SMELT, new AutoSmeltLootModifier(new LootItemCondition[] { MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(TestEnchantments.AUTO_SMELT.get(), MinMaxBounds.Ints.atLeast(1)))).build() }));
 	}
 }

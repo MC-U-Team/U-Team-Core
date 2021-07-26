@@ -6,6 +6,7 @@ import static info.u_team.u_team_test.init.TestTags.Blocks.TEST_TAG_2;
 import info.u_team.u_team_core.data.CommonBlockTagsProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import net.minecraft.tags.BlockTags;
+import net.minecraft.world.level.block.Blocks;
 
 public class TestBlockTagsProvider extends CommonBlockTagsProvider {
 	
