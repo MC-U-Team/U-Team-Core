@@ -7,19 +7,22 @@ import info.u_team.u_team_core.inventory.UItemStackHandler;
 import info.u_team.u_team_core.tileentity.UTickableTileEntity;
 import info.u_team.u_team_test.container.BasicFluidInventoryContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BasicFluidInventoryTileEntity extends UTickableTileEntity implements INamedContainerProvider {
+public class BasicFluidInventoryTileEntity extends UTickableTileEntity implements MenuProvider {
 	
 	protected final UItemStackHandler itemSlots;
 	protected final LazyOptional<UItemStackHandler> itemSlotsOptional;
@@ -27,8 +30,8 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 	protected final UFluidStackHandler fluidTanks;
 	protected final LazyOptional<UFluidStackHandler> fluidTanksOptional;
 	
-	public BasicFluidInventoryTileEntity() {
-		super(TestTileEntityTypes.BASIC_FLUID_INVENTORY.get());
+	public BasicFluidInventoryTileEntity(BlockPos pos, BlockState state) {
+		super(TestTileEntityTypes.BASIC_FLUID_INVENTORY.get(), pos, state);
 		
 		itemSlots = new TileEntityUItemStackHandler(4, this);
 		itemSlotsOptional = LazyOptional.of(() -> itemSlots);
@@ -38,15 +41,15 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 	}
 	
 	@Override
-	public void writeNBT(CompoundNBT compound) {
+	public void writeNBT(CompoundTag compound) {
 		super.writeNBT(compound);
 		compound.put("items", itemSlots.serializeNBT());
 		compound.put("fluids", fluidTanks.serializeNBT());
 	}
 	
 	@Override
-	public void readNBT(BlockState state, CompoundNBT compound) {
-		super.readNBT(state, compound);
+	public void readNBT(CompoundTag compound) {
+		super.readNBT(compound);
 		itemSlots.deserializeNBT(compound.getCompound("items"));
 		fluidTanks.deserializeNBT(compound.getCompound("fluids"));
 	}
@@ -73,8 +76,8 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 	}
 	
 	@Override
-	public void remove() {
-		super.remove();
+	public void setRemoved() {
+		super.setRemoved();
 		itemSlotsOptional.invalidate();
 		fluidTanksOptional.invalidate();
 	}
@@ -82,12 +85,12 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 	// Container
 	
 	@Override
-	public Container createMenu(int id, PlayerInventory playerInventory, PlayerEntity player) {
+	public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
 		return new BasicFluidInventoryContainer(id, playerInventory, this);
 	}
 	
 	@Override
-	public ITextComponent getDisplayName() {
-		return new StringTextComponent("Fluid Inventory");
+	public Component getDisplayName() {
+		return new TextComponent("Fluid Inventory");
 	}
 }
