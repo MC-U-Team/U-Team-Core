@@ -23,7 +23,7 @@ public class ClientRegistry {
 		MenuScreens.register(supplier.get(), factory);
 	}
 	
-	public static <T extends Entity> void registerEntityRenderer(Supplier<? extends EntityType<T>> supplier, EntityRendererProvider<? super T> provider) {
+	public static <T extends Entity> void registerEntityRenderer(Supplier<? extends EntityType<? extends T>> supplier, EntityRendererProvider<T> provider) {
 		RenderingRegistry.registerEntityRenderingHandler(supplier.get(), provider);
 	}
 	
