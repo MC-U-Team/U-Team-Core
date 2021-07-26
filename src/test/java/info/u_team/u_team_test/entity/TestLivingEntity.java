@@ -38,7 +38,7 @@ public class TestLivingEntity extends Zombie {
 				.add(Attributes.ATTACK_DAMAGE, 6);
 	}
 	
-	public static boolean canSpawn(EntityType<TestLivingEntity> entityType, ServerLevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
+	public static boolean checkTestLivingSpawnRules(EntityType<TestLivingEntity> entityType, ServerLevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
 		return checkAnyLightMonsterSpawnRules(entityType, world, reason, pos, random) && (reason == MobSpawnType.SPAWNER || world.canSeeSky(pos));
 	}
 	

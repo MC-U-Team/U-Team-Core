@@ -10,7 +10,7 @@ public class TestEntitySpawnPlacementRegistries {
 	
 	private static void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
-			SpawnPlacements.register(TestEntityTypes.TEST_LIVING.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TestLivingEntity::canSpawn);
+			SpawnPlacements.register(TestEntityTypes.TEST_LIVING.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TestLivingEntity::checkTestLivingSpawnRules);
 		});
 	}
 	
