@@ -13,15 +13,15 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
 
 public class FluidSetAllContainerMessage {
-	
+
 	private final int id;
 	private final List<FluidStack> stacks;
-	
+
 	public FluidSetAllContainerMessage(int id, List<FluidStack> stacks) {
 		this.id = id;
 		this.stacks = stacks;
 	}
-	
+
 	public static void encode(FluidSetAllContainerMessage message, FriendlyByteBuf sendBuffer) {
 		sendBuffer.writeByte(message.id);
 		sendBuffer.writeShort(message.stacks.size());
@@ -29,7 +29,7 @@ public class FluidSetAllContainerMessage {
 			sendBuffer.writeFluidStack(stack);
 		}
 	}
-	
+
 	public static FluidSetAllContainerMessage decode(FriendlyByteBuf sendBuffer) {
 		final int id = sendBuffer.readByte();
 		final int size = sendBuffer.readShort();
@@ -39,9 +39,9 @@ public class FluidSetAllContainerMessage {
 		}
 		return new FluidSetAllContainerMessage(id, stacks);
 	}
-	
+
 	public static class Handler {
-		
+
 		public static void handle(FluidSetAllContainerMessage message, Supplier<Context> contextSupplier) {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
@@ -49,7 +49,7 @@ public class FluidSetAllContainerMessage {
 			});
 			context.setPacketHandled(true);
 		}
-		
+
 		private static final Optional<FluidContainer> getFluidContainer(AbstractContainerMenu container, int id) {
 			if (container instanceof FluidContainer && container.containerId == id) {
 				return Optional.of((FluidContainer) container);

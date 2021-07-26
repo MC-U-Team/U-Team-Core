@@ -13,30 +13,30 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidInventoryRenderer extends GuiComponent {
-	
+
 	private static final ResourceLocation ATLAS = InventoryMenu.BLOCK_ATLAS;
-	
+
 	public void drawFluid(PoseStack matrixStack, int x, int y, FluidStack stack) {
 		if (stack == null || stack.isEmpty()) {
 			return;
 		}
-		
+
 		final TextureAtlasSprite sprite = getFluidSprite(stack);
 		Minecraft.getInstance().getTextureManager().bindForSetup(ATLAS);
-		
+
 		RenderUtil.enableBlend();
-		//RenderUtil.enableAlphaTest(); // TODO Set shader?
-		
+		// RenderUtil.enableAlphaTest(); // TODO Set shader?
+
 		final RGBA rgba = RGBA.fromARGB(stack.getFluid().getAttributes().getColor(stack));
-		
+
 		GuiUtil.drawTexturedColoredQuad(matrixStack, x, y, 16, 16, sprite, 100, rgba);
-		
-		//RenderUtil.disableAlphaTest();
+
+		// RenderUtil.disableAlphaTest();
 		RenderUtil.disableBlend();
 	}
-	
+
 	protected TextureAtlasSprite getFluidSprite(FluidStack stack) {
 		return Minecraft.getInstance().getTextureAtlas(ATLAS).apply(stack.getFluid().getAttributes().getStillTexture(stack));
 	}
-	
+
 }

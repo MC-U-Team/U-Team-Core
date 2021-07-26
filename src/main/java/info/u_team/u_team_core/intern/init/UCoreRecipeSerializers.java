@@ -15,17 +15,17 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class UCoreRecipeSerializers {
-	
+
 	public static final CommonDeferredRegister<RecipeSerializer<?>> RECIPE_SERIALIZERS = CommonDeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, UCoreMod.MODID);
-	
+
 	public static final RegistryObject<SimpleRecipeSerializer<DyeableItemDyeRecipe>> CRAFTING_SPECIAL_ITEMDYE = RECIPE_SERIALIZERS.register("crafting_special_itemdye", () -> new SimpleRecipeSerializer<>(DyeableItemDyeRecipe::new));
-	
+
 	public static final RegistryObject<NoMirrorShapedRecipe.Serializer> NO_MIRROR_SHAPED = RECIPE_SERIALIZERS.register("crafting_shaped_no_mirror", NoMirrorShapedRecipe.Serializer::new);
-	
+
 	private static void registerIngredient(Register<RecipeSerializer<?>> event) {
 		CraftingHelper.register(new ResourceLocation(UCoreMod.MODID, "item"), ItemIngredient.Serializer.INSTANCE);
 	}
-	
+
 	public static void registerMod(IEventBus bus) {
 		RECIPE_SERIALIZERS.register(bus);
 		bus.addGenericListener(RecipeSerializer.class, UCoreRecipeSerializers::registerIngredient);

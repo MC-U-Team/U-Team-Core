@@ -25,11 +25,11 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 
 public abstract class CommonLootTablesProvider extends CommonProvider {
-	
+
 	public CommonLootTablesProvider(GenerationData data) {
 		super(data);
 	}
-	
+
 	@Override
 	public void run(HashCache cache) throws IOException {
 		registerLootTables((location, lootTable) -> {
@@ -40,23 +40,23 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 			}
 		});
 	}
-	
+
 	protected abstract void registerLootTables(BiConsumer<ResourceLocation, LootTable> consumer);
-	
+
 	@Override
 	public String getName() {
 		return "Loot-Tables";
 	}
-	
+
 	protected static void registerBlock(Supplier<? extends Block> supplier, LootTable lootTable, BiConsumer<ResourceLocation, LootTable> consumer) {
 		registerBlock(supplier.get(), lootTable, consumer);
 	}
-	
+
 	protected static void registerBlock(Block block, LootTable lootTable, BiConsumer<ResourceLocation, LootTable> consumer) {
 		final ResourceLocation registryName = block.getRegistryName();
 		consumer.accept(new ResourceLocation(registryName.getNamespace(), "blocks/" + registryName.getPath()), lootTable);
 	}
-	
+
 	protected static LootTable addBasicBlockLootTable(ItemLike item) {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
@@ -66,7 +66,7 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 						.when(ExplosionCondition.survivesExplosion())) //
 				.build();
 	}
-	
+
 	protected static LootTable addTileEntityBlockLootTable(ItemLike item) {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
@@ -77,7 +77,7 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 						.when(ExplosionCondition.survivesExplosion())) //
 				.build();
 	}
-	
+
 	protected static LootTable addFortuneBlockLootTable(Block block, ItemLike item) {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
@@ -91,5 +91,5 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 										.apply(ApplyExplosionDecay.explosionDecay()))))
 				.build();
 	}
-	
+
 }

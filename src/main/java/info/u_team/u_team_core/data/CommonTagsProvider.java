@@ -28,26 +28,26 @@ import net.minecraftforge.common.data.ExistingFileHelper.IResourceType;
 import net.minecraftforge.common.data.ExistingFileHelper.ResourceType;
 
 public abstract class CommonTagsProvider<T> extends CommonProvider {
-	
+
 	protected final Registry<T> registry;
 	protected final Map<ResourceLocation, Tag.Builder> tagToBuilder;
-	
+
 	protected final IResourceType resourceType;
-	
+
 	public CommonTagsProvider(GenerationData data, Registry<T> registry) {
 		super(data);
 		this.registry = registry;
 		this.tagToBuilder = Maps.newLinkedHashMap();
 		resourceType = new ResourceType(PackType.SERVER_DATA, ".json", "tags/" + getTagFolder());
 	}
-	
+
 	protected abstract void registerTags();
-	
+
 	@Override
 	public void run(HashCache cache) {
 		tagToBuilder.clear();
 		registerTags();
-		
+
 		tagToBuilder.forEach((location, builder) -> {
 			final List<Tag.BuilderEntry> list = builder.getEntries() //
 					.filter(builderEntry -> !builderEntry.getEntry().verifyIfPresent(id -> tagToBuilder.containsKey(id), id -> registry.getOptional(id).isPresent())) // TODO verify that this is the right replacement
@@ -65,7 +65,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			}
 		});
 	}
-	
+
 	private boolean missing(BuilderEntry proxy) {
 		final Entry entry = proxy.getEntry();
 		if (entry instanceof TagEntry) {
@@ -73,96 +73,96 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		}
 		return false;
 	}
-	
+
 	protected abstract String getTagFolder();
-	
+
 	protected Path makePath(ResourceLocation location) {
 		return resolveData(location).resolve("tags").resolve(getTagFolder()).resolve(location.getPath() + ".json");
 	}
-	
+
 	protected BetterBuilder<T> getBuilder(Tag.Named<T> tag) {
 		final Tag.Builder tagBuilder = getTagBuilder(tag);
 		return new BetterBuilder<>(tagBuilder, registry, modid);
 	}
-	
+
 	protected Tag.Builder getTagBuilder(Tag.Named<T> tag) {
 		return tagToBuilder.computeIfAbsent(tag.getName(), location -> {
 			data.getExistingFileHelper().trackGenerated(location, resourceType);
 			return new UniqueBuilder();
 		});
 	}
-	
+
 	public static class BetterBuilder<T> {
-		
+
 		private final Registry<T> registry;
 		private final TagsProvider.TagAppender<T> internalBuilder;
-		
+
 		public BetterBuilder(Tag.Builder builder, Registry<T> registry, String id) {
 			this.registry = registry;
-			internalBuilder = new TagsProvider.TagAppender<T>(builder, registry, id);
+			internalBuilder = new TagsProvider.TagAppender<>(builder, registry, id);
 		}
-		
+
 		@SafeVarargs
 		public final BetterBuilder<T> add(T... values) {
 			internalBuilder.add(values);
 			return this;
 		}
-		
+
 		@SafeVarargs
 		public final BetterBuilder<T> add(Named<T>... values) {
 			internalBuilder.addTags(values);
 			return this;
 		}
-		
+
 		@SafeVarargs
 		public final BetterBuilder<T> addOptional(T... values) {
 			Stream.of(values).map(registry::getKey).forEach(internalBuilder::addOptional);
 			return this;
 		}
-		
+
 		@SafeVarargs
 		public final BetterBuilder<T> addOptional(Named<T>... values) {
 			Stream.of(values).map(Named::getName).forEach(internalBuilder::addOptionalTag);
 			return this;
 		}
-		
+
 		public BetterBuilder<T> add(T value) {
 			internalBuilder.add(value);
 			return this;
 		}
-		
+
 		public BetterBuilder<T> add(Named<T> value) {
 			internalBuilder.addTag(value);
 			return this;
 		}
-		
+
 		public BetterBuilder<T> addOptional(ResourceLocation location) {
 			internalBuilder.addOptional(location);
 			return this;
 		}
-		
+
 		public BetterBuilder<T> addOptionalTag(ResourceLocation location) {
 			internalBuilder.addOptionalTag(location);
 			return this;
 		}
-		
+
 	}
-	
+
 	private static class UniqueBuilder extends Tag.Builder {
-		
+
 		@Override
 		public Tag.Builder add(BuilderEntry proxyTag) {
 			final ResourceLocation identifier = getIdentifier(proxyTag.getEntry());
 			final boolean duplicate = getEntries() //
 					.map(BuilderEntry::getEntry) //
 					.anyMatch(entry -> getIdentifier(entry).equals(identifier));
-			
+
 			if (!duplicate) {
 				return super.add(proxyTag);
 			}
 			return this;
 		}
-		
+
 		private ResourceLocation getIdentifier(Entry entry) {
 			final ResourceLocation identifier;
 			if (entry instanceof ElementEntry) {

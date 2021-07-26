@@ -9,12 +9,12 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 
 public class ColorUtil {
-	
+
 	private static final BiMap<Block, DyeColor> WOOL_DYE_COLORS = HashBiMap.create();
-	
+
 	public static final int WHITE_RGBA = 0xFFFFFFFF;
 	public static final int WHITE_RGB = 0xFFFFFF;
-	
+
 	static {
 		WOOL_DYE_COLORS.put(Blocks.WHITE_WOOL, DyeColor.WHITE);
 		WOOL_DYE_COLORS.put(Blocks.ORANGE_WOOL, DyeColor.ORANGE);
@@ -33,15 +33,15 @@ public class ColorUtil {
 		WOOL_DYE_COLORS.put(Blocks.RED_WOOL, DyeColor.RED);
 		WOOL_DYE_COLORS.put(Blocks.BLACK_WOOL, DyeColor.BLACK);
 	}
-	
+
 	public static Block getWoolFromColor(DyeColor color) {
 		return WOOL_DYE_COLORS.inverse().get(color);
 	}
-	
+
 	public static DyeColor getColorFromWool(Item item) {
 		return getColorFromWool(Block.byItem(item));
 	}
-	
+
 	public static DyeColor getColorFromWool(Block block) {
 		return WOOL_DYE_COLORS.get(block);
 	}

@@ -10,27 +10,27 @@ import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 
 public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> extends ObjectSelectionList.Entry<T> {
-	
+
 	protected final Minecraft minecraft;
-	
+
 	private final List<AbstractWidget> widgets;
-	
+
 	public ScrollableListEntry() {
 		minecraft = Minecraft.getInstance();
 		widgets = new ArrayList<>();
 	}
-	
+
 	protected <B extends AbstractWidget> B addButton(B button) {
 		widgets.add(button);
 		return button;
 	}
-	
+
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		widgets.forEach(widget -> widget.mouseClicked(mouseX, mouseY, button));
 		return true;
 	}
-	
+
 	@Override
 	public boolean mouseReleased(double mouseX, double mouseY, int button) {
 		for (final AbstractWidget widget : widgets) {
@@ -40,7 +40,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 		}
 		return false;
 	}
-	
+
 	@Override
 	public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
 		for (final AbstractWidget widget : widgets) {
@@ -50,10 +50,10 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 		}
 		return false;
 	}
-	
+
 	@Override
 	public abstract void render(PoseStack matrixStack, int slotIndex, int entryY, int entryX, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float partialTicks);
-	
+
 	@SuppressWarnings("deprecation")
 	protected net.minecraft.client.gui.components.AbstractSelectionList<T> getList() {
 		return list;

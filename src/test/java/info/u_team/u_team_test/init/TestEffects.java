@@ -9,13 +9,13 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TestEffects {
-	
+
 	public static final CommonDeferredRegister<MobEffect> EFFECTS = CommonDeferredRegister.create(ForgeRegistries.POTIONS, TestMod.MODID);
-	
+
 	public static final RegistryObject<MobEffect> RADIATION = EFFECTS.register("radiation", RadiationEffect::new);
-	
+
 	public static void registerMod(IEventBus bus) {
 		EFFECTS.register(bus);
 	}
-	
+
 }

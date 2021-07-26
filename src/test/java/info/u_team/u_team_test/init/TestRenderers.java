@@ -7,12 +7,12 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class TestRenderers {
-	
+
 	private static void setup(FMLClientSetupEvent event) {
 		ClientRegistry.registerEntityRenderer(TestEntityTypes.BETTER_ENDERPEARL, ThrownItemRenderer::new);
 		ClientRegistry.registerEntityRenderer(TestEntityTypes.TEST_LIVING, TestLivingEntityRenderer::new);
 	}
-	
+
 	public static void registerMod(IEventBus bus) {
 		bus.addListener(TestRenderers::setup);
 	}

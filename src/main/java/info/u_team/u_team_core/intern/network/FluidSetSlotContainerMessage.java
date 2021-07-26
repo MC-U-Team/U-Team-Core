@@ -11,33 +11,33 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
 
 public class FluidSetSlotContainerMessage {
-	
+
 	private final int id;
 	private final int slot;
 	private final FluidStack stack;
-	
+
 	public FluidSetSlotContainerMessage(int id, int slot, FluidStack stack) {
 		this.id = id;
 		this.slot = slot;
 		this.stack = stack;
 	}
-	
+
 	public static void encode(FluidSetSlotContainerMessage message, FriendlyByteBuf sendBuffer) {
 		sendBuffer.writeByte(message.id);
 		sendBuffer.writeShort(message.slot);
 		sendBuffer.writeFluidStack(message.stack);
 	}
-	
+
 	public static FluidSetSlotContainerMessage decode(FriendlyByteBuf sendBuffer) {
 		final int id = sendBuffer.readByte();
 		final int slot = sendBuffer.readShort();
 		final FluidStack stack = sendBuffer.readFluidStack();
-		
+
 		return new FluidSetSlotContainerMessage(id, slot, stack);
 	}
-	
+
 	public static class Handler {
-		
+
 		public static void handle(FluidSetSlotContainerMessage message, Supplier<Context> contextSupplier) {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
@@ -45,7 +45,7 @@ public class FluidSetSlotContainerMessage {
 			});
 			context.setPacketHandled(true);
 		}
-		
+
 		private static final Optional<FluidContainer> getFluidContainer(AbstractContainerMenu container, int id) {
 			if (container instanceof FluidContainer && container.containerId == id) {
 				return Optional.of((FluidContainer) container);

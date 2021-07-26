@@ -11,14 +11,14 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
 @Construct(modid = TestMod2.MODID)
 public class Test2CommonBusRegister implements IModConstruct {
-	
+
 	@Override
 	public void construct() {
 		Bus.MOD.bus().get().addGenericListener(Block.class, this::registerCall);
 	}
-	
+
 	private void registerCall(Register<Block> event) {
 		LogManager.getLogger().info("Hello from the register event for test mod 2");
 	}
-	
+
 }

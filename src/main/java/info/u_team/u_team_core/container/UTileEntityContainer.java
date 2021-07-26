@@ -13,13 +13,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 public abstract class UTileEntityContainer<T extends BlockEntity> extends UContainer {
-	
+
 	protected final Inventory playerInventory;
 	protected final T tileEntity;
-	
+
 	/**
 	 * This is the server constructor for the container. The {@link #init(boolean)} is called.
-	 * 
+	 *
 	 * @param type Container type
 	 * @param id Window id
 	 * @param playerInventory Player inventory
@@ -28,10 +28,10 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 	public UTileEntityContainer(MenuType<?> type, int id, Inventory playerInventory, T tileEntity) {
 		this(type, id, playerInventory, tileEntity, true);
 	}
-	
+
 	/**
 	 * This is the server constructor for the container.
-	 * 
+	 *
 	 * @param type Container type
 	 * @param id Window id
 	 * @param playerInventory Player inventory
@@ -46,11 +46,11 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 			init(true);
 		}
 	}
-	
+
 	/**
 	 * This is the client constructor for the container. It calls {@link #getClientTileEntity(PacketBuffer)} to get the tile
 	 * entity. The {@link #init(boolean)} is called.
-	 * 
+	 *
 	 * @param type Container type
 	 * @param id Window id
 	 * @param playerInventory Player inventory
@@ -60,11 +60,11 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 	public UTileEntityContainer(MenuType<?> type, int id, Inventory playerInventory, FriendlyByteBuf buffer) {
 		this(type, id, playerInventory, buffer, true);
 	}
-	
+
 	/**
 	 * This is the client constructor for the container. It calls {@link #getClientTileEntity(PacketBuffer)} to get the tile
 	 * entity.
-	 * 
+	 *
 	 * @param type Container type
 	 * @param id Window id
 	 * @param playerInventory Player inventory
@@ -83,11 +83,11 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 			init(false);
 		}
 	}
-	
+
 	/**
 	 * This methods reads a position from the {@link PacketBuffer} and then tries to find a matching client tile entity.
 	 * This method is only client sided. If the tile entity does not exist an {@link IllegalStateException} is thrown.
-	 * 
+	 *
 	 * @param buffer Packet buffer with the read index at a {@link BlockPos}
 	 * @return A tile entity that implements {@link ISyncedTileEntity}
 	 */
@@ -100,7 +100,7 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 		}
 		return (T) tile;
 	}
-	
+
 	/**
 	 * Is called after the server and client constructor. If you want to use your own fields in the init method, set the
 	 * last constructor boolean to false and then call this method your self in all constructors.
@@ -108,14 +108,14 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 	 * @param server True if its the server side false otherwise
 	 */
 	protected abstract void init(boolean server);
-	
+
 	/**
 	 * Gets the tile entity
-	 * 
+	 *
 	 * @return tile entity
 	 */
 	public T getTileEntity() {
 		return tileEntity;
 	}
-	
+
 }

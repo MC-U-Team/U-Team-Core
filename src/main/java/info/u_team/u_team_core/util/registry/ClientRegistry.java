@@ -18,21 +18,21 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fmlclient.registry.RenderingRegistry;
 
 public class ClientRegistry {
-	
+
 	public static <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void registerScreen(Supplier<? extends MenuType<? extends M>> supplier, MenuScreens.ScreenConstructor<M, U> factory) {
 		MenuScreens.register(supplier.get(), factory);
 	}
-	
+
 	public static <T extends Entity> void registerEntityRenderer(Supplier<? extends EntityType<? extends T>> supplier, EntityRendererProvider<T> provider) {
 		RenderingRegistry.registerEntityRenderingHandler(supplier.get(), provider);
 	}
-	
+
 	public static <T extends BlockEntity> void registerSpecialTileEntityRenderer(Supplier<? extends BlockEntityType<T>> supplier, BlockEntityRendererProvider<T> provider) {
 		BlockEntityRenderers.register(supplier.get(), provider);
 	}
-	
+
 	public static void registerKeybinding(KeyMapping key) {
 		net.minecraftforge.fmlclient.registry.ClientRegistry.registerKeyBinding(key);
 	}
-	
+
 }

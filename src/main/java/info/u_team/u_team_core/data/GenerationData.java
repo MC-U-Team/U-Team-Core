@@ -9,35 +9,35 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 public class GenerationData {
-	
+
 	private final String modid;
 	private final DataGenerator generator;
 	private final ExistingFileHelper existingFileHelper;
-	
+
 	private CommonBlockTagsProvider blockTagsProvider;
-	
+
 	public GenerationData(String modid, GatherDataEvent event) {
 		this(modid, event.getGenerator(), event.getExistingFileHelper());
 	}
-	
+
 	public GenerationData(String modid, DataGenerator generator, ExistingFileHelper existingFileHelper) {
 		this.modid = modid;
 		this.generator = generator;
 		this.existingFileHelper = existingFileHelper;
 	}
-	
+
 	public String getModid() {
 		return modid;
 	}
-	
+
 	public DataGenerator getGenerator() {
 		return generator;
 	}
-	
+
 	public ExistingFileHelper getExistingFileHelper() {
 		return existingFileHelper;
 	}
-	
+
 	public void addProvider(Function<GenerationData, DataProvider> function) {
 		final DataProvider provider = function.apply(this);
 		if (provider instanceof CommonBlockTagsProvider) {
@@ -45,9 +45,9 @@ public class GenerationData {
 		}
 		generator.addProvider(provider);
 	}
-	
+
 	public void addProvider(BiFunction<GenerationData, CommonBlockTagsProvider, DataProvider> function) {
 		generator.addProvider(function.apply(this, blockTagsProvider));
 	}
-	
+
 }

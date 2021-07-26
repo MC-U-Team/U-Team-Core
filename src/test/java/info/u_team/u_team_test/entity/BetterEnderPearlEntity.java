@@ -23,48 +23,50 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 public class BetterEnderPearlEntity extends ThrowableItemProjectile {
-	
+
 	public BetterEnderPearlEntity(EntityType<? extends BetterEnderPearlEntity> type, Level world) {
 		super(type, world);
 	}
-	
+
 	public BetterEnderPearlEntity(Level world, LivingEntity thrower) {
 		super(TestEntityTypes.BETTER_ENDERPEARL.get(), thrower, world);
 	}
-	
+
 	@Override
 	protected float getGravity() {
 		return 0.05F;
 	}
-	
+
+	@Override
 	protected void onHitEntity(EntityHitResult result) {
 		super.onHitEntity(result);
-		result.getEntity().hurt(DamageSource.thrown(this, this.getOwner()), 0.0F);
+		result.getEntity().hurt(DamageSource.thrown(this, getOwner()), 0.0F);
 	}
-	
+
+	@Override
 	protected void onHit(HitResult result) {
 		super.onHit(result);
-		
+
 		for (int i = 0; i < 32; ++i) {
-			this.level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + this.random.nextDouble() * 2.0D, this.getZ(), this.random.nextGaussian(), 0.0D, this.random.nextGaussian());
+			level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + random.nextDouble() * 2.0D, this.getZ(), random.nextGaussian(), 0.0D, random.nextGaussian());
 		}
-		
-		if (!this.level.isClientSide && !this.isRemoved()) {
-			Entity entity = this.getOwner();
+
+		if (!level.isClientSide && !isRemoved()) {
+			Entity entity = getOwner();
 			if (entity instanceof ServerPlayer serverplayer) {
-				if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == this.level && !serverplayer.isSleeping()) {
-					if (this.random.nextFloat() < 0.05F && this.level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
-						Endermite endermite = EntityType.ENDERMITE.create(this.level);
+				if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == level && !serverplayer.isSleeping()) {
+					if (random.nextFloat() < 0.05F && level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
+						Endermite endermite = EntityType.ENDERMITE.create(level);
 						endermite.moveTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), entity.getXRot());
-						this.level.addFreshEntity(endermite);
+						level.addFreshEntity(endermite);
 					}
-					
+
 					if (entity.isPassenger()) {
 						serverplayer.dismountTo(this.getX(), this.getY(), this.getZ());
 					} else {
 						entity.teleportTo(this.getX(), this.getY(), this.getZ());
 					}
-					
+
 					entity.teleportTo(this.getX(), this.getY(), this.getZ());
 					entity.fallDistance = 0.0F;
 					entity.hurt(DamageSource.FALL, 2);
@@ -73,37 +75,39 @@ public class BetterEnderPearlEntity extends ThrowableItemProjectile {
 				entity.teleportTo(this.getX(), this.getY(), this.getZ());
 				entity.fallDistance = 0.0F;
 			}
-			
-			this.discard();
+
+			discard();
 		}
-		
+
 	}
-	
+
+	@Override
 	public void tick() {
-		Entity entity = this.getOwner();
+		Entity entity = getOwner();
 		if (entity instanceof Player && !entity.isAlive()) {
-			this.discard();
+			discard();
 		} else {
 			super.tick();
 		}
-		
+
 	}
-	
+
+	@Override
 	@Nullable
 	public Entity changeDimension(ServerLevel p_37506_, net.minecraftforge.common.util.ITeleporter teleporter) {
-		Entity entity = this.getOwner();
+		Entity entity = getOwner();
 		if (entity != null && entity.level.dimension() != p_37506_.dimension()) {
-			this.setOwner(null);
+			setOwner(null);
 		}
-		
+
 		return super.changeDimension(p_37506_, teleporter);
 	}
-	
+
 	@Override
 	protected Item getDefaultItem() {
 		return TestItems.BETTER_ENDERPEARL.get();
 	}
-	
+
 	@Override
 	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);

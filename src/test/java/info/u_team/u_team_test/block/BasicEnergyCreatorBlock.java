@@ -17,25 +17,22 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class BasicEnergyCreatorBlock extends UTileEntityBlock {
-	
+
 	public BasicEnergyCreatorBlock() {
 		super(TestItemGroups.GROUP, Properties.of(Material.METAL).strength(2), TestTileEntityTypes.BASIC_ENERGY_CREATOR);
 	}
-	
+
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		return openContainer(world, pos, player, true);
 	}
-	
+
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if (type != this.tileEntityType.get()) {
-			return null;
-		}
-		if (level.isClientSide()) {
+		if ((type != tileEntityType.get()) || level.isClientSide()) {
 			return null;
 		}
 		return (level_, pos, state_, instance) -> BasicEnergyCreatorTileEntity.tick(level_, pos, state_, (BasicEnergyCreatorTileEntity) instance);
 	}
-	
+
 }

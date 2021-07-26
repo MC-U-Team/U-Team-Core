@@ -12,7 +12,7 @@ import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 @EventBusSubscriber(modid = UCoreMod.MODID, bus = Bus.MOD)
 public class UCoreDataGenerator {
-	
+
 	@SubscribeEvent
 	public static void data(GatherDataEvent event) {
 		final GenerationData data = new GenerationData(UCoreMod.MODID, event);
