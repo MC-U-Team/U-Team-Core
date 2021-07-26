@@ -7,6 +7,8 @@ import info.u_team.u_team_core.data.CommonItemTagsProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestTags;
 import net.minecraft.tags.ItemTags;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 
 public class TestItemTagsProvider extends CommonItemTagsProvider {
@@ -23,7 +25,7 @@ public class TestItemTagsProvider extends CommonItemTagsProvider {
 		getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).add(TestTags.Items.TEST_TAG_2).add(Items.BARREL).add(Items.BEACON, Items.ACACIA_BUTTON);
 		
 		IntStream.range(0, 10).forEach(index -> {
-			getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).add(TestTags.Items.TEST_TAG_2).add(Item.getItemById(index + 1));
+			getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).add(TestTags.Items.TEST_TAG_2).add(Item.byId(index + 1));
 		});
 		
 		getBuilder(TestTags.Items.TEST_TAG_4) //

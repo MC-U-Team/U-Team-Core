@@ -20,7 +20,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		add(TestItemGroups.GROUP, "UTeamTest Tab");
 		
 		addItem(TestItems.BASIC, "Basic Item");
-		add(TestItems.BASIC.get().getTranslationKey() + ".outofrange", "\u00A74Out of range");
+		add(TestItems.BASIC.get().getDescriptionId() + ".outofrange", "\u00A74Out of range");
 		addItem(TestItems.BETTER_ENDERPEARL, "Better Enderpearl");
 		addItem(TestItems.BASIC_FOOD, "Basic Food");
 		
