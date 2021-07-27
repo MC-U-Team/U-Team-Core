@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[36,)"
+loaderVersion="[37,)"
 issueTrackerURL="https://github.com/MC-U-Team/U-Team-Core/issues"
 displayURL="https://u-team.info/mods/uteamcore"
 logoFile="logo.png"
@@ -17,13 +17,13 @@ authors="HyCraftHD, MrTroble"
 	[[dependencies.uteamcore]]
 	    modId="forge"
 	    mandatory=true
-	    versionRange="[36.1.30,)"
+	    versionRange="[37.0.5,)"
 	    ordering="NONE"
 	    side="BOTH"
 	
 	[[dependencies.uteamcore]]
 	    modId="minecraft"
 	    mandatory=true
-	    versionRange="[1.16.5]"
+	    versionRange="[1.17.1]"
 	    ordering="NONE"
 	    side="BOTH"
