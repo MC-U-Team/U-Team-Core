@@ -39,7 +39,6 @@ minecraft {
 	runs {
 		client = {
 			workingDirectory project.file("run/client").canonicalPath
-			property "mixin.env.disableRefMap", "true"
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -52,7 +51,6 @@ minecraft {
 		}
 		server = {
 			workingDirectory project.file("run/server").canonicalPath
-			property "mixin.env.disableRefMap", "true"
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -65,7 +63,6 @@ minecraft {
 		}
 		data = {
 			workingDirectory project.file("run/data").canonicalPath
-			property "mixin.env.disableRefMap", "true"
 			args "--mod", config.mod.modid, "--all", "--output", "\"" + file("src/generated/resources").toString() + "\""
 			mods {
 				"${config.mod.modid}" {
@@ -76,7 +73,6 @@ minecraft {
 		data_test = {
 			parents data
 			workingDirectory project.file("run/data").canonicalPath
-			property "mixin.env.disableRefMap", "true"
 			args "--mod", "uteamtest", "--all", "--output", "\"" + file("src/generated_test/resources").toString() + "\"", "--validate", "--existing", "\"" + sourceSets.test.resources.srcDirs[0] + "\""
 			mods {
 				uteamtest {
@@ -199,7 +195,7 @@ sourceSets {
 }
 
 dependencies {
-	minecraft getForgeDependency()
+	minecraft "net.minecraftforge:forge:1.17.1-37.0.5"
 	//compileOnly fg.deobf(getJeiApiDependency())
 	//runtimeOnly fg.deobf(getJeiDependency())
 	//runtimeOnly fg.deobf(getPatchouliDependency())
@@ -222,9 +218,7 @@ curseforge {
 		
 		addGameVersion config.forge.mcversion
 		addGameVersion "Forge"
-		addGameVersion "Java 8"
-		addGameVersion "Java 9"
-		addGameVersion "Java 10"
+		addGameVersion "Java 16"
 		
 		relations {
 			optionalDependency "basic-discord-rich-presence"
