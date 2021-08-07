@@ -14,7 +14,7 @@ buildscript {
 	}
 }
 
-apply from: "gradle_files/default-project.groovy"
+apply from: "gradle_files/default-project-fg-5.groovy"
 
 apply plugin: "net.minecraftforge.gradle"
 apply plugin: "eclipse"
