@@ -195,7 +195,7 @@ sourceSets {
 }
 
 dependencies {
-	minecraft "net.minecraftforge:forge:1.17.1-37.0.25"
+	minecraft "net.minecraftforge:forge:1.17.1-37.0.27"
 	//compileOnly fg.deobf(getJeiApiDependency())
 	//runtimeOnly fg.deobf(getJeiDependency())
 	//runtimeOnly fg.deobf(getPatchouliDependency())
