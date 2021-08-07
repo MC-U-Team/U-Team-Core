@@ -34,11 +34,11 @@ java {
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
 	
-	accessTransformer = file("$rootDir/src/main/resources/META-INF/accesstransformer.cfg")
+	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 	
 	runs {
 		client = {
-			workingDirectory project.file("run/client").canonicalPath
+			workingDirectory file("run/client")
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -50,7 +50,7 @@ minecraft {
 			}
 		}
 		server = {
-			workingDirectory project.file("run/server").canonicalPath
+			workingDirectory file("run/server")
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -62,7 +62,7 @@ minecraft {
 			}
 		}
 		data = {
-			workingDirectory project.file("run/data").canonicalPath
+			workingDirectory file("run/data")
 			args "--mod", config.mod.modid, "--all", "--output", "\"" + file("src/generated/resources").toString() + "\""
 			mods {
 				"${config.mod.modid}" {
@@ -72,7 +72,7 @@ minecraft {
 		}
 		data_test = {
 			parents data
-			workingDirectory project.file("run/data").canonicalPath
+			workingDirectory file("run/data")
 			args "--mod", "uteamtest", "--all", "--output", "\"" + file("src/generated_test/resources").toString() + "\"", "--validate", "--existing", "\"" + sourceSets.test.resources.srcDirs[0] + "\""
 			mods {
 				uteamtest {
@@ -88,7 +88,7 @@ jar {
 	
 	from "LICENSE"
 	
-	exclude(".cache")
+	exclude ".cache"
 	
 	manifest normalManifest
 }
@@ -99,7 +99,7 @@ task deobfJar(type: Jar) {
 	from sourceSets.main.output
 	from "LICENSE"
 	
-	exclude(".cache")
+	exclude ".cache"
 	
 	manifest normalManifest
 }
@@ -118,9 +118,9 @@ task docJar(type: Jar) {
 	from "LICENSE"
 	
 	tasks.withType(Javadoc) {
-		options.addStringOption('Xdoclint:none', '-quiet')
-		options.addStringOption('encoding', 'UTF-8')
-		options.addStringOption('charSet', 'UTF-8')
+		options.addStringOption("Xdoclint:none", "-quiet")
+		options.addStringOption("encoding", "UTF-8")
+		options.addStringOption("charSet", "UTF-8")
 	}
 }
 
@@ -130,7 +130,7 @@ task testJar(type: Jar) {
 	from sourceSets.test.output
 	from "LICENSE"
 	
-	exclude(".cache")
+	exclude ".cache"
 	
 	afterEvaluate {
 		reobf.create("testJar");
@@ -148,7 +148,7 @@ task testDeobfJar(type: Jar) {
 	from sourceSets.test.output
 	from "LICENSE"
 	
-	exclude(".cache")
+	exclude ".cache"
 	
 	manifest normalManifest
 }
@@ -177,7 +177,7 @@ sourceSets {
 		java {
 			srcDirs += "src/data/java"
 			srcDirs += "src/api/java"
-			//srcDirs += "src/integration/java"
+			//srcDirs += "src/integration/java" TODO enable again when jei has updated
 		}
 		resources {
 			srcDirs += "src/generated/resources"
@@ -196,9 +196,6 @@ sourceSets {
 
 dependencies {
 	minecraft "net.minecraftforge:forge:1.17.1-37.0.27"
-	//compileOnly fg.deobf(getJeiApiDependency())
-	//runtimeOnly fg.deobf(getJeiDependency())
-	//runtimeOnly fg.deobf(getPatchouliDependency())
 }
 
 curseforge {
@@ -228,7 +225,7 @@ curseforge {
 		mainArtifact(jar) {
 			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}"
 			changelogType = "html"
-			changelog = "<a href=\"" + generateChangelogUrl() + "\">Changelog of ${project.version}</a>"
+			changelog = "<a href=\"${generateChangelogUrl()}\">Changelog of ${project.version}</a>"
 		}
 		
 		addArtifact(deobfJar) {
