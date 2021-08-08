@@ -63,7 +63,8 @@ minecraft {
 		}
 		data = {
 			workingDirectory file("run/data")
-			args "--mod", config.mod.modid, "--all", "--output", "\"" + file("src/generated/resources").toString() + "\""
+			
+			args "--mod", config.mod.modid, "--all", "--output", file("src/generated/resources")
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -71,9 +72,11 @@ minecraft {
 			}
 		}
 		data_test = {
-			parents data
 			workingDirectory file("run/data")
-			args "--mod", "uteamtest", "--all", "--output", "\"" + file("src/generated_test/resources").toString() + "\"", "--validate", "--existing", "\"" + sourceSets.test.resources.srcDirs[0] + "\""
+			
+			parent data // Does not work as the other args are added too...
+			
+			args "--mod", "uteamtest", "--all", "--flat", "--output", file("src/generated_test/resources"), "--validate", "--existing", sourceSets.test.resources.srcDirs[0]
 			mods {
 				uteamtest {
 					source sourceSets.test
