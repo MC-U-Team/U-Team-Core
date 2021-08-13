@@ -1,11 +1,6 @@
 package info.u_team.u_team_core.util;
 
-import java.util.Map;
-
-import com.google.common.collect.Maps;
-
 import net.minecraft.world.item.Item.Properties;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 public class ItemProperties extends Properties {
@@ -22,7 +17,6 @@ public class ItemProperties extends Properties {
 		foodProperties = properties.foodProperties;
 		isFireResistant = properties.isFireResistant;
 		setValueCanRepair(getValueCanRepair(properties));
-		setValueToolClasses(Maps.newHashMap(getValueToolClasses(properties)));
 	}
 	
 	private boolean getValueCanRepair(Properties properties) {
@@ -31,13 +25,5 @@ public class ItemProperties extends Properties {
 	
 	private void setValueCanRepair(boolean value) {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "canRepair");
-	}
-	
-	private Map<ToolType, Integer> getValueToolClasses(Properties properties) {
-		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "toolClasses");
-	}
-	
-	private void setValueToolClasses(Map<ToolType, Integer> value) {
-		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "toolClasses");
 	}
 }

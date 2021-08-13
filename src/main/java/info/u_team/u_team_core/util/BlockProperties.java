@@ -6,15 +6,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 public class BlockProperties extends Properties {
-
+	
 	public BlockProperties(Material material, MaterialColor color) {
 		super(material, color);
 	}
-
+	
 	public BlockProperties(Properties properties) {
 		super(properties.material, properties.materialColor);
 		hasCollision = properties.hasCollision;
@@ -37,32 +36,14 @@ public class BlockProperties extends Properties {
 		hasPostProcess = properties.hasPostProcess;
 		emissiveRendering = properties.emissiveRendering;
 		dynamicShape = properties.dynamicShape;
-
-		setValueHarvestLevel(getValueHarvestLevel(properties));
-		setValueHarvestTool(getValueHarvestTool(properties));
+		
 		setLootTableSupplier(getLootTableSupplier(properties));
 	}
-
-	private int getValueHarvestLevel(Properties properties) {
-		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "harvestLevel");
-	}
-
-	private void setValueHarvestLevel(int value) {
-		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "harvestLevel");
-	}
-
-	private ToolType getValueHarvestTool(Properties properties) {
-		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "harvestTool");
-	}
-
-	private void setValueHarvestTool(ToolType value) {
-		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "harvestTool");
-	}
-
+	
 	private Supplier<ResourceLocation> getLootTableSupplier(Properties properties) {
 		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "lootTableSupplier");
 	}
-
+	
 	private void setLootTableSupplier(Supplier<ResourceLocation> value) {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "lootTableSupplier");
 	}
