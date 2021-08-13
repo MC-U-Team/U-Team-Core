@@ -14,6 +14,7 @@ import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerListener;
+import net.minecraft.world.inventory.ContainerSynchronizer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.util.LazyOptional;
@@ -27,17 +28,19 @@ import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 public abstract class FluidContainer extends AbstractContainerMenu {
 	
-	private final NonNullList<FluidStack> lastFluidSlots = NonNullList.create(); // TODO check if that is right and update to the latest vanilla changes like the item slots
+	protected final NonNullList<FluidStack> lastFluidSlots = NonNullList.create();
 	public final List<FluidSlot> fluidSlots = NonNullList.create();
+	private final NonNullList<FluidStack> remoteFluidSlots = NonNullList.create();
 	
 	public FluidContainer(MenuType<?> type, int id) {
 		super(type, id);
 	}
 	
 	protected FluidSlot addFluidSlot(FluidSlot slot) {
-		slot.slotNumber = fluidSlots.size();
+		slot.index = fluidSlots.size();
 		fluidSlots.add(slot);
 		lastFluidSlots.add(FluidStack.EMPTY);
+		remoteFluidSlots.add(FluidStack.EMPTY);
 		return slot;
 	}
 	
@@ -220,6 +223,18 @@ public abstract class FluidContainer extends AbstractContainerMenu {
 		if (listener instanceof ServerPlayer) {
 			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) listener), new FluidSetAllContainerMessage(containerId, getFluids()));
 		}
+	}
+	
+	// Called from asm
+	public void setFluidSynchronizer(ServerPlayer player) {
+		System.out.println("player" + player);
+		System.out.println("_CALLED FROM ASM!!");
+	}
+	
+	@Override
+	public void sendAllDataToRemote() {
+		super.sendAllDataToRemote();
+		
 	}
 	
 	@Override

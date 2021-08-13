@@ -82,7 +82,7 @@ public abstract class FluidContainerScreen<T extends AbstractContainerMenu> exte
 			final FluidSlot fluidSlot = getSelectedFluidSlot(mouseX, mouseY);
 			if (fluidSlot != null) {
 				if (!menu.getCarried().isEmpty()) {
-					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(menu.containerId, fluidSlot.slotNumber, hasShiftDown(), menu.getCarried()));
+					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(menu.containerId, fluidSlot.index, hasShiftDown(), menu.getCarried()));
 				}
 				return true;
 			}

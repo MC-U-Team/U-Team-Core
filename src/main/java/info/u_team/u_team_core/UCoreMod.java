@@ -9,13 +9,13 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod(UCoreMod.MODID)
 public class UCoreMod {
-
+	
 	public static final String MODID = "uteamcore";
 	public static final Logger LOGGER = LogManager.getLogger("UTeamCore");
-
+	
 	public UCoreMod() {
 		JarSignVerifier.checkSigned(MODID);
-
+		
 		AnnotationManager.callAnnotations(MODID);
 	}
 }

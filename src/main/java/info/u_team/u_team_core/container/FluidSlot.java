@@ -5,67 +5,67 @@ import info.u_team.u_team_core.inventory.UFluidStackHandler;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidSlot {
-
+	
 	private final IFluidHandlerModifiable fluidHandler;
-	private final int index;
+	private final int slot;
 	private final int x;
 	private final int y;
-
-	public int slotNumber;
-
-	public FluidSlot(IFluidHandlerModifiable fluidHandler, int index, int x, int y) {
+	
+	public int index;
+	
+	public FluidSlot(IFluidHandlerModifiable fluidHandler, int slot, int x, int y) {
 		this.fluidHandler = fluidHandler;
-		this.index = index;
+		this.slot = slot;
 		this.x = x;
 		this.y = y;
 	}
-
+	
 	public boolean isFluidValid(FluidStack stack) {
 		if (stack.isEmpty()) {
 			return false;
 		}
-		return fluidHandler.isFluidValid(index, stack);
+		return fluidHandler.isFluidValid(slot, stack);
 	}
-
+	
 	public FluidStack getStack() {
-		return fluidHandler.getFluidInTank(index);
+		return fluidHandler.getFluidInTank(slot);
 	}
-
+	
 	public void putStack(FluidStack stack) {
-		fluidHandler.setFluidInTank(index, stack);
+		fluidHandler.setFluidInTank(slot, stack);
 		onSlotChanged();
 	}
-
+	
 	public void onSlotChanged() {
 		if (fluidHandler instanceof UFluidStackHandler) {
-			((UFluidStackHandler) fluidHandler).onContentsChanged(index);
+			((UFluidStackHandler) fluidHandler).onContentsChanged(slot);
 		}
 	}
-
+	
 	public int getSlotCapacity() {
-		return fluidHandler.getTankCapacity(index);
+		return fluidHandler.getTankCapacity(slot);
 	}
-
+	
 	public int getSlotCurrentyCapacity() {
 		return getSlotCapacity() - getStack().getAmount();
 	}
-
+	
 	public IFluidHandlerModifiable getFluidHandler() {
 		return fluidHandler;
 	}
-
-	public int getIndex() {
-		return index;
+	
+	public int getSlotIndex() {
+		return slot;
 	}
-
+	
 	public int getX() {
 		return x;
 	}
-
+	
 	public int getY() {
 		return y;
 	}
-
+	
 	public boolean isEnabled() {
 		return true;
 	}
