@@ -4,23 +4,23 @@ import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
 import net.minecraftforge.energy.EnergyStorage;
 
 public class BasicEnergyStorage extends EnergyStorage {
-
+	
 	public BasicEnergyStorage(int capacity) {
 		this(capacity, capacity, capacity, 0);
 	}
-
+	
 	public BasicEnergyStorage(int capacity, int maxTransfer) {
 		this(capacity, maxTransfer, maxTransfer, 0);
 	}
-
+	
 	public BasicEnergyStorage(int capacity, int maxReceive, int maxExtract) {
 		this(capacity, maxReceive, maxExtract, 0);
 	}
-
+	
 	public BasicEnergyStorage(int capacity, int maxReceive, int maxExtract, int energy) {
 		super(capacity, maxReceive, maxExtract, energy);
 	}
-
+	
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
 		final var value = super.extractEnergy(maxExtract, simulate);
@@ -29,7 +29,7 @@ public class BasicEnergyStorage extends EnergyStorage {
 		}
 		return value;
 	}
-
+	
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
 		final var value = super.receiveEnergy(maxReceive, simulate);
@@ -38,16 +38,16 @@ public class BasicEnergyStorage extends EnergyStorage {
 		}
 		return value;
 	}
-
+	
 	public int getEnergy() {
 		return super.getEnergyStored();
 	}
-
+	
 	public void setEnergy(int energy) {
 		this.energy = energy;
 		onEnergyChanged();
 	}
-
+	
 	public void addEnergy(int energy) {
 		this.energy += energy;
 		if (this.energy > getMaxEnergyStored()) {
@@ -57,16 +57,16 @@ public class BasicEnergyStorage extends EnergyStorage {
 		}
 		onEnergyChanged();
 	}
-
+	
 	public void removeEnergy(int energy) {
 		addEnergy(-energy);
 	}
-
+	
 	public void onEnergyChanged() {
 	}
-
+	
 	public BufferReferenceHolder createSyncHandler() {
 		return BufferReferenceHolder.createIntHolder(this::getEnergy, this::setEnergy);
 	}
-
+	
 }

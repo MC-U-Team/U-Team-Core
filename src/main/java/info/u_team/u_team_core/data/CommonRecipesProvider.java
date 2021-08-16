@@ -18,22 +18,22 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
 public abstract class CommonRecipesProvider extends CommonProvider {
-
+	
 	public CommonRecipesProvider(GenerationData data) {
 		super(data);
 	}
-
+	
 	@Override
 	public void run(HashCache cache) throws IOException {
 		registerRecipes(recipe -> generateRecipe(cache, recipe, false));
 		registerDefaultAdvancementsRecipes(recipe -> generateRecipe(cache, recipe, true));
 	}
-
+	
 	@Override
 	public String getName() {
 		return "Recipes";
 	}
-
+	
 	private void generateRecipe(HashCache cache, FinishedRecipe recipe, boolean vanillaAdvancement) {
 		try {
 			final var recipeLocation = recipe.getId();
@@ -52,9 +52,9 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 			LOGGER.error(marker, "Could not write data.", ex);
 		}
 	}
-
+	
 	protected abstract void registerRecipes(Consumer<FinishedRecipe> consumer);
-
+	
 	/**
 	 * Override this method if you want to add recipes that have the vanilla path for advancements
 	 *
@@ -62,21 +62,21 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	 */
 	protected void registerDefaultAdvancementsRecipes(Consumer<FinishedRecipe> consumer) {
 	}
-
+	
 	protected InventoryChangeTrigger.TriggerInstance hasItem(Tag<Item> tag) {
 		return hasItem(ItemPredicate.Builder.item().of(tag).build());
 	}
-
+	
 	protected InventoryChangeTrigger.TriggerInstance hasItem(ItemLike item) {
 		return hasItem(ItemPredicate.Builder.item().of(item).build());
 	}
-
+	
 	protected InventoryChangeTrigger.TriggerInstance hasItem(ItemPredicate... predicates) {
 		return new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, Ints.ANY, Ints.ANY, Ints.ANY, predicates);
 	}
-
+	
 	public static Ingredient getIngredientOfTag(Tag<Item> tag) {
 		return TagUtil.getSerializableIngredientOfTag(tag);
 	}
-
+	
 }

@@ -5,6 +5,6 @@ import info.u_team.u_team_core.item.tool.UToolMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class TestToolMaterial {
-
+	
 	public static final IToolMaterial BASIC = new UToolMaterial(new float[] { 8, 0, 4, 2, 6 }, new float[] { -3.1F, -1F, -2F, -2F, 0F }, 2, 500, 5F, 8, 30, () -> Ingredient.of(TestItems.BASIC.get()));
 }

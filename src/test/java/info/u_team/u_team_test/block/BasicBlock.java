@@ -8,9 +8,9 @@ import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.material.Material;
 
 public class BasicBlock extends UBlock {
-
+	
 	public BasicBlock() {
 		super(TestItemGroups.GROUP, Properties.of(Material.STONE).strength(2F).sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), new Item.Properties().rarity(Rarity.UNCOMMON));
 	}
-
+	
 }

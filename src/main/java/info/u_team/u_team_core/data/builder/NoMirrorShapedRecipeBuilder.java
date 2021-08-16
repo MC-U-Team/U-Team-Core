@@ -10,19 +10,19 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 
 public class NoMirrorShapedRecipeBuilder extends ShapedRecipeBuilder {
-
+	
 	public NoMirrorShapedRecipeBuilder(ItemLike item, int count) {
 		super(item, count);
 	}
-
+	
 	public static NoMirrorShapedRecipeBuilder noMirrorShapedRecipe(ItemLike item) {
 		return noMirrorShapedRecipe(item, 1);
 	}
-
+	
 	public static NoMirrorShapedRecipeBuilder noMirrorShapedRecipe(ItemLike item, int count) {
 		return new NoMirrorShapedRecipeBuilder(item, count);
 	}
-
+	
 	@Override
 	public void save(Consumer<FinishedRecipe> consumer, ResourceLocation location) {
 		super.save(recipe -> consumer.accept(RecipeBuilderUtil.getRecipeWithSerializer(recipe, UCoreRecipeSerializers.NO_MIRROR_SHAPED.get())), location);

@@ -24,29 +24,29 @@ import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class BasicTileEntityBlock extends UTileEntityBlock {
-
+	
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
-
+	
 	public BasicTileEntityBlock() {
 		super(TestItemGroups.GROUP, Properties.of(Material.STONE).strength(2F).sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), TestTileEntityTypes.BASIC);
 		registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH));
 	}
-
+	
 	@Override
 	public BlockState getStateForPlacement(BlockPlaceContext context) {
 		return defaultBlockState().setValue(FACING, context.getNearestLookingDirection().getOpposite());
 	}
-
+	
 	@Override
 	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
 		return openContainer(world, pos, player, true);
 	}
-
+	
 	@Override
 	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
 		builder.add(FACING);
 	}
-
+	
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
 		if ((type != tileEntityType.get()) || level.isClientSide()) {
@@ -54,5 +54,5 @@ public class BasicTileEntityBlock extends UTileEntityBlock {
 		}
 		return (level_, pos, state_, instance) -> BasicTileEntityTileEntity.tick(level_, pos, state_, (BasicTileEntityTileEntity) instance);
 	}
-
+	
 }

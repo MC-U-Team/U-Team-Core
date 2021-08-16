@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.commands.LocateBiomeCommand;
 
 public class LocateBiomeSubCommand {
-
+	
 	public static ArgumentBuilder<CommandSourceStack, ?> register() {
 		return Commands.literal("locatebiome") //
 				.requires(source -> source.hasPermission(2)) //
@@ -19,7 +19,7 @@ public class LocateBiomeSubCommand {
 						.suggests(SuggestionProviders.AVAILABLE_BIOMES) //
 						.executes(context -> locateBiome(context.getSource(), context.getArgument("biome", ResourceLocation.class))));
 	}
-
+	
 	private static int locateBiome(CommandSourceStack source, ResourceLocation biomeRegistryName) throws CommandSyntaxException {
 		return LocateBiomeCommand.locateBiome(source, biomeRegistryName);
 	}

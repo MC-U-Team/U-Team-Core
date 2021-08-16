@@ -11,7 +11,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 
 @Construct(modid = UCoreMod.MODID)
 public class UCoreCommonConstruct implements IModConstruct {
-
+	
 	@Override
 	public void construct() {
 		final var version = ModLoadingContext.get().getActiveContainer().getModInfo().getVersion().toString();
@@ -21,12 +21,12 @@ public class UCoreCommonConstruct implements IModConstruct {
 			}
 			return Objects.equals(remoteVersion, version);
 		}));
-
+		
 		BusRegister.registerMod(UCoreNetwork::registerMod);
 		BusRegister.registerMod(UCoreRecipeSerializers::registerMod);
 		BusRegister.registerMod(UCoreLazySpawnEggs::registerMod);
 		BusRegister.registerMod(UCoreLootFunctions::registerMod);
-
+		
 		BusRegister.registerForge(UCoreCommands::registerForge);
 	}
 }

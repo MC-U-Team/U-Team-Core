@@ -10,13 +10,13 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.energy.CapabilityEnergy;
 
 public class BasicEnergyCreatorScreen extends UBasicContainerScreen<BasicEnergyCreatorContainer> {
-
+	
 	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/energy_creator.png");
-
+	
 	public BasicEnergyCreatorScreen(BasicEnergyCreatorContainer container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title, BACKGROUND, 176, 173);
 	}
-
+	
 	@Override
 	protected void init() {
 		super.init();

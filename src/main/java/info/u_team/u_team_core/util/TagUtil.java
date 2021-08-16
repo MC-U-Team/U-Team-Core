@@ -25,11 +25,11 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
 public class TagUtil {
-
+	
 	public static Named<Block> createBlockTag(String modid, String name) {
 		return createBlockTag(new ResourceLocation(modid, name));
 	}
-
+	
 	public static Named<Block> createBlockTag(ResourceLocation location) {
 		final StaticTagHelper<Block> helper = CastUtil.uncheckedCast(StaticTags.get(Registry.BLOCK_REGISTRY.getRegistryName()));
 		final Optional<? extends Named<Block>> optional = helper.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
@@ -39,11 +39,11 @@ public class TagUtil {
 			return BlockTags.bind(location.toString());
 		}
 	}
-
+	
 	public static Named<Item> createItemTag(String modid, String name) {
 		return createItemTag(new ResourceLocation(modid, name));
 	}
-
+	
 	public static Named<Item> createItemTag(ResourceLocation location) {
 		final StaticTagHelper<Item> helper = CastUtil.uncheckedCast(StaticTags.get(Registry.ITEM_REGISTRY.getRegistryName()));
 		final Optional<? extends Named<Item>> optional = helper.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
@@ -53,11 +53,11 @@ public class TagUtil {
 			return ItemTags.bind(location.toString());
 		}
 	}
-
+	
 	public static Named<Fluid> createFluidTag(String modid, String name) {
 		return createFluidTag(new ResourceLocation(modid, name));
 	}
-
+	
 	public static Named<Fluid> createFluidTag(ResourceLocation location) {
 		final StaticTagHelper<Fluid> helper = CastUtil.uncheckedCast(StaticTags.get(Registry.FLUID_REGISTRY.getRegistryName()));
 		final Optional<? extends Named<Fluid>> optional = helper.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
@@ -67,11 +67,11 @@ public class TagUtil {
 			return FluidTags.bind(location.toString());
 		}
 	}
-
+	
 	public static Named<EntityType<?>> createEntityTypeTag(String modid, String name) {
 		return createEntityTypeTag(new ResourceLocation(modid, name));
 	}
-
+	
 	public static Named<EntityType<?>> createEntityTypeTag(ResourceLocation location) {
 		final StaticTagHelper<EntityType<?>> helper = CastUtil.uncheckedCast(StaticTags.get(Registry.ENTITY_TYPE_REGISTRY.getRegistryName()));
 		final Optional<? extends Named<EntityType<?>>> optional = helper.getWrappers().stream().filter(tag -> tag.getName().equals(location)).findAny();
@@ -81,18 +81,18 @@ public class TagUtil {
 			return EntityTypeTags.bind(location.toString());
 		}
 	}
-
+	
 	public static Named<Block> fromItemTag(Named<Item> block) {
 		return createBlockTag(block.getName());
 	}
-
+	
 	public static Named<Item> fromBlockTag(Named<Block> block) {
 		return createItemTag(block.getName());
 	}
-
+	
 	public static Ingredient getSerializableIngredientOfTag(Tag<Item> tag) {
 		return Ingredient.fromValues(Stream.of(new TagValue(tag) {
-
+			
 			@Override
 			public Collection<ItemStack> getItems() {
 				return Arrays.asList(new ItemStack(Items.ACACIA_BOAT)); // Return default value, so the ingredient will serialize our tag.

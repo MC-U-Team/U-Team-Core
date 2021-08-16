@@ -13,16 +13,16 @@ import net.minecraft.client.gui.Font;
 import net.minecraft.util.Mth;
 
 public class ScrollingTextRenderer extends ScalingTextRenderer {
-
+	
 	protected int width;
 	protected float stepSize;
 	protected int speedTime;
 	protected int waitTime;
-
+	
 	protected float moveDifference = 0;
 	protected long lastTime = 0;
 	protected State state = State.WAITING;
-
+	
 	public ScrollingTextRenderer(Font fontRenderer, Supplier<String> textSupplier, float x, float y) {
 		super(fontRenderer, textSupplier, x, y);
 		width = 100;
@@ -30,46 +30,46 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		speedTime = 20;
 		waitTime = 4000;
 	}
-
+	
 	public int getWidth() {
 		return width;
 	}
-
+	
 	public void setWidth(int width) {
 		this.width = width;
 	}
-
+	
 	public float getStepSize() {
 		return stepSize;
 	}
-
+	
 	public void setStepSize(float stepSize) {
 		this.stepSize = stepSize;
 	}
-
+	
 	public int getSpeedTime() {
 		return speedTime;
 	}
-
+	
 	public void setSpeedTime(int speedtime) {
 		speedTime = speedtime;
 	}
-
+	
 	public int getWaitTime() {
 		return waitTime;
 	}
-
+	
 	public void setWaitTime(int waittime) {
 		waitTime = waittime;
 	}
-
+	
 	public void copyState(ScrollingTextRenderer renderer) {
 		setText(textSupplier.get());
 		state = renderer.state;
 		moveDifference = renderer.moveDifference;
 		lastTime = renderer.lastTime;
 	}
-
+	
 	@Override
 	protected void updatedText() {
 		state = State.WAITING;
@@ -77,50 +77,50 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		lastTime = 0;
 		super.updatedText();
 	}
-
+	
 	@Override
 	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final var minecraft = Minecraft.getInstance();
 		final var window = minecraft.getWindow();
-
+		
 		final var matrix = new Matrix4fExtended(matrixStack.last().pose());
 		final var scaleFactor = window.getGuiScale();
-
+		
 		final var vectorXY = new Vector4f(x, y, 0, 1);
 		vectorXY.transform(matrix);
-
+		
 		// Cannot use transform here, because we only care about the scaling. M00 and M11 should have the right scaling
 		final var vectorWH = new Vector4f(width * matrix.getM00(), (fontRenderer.lineHeight + 1) * scale * matrix.getM11(), 0, 1);
-
+		
 		final var nativeX = Mth.ceil(vectorXY.x() * scaleFactor);
 		final var nativeY = Mth.ceil(vectorXY.y() * scaleFactor);
-
+		
 		final var nativeWidth = Mth.ceil(vectorWH.x() * scaleFactor);
 		final var nativeHeight = Mth.ceil(vectorWH.y() * scaleFactor);
-
+		
 		RenderUtil.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
-
+		
 		// Uncomment to test scissor
 		// matrixStack.push();
 		// matrixStack.getLast().getMatrix().setIdentity();
 		// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0x8F00FF00);
 		// matrixStack.pop();
-
+		
 		setText(textSupplier.get());
 		renderFont(matrixStack, fontRenderer, getMovingX(x), y + 2 * scale);
-
+		
 		RenderUtil.disableScissor();
 	}
-
+	
 	protected float getMovingX(float x) {
 		final var textWidth = getTextWidth();
 		if (width < textWidth) {
 			final var maxMove = width - textWidth;
-
+			
 			if (lastTime == 0) {
 				lastTime = System.currentTimeMillis();
 			}
-
+			
 			if (state == State.WAITING) {
 				if (hasWaitTimePassed()) {
 					state = moveDifference >= 0 ? State.LEFT : State.RIGHT;
@@ -140,19 +140,19 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		}
 		return x;
 	}
-
+	
 	protected boolean hasWaitTimePassed() {
 		return System.currentTimeMillis() - waitTime >= lastTime;
 	}
-
+	
 	protected boolean hasSpeedTimePassed() {
 		return System.currentTimeMillis() - speedTime >= lastTime;
 	}
-
+	
 	private enum State {
 		WAITING,
 		LEFT,
 		RIGHT;
 	}
-
+	
 }

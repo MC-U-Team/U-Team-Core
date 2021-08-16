@@ -10,27 +10,27 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TileEntityTypeDeferredRegister {
-
+	
 	public static TileEntityTypeDeferredRegister create(String modid) {
 		return new TileEntityTypeDeferredRegister(modid);
 	}
-
+	
 	private final CommonDeferredRegister<BlockEntityType<?>> register;
-
+	
 	protected TileEntityTypeDeferredRegister(String modid) {
 		register = CommonDeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, modid);
 	}
-
+	
 	public <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String name, Supplier<Builder<T>> supplier) {
 		return register.register(name, () -> supplier.get().build(null));
 	}
-
+	
 	public void register(IEventBus bus) {
 		register.register(bus);
 	}
-
+	
 	public CommonDeferredRegister<BlockEntityType<?>> getRegister() {
 		return register;
 	}
-
+	
 }

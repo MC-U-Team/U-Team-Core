@@ -12,9 +12,9 @@ import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
 
 public class PingSubCommand {
-
+	
 	private static final String SUCCESS_TRANSLATION_STRING = "commands.uteamcore.ping.success.";
-
+	
 	public static LiteralArgumentBuilder<CommandSourceStack> register() {
 		return Commands.literal("ping") //
 				.executes(context -> execute(context.getSource())) //
@@ -22,15 +22,15 @@ public class PingSubCommand {
 				.then(Commands.argument("target", EntityArgument.player()) //
 						.executes(context -> execute(context.getSource(), EntityArgument.getPlayer(context, "target"))));
 	}
-
+	
 	private static int execute(CommandSourceStack source) throws CommandSyntaxException {
 		source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "self", new TextComponent(String.valueOf(source.getPlayerOrException().latency)).withStyle(ChatFormatting.GOLD)), false);
 		return 0;
 	}
-
+	
 	private static int execute(CommandSourceStack source, ServerPlayer player) {
 		source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "other", player.getName(), new TextComponent(String.valueOf(player.latency)).withStyle(ChatFormatting.GOLD)), false);
 		return 0;
 	}
-
+	
 }

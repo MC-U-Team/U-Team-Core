@@ -24,7 +24,7 @@ import net.minecraftforge.fmllegacy.network.NetworkHooks;
  * @author HyCraftHD
  */
 public interface ITileEntityBlock extends EntityBlock {
-
+	
 	/**
 	 * Returns the {@link TileEntityType} of the block.
 	 *
@@ -33,7 +33,7 @@ public interface ITileEntityBlock extends EntityBlock {
 	 * @return The tile entity type
 	 */
 	BlockEntityType<?> getTileEntityType(BlockGetter world, BlockPos pos);
-
+	
 	/**
 	 * Opens the container that is specified in the tile entity with {@link IContainerProvider}. If the tile entity
 	 * implements {@link IInitSyncedTileEntity} then the {@link IInitSyncedTileEntity#sendInitialDataBuffer(PacketBuffer)}
@@ -47,7 +47,7 @@ public interface ITileEntityBlock extends EntityBlock {
 	default InteractionResult openContainer(Level world, BlockPos pos, Player player) {
 		return openContainer(world, pos, player, false);
 	}
-
+	
 	/**
 	 * Opens the container that is specified in the tile entity with {@link MenuConstructor}. If the tile entity implements
 	 * {@link IInitSyncedTileEntity} then the {@link IInitSyncedTileEntity#sendInitialDataBuffer(PacketBuffer)} is called
@@ -63,38 +63,38 @@ public interface ITileEntityBlock extends EntityBlock {
 		if (world.isClientSide || !(player instanceof ServerPlayer)) {
 			return InteractionResult.SUCCESS;
 		}
-
+		
 		final var serverPlayer = (ServerPlayer) player;
 		final Optional<BlockEntity> tileEntityOptional = isTileEntityFromType(world, pos);
-
+		
 		if (!tileEntityOptional.isPresent()) {
 			return InteractionResult.PASS;
 		}
-
+		
 		final var tileEntity = tileEntityOptional.get();
-
+		
 		if (!(tileEntity instanceof MenuProvider)) {
 			return InteractionResult.PASS;
 		}
-
+		
 		if (!canOpenSneak && serverPlayer.isShiftKeyDown()) {
 			return InteractionResult.SUCCESS;
 		}
-
+		
 		final var buffer = new FriendlyByteBuf(Unpooled.buffer());
 		if (tileEntity instanceof IInitSyncedTileEntity) {
 			((IInitSyncedTileEntity) tileEntity).sendInitialDataBuffer(buffer);
 		}
-
+		
 		NetworkHooks.openGui(serverPlayer, (MenuProvider) tileEntity, extraData -> {
 			extraData.writeBlockPos(pos);
 			extraData.writeVarInt(buffer.readableBytes());
 			extraData.writeBytes(buffer);
 		});
 		return InteractionResult.SUCCESS;
-
+		
 	}
-
+	
 	/**
 	 * Return an optional with a tile entity if the tile entity at this position exists and is the same tile entity type as
 	 * this block creates. This method is unchecked with a generic attribute.

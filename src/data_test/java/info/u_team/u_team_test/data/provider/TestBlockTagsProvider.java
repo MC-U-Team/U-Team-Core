@@ -9,22 +9,22 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 
 public class TestBlockTagsProvider extends CommonBlockTagsProvider {
-
+	
 	public TestBlockTagsProvider(GenerationData data) {
 		super(data);
 	}
-
+	
 	@Override
 	protected void registerTags() {
 		getBuilder(TEST_TAG_1).add(Blocks.ACACIA_BUTTON, Blocks.ACACIA_DOOR);
-
+		
 		getBuilder(TEST_TAG_2).add(TEST_TAG_1).add(Blocks.ACACIA_LOG);
-
+		
 		getBuilder(TEST_TAG_1).add(Blocks.BIRCH_LEAVES);
 		getBuilder(TEST_TAG_1).add(BlockTags.BEDS);
-
+		
 		getBuilder(TEST_TAG_2).add(Blocks.ACACIA_LOG);
 		getBuilder(TEST_TAG_2).add(TEST_TAG_1);
 	}
-
+	
 }

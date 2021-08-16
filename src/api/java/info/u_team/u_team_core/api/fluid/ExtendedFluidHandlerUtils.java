@@ -24,7 +24,7 @@ import it.unimi.dsi.fastutil.ints.IntList;
 import net.minecraftforge.fluids.FluidStack;
 
 public class ExtendedFluidHandlerUtils {
-
+	
 	/**
 	 * Util method for a generic insert implementation for various handlers. Mainly for internal use only
 	 */
@@ -65,7 +65,7 @@ public class ExtendedFluidHandlerUtils {
 		}
 		return toInsert;
 	}
-
+	
 	/**
 	 * Util method for a generic extraction implementation for various handlers. Mainly for internal use only
 	 */
@@ -99,7 +99,7 @@ public class ExtendedFluidHandlerUtils {
 		}
 		return extracted;
 	}
-
+	
 	/**
 	 * Util method for a generic extraction implementation for various handlers. Mainly for internal use only
 	 */
@@ -136,16 +136,16 @@ public class ExtendedFluidHandlerUtils {
 		}
 		return extracted;
 	}
-
+	
 	@FunctionalInterface
 	public interface InsertFluid {
-
+		
 		FluidStack insert(int tank, FluidStack stack, InteractionType action);
 	}
-
+	
 	@FunctionalInterface
 	public interface ExtractFluid {
-
+		
 		FluidStack extract(int tank, int amount, InteractionType action);
 	}
 }

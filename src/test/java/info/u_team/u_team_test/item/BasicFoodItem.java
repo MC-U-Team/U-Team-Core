@@ -9,13 +9,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 
 public class BasicFoodItem extends UItem {
-
+	
 	private static final FoodProperties FOOD = new FoodProperties.Builder().nutrition(4).saturationMod(1.2F).effect(() -> new MobEffectInstance(MobEffects.GLOWING, 200, 0), 1).alwaysEat().fast().build();
-
+	
 	public BasicFoodItem() {
 		super(TestItemGroups.GROUP, new Properties().rarity(Rarity.RARE).food(FOOD));
 	}
-
+	
 	@Override
 	public boolean isFoil(ItemStack stack) {
 		return true;

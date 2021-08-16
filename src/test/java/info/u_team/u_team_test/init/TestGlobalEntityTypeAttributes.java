@@ -5,13 +5,13 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class TestGlobalEntityTypeAttributes {
-
+	
 	private static void entityAttributionCreation(EntityAttributeCreationEvent event) {
 		event.put(TestEntityTypes.TEST_LIVING.get(), TestLivingEntity.createAttributes().build());
 	}
-
+	
 	public static void registerMod(IEventBus bus) {
 		bus.addListener(TestGlobalEntityTypeAttributes::entityAttributionCreation);
 	}
-
+	
 }

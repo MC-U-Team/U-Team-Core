@@ -14,23 +14,23 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class SerializeUtil {
-
+	
 	public static JsonElement serializeItemIngredient(Ingredient ingredient) {
 		return ingredient.toJson();
 	}
-
+	
 	public static Ingredient deserializeItemIngredient(JsonElement json) {
 		return Ingredient.fromJson(json);
 	}
-
+	
 	public static JsonElement serializeFluidIngredient(FluidIngredient ingredient) {
 		return ingredient.serialize();
 	}
-
+	
 	public static FluidIngredient deserializeFluidIngredient(JsonElement json) {
 		return FluidIngredient.deserialize(json);
 	}
-
+	
 	public static JsonElement serializeItemStack(ItemStack stack) {
 		final var itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).toString();
 		final var count = stack.getCount();
@@ -48,7 +48,7 @@ public class SerializeUtil {
 			return new JsonPrimitive(itemName);
 		}
 	}
-
+	
 	public static ItemStack deserializeItemStack(JsonElement json) {
 		if (json != null && !json.isJsonNull()) {
 			if (json.isJsonObject()) {
@@ -66,5 +66,5 @@ public class SerializeUtil {
 			throw new JsonSyntaxException("Item cannot be null");
 		}
 	}
-
+	
 }

@@ -17,11 +17,11 @@ import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 
 public class TestGlobalLootModifiersProvider extends CommonGlobalLootModifiersProvider {
-
+	
 	public TestGlobalLootModifiersProvider(GenerationData data) {
 		super(data);
 	}
-
+	
 	@Override
 	protected void registerGlobalLootModifiers(TriConsumer<String, Supplier<? extends GlobalLootModifierSerializer<? extends IGlobalLootModifier>>, ? super IGlobalLootModifier> consumer) {
 		consumer.accept("auto_smelt", TestGlobalLootModifiers.AUTO_SMELT, new AutoSmeltLootModifier(new LootItemCondition[] { MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(TestEnchantments.AUTO_SMELT.get(), MinMaxBounds.Ints.atLeast(1)))).build() }));

@@ -6,11 +6,11 @@ import info.u_team.u_team_test.init.TestBlocks;
 import info.u_team.u_team_test.init.TestItems;
 
 public class TestItemModelsProvider extends CommonItemModelsProvider {
-
+	
 	public TestItemModelsProvider(GenerationData data) {
 		super(data);
 	}
-
+	
 	@Override
 	protected void registerModels() {
 		// Items
@@ -26,5 +26,5 @@ public class TestItemModelsProvider extends CommonItemModelsProvider {
 		simpleBlock(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		simpleBlock(TestBlocks.BASIC_FLUID_INVENTORY.get());
 	}
-
+	
 }

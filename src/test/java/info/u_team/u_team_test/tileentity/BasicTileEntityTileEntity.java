@@ -23,39 +23,39 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class BasicTileEntityTileEntity extends UTileEntity implements IInitSyncedTileEntity {
-
+	
 	private final TileEntityUItemStackHandler slots;
-
+	
 	private final LazyOptional<TileEntityUItemStackHandler> slotsOptional;
-
+	
 	public int cooldown, value;
-
+	
 	public BasicTileEntityTileEntity(BlockPos pos, BlockState state) {
 		super(TestTileEntityTypes.BASIC.get(), pos, state);
 		slots = new TileEntityUItemStackHandler(18, this);
 		slotsOptional = LazyOptional.of(() -> slots);
 	}
-
+	
 	@Override
 	public void sendInitialDataBuffer(FriendlyByteBuf buffer) {
 		buffer.writeInt(value);
 		buffer.writeInt(cooldown);
 	}
-
+	
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleInitialDataBuffer(FriendlyByteBuf buffer) {
 		value = buffer.readInt();
 		cooldown = buffer.readInt();
 	}
-
+	
 	private int timer;
-
+	
 	public static void tick(Level level, BlockPos pos, BlockState state, BasicTileEntityTileEntity blockEntity) {
 		if (level.isClientSide) {
 			return;
 		}
-
+		
 		if (blockEntity.timer < blockEntity.cooldown) {
 			blockEntity.timer++;
 			return;
@@ -64,7 +64,7 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 		blockEntity.value++;
 		blockEntity.setChanged();
 	}
-
+	
 	@Override
 	public void writeNBT(CompoundTag compound) {
 		super.writeNBT(compound);
@@ -72,7 +72,7 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 		compound.putInt("value", value);
 		compound.putInt("cooldown", cooldown);
 	}
-
+	
 	@Override
 	public void readNBT(CompoundTag compound) {
 		super.readNBT(compound);
@@ -80,13 +80,13 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 		cooldown = compound.getInt("cooldown");
 		slots.deserializeNBT(compound.getCompound("inventory"));
 	}
-
+	
 	public TileEntityUItemStackHandler getSlots() {
 		return slots;
 	}
-
+	
 	// Capability
-
+	
 	@Override
 	public <X> LazyOptional<X> getCapability(Capability<X> capability, Direction side) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -95,20 +95,20 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 			return super.getCapability(capability, side);
 		}
 	}
-
+	
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
 		slotsOptional.invalidate();
 	}
-
+	
 	// Container
-
+	
 	@Override
 	public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
 		return new BasicTileEntityContainer(id, playerInventory, this);
 	}
-
+	
 	@Override
 	public Component getDisplayName() {
 		return new TextComponent("Tile Entity");

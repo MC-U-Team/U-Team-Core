@@ -6,29 +6,29 @@ import net.minecraft.world.ContainerHelper;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class UItemStackHandler extends ItemStackHandler implements IExtendedItemHandler {
-
+	
 	public UItemStackHandler(int size) {
 		super(size);
 	}
-
+	
 	@Override
 	public void setSize(int size) {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public CompoundTag serializeNBT() {
 		final var compound = new CompoundTag();
 		ContainerHelper.saveAllItems(compound, stacks, false);
 		return compound;
 	}
-
+	
 	@Override
 	public void deserializeNBT(CompoundTag compound) {
 		ContainerHelper.loadAllItems(compound, stacks);
 		onLoad();
 	}
-
+	
 	@Override
 	public void onContentsChanged(int slot) {
 		super.onContentsChanged(slot);

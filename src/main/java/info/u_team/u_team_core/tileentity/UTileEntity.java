@@ -14,24 +14,24 @@ import net.minecraft.world.level.block.state.BlockState;
  * @author HyCraftHD
  */
 public abstract class UTileEntity extends BlockEntity {
-
+	
 	public UTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
-
+	
 	@Override
 	public CompoundTag save(CompoundTag compound) {
 		super.save(compound);
 		writeNBT(compound);
 		return compound;
 	}
-
+	
 	@Override
 	public void load(CompoundTag compound) {
 		super.load(compound);
 		readNBT(compound);
 	}
-
+	
 	/**
 	 * Save data to disk. The {@link TileEntity#markDirty()} method must be called before.
 	 *
@@ -39,7 +39,7 @@ public abstract class UTileEntity extends BlockEntity {
 	 */
 	public void writeNBT(CompoundTag compound) {
 	}
-
+	
 	/**
 	 * Reads data from disk.
 	 *
@@ -48,24 +48,24 @@ public abstract class UTileEntity extends BlockEntity {
 	 */
 	public void readNBT(CompoundTag compound) {
 	}
-
+	
 	// sync server -> client
-
+	
 	// synchronization on chunk load
-
+	
 	@Override
 	public CompoundTag getUpdateTag() {
 		final var compound = super.getUpdateTag();
 		sendChunkLoadData(compound);
 		return compound;
 	}
-
+	
 	@Override
 	public void handleUpdateTag(CompoundTag compound) {
 		super.load(compound);
 		handleChunkLoadData(compound);
 	}
-
+	
 	/**
 	 * Data here will be send to the client side when the chunk is loaded. The data is received in
 	 * {@link UTileEntity#handleChunkLoadData(CompoundNBT)}
@@ -74,7 +74,7 @@ public abstract class UTileEntity extends BlockEntity {
 	 */
 	public void sendChunkLoadData(CompoundTag compound) {
 	}
-
+	
 	/**
 	 * The data from the chunk load is received here. The data is send from
 	 * {@link UTileEntity#sendChunkLoadData(CompoundNBT)}
@@ -83,9 +83,9 @@ public abstract class UTileEntity extends BlockEntity {
 	 */
 	public void handleChunkLoadData(CompoundTag compound) {
 	}
-
+	
 	// synchronization on block update
-
+	
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		final var compound = new CompoundTag();
@@ -95,12 +95,12 @@ public abstract class UTileEntity extends BlockEntity {
 		}
 		return null;
 	}
-
+	
 	@Override
 	public void onDataPacket(Connection manager, ClientboundBlockEntityDataPacket packet) {
 		handleUpdateStateData(packet.getTag());
 	}
-
+	
 	/**
 	 * Data here will be send to the client side when the block is updated. The data is received in
 	 * {@link UTileEntity#handleUpdateStateData(CompoundNBT)}. To trigger an update call
@@ -111,7 +111,7 @@ public abstract class UTileEntity extends BlockEntity {
 	 */
 	public void sendUpdateStateData(CompoundTag compound) {
 	}
-
+	
 	/**
 	 * The data from the block update is received here. The data is send from
 	 * {@link UTileEntity#sendUpdateStateData(CompoundNBT)}
@@ -120,14 +120,14 @@ public abstract class UTileEntity extends BlockEntity {
 	 */
 	public void handleUpdateStateData(CompoundTag compound) {
 	}
-
+	
 	/**
 	 * Calls {@link UTileEntity#sendChangesToClient(int)} with flag 2 (send changes to client)
 	 */
 	public void sendChangesToClient() {
 		sendChangesToClient(2);
 	}
-
+	
 	/**
 	 * Triggers a block update to send the data from the server to the client. For flags see here:
 	 * {@link World#setBlockState(net.minecraft.util.math.BlockPos, BlockState, int)}
@@ -138,5 +138,5 @@ public abstract class UTileEntity extends BlockEntity {
 		final var state = getBlockState();
 		level.sendBlockUpdated(worldPosition, state, state, flags);
 	}
-
+	
 }

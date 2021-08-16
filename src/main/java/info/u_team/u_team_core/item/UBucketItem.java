@@ -11,15 +11,15 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 
 public class UBucketItem extends BucketItem {
-
+	
 	public UBucketItem(Properties properties, Supplier<? extends Fluid> fluid) {
 		this(null, properties, fluid);
 	}
-
+	
 	public UBucketItem(CreativeModeTab group, Properties properties, Supplier<? extends Fluid> fluid) {
 		super(fluid, group == null ? properties : properties.tab(group));
 	}
-
+	
 	@Override
 	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag compound) {
 		return new FluidBucketWrapper(stack);

@@ -31,17 +31,17 @@ import net.minecraftforge.items.IItemHandler;
  * @author HyCraftHD
  */
 public abstract class UContainer extends FluidContainer {
-
+	
 	/**
 	 * Server -> Client
 	 */
 	private final List<BufferReferenceHolder> syncServerToClient;
-
+	
 	/**
 	 * Client -> Server
 	 */
 	private final List<BufferReferenceHolder> syncClientToServer;
-
+	
 	/**
 	 * Creates a new container
 	 *
@@ -53,7 +53,7 @@ public abstract class UContainer extends FluidContainer {
 		syncServerToClient = new ArrayList<>();
 		syncClientToServer = new ArrayList<>();
 	}
-
+	
 	/**
 	 * Adds a new {@link BufferReferenceHolder} that will sync values from the server to the client.
 	 *
@@ -64,7 +64,7 @@ public abstract class UContainer extends FluidContainer {
 		syncServerToClient.add(holder);
 		return holder;
 	}
-
+	
 	/**
 	 * Adds a new {@link BufferReferenceHolder} that will sync values from the client to the server. <br />
 	 * <br />
@@ -79,7 +79,7 @@ public abstract class UContainer extends FluidContainer {
 		syncClientToServer.add(holder);
 		return holder;
 	}
-
+	
 	/**
 	 * INTERNAL. Called by the packet handler to update the values on the right side.
 	 *
@@ -95,14 +95,14 @@ public abstract class UContainer extends FluidContainer {
 			syncClientToServer.get(property).set(buffer);
 		}
 	}
-
+	
 	/**
 	 * We use this method to send the tracked values to the client
 	 */
 	@Override
 	public void broadcastChanges() {
 		super.broadcastChanges();
-
+		
 		final List<Connection> networkManagers = containerListeners.stream() //
 				.filter(listener -> listener instanceof ServerPlayer) //
 				.map(listener -> ((ServerPlayer) listener).connection.getConnection()) //
@@ -111,7 +111,7 @@ public abstract class UContainer extends FluidContainer {
 			UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new BufferPropertyContainerMessage(containerId, property, holder.get()));
 		});
 	}
-
+	
 	/**
 	 * We use this method to send the tracked values to the server
 	 *
@@ -122,7 +122,7 @@ public abstract class UContainer extends FluidContainer {
 			UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new BufferPropertyContainerMessage(containerId, property, holder.get()));
 		});
 	}
-
+	
 	/**
 	 * Returns a map with all {@link BufferReferenceHolder} that are dirty. The key is the property index.
 	 *
@@ -135,7 +135,7 @@ public abstract class UContainer extends FluidContainer {
 				.boxed() //
 				.collect(Collectors.toMap(Function.identity(), index -> list.get(index)));
 	}
-
+	
 	/**
 	 * Player can interact with this container
 	 */
@@ -143,7 +143,7 @@ public abstract class UContainer extends FluidContainer {
 	public boolean stillValid(Player player) {
 		return true;
 	}
-
+	
 	/**
 	 * Return the current {@link IContainerListener} that are subscribed to our container
 	 *
@@ -152,7 +152,7 @@ public abstract class UContainer extends FluidContainer {
 	protected List<ContainerListener> getListeners() {
 		return containerListeners;
 	}
-
+	
 	/**
 	 * Returns a list of item stacks that are in the Slots in the container. This list is used to compare if something
 	 * changed and needs to be synchronized to the client with the {@link #detectAndSendChanges()} method
@@ -162,7 +162,7 @@ public abstract class UContainer extends FluidContainer {
 	protected List<ItemStack> getInventoryItemStacks() {
 		return lastSlots;
 	}
-
+	
 	/**
 	 * This methods adds a player inventory to the container.
 	 *
@@ -181,7 +181,7 @@ public abstract class UContainer extends FluidContainer {
 			}
 		}
 	}
-
+	
 	/**
 	 * This methods can add any {@link IInventory} to the container. You can specialize the inventory height (slot rows) and
 	 * width (slot columns).
@@ -195,7 +195,7 @@ public abstract class UContainer extends FluidContainer {
 	protected void appendInventory(Container inventory, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(inventory, 0, inventoryHeight, inventoryWidth, x, y);
 	}
-
+	
 	/**
 	 * This methods can add any {@link IInventory} to the container. You can specialize the inventory height (slot rows) and
 	 * width (slot columns). You must supplier a function that create a slot. With this you can set your own slot.
@@ -211,7 +211,7 @@ public abstract class UContainer extends FluidContainer {
 	protected void appendInventory(Container inventory, SlotInventoryFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(inventory, function, 0, inventoryHeight, inventoryWidth, x, y);
 	}
-
+	
 	/**
 	 * This methods can add any {@link IInventory} to the container. You can specialize the inventory height (slot rows) and
 	 * width (slot columns).
@@ -226,7 +226,7 @@ public abstract class UContainer extends FluidContainer {
 	protected void appendInventory(Container inventory, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(inventory, Slot::new, startIndex, inventoryHeight, inventoryWidth, x, y);
 	}
-
+	
 	/**
 	 * This methods can add any {@link IInventory} to the container. You can specialize the inventory height (slot rows) and
 	 * width (slot columns). You must supplier a function that create a slot. With this you can set your own slot.
@@ -247,7 +247,7 @@ public abstract class UContainer extends FluidContainer {
 			}
 		}
 	}
-
+	
 	/**
 	 * This methods can add any {@link IItemHandler} to the container. You can specialize the inventory height (slot rows)
 	 * and width (slot columns).
@@ -261,7 +261,7 @@ public abstract class UContainer extends FluidContainer {
 	protected void appendInventory(IItemHandler handler, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(handler, 0, inventoryHeight, inventoryWidth, x, y);
 	}
-
+	
 	/**
 	 * This methods can add any {@link IItemHandler} to the container. You can specialize the inventory height (slot rows)
 	 * and width (slot columns). You must supplier a function that create a slot. With this you can set your own slot.
@@ -277,7 +277,7 @@ public abstract class UContainer extends FluidContainer {
 	protected void appendInventory(IItemHandler handler, SlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(handler, function, 0, inventoryHeight, inventoryWidth, x, y);
 	}
-
+	
 	/**
 	 * This methods can add any {@link IItemHandler} to the container. You can specialize the inventory height (slot rows)
 	 * and width (slot columns).
@@ -292,7 +292,7 @@ public abstract class UContainer extends FluidContainer {
 	protected void appendInventory(IItemHandler handler, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendInventory(handler, ItemSlot::new, startIndex, inventoryHeight, inventoryWidth, x, y);
 	}
-
+	
 	/**
 	 * This methods can add any {@link IItemHandler} to the container. You can specialize the inventory height (slot rows)
 	 * and width (slot columns). You must supplier a function that create a slot. With this you can set your own slot.
@@ -313,7 +313,7 @@ public abstract class UContainer extends FluidContainer {
 			}
 		}
 	}
-
+	
 	/**
 	 * Used as a function to customize slots with the append methods
 	 *
@@ -321,7 +321,7 @@ public abstract class UContainer extends FluidContainer {
 	 */
 	@FunctionalInterface
 	public static interface SlotInventoryFunction {
-
+		
 		/**
 		 * Should return a slot with the applied parameters.
 		 *
@@ -333,7 +333,7 @@ public abstract class UContainer extends FluidContainer {
 		 */
 		Slot getSlot(Container inventory, int index, int xPosition, int yPosition);
 	}
-
+	
 	/**
 	 * Used as a function to customize slots with the append methods
 	 *
@@ -341,7 +341,7 @@ public abstract class UContainer extends FluidContainer {
 	 */
 	@FunctionalInterface
 	public static interface SlotHandlerFunction {
-
+		
 		/**
 		 * Should return a slot with the applied parameters.
 		 *

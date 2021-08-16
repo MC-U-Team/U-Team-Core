@@ -12,17 +12,17 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.SpawnEggItem;
 
 public class USpawnEggItem extends SpawnEggItem {
-
+	
 	public static final List<Pair<LazyLoadedValue<? extends EntityType<?>>, USpawnEggItem>> LAZY_EGGS = new ArrayList<>();
-
+	
 	public USpawnEggItem(Properties properties, Supplier<? extends EntityType<?>> entityType, int primaryColor, int secondaryColor) {
 		this(null, properties, entityType, primaryColor, secondaryColor);
 	}
-
+	
 	public USpawnEggItem(CreativeModeTab group, Properties properties, Supplier<? extends EntityType<?>> entityType, int primaryColor, int secondaryColor) {
 		super(null, primaryColor, secondaryColor, group == null ? properties : properties.tab(group));
 		BY_ID.remove(null);
 		LAZY_EGGS.add(Pair.of(new LazyLoadedValue<>(entityType), this));
 	}
-
+	
 }
