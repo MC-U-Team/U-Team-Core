@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Maps;
-import com.google.gson.JsonObject;
 
 import net.minecraft.core.Registry;
 import net.minecraft.data.HashCache;

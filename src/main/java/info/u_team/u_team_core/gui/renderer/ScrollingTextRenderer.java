@@ -2,7 +2,6 @@ package info.u_team.u_team_core.gui.renderer;
 
 import java.util.function.Supplier;
 
-import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
 

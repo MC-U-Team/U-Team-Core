@@ -7,7 +7,6 @@ import java.util.TreeMap;
 import java.util.function.Supplier;
 
 import net.minecraft.data.HashCache;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;

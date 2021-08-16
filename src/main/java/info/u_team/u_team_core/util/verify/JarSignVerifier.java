@@ -1,13 +1,10 @@
 package info.u_team.u_team_core.util.verify;
 
-import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.Optional;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
-import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -18,7 +15,6 @@ import com.google.common.io.ByteStreams;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.util.CertificateHelper;
-import net.minecraftforge.forgespi.language.IModFileInfo;
 
 public class JarSignVerifier {
 	

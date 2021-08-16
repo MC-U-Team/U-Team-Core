@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
-import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.UCoreMod;

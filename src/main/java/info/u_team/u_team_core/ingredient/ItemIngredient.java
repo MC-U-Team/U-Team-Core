@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;

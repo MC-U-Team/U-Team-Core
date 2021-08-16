@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.util;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.data;
 
-import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.file.Files;
@@ -16,7 +15,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
-import com.google.gson.stream.JsonWriter;
 
 import info.u_team.u_team_core.util.GsonUtil;
 import net.minecraft.data.DataGenerator;

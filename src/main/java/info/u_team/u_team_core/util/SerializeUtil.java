@@ -7,7 +7,6 @@ import com.google.gson.JsonSyntaxException;
 
 import info.u_team.u_team_core.ingredient.FluidIngredient;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.CraftingHelper;
