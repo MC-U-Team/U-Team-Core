@@ -23,13 +23,13 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 
 	@Override
 	public boolean matches(CraftingContainer inventory, Level world) {
-		ItemStack dyeableItem = ItemStack.EMPTY;
+		var dyeableItem = ItemStack.EMPTY;
 		final List<ItemStack> dyeList = Lists.newArrayList();
 
-		for (int index = 0; index < inventory.getContainerSize(); ++index) {
-			final ItemStack slotStack = inventory.getItem(index);
+		for (var index = 0; index < inventory.getContainerSize(); ++index) {
+			final var slotStack = inventory.getItem(index);
 			if (!slotStack.isEmpty()) {
-				final Item item = slotStack.getItem();
+				final var item = slotStack.getItem();
 				if (item instanceof IDyeableItem) {
 					if (!dyeableItem.isEmpty()) {
 						return false;
@@ -49,13 +49,13 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 
 	@Override
 	public ItemStack assemble(CraftingContainer inventory) {
-		ItemStack dyeableItem = ItemStack.EMPTY;
+		var dyeableItem = ItemStack.EMPTY;
 		final List<DyeItem> dyeItemList = Lists.newArrayList();
 
-		for (int index = 0; index < inventory.getContainerSize(); ++index) {
-			final ItemStack slotStack = inventory.getItem(index);
+		for (var index = 0; index < inventory.getContainerSize(); ++index) {
+			final var slotStack = inventory.getItem(index);
 			if (!slotStack.isEmpty()) {
-				final Item item = slotStack.getItem();
+				final var item = slotStack.getItem();
 				if (item instanceof IDyeableItem) {
 					if (!dyeableItem.isEmpty()) {
 						return ItemStack.EMPTY;

@@ -184,9 +184,9 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		final boolean flag = keyCode == 263;
+		final var flag = keyCode == 263;
 		if (flag || keyCode == 262) {
-			final float direction = flag ? -1.0F : 1.0F;
+			final var direction = flag ? -1.0F : 1.0F;
 			setSliderValue(sliderValue + direction / (width - 8));
 		}
 		return false;
@@ -206,7 +206,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 
 	protected void setSliderValue(double value) {
-		final double oldValue = sliderValue;
+		final var oldValue = sliderValue;
 		sliderValue = Mth.clamp(value, 0, 1);
 		if (oldValue != sliderValue) {
 			updateSlider();

@@ -34,8 +34,8 @@ public class FluidClickContainerMessage {
 	public static FluidClickContainerMessage decode(FriendlyByteBuf sendBuffer) {
 		final int id = sendBuffer.readByte();
 		final int slot = sendBuffer.readShort();
-		final boolean shift = sendBuffer.readBoolean();
-		final ItemStack stack = sendBuffer.readItem();
+		final var shift = sendBuffer.readBoolean();
+		final var stack = sendBuffer.readItem();
 
 		return new FluidClickContainerMessage(id, slot, shift, stack);
 	}
@@ -43,9 +43,9 @@ public class FluidClickContainerMessage {
 	public static class Handler {
 
 		public static void handle(FluidClickContainerMessage message, Supplier<Context> contextSupplier) {
-			final Context context = contextSupplier.get();
+			final var context = contextSupplier.get();
 			context.enqueueWork(() -> {
-				final ServerPlayer player = context.getSender();
+				final var player = context.getSender();
 				getFluidContainer(player.containerMenu, message.id).ifPresent(container -> container.fluidSlotClick(player, message.slot, message.shift, message.stack));
 			});
 			context.setPacketHandled(true);

@@ -145,7 +145,7 @@ public class UTextField extends EditBox implements IRenderTickable, IPerspective
 
 	@Override
 	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		final Minecraft minecraft = Minecraft.getInstance();
+		final var minecraft = Minecraft.getInstance();
 		renderBackground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 		renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
@@ -160,28 +160,28 @@ public class UTextField extends EditBox implements IRenderTickable, IPerspective
 
 	@Override
 	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		final RGBA currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
+		final var currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
 
-		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
+		final var currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
 
-		final int cursorOffset = cursorPos - displayPos;
-		final int selectionOffset = Math.min(highlightPos - displayPos, currentText.length());
+		final var cursorOffset = cursorPos - displayPos;
+		final var selectionOffset = Math.min(highlightPos - displayPos, currentText.length());
 
-		final boolean isCursorInText = cursorOffset >= 0 && cursorOffset <= currentText.length();
-		final boolean shouldCursorBlink = isFocused() && frame / 6 % 2 == 0 && isCursorInText;
-		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
+		final var isCursorInText = cursorOffset >= 0 && cursorOffset <= currentText.length();
+		final var shouldCursorBlink = isFocused() && frame / 6 % 2 == 0 && isCursorInText;
+		final var isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 
-		final int xOffset = bordered ? x + 4 : x;
-		final int yOffset = bordered ? y + (height - 8) / 2 : y;
+		final var xOffset = bordered ? x + 4 : x;
+		final var yOffset = bordered ? y + (height - 8) / 2 : y;
 
-		int leftRenderedTextX = xOffset;
+		var leftRenderedTextX = xOffset;
 
 		if (!currentText.isEmpty()) {
-			final String firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
+			final var firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
 			leftRenderedTextX = font.drawShadow(matrixStack, formatter.apply(firstTextPart, displayPos), xOffset, yOffset, currentTextColor.getColorARGB());
 		}
 
-		int rightRenderedTextX = leftRenderedTextX;
+		var rightRenderedTextX = leftRenderedTextX;
 
 		if (!isCursorInText) {
 			rightRenderedTextX = cursorOffset > 0 ? xOffset + width : xOffset;
@@ -207,7 +207,7 @@ public class UTextField extends EditBox implements IRenderTickable, IPerspective
 		}
 
 		if (selectionOffset != cursorOffset) {
-			final int selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
+			final var selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
 			renderHighlight(rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
 		}
 	}

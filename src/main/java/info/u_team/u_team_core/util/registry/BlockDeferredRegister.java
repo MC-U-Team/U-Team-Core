@@ -59,12 +59,12 @@ public class BlockDeferredRegister {
 
 	@SuppressWarnings("unchecked")
 	private void registerItems(Register<Item> event) {
-		final IForgeRegistry<Item> registry = event.getRegistry();
+		final var registry = event.getRegistry();
 
 		blockToItemsMap.forEach((blockObject, itemObject) -> {
 			final Block block = blockObject.get();
 			if (block instanceof IBlockItemProvider) {
-				final BlockItem blockItem = ((IBlockItemProvider) block).getBlockItem();
+				final var blockItem = ((IBlockItemProvider) block).getBlockItem();
 				if (blockItem != null) {
 					registry.register(blockItem.setRegistryName(itemObject.getId()));
 					((RegistryObject<Item>) itemObject).updateReference(registry);

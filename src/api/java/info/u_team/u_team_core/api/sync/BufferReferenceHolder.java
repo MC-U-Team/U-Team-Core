@@ -21,8 +21,8 @@ public abstract class BufferReferenceHolder {
 	public abstract void set(FriendlyByteBuf buffer);
 
 	public boolean isDirty() {
-		final FriendlyByteBuf buffer = get();
-		final boolean dirty = !buffer.equals(lastKnownValue);
+		final var buffer = get();
+		final var dirty = !buffer.equals(lastKnownValue);
 		lastKnownValue = buffer;
 		return dirty;
 	}

@@ -28,8 +28,8 @@ public class ItemStackInfoSubCommand {
 	}
 
 	private static int execute(CommandSourceStack source) throws CommandSyntaxException {
-		final ItemStack stack = source.getPlayerOrException().getMainHandItem();
-		final Item item = stack.getItem();
+		final var stack = source.getPlayerOrException().getMainHandItem();
+		final var item = stack.getItem();
 
 		source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item)), false);
 
@@ -45,8 +45,8 @@ public class ItemStackInfoSubCommand {
 
 	private static Component createRegistryInfo(IForgeRegistryEntry<?> entry) {
 		final MutableComponent component = new TextComponent(entry.getRegistryName().toString());
-		Style style = component.getStyle();
-		final String className = getClassString(entry);
+		var style = component.getStyle();
+		final var className = getClassString(entry);
 		style = style.withColor(ChatFormatting.AQUA);
 		style = style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent(className).withStyle(ChatFormatting.YELLOW)));
 		style = style.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));

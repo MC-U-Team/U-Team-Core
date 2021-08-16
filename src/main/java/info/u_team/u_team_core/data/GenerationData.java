@@ -39,7 +39,7 @@ public class GenerationData {
 	}
 
 	public void addProvider(Function<GenerationData, DataProvider> function) {
-		final DataProvider provider = function.apply(this);
+		final var provider = function.apply(this);
 		if (provider instanceof CommonBlockTagsProvider) {
 			blockTagsProvider = (CommonBlockTagsProvider) provider;
 		}

@@ -87,8 +87,8 @@ public abstract class UContainer extends FluidContainer {
 	 * @param side Side to handle the packet on
 	 */
 	public void updateValue(BufferPropertyContainerMessage message, LogicalSide side) {
-		final int property = message.getProperty();
-		final FriendlyByteBuf buffer = message.getBuffer();
+		final var property = message.getProperty();
+		final var buffer = message.getBuffer();
 		if (side == LogicalSide.CLIENT) {
 			syncServerToClient.get(property).set(buffer);
 		} else if (side == LogicalSide.SERVER) {
@@ -171,8 +171,8 @@ public abstract class UContainer extends FluidContainer {
 	 * @param y Start y
 	 */
 	protected void appendPlayerInventory(Inventory playerInventory, int x, int y) {
-		for (int height = 0; height < 4; height++) {
-			for (int width = 0; width < 9; width++) {
+		for (var height = 0; height < 4; height++) {
+			for (var width = 0; width < 9; width++) {
 				if (height == 3) {
 					addSlot(new Slot(playerInventory, width, width * 18 + x, height * 18 + 4 + y));
 					continue;
@@ -241,8 +241,8 @@ public abstract class UContainer extends FluidContainer {
 	 * @param y Start y
 	 */
 	protected void appendInventory(Container inventory, SlotInventoryFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
-		for (int height = 0; height < inventoryHeight; height++) {
-			for (int width = 0; width < inventoryWidth; width++) {
+		for (var height = 0; height < inventoryHeight; height++) {
+			for (var width = 0; width < inventoryWidth; width++) {
 				addSlot(function.getSlot(inventory, startIndex + (width + height * inventoryWidth), width * 18 + x, height * 18 + y));
 			}
 		}
@@ -307,8 +307,8 @@ public abstract class UContainer extends FluidContainer {
 	 * @param y Start y
 	 */
 	protected void appendInventory(IItemHandler handler, SlotHandlerFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
-		for (int height = 0; height < inventoryHeight; height++) {
-			for (int width = 0; width < inventoryWidth; width++) {
+		for (var height = 0; height < inventoryHeight; height++) {
+			for (var width = 0; width < inventoryWidth; width++) {
 				addSlot(function.getSlot(handler, startIndex + (width + height * inventoryWidth), width * 18 + x, height * 18 + y));
 			}
 		}

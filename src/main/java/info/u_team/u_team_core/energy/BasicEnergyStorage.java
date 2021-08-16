@@ -23,7 +23,7 @@ public class BasicEnergyStorage extends EnergyStorage {
 
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		final int value = super.extractEnergy(maxExtract, simulate);
+		final var value = super.extractEnergy(maxExtract, simulate);
 		if (!simulate) {
 			onEnergyChanged();
 		}
@@ -32,7 +32,7 @@ public class BasicEnergyStorage extends EnergyStorage {
 
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		final int value = super.receiveEnergy(maxReceive, simulate);
+		final var value = super.receiveEnergy(maxReceive, simulate);
 		if (!simulate) {
 			onEnergyChanged();
 		}

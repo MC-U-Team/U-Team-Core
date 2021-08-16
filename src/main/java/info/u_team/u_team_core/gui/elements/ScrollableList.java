@@ -94,14 +94,14 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	@Override
 	protected void renderList(PoseStack matrixStack, int rowLeft, int scrollAmount, int mouseX, int mouseY, float partialTicks) {
 		if (shouldUseScissor) {
-			final Window window = minecraft.getWindow();
-			final double scaleFactor = window.getGuiScale();
+			final var window = minecraft.getWindow();
+			final var scaleFactor = window.getGuiScale();
 
-			final int nativeX = Mth.ceil(x0 * scaleFactor);
-			final int nativeY = Mth.ceil(y0 * scaleFactor);
+			final var nativeX = Mth.ceil(x0 * scaleFactor);
+			final var nativeY = Mth.ceil(y0 * scaleFactor);
 
-			final int nativeWidth = Mth.ceil((x1 - x0) * scaleFactor);
-			final int nativeHeight = Mth.ceil((y1 - y0) * scaleFactor);
+			final var nativeWidth = Mth.ceil((x1 - x0) * scaleFactor);
+			final var nativeHeight = Mth.ceil((y1 - y0) * scaleFactor);
 
 			RenderUtil.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 
@@ -118,8 +118,8 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 		}
 
 		if (shouldRenderTransparentBorder) {
-			final Tesselator tessellator = Tesselator.getInstance();
-			final BufferBuilder buffer = tessellator.getBuilder();
+			final var tessellator = Tesselator.getInstance();
+			final var buffer = tessellator.getBuilder();
 
 			RenderUtil.enableBlend();
 			RenderUtil.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ZERO, DestFactor.ONE);

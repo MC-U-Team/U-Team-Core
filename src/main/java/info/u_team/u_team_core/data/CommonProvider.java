@@ -73,8 +73,8 @@ public abstract class CommonProvider implements DataProvider {
 	}
 
 	public static void write(HashCache cache, JsonElement element, Path path, Gson gson) throws IOException {
-		try (final StringWriter writer = new StringWriter(); //
-				final JsonWriter jsonWriter = GsonUtil.createTabWriter(gson, writer)) {
+		try (final var writer = new StringWriter(); //
+				final var jsonWriter = GsonUtil.createTabWriter(gson, writer)) {
 			GSON.toJson(element, jsonWriter);
 			write(cache, writer.toString(), path);
 		} catch (final IOException ex) {
@@ -83,10 +83,10 @@ public abstract class CommonProvider implements DataProvider {
 	}
 
 	public static void write(HashCache cache, String string, Path path) throws IOException {
-		final String hash = SHA1.hashUnencodedChars(string).toString();
+		final var hash = SHA1.hashUnencodedChars(string).toString();
 		if (!Objects.equals(cache.getHash(path), hash) || !Files.exists(path)) {
 			Files.createDirectories(path.getParent());
-			try (final BufferedWriter writer = Files.newBufferedWriter(path)) {
+			try (final var writer = Files.newBufferedWriter(path)) {
 				writer.write(string);
 			}
 		}

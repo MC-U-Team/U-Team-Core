@@ -56,8 +56,8 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			if (!list.isEmpty()) {
 				throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", location, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
 			}
-			final JsonObject object = builder.serializeToJson();
-			final Path path = makePath(location);
+			final var object = builder.serializeToJson();
+			final var path = makePath(location);
 			try {
 				write(cache, object, path);
 			} catch (final IOException ex) {
@@ -67,7 +67,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	}
 
 	private boolean missing(BuilderEntry proxy) {
-		final Entry entry = proxy.getEntry();
+		final var entry = proxy.getEntry();
 		if (entry instanceof TagEntry) {
 			return !data.getExistingFileHelper().exists(((TagEntry) entry).id, resourceType);
 		}
@@ -81,7 +81,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	}
 
 	protected BetterBuilder<T> getBuilder(Tag.Named<T> tag) {
-		final Tag.Builder tagBuilder = getTagBuilder(tag);
+		final var tagBuilder = getTagBuilder(tag);
 		return new BetterBuilder<>(tagBuilder, registry, modid);
 	}
 
@@ -152,8 +152,8 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 
 		@Override
 		public Tag.Builder add(BuilderEntry proxyTag) {
-			final ResourceLocation identifier = getIdentifier(proxyTag.getEntry());
-			final boolean duplicate = getEntries() //
+			final var identifier = getIdentifier(proxyTag.getEntry());
+			final var duplicate = getEntries() //
 					.map(BuilderEntry::getEntry) //
 					.anyMatch(entry -> getIdentifier(entry).equals(identifier));
 

@@ -23,8 +23,8 @@ public class SetTileEntityNBTLootFunction extends LootItemConditionalFunction {
 	@Override
 	public ItemStack run(ItemStack stack, LootContext context) {
 		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
-			final CompoundTag compound = new CompoundTag();
-			final BlockEntity tileEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
+			final var compound = new CompoundTag();
+			final var tileEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
 			if (tileEntity instanceof UTileEntity) {
 				((UTileEntity) tileEntity).writeNBT(compound);
 			} else {

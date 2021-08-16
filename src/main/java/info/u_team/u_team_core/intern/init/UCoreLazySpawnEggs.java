@@ -18,12 +18,12 @@ public class UCoreLazySpawnEggs {
 		event.enqueueWork(() -> {
 			USpawnEggItem.LAZY_EGGS.forEach(pair -> {
 				final EntityType<?> type = pair.getKey().get();
-				final USpawnEggItem item = pair.getValue();
+				final var item = pair.getValue();
 
 				item.defaultType = type;
 
 				DispenserBlock.registerBehavior(item, (source, stack) -> {
-					final Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+					final var direction = source.getBlockState().getValue(DispenserBlock.FACING);
 					final EntityType<?> entityType = ((USpawnEggItem) stack.getItem()).getType(stack.getTag());
 					entityType.spawn(source.getLevel(), stack, (Player) null, source.getPos().relative(direction), MobSpawnType.DISPENSER, direction != Direction.UP, false);
 					stack.shrink(1);
@@ -37,7 +37,7 @@ public class UCoreLazySpawnEggs {
 		event.enqueueWork(() -> {
 			USpawnEggItem.LAZY_EGGS.forEach(pair -> {
 				final EntityType<? extends Mob> type = (EntityType<? extends Mob>) pair.getKey().get();
-				final USpawnEggItem item = pair.getValue();
+				final var item = pair.getValue();
 
 				SpawnEggItem.BY_ID.put(type, item);
 			});

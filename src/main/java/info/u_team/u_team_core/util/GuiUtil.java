@@ -35,9 +35,9 @@ public class GuiUtil {
 	public static void drawContainerBorder(PoseStack matrixStack, int x, int y, int width, int height) {
 		// ARGB ... Strange formal
 
-		final int darkColor = 0xFF373737;
-		final int mediumColor = 0xFF8B8B8B;
-		final int brightColor = 0xFFFFFFFF;
+		final var darkColor = 0xFF373737;
+		final var mediumColor = 0xFF8B8B8B;
+		final var brightColor = 0xFFFFFFFF;
 
 		GuiComponent.fill(matrixStack, x, y, x + width - 1, y + 1, darkColor);
 		GuiComponent.fill(matrixStack, x, y, x + 1, y + height - 1, darkColor);
@@ -111,20 +111,20 @@ public class GuiUtil {
 	 * @param color The color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
 	public static void drawContinuousTexturedBox(PoseStack matrixStack, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder, float zLevel, RGBA color) {
-		final int fillerWidth = textureWidth - leftBorder - rightBorder;
-		final int fillerHeight = textureHeight - topBorder - bottomBorder;
-		final int canvasWidth = width - leftBorder - rightBorder;
-		final int canvasHeight = height - topBorder - bottomBorder;
-		final int xPasses = canvasWidth / fillerWidth;
-		final int remainderWidth = canvasWidth % fillerWidth;
-		final int yPasses = canvasHeight / fillerHeight;
-		final int remainderHeight = canvasHeight % fillerHeight;
+		final var fillerWidth = textureWidth - leftBorder - rightBorder;
+		final var fillerHeight = textureHeight - topBorder - bottomBorder;
+		final var canvasWidth = width - leftBorder - rightBorder;
+		final var canvasHeight = height - topBorder - bottomBorder;
+		final var xPasses = canvasWidth / fillerWidth;
+		final var remainderWidth = canvasWidth % fillerWidth;
+		final var yPasses = canvasHeight / fillerHeight;
+		final var remainderHeight = canvasHeight % fillerHeight;
 
-		final float uScale = 1f / 256;
-		final float vScale = 1f / 256;
+		final var uScale = 1f / 256;
+		final var vScale = 1f / 256;
 
-		final Tesselator tessellator = Tesselator.getInstance();
-		final BufferBuilder bufferBuilder = tessellator.getBuilder();
+		final var tessellator = Tesselator.getInstance();
+		final var bufferBuilder = tessellator.getBuilder();
 
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
 
@@ -138,20 +138,20 @@ public class GuiUtil {
 		// Bottom Right
 		addTexturedColoredRect(bufferBuilder, matrixStack, x + leftBorder + canvasWidth, y + topBorder + canvasHeight, u + leftBorder + fillerWidth, v + topBorder + fillerHeight, uScale, vScale, rightBorder, bottomBorder, zLevel, color);
 
-		for (int i = 0; i < xPasses + (remainderWidth > 0 ? 1 : 0); i++) {
+		for (var i = 0; i < xPasses + (remainderWidth > 0 ? 1 : 0); i++) {
 			// Top Border
 			addTexturedColoredRect(bufferBuilder, matrixStack, x + leftBorder + (i * fillerWidth), y, u + leftBorder, v, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), topBorder, zLevel, color);
 			// Bottom Border
 			addTexturedColoredRect(bufferBuilder, matrixStack, x + leftBorder + (i * fillerWidth), y + topBorder + canvasHeight, u + leftBorder, v + topBorder + fillerHeight, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), bottomBorder, zLevel, color);
 
 			// Throw in some filler for good measure
-			for (int j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
+			for (var j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
 				addTexturedColoredRect(bufferBuilder, matrixStack, x + leftBorder + (i * fillerWidth), y + topBorder + (j * fillerHeight), u + leftBorder, v + topBorder, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), (j == yPasses ? remainderHeight : fillerHeight), zLevel, color);
 			}
 		}
 
 		// Side Borders
-		for (int j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
+		for (var j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
 			// Left Border
 			addTexturedColoredRect(bufferBuilder, matrixStack, x, y + topBorder + (j * fillerHeight), u, v + topBorder, uScale, vScale, leftBorder, (j == yPasses ? remainderHeight : fillerHeight), zLevel, color);
 			// Right Border
@@ -177,7 +177,7 @@ public class GuiUtil {
 	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
 	public static void addTexturedColoredRect(BufferBuilder bufferBuilder, PoseStack matrixStack, int x, int y, int u, int v, float uScale, float vScale, int width, int height, float zLevel, RGBA color) {
-		final Matrix4f matrix = matrixStack.last().pose();
+		final var matrix = matrixStack.last().pose();
 
 		bufferBuilder.vertex(matrix, x, y + height, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).uv(u * uScale, ((v + height) * vScale)).endVertex();
 		bufferBuilder.vertex(matrix, x + width, y + height, zLevel).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).uv((u + width) * uScale, ((v + height) * vScale)).endVertex();
@@ -238,8 +238,8 @@ public class GuiUtil {
 	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
 	public static void drawTexturedColoredQuad(PoseStack matrixStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float zLevel, RGBA color) {
-		final Tesselator tessellator = Tesselator.getInstance();
-		final BufferBuilder bufferBuilder = tessellator.getBuilder();
+		final var tessellator = Tesselator.getInstance();
+		final var bufferBuilder = tessellator.getBuilder();
 
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
 
@@ -266,7 +266,7 @@ public class GuiUtil {
 	 * @param color Color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
 	public static void addTexturedColoredQuad(BufferBuilder bufferBuilder, PoseStack matrixStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float zLevel, RGBA color) {
-		final Matrix4f matrix = matrixStack.last().pose();
+		final var matrix = matrixStack.last().pose();
 
 		addVertexColor(bufferBuilder.vertex(matrix, x1, y2, zLevel), color).uv(u1, v2).endVertex();
 		addVertexColor(bufferBuilder.vertex(matrix, x2, y2, zLevel), color).uv(u2, v2).endVertex();

@@ -43,16 +43,16 @@ public class ScalableCheckboxButton extends CheckboxButton implements IScaleable
 	@Override
 	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			final Font fontRenderer = minecraft.font;
+			final var fontRenderer = minecraft.font;
 
-			final Component message = getCurrentText();
+			final var message = getCurrentText();
 			if (message != TextComponent.EMPTY) {
-				final float currentScale = getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
+				final var currentScale = getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
 
-				final float positionFactor = 1 / currentScale;
+				final var positionFactor = 1 / currentScale;
 
 				final float xStart;
-				final float yStart = (y + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
+				final var yStart = (y + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
 
 				if (leftSideText) {
 					xStart = (x - ((fontRenderer.width(message) * currentScale) + 4)) * positionFactor;
@@ -60,7 +60,7 @@ public class ScalableCheckboxButton extends CheckboxButton implements IScaleable
 					xStart = (x + width + 4) * positionFactor;
 				}
 
-				final int color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
+				final var color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
 
 				matrixStack.pushPose();
 				matrixStack.scale(currentScale, currentScale, 0);

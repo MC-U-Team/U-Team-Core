@@ -69,9 +69,9 @@ public class TestLivingEntity extends Zombie {
 
 	@Override
 	public boolean doHurtTarget(Entity entity) {
-		final boolean flag = super.doHurtTarget(entity);
+		final var flag = super.doHurtTarget(entity);
 		if (flag && getMainHandItem().isEmpty() && entity instanceof LivingEntity livingEntity) {
-			final float localDifficulty = level.getCurrentDifficultyAt(blockPosition()).getEffectiveDifficulty();
+			final var localDifficulty = level.getCurrentDifficultyAt(blockPosition()).getEffectiveDifficulty();
 			livingEntity.addEffect(new MobEffectInstance(MobEffects.LEVITATION, (int) (500 * localDifficulty)));
 		}
 		return flag;

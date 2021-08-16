@@ -55,7 +55,7 @@ public abstract class UTileEntity extends BlockEntity {
 
 	@Override
 	public CompoundTag getUpdateTag() {
-		final CompoundTag compound = super.getUpdateTag();
+		final var compound = super.getUpdateTag();
 		sendChunkLoadData(compound);
 		return compound;
 	}
@@ -88,7 +88,7 @@ public abstract class UTileEntity extends BlockEntity {
 
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		final CompoundTag compound = new CompoundTag();
+		final var compound = new CompoundTag();
 		sendUpdateStateData(compound);
 		if (!compound.isEmpty()) {
 			return new ClientboundBlockEntityDataPacket(worldPosition, -1, compound);
@@ -135,7 +135,7 @@ public abstract class UTileEntity extends BlockEntity {
 	 * @param flags Are described above
 	 */
 	public void sendChangesToClient(int flags) {
-		final BlockState state = getBlockState();
+		final var state = getBlockState();
 		level.sendBlockUpdated(worldPosition, state, state, flags);
 	}
 

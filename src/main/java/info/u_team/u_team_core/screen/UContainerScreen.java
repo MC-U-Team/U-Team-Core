@@ -75,8 +75,8 @@ public class UContainerScreen<T extends AbstractContainerMenu> extends FluidCont
 	protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY) {
 		GuiUtil.clearColor();
 		minecraft.getTextureManager().bindForSetup(background);
-		final int xStart = (width - imageWidth) / 2;
-		final int yStart = (height - imageHeight) / 2;
+		final var xStart = (width - imageWidth) / 2;
+		final var yStart = (height - imageHeight) / 2;
 
 		blit(matrixStack, xStart, yStart, 0, 0, imageWidth, imageHeight, backgroundWidth, backgroundHeight);
 	}

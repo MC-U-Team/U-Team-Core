@@ -17,14 +17,14 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 	private void addUTeamCoreCommand() {
 		// Stack info
 		// English
-		final String stackInfoSuccess = "commands.uteamcore.stackinfo.success.";
+		final var stackInfoSuccess = "commands.uteamcore.stackinfo.success.";
 		add(stackInfoSuccess + "item", "Item: %s");
 		add(stackInfoSuccess + "block", "Block: %s");
 		add(stackInfoSuccess + "nbt", "NBT: %s");
 
 		// Ping
 		// English
-		final String pingSuccess = "commands.uteamcore.ping.success.";
+		final var pingSuccess = "commands.uteamcore.ping.success.";
 		add(pingSuccess + "self", "Your ping is %sms");
 		add(pingSuccess + "other", "%s's ping is %sms");
 
@@ -34,7 +34,7 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 
 		// Dim teleport
 		// English
-		final String dimTeleportSuccess = "commands.uteamcore.dimteleport.success.";
+		final var dimTeleportSuccess = "commands.uteamcore.dimteleport.success.";
 		add(dimTeleportSuccess + "single", "Teleported %s to %s");
 		add(dimTeleportSuccess + "multiple", "Teleported %s entities to %s");
 		add(dimTeleportSuccess + "position.single", "Teleported %s to %s at %s, %s, %s");
@@ -46,7 +46,7 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 
 		// Discord config
 		// English
-		final String discordConfigScreen = "screen.uteamcore.config.discord.";
+		final var discordConfigScreen = "screen.uteamcore.config.discord.";
 		add(discordConfigScreen + "title", "U Team Core Discord Config Options");
 		add(discordConfigScreen + "on", "Discord connection is on");
 		add(discordConfigScreen + "off", "Discord connection is off");

@@ -34,7 +34,7 @@ public class FluidSetAllContainerMessage {
 		final int id = sendBuffer.readByte();
 		final int size = sendBuffer.readShort();
 		final List<FluidStack> stacks = NonNullList.withSize(size, FluidStack.EMPTY);
-		for (int index = 0; index < size; index++) {
+		for (var index = 0; index < size; index++) {
 			stacks.set(index, sendBuffer.readFluidStack());
 		}
 		return new FluidSetAllContainerMessage(id, stacks);
@@ -43,7 +43,7 @@ public class FluidSetAllContainerMessage {
 	public static class Handler {
 
 		public static void handle(FluidSetAllContainerMessage message, Supplier<Context> contextSupplier) {
-			final Context context = contextSupplier.get();
+			final var context = contextSupplier.get();
 			context.enqueueWork(() -> {
 				getFluidContainer(Minecraft.getInstance().player.containerMenu, message.id).ifPresent(container -> container.setAllFluidSlots(message.stacks));
 			});

@@ -43,21 +43,21 @@ public class EnergyStorageWidget extends AbstractWidget {
 
 	@Override
 	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		final Minecraft minecraft = Minecraft.getInstance();
+		final var minecraft = Minecraft.getInstance();
 		minecraft.getTextureManager().bindForSetup(ENERGY_TEXTURE);
 
-		double ratio = (double) storage.getAsLong() / capacity.getAsLong();
+		var ratio = (double) storage.getAsLong() / capacity.getAsLong();
 		if (ratio > 1) {
 			ratio = 1;
 		}
 
-		final int storageOffset = (int) ((1 - ratio) * (height - 2));
+		final var storageOffset = (int) ((1 - ratio) * (height - 2));
 
-		for (int yComponent = 1; yComponent < height - 1; yComponent += 2) {
+		for (var yComponent = 1; yComponent < height - 1; yComponent += 2) {
 			blit(matrixStack, x + 1, y + yComponent, 0, 0, 12, 2, 16, 16); // Background with side border
 		}
 
-		for (int yComponent = 1 + storageOffset; yComponent < height - 1; yComponent++) {
+		for (var yComponent = 1 + storageOffset; yComponent < height - 1; yComponent++) {
 			if (yComponent % 2 == 0) {
 				blit(matrixStack, x + 1, y + yComponent, 0, 3, 12, 1, 16, 16); // Fuel
 			} else {
@@ -71,8 +71,8 @@ public class EnergyStorageWidget extends AbstractWidget {
 	@Override
 	public void renderToolTip(PoseStack matrixStack, int mouseX, int mouseY) {
 		if (isHovered) {
-			final Minecraft minecraft = Minecraft.getInstance();
-			final Window mainWindow = minecraft.getWindow();
+			final var minecraft = Minecraft.getInstance();
+			final var mainWindow = minecraft.getWindow();
 
 			final List<Component> list = new ArrayList<>();
 			list.add(Component.nullToEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));

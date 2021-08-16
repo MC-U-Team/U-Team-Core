@@ -35,9 +35,9 @@ public class BufferPropertyContainerMessage {
 		final int id = sendBuffer.readByte();
 		final int property = sendBuffer.readShort();
 
-		final byte[] bytes = new byte[sendBuffer.readableBytes()]; // Is there a better way to read all bytes??
+		final var bytes = new byte[sendBuffer.readableBytes()]; // Is there a better way to read all bytes??
 		sendBuffer.getBytes(sendBuffer.readerIndex(), bytes);
-		final BufferPropertyContainerMessage buffer = new BufferPropertyContainerMessage(id, property, new FriendlyByteBuf(Unpooled.wrappedBuffer(bytes)));
+		final var buffer = new BufferPropertyContainerMessage(id, property, new FriendlyByteBuf(Unpooled.wrappedBuffer(bytes)));
 
 		return buffer;
 	}
@@ -53,7 +53,7 @@ public class BufferPropertyContainerMessage {
 	public static class Handler {
 
 		public static void handle(BufferPropertyContainerMessage message, Supplier<Context> contextSupplier) {
-			final Context context = contextSupplier.get();
+			final var context = contextSupplier.get();
 			context.enqueueWork(() -> {
 
 				if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {

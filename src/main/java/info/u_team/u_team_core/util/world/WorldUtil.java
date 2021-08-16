@@ -53,9 +53,9 @@ public class WorldUtil {
 	 * @return Raytrace result with information about the trace
 	 */
 	public static HitResult rayTraceServerSide(Entity entity, double range, Block blockMode, Fluid fluidMode) {
-		final Vec3 playerVector = entity.position().add(0, entity.getEyeHeight(), 0);
-		final Vec3 lookVector = entity.getLookAngle();
-		final Vec3 locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
+		final var playerVector = entity.position().add(0, entity.getEyeHeight(), 0);
+		final var lookVector = entity.getLookAngle();
+		final var locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
 		return entity.level.clip(new ClipContext(playerVector, locationVector, blockMode, fluidMode, entity));
 	}
 
@@ -206,7 +206,7 @@ public class WorldUtil {
 	 */
 	public static void teleportEntity(Entity entity, ServerLevel world, double x, double y, double z, float yaw, float pitch, boolean detach) {
 		if (entity instanceof ServerPlayer) {
-			final ServerPlayer player = (ServerPlayer) entity;
+			final var player = (ServerPlayer) entity;
 			world.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getId());
 			if (detach) {
 				player.stopRiding();
@@ -221,8 +221,8 @@ public class WorldUtil {
 			}
 			entity.setYHeadRot(yaw);
 		} else {
-			final float wrapedYaw = Mth.wrapDegrees(yaw);
-			final float wrapedPitch = Mth.clamp(Mth.wrapDegrees(pitch), -90.0F, 90.0F);
+			final var wrapedYaw = Mth.wrapDegrees(yaw);
+			final var wrapedPitch = Mth.clamp(Mth.wrapDegrees(pitch), -90.0F, 90.0F);
 			if (world == entity.level) {
 				entity.moveTo(x, y, z, wrapedYaw, wrapedPitch);
 				entity.setYHeadRot(wrapedYaw);
@@ -230,7 +230,7 @@ public class WorldUtil {
 				if (detach) {
 					entity.unRide();
 				}
-				final Entity entityOld = entity;
+				final var entityOld = entity;
 				entity = entity.getType().create(world);
 				if (entity == null) {
 					return;

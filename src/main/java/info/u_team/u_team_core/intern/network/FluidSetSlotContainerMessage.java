@@ -31,7 +31,7 @@ public class FluidSetSlotContainerMessage {
 	public static FluidSetSlotContainerMessage decode(FriendlyByteBuf sendBuffer) {
 		final int id = sendBuffer.readByte();
 		final int slot = sendBuffer.readShort();
-		final FluidStack stack = sendBuffer.readFluidStack();
+		final var stack = sendBuffer.readFluidStack();
 
 		return new FluidSetSlotContainerMessage(id, slot, stack);
 	}
@@ -39,7 +39,7 @@ public class FluidSetSlotContainerMessage {
 	public static class Handler {
 
 		public static void handle(FluidSetSlotContainerMessage message, Supplier<Context> contextSupplier) {
-			final Context context = contextSupplier.get();
+			final var context = contextSupplier.get();
 			context.enqueueWork(() -> {
 				getFluidContainer(Minecraft.getInstance().player.containerMenu, message.id).ifPresent(container -> container.setFluidStackInSlot(message.slot, message.stack));
 			});

@@ -94,7 +94,7 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 	@SuppressWarnings("unchecked")
 	@OnlyIn(Dist.CLIENT)
 	private T getClientTileEntity(FriendlyByteBuf buffer) {
-		final BlockEntity tile = Minecraft.getInstance().level.getBlockEntity(buffer.readBlockPos());
+		final var tile = Minecraft.getInstance().level.getBlockEntity(buffer.readBlockPos());
 		if (tile == null) {
 			throw new IllegalStateException("The client tile entity must be present.");
 		}

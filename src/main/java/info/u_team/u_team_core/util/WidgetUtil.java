@@ -29,19 +29,19 @@ public class WidgetUtil {
 		GuiUtil.drawContinuousTexturedBox(matrixStack, textureProvider.getTexture(), widget.x, widget.y, textureProvider.getU(), textureProvider.getV(), widget.width, widget.height, textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, widget.getBlitOffset(), widget.getCurrentBackgroundColor(matrixStack, mouseY, mouseY, partialTicks));
 		RenderUtil.disableBlend();
 
-		final Minecraft minecraft = Minecraft.getInstance();
+		final var minecraft = Minecraft.getInstance();
 
 		widget.renderBackground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 		widget.renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
 	}
 
 	public static <T extends AbstractWidget & ITextProvider> void renderText(T widget, PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		final Font fontRenderer = minecraft.font;
+		final var fontRenderer = minecraft.font;
 
-		Component message = widget.getCurrentText();
+		var message = widget.getCurrentText();
 		if (message != TextComponent.EMPTY) {
-			final int messageWidth = fontRenderer.width(message);
-			final int ellipsisWidth = fontRenderer.width("...");
+			final var messageWidth = fontRenderer.width(message);
+			final var ellipsisWidth = fontRenderer.width("...");
 
 			if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
 				message = new TextComponent(fontRenderer.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
@@ -55,26 +55,26 @@ public class WidgetUtil {
 	}
 
 	public static <T extends AbstractWidget & ITextProvider & IScaleProvider> void renderScaledText(T widget, PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		final float scale = widget.getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
+		final var scale = widget.getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
 
 		if (scale == 1) {
 			renderText(widget, matrixStack, minecraft, mouseX, mouseY, partialTicks);
 		} else {
-			final Font fontRenderer = minecraft.font;
+			final var fontRenderer = minecraft.font;
 
-			Component message = widget.getCurrentText();
+			var message = widget.getCurrentText();
 			if (message != TextComponent.EMPTY) {
-				final int messageWidth = Mth.ceil(scale * fontRenderer.width(message));
-				final int ellipsisWidth = Mth.ceil(scale * fontRenderer.width("..."));
+				final var messageWidth = Mth.ceil(scale * fontRenderer.width(message));
+				final var ellipsisWidth = Mth.ceil(scale * fontRenderer.width("..."));
 
 				if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
 					message = new TextComponent(fontRenderer.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
 				}
 
-				final float positionFactor = 1 / scale;
+				final var positionFactor = 1 / scale;
 
-				final float xStart = (widget.x + (widget.width / 2) - messageWidth / 2) * positionFactor;
-				final float yStart = (widget.y + ((int) (widget.height - 8 * scale)) / 2) * positionFactor;
+				final var xStart = (widget.x + (widget.width / 2) - messageWidth / 2) * positionFactor;
+				final var yStart = (widget.y + ((int) (widget.height - 8 * scale)) / 2) * positionFactor;
 
 				matrixStack.pushPose();
 				matrixStack.scale(scale, scale, 0);

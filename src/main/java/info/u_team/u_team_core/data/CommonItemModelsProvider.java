@@ -41,7 +41,7 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 		registerModels();
 		generatedModels.values().forEach(model -> {
 			try {
-				final ResourceLocation location = model.getLocation();
+				final var location = model.getLocation();
 				CommonProvider.write(cache, model.toJson(), generator.getOutputFolder().resolve("assets/" + location.getNamespace() + "/models/" + location.getPath() + ".json"));
 			} catch (final IOException ex) {
 				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
@@ -69,12 +69,12 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	}
 
 	protected void simpleParent(ItemLike provider, final String parent) {
-		final String registryPath = provider.asItem().getRegistryName().getPath();
+		final var registryPath = provider.asItem().getRegistryName().getPath();
 		getBuilder(registryPath).parent(new UncheckedModelFile(parent)).texture("layer0", "item/" + registryPath);
 	}
 
 	protected void simpleBlock(Block block) {
-		final ResourceLocation registryName = block.getRegistryName();
+		final var registryName = block.getRegistryName();
 		getBuilder(registryName.getPath()).parent(new UncheckedModelFile(new ResourceLocation(registryName.getNamespace(), "block/" + registryName.getPath())));
 	}
 

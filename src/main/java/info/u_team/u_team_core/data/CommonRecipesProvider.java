@@ -36,12 +36,12 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 
 	private void generateRecipe(HashCache cache, FinishedRecipe recipe, boolean vanillaAdvancement) {
 		try {
-			final ResourceLocation recipeLocation = recipe.getId();
+			final var recipeLocation = recipe.getId();
 			write(cache, recipe.serializeRecipe(), resolveData(recipeLocation).resolve("recipes").resolve(recipe.getId().getPath() + ".json"));
 			if (recipe.serializeAdvancement() != null) {
 				final Path advancementPath;
 				if (vanillaAdvancement) {
-					final ResourceLocation advancementLocation = recipe.getAdvancementId();
+					final var advancementLocation = recipe.getAdvancementId();
 					advancementPath = resolveData(advancementLocation).resolve("advancements").resolve(advancementLocation.getPath() + ".json");
 				} else {
 					advancementPath = resolveData(recipeLocation).resolve("advancements").resolve("recipes").resolve(recipeLocation.getPath() + ".json");

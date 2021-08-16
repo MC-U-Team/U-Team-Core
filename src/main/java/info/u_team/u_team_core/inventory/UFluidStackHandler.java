@@ -62,9 +62,9 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 
 		validateTankIndex(tank);
 
-		final FluidStack existing = stacks.get(tank);
+		final var existing = stacks.get(tank);
 
-		int limit = getTankCapacity(tank);
+		var limit = getTankCapacity(tank);
 
 		if (!existing.isEmpty()) {
 			if (!FluidHandlerHelper.canFluidStacksStack(stack, existing))
@@ -76,7 +76,7 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 		if (limit <= 0)
 			return stack;
 
-		final boolean reachedLimit = stack.getAmount() > limit;
+		final var reachedLimit = stack.getAmount() > limit;
 
 		if (action.isExecute()) {
 			if (existing.isEmpty()) {
@@ -97,12 +97,12 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 
 		validateTankIndex(tank);
 
-		final FluidStack existing = stacks.get(tank);
+		final var existing = stacks.get(tank);
 
 		if (existing.isEmpty())
 			return FluidStack.EMPTY;
 
-		final int toExtract = amount;
+		final var toExtract = amount;
 
 		if (existing.getAmount() <= toExtract) {
 			if (action.isExecute()) {
@@ -124,13 +124,13 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 
 	@Override
 	public CompoundTag serializeNBT() {
-		final CompoundTag compound = new CompoundTag();
-		final ListTag list = new ListTag();
+		final var compound = new CompoundTag();
+		final var list = new ListTag();
 
-		for (int index = 0; index < stacks.size(); index++) {
-			final FluidStack fluidStack = stacks.get(index);
+		for (var index = 0; index < stacks.size(); index++) {
+			final var fluidStack = stacks.get(index);
 			if (!fluidStack.isEmpty()) {
-				final CompoundTag slotCompound = new CompoundTag();
+				final var slotCompound = new CompoundTag();
 				slotCompound.putByte("Slot", (byte) index);
 				fluidStack.writeToNBT(slotCompound);
 				list.add(slotCompound);
@@ -146,11 +146,11 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 
 	@Override
 	public void deserializeNBT(CompoundTag compound) {
-		final ListTag list = compound.getList("Fluids", 10);
+		final var list = compound.getList("Fluids", 10);
 
-		for (int index = 0; index < list.size(); index++) {
-			final CompoundTag slotCompound = list.getCompound(index);
-			final int slot = slotCompound.getByte("Slot") & 255;
+		for (var index = 0; index < list.size(); index++) {
+			final var slotCompound = list.getCompound(index);
+			final var slot = slotCompound.getByte("Slot") & 255;
 			if (slot >= 0 && slot < stacks.size()) {
 				stacks.set(slot, FluidStack.loadFluidStackFromNBT(slotCompound));
 			}

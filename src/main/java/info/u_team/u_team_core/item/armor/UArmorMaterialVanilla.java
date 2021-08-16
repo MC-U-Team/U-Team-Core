@@ -29,8 +29,8 @@ public class UArmorMaterialVanilla extends UArmorMaterial {
 	private static final int[] baseDurability = new int[] { 13, 15, 16, 11 };
 
 	private static int[] createDurabilityVanillaArray(int durability) {
-		final int[] array = new int[4];
-		for (int i = 0; i < array.length; i++) {
+		final var array = new int[4];
+		for (var i = 0; i < array.length; i++) {
 			array[i] = baseDurability[i] * durability;
 		}
 		return array;

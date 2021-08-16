@@ -4,10 +4,10 @@ import net.minecraft.world.item.Item.Properties;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 public class ItemProperties extends Properties {
-	
+
 	public ItemProperties() {
 	}
-	
+
 	public ItemProperties(Properties properties) {
 		maxStackSize = properties.maxStackSize;
 		maxDamage = properties.maxDamage;
@@ -18,11 +18,11 @@ public class ItemProperties extends Properties {
 		isFireResistant = properties.isFireResistant;
 		setValueCanRepair(getValueCanRepair(properties));
 	}
-	
+
 	private boolean getValueCanRepair(Properties properties) {
 		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "canRepair");
 	}
-	
+
 	private void setValueCanRepair(boolean value) {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "canRepair");
 	}

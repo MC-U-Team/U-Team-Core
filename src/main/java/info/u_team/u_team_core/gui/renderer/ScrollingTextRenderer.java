@@ -80,23 +80,23 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 
 	@Override
 	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		final Minecraft minecraft = Minecraft.getInstance();
-		final Window window = minecraft.getWindow();
+		final var minecraft = Minecraft.getInstance();
+		final var window = minecraft.getWindow();
 
-		final Matrix4fExtended matrix = new Matrix4fExtended(matrixStack.last().pose());
-		final double scaleFactor = window.getGuiScale();
+		final var matrix = new Matrix4fExtended(matrixStack.last().pose());
+		final var scaleFactor = window.getGuiScale();
 
-		final Vector4f vectorXY = new Vector4f(x, y, 0, 1);
+		final var vectorXY = new Vector4f(x, y, 0, 1);
 		vectorXY.transform(matrix);
 
 		// Cannot use transform here, because we only care about the scaling. M00 and M11 should have the right scaling
-		final Vector4f vectorWH = new Vector4f(width * matrix.getM00(), (fontRenderer.lineHeight + 1) * scale * matrix.getM11(), 0, 1);
+		final var vectorWH = new Vector4f(width * matrix.getM00(), (fontRenderer.lineHeight + 1) * scale * matrix.getM11(), 0, 1);
 
-		final int nativeX = Mth.ceil(vectorXY.x() * scaleFactor);
-		final int nativeY = Mth.ceil(vectorXY.y() * scaleFactor);
+		final var nativeX = Mth.ceil(vectorXY.x() * scaleFactor);
+		final var nativeY = Mth.ceil(vectorXY.y() * scaleFactor);
 
-		final int nativeWidth = Mth.ceil(vectorWH.x() * scaleFactor);
-		final int nativeHeight = Mth.ceil(vectorWH.y() * scaleFactor);
+		final var nativeWidth = Mth.ceil(vectorWH.x() * scaleFactor);
+		final var nativeHeight = Mth.ceil(vectorWH.y() * scaleFactor);
 
 		RenderUtil.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 
@@ -113,9 +113,9 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 	}
 
 	protected float getMovingX(float x) {
-		final float textWidth = getTextWidth();
+		final var textWidth = getTextWidth();
 		if (width < textWidth) {
-			final float maxMove = width - textWidth;
+			final var maxMove = width - textWidth;
 
 			if (lastTime == 0) {
 				lastTime = System.currentTimeMillis();

@@ -11,7 +11,7 @@ public class UCoreColors {
 
 	private static void colorItem(ColorHandlerEvent.Item event) {
 		event.getItemColors().register((stack, index) -> {
-			final Item item = stack.getItem();
+			final var item = stack.getItem();
 			if (item instanceof IDyeableItem) {
 				return ((IDyeableItem) item).getColor(stack);
 			}
@@ -19,7 +19,7 @@ public class UCoreColors {
 		}, DyeableItemsRegistry.getDyeableItems().stream().toArray(Item[]::new));
 
 		USpawnEggItem.LAZY_EGGS.forEach(pair -> {
-			final USpawnEggItem item = pair.getValue();
+			final var item = pair.getValue();
 
 			event.getItemColors().register((stack, color) -> {
 				return item.getColor(color);

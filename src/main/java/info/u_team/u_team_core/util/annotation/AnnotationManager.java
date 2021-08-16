@@ -44,7 +44,7 @@ public class AnnotationManager {
 
 	public static void callIntegrations(String modid) {
 		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
-			final String integrationModid = (String) data.annotationData().get("integration");
+			final var integrationModid = (String) data.annotationData().get("integration");
 			if (canBeCalled(modid, data) && ModList.get().isLoaded(integrationModid)) {
 				LOGGER.debug(INTEGRATION_MARKER, "Load " + integrationModid + " integration (" + data.memberName() + ") for mod " + modid);
 				try {
@@ -58,8 +58,8 @@ public class AnnotationManager {
 	}
 
 	private static boolean canBeCalled(String modid, AnnotationData data) {
-		final String annotationModid = (String) data.annotationData().get("modid");
-		final Boolean client = (Boolean) data.annotationData().get("client");
+		final var annotationModid = (String) data.annotationData().get("modid");
+		final var client = (Boolean) data.annotationData().get("client");
 		return modid.equals(annotationModid) && (client == null || !client || client && FMLEnvironment.dist == Dist.CLIENT);
 	}
 

@@ -68,7 +68,7 @@ public class ItemIngredient extends Ingredient {
 
 	@Override
 	public JsonElement toJson() {
-		final JsonObject jsonObject = new JsonObject();
+		final var jsonObject = new JsonObject();
 		jsonObject.addProperty("type", CraftingHelper.getID(Serializer.INSTANCE).toString());
 		jsonObject.addProperty("amount", amount);
 		jsonObject.add("items", super.toJson());
@@ -85,13 +85,13 @@ public class ItemIngredient extends Ingredient {
 				throw new JsonSyntaxException("Expected amount and items");
 			}
 
-			final int amount = GsonHelper.getAsInt(jsonObject, "amount");
-			final JsonElement ingredientJsonElement = jsonObject.get("items");
+			final var amount = GsonHelper.getAsInt(jsonObject, "amount");
+			final var ingredientJsonElement = jsonObject.get("items");
 
 			if (ingredientJsonElement.isJsonObject()) {
 				return new ItemIngredient(amount, Stream.of(valueFromJson(ingredientJsonElement.getAsJsonObject())));
 			} else if (ingredientJsonElement.isJsonArray()) {
-				final JsonArray jsonArray = ingredientJsonElement.getAsJsonArray();
+				final var jsonArray = ingredientJsonElement.getAsJsonArray();
 				if (jsonArray.size() == 0) {
 					throw new JsonSyntaxException("Item array cannot be empty, at least one item must be defined");
 				} else {
@@ -106,15 +106,15 @@ public class ItemIngredient extends Ingredient {
 
 		@Override
 		public ItemIngredient parse(FriendlyByteBuf buffer) {
-			final int amount = buffer.readInt();
-			final int length = buffer.readVarInt();
+			final var amount = buffer.readInt();
+			final var length = buffer.readVarInt();
 
 			return new ItemIngredient(amount, Stream.generate(() -> new ItemValue(buffer.readItem())).limit(length));
 		}
 
 		@Override
 		public void write(FriendlyByteBuf buffer, ItemIngredient ingredient) {
-			final ItemStack[] items = ingredient.getItems();
+			final var items = ingredient.getItems();
 			buffer.writeInt(ingredient.amount);
 			buffer.writeVarInt(items.length);
 

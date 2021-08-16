@@ -64,14 +64,14 @@ public interface ITileEntityBlock extends EntityBlock {
 			return InteractionResult.SUCCESS;
 		}
 
-		final ServerPlayer serverPlayer = (ServerPlayer) player;
+		final var serverPlayer = (ServerPlayer) player;
 		final Optional<BlockEntity> tileEntityOptional = isTileEntityFromType(world, pos);
 
 		if (!tileEntityOptional.isPresent()) {
 			return InteractionResult.PASS;
 		}
 
-		final BlockEntity tileEntity = tileEntityOptional.get();
+		final var tileEntity = tileEntityOptional.get();
 
 		if (!(tileEntity instanceof MenuProvider)) {
 			return InteractionResult.PASS;
@@ -81,7 +81,7 @@ public interface ITileEntityBlock extends EntityBlock {
 			return InteractionResult.SUCCESS;
 		}
 
-		final FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+		final var buffer = new FriendlyByteBuf(Unpooled.buffer());
 		if (tileEntity instanceof IInitSyncedTileEntity) {
 			((IInitSyncedTileEntity) tileEntity).sendInitialDataBuffer(buffer);
 		}
@@ -106,7 +106,7 @@ public interface ITileEntityBlock extends EntityBlock {
 	 */
 	@SuppressWarnings("unchecked")
 	default <T extends BlockEntity> Optional<T> isTileEntityFromType(BlockGetter world, BlockPos pos) {
-		final BlockEntity tileEntity = world.getBlockEntity(pos);
+		final var tileEntity = world.getBlockEntity(pos);
 		if (tileEntity == null || getTileEntityType(world, pos) != tileEntity.getType()) {
 			return Optional.empty();
 		}

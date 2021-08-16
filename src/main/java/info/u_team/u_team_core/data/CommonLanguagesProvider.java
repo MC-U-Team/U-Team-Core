@@ -49,7 +49,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 
 	protected void add(CreativeModeTab key, String name) {
-		final Component component = key.getDisplayName();
+		final var component = key.getDisplayName();
 		if (component instanceof TranslatableComponent) {
 			add(((TranslatableComponent) component).getKey(), name);
 		}
@@ -116,7 +116,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 
 	protected void add(String locale, CreativeModeTab key, String name) {
-		final Component component = key.getDisplayName();
+		final var component = key.getDisplayName();
 		if (component instanceof TranslatableComponent) {
 			add(locale, ((TranslatableComponent) component).getKey(), name);
 		}
@@ -179,7 +179,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 
 	protected void add(String locale, String key, String value) {
-		final Map<String, String> map = data.computeIfAbsent(locale, unused -> new TreeMap<>());
+		final var map = data.computeIfAbsent(locale, unused -> new TreeMap<>());
 		if (map.put(key, value) != null) {
 			throw new IllegalStateException("Duplicate translation key " + key);
 		}

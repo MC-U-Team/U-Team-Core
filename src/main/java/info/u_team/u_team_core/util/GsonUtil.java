@@ -10,7 +10,7 @@ import com.google.gson.stream.JsonWriter;
 public class GsonUtil {
 
 	public static JsonWriter createTabWriter(Gson gson, Writer writer) throws IOException {
-		final JsonWriter jsonWriter = gson.newJsonWriter(Streams.writerForAppendable(writer));
+		final var jsonWriter = gson.newJsonWriter(Streams.writerForAppendable(writer));
 		jsonWriter.setIndent("	"); // Use tab instead of two spaces
 		return jsonWriter;
 	}

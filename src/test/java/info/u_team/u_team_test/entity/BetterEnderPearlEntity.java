@@ -47,16 +47,16 @@ public class BetterEnderPearlEntity extends ThrowableItemProjectile {
 	protected void onHit(HitResult result) {
 		super.onHit(result);
 
-		for (int i = 0; i < 32; ++i) {
+		for (var i = 0; i < 32; ++i) {
 			level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + random.nextDouble() * 2.0D, this.getZ(), random.nextGaussian(), 0.0D, random.nextGaussian());
 		}
 
 		if (!level.isClientSide && !isRemoved()) {
-			Entity entity = getOwner();
+			var entity = getOwner();
 			if (entity instanceof ServerPlayer serverplayer) {
 				if (serverplayer.connection.getConnection().isConnected() && serverplayer.level == level && !serverplayer.isSleeping()) {
 					if (random.nextFloat() < 0.05F && level.getGameRules().getBoolean(GameRules.RULE_DOMOBSPAWNING)) {
-						Endermite endermite = EntityType.ENDERMITE.create(level);
+						var endermite = EntityType.ENDERMITE.create(level);
 						endermite.moveTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), entity.getXRot());
 						level.addFreshEntity(endermite);
 					}
@@ -83,7 +83,7 @@ public class BetterEnderPearlEntity extends ThrowableItemProjectile {
 
 	@Override
 	public void tick() {
-		Entity entity = getOwner();
+		var entity = getOwner();
 		if (entity instanceof Player && !entity.isAlive()) {
 			discard();
 		} else {
@@ -95,7 +95,7 @@ public class BetterEnderPearlEntity extends ThrowableItemProjectile {
 	@Override
 	@Nullable
 	public Entity changeDimension(ServerLevel p_37506_, net.minecraftforge.common.util.ITeleporter teleporter) {
-		Entity entity = getOwner();
+		var entity = getOwner();
 		if (entity != null && entity.level.dimension() != p_37506_.dimension()) {
 			setOwner(null);
 		}

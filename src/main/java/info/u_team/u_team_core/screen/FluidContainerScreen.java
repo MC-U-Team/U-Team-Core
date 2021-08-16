@@ -42,21 +42,21 @@ public abstract class FluidContainerScreen<T extends AbstractContainerMenu> exte
 		if (menu instanceof FluidContainer) {
 			hoveredFluidSlot = null;
 
-			final FluidContainer fluidContainer = (FluidContainer) menu;
-			for (int index = 0; index < fluidContainer.fluidSlots.size(); index++) {
+			final var fluidContainer = (FluidContainer) menu;
+			for (var index = 0; index < fluidContainer.fluidSlots.size(); index++) {
 
-				final FluidSlot fluidSlot = fluidContainer.fluidSlots.get(index);
+				final var fluidSlot = fluidContainer.fluidSlots.get(index);
 
 				if (fluidSlot.isEnabled()) {
 					drawFluidSlot(matrixStack, fluidSlot);
 
 					if (isFluidSlotSelected(fluidSlot, mouseX, mouseY)) {
 						hoveredFluidSlot = fluidSlot;
-						final int x = fluidSlot.getX();
-						final int y = fluidSlot.getY();
+						final var x = fluidSlot.getX();
+						final var y = fluidSlot.getY();
 						RenderSystem.disableDepthTest();
 						RenderSystem.colorMask(true, true, true, false);
-						final int slotColor = getFluidSlotColor(index);
+						final var slotColor = getFluidSlotColor(index);
 						fillGradient(matrixStack, x, y, x + 16, y + 16, slotColor, slotColor);
 						RenderSystem.colorMask(true, true, true, true);
 						RenderSystem.enableDepthTest();
@@ -79,7 +79,7 @@ public abstract class FluidContainerScreen<T extends AbstractContainerMenu> exte
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		if (button == 0) {
-			final FluidSlot fluidSlot = getSelectedFluidSlot(mouseX, mouseY);
+			final var fluidSlot = getSelectedFluidSlot(mouseX, mouseY);
 			if (fluidSlot != null) {
 				if (!menu.getCarried().isEmpty()) {
 					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(menu.containerId, fluidSlot.index, hasShiftDown(), menu.getCarried()));
@@ -103,7 +103,7 @@ public abstract class FluidContainerScreen<T extends AbstractContainerMenu> exte
 	}
 
 	public List<Component> getTooltipFromFluid(FluidSlot fluidSlot) {
-		final FluidStack stack = fluidSlot.getStack();
+		final var stack = fluidSlot.getStack();
 
 		final List<Component> list = new ArrayList<>();
 
@@ -119,7 +119,7 @@ public abstract class FluidContainerScreen<T extends AbstractContainerMenu> exte
 
 	private FluidSlot getSelectedFluidSlot(double mouseX, double mouseY) {
 		if (menu instanceof FluidContainer) {
-			final FluidContainer fluidContainer = (FluidContainer) menu;
+			final var fluidContainer = (FluidContainer) menu;
 			for (final FluidSlot fluidSlot : fluidContainer.fluidSlots) {
 				if (isFluidSlotSelected(fluidSlot, mouseX, mouseY) && fluidSlot.isEnabled()) {
 					return fluidSlot;

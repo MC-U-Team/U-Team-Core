@@ -76,7 +76,7 @@ public class CheckboxButton extends UButton {
 
 	@Override
 	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		final Minecraft minecraft = Minecraft.getInstance();
+		final var minecraft = Minecraft.getInstance();
 
 		minecraft.getTextureManager().bindForSetup(TEXTURE);
 
@@ -92,9 +92,9 @@ public class CheckboxButton extends UButton {
 	@Override
 	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			final Font fontRenderer = minecraft.font;
+			final var fontRenderer = minecraft.font;
 
-			final Component message = getCurrentText();
+			final var message = getCurrentText();
 			if (message != TextComponent.EMPTY) {
 				final float xStart;
 				final float yStart = y + (height - 8) / 2;
@@ -105,7 +105,7 @@ public class CheckboxButton extends UButton {
 					xStart = x + width + 4;
 				}
 
-				final int color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
+				final var color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
 
 				if (dropShadow) {
 					fontRenderer.drawShadow(matrixStack, getCurrentText(), xStart, yStart, color);

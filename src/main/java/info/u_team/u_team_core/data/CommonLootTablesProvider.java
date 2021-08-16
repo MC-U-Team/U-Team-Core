@@ -53,7 +53,7 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	}
 
 	protected static void registerBlock(Block block, LootTable lootTable, BiConsumer<ResourceLocation, LootTable> consumer) {
-		final ResourceLocation registryName = block.getRegistryName();
+		final var registryName = block.getRegistryName();
 		consumer.accept(new ResourceLocation(registryName.getNamespace(), "blocks/" + registryName.getPath()), lootTable);
 	}
 

@@ -87,21 +87,21 @@ public class FluidIngredient implements Predicate<FluidStack> {
 
 	// Network read
 	public static FluidIngredient read(FriendlyByteBuf buffer) {
-		final int amount = buffer.readInt();
-		final int length = buffer.readVarInt();
+		final var amount = buffer.readInt();
+		final var length = buffer.readVarInt();
 
 		return new FluidIngredient(amount, Stream.generate(() -> new SingleFluidList(buffer.readFluidStack())).limit(length));
 	}
 
 	// Serialize
 	public JsonElement serialize() {
-		final JsonObject jsonObject = new JsonObject();
+		final var jsonObject = new JsonObject();
 		jsonObject.addProperty("amount", amount);
 
 		if (acceptedFluids.length == 1) {
 			jsonObject.add("fluids", acceptedFluids[0].serialize());
 		} else {
-			final JsonArray jsonArray = new JsonArray();
+			final var jsonArray = new JsonArray();
 
 			for (final IFluidList list : acceptedFluids) {
 				jsonArray.add(list.serialize());
@@ -118,19 +118,19 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			throw new JsonSyntaxException("Fluid ingredient must be a json object");
 		}
 
-		final JsonObject jsonObject = jsonElement.getAsJsonObject();
+		final var jsonObject = jsonElement.getAsJsonObject();
 
 		if (!jsonObject.has("amount") || !jsonObject.has("fluids")) {
 			throw new JsonSyntaxException("Expected amount and fluids");
 		}
 
-		final int amount = GsonHelper.getAsInt(jsonObject, "amount");
-		final JsonElement ingredientJsonElement = jsonObject.get("fluids");
+		final var amount = GsonHelper.getAsInt(jsonObject, "amount");
+		final var ingredientJsonElement = jsonObject.get("fluids");
 
 		if (ingredientJsonElement.isJsonObject()) {
 			return new FluidIngredient(amount, Stream.of(deserializeFluidList(ingredientJsonElement.getAsJsonObject())));
 		} else if (ingredientJsonElement.isJsonArray()) {
-			final JsonArray jsonArray = ingredientJsonElement.getAsJsonArray();
+			final var jsonArray = ingredientJsonElement.getAsJsonArray();
 			if (jsonArray.size() == 0) {
 				throw new JsonSyntaxException("Fluid array cannot be empty, at least one fluid must be defined");
 			} else {
@@ -147,15 +147,15 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		if (jsonObject.has("fluid") && jsonObject.has("tag")) {
 			throw new JsonParseException("An ingredient entry is either a tag or a fluid, not both");
 		} else if (jsonObject.has("fluid")) {
-			final ResourceLocation key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "fluid"));
-			final Fluid fluid = ForgeRegistries.FLUIDS.getValue(key);
+			final var key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "fluid"));
+			final var fluid = ForgeRegistries.FLUIDS.getValue(key);
 			if (fluid == null) {
 				throw new JsonSyntaxException("Unknown fluid '" + key + "'");
 			}
 			return new SingleFluidList(new FluidStack(fluid, 1000));
 		} else if (jsonObject.has("tag")) {
-			final ResourceLocation key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "tag"));
-			final Tag<Fluid> tag = FluidTags.getAllTags().getTag(key);
+			final var key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "tag"));
+			final var tag = FluidTags.getAllTags().getTag(key);
 			if (tag == null) {
 				throw new JsonSyntaxException("Unknown fluid tag '" + key + "'");
 			}
@@ -187,7 +187,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 
 		@Override
 		public JsonObject serialize() {
-			final JsonObject jsonObject = new JsonObject();
+			final var jsonObject = new JsonObject();
 			jsonObject.addProperty("fluid", ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString());
 			return jsonObject;
 		}
@@ -217,7 +217,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 
 		@Override
 		public JsonObject serialize() {
-			final JsonObject jsonObject = new JsonObject();
+			final var jsonObject = new JsonObject();
 			jsonObject.addProperty("tag", SerializationTags.getInstance().getIdOrThrow(Registry.FLUID_REGISTRY, tag, () -> new IllegalStateException("Unrecognized tag")).toString());
 			return jsonObject;
 		}

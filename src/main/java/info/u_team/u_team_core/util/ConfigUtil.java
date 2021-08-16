@@ -59,16 +59,16 @@ public class ConfigUtil {
 	 * @throws IOException
 	 */
 	public static <T> T loadConfig(Path directory, String name, String extension, Gson gson, Function<JsonWriter, T> write, Function<BufferedReader, T> read) throws IOException {
-		final Path path = directory.resolve(name + extension);
+		final var path = directory.resolve(name + extension);
 		if (Files.exists(path) && Files.isReadable(path) && Files.isReadable(path)) {
-			try (BufferedReader reader = Files.newBufferedReader(path)) {
+			try (var reader = Files.newBufferedReader(path)) {
 				return read.apply(reader);
 			}
 		} else {
 			Files.deleteIfExists(path);
 			Files.createDirectories(directory);
 			Files.createFile(path);
-			try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path); JsonWriter writer = GsonUtil.createTabWriter(gson, bufferedWriter)) {
+			try (var bufferedWriter = Files.newBufferedWriter(path); var writer = GsonUtil.createTabWriter(gson, bufferedWriter)) {
 				return write.apply(writer);
 			}
 		}
