@@ -5,13 +5,13 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 
 public class UBootsItem extends UArmorItem {
-	
+
 	public UBootsItem(String textureName, Properties properties, ArmorMaterial material) {
 		this(textureName, null, properties, material);
 	}
-	
+
 	public UBootsItem(String textureName, CreativeModeTab group, Properties properties, ArmorMaterial material) {
 		super(textureName, group, properties, material, EquipmentSlot.FEET);
 	}
-	
+
 }

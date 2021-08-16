@@ -16,12 +16,12 @@ import com.google.gson.stream.JsonWriter;
  * @author HyCraftHD
  */
 public class ConfigUtil {
-	
+
 	/**
 	 * Default extension of json files
 	 */
 	public static final String JSON_EXTENSION = ".json";
-	
+
 	/**
 	 * Load and create a config file if not already there from a default value. Use {@link Gson} for serialization and
 	 * deserialization. The extension of the file is automatically {@link #JSON_EXTENSION}
@@ -40,7 +40,7 @@ public class ConfigUtil {
 	public static <T> T loadConfig(Path directory, String name, Gson gson, Function<JsonWriter, T> write, Function<BufferedReader, T> read) throws IOException {
 		return loadConfig(directory, name, JSON_EXTENSION, gson, write, read);
 	}
-	
+
 	/**
 	 * Load and create a config file if not already there from a default value. Use {@link Gson} for serialization and
 	 * deserialization.
@@ -72,7 +72,7 @@ public class ConfigUtil {
 			}
 		}
 	}
-	
+
 	/**
 	 * Load and create a config file if not already there from a default value. Use {@link Gson} for serialization and
 	 * deserialization. The extension of the file is automatically {@link #JSON_EXTENSION}
@@ -91,7 +91,7 @@ public class ConfigUtil {
 	public static <T> T loadConfig(Path directory, String name, Gson gson, T defaultValue, BiConsumer<JsonWriter, T> write, Function<BufferedReader, T> read) throws IOException {
 		return loadConfig(directory, name, JSON_EXTENSION, gson, defaultValue, write, read);
 	}
-	
+
 	/**
 	 * Load and create a config file if not already there from a default value. Use {@link Gson} for serialization and
 	 * deserialization.

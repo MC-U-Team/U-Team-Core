@@ -14,28 +14,28 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult.Type;
 
 public class BasicItem extends UItem {
-	
+
 	public BasicItem() {
 		super(TestItemGroups.GROUP, new Properties().rarity(Rarity.EPIC).defaultDurability(10));
 	}
-	
+
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		final var stack = player.getItemInHand(hand);
-		
+
 		if (!world.isClientSide()) {
 			final var rayTrace = WorldUtil.rayTraceServerSide(player, 50);
-			
+
 			if (rayTrace.getType() == Type.MISS) {
 				player.displayClientMessage(new TranslatableComponent("item.uteamtest.basicitem.outofrange"), true);
 				return InteractionResultHolder.fail(stack);
 			}
-			
+
 			final var pos = rayTrace.getLocation();
 			((ServerPlayer) player).connection.teleport(pos.x(), pos.y() + 1, pos.z(), player.getYRot(), player.getXRot());
 			stack.hurtAndBreak(1, player, unused -> {
 			});
-			
+
 		}
 		return InteractionResultHolder.success(stack);
 	}

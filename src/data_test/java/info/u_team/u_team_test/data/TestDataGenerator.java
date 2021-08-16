@@ -16,7 +16,7 @@ import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 @EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestDataGenerator {
-	
+
 	@SubscribeEvent
 	public static void data(GatherDataEvent event) {
 		final var data = new GenerationData(TestMod.MODID, event);

@@ -29,26 +29,26 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 
 public class ButtonTestScreen extends UBasicScreen {
-	
+
 	private static final Logger LOGGER = LogManager.getLogger();
-	
+
 	private static final ResourceLocation TEXTURE1 = new ResourceLocation(TestMod.MODID, "textures/item/better_enderpearl.png");
 	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMod.MODID, "textures/item/basicitem.png");
-	
+
 	private UTextField textFieldWidget;
 	private ScalableTextField scalableTextFieldWidget;
 	private ScalableTextField scalableTextFieldWidget2;
-	
+
 	private ScalingTextRenderer scalingRenderer;
-	
+
 	private ScrollingTextRenderer scrollingRenderer;
-	
+
 	private BasicTestList scrollingList;
-	
+
 	public ButtonTestScreen() {
 		super(new TextComponent("test"));
 	}
-	
+
 	@Override
 	protected void init() {
 		// U Button Test
@@ -59,7 +59,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("U Button Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// Scalable Button Test
 		final var scalableButton = addRenderableWidget(new ScalableButton(10, 30, 200, 15, Component.nullToEmpty("Scalable Button"), 0.75F));
 		scalableButton.setTextColor(new RGBA(0x00FFFF80));
@@ -69,7 +69,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Scalable Button Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// Scalable Activatable Button Test
 		final var scalableActivatableButton = addRenderableWidget(new ScalableActivatableButton(10, 50, 200, 15, Component.nullToEmpty("Scalable Activatable Button"), 0.75F, false, new RGBA(0x006442FF)));
 		scalableActivatableButton.setPressable(() -> {
@@ -81,7 +81,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Scalable Activatable Button Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// Image Button Test
 		final var imageButton = addRenderableWidget(new ImageButton(10, 70, 15, 15, TEXTURE1));
 		imageButton.setPressable(() -> {
@@ -92,7 +92,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Image Button Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		final var imageButton2 = addRenderableWidget(new ImageButton(30, 70, 15, 15, TEXTURE1));
 		imageButton2.setButtonColor(new RGBA(0xFFFF2080));
 		imageButton2.setImageColor(new RGBA(0x00FFFF80));
@@ -104,7 +104,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Image Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// Image Activatable Button Test
 		final var imageActivatableButton = addRenderableWidget(new ImageActivatableButton(10, 90, 15, 15, TEXTURE1, false, new RGBA(0x006442FF)));
 		imageActivatableButton.setPressable(() -> {
@@ -116,7 +116,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Image Activatable Button Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// Image Toggle Button Test
 		final var imageToggleButton = addRenderableWidget(new ImageToggleButton(10, 110, 15, 15, TEXTURE1, TEXTURE2, false));
 		imageToggleButton.setPressable(() -> {
@@ -127,7 +127,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Image Toggle Button Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		final var imageToggleButton2 = addRenderableWidget(new ImageToggleButton(30, 110, 15, 15, TEXTURE1, TEXTURE1, false));
 		imageToggleButton2.setImageColor(new RGBA(0x00FF00FF));
 		imageToggleButton2.setToggleImageColor(new RGBA(0xFF0000FF));
@@ -139,7 +139,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Image Toggle Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// U Slider Test
 		final var uSlider = addRenderableWidget(new USlider(10, 130, 200, 20, Component.nullToEmpty("U Slider: "), Component.nullToEmpty("%"), 0, 100, 20, false, true, false));
 		uSlider.setSlider(() -> {
@@ -150,7 +150,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("U Slider Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// Scalable Slider Test
 		final var scalableSlider = addRenderableWidget(new ScalableSlider(10, 155, 200, 15, Component.nullToEmpty("Scalable Slider: "), Component.nullToEmpty("%"), 0, 100, 20, false, true, false, 0.5F));
 		scalableSlider.setSlider(() -> {
@@ -161,7 +161,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Scalable Slider Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		final var scalableSlider2 = addRenderableWidget(new ScalableSlider(10, 175, 200, 30, Component.nullToEmpty("Scalable Slider 2: "), Component.nullToEmpty("%"), 0, 100, 20, false, true, false, 1.5F));
 		scalableSlider2.setSliderBackgroundColor(new RGBA(0x0000FFFF));
 		scalableSlider2.setSliderColor(new RGBA(0x00FF00FF));
@@ -179,7 +179,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				scalableSlider2.active = true;
 			}
 		});
-		
+
 		// Checkbox Button Test
 		final var checkboxButton = addRenderableWidget(new CheckboxButton(10, 210, 15, 15, Component.nullToEmpty("Checkbox Button"), false, true));
 		checkboxButton.setPressable(() -> {
@@ -190,7 +190,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Checkbox Button Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		final var checkboxButton2 = addRenderableWidget(new CheckboxButton(110, 230, 15, 15, Component.nullToEmpty("Checkbox Button 2"), false, true));
 		checkboxButton2.setLeftSideText(true);
 		checkboxButton2.setPressable(() -> {
@@ -201,7 +201,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Checkbox Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// Scalable Checkbox Button Test
 		final var scalableCheckboxButton = addRenderableWidget(new ScalableCheckboxButton(10, 250, 15, 15, Component.nullToEmpty("Scalable Checkbox Button"), false, true, 0.75F));
 		scalableCheckboxButton.setPressable(() -> {
@@ -212,7 +212,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Scalable Checkbox Button Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		final var scalableCheckboxButton2 = addRenderableWidget(new ScalableCheckboxButton(110, 270, 15, 15, Component.nullToEmpty("Scalable Checkbox Button 2"), false, true, 0.65F));
 		scalableCheckboxButton2.setLeftSideText(true);
 		scalableCheckboxButton2.setButtonColor(new RGBA(0x0000F0FF));
@@ -225,10 +225,10 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Scalable Checkbox Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// U Text Field Test
 		minecraft.keyboardHandler.setSendRepeatsToGui(true);
-		
+
 		textFieldWidget = addRenderableWidget(new UTextField(font, 220, 110, 200, 20, textFieldWidget, Component.nullToEmpty("U Text Field")));
 		textFieldWidget.setMaxLength(500);
 		textFieldWidget.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
@@ -236,7 +236,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("U Text Field Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// Scalable Text Field Test
 		scalableTextFieldWidget = addRenderableWidget(new ScalableTextField(font, 220, 140, 200, 30, scalableTextFieldWidget, Component.nullToEmpty("Scalable Text Field"), 1.5F));
 		scalableTextFieldWidget.setMaxLength(500);
@@ -245,7 +245,7 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Scalable Text Field Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		scalableTextFieldWidget2 = addRenderableWidget(new ScalableTextField(font, 220, 180, 200, 15, scalableTextFieldWidget, Component.nullToEmpty("Scalable Text Field 2"), 0.5F));
 		scalableTextFieldWidget2.setMaxLength(500);
 		scalableTextFieldWidget2.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
@@ -253,27 +253,27 @@ public class ButtonTestScreen extends UBasicScreen {
 				renderTooltip(matrixStack, Component.nullToEmpty("Scalable Text Field 2 Tooltip"), mouseX, mouseY);
 			}
 		});
-		
+
 		// Scaling Renderer Test
 		scalingRenderer = new ScalingTextRenderer(font, () -> "This is a test for the scaling text renderer", 220, 10);
 		scalingRenderer.setColor(new RGBA(0xFF00FF40));
 		scalingRenderer.setScale(1.5F);
-		
+
 		// Scrolling Renderer Test
 		scrollingRenderer = new ScrollingTextRenderer(font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling", 220, 25);
 		scrollingRenderer.setColor(new RGBA(0x00FFFFFF));
 		scrollingRenderer.setWidth(200);
 		scrollingRenderer.setScale(2F);
-		
+
 		// Scrolling List Test
 		scrollingList = addWidget(new BasicTestList(220, 210, 200, 90));
 	}
-	
+
 	@Override
 	public void onClose() {
 		minecraft.keyboardHandler.setSendRepeatsToGui(false);
 	}
-	
+
 	@Override
 	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		scalingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);

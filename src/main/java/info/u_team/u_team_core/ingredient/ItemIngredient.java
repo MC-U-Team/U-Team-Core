@@ -19,26 +19,26 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 
 public class ItemIngredient extends Ingredient {
-	
+
 	private final int amount;
-	
+
 	public static ItemIngredient fromItems(int amount, ItemLike... items) {
 		return new ItemIngredient(amount, Arrays.stream(items).map((item) -> new ItemValue(new ItemStack(item))));
 	}
-	
+
 	public static ItemIngredient fromStacks(int amount, ItemStack... stacks) {
 		return new ItemIngredient(amount, Arrays.stream(stacks).map((stack) -> new ItemValue(stack)));
 	}
-	
+
 	public static ItemIngredient fromTag(int amount, SetTag<Item> tag) {
 		return new ItemIngredient(amount, Stream.of(new Ingredient.TagValue(tag)));
 	}
-	
+
 	protected ItemIngredient(int amount, Stream<? extends Value> stream) {
 		super(stream);
 		this.amount = amount;
 	}
-	
+
 	@Override
 	public boolean test(ItemStack stack) {
 		if (stack == null) {
@@ -55,16 +55,16 @@ public class ItemIngredient extends Ingredient {
 			return false;
 		}
 	}
-	
+
 	public int getAmount() {
 		return amount;
 	}
-	
+
 	@Override
 	public IIngredientSerializer<? extends Ingredient> getSerializer() {
 		return Serializer.INSTANCE;
 	}
-	
+
 	@Override
 	public JsonElement toJson() {
 		final var jsonObject = new JsonObject();
@@ -73,20 +73,20 @@ public class ItemIngredient extends Ingredient {
 		jsonObject.add("items", super.toJson());
 		return jsonObject;
 	}
-	
+
 	public static class Serializer implements IIngredientSerializer<ItemIngredient> {
-		
+
 		public static final Serializer INSTANCE = new Serializer();
-		
+
 		@Override
 		public ItemIngredient parse(JsonObject jsonObject) {
 			if (!jsonObject.has("amount") || !jsonObject.has("items")) {
 				throw new JsonSyntaxException("Expected amount and items");
 			}
-			
+
 			final var amount = GsonHelper.getAsInt(jsonObject, "amount");
 			final var ingredientJsonElement = jsonObject.get("items");
-			
+
 			if (ingredientJsonElement.isJsonObject()) {
 				return new ItemIngredient(amount, Stream.of(valueFromJson(ingredientJsonElement.getAsJsonObject())));
 			} else if (ingredientJsonElement.isJsonArray()) {
@@ -102,21 +102,21 @@ public class ItemIngredient extends Ingredient {
 				throw new JsonSyntaxException("Expected item to be object or array of objects");
 			}
 		}
-		
+
 		@Override
 		public ItemIngredient parse(FriendlyByteBuf buffer) {
 			final var amount = buffer.readInt();
 			final var length = buffer.readVarInt();
-			
+
 			return new ItemIngredient(amount, Stream.generate(() -> new ItemValue(buffer.readItem())).limit(length));
 		}
-		
+
 		@Override
 		public void write(FriendlyByteBuf buffer, ItemIngredient ingredient) {
 			final var items = ingredient.getItems();
 			buffer.writeInt(ingredient.amount);
 			buffer.writeVarInt(items.length);
-			
+
 			for (final ItemStack stack : items) {
 				buffer.writeItem(stack);
 			}

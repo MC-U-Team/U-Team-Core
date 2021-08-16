@@ -11,11 +11,11 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtIo;
 
 public class NBTStreamUtil {
-	
+
 	public static CompoundTag readNBTFromFile(File file) throws IOException {
 		return readNBTFromStream(new FileInputStream(file));
 	}
-	
+
 	public static CompoundTag readNBTFromStream(InputStream stream) throws IOException {
 		CompoundTag tag;
 		try {
@@ -25,11 +25,11 @@ public class NBTStreamUtil {
 		}
 		return tag;
 	}
-	
+
 	public static void writeNBTToFile(CompoundTag tag, File file) throws IOException {
 		writeNBTToStream(tag, new FileOutputStream(file));
 	}
-	
+
 	public static void writeNBTToStream(CompoundTag tag, OutputStream stream) throws IOException {
 		try {
 			NbtIo.writeCompressed(tag, stream);
@@ -38,5 +38,5 @@ public class NBTStreamUtil {
 			stream.close();
 		}
 	}
-	
+
 }

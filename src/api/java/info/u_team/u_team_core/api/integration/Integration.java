@@ -8,11 +8,11 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface Integration {
-	
+
 	String modid();
-	
+
 	boolean client() default false;
-	
+
 	String integration();
-	
+
 }

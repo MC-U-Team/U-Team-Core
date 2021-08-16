@@ -6,11 +6,11 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.SwordItem;
 
 public class USwordItem extends SwordItem {
-	
+
 	public USwordItem(Properties properties, IToolMaterial material) {
 		this(null, properties, material);
 	}
-	
+
 	public USwordItem(CreativeModeTab group, Properties properties, IToolMaterial material) {
 		super(material, (int) material.getAdditionalDamage(Tools.SWORD), material.getAttackSpeed(Tools.SWORD), group == null ? properties : properties.tab(group));
 	}

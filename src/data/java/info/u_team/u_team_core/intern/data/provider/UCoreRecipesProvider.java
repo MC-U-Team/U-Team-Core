@@ -10,14 +10,14 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.SpecialRecipeBuilder;
 
 public class UCoreRecipesProvider extends CommonRecipesProvider {
-	
+
 	public UCoreRecipesProvider(GenerationData data) {
 		super(data);
 	}
-	
+
 	@Override
 	protected void registerRecipes(Consumer<FinishedRecipe> consumer) {
 		SpecialRecipeBuilder.special(UCoreRecipeSerializers.CRAFTING_SPECIAL_ITEMDYE.get()).save(consumer, UCoreMod.MODID + ":custom_dyeable_item");
 	}
-	
+
 }

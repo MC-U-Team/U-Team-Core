@@ -30,31 +30,31 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class FluidIngredient implements Predicate<FluidStack> {
-	
+
 	public static final FluidIngredient EMPTY = new FluidIngredient(0, Stream.empty());
-	
+
 	private final IFluidList[] acceptedFluids;
 	private final FluidStack[] matchingFluids;
 	private final int amount;
-	
+
 	public static FluidIngredient fromFluids(int amount, Fluid... fluids) {
 		return new FluidIngredient(amount, Arrays.stream(fluids).map((fluid) -> new SingleFluidList(new FluidStack(fluid, 1000))));
 	}
-	
+
 	public static FluidIngredient fromStacks(int amount, FluidStack... stacks) {
 		return new FluidIngredient(amount, Arrays.stream(stacks).map((stack) -> new SingleFluidList(stack)));
 	}
-	
+
 	public static FluidIngredient fromTag(int amount, SetTag<Fluid> tag) {
 		return new FluidIngredient(amount, Stream.of(new TagList(tag)));
 	}
-	
+
 	protected FluidIngredient(int amount, Stream<? extends IFluidList> stream) {
 		this.amount = amount;
 		acceptedFluids = stream.filter(list -> !list.getStacks().stream().allMatch(FluidStack::isEmpty)).toArray(IFluidList[]::new);
 		matchingFluids = Arrays.stream(acceptedFluids).flatMap(fluidList -> fluidList.getStacks().stream()).distinct().toArray(FluidStack[]::new);
 	}
-	
+
 	@Override
 	public boolean test(FluidStack stack) {
 		if (stack == null) {
@@ -70,39 +70,39 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			return false;
 		}
 	}
-	
+
 	public int getAmount() {
 		return amount;
 	}
-	
+
 	// Network write
 	public void write(FriendlyByteBuf buffer) {
 		buffer.writeInt(amount);
 		buffer.writeVarInt(matchingFluids.length);
-		
+
 		for (final FluidStack stack : matchingFluids) {
 			buffer.writeFluidStack(stack);
 		}
 	}
-	
+
 	// Network read
 	public static FluidIngredient read(FriendlyByteBuf buffer) {
 		final var amount = buffer.readInt();
 		final var length = buffer.readVarInt();
-		
+
 		return new FluidIngredient(amount, Stream.generate(() -> new SingleFluidList(buffer.readFluidStack())).limit(length));
 	}
-	
+
 	// Serialize
 	public JsonElement serialize() {
 		final var jsonObject = new JsonObject();
 		jsonObject.addProperty("amount", amount);
-		
+
 		if (acceptedFluids.length == 1) {
 			jsonObject.add("fluids", acceptedFluids[0].serialize());
 		} else {
 			final var jsonArray = new JsonArray();
-			
+
 			for (final IFluidList list : acceptedFluids) {
 				jsonArray.add(list.serialize());
 			}
@@ -110,23 +110,23 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		}
 		return jsonObject;
 	}
-	
+
 	// Deserialize
-	
+
 	public static FluidIngredient deserialize(JsonElement jsonElement) {
 		if (jsonElement == null || !jsonElement.isJsonObject()) {
 			throw new JsonSyntaxException("Fluid ingredient must be a json object");
 		}
-		
+
 		final var jsonObject = jsonElement.getAsJsonObject();
-		
+
 		if (!jsonObject.has("amount") || !jsonObject.has("fluids")) {
 			throw new JsonSyntaxException("Expected amount and fluids");
 		}
-		
+
 		final var amount = GsonHelper.getAsInt(jsonObject, "amount");
 		final var ingredientJsonElement = jsonObject.get("fluids");
-		
+
 		if (ingredientJsonElement.isJsonObject()) {
 			return new FluidIngredient(amount, Stream.of(deserializeFluidList(ingredientJsonElement.getAsJsonObject())));
 		} else if (ingredientJsonElement.isJsonArray()) {
@@ -142,7 +142,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			throw new JsonSyntaxException("Expected fluid to be object or array of objects");
 		}
 	}
-	
+
 	protected static IFluidList deserializeFluidList(JsonObject jsonObject) {
 		if (jsonObject.has("fluid") && jsonObject.has("tag")) {
 			throw new JsonParseException("An ingredient entry is either a tag or a fluid, not both");
@@ -164,27 +164,27 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			throw new JsonParseException("An ingredient entry needs either a tag or a fluid");
 		}
 	}
-	
+
 	public interface IFluidList {
-		
+
 		Collection<FluidStack> getStacks();
-		
+
 		JsonObject serialize();
 	}
-	
+
 	public static class SingleFluidList implements IFluidList {
-		
+
 		private final FluidStack stack;
-		
+
 		public SingleFluidList(FluidStack stack) {
 			this.stack = stack;
 		}
-		
+
 		@Override
 		public Collection<FluidStack> getStacks() {
 			return Collections.singleton(stack);
 		}
-		
+
 		@Override
 		public JsonObject serialize() {
 			final var jsonObject = new JsonObject();
@@ -192,29 +192,29 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			return jsonObject;
 		}
 	}
-	
+
 	public static class TagList implements IFluidList {
-		
+
 		private final Tag<Fluid> tag;
-		
+
 		public TagList(Tag<Fluid> tag) {
 			this.tag = tag;
 		}
-		
+
 		@Override
 		public Collection<FluidStack> getStacks() {
 			final List<FluidStack> list = Lists.newArrayList();
-			
+
 			for (final Fluid fluid : tag.getValues()) {
 				list.add(new FluidStack(fluid, 1000));
 			}
-			
+
 			if (list.size() == 0 && !ForgeConfig.SERVER.treatEmptyTagsAsAir.get()) {
 				list.add(new FluidStack(Fluids.LAVA, Integer.MAX_VALUE)); // TODO
 			}
 			return list;
 		}
-		
+
 		@Override
 		public JsonObject serialize() {
 			final var jsonObject = new JsonObject();

@@ -9,7 +9,7 @@ import net.minecraft.world.item.BlockItem;
  * @author HyCraftHD
  */
 public interface IBlockItemProvider {
-	
+
 	/**
 	 * Must return the same block item instance every time you call this method. The registry name will be set to the name
 	 * from the block. Can return null for no block item.
@@ -17,5 +17,5 @@ public interface IBlockItemProvider {
 	 * @return Block item instance
 	 */
 	BlockItem getBlockItem();
-	
+
 }

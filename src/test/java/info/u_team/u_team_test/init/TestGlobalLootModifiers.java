@@ -9,13 +9,13 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TestGlobalLootModifiers {
-	
+
 	public static final CommonDeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIER_SERIALIZERS = CommonDeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, TestMod.MODID);
-	
+
 	public static final RegistryObject<AutoSmeltLootModifier.Serializer> AUTO_SMELT = GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("auto_smelt", AutoSmeltLootModifier.Serializer::new);
-	
+
 	public static void registerMod(IEventBus bus) {
 		GLOBAL_LOOT_MODIFIER_SERIALIZERS.register(bus);
 	}
-	
+
 }

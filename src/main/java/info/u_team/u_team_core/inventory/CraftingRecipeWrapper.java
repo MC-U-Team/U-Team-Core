@@ -6,19 +6,19 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
 public class CraftingRecipeWrapper extends CraftingContainer {
-	
+
 	protected final IItemHandlerModifiable inventory;
-	
+
 	public CraftingRecipeWrapper(IItemHandlerModifiable inventory, int width, int height) {
 		super(null, width, height);
 		this.inventory = inventory;
 	}
-	
+
 	@Override
 	public int getContainerSize() {
 		return inventory.getSlots();
 	}
-	
+
 	@Override
 	public boolean isEmpty() {
 		for (var index = 0; index < inventory.getSlots(); index++) {
@@ -28,12 +28,12 @@ public class CraftingRecipeWrapper extends CraftingContainer {
 		}
 		return true;
 	}
-	
+
 	@Override
 	public ItemStack getItem(int slot) {
 		return inventory.getStackInSlot(slot);
 	}
-	
+
 	@Override
 	public ItemStack removeItemNoUpdate(int index) {
 		final var stack = getItem(index);
@@ -43,30 +43,30 @@ public class CraftingRecipeWrapper extends CraftingContainer {
 		setItem(index, ItemStack.EMPTY);
 		return stack;
 	}
-	
+
 	@Override
 	public ItemStack removeItem(int slot, int count) {
 		final var stack = inventory.getStackInSlot(slot);
 		return stack.isEmpty() ? ItemStack.EMPTY : stack.split(count);
 	}
-	
+
 	@Override
 	public void setItem(int slot, ItemStack stack) {
 		inventory.setStackInSlot(slot, stack);
 	}
-	
+
 	@Override
 	public void clearContent() {
 		for (var index = 0; index < inventory.getSlots(); index++) {
 			inventory.setStackInSlot(index, ItemStack.EMPTY);
 		}
 	}
-	
+
 	@Override
 	public boolean canPlaceItem(int slot, ItemStack stack) {
 		return inventory.isItemValid(slot, stack);
 	}
-	
+
 	@Override
 	public void fillStackedContents(StackedContents helper) {
 		for (var index = 0; index < inventory.getSlots(); index++) {

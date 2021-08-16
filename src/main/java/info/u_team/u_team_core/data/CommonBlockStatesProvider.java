@@ -23,13 +23,13 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 
 public abstract class CommonBlockStatesProvider extends BlockStateProvider {
-	
+
 	protected final Marker marker;
-	
+
 	protected final GenerationData data;
 	protected final String modid;
 	protected final DataGenerator generator;
-	
+
 	public CommonBlockStatesProvider(GenerationData data) {
 		super(data.getGenerator(), data.getModid(), data.getExistingFileHelper());
 		this.data = data;
@@ -37,7 +37,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 		generator = data.getGenerator();
 		marker = MarkerManager.getMarker(getName());
 	}
-	
+
 	@Override
 	public void run(HashCache cache) throws IOException {
 		models().generatedModels.clear();
@@ -51,12 +51,12 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 			}
 		});
 	}
-	
+
 	// We need to overide registerModels, but this method is marked final...
 	private void registerModels0(HashCache cache) {
 		registeredBlocks.clear();
 		registerStatesAndModels();
-		
+
 		registeredBlocks.forEach((block, generatedState) -> {
 			try {
 				final var location = Preconditions.checkNotNull(block.getRegistryName());
@@ -66,21 +66,21 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 			}
 		});
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Block-States | Block-Models";
 	}
-	
+
 	// Block state methods
 	protected void facingBlock(Block block, ModelFile modelFile) {
 		facingBlock(block, modelFile, 0);
 	}
-	
+
 	protected void facingBlock(Block block, ModelFile modelFile, int angleOffset) {
 		facingBlock(block, $ -> modelFile, angleOffset);
 	}
-	
+
 	protected void facingBlock(Block block, Function<BlockState, ModelFile> modelFunc, int angleOffset) {
 		getVariantBuilder(block).forAllStates(state -> {
 			final var direction = state.getValue(BlockStateProperties.FACING);
@@ -91,12 +91,12 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 					.build(); //
 		});
 	}
-	
+
 	// Block model methods
 	protected BlockModelBuilder cubeFacing(String name, ResourceLocation front, ResourceLocation side) {
 		return cubeFacing(name, front, side, side);
 	}
-	
+
 	protected BlockModelBuilder cubeFacing(String name, ResourceLocation front, ResourceLocation side, ResourceLocation particle) {
 		return models().getBuilder(name) //
 				.parent(new UncheckedModelFile(new ResourceLocation(UCoreMod.MODID, "block/facing"))) //
@@ -104,11 +104,11 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 				.texture("front", front) //
 				.texture("side", side);
 	}
-	
+
 	protected BlockModelBuilder cubeFacingBottomTop(String name, ResourceLocation front, ResourceLocation bottom, ResourceLocation top, ResourceLocation side) {
 		return cubeFacingBottomTop(name, front, bottom, top, side, side);
 	}
-	
+
 	protected BlockModelBuilder cubeFacingBottomTop(String name, ResourceLocation front, ResourceLocation bottom, ResourceLocation top, ResourceLocation side, ResourceLocation particle) {
 		return models().getBuilder(name) //
 				.parent(new UncheckedModelFile(new ResourceLocation(UCoreMod.MODID, "block/facing_bottom_top"))) //
@@ -118,7 +118,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 				.texture("top", top) //
 				.texture("side", side);
 	}
-	
+
 	// Utility methods
 	protected String getPath(Block block) {
 		return block.getRegistryName().getPath();

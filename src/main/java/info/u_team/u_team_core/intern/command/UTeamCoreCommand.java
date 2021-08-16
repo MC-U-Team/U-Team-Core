@@ -11,7 +11,7 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 
 public class UTeamCoreCommand {
-	
+
 	public UTeamCoreCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("uteamcore") //
 				.then(ItemStackInfoSubCommand.register()) //
@@ -20,5 +20,5 @@ public class UTeamCoreCommand {
 				.then(LocateBiomeSubCommand.register()) //
 				.then(LocateStructureSubCommand.register()));
 	}
-	
+
 }

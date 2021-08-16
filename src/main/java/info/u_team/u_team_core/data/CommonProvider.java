@@ -23,17 +23,17 @@ import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 
 public abstract class CommonProvider implements DataProvider {
-	
+
 	public static final Logger LOGGER = LogManager.getLogger("DataGenerator");
 	public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
-	
+
 	protected final Marker marker;
-	
+
 	protected final GenerationData data;
 	protected final String modid;
 	protected final DataGenerator generator;
 	protected final Path path;
-	
+
 	public CommonProvider(GenerationData data) {
 		this.data = data;
 		generator = data.getGenerator();
@@ -41,35 +41,35 @@ public abstract class CommonProvider implements DataProvider {
 		path = generator.getOutputFolder();
 		marker = MarkerManager.getMarker(getName());
 	}
-	
+
 	public ResourceLocation modLoc(String path) {
 		return new ResourceLocation(modid, path);
 	}
-	
+
 	public ResourceLocation mcLoc(String path) {
 		return new ResourceLocation(path);
 	}
-	
+
 	public Path resolveModData() {
 		return path.resolve("data").resolve(modid);
 	}
-	
+
 	public Path resolveModAssets() {
 		return path.resolve("assets").resolve(modid);
 	}
-	
+
 	public Path resolveData(ResourceLocation location) {
 		return path.resolve("data").resolve(location.getNamespace());
 	}
-	
+
 	public Path resolveAssets(ResourceLocation location) {
 		return path.resolve("assets").resolve(location.getNamespace());
 	}
-	
+
 	public static void write(HashCache cache, JsonElement element, Path path) throws IOException {
 		write(cache, element, path, GSON);
 	}
-	
+
 	public static void write(HashCache cache, JsonElement element, Path path, Gson gson) throws IOException {
 		try (final var writer = new StringWriter(); //
 				final var jsonWriter = GsonUtil.createTabWriter(gson, writer)) {
@@ -79,7 +79,7 @@ public abstract class CommonProvider implements DataProvider {
 			throw new JsonIOException(ex);
 		}
 	}
-	
+
 	public static void write(HashCache cache, String string, Path path) throws IOException {
 		final var hash = SHA1.hashUnencodedChars(string).toString();
 		if (!Objects.equals(cache.getHash(path), hash) || !Files.exists(path)) {

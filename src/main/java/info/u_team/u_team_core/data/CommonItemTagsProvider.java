@@ -8,34 +8,34 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
-	
+
 	private final Function<Tag.Named<Block>, Tag.Builder> blockTagBuilderFunction;
-	
+
 	public CommonItemTagsProvider(GenerationData data) {
 		this(data, new CommonBlockTagsProvider(data) {
-			
+
 			@Override
 			protected void registerTags() {
 			}
 		});
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public CommonItemTagsProvider(GenerationData data, CommonBlockTagsProvider blockProvider) {
 		super(data, Registry.ITEM);
 		blockTagBuilderFunction = blockProvider::getTagBuilder;
 	}
-	
+
 	@Override
 	protected String getTagFolder() {
 		return "items";
 	}
-	
+
 	@Override
 	public String getName() {
 		return "Item-Tags";
 	}
-	
+
 	protected void copy(Tag.Named<Block> blockTag, Tag.Named<Item> itemTag) {
 		final var itemTagBuilder = getTagBuilder(itemTag);
 		final var blockTagBuilder = blockTagBuilderFunction.apply(blockTag);

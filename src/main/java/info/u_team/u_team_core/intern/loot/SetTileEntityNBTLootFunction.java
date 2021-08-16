@@ -14,11 +14,11 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class SetTileEntityNBTLootFunction extends LootItemConditionalFunction {
-	
+
 	private SetTileEntityNBTLootFunction(LootItemCondition[] conditions) {
 		super(conditions);
 	}
-	
+
 	@Override
 	public ItemStack run(ItemStack stack, LootContext context) {
 		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
@@ -35,18 +35,18 @@ public class SetTileEntityNBTLootFunction extends LootItemConditionalFunction {
 		}
 		return stack;
 	}
-	
+
 	public static LootItemConditionalFunction.Builder<?> builder() {
 		return simpleBuilder((conditions) -> new SetTileEntityNBTLootFunction(conditions));
 	}
-	
+
 	@Override
 	public LootItemFunctionType getType() {
 		return UCoreLootFunctions.SET_TILEENTITY_NBT;
 	}
-	
+
 	public static class Serializer extends LootItemConditionalFunction.Serializer<SetTileEntityNBTLootFunction> {
-		
+
 		@Override
 		public SetTileEntityNBTLootFunction deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootItemCondition[] conditions) {
 			return new SetTileEntityNBTLootFunction(conditions);

@@ -17,16 +17,16 @@ import net.minecraftforge.common.loot.LootModifier;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 public class AutoSmeltLootModifier extends LootModifier {
-	
+
 	public AutoSmeltLootModifier(LootItemCondition[] conditions) {
 		super(conditions);
 	}
-	
+
 	@Override
 	protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
 		return generatedLoot.stream().map(stack -> smeltItem(stack, context)).collect(Collectors.toList());
 	}
-	
+
 	private static ItemStack smeltItem(ItemStack stack, LootContext context) {
 		return context.getLevel() //
 				.getRecipeManager() //
@@ -35,18 +35,18 @@ public class AutoSmeltLootModifier extends LootModifier {
 				.map(itemStack -> ItemHandlerHelper.copyStackWithSize(itemStack, stack.getCount() * itemStack.getCount())) //
 				.orElse(stack);
 	}
-	
+
 	public static class Serializer extends GlobalLootModifierSerializer<AutoSmeltLootModifier> {
-		
+
 		@Override
 		public AutoSmeltLootModifier read(ResourceLocation name, JsonObject json, LootItemCondition[] conditions) {
 			return new AutoSmeltLootModifier(conditions);
 		}
-		
+
 		@Override
 		public JsonObject write(AutoSmeltLootModifier instance) {
 			return makeConditions(instance.conditions);
 		}
 	}
-	
+
 }

@@ -16,11 +16,11 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 import net.minecraft.world.level.Level;
 
 public class NoMirrorShapedRecipe extends ShapedRecipe {
-	
+
 	public NoMirrorShapedRecipe(ResourceLocation location, String group, int recipeWidth, int recipeHeigt, NonNullList<Ingredient> ingredients, ItemStack output) {
 		super(location, group, recipeWidth, recipeHeigt, ingredients, output);
 	}
-	
+
 	@Override
 	public boolean matches(CraftingContainer inventory, Level world) {
 		for (var i = 0; i <= inventory.getWidth() - getWidth(); ++i) {
@@ -32,14 +32,14 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return UCoreRecipeSerializers.NO_MIRROR_SHAPED.get();
 	}
-	
+
 	public static class Serializer extends UShapedRecipeSerializer<NoMirrorShapedRecipe> {
-		
+
 		@Override
 		public NoMirrorShapedRecipe fromJson(ResourceLocation location, JsonObject json) {
 			final var pattern = patternFromJson(GsonHelper.getAsJsonArray(json, "pattern"));
@@ -50,7 +50,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 			final var output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
 			return new NoMirrorShapedRecipe(location, group, recipeWidth, recipeHeight, ingredients, output);
 		}
-		
+
 		@Override
 		public NoMirrorShapedRecipe fromNetwork(ResourceLocation location, FriendlyByteBuf buffer) {
 			final var recipeWidth = buffer.readVarInt();
@@ -63,7 +63,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 			final var output = buffer.readItem();
 			return new NoMirrorShapedRecipe(location, group, recipeWidth, recipeHeight, ingredients, output);
 		}
-		
+
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, NoMirrorShapedRecipe recipe) {
 			buffer.writeVarInt(recipe.getRecipeWidth());

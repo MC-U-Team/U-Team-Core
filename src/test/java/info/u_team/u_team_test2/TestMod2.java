@@ -9,15 +9,15 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod(TestMod2.MODID)
 public class TestMod2 {
-	
+
 	public static final String MODID = "uteamtest2";
 	public static final Logger LOGGER = LogManager.getLogger("UTeamTest2");
-	
+
 	public TestMod2() {
 		JarSignVerifier.checkSigned(MODID);
-		
+
 		LOGGER.info("-------------------------------------- LOADING TEST MOD 2 -------------------------------------");
-		
+
 		AnnotationManager.callAnnotations(MODID);
 	}
 }

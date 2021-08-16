@@ -25,30 +25,30 @@ import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSyncedTileEntity {
-	
+
 	private final TileEntityUItemStackHandler slots;
 	private final BasicEnergyStorage energy;
-	
+
 	private final LazyOptional<TileEntityUItemStackHandler> slotsOptional;
 	private final LazyOptional<BasicEnergyStorage> energyOptional;
-	
+
 	public BasicEnergyCreatorTileEntity(BlockPos pos, BlockState state) {
 		super(TestTileEntityTypes.BASIC_ENERGY_CREATOR.get(), pos, state);
 		slots = new TileEntityUItemStackHandler(6, this) {
-			
+
 			@Override
 			public int getSlotLimit(int slot) {
 				return 16;
 			}
 		};
 		energy = new BasicEnergyStorage(1000, 10);
-		
+
 		slotsOptional = LazyOptional.of(() -> slots);
 		energyOptional = LazyOptional.of(() -> energy);
 	}
-	
+
 	private boolean action = true;
-	
+
 	public static void tick(Level level, BlockPos pos, BlockState state, BasicEnergyCreatorTileEntity blockEntity) {
 		if (level.isClientSide()) {
 			return;
@@ -66,42 +66,42 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 		}
 		blockEntity.setChanged();
 	}
-	
+
 	@Override
 	public void sendInitialDataBuffer(FriendlyByteBuf buffer) {
 		buffer.writeInt(energy.getEnergyStored());
 	}
-	
+
 	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleInitialDataBuffer(FriendlyByteBuf buffer) {
 		energy.setEnergy(buffer.readInt());
 	}
-	
+
 	public TileEntityUItemStackHandler getSlots() {
 		return slots;
 	}
-	
+
 	public BasicEnergyStorage getEnergy() {
 		return energy;
 	}
-	
+
 	@Override
 	public void writeNBT(CompoundTag compound) {
 		super.writeNBT(compound);
 		compound.put("inventory", slots.serializeNBT());
 		compound.put("energy", energy.serializeNBT());
 	}
-	
+
 	@Override
 	public void readNBT(CompoundTag compound) {
 		super.readNBT(compound);
 		slots.deserializeNBT(compound.getCompound("inventory"));
 		energy.deserializeNBT(compound.getCompound("energy"));
 	}
-	
+
 	// Capability
-	
+
 	@Override
 	public <T> LazyOptional<T> getCapability(Capability<T> capability, Direction side) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -112,24 +112,24 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 			return super.getCapability(capability, side);
 		}
 	}
-	
+
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
 		slotsOptional.invalidate();
 		energyOptional.invalidate();
 	}
-	
+
 	// Container
-	
+
 	@Override
 	public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
 		return new BasicEnergyCreatorContainer(id, playerInventory, this);
 	}
-	
+
 	@Override
 	public Component getDisplayName() {
 		return new TextComponent("Energy creator");
 	}
-	
+
 }
