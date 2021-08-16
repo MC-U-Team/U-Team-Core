@@ -23,47 +23,47 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 public class BasicFluidInventoryTileEntity extends UTickableTileEntity implements MenuProvider {
-
+	
 	protected final UItemStackHandler itemSlots;
 	protected final LazyOptional<UItemStackHandler> itemSlotsOptional;
-
+	
 	protected final UFluidStackHandler fluidTanks;
 	protected final LazyOptional<UFluidStackHandler> fluidTanksOptional;
-
+	
 	public BasicFluidInventoryTileEntity(BlockPos pos, BlockState state) {
 		super(TestTileEntityTypes.BASIC_FLUID_INVENTORY.get(), pos, state);
-
+		
 		itemSlots = new TileEntityUItemStackHandler(4, this);
 		itemSlotsOptional = LazyOptional.of(() -> itemSlots);
-
+		
 		fluidTanks = new TileEntityUFluidStackHandler(4, this);
 		fluidTanksOptional = LazyOptional.of(() -> fluidTanks);
 	}
-
+	
 	@Override
 	public void writeNBT(CompoundTag compound) {
 		super.writeNBT(compound);
 		compound.put("items", itemSlots.serializeNBT());
 		compound.put("fluids", fluidTanks.serializeNBT());
 	}
-
+	
 	@Override
 	public void readNBT(CompoundTag compound) {
 		super.readNBT(compound);
 		itemSlots.deserializeNBT(compound.getCompound("items"));
 		fluidTanks.deserializeNBT(compound.getCompound("fluids"));
 	}
-
+	
 	public UItemStackHandler getItemSlots() {
 		return itemSlots;
 	}
-
+	
 	public UFluidStackHandler getFluidTanks() {
 		return fluidTanks;
 	}
-
+	
 	// Capability
-
+	
 	@Override
 	public <X> LazyOptional<X> getCapability(Capability<X> capability, Direction side) {
 		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
@@ -74,21 +74,21 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 			return super.getCapability(capability, side);
 		}
 	}
-
+	
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
 		itemSlotsOptional.invalidate();
 		fluidTanksOptional.invalidate();
 	}
-
+	
 	// Container
-
+	
 	@Override
 	public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
 		return new BasicFluidInventoryContainer(id, playerInventory, this);
 	}
-
+	
 	@Override
 	public Component getDisplayName() {
 		return new TextComponent("Fluid Inventory");

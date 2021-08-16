@@ -10,11 +10,11 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 public class TestLootTablesProvider extends CommonLootTablesProvider {
-
+	
 	public TestLootTablesProvider(GenerationData data) {
 		super(data);
 	}
-
+	
 	@Override
 	protected void registerLootTables(BiConsumer<ResourceLocation, LootTable> consumer) {
 		registerBlock(TestBlocks.BASIC, addFortuneBlockLootTable(TestBlocks.BASIC.get(), TestItems.BASIC.get()), consumer);
@@ -22,5 +22,5 @@ public class TestLootTablesProvider extends CommonLootTablesProvider {
 		registerBlock(TestBlocks.BASIC_ENERGY_CREATOR, addTileEntityBlockLootTable(TestBlocks.BASIC_ENERGY_CREATOR.get()), consumer);
 		registerBlock(TestBlocks.BASIC_FLUID_INVENTORY, addTileEntityBlockLootTable(TestBlocks.BASIC_FLUID_INVENTORY.get()), consumer);
 	}
-
+	
 }

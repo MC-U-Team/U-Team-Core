@@ -19,35 +19,35 @@ import info.u_team.u_team_core.api.InteractionType;
 import net.minecraftforge.fluids.FluidStack;
 
 public interface IExtendedFluidHandler extends IFluidHandlerModifiable {
-
+	
 	FluidStack insertFluid(int tank, FluidStack stack, InteractionType action);
-
+	
 	FluidStack extractFluid(int tank, int amount, InteractionType action);
-
+	
 	default FluidStack insertFluid(FluidStack stack, InteractionType action) {
 		return ExtendedFluidHandlerUtils.insert(stack, action, this::getTanks, this::getFluidInTank, this::insertFluid);
 	}
-
+	
 	default FluidStack extractFluid(int amount, InteractionType action) {
 		return ExtendedFluidHandlerUtils.extract(amount, action, this::getTanks, this::getFluidInTank, this::extractFluid);
 	}
-
+	
 	default FluidStack extractFluid(FluidStack stack, InteractionType action) {
 		return ExtendedFluidHandlerUtils.extract(stack, action, this::getTanks, this::getFluidInTank, this::extractFluid);
 	}
-
+	
 	@Override
 	@Deprecated
 	default int fill(FluidStack stack, FluidAction action) {
 		return stack.getAmount() - insertFluid(stack, InteractionType.fromFluidAction(action)).getAmount();
 	}
-
+	
 	@Override
 	@Deprecated
 	default FluidStack drain(FluidStack stack, FluidAction action) {
 		return extractFluid(stack, InteractionType.fromFluidAction(action));
 	}
-
+	
 	@Override
 	@Deprecated
 	default FluidStack drain(int amount, FluidAction action) {

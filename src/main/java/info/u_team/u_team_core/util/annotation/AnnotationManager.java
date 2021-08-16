@@ -18,16 +18,16 @@ import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.forgespi.language.ModFileScanData.AnnotationData;
 
 public class AnnotationManager {
-
+	
 	private static final Logger LOGGER = LogManager.getLogger("AnnotationManager");
 	private static final Marker CONSTRUCT_MARKER = MarkerManager.getMarker("Construct");
 	private static final Marker INTEGRATION_MARKER = MarkerManager.getMarker("Integration");
-
+	
 	public static void callAnnotations(String modid) {
 		callConstructs(modid);
 		callIntegrations(modid);
 	}
-
+	
 	public static void callConstructs(String modid) {
 		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
 			if (canBeCalled(modid, data)) {
@@ -41,7 +41,7 @@ public class AnnotationManager {
 			}
 		}
 	}
-
+	
 	public static void callIntegrations(String modid) {
 		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
 			final var integrationModid = (String) data.annotationData().get("integration");
@@ -56,11 +56,11 @@ public class AnnotationManager {
 			}
 		}
 	}
-
+	
 	private static boolean canBeCalled(String modid, AnnotationData data) {
 		final var annotationModid = (String) data.annotationData().get("modid");
 		final var client = (Boolean) data.annotationData().get("client");
 		return modid.equals(annotationModid) && (client == null || !client || client && FMLEnvironment.dist == Dist.CLIENT);
 	}
-
+	
 }

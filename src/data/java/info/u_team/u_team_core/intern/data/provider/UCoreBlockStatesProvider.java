@@ -4,11 +4,11 @@ import info.u_team.u_team_core.data.CommonBlockStatesProvider;
 import info.u_team.u_team_core.data.GenerationData;
 
 public class UCoreBlockStatesProvider extends CommonBlockStatesProvider {
-
+	
 	public UCoreBlockStatesProvider(GenerationData data) {
 		super(data);
 	}
-
+	
 	@Override
 	protected void registerStatesAndModels() {
 		models().withExistingParent("facing", "cube") //
@@ -18,7 +18,7 @@ public class UCoreBlockStatesProvider extends CommonBlockStatesProvider {
 				.texture("west", "#side") //
 				.texture("up", "#side") //
 				.texture("down", "#side");
-
+		
 		models().withExistingParent("facing_bottom_top", "cube") //
 				.texture("north", "#front") //
 				.texture("east", "#side") //
@@ -27,5 +27,5 @@ public class UCoreBlockStatesProvider extends CommonBlockStatesProvider {
 				.texture("up", "#top") //
 				.texture("down", "#bottom");
 	}
-
+	
 }

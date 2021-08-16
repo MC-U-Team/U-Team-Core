@@ -5,15 +5,15 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 public abstract class UTickableTileEntity extends UTileEntity {
-
+	
 	private boolean first;
-
+	
 	public UTickableTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
-
+	
 	// TODO do we need this class anymore?
-
+	
 	// @Override
 	// public void tick() {
 	// if (!first) {
@@ -26,7 +26,7 @@ public abstract class UTickableTileEntity extends UTileEntity {
 	// tickServer();
 	// }
 	// }
-
+	
 	// protected void firstTick() {
 	// }
 	//
@@ -35,5 +35,5 @@ public abstract class UTickableTileEntity extends UTileEntity {
 	//
 	// protected void tickClient() {
 	// }
-
+	
 }

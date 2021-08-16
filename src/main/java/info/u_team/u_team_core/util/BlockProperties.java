@@ -9,11 +9,11 @@ import net.minecraft.world.level.material.MaterialColor;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 public class BlockProperties extends Properties {
-
+	
 	public BlockProperties(Material material, MaterialColor color) {
 		super(material, color);
 	}
-
+	
 	public BlockProperties(Properties properties) {
 		super(properties.material, properties.materialColor);
 		hasCollision = properties.hasCollision;
@@ -36,14 +36,14 @@ public class BlockProperties extends Properties {
 		hasPostProcess = properties.hasPostProcess;
 		emissiveRendering = properties.emissiveRendering;
 		dynamicShape = properties.dynamicShape;
-
+		
 		setLootTableSupplier(getLootTableSupplier(properties));
 	}
-
+	
 	private Supplier<ResourceLocation> getLootTableSupplier(Properties properties) {
 		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "lootTableSupplier");
 	}
-
+	
 	private void setLootTableSupplier(Supplier<ResourceLocation> value) {
 		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "lootTableSupplier");
 	}

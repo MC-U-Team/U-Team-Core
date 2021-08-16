@@ -7,15 +7,15 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 public class TestEntitySpawnPlacementRegistries {
-
+	
 	private static void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
 			SpawnPlacements.register(TestEntityTypes.TEST_LIVING.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, TestLivingEntity::checkTestLivingSpawnRules);
 		});
 	}
-
+	
 	public static void registerMod(IEventBus bus) {
 		bus.addListener(TestEntitySpawnPlacementRegistries::setup);
 	}
-
+	
 }

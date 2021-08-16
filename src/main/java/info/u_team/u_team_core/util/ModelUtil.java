@@ -21,7 +21,7 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
  * @author HyCraftHD
  */
 public class ModelUtil {
-
+	
 	static {
 		if (ModelBakery.STATIC_DEFINITIONS instanceof ImmutableMap) {
 			final Map<ResourceLocation, StateDefinition<Block, BlockState>> mutableMap = new HashMap<>();
@@ -29,7 +29,7 @@ public class ModelUtil {
 			ModelBakery.STATIC_DEFINITIONS = mutableMap;
 		}
 	}
-
+	
 	/**
 	 * Replace the default state container with a custom one. Can remove or add states for the model
 	 *
@@ -39,7 +39,7 @@ public class ModelUtil {
 	public static void addCustomStateContainer(ResourceLocation location, StateDefinition<Block, BlockState> container) {
 		ModelBakery.STATIC_DEFINITIONS.put(location, container);
 	}
-
+	
 	/**
 	 * Add {@link RenderMaterial} to be loaded to the atlas texture and stitched.
 	 *
@@ -48,23 +48,23 @@ public class ModelUtil {
 	public static void addTexture(Material material) {
 		ModelBakery.UNREFERENCED_TEXTURES.add(material);
 	}
-
+	
 	/**
 	 * Utility class for an empty state container
 	 *
 	 * @author HyCraftHD
 	 */
 	public static class EmptyStateContainer extends StateDefinition<Block, BlockState> {
-
+		
 		public EmptyStateContainer(Block block) {
 			super(Block::defaultBlockState, block, BlockState::new, new HashMap<>());
 		}
-
+		
 		@Override
 		public ImmutableList<BlockState> getPossibleStates() {
 			return getOwner().getStateDefinition().getPossibleStates();
 		}
-
+		
 	}
-
+	
 }

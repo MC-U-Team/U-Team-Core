@@ -24,49 +24,49 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 public class TestLivingEntity extends Zombie {
-
+	
 	public TestLivingEntity(Level world) {
 		this(TestEntityTypes.TEST_LIVING.get(), world);
 	}
-
+	
 	public TestLivingEntity(EntityType<? extends Zombie> type, Level world) {
 		super(type, world);
 	}
-
+	
 	public static AttributeSupplier.Builder createAttributes() {
 		return Zombie.createAttributes() //
 				.add(Attributes.ATTACK_DAMAGE, 6);
 	}
-
+	
 	public static boolean checkTestLivingSpawnRules(EntityType<TestLivingEntity> entityType, ServerLevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
 		return checkAnyLightMonsterSpawnRules(entityType, world, reason, pos, random) && (reason == MobSpawnType.SPAWNER || world.canSeeSky(pos));
 	}
-
+	
 	@Override
 	protected boolean isSunSensitive() {
 		return false;
 	}
-
+	
 	@Override
 	protected SoundEvent getAmbientSound() {
 		return SoundEvents.LODESTONE_PLACE;
 	}
-
+	
 	@Override
 	protected SoundEvent getHurtSound(DamageSource source) {
 		return SoundEvents.ARROW_SHOOT;
 	}
-
+	
 	@Override
 	protected SoundEvent getDeathSound() {
 		return SoundEvents.DONKEY_DEATH;
 	}
-
+	
 	@Override
 	protected SoundEvent getStepSound() {
 		return SoundEvents.HOGLIN_HURT;
 	}
-
+	
 	@Override
 	public boolean doHurtTarget(Entity entity) {
 		final var flag = super.doHurtTarget(entity);
@@ -76,17 +76,17 @@ public class TestLivingEntity extends Zombie {
 		}
 		return flag;
 	}
-
+	
 	@Override
 	protected boolean convertsInWater() {
 		return false;
 	}
-
+	
 	@Override
 	protected ItemStack getSkull() {
 		return new ItemStack(Items.GHAST_TEAR);
 	}
-
+	
 	@Override
 	public Packet<?> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);

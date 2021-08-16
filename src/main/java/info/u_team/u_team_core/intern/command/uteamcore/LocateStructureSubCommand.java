@@ -13,7 +13,7 @@ import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class LocateStructureSubCommand {
-
+	
 	public static ArgumentBuilder<CommandSourceStack, ?> register() {
 		return Commands.literal("locatestructure") //
 				.requires(source -> source.hasPermission(2)) //
@@ -21,7 +21,7 @@ public class LocateStructureSubCommand {
 						.suggests((context, builder) -> SharedSuggestionProvider.suggest(ForgeRegistries.STRUCTURE_FEATURES.getKeys().stream().map(ResourceLocation::toString), builder)) //
 						.executes(context -> locateStructure(context.getSource(), ForgeRegistries.STRUCTURE_FEATURES.getValue(context.getArgument("structure", ResourceLocation.class)))));
 	}
-
+	
 	private static int locateStructure(CommandSourceStack source, StructureFeature<?> structure) throws CommandSyntaxException {
 		return LocateCommand.locate(source, structure);
 	}

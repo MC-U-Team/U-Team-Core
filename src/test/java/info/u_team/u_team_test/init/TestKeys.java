@@ -13,26 +13,26 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class TestKeys {
-
+	
 	public static final KeyMapping BASIC = new KeyMapping("Basic key", GLFW.GLFW_KEY_F8, "Basic category");
-
+	
 	private static void setup(FMLClientSetupEvent event) {
 		ClientRegistry.registerKeybinding(BASIC);
 	}
-
+	
 	private static void onKeyboardPressed(KeyboardKeyPressedEvent.Post event) {
 		if (BASIC.isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode()))) {
 			Minecraft.getInstance().setScreen(new ButtonTestScreen());
 			event.setCanceled(true);
 		}
 	}
-
+	
 	public static void registerMod(IEventBus bus) {
 		bus.addListener(TestKeys::setup);
 	}
-
+	
 	public static void registerForge(IEventBus bus) {
 		bus.addListener(TestKeys::onKeyboardPressed);
 	}
-
+	
 }

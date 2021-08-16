@@ -7,19 +7,19 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public class TestTags {
-
+	
 	public static class Blocks {
-
+		
 		public static Named<Block> TEST_TAG_1 = TagUtil.createBlockTag(TestMod.MODID, "test_1");
 		public static Named<Block> TEST_TAG_2 = TagUtil.createBlockTag(TestMod.MODID, "test_2");
 	}
-
+	
 	public static class Items {
-
+		
 		public static Named<Item> TEST_TAG_1 = TagUtil.fromBlockTag(Blocks.TEST_TAG_1);
 		public static Named<Item> TEST_TAG_2 = TagUtil.fromBlockTag(Blocks.TEST_TAG_2);
 		public static Named<Item> TEST_TAG_3 = TagUtil.createItemTag(TestMod.MODID, "test_3");
 		public static Named<Item> TEST_TAG_4 = TagUtil.createItemTag(TestMod.MODID, "test_4");
 	}
-
+	
 }

@@ -8,7 +8,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class TestScreens {
-
+	
 	private static void setup(FMLClientSetupEvent event) {
 		event.enqueueWork(() -> {
 			ClientRegistry.registerScreen(TestContainers.BASIC, BasicTileEntityScreen::new);
@@ -16,7 +16,7 @@ public class TestScreens {
 			ClientRegistry.registerScreen(TestContainers.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
 		});
 	}
-
+	
 	public static void registerMod(IEventBus bus) {
 		bus.addListener(TestScreens::setup);
 	}

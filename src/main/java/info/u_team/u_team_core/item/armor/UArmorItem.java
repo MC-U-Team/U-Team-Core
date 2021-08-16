@@ -8,18 +8,18 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 
 public class UArmorItem extends ArmorItem {
-
+	
 	protected final String textureName;
-
+	
 	public UArmorItem(String textureName, Properties properties, ArmorMaterial material, EquipmentSlot slot) {
 		this(textureName, null, properties, material, slot);
 	}
-
+	
 	public UArmorItem(String textureName, CreativeModeTab group, Properties properties, ArmorMaterial material, EquipmentSlot slot) {
 		super(material, slot, group == null ? properties : properties.tab(group));
 		this.textureName = textureName;
 	}
-
+	
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		if (!material.getName().equals("invalid")) {
@@ -27,7 +27,7 @@ public class UArmorItem extends ArmorItem {
 		}
 		return String.format("%s:textures/models/armor/%s_layer_%d%s.png", getRegistryName().getNamespace(), textureName, (slot == EquipmentSlot.LEGS ? 2 : 1), type == null ? "" : String.format("_%s", type));
 	}
-
+	
 	protected String getTypeString(EquipmentSlot slot) {
 		switch (slot) {
 		case HEAD:

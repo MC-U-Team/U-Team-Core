@@ -7,7 +7,7 @@ import info.u_team.u_team_test.TestMod;
 
 @Construct(modid = TestMod.MODID)
 public class TestCommonConstruct implements IModConstruct {
-
+	
 	@Override
 	public void construct() {
 		BusRegister.registerMod(TestBlocks::registerMod);
@@ -22,8 +22,8 @@ public class TestCommonConstruct implements IModConstruct {
 		BusRegister.registerMod(TestPotions::registerMod);
 		BusRegister.registerMod(TestSounds::registerMod);
 		BusRegister.registerMod(TestTileEntityTypes::registerMod);
-
+		
 		BusRegister.registerForge(TestBiomeLoadingAdditions::registerForge);
 	}
-
+	
 }

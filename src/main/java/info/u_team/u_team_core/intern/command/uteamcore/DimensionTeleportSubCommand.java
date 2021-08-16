@@ -17,9 +17,9 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 
 public class DimensionTeleportSubCommand {
-
+	
 	private static final String SUCCESS_TRANSLATION_STRING = "commands.uteamcore.dimteleport.success.";
-
+	
 	public static ArgumentBuilder<CommandSourceStack, ?> register() {
 		return Commands.literal("dimteleport") //
 				.requires(source -> source.hasPermission(2)) //
@@ -38,7 +38,7 @@ public class DimensionTeleportSubCommand {
 															return execute(context.getSource(), EntityArgument.getEntities(context, "targets"), DimensionArgument.getDimension(context, "dimension"), Vec3Argument.getVec3(context, "location"), FloatArgumentType.getFloat(context, "yaw"), FloatArgumentType.getFloat(context, "pitch"));
 														}))))));
 	}
-
+	
 	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world) {
 		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, entity.position()));
 		if (targets.size() == 1) {
@@ -48,19 +48,19 @@ public class DimensionTeleportSubCommand {
 		}
 		return 0;
 	}
-
+	
 	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world, Vec3 pos) {
 		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, pos));
 		sendPositionInfo(source, targets, world, pos);
 		return 0;
 	}
-
+	
 	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world, Vec3 pos, float yaw, float pitch) {
 		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, pos.x(), pos.y(), pos.z(), yaw, pitch));
 		sendPositionInfo(source, targets, world, pos);
 		return 0;
 	}
-
+	
 	private static void sendPositionInfo(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world, Vec3 pos) {
 		if (targets.size() == 1) {
 			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), world.dimension().location(), pos.x, pos.y, pos.z), true);

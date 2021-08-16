@@ -9,13 +9,13 @@ import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TestEnchantments {
-
+	
 	public static final CommonDeferredRegister<Enchantment> ENCHANTMENTS = CommonDeferredRegister.create(ForgeRegistries.ENCHANTMENTS, TestMod.MODID);
-
+	
 	public static final RegistryObject<Enchantment> AUTO_SMELT = ENCHANTMENTS.register("auto_smelt", AutoSmeltEnchantment::new);
-
+	
 	public static void registerMod(IEventBus bus) {
 		ENCHANTMENTS.register(bus);
 	}
-
+	
 }

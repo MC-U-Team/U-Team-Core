@@ -6,11 +6,11 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.PickaxeItem;
 
 public class UPickaxeItem extends PickaxeItem {
-
+	
 	public UPickaxeItem(Properties properties, IToolMaterial material) {
 		this(null, properties, material);
 	}
-
+	
 	public UPickaxeItem(CreativeModeTab group, Properties properties, IToolMaterial material) {
 		super(material, (int) material.getAdditionalDamage(Tools.PICKAXE), material.getAttackSpeed(Tools.PICKAXE), group == null ? properties : properties.tab(group));
 	}

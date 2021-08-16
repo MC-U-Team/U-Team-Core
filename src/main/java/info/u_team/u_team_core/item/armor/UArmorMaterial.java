@@ -11,7 +11,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class UArmorMaterial implements ArmorMaterial {
-
+	
 	private final int[] durability;
 	private final int[] armorPoints;
 	private final int enchantability;
@@ -19,7 +19,7 @@ public class UArmorMaterial implements ArmorMaterial {
 	private final float toughness;
 	private final float knockbackResistance;
 	private final LazyLoadedValue<Ingredient> repair;
-
+	
 	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> ingredient) {
 		this.durability = durability;
 		this.armorPoints = armorPoints;
@@ -29,46 +29,46 @@ public class UArmorMaterial implements ArmorMaterial {
 		this.knockbackResistance = knockbackResistance;
 		repair = new LazyLoadedValue<>(ingredient);
 	}
-
+	
 	@Override
 	public int getDurabilityForSlot(EquipmentSlot slot) {
 		return durability[slot.getIndex()];
 	}
-
+	
 	@Override
 	public int getDefenseForSlot(EquipmentSlot slot) {
 		return armorPoints[slot.getIndex()];
 	}
-
+	
 	@Override
 	public int getEnchantmentValue() {
 		return enchantability;
 	}
-
+	
 	@Override
 	public SoundEvent getEquipSound() {
 		return soundEvent.get();
 	}
-
+	
 	@Override
 	public Ingredient getRepairIngredient() {
 		return repair.get();
 	}
-
+	
 	@Override
 	public float getToughness() {
 		return toughness;
 	}
-
+	
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public String getName() {
 		return "invalid";
 	}
-
+	
 	@Override
 	public float getKnockbackResistance() {
 		return knockbackResistance;
 	}
-
+	
 }

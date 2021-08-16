@@ -17,29 +17,29 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class ItemStackInfoSubCommand {
-
+	
 	private static final String SUCCESS_TRANSLATION_STRING = "commands.uteamcore.stackinfo.success.";
-
+	
 	public static ArgumentBuilder<CommandSourceStack, ?> register() {
 		return Commands.literal("stackinfo").executes(context -> execute(context.getSource()));
 	}
-
+	
 	private static int execute(CommandSourceStack source) throws CommandSyntaxException {
 		final var stack = source.getPlayerOrException().getMainHandItem();
 		final var item = stack.getItem();
-
+		
 		source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item)), false);
-
+		
 		if (item instanceof BlockItem) {
 			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(((BlockItem) item).getBlock())), false);
 		}
-
+		
 		if (stack.hasTag()) {
 			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "nbt", NbtUtils.toPrettyComponent(stack.getTag())), false);
 		}
 		return 0;
 	}
-
+	
 	private static Component createRegistryInfo(IForgeRegistryEntry<?> entry) {
 		final MutableComponent component = new TextComponent(entry.getRegistryName().toString());
 		var style = component.getStyle();
@@ -50,7 +50,7 @@ public class ItemStackInfoSubCommand {
 		component.setStyle(style);
 		return component;
 	}
-
+	
 	private static String getClassString(Object object) {
 		return object.getClass().getName() + "@" + Integer.toHexString(object.hashCode());
 	}

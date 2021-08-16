@@ -15,16 +15,16 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class DyeableItemDyeRecipe extends CustomRecipe {
-
+	
 	public DyeableItemDyeRecipe(ResourceLocation location) {
 		super(location);
 	}
-
+	
 	@Override
 	public boolean matches(CraftingContainer inventory, Level world) {
 		var dyeableItem = ItemStack.EMPTY;
 		final List<ItemStack> dyeList = Lists.newArrayList();
-
+		
 		for (var index = 0; index < inventory.getContainerSize(); ++index) {
 			final var slotStack = inventory.getItem(index);
 			if (!slotStack.isEmpty()) {
@@ -42,15 +42,15 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 				}
 			}
 		}
-
+		
 		return !dyeableItem.isEmpty() && !dyeList.isEmpty();
 	}
-
+	
 	@Override
 	public ItemStack assemble(CraftingContainer inventory) {
 		var dyeableItem = ItemStack.EMPTY;
 		final List<DyeItem> dyeItemList = Lists.newArrayList();
-
+		
 		for (var index = 0; index < inventory.getContainerSize(); ++index) {
 			final var slotStack = inventory.getItem(index);
 			if (!slotStack.isEmpty()) {
@@ -68,19 +68,19 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 				}
 			}
 		}
-
+		
 		if (!dyeableItem.isEmpty() && !dyeItemList.isEmpty()) {
 			return IDyeableItem.colorStackDyeItem(dyeableItem, dyeItemList);
 		} else {
 			return ItemStack.EMPTY;
 		}
 	}
-
+	
 	@Override
 	public boolean canCraftInDimensions(int width, int height) {
 		return width * height >= 2;
 	}
-
+	
 	@Override
 	public RecipeSerializer<?> getSerializer() {
 		return UCoreRecipeSerializers.CRAFTING_SPECIAL_ITEMDYE.get();

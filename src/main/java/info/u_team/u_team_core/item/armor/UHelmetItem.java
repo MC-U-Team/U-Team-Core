@@ -5,13 +5,13 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 
 public class UHelmetItem extends UArmorItem {
-
+	
 	public UHelmetItem(String textureName, Properties properties, ArmorMaterial material) {
 		this(textureName, null, properties, material);
 	}
-
+	
 	public UHelmetItem(String textureName, CreativeModeTab group, Properties properties, ArmorMaterial material) {
 		super(textureName, group, properties, material, EquipmentSlot.HEAD);
 	}
-
+	
 }

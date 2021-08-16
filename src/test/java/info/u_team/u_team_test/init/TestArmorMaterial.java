@@ -5,7 +5,7 @@ import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class TestArmorMaterial {
-
+	
 	public static final ArmorMaterial BASIC = new UArmorMaterialVanilla(20, new int[] { 5, 6, 8, 2 }, 20, TestSounds.BETTER_ENDERPEARL_USE, 1, 1, () -> Ingredient.of(TestItems.BASIC.get()));
-
+	
 }

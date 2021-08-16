@@ -9,7 +9,7 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.forgespi.language.ModFileScanData.AnnotationData;
 
 public class AnnotationUtil {
-
+	
 	public static List<AnnotationData> getAnnotations(String modid, Type type) {
 		return ModList.get() //
 				.getModFileById(modid) //
@@ -20,5 +20,5 @@ public class AnnotationUtil {
 				.filter(data -> type.equals(data.annotationType())) //
 				.collect(Collectors.toList());
 	}
-
+	
 }

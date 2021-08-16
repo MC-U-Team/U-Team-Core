@@ -6,13 +6,13 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.HoeItem;
 
 public class UHoeItem extends HoeItem {
-
+	
 	public UHoeItem(Properties properties, IToolMaterial material) {
 		this(null, properties, material);
 	}
-
+	
 	public UHoeItem(CreativeModeTab group, Properties properties, IToolMaterial material) {
 		super(material, (int) material.getAdditionalDamage(Tools.HOE), material.getAttackSpeed(Tools.HOE), group == null ? properties : properties.tab(group));
 	}
-
+	
 }

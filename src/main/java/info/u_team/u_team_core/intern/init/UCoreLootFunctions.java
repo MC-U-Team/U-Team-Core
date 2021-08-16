@@ -10,13 +10,13 @@ import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class UCoreLootFunctions {
-
+	
 	public static final LootItemFunctionType SET_TILEENTITY_NBT = new LootItemFunctionType(new SetTileEntityNBTLootFunction.Serializer());
-
+	
 	private static void registerLootFunction(Register<Block> event) {
 		Registry.register(Registry.LOOT_FUNCTION_TYPE, new ResourceLocation(UCoreMod.MODID, "set_tileentity_nbt"), SET_TILEENTITY_NBT);
 	}
-
+	
 	public static void registerMod(IEventBus bus) {
 		bus.addGenericListener(Block.class, UCoreLootFunctions::registerLootFunction);
 	}
