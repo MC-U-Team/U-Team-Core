@@ -4,13 +4,8 @@ function initializeCoreMod() {
 	Opcodes = Java.type("org.objectweb.asm.Opcodes")
 	InsList = Java.type("org.objectweb.asm.tree.InsnList")
 
-	Label = Java.type("org.objectweb.asm.Label")
-
 	LabelNode = Java.type("org.objectweb.asm.tree.LabelNode")
 	VarInsnNode = Java.type("org.objectweb.asm.tree.VarInsnNode")
-	TypeInsnNode = Java.type("org.objectweb.asm.tree.TypeInsnNode")
-	JumpInsnNode = Java.type("org.objectweb.asm.tree.JumpInsnNode")
-
 
 	return {
 		"ServerPlayer#initMenu": {
