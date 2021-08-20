@@ -9,10 +9,8 @@ public abstract class UContainerMenu extends AbstractContainerMenu {
 	protected UContainerMenu(MenuType<?> menuType, int containerId) {
 		super(menuType, containerId);
 	}
-
+	
 	public void initMenu(ServerPlayer player) {
-		System.out.println("player" + player);
-		System.out.println("_CALLED FROM ASM!!");
 	}
-
+	
 }
