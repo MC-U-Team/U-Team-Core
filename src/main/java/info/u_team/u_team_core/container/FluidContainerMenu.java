@@ -190,18 +190,6 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		return true;
 	}
 	
-	// Used for sync with the client
-	
-	public void setFluidStackInSlot(int slot, FluidStack stack) {
-		getFluidSlot(slot).putStack(stack);
-	}
-	
-	public void setAllFluidSlots(List<FluidStack> list) {
-		for (var index = 0; index < list.size(); index++) {
-			getFluidSlot(index).putStack(list.get(index));
-		}
-	}
-	
 	// Send packets for client sync
 	
 	// @Override
@@ -269,10 +257,17 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 				
 				if (synchronizerPlayer != null) {
 					// TODO add state id
-					UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> synchronizerPlayer), new FluidSetSlotContainerMessage(containerId, index, copy));
+					UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> synchronizerPlayer), new FluidSetSlotContainerMessage(containerId, incrementStateId(), index, copy));
 				}
 			}
 		}
+	}
+	
+	// Used for sync with the client
+	
+	public void setFluid(int slot, int stateId, FluidStack stack) {
+		getFluidSlot(slot).putStack(stack);
+		this.stateId = stateId;
 	}
 	
 	public void initializeFluidContents(int stateId, List<FluidStack> stacks) {
