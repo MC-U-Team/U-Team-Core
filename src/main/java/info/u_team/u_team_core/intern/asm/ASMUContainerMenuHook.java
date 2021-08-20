@@ -11,6 +11,7 @@ public class ASMUContainerMenuHook {
 	 */
 	public static void hook(AbstractContainerMenu menu, ServerPlayer player) {
 		if (menu instanceof UAbstractContainerMenu uContainerMenu) {
+			uContainerMenu.setSynchronizerPlayer(player);
 			uContainerMenu.initMenu(player);
 		}
 	}
