@@ -23,13 +23,13 @@ import net.minecraftforge.fmllegacy.network.PacketDistributor;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
-public abstract class FluidContainer extends AbstractContainerMenu {
+public abstract class FluidContainerMenu extends AbstractContainerMenu {
 	
 	protected final NonNullList<FluidStack> lastFluidSlots = NonNullList.create();
 	public final List<FluidSlot> fluidSlots = NonNullList.create();
 	private final NonNullList<FluidStack> remoteFluidSlots = NonNullList.create();
 	
-	public FluidContainer(MenuType<?> type, int id) {
+	public FluidContainerMenu(MenuType<?> type, int id) {
 		super(type, id);
 	}
 	

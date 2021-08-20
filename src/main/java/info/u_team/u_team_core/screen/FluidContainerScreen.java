@@ -6,7 +6,7 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.container.FluidContainer;
+import info.u_team.u_team_core.container.FluidContainerMenu;
 import info.u_team.u_team_core.container.FluidSlot;
 import info.u_team.u_team_core.gui.renderer.FluidInventoryRenderer;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
@@ -38,10 +38,10 @@ public abstract class FluidContainerScreen<T extends AbstractContainerMenu> exte
 	
 	@Override
 	protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
-		if (menu instanceof FluidContainer) {
+		if (menu instanceof FluidContainerMenu) {
 			hoveredFluidSlot = null;
 			
-			final var fluidContainer = (FluidContainer) menu;
+			final var fluidContainer = (FluidContainerMenu) menu;
 			for (var index = 0; index < fluidContainer.fluidSlots.size(); index++) {
 				
 				final var fluidSlot = fluidContainer.fluidSlots.get(index);
@@ -117,8 +117,8 @@ public abstract class FluidContainerScreen<T extends AbstractContainerMenu> exte
 	}
 	
 	private FluidSlot getSelectedFluidSlot(double mouseX, double mouseY) {
-		if (menu instanceof FluidContainer) {
-			final var fluidContainer = (FluidContainer) menu;
+		if (menu instanceof FluidContainerMenu) {
+			final var fluidContainer = (FluidContainerMenu) menu;
 			for (final FluidSlot fluidSlot : fluidContainer.fluidSlots) {
 				if (isFluidSlotSelected(fluidSlot, mouseX, mouseY) && fluidSlot.isEnabled()) {
 					return fluidSlot;

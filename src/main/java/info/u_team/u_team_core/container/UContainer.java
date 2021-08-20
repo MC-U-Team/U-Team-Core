@@ -29,7 +29,7 @@ import net.minecraftforge.items.IItemHandler;
  *
  * @author HyCraftHD
  */
-public abstract class UContainer extends FluidContainer {
+public abstract class UContainer extends FluidContainerMenu {
 	
 	/**
 	 * Server -> Client

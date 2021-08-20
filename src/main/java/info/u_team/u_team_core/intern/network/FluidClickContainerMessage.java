@@ -3,7 +3,7 @@ package info.u_team.u_team_core.intern.network;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.container.FluidContainer;
+import info.u_team.u_team_core.container.FluidContainerMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -50,9 +50,9 @@ public class FluidClickContainerMessage {
 			context.setPacketHandled(true);
 		}
 		
-		private static final Optional<FluidContainer> getFluidContainer(AbstractContainerMenu container, int id) {
-			if (container instanceof FluidContainer && container.containerId == id) {
-				return Optional.of((FluidContainer) container);
+		private static final Optional<FluidContainerMenu> getFluidContainer(AbstractContainerMenu container, int id) {
+			if (container instanceof FluidContainerMenu && container.containerId == id) {
+				return Optional.of((FluidContainerMenu) container);
 			}
 			return Optional.empty();
 		}
