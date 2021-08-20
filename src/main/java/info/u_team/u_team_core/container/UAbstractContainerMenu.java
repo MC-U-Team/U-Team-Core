@@ -4,9 +4,9 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 
-public abstract class UContainerMenu extends AbstractContainerMenu {
+public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	
-	protected UContainerMenu(MenuType<?> menuType, int containerId) {
+	protected UAbstractContainerMenu(MenuType<?> menuType, int containerId) {
 		super(menuType, containerId);
 	}
 	
