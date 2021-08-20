@@ -256,7 +256,6 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 				remoteFluidSlots.set(index, copy);
 				
 				if (synchronizerPlayer != null) {
-					// TODO add state id
 					UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> synchronizerPlayer), new FluidSetSlotContainerMessage(containerId, incrementStateId(), index, copy));
 				}
 			}
