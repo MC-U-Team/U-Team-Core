@@ -40,6 +40,7 @@ function injectUContainerMenuInitMenu(methodNode) {
 		"(Lnet/minecraft/world/inventory/AbstractContainerMenu;Lnet/minecraft/server/level/ServerPlayer;)V",
 		ASMAPI.MethodType.STATIC
 	))
+	insList.add(new LabelNode())
 
 	var returnIns = ASMAPI.findFirstInstruction(methodNode, Opcodes.RETURN)
 	methodNode.instructions.insertBefore(returnIns, insList)
