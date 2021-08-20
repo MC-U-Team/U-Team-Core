@@ -6,7 +6,7 @@ import net.minecraft.world.inventory.MenuType;
 
 public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	
-	private ServerPlayer synchronizerPlayer;
+	protected ServerPlayer synchronizerPlayer;
 	
 	protected UAbstractContainerMenu(MenuType<?> menuType, int containerId) {
 		super(menuType, containerId);

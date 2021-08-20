@@ -23,7 +23,7 @@ import net.minecraftforge.fmllegacy.network.PacketDistributor;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
-public abstract class FluidContainerMenu extends AbstractContainerMenu {
+public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	protected final NonNullList<FluidStack> lastFluidSlots = NonNullList.create();
 	public final List<FluidSlot> fluidSlots = NonNullList.create();
@@ -214,24 +214,33 @@ public abstract class FluidContainerMenu extends AbstractContainerMenu {
 	
 	// Send packets for client sync
 	
-	@Override
-	public void addSlotListener(ContainerListener listener) {
-		super.addSlotListener(listener);
-		if (listener instanceof ServerPlayer) {
-			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) listener), new FluidSetAllContainerMessage(containerId, getFluids()));
-		}
-	}
-	
-	// Called from asm
-	public void setFluidSynchronizer(ServerPlayer player) {
-		System.out.println("player" + player);
-		System.out.println("_CALLED FROM ASM!!");
-	}
+	// @Override
+	// public void addSlotListener(ContainerListener listener) {
+	// super.addSlotListener(listener);
+	// if (listener instanceof ServerPlayer) {
+	// UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) listener), new
+	// FluidSetAllContainerMessage(containerId, stateId, getFluids()));
+	// }
+	// }
 	
 	@Override
 	public void sendAllDataToRemote() {
 		super.sendAllDataToRemote();
 		
+		for (var index = 0; index < fluidSlots.size(); index++) {
+			remoteFluidSlots.set(index, fluidSlots.get(index).getStack().copy());
+		}
+		
+		if (synchronizerPlayer != null) {
+			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> synchronizerPlayer), new FluidSetAllContainerMessage(containerId, stateId, getFluids()));
+		}
+	}
+	
+	public void initializeFluidContents(int stateId, List<FluidStack> stacks) {
+		for (var index = 0; index < stacks.size(); index++) {
+			getFluidSlot(index).putStack(stacks.get(index));
+		}
+		this.stateId = stateId;
 	}
 	
 	@Override
