@@ -225,14 +225,22 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	@Override
 	public void broadcastChanges() {
-		super.broadcastChanges();
-		
 		for (var index = 0; index < fluidSlots.size(); index++) {
 			final var stack = fluidSlots.get(index).getStack();
 			final var supplier = Suppliers.memoize(stack::copy);
 			triggerFluidSlotListeners(index, stack, supplier);
 			synchronizeFluidSlotToRemote(index, stack, supplier);
 		}
+		super.broadcastChanges();
+	}
+	
+	@Override
+	public void broadcastFullState() {
+		for (var index = 0; index < fluidSlots.size(); index++) {
+			final var stack = fluidSlots.get(index).getStack();
+			triggerFluidSlotListeners(index, stack, stack::copy);
+		}
+		super.broadcastFullState();
 	}
 	
 	private void triggerFluidSlotListeners(int index, FluidStack stack, Supplier<FluidStack> supplier) {
