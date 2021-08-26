@@ -23,15 +23,15 @@ import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 public abstract class FluidContainerMenu extends UAbstractContainerMenu {
-
+	
 	protected final NonNullList<FluidStack> lastFluidSlots = NonNullList.create();
 	public final List<FluidSlot> fluidSlots = NonNullList.create();
 	private final NonNullList<FluidStack> remoteFluidSlots = NonNullList.create();
-
+	
 	public FluidContainerMenu(MenuType<?> type, int id) {
 		super(type, id);
 	}
-
+	
 	protected FluidSlot addFluidSlot(FluidSlot slot) {
 		slot.index = fluidSlots.size();
 		fluidSlots.add(slot);
@@ -39,35 +39,35 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		remoteFluidSlots.add(FluidStack.EMPTY);
 		return slot;
 	}
-
+	
 	public FluidSlot getFluidSlot(int slot) {
 		return fluidSlots.get(slot);
 	}
-
+	
 	// Called when a client clicks on a fluid slot
-
+	
 	public void fluidSlotClick(ServerPlayer player, int index, boolean shift, ItemStack clientClickStack) {
 		final var serverClickStack = getCarried();
-
+		
 		// Check if an item is in the hand
-
+		
 		// Check if the client item is the same as the server item stack
 		// Check if the slot index is in range to prevent server crashes with malicious packets
 		if (serverClickStack.isEmpty() || !ItemStack.matches(clientClickStack, serverClickStack) || (index < 0 && index >= fluidSlots.size())) {
 			return;
 		}
-
+		
 		final var fluidSlot = fluidSlots.get(index);
-
+		
 		final Optional<FluidStack> containedFluidOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(serverClickStack, 1)).map(handler -> handler.drain(Integer.MAX_VALUE, FluidAction.SIMULATE));
-
+		
 		// Check if the item stack can hold fluids
 		if (!containedFluidOptional.isPresent()) {
 			return;
 		}
-
+		
 		final var maximumTries = shift ? serverClickStack.getCount() : 1;
-
+		
 		if (!containedFluidOptional.orElseThrow(AssertionError::new).isEmpty()) {
 			for (var i = 0; i < maximumTries; i++) {
 				if (!insertFluidFromItem(player, fluidSlot, shift)) {
@@ -82,37 +82,37 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			}
 		}
 	}
-
+	
 	// TODO make this method better
 	private boolean insertFluidFromItem(ServerPlayer player, FluidSlot fluidSlot, boolean shift) {
-
+		
 		final var playerInventory = new PlayerMainInvWrapper(player.getInventory());
-
+		
 		final var stack = getCarried();
-
+		
 		final var fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
-
+		
 		if (!fluidHandlerOptional.isPresent()) {
 			return false;
 		}
-
+		
 		final var handler = fluidHandlerOptional.orElseThrow(AssertionError::new);
-
+		
 		final var maxAmountToFill = fluidSlot.getSlotCurrentyCapacity();
 		final var drainedFluidStack = handler.drain(maxAmountToFill, FluidAction.EXECUTE);
-
+		
 		if (drainedFluidStack.isEmpty() || !fluidSlot.isFluidValid(drainedFluidStack)) {
 			return false;
 		}
-
+		
 		final var slotEmpty = fluidSlot.getStack().isEmpty();
-
+		
 		if (!slotEmpty && !drainedFluidStack.isFluidEqual(fluidSlot.getStack())) {
 			return false;
 		}
-
+		
 		final var outputStack = handler.getContainer();
-
+		
 		if (stack.getCount() == 1 && !shift) {
 			if (slotEmpty) {
 				fluidSlot.putStack(drainedFluidStack);
@@ -139,30 +139,30 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, 0, getCarried())); // TODO what is state id? Third parameter 0
 		return true;
 	}
-
+	
 	// TODO make this method better (maybe extract to an other class??)
 	private boolean extractFluidToItem(ServerPlayer player, FluidSlot fluidSlot, boolean shift) {
-
+		
 		final var playerInventory = new PlayerMainInvWrapper(player.getInventory());
-
+		
 		final var stack = getCarried();
-
+		
 		final var fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
-
+		
 		if (!fluidHandlerOptional.isPresent()) {
 			return false;
 		}
-
+		
 		final var handler = fluidHandlerOptional.orElseThrow(AssertionError::new);
-
+		
 		final var amountFilled = handler.fill(fluidSlot.getStack(), FluidAction.EXECUTE);
-
+		
 		if (amountFilled <= 0) {
 			return false;
 		}
-
+		
 		final var outputStack = handler.getContainer();
-
+		
 		if (stack.getCount() == 1 && !shift) {
 			fluidSlot.getStack().shrink(amountFilled);
 			if (fluidSlot.getStack().isEmpty()) {
@@ -189,9 +189,9 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, 0, getCarried())); // TODO what is state id? Third parameter 0
 		return true;
 	}
-
+	
 	// Send packets for client sync
-
+	
 	// @Override
 	// public void addSlotListener(ContainerListener listener) {
 	// super.addSlotListener(listener);
@@ -200,29 +200,29 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	// FluidSetAllContainerMessage(containerId, stateId, getFluids()));
 	// }
 	// }
-
+	
 	@Override
 	public void sendAllDataToRemote() {
 		super.sendAllDataToRemote();
-
+		
 		for (var index = 0; index < fluidSlots.size(); index++) {
 			remoteFluidSlots.set(index, fluidSlots.get(index).getStack().copy());
 		}
-
+		
 		if (synchronizerPlayer != null) {
 			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> synchronizerPlayer), new FluidSetAllContainerMessage(containerId, incrementStateId(), remoteFluidSlots));
 		}
 	}
-
+	
 	public NonNullList<FluidStack> getFluids() {
 		final NonNullList<FluidStack> list = NonNullList.create();
-
+		
 		for (FluidSlot fluidSlot : fluidSlots) {
 			list.add(fluidSlot.getStack());
 		}
 		return list;
 	}
-
+	
 	@Override
 	public void broadcastChanges() {
 		for (var index = 0; index < fluidSlots.size(); index++) {
@@ -233,7 +233,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		}
 		super.broadcastChanges();
 	}
-
+	
 	@Override
 	public void broadcastFullState() {
 		for (var index = 0; index < fluidSlots.size(); index++) {
@@ -242,48 +242,56 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		}
 		super.broadcastFullState();
 	}
-
+	
 	private void triggerFluidSlotListeners(int index, FluidStack stack, Supplier<FluidStack> supplier) {
 		final var lastStack = this.lastFluidSlots.get(index);
 		if (!lastStack.isFluidStackIdentical(stack)) {
 			final var copy = supplier.get();
 			lastFluidSlots.set(index, copy);
-
+			
 			// TODO call container listener if custom implementation or so
 			// for (ContainerListener containerlistener : this.containerListeners) {
 			// containerlistener.slotChanged(this, index, copy);
 			// }
 		}
 	}
-
+	
 	private void synchronizeFluidSlotToRemote(int index, FluidStack stack, Supplier<FluidStack> supplier) {
 		if (!suppressRemoteUpdates) {
 			final var remoteStack = remoteFluidSlots.get(index);
 			if (!remoteStack.isFluidStackIdentical(stack)) {
 				final var copy = supplier.get();
 				remoteFluidSlots.set(index, copy);
-
+				
 				if (synchronizerPlayer != null) {
 					UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> synchronizerPlayer), new FluidSetSlotContainerMessage(containerId, incrementStateId(), index, copy));
 				}
 			}
 		}
 	}
-
+	
+	public void setRemoteFluidSlot(int index, FluidStack stack) {
+		remoteFluidSlots.set(index, stack.copy());
+	}
+	
+	public void setRemoteFluidSlotNoCopy(int index, FluidStack stack) {
+		remoteFluidSlots.set(index, stack);
+	}
+	
 	// Used for sync with the client
-
+	
 	public void setFluid(int slot, int stateId, FluidStack stack) {
 		getFluidSlot(slot).putStack(stack);
 		this.stateId = stateId;
 	}
-
+	
 	public void initializeFluidContents(int stateId, List<FluidStack> stacks) {
 		for (var index = 0; index < stacks.size(); index++) {
 			getFluidSlot(index).putStack(stacks.get(index));
 		}
 		this.stateId = stateId;
 	}
-
+	
 	// @Override
 	// public void broadcastChanges() {
 	// super.broadcastChanges();
@@ -304,7 +312,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	// }
 	// }
 	// }
-
+	
 	/**
 	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
 	 * (slot rows) and width (slot columns).
@@ -318,7 +326,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	protected void appendFluidInventory(IFluidHandlerModifiable handler, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendFluidInventory(handler, 0, inventoryHeight, inventoryWidth, x, y);
 	}
-
+	
 	/**
 	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
 	 * (slot rows) and width (slot columns). You must supplier a function that create a fluid slot. With this you can set
@@ -334,7 +342,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	protected void appendFluidInventory(IFluidHandlerModifiable handler, FluidSlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendFluidInventory(handler, function, 0, inventoryHeight, inventoryWidth, x, y);
 	}
-
+	
 	/**
 	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
 	 * (slot rows) and width (slot columns).
@@ -349,7 +357,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	protected void appendFluidInventory(IFluidHandlerModifiable handler, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendFluidInventory(handler, FluidSlot::new, startIndex, inventoryHeight, inventoryWidth, x, y);
 	}
-
+	
 	/**
 	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
 	 * (slot rows) and width (slot columns). You must supplier a function that create a fluid slot. With this you can set
@@ -370,7 +378,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			}
 		}
 	}
-
+	
 	/**
 	 * Used as a function to customize fluid slots with the append methods
 	 *
@@ -378,7 +386,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 */
 	@FunctionalInterface
 	public static interface FluidSlotHandlerFunction {
-
+		
 		/**
 		 * Should return a slot with the applied parameters.
 		 *
