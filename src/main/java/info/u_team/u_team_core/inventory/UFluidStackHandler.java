@@ -54,11 +54,13 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 	
 	@Override
 	public FluidStack insertFluid(int tank, FluidStack stack, InteractionType action) {
-		if (stack.isEmpty())
+		if (stack.isEmpty()) {
 			return FluidStack.EMPTY;
+		}
 		
-		if (!isFluidValid(tank, stack))
+		if (!isFluidValid(tank, stack)) {
 			return stack;
+		}
 		
 		validateTankIndex(tank);
 		
@@ -67,14 +69,16 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 		var limit = getTankCapacity(tank);
 		
 		if (!existing.isEmpty()) {
-			if (!FluidHandlerHelper.canFluidStacksStack(stack, existing))
+			if (!FluidHandlerHelper.canFluidStacksStack(stack, existing)) {
 				return stack;
+			}
 			
 			limit -= existing.getAmount();
 		}
 		
-		if (limit <= 0)
+		if (limit <= 0) {
 			return stack;
+		}
 		
 		final var reachedLimit = stack.getAmount() > limit;
 		
@@ -92,15 +96,17 @@ public class UFluidStackHandler implements IExtendedFluidHandler, INBTSerializab
 	
 	@Override
 	public FluidStack extractFluid(int tank, int amount, InteractionType action) {
-		if (amount == 0)
+		if (amount == 0) {
 			return FluidStack.EMPTY;
+		}
 		
 		validateTankIndex(tank);
 		
 		final var existing = stacks.get(tank);
 		
-		if (existing.isEmpty())
+		if (existing.isEmpty()) {
 			return FluidStack.EMPTY;
+		}
 		
 		final var toExtract = amount;
 		
