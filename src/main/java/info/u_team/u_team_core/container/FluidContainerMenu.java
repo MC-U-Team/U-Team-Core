@@ -28,8 +28,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	public final List<FluidSlot> fluidSlots = NonNullList.create();
 	private final NonNullList<FluidStack> remoteFluidSlots = NonNullList.create();
 	
-	public FluidContainerMenu(MenuType<?> type, int id) {
-		super(type, id);
+	public FluidContainerMenu(MenuType<?> menuType, int containerId) {
+		super(menuType, containerId);
 	}
 	
 	protected FluidSlot addFluidSlot(FluidSlot slot) {
@@ -205,8 +205,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	public void sendAllDataToRemote() {
 		super.sendAllDataToRemote();
 		
-		for (var index = 0; index < fluidSlots.size(); index++) {
-			remoteFluidSlots.set(index, fluidSlots.get(index).getStack().copy());
+		for (var slot = 0; slot < fluidSlots.size(); slot++) {
+			remoteFluidSlots.set(slot, fluidSlots.get(slot).getStack().copy());
 		}
 		
 		if (synchronizerPlayer != null) {
@@ -225,29 +225,29 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	@Override
 	public void broadcastChanges() {
-		for (var index = 0; index < fluidSlots.size(); index++) {
-			final var stack = fluidSlots.get(index).getStack();
+		for (var slot = 0; slot < fluidSlots.size(); slot++) {
+			final var stack = fluidSlots.get(slot).getStack();
 			final var supplier = Suppliers.memoize(stack::copy);
-			triggerFluidSlotListeners(index, stack, supplier);
-			synchronizeFluidSlotToRemote(index, stack, supplier);
+			triggerFluidSlotListeners(slot, stack, supplier);
+			synchronizeFluidSlotToRemote(slot, stack, supplier);
 		}
 		super.broadcastChanges();
 	}
 	
 	@Override
 	public void broadcastFullState() {
-		for (var index = 0; index < fluidSlots.size(); index++) {
-			final var stack = fluidSlots.get(index).getStack();
-			triggerFluidSlotListeners(index, stack, stack::copy);
+		for (var slot = 0; slot < fluidSlots.size(); slot++) {
+			final var stack = fluidSlots.get(slot).getStack();
+			triggerFluidSlotListeners(slot, stack, stack::copy);
 		}
 		super.broadcastFullState();
 	}
 	
-	private void triggerFluidSlotListeners(int index, FluidStack stack, Supplier<FluidStack> supplier) {
-		final var lastStack = this.lastFluidSlots.get(index);
+	private void triggerFluidSlotListeners(int slot, FluidStack stack, Supplier<FluidStack> supplier) {
+		final var lastStack = this.lastFluidSlots.get(slot);
 		if (!lastStack.isFluidStackIdentical(stack)) {
 			final var copy = supplier.get();
-			lastFluidSlots.set(index, copy);
+			lastFluidSlots.set(slot, copy);
 			
 			// TODO call container listener if custom implementation or so
 			// for (ContainerListener containerlistener : this.containerListeners) {
@@ -256,26 +256,26 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		}
 	}
 	
-	private void synchronizeFluidSlotToRemote(int index, FluidStack stack, Supplier<FluidStack> supplier) {
+	private void synchronizeFluidSlotToRemote(int slot, FluidStack stack, Supplier<FluidStack> supplier) {
 		if (!suppressRemoteUpdates) {
-			final var remoteStack = remoteFluidSlots.get(index);
+			final var remoteStack = remoteFluidSlots.get(slot);
 			if (!remoteStack.isFluidStackIdentical(stack)) {
 				final var copy = supplier.get();
-				remoteFluidSlots.set(index, copy);
+				remoteFluidSlots.set(slot, copy);
 				
 				if (synchronizerPlayer != null) {
-					UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> synchronizerPlayer), new FluidSetSlotContainerMessage(containerId, incrementStateId(), index, copy));
+					UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> synchronizerPlayer), new FluidSetSlotContainerMessage(containerId, incrementStateId(), slot, copy));
 				}
 			}
 		}
 	}
 	
-	public void setRemoteFluidSlot(int index, FluidStack stack) {
-		remoteFluidSlots.set(index, stack.copy());
+	public void setRemoteFluidSlot(int slot, FluidStack stack) {
+		remoteFluidSlots.set(slot, stack.copy());
 	}
 	
-	public void setRemoteFluidSlotNoCopy(int index, FluidStack stack) {
-		remoteFluidSlots.set(index, stack);
+	public void setRemoteFluidSlotNoCopy(int slot, FluidStack stack) {
+		remoteFluidSlots.set(slot, stack);
 	}
 	
 	// Used for sync with the client
