@@ -203,7 +203,7 @@ sourceSets {
 }
 
 dependencies {
-	minecraft "net.minecraftforge:forge:1.17.1-37.0.53"
+	minecraft "net.minecraftforge:forge:1.17.1-37.0.58"
 }
 
 curseforge {
