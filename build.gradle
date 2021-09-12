@@ -185,7 +185,7 @@ sourceSets {
 		java {
 			srcDirs += "src/data/java"
 			srcDirs += "src/api/java"
-			//srcDirs += "src/integration/java" TODO enable again when jei has updated
+			srcDirs += "src/integration/java"
 		}
 		resources {
 			srcDirs += "src/generated/resources"
@@ -202,8 +202,16 @@ sourceSets {
 	}
 }
 
+repositories {
+	maven {
+		url = "https://dvs1.progwml6.com/files/maven"
+	}
+}
+
 dependencies {
 	minecraft "net.minecraftforge:forge:1.17.1-37.0.58"
+	compileOnly fg.deobf("mezz.jei:jei-1.17.1:8.0.0.16")
+	runtimeOnly fg.deobf("mezz.jei:jei-1.17.1:8.0.0.16")
 }
 
 curseforge {

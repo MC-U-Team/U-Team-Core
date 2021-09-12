@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.integration.jei;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 import info.u_team.u_team_core.UCoreMod;
@@ -12,14 +11,12 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.IDyeableArmorItem;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
-import net.minecraftforge.items.IItemHandlerModifiable;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraftforge.registries.ForgeRegistries;
 
 @JeiPlugin
@@ -34,21 +31,21 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 	
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
-		final Minecraft minecraft = Minecraft.getInstance();
-		final World world = minecraft.world;
+		final var minecraft = Minecraft.getInstance();
+		final var level = minecraft.level;
 		
-		final IItemHandlerModifiable handler = new UItemStackHandler(9);
+		final var handler = new UItemStackHandler(9);
 		handler.setStackInSlot(1, new ItemStack(Items.WHITE_DYE));
 		
-		final List<ItemStack> items = ForgeRegistries.ITEMS.getValues().stream() //
-				.filter(item -> item instanceof IDyeableItem || item instanceof IDyeableArmorItem) //
+		final var items = ForgeRegistries.ITEMS.getValues().stream() //
+				.filter(item -> item instanceof IDyeableItem || item instanceof DyeableLeatherItem) //
 				.map(ItemStack::new) //
 				.filter(stack -> {
 					handler.setStackInSlot(0, stack.copy());
-					return world.getRecipeManager().getRecipe(IRecipeType.CRAFTING, new CraftingRecipeWrapper(handler, 3, 3), world).isPresent();
+					return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, new CraftingRecipeWrapper(handler, 3, 3), level).isPresent();
 				}).collect(Collectors.toList());
 		
-		registration.addIngredientInfo(items, VanillaTypes.ITEM, new TranslationTextComponent("jei.uteamcore.dyeable.info"));
+		registration.addIngredientInfo(items, VanillaTypes.ITEM, new TranslatableComponent("jei.uteamcore.dyeable.info"));
 	}
 	
 }
