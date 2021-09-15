@@ -73,7 +73,7 @@ public interface IDyeableItem {
 			++colorItemSum;
 		}
 		
-		for (final DyeColor dye : dyeList) {
+		for (final var dye : dyeList) {
 			final var colorComponents = dye.getTextureDiffuseColors();
 			
 			final var red = (int) (colorComponents[0] * 255.0F);
