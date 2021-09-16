@@ -4,12 +4,12 @@ import net.minecraftforge.fluids.FluidStack;
 
 public class FluidHandlerHelper {
 	
-	public static boolean canFluidStacksStack(FluidStack a, FluidStack b) {
-		if (a.isEmpty() || !(a.getFluid() == b.getFluid()) || a.hasTag() != b.hasTag()) {
+	public static boolean canFluidStacksStack(FluidStack stackA, FluidStack stackB) {
+		if (stackA.isEmpty() || !(stackA.getFluid() == stackB.getFluid()) || stackA.hasTag() != stackB.hasTag()) {
 			return false;
 		}
 		
-		return (!a.hasTag() || a.getTag().equals(b.getTag()));
+		return (!stackA.hasTag() || stackA.getTag().equals(stackB.getTag()));
 	}
 	
 	public static FluidStack copyStackWithSize(FluidStack stack, int size) {

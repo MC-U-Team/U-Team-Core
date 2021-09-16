@@ -61,7 +61,7 @@ public class BlockDeferredRegister {
 		final var registry = event.getRegistry();
 		
 		blockToItemsMap.forEach((blockObject, itemObject) -> {
-			final Block block = blockObject.get();
+			final var block = blockObject.get();
 			if (block instanceof IBlockItemProvider) {
 				final var blockItem = ((IBlockItemProvider) block).getBlockItem();
 				if (blockItem != null) {
