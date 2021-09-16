@@ -1,10 +1,5 @@
 package info.u_team.u_team_core.util;
 
-import org.lwjgl.opengl.GL11;
-
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
 /**
  * Basic rgba representation of a color with some conversion methods
  *
@@ -236,15 +231,6 @@ public class RGBA {
 	 */
 	public RGBA setAlphaComponent(float alpha) {
 		return new RGBA(getRed(), getGreen(), getBlue(), (int) (alpha * 255));
-	}
-	
-	/**
-	 * Calls {@link GL11#glColor4f(float, float, float, float)} to color something with gl
-	 */
-	@OnlyIn(Dist.CLIENT)
-	@Deprecated
-	public void glColor() {
-		GL11.glColor4f(getRedComponent(), getGreenComponent(), getBlueComponent(), getAlphaComponent());
 	}
 	
 	@Override
