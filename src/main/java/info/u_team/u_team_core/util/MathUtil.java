@@ -6,7 +6,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Utility class for math
+ * Utility methods for math
  * 
  * @author HyCraftHD
  */

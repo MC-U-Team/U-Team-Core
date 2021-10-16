@@ -8,7 +8,7 @@ import com.google.gson.internal.Streams;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Utility class for gson
+ * Utility methods for gson
  * 
  * @author HyCraftHD
  */

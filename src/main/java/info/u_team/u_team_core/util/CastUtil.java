@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.util;
 
 /**
- * Utility class for casts
+ * Utility methods for casts
  * 
  * @author HyCraftHD
  */

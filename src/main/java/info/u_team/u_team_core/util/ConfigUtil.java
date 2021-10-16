@@ -11,7 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
 /**
- * Load and read json config files with gson
+ * Utility methods for loading and reading json config files with gson
  *
  * @author HyCraftHD
  */

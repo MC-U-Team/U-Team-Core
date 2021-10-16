@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fmlclient.gui.GuiUtils;
 
 /**
- * Some utility methods for guis
+ * Utility methods for guis
  *
  * @author HyCraftHD
  */
