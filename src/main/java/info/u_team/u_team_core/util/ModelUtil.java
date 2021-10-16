@@ -31,17 +31,17 @@ public class ModelUtil {
 	}
 	
 	/**
-	 * Replace the default state container with a custom one. Can remove or add states for the model
+	 * Replace the default state definition with a custom one. Can remove or add states for the model
 	 *
 	 * @param location Resource location of the model
-	 * @param container Custom state container
+	 * @param definition Custom state definition
 	 */
-	public static void addCustomStateContainer(ResourceLocation location, StateDefinition<Block, BlockState> container) {
-		ModelBakery.STATIC_DEFINITIONS.put(location, container);
+	public static void addCustomStateContainer(ResourceLocation location, StateDefinition<Block, BlockState> definition) {
+		ModelBakery.STATIC_DEFINITIONS.put(location, definition);
 	}
 	
 	/**
-	 * Add {@link RenderMaterial} to be loaded to the atlas texture and stitched.
+	 * Add {@link Material} to be loaded to the atlas texture and stitched.
 	 *
 	 * @param material Render Material
 	 */
@@ -50,13 +50,13 @@ public class ModelUtil {
 	}
 	
 	/**
-	 * Utility class for an empty state container
+	 * Utility class for an empty state definition
 	 *
 	 * @author HyCraftHD
 	 */
-	public static class EmptyStateContainer extends StateDefinition<Block, BlockState> {
+	public static class EmptyStateDefinition extends StateDefinition<Block, BlockState> {
 		
-		public EmptyStateContainer(Block block) {
+		public EmptyStateDefinition(Block block) {
 			super(Block::defaultBlockState, block, BlockState::new, new HashMap<>());
 		}
 		
