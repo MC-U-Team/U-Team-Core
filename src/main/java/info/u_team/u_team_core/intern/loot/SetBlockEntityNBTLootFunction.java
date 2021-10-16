@@ -24,8 +24,8 @@ public class SetBlockEntityNBTLootFunction extends LootItemConditionalFunction {
 		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
 			final var compound = new CompoundTag();
 			final var blockEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
-			if (blockEntity instanceof UTileEntity) {
-				((UTileEntity) blockEntity).writeNBT(compound);
+			if (blockEntity instanceof UTileEntity uBlockEntity) {
+				uBlockEntity.writeNBT(compound);
 			} else {
 				blockEntity.save(compound);
 			}
