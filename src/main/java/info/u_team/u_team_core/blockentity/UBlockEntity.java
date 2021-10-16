@@ -97,7 +97,7 @@ public abstract class UBlockEntity extends BlockEntity {
 	}
 	
 	@Override
-	public void onDataPacket(Connection manager, ClientboundBlockEntityDataPacket packet) {
+	public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
 		handleUpdateStateData(packet.getTag());
 	}
 	
