@@ -39,33 +39,33 @@ public class DimensionTeleportSubCommand {
 														}))))));
 	}
 	
-	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, entity.position()));
+	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel level) {
+		targets.forEach(entity -> WorldUtil.teleportEntity(entity, level, entity.position()));
 		if (targets.size() == 1) {
-			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), world.dimension().location()), true);
+			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), level.dimension().location()), true);
 		} else {
-			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), world.dimension().location()), true);
+			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), level.dimension().location()), true);
 		}
 		return 0;
 	}
 	
-	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world, Vec3 pos) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, pos));
-		sendPositionInfo(source, targets, world, pos);
+	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel level, Vec3 pos) {
+		targets.forEach(entity -> WorldUtil.teleportEntity(entity, level, pos));
+		sendPositionInfo(source, targets, level, pos);
 		return 0;
 	}
 	
-	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world, Vec3 pos, float yaw, float pitch) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, world, pos.x(), pos.y(), pos.z(), yaw, pitch));
-		sendPositionInfo(source, targets, world, pos);
+	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel level, Vec3 pos, float yaw, float pitch) {
+		targets.forEach(entity -> WorldUtil.teleportEntity(entity, level, pos.x(), pos.y(), pos.z(), yaw, pitch));
+		sendPositionInfo(source, targets, level, pos);
 		return 0;
 	}
 	
-	private static void sendPositionInfo(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel world, Vec3 pos) {
+	private static void sendPositionInfo(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel level, Vec3 pos) {
 		if (targets.size() == 1) {
-			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), world.dimension().location(), pos.x, pos.y, pos.z), true);
+			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), level.dimension().location(), pos.x, pos.y, pos.z), true);
 		} else {
-			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), world.dimension().location(), pos.x, pos.y, pos.z), true);
+			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), level.dimension().location(), pos.x, pos.y, pos.z), true);
 		}
 	}
 }
