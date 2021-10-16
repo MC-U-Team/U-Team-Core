@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.intern.loot.SetTileEntityNBTLootFunction;
+import info.u_team.u_team_core.intern.loot.SetBlockEntityNBTLootFunction;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -73,7 +73,7 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 				.withPool(LootPool.lootPool() //
 						.setRolls(ConstantValue.exactly(1)) //
 						.add(LootItem.lootTableItem(item)) //
-						.apply(SetTileEntityNBTLootFunction.builder()) //
+						.apply(SetBlockEntityNBTLootFunction.builder()) //
 						.when(ExplosionCondition.survivesExplosion())) //
 				.build();
 	}

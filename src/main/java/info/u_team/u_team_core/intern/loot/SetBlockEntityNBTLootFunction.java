@@ -13,9 +13,9 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
-public class SetTileEntityNBTLootFunction extends LootItemConditionalFunction {
+public class SetBlockEntityNBTLootFunction extends LootItemConditionalFunction {
 	
-	private SetTileEntityNBTLootFunction(LootItemCondition[] conditions) {
+	private SetBlockEntityNBTLootFunction(LootItemCondition[] conditions) {
 		super(conditions);
 	}
 	
@@ -23,11 +23,11 @@ public class SetTileEntityNBTLootFunction extends LootItemConditionalFunction {
 	public ItemStack run(ItemStack stack, LootContext context) {
 		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
 			final var compound = new CompoundTag();
-			final var tileEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
-			if (tileEntity instanceof UTileEntity) {
-				((UTileEntity) tileEntity).writeNBT(compound);
+			final var blockEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
+			if (blockEntity instanceof UTileEntity) {
+				((UTileEntity) blockEntity).writeNBT(compound);
 			} else {
-				tileEntity.save(compound);
+				blockEntity.save(compound);
 			}
 			if (!compound.isEmpty()) {
 				stack.addTagElement("BlockEntityTag", compound);
@@ -37,19 +37,19 @@ public class SetTileEntityNBTLootFunction extends LootItemConditionalFunction {
 	}
 	
 	public static LootItemConditionalFunction.Builder<?> builder() {
-		return simpleBuilder((conditions) -> new SetTileEntityNBTLootFunction(conditions));
+		return simpleBuilder((conditions) -> new SetBlockEntityNBTLootFunction(conditions));
 	}
 	
 	@Override
 	public LootItemFunctionType getType() {
-		return UCoreLootFunctions.SET_TILEENTITY_NBT;
+		return UCoreLootFunctions.SET_BLOCKENTITY_NBT;
 	}
 	
-	public static class Serializer extends LootItemConditionalFunction.Serializer<SetTileEntityNBTLootFunction> {
+	public static class Serializer extends LootItemConditionalFunction.Serializer<SetBlockEntityNBTLootFunction> {
 		
 		@Override
-		public SetTileEntityNBTLootFunction deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootItemCondition[] conditions) {
-			return new SetTileEntityNBTLootFunction(conditions);
+		public SetBlockEntityNBTLootFunction deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootItemCondition[] conditions) {
+			return new SetBlockEntityNBTLootFunction(conditions);
 		}
 	}
 }
