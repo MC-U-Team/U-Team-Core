@@ -4,7 +4,7 @@ import info.u_team.u_team_core.util.registry.BlockDeferredRegister;
 import net.minecraft.world.item.Item;
 
 /**
- * Implement this to a block to get the block item automatically registered with {@link BlockDeferredRegister}
+ * Implement this in a block to get the block item automatically registered with {@link BlockDeferredRegister}
  *
  * @author HyCraftHD
  */
