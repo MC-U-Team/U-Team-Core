@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.item.tool;
+package info.u_team.u_team_core.item.tier;
 
 import java.util.function.Supplier;
 

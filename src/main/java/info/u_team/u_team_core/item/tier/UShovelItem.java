@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.item.tool;
+package info.u_team.u_team_core.item.tier;
 
 import info.u_team.u_team_core.api.item.ExtendedTier;
 import info.u_team.u_team_core.api.item.ExtendedTier.Tools;
