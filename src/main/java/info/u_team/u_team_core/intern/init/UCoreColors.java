@@ -2,7 +2,6 @@ package info.u_team.u_team_core.intern.init;
 
 import info.u_team.u_team_core.api.dye.DyeableItemsRegistry;
 import info.u_team.u_team_core.api.dye.IDyeableItem;
-import info.u_team.u_team_core.item.USpawnEggItem;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -17,14 +16,6 @@ public class UCoreColors {
 			}
 			return 0;
 		}, DyeableItemsRegistry.getDyeableItems().stream().toArray(Item[]::new));
-		
-		USpawnEggItem.LAZY_EGGS.forEach(pair -> {
-			final var item = pair.getValue();
-			
-			event.getItemColors().register((stack, color) -> {
-				return item.getColor(color);
-			}, item);
-		});
 	}
 	
 	public static void registerMod(IEventBus bus) {
