@@ -210,8 +210,8 @@ repositories {
 
 dependencies {
 	minecraft "net.minecraftforge:forge:1.17.1-37.0.95"
-	compileOnly fg.deobf("mezz.jei:jei-1.17.1:8.1.0.22:api")
-	runtimeOnly fg.deobf("mezz.jei:jei-1.17.1:8.1.0.22")
+	compileOnly fg.deobf("mezz.jei:jei-1.17.1:8.1.0.26:api")
+	runtimeOnly fg.deobf("mezz.jei:jei-1.17.1:8.1.0.26")
 }
 
 curseforge {
