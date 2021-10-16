@@ -67,7 +67,8 @@ public class ConfigUtil {
 			Files.deleteIfExists(path);
 			Files.createDirectories(directory);
 			Files.createFile(path);
-			try (var bufferedWriter = Files.newBufferedWriter(path); var writer = GsonUtil.createTabWriter(gson, bufferedWriter)) {
+			try (var bufferedWriter = Files.newBufferedWriter(path); //
+					var writer = GsonUtil.createTabWriter(gson, bufferedWriter)) {
 				return write.apply(writer);
 			}
 		}
