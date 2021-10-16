@@ -9,7 +9,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
 /**
- * Basic implementation of {@link TileEntity} with some extra data synchronization methods.
+ * Basic implementation of {@link BlockEntity} with some extra data synchronization methods.
  *
  * @author HyCraftHD
  */
