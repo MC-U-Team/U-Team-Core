@@ -75,7 +75,7 @@ public class ReflectionUtil {
 	}
 	
 	/**
-	 * Runtime exeception for field access exceptions.
+	 * Runtime exception for field access exceptions.
 	 * 
 	 * @author HyCraftHD
 	 */
