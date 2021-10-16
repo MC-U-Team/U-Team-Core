@@ -15,21 +15,21 @@ public class UEntityBlock extends UBlock implements EntityBlockProvider {
 	
 	protected final Supplier<? extends BlockEntityType<?>> tileEntityType;
 	
-	public UEntityBlock(Properties properties, Supplier<? extends BlockEntityType<?>> tileEntityType) {
-		this(null, properties, tileEntityType);
+	public UEntityBlock(Properties properties, Supplier<? extends BlockEntityType<?>> blockEntityType) {
+		this(null, properties, blockEntityType);
 	}
 	
-	public UEntityBlock(CreativeModeTab creativeTab, Properties properties, Supplier<? extends BlockEntityType<?>> tileEntityType) {
-		this(creativeTab, properties, null, tileEntityType);
+	public UEntityBlock(CreativeModeTab creativeTab, Properties properties, Supplier<? extends BlockEntityType<?>> blockEntityType) {
+		this(creativeTab, properties, null, blockEntityType);
 	}
 	
-	public UEntityBlock(Properties properties, Item.Properties blockItemProperties, Supplier<? extends BlockEntityType<?>> tileEntityType) {
-		this(null, properties, blockItemProperties, tileEntityType);
+	public UEntityBlock(Properties properties, Item.Properties blockItemProperties, Supplier<? extends BlockEntityType<?>> blockEntityType) {
+		this(null, properties, blockItemProperties, blockEntityType);
 	}
 	
-	public UEntityBlock(CreativeModeTab creativeTab, Properties properties, Item.Properties blockItemProperties, Supplier<? extends BlockEntityType<?>> tileEntityType) {
+	public UEntityBlock(CreativeModeTab creativeTab, Properties properties, Item.Properties blockItemProperties, Supplier<? extends BlockEntityType<?>> blockEntityType) {
 		super(creativeTab, properties, blockItemProperties);
-		this.tileEntityType = Suppliers.memoize(tileEntityType::get);
+		this.tileEntityType = Suppliers.memoize(blockEntityType::get);
 	}
 	
 	@Override
