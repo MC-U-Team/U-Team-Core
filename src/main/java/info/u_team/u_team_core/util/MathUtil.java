@@ -5,14 +5,37 @@ import java.util.Random;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
+/**
+ * Utility class for math
+ * 
+ * @author HyCraftHD
+ */
 public class MathUtil {
 	
+	/**
+	 * Static random instance if random numbers without specific seed are desired.
+	 */
 	public static final Random RANDOM = new Random();
 	
+	/**
+	 * Rotate a vector counter clock wise around the y axis.
+	 * 
+	 * @param vec Vector to rotate
+	 * @param angle Rotation angle
+	 * @return Rotated vector
+	 */
 	public static Vec3 rotateVectorAroundYCC(Vec3 vec, double angle) {
 		return rotateVectorCC(vec, new Vec3(0, 1, 0), angle);
 	}
 	
+	/**
+	 * Rotate a vector counter clock wise around an axis.
+	 * 
+	 * @param vec Vector to rotate
+	 * @param axis Rotation axis
+	 * @param angle Rotation angle
+	 * @return Rotated vector
+	 */
 	public static Vec3 rotateVectorCC(Vec3 vec, Vec3 axis, double angle) {
 		final var x = vec.x();
 		final var y = vec.y();
