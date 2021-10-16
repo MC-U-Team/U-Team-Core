@@ -16,6 +16,6 @@ public interface BlockItemProvider {
 	 *
 	 * @return Block item instance
 	 */
-	Item getBlockItem();
+	Item blockItem();
 	
 }

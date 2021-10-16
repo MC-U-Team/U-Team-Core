@@ -32,7 +32,7 @@ public class UBlock extends Block implements BlockItemProvider {
 	}
 	
 	@Override
-	public Item getBlockItem() {
+	public Item blockItem() {
 		return blockItem;
 	}
 }
