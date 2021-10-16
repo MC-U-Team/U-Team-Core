@@ -1,12 +1,12 @@
 package info.u_team.u_team_test.container;
 
-import info.u_team.u_team_core.menu.UTileEntityContainer;
+import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
 import info.u_team.u_team_test.init.TestContainers;
 import info.u_team.u_team_test.tileentity.BasicFluidInventoryTileEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 
-public class BasicFluidInventoryContainer extends UTileEntityContainer<BasicFluidInventoryTileEntity> {
+public class BasicFluidInventoryContainer extends UBlockEntityContainerMenu<BasicFluidInventoryTileEntity> {
 	
 	// Client
 	public BasicFluidInventoryContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {

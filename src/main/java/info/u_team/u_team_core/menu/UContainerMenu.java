@@ -29,7 +29,7 @@ import net.minecraftforge.items.IItemHandler;
  *
  * @author HyCraftHD
  */
-public abstract class UContainer extends FluidContainerMenu {
+public abstract class UContainerMenu extends FluidContainerMenu {
 	
 	/**
 	 * Server -> Client
@@ -47,7 +47,7 @@ public abstract class UContainer extends FluidContainerMenu {
 	 * @param type Container type
 	 * @param id Window id
 	 */
-	public UContainer(MenuType<?> type, int id) {
+	public UContainerMenu(MenuType<?> type, int id) {
 		super(type, id);
 		syncServerToClient = new ArrayList<>();
 		syncClientToServer = new ArrayList<>();

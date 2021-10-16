@@ -12,7 +12,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-public abstract class UTileEntityContainer<T extends BlockEntity> extends UContainer {
+public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends UContainerMenu {
 	
 	protected final Inventory playerInventory;
 	protected final T tileEntity;
@@ -25,7 +25,7 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 	 * @param playerInventory Player inventory
 	 * @param tileEntity Tile entity
 	 */
-	public UTileEntityContainer(MenuType<?> type, int id, Inventory playerInventory, T tileEntity) {
+	public UBlockEntityContainerMenu(MenuType<?> type, int id, Inventory playerInventory, T tileEntity) {
 		this(type, id, playerInventory, tileEntity, true);
 	}
 	
@@ -38,7 +38,7 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 	 * @param tileEntity Tile entity
 	 * @param init If the constructor should call {@link #init(boolean)}
 	 */
-	public UTileEntityContainer(MenuType<?> type, int id, Inventory playerInventory, T tileEntity, boolean init) {
+	public UBlockEntityContainerMenu(MenuType<?> type, int id, Inventory playerInventory, T tileEntity, boolean init) {
 		super(type, id);
 		this.playerInventory = playerInventory;
 		this.tileEntity = tileEntity;
@@ -57,7 +57,7 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 	 * @param buffer Initial data (specified with
 	 *        {@link NetworkHooks#openGui(net.minecraft.entity.player.ServerPlayerEntity, net.minecraft.inventory.container.INamedContainerProvider, java.util.function.Consumer)})
 	 */
-	public UTileEntityContainer(MenuType<?> type, int id, Inventory playerInventory, FriendlyByteBuf buffer) {
+	public UBlockEntityContainerMenu(MenuType<?> type, int id, Inventory playerInventory, FriendlyByteBuf buffer) {
 		this(type, id, playerInventory, buffer, true);
 	}
 	
@@ -72,7 +72,7 @@ public abstract class UTileEntityContainer<T extends BlockEntity> extends UConta
 	 *        {@link NetworkHooks#openGui(net.minecraft.entity.player.ServerPlayerEntity, net.minecraft.inventory.container.INamedContainerProvider, java.util.function.Consumer)})
 	 * @param init If the constructor should call {@link #init(boolean)}
 	 */
-	public UTileEntityContainer(MenuType<?> type, int id, Inventory playerInventory, FriendlyByteBuf buffer, boolean init) {
+	public UBlockEntityContainerMenu(MenuType<?> type, int id, Inventory playerInventory, FriendlyByteBuf buffer, boolean init) {
 		super(type, id);
 		this.playerInventory = playerInventory;
 		this.tileEntity = getClientTileEntity(buffer);

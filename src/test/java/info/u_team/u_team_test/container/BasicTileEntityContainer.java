@@ -3,13 +3,13 @@ package info.u_team.u_team_test.container;
 import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
-import info.u_team.u_team_core.menu.UTileEntityContainer;
+import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
 import info.u_team.u_team_test.init.TestContainers;
 import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 
-public class BasicTileEntityContainer extends UTileEntityContainer<BasicTileEntityTileEntity> {
+public class BasicTileEntityContainer extends UBlockEntityContainerMenu<BasicTileEntityTileEntity> {
 	
 	private EmptyMessageHolder valueMessage;
 	private MessageHolder cooldownMessage;

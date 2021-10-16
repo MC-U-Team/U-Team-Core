@@ -3,7 +3,7 @@ package info.u_team.u_team_core.intern.network;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.menu.UContainer;
+import info.u_team.u_team_core.menu.UContainerMenu;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
@@ -74,9 +74,9 @@ public class BufferPropertyContainerMessage {
 			getUContainer(Minecraft.getInstance().player.containerMenu, message.id).ifPresent(container -> container.updateValue(message, LogicalSide.CLIENT));
 		}
 		
-		private static final Optional<UContainer> getUContainer(AbstractContainerMenu container, int id) {
-			if (container instanceof UContainer && container.containerId == id) {
-				return Optional.of((UContainer) container);
+		private static final Optional<UContainerMenu> getUContainer(AbstractContainerMenu container, int id) {
+			if (container instanceof UContainerMenu && container.containerId == id) {
+				return Optional.of((UContainerMenu) container);
 			}
 			return Optional.empty();
 		}
