@@ -1,14 +1,14 @@
 package info.u_team.u_team_core.util;
 
-import java.util.function.Supplier;
+import java.lang.reflect.Field;
 
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 public class BlockProperties extends Properties {
+	
+	private static final Field LOOT_TABLE_SUPPLIER_FIELD = ReflectionUtil.findField(Properties.class, "lootTableSupplier");
 	
 	public BlockProperties(Material material, MaterialColor color) {
 		super(material, color);
@@ -37,14 +37,6 @@ public class BlockProperties extends Properties {
 		emissiveRendering = properties.emissiveRendering;
 		dynamicShape = properties.dynamicShape;
 		
-		setLootTableSupplier(getLootTableSupplier(properties));
-	}
-	
-	private Supplier<ResourceLocation> getLootTableSupplier(Properties properties) {
-		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "lootTableSupplier");
-	}
-	
-	private void setLootTableSupplier(Supplier<ResourceLocation> value) {
-		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "lootTableSupplier");
+		ReflectionUtil.copyValue(LOOT_TABLE_SUPPLIER_FIELD, properties, this);
 	}
 }

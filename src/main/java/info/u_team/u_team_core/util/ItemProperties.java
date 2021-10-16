@@ -1,9 +1,12 @@
 package info.u_team.u_team_core.util;
 
+import java.lang.reflect.Field;
+
 import net.minecraft.world.item.Item.Properties;
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 public class ItemProperties extends Properties {
+	
+	private static final Field CAN_REPAIR_FIELD = ReflectionUtil.findField(Properties.class, "canRepair");
 	
 	public ItemProperties() {
 	}
@@ -16,14 +19,7 @@ public class ItemProperties extends Properties {
 		rarity = properties.rarity;
 		foodProperties = properties.foodProperties;
 		isFireResistant = properties.isFireResistant;
-		setValueCanRepair(getValueCanRepair(properties));
-	}
-	
-	private boolean getValueCanRepair(Properties properties) {
-		return ObfuscationReflectionHelper.getPrivateValue(Properties.class, properties, "canRepair");
-	}
-	
-	private void setValueCanRepair(boolean value) {
-		ObfuscationReflectionHelper.setPrivateValue(Properties.class, this, value, "canRepair");
+		
+		ReflectionUtil.copyValue(CAN_REPAIR_FIELD, properties, this);
 	}
 }
