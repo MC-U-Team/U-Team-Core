@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.block;
 
-import info.u_team.u_team_core.block.UTileEntityBlock;
+import info.u_team.u_team_core.block.UEntityBlock;
 import info.u_team.u_team_test.init.TestItemGroups;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
@@ -23,7 +23,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class BasicTileEntityBlock extends UTileEntityBlock {
+public class BasicTileEntityBlock extends UEntityBlock {
 	
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	
