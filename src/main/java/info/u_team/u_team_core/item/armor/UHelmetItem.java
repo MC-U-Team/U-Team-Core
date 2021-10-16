@@ -10,8 +10,8 @@ public class UHelmetItem extends UArmorItem {
 		this(textureName, null, properties, material);
 	}
 	
-	public UHelmetItem(String textureName, CreativeModeTab group, Properties properties, ArmorMaterial material) {
-		super(textureName, group, properties, material, EquipmentSlot.HEAD);
+	public UHelmetItem(String textureName, CreativeModeTab creativeTab, Properties properties, ArmorMaterial material) {
+		super(textureName, creativeTab, properties, material, EquipmentSlot.HEAD);
 	}
 	
 }

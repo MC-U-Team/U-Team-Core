@@ -10,8 +10,8 @@ public class UChestplateItem extends UArmorItem {
 		this(textureName, null, properties, material);
 	}
 	
-	public UChestplateItem(String textureName, CreativeModeTab group, Properties properties, ArmorMaterial material) {
-		super(textureName, group, properties, material, EquipmentSlot.CHEST);
+	public UChestplateItem(String textureName, CreativeModeTab creativeTab, Properties properties, ArmorMaterial material) {
+		super(textureName, creativeTab, properties, material, EquipmentSlot.CHEST);
 	}
 	
 }

@@ -15,8 +15,8 @@ public class UArmorItem extends ArmorItem {
 		this(textureName, null, properties, material, slot);
 	}
 	
-	public UArmorItem(String textureName, CreativeModeTab group, Properties properties, ArmorMaterial material, EquipmentSlot slot) {
-		super(material, slot, group == null ? properties : properties.tab(group));
+	public UArmorItem(String textureName, CreativeModeTab creativeTab, Properties properties, ArmorMaterial material, EquipmentSlot slot) {
+		super(material, slot, creativeTab == null ? properties : properties.tab(creativeTab));
 		this.textureName = textureName;
 	}
 	
@@ -29,17 +29,12 @@ public class UArmorItem extends ArmorItem {
 	}
 	
 	protected String getTypeString(EquipmentSlot slot) {
-		switch (slot) {
-		case HEAD:
-			return "helmet";
-		case CHEST:
-			return "chestplate";
-		case LEGS:
-			return "leggings";
-		case FEET:
-			return "boots";
-		default:
-			return "invalid";
-		}
+		return switch (slot) {
+		case HEAD -> "helmet";
+		case CHEST -> "chestplate";
+		case LEGS -> "leggings";
+		case FEET -> "boots";
+		default -> "invalid";
+		};
 	}
 }

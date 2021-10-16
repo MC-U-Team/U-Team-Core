@@ -10,8 +10,8 @@ public class UBootsItem extends UArmorItem {
 		this(textureName, null, properties, material);
 	}
 	
-	public UBootsItem(String textureName, CreativeModeTab group, Properties properties, ArmorMaterial material) {
-		super(textureName, group, properties, material, EquipmentSlot.FEET);
+	public UBootsItem(String textureName, CreativeModeTab creativeTab, Properties properties, ArmorMaterial material) {
+		super(textureName, creativeTab, properties, material, EquipmentSlot.FEET);
 	}
 	
 }

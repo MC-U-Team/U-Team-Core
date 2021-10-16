@@ -10,8 +10,8 @@ public class ULeggingsItem extends UArmorItem {
 		this(textureName, null, properties, material);
 	}
 	
-	public ULeggingsItem(String textureName, CreativeModeTab group, Properties properties, ArmorMaterial material) {
-		super(textureName, group, properties, material, EquipmentSlot.LEGS);
+	public ULeggingsItem(String textureName, CreativeModeTab creativeTab, Properties properties, ArmorMaterial material) {
+		super(textureName, creativeTab, properties, material, EquipmentSlot.LEGS);
 	}
 	
 }

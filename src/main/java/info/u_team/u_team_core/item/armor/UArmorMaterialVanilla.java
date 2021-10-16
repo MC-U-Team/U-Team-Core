@@ -26,12 +26,12 @@ public class UArmorMaterialVanilla extends UArmorMaterial {
 		return texture == null ? super.getName() : texture;
 	}
 	
-	private static final int[] baseDurability = new int[] { 13, 15, 16, 11 };
+	private static final int[] BASE_DURABILITY = new int[] { 13, 15, 16, 11 };
 	
 	private static int[] createDurabilityVanillaArray(int durability) {
 		final var array = new int[4];
 		for (var i = 0; i < array.length; i++) {
-			array[i] = baseDurability[i] * durability;
+			array[i] = BASE_DURABILITY[i] * durability;
 		}
 		return array;
 	}
