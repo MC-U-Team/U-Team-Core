@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.intern.asm;
 
-import info.u_team.u_team_core.container.UAbstractContainerMenu;
+import info.u_team.u_team_core.menu.UAbstractContainerMenu;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 

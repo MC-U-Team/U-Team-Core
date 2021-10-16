@@ -3,7 +3,7 @@ package info.u_team.u_team_test.container;
 import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
-import info.u_team.u_team_core.container.UTileEntityContainer;
+import info.u_team.u_team_core.menu.UTileEntityContainer;
 import info.u_team.u_team_test.init.TestContainers;
 import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
 import net.minecraft.network.FriendlyByteBuf;

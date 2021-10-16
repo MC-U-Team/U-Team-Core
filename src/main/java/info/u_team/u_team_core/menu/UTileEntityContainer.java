@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.container;
+package info.u_team.u_team_core.menu;
 
 import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
 import io.netty.buffer.Unpooled;

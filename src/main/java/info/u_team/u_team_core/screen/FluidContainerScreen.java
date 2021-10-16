@@ -6,11 +6,11 @@ import java.util.List;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.container.FluidContainerMenu;
-import info.u_team.u_team_core.container.FluidSlot;
 import info.u_team.u_team_core.gui.renderer.FluidInventoryRenderer;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
+import info.u_team.u_team_core.menu.FluidContainerMenu;
+import info.u_team.u_team_core.menu.FluidSlot;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.container.FluidContainerMenu;
+import info.u_team.u_team_core.menu.FluidContainerMenu;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;

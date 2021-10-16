@@ -3,7 +3,7 @@ package info.u_team.u_team_core.intern.network;
 import java.util.Optional;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.container.UContainer;
+import info.u_team.u_team_core.menu.UContainer;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;

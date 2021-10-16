@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.container;
+package info.u_team.u_team_core.menu;
 
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;

@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.container;
 
-import info.u_team.u_team_core.container.UTileEntityContainer;
+import info.u_team.u_team_core.menu.UTileEntityContainer;
 import info.u_team.u_team_test.init.TestContainers;
 import info.u_team.u_team_test.tileentity.BasicFluidInventoryTileEntity;
 import net.minecraft.network.FriendlyByteBuf;
