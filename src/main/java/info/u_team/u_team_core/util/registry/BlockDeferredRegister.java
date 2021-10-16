@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.api.registry.IBlockItemProvider;
+import info.u_team.u_team_core.api.registry.BlockItemProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -31,7 +31,7 @@ public class BlockDeferredRegister {
 		blockToItemsMap = new LinkedHashMap<>();
 	}
 	
-	public <B extends Block & IBlockItemProvider, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
+	public <B extends Block & BlockItemProvider, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
 		final RegistryObject<B> block = blocks.register(name, supplier);
 		final RegistryObject<I> item = RegistryObject.of(new ResourceLocation(blocks.getModid(), name), ForgeRegistries.ITEMS);
 		
@@ -62,8 +62,8 @@ public class BlockDeferredRegister {
 		
 		blockToItemsMap.forEach((blockObject, itemObject) -> {
 			final var block = blockObject.get();
-			if (block instanceof IBlockItemProvider) {
-				final var blockItem = ((IBlockItemProvider) block).getBlockItem();
+			if (block instanceof BlockItemProvider) {
+				final var blockItem = ((BlockItemProvider) block).getBlockItem();
 				if (blockItem != null) {
 					registry.register(blockItem.setRegistryName(itemObject.getId()));
 					((RegistryObject<Item>) itemObject).updateReference(registry);

@@ -1,14 +1,14 @@
 package info.u_team.u_team_core.api.registry;
 
 import info.u_team.u_team_core.util.registry.BlockDeferredRegister;
-import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 
 /**
  * Implement this to a block to get the block item automatically registered with {@link BlockDeferredRegister}
  *
  * @author HyCraftHD
  */
-public interface IBlockItemProvider {
+public interface BlockItemProvider {
 	
 	/**
 	 * Must return the same block item instance every time you call this method. The registry name will be set to the name
@@ -16,6 +16,6 @@ public interface IBlockItemProvider {
 	 *
 	 * @return Block item instance
 	 */
-	BlockItem getBlockItem();
+	Item getBlockItem();
 	
 }

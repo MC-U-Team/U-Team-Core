@@ -1,14 +1,14 @@
 package info.u_team.u_team_core.block;
 
-import info.u_team.u_team_core.api.registry.IBlockItemProvider;
+import info.u_team.u_team_core.api.registry.BlockItemProvider;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-public class UBlock extends Block implements IBlockItemProvider {
+public class UBlock extends Block implements BlockItemProvider {
 	
-	protected final BlockItem blockItem;
+	protected final Item blockItem;
 	
 	public UBlock(Properties properties) {
 		this(null, properties);
@@ -27,12 +27,12 @@ public class UBlock extends Block implements IBlockItemProvider {
 		blockItem = createBlockItem(blockItemProperties == null ? new Item.Properties().tab(creativeTab) : creativeTab == null ? blockItemProperties : blockItemProperties.tab(creativeTab));
 	}
 	
-	protected BlockItem createBlockItem(Item.Properties blockItemProperties) {
+	protected Item createBlockItem(Item.Properties blockItemProperties) {
 		return new BlockItem(this, blockItemProperties);
 	}
 	
 	@Override
-	public BlockItem getBlockItem() {
+	public Item getBlockItem() {
 		return blockItem;
 	}
 }
