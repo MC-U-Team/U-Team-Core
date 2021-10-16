@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 /**
- * Utility class for reflection stuff
+ * Utility methods for reflection stuff
  * 
  * @author HyCraftHD
  */
