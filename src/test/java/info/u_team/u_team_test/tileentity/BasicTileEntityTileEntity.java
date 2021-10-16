@@ -1,8 +1,8 @@
 package info.u_team.u_team_test.tileentity;
 
 import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
+import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
-import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -22,7 +22,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BasicTileEntityTileEntity extends UTileEntity implements IInitSyncedTileEntity {
+public class BasicTileEntityTileEntity extends UBlockEntity implements IInitSyncedTileEntity {
 	
 	private final TileEntityUItemStackHandler slots;
 	
@@ -66,16 +66,16 @@ public class BasicTileEntityTileEntity extends UTileEntity implements IInitSynce
 	}
 	
 	@Override
-	public void writeNBT(CompoundTag compound) {
-		super.writeNBT(compound);
+	public void saveNBT(CompoundTag compound) {
+		super.saveNBT(compound);
 		compound.put("inventory", slots.serializeNBT());
 		compound.putInt("value", value);
 		compound.putInt("cooldown", cooldown);
 	}
 	
 	@Override
-	public void readNBT(CompoundTag compound) {
-		super.readNBT(compound);
+	public void loadNBT(CompoundTag compound) {
+		super.loadNBT(compound);
 		value = compound.getInt("value");
 		cooldown = compound.getInt("cooldown");
 		slots.deserializeNBT(compound.getCompound("inventory"));

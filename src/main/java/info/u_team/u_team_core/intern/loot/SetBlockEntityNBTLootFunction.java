@@ -3,8 +3,8 @@ package info.u_team.u_team_core.intern.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 
+import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.intern.init.UCoreLootFunctions;
-import info.u_team.u_team_core.tileentity.UTileEntity;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -24,8 +24,8 @@ public class SetBlockEntityNBTLootFunction extends LootItemConditionalFunction {
 		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
 			final var compound = new CompoundTag();
 			final var blockEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
-			if (blockEntity instanceof UTileEntity uBlockEntity) {
-				uBlockEntity.writeNBT(compound);
+			if (blockEntity instanceof UBlockEntity uBlockEntity) {
+				uBlockEntity.saveNBT(compound);
 			} else {
 				blockEntity.save(compound);
 			}

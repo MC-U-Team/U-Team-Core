@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.tileentity;
+package info.u_team.u_team_core.blockentity;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
@@ -13,40 +13,40 @@ import net.minecraft.world.level.block.state.BlockState;
  *
  * @author HyCraftHD
  */
-public abstract class UTileEntity extends BlockEntity {
+public abstract class UBlockEntity extends BlockEntity {
 	
-	public UTileEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+	public UBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
 	}
 	
 	@Override
-	public CompoundTag save(CompoundTag compound) {
-		super.save(compound);
-		writeNBT(compound);
-		return compound;
+	public CompoundTag save(CompoundTag tag) {
+		super.save(tag);
+		saveNBT(tag);
+		return tag;
 	}
 	
 	@Override
-	public void load(CompoundTag compound) {
-		super.load(compound);
-		readNBT(compound);
+	public void load(CompoundTag tag) {
+		super.load(tag);
+		loadNBT(tag);
 	}
 	
 	/**
-	 * Save data to disk. The {@link TileEntity#markDirty()} method must be called before.
+	 * Save data to disk. The {@link #setChanged()} method must be called before.
 	 *
-	 * @param compound
+	 * @param tag
 	 */
-	public void writeNBT(CompoundTag compound) {
+	public void saveNBT(CompoundTag tag) {
 	}
 	
 	/**
 	 * Reads data from disk.
 	 *
 	 * @param state
-	 * @param compound
+	 * @param tag
 	 */
-	public void readNBT(CompoundTag compound) {
+	public void loadNBT(CompoundTag tag) {
 	}
 	
 	// sync server -> client
@@ -55,43 +55,43 @@ public abstract class UTileEntity extends BlockEntity {
 	
 	@Override
 	public CompoundTag getUpdateTag() {
-		final var compound = super.getUpdateTag();
-		sendChunkLoadData(compound);
-		return compound;
+		final var tag = super.getUpdateTag();
+		sendChunkLoadData(tag);
+		return tag;
 	}
 	
 	@Override
-	public void handleUpdateTag(CompoundTag compound) {
-		super.load(compound);
-		handleChunkLoadData(compound);
+	public void handleUpdateTag(CompoundTag tag) {
+		super.load(tag);
+		handleChunkLoadData(tag);
 	}
 	
 	/**
 	 * Data here will be send to the client side when the chunk is loaded. The data is received in
-	 * {@link UTileEntity#handleChunkLoadData(CompoundNBT)}
+	 * {@link UBlockEntity#handleChunkLoadData(CompoundNBT)}
 	 *
-	 * @param compound
+	 * @param tag
 	 */
-	public void sendChunkLoadData(CompoundTag compound) {
+	public void sendChunkLoadData(CompoundTag tag) {
 	}
 	
 	/**
 	 * The data from the chunk load is received here. The data is send from
-	 * {@link UTileEntity#sendChunkLoadData(CompoundNBT)}
+	 * {@link UBlockEntity#sendChunkLoadData(CompoundNBT)}
 	 *
-	 * @param compound
+	 * @param tag
 	 */
-	public void handleChunkLoadData(CompoundTag compound) {
+	public void handleChunkLoadData(CompoundTag tag) {
 	}
 	
 	// synchronization on block update
 	
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		final var compound = new CompoundTag();
-		sendUpdateStateData(compound);
-		if (!compound.isEmpty()) {
-			return new ClientboundBlockEntityDataPacket(worldPosition, -1, compound);
+		final var tag = new CompoundTag();
+		sendUpdateStateData(tag);
+		if (!tag.isEmpty()) {
+			return new ClientboundBlockEntityDataPacket(worldPosition, -1, tag);
 		}
 		return null;
 	}
@@ -103,26 +103,26 @@ public abstract class UTileEntity extends BlockEntity {
 	
 	/**
 	 * Data here will be send to the client side when the block is updated. The data is received in
-	 * {@link UTileEntity#handleUpdateStateData(CompoundNBT)}. To trigger an update call
+	 * {@link UBlockEntity#handleUpdateStateData(CompoundNBT)}. To trigger an update call
 	 * {@link World#notifyBlockUpdate(net.minecraft.util.math.BlockPos, BlockState, BlockState, int)} or
-	 * {@link UTileEntity#sendChangesToClient(int)}
+	 * {@link UBlockEntity#sendChangesToClient(int)}
 	 *
-	 * @param compound
+	 * @param tag
 	 */
-	public void sendUpdateStateData(CompoundTag compound) {
+	public void sendUpdateStateData(CompoundTag tag) {
 	}
 	
 	/**
 	 * The data from the block update is received here. The data is send from
-	 * {@link UTileEntity#sendUpdateStateData(CompoundNBT)}
+	 * {@link UBlockEntity#sendUpdateStateData(CompoundNBT)}
 	 *
-	 * @param compound
+	 * @param tag
 	 */
-	public void handleUpdateStateData(CompoundTag compound) {
+	public void handleUpdateStateData(CompoundTag tag) {
 	}
 	
 	/**
-	 * Calls {@link UTileEntity#sendChangesToClient(int)} with flag 2 (send changes to client)
+	 * Calls {@link UBlockEntity#sendChangesToClient(int)} with flag 2 (send changes to client)
 	 */
 	public void sendChangesToClient() {
 		sendChangesToClient(2);

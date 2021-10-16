@@ -1,10 +1,10 @@
 package info.u_team.u_team_test.tileentity;
 
+import info.u_team.u_team_core.blockentity.UTickableTileEntity;
 import info.u_team.u_team_core.inventory.TileEntityUFluidStackHandler;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_core.inventory.UFluidStackHandler;
 import info.u_team.u_team_core.inventory.UItemStackHandler;
-import info.u_team.u_team_core.tileentity.UTickableTileEntity;
 import info.u_team.u_team_test.container.BasicFluidInventoryContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -41,15 +41,15 @@ public class BasicFluidInventoryTileEntity extends UTickableTileEntity implement
 	}
 	
 	@Override
-	public void writeNBT(CompoundTag compound) {
-		super.writeNBT(compound);
+	public void saveNBT(CompoundTag compound) {
+		super.saveNBT(compound);
 		compound.put("items", itemSlots.serializeNBT());
 		compound.put("fluids", fluidTanks.serializeNBT());
 	}
 	
 	@Override
-	public void readNBT(CompoundTag compound) {
-		super.readNBT(compound);
+	public void loadNBT(CompoundTag compound) {
+		super.loadNBT(compound);
 		itemSlots.deserializeNBT(compound.getCompound("items"));
 		fluidTanks.deserializeNBT(compound.getCompound("fluids"));
 	}

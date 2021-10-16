@@ -1,9 +1,9 @@
 package info.u_team.u_team_test.tileentity;
 
 import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
+import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.energy.BasicEnergyStorage;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
-import info.u_team.u_team_core.tileentity.UTileEntity;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import net.minecraft.core.BlockPos;
@@ -24,7 +24,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSyncedTileEntity {
+public class BasicEnergyCreatorTileEntity extends UBlockEntity implements IInitSyncedTileEntity {
 	
 	private final TileEntityUItemStackHandler slots;
 	private final BasicEnergyStorage energy;
@@ -87,15 +87,15 @@ public class BasicEnergyCreatorTileEntity extends UTileEntity implements IInitSy
 	}
 	
 	@Override
-	public void writeNBT(CompoundTag compound) {
-		super.writeNBT(compound);
+	public void saveNBT(CompoundTag compound) {
+		super.saveNBT(compound);
 		compound.put("inventory", slots.serializeNBT());
 		compound.put("energy", energy.serializeNBT());
 	}
 	
 	@Override
-	public void readNBT(CompoundTag compound) {
-		super.readNBT(compound);
+	public void loadNBT(CompoundTag compound) {
+		super.loadNBT(compound);
 		slots.deserializeNBT(compound.getCompound("inventory"));
 		energy.deserializeNBT(compound.getCompound("energy"));
 	}
