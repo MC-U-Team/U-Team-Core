@@ -2,6 +2,8 @@ package info.u_team.u_team_core.api.block;
 
 import java.util.Optional;
 
+import javax.annotation.Nullable;
+
 import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
@@ -16,100 +18,119 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 /**
- * Implement this in your entity block when you want utility functions for opening guis.
+ * Provides a convenience way to implement block entities for blocks.
  *
  * @author HyCraftHD
  */
 public interface EntityBlockProvider extends EntityBlock {
 	
 	/**
-	 * Returns the {@link TileEntityType} of the block.
+	 * Returns the {@link BlockEntityType} that is used for creating the {@link BlockEntity} when
+	 * {@link #newBlockEntity(BlockPos, BlockState)} is invoked. Can return null if for the current state or position no
+	 * block entity should be created.
 	 *
-	 * @param world World
-	 * @param pos The tile entities position
-	 * @return The tile entity type
+	 * @param pos Position of the block
+	 * @param state Block state
 	 */
-	BlockEntityType<?> getTileEntityType(BlockGetter world, BlockPos pos);
+	@Nullable
+	<T extends BlockEntity> BlockEntityType<T> blockEntityType(BlockPos pos, BlockState state);
 	
 	/**
-	 * Opens the container that is specified in the tile entity with {@link IContainerProvider}. If the tile entity
-	 * implements {@link IInitSyncedTileEntity} then the {@link IInitSyncedTileEntity#sendInitialDataBuffer(PacketBuffer)}
-	 * is called and the data will be send to the client. The container cannot be opened when sneaking.
+	 * Returns a new {@link BlockEntity} for the give {@link BlockPos} and {@link BlockState}. <br>
+	 * The default implementation creates a new {@link BlockEntity} by using the
+	 * {@link #blockEntityType(BlockPos, BlockState)} method and invoke {@link BlockEntityType#create(BlockPos, BlockState)}
+	 * Can return null if no block entity should be created for that position or state.
+	 * 
+	 * @param pos Position of the block
+	 * @param state Block state
+	 */
+	@Nullable
+	@Override
+	default BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+		final var type = blockEntityType(pos, state);
+		if (type != null) {
+			return type.create(pos, state);
+		}
+		return null;
+	}
+	
+	/**
+	 * Returns a optional with can contain the {@link BlockEntity} at that give position if the {@link BlockEntityType} is
+	 * correct. Otherwise returns an empty optional.
+	 * 
+	 * @param <T> Block entity
+	 * @param level Level
+	 * @param pos Position of the block
+	 * @return Optional with the block entity
+	 */
+	default <T extends BlockEntity> Optional<T> getBlockEntity(BlockGetter level, BlockPos pos) {
+		return level.getBlockEntity(pos, blockEntityType(pos, level.getBlockState(pos)));
+	}
+	
+	/**
+	 * Opens the container that is specified in the block entity with {@link MenuConstructor}. If the tile entity implements
+	 * {@link IInitSyncedTileEntity} then the {@link IInitSyncedTileEntity#sendInitialDataBuffer(PacketBuffer)} is called
+	 * and the data will be send to the client. The container cannot be opened when secondary use is active.
 	 *
-	 * @param world World
-	 * @param pos The tile entities position
-	 * @param player The player that opens the tile entity
-	 * @return If the container could be opened
+	 * @param level Level
+	 * @param pos The block entities position
+	 * @param player The player that opens the block entity
+	 * @return {@link InteractionResult} if the container could be opened
 	 */
 	default InteractionResult openContainer(Level world, BlockPos pos, Player player) {
 		return openContainer(world, pos, player, false);
 	}
 	
 	/**
-	 * Opens the container that is specified in the tile entity with {@link MenuConstructor}. If the tile entity implements
+	 * Opens the container that is specified in the block entity with {@link MenuConstructor}. If the tile entity implements
 	 * {@link IInitSyncedTileEntity} then the {@link IInitSyncedTileEntity#sendInitialDataBuffer(PacketBuffer)} is called
 	 * and the data will be send to the client.
 	 *
-	 * @param world World
-	 * @param pos The tile entities pos
-	 * @param player The player that opens the tile entity
-	 * @param canOpenSneak If the container can be opened when shift clicking with an item that has no right click function
-	 * @return If the container could be opened
+	 * @param level Level
+	 * @param pos The block entities position
+	 * @param player The player that opens the block entity
+	 * @param canOpenWhenSecondaryUse If the container can be opened when secondary use is active
+	 * @return {@link InteractionResult} if the container could be opened
 	 */
-	default InteractionResult openContainer(Level world, BlockPos pos, Player player, boolean canOpenSneak) {
-		if (world.isClientSide || !(player instanceof ServerPlayer)) {
+	default InteractionResult openContainer(Level level, BlockPos pos, Player player, boolean canOpenWhenSecondaryUse) {
+		if (level.isClientSide() || !(player instanceof ServerPlayer)) {
 			return InteractionResult.SUCCESS;
 		}
 		
 		final var serverPlayer = (ServerPlayer) player;
-		final Optional<BlockEntity> tileEntityOptional = isTileEntityFromType(world, pos);
+		final var blockEntityOptional = getBlockEntity(level, pos);
 		
-		if (!tileEntityOptional.isPresent()) {
+		if (!blockEntityOptional.isPresent()) {
 			return InteractionResult.PASS;
 		}
 		
-		final var tileEntity = tileEntityOptional.get();
+		final var blockEntity = blockEntityOptional.get();
 		
-		if (!(tileEntity instanceof MenuProvider)) {
+		if (!(blockEntity instanceof MenuProvider)) {
 			return InteractionResult.PASS;
 		}
 		
-		if (!canOpenSneak && serverPlayer.isShiftKeyDown()) {
+		if (!canOpenWhenSecondaryUse && serverPlayer.isSecondaryUseActive()) {
 			return InteractionResult.SUCCESS;
 		}
 		
 		final var buffer = new FriendlyByteBuf(Unpooled.buffer());
-		if (tileEntity instanceof IInitSyncedTileEntity) {
-			((IInitSyncedTileEntity) tileEntity).sendInitialDataBuffer(buffer);
+		if (blockEntity instanceof IInitSyncedTileEntity syncedBlockEntity) {
+			syncedBlockEntity.sendInitialDataBuffer(buffer);
 		}
 		
-		NetworkHooks.openGui(serverPlayer, (MenuProvider) tileEntity, extraData -> {
+		NetworkHooks.openGui(serverPlayer, (MenuProvider) blockEntity, extraData -> {
 			extraData.writeBlockPos(pos);
 			extraData.writeVarInt(buffer.readableBytes());
 			extraData.writeBytes(buffer);
+			buffer.release();
 		});
-		return InteractionResult.SUCCESS;
 		
+		return InteractionResult.SUCCESS;
 	}
 	
-	/**
-	 * Return an optional with a tile entity if the tile entity at this position exists and is the same tile entity type as
-	 * this block creates. This method is unchecked with a generic attribute.
-	 *
-	 * @param <T> Tile entity
-	 * @param world World
-	 * @param pos Position of the tile entity
-	 * @return Optional with tile entity or empty
-	 */
-	@SuppressWarnings("unchecked")
-	default <T extends BlockEntity> Optional<T> isTileEntityFromType(BlockGetter world, BlockPos pos) {
-		final var tileEntity = world.getBlockEntity(pos);
-		if (tileEntity == null || getTileEntityType(world, pos) != tileEntity.getType()) {
-			return Optional.empty();
-		}
-		return Optional.of((T) tileEntity);
-	}
 }
