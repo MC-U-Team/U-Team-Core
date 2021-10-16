@@ -37,7 +37,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	 * @param state Block state
 	 */
 	@Nullable
-	<T extends BlockEntity> BlockEntityType<T> blockEntityType(BlockPos pos, BlockState state);
+	BlockEntityType<?> blockEntityType(BlockPos pos, BlockState state);
 	
 	/**
 	 * Returns a new {@link BlockEntity} for the give {@link BlockPos} and {@link BlockState}. <br>
@@ -68,7 +68,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	 * @return Optional with the block entity
 	 */
 	default <T extends BlockEntity> Optional<T> getBlockEntity(BlockGetter level, BlockPos pos) {
-		return level.getBlockEntity(pos, blockEntityType(pos, level.getBlockState(pos)));
+		return getMatchingBlockEntity(level, pos);
 	}
 	
 	/**
@@ -131,6 +131,20 @@ public interface EntityBlockProvider extends EntityBlock {
 		});
 		
 		return InteractionResult.SUCCESS;
+	}
+	
+	/**
+	 * Private helper method to avoid exposing the unchecked cast. Tries to find the matching block entity for our type in
+	 * the world at the give position.
+	 * 
+	 * @param <T> Block entity
+	 * @param level Level
+	 * @param pos Position of the block
+	 * @return Optional with the block entity
+	 */
+	@SuppressWarnings("unchecked")
+	private <T extends BlockEntity> Optional<T> getMatchingBlockEntity(BlockGetter level, BlockPos pos) {
+		return (Optional<T>) level.getBlockEntity(pos, blockEntityType(pos, level.getBlockState(pos)));
 	}
 	
 }
