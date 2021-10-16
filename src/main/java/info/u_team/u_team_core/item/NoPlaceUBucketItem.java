@@ -13,16 +13,16 @@ import net.minecraft.world.level.material.Fluid;
 
 public class NoPlaceUBucketItem extends UBucketItem {
 	
-	public NoPlaceUBucketItem(CreativeModeTab group, Properties properties, Supplier<? extends Fluid> fluid) {
-		super(group, properties, fluid);
+	public NoPlaceUBucketItem(Properties properties, Supplier<? extends Fluid> fluid) {
+		this(null, properties, fluid);
 	}
 	
-	public NoPlaceUBucketItem(Properties properties, Supplier<? extends Fluid> fluid) {
-		super(properties, fluid);
+	public NoPlaceUBucketItem(CreativeModeTab creativeTab, Properties properties, Supplier<? extends Fluid> fluid) {
+		super(creativeTab, properties, fluid);
 	}
 	
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		return new InteractionResultHolder<>(InteractionResult.PASS, player.getItemInHand(hand));
 	}
 	

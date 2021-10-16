@@ -9,8 +9,8 @@ public class UItem extends Item {
 		this(null, properties);
 	}
 	
-	public UItem(CreativeModeTab group, Properties properties) {
-		super(group == null ? properties : properties.tab(group));
+	public UItem(CreativeModeTab creativeTab, Properties properties) {
+		super(creativeTab == null ? properties : properties.tab(creativeTab));
 	}
 	
 }

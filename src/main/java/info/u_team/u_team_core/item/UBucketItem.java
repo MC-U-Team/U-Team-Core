@@ -16,8 +16,8 @@ public class UBucketItem extends BucketItem {
 		this(null, properties, fluid);
 	}
 	
-	public UBucketItem(CreativeModeTab group, Properties properties, Supplier<? extends Fluid> fluid) {
-		super(fluid, group == null ? properties : properties.tab(group));
+	public UBucketItem(CreativeModeTab creativeTab, Properties properties, Supplier<? extends Fluid> fluid) {
+		super(fluid, creativeTab == null ? properties : properties.tab(creativeTab));
 	}
 	
 	@Override
