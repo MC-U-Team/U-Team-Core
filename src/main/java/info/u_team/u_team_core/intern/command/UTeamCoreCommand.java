@@ -12,7 +12,7 @@ import net.minecraft.commands.Commands;
 
 public class UTeamCoreCommand {
 	
-	public UTeamCoreCommand(CommandDispatcher<CommandSourceStack> dispatcher) {
+	public static void register(CommandDispatcher<CommandSourceStack> dispatcher) {
 		dispatcher.register(Commands.literal("uteamcore") //
 				.then(ItemStackInfoSubCommand.register()) //
 				.then(DimensionTeleportSubCommand.register()) //

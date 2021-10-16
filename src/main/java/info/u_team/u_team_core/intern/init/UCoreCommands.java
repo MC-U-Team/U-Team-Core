@@ -7,7 +7,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 public class UCoreCommands {
 	
 	private static void onRegisterCommands(RegisterCommandsEvent event) {
-		new UTeamCoreCommand(event.getDispatcher());
+		UTeamCoreCommand.register(event.getDispatcher());
 	}
 	
 	public static void registerForge(IEventBus bus) {
