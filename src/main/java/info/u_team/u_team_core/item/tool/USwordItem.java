@@ -1,17 +1,17 @@
 package info.u_team.u_team_core.item.tool;
 
-import info.u_team.u_team_core.api.IToolMaterial;
-import info.u_team.u_team_core.api.IToolMaterial.Tools;
+import info.u_team.u_team_core.api.item.ExtendedTier;
+import info.u_team.u_team_core.api.item.ExtendedTier.Tools;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.SwordItem;
 
 public class USwordItem extends SwordItem {
 	
-	public USwordItem(Properties properties, IToolMaterial material) {
-		this(null, properties, material);
+	public USwordItem(Properties properties, ExtendedTier tier) {
+		this(null, properties, tier);
 	}
 	
-	public USwordItem(CreativeModeTab group, Properties properties, IToolMaterial material) {
-		super(material, (int) material.getAdditionalDamage(Tools.SWORD), material.getAttackSpeed(Tools.SWORD), group == null ? properties : properties.tab(group));
+	public USwordItem(CreativeModeTab creativeTab, Properties properties, ExtendedTier tier) {
+		super(tier, (int) tier.getAttackDamage(Tools.SWORD), tier.getAttackSpeed(Tools.SWORD), creativeTab == null ? properties : properties.tab(creativeTab));
 	}
 }

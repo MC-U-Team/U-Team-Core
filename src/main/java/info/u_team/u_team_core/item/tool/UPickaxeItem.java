@@ -1,17 +1,17 @@
 package info.u_team.u_team_core.item.tool;
 
-import info.u_team.u_team_core.api.IToolMaterial;
-import info.u_team.u_team_core.api.IToolMaterial.Tools;
+import info.u_team.u_team_core.api.item.ExtendedTier;
+import info.u_team.u_team_core.api.item.ExtendedTier.Tools;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.PickaxeItem;
 
 public class UPickaxeItem extends PickaxeItem {
 	
-	public UPickaxeItem(Properties properties, IToolMaterial material) {
-		this(null, properties, material);
+	public UPickaxeItem(Properties properties, ExtendedTier tier) {
+		this(null, properties, tier);
 	}
 	
-	public UPickaxeItem(CreativeModeTab group, Properties properties, IToolMaterial material) {
-		super(material, (int) material.getAdditionalDamage(Tools.PICKAXE), material.getAttackSpeed(Tools.PICKAXE), group == null ? properties : properties.tab(group));
+	public UPickaxeItem(CreativeModeTab creativeTab, Properties properties, ExtendedTier tier) {
+		super(tier, (int) tier.getAttackDamage(Tools.PICKAXE), tier.getAttackSpeed(Tools.PICKAXE), creativeTab == null ? properties : properties.tab(creativeTab));
 	}
 }
