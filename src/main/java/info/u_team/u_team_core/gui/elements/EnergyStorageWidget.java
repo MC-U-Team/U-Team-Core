@@ -2,6 +2,7 @@ package info.u_team.u_team_core.gui.elements;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
@@ -17,7 +18,6 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.IEnergyStorage;
-import net.minecraftforge.fmlclient.gui.GuiUtils;
 
 public class EnergyStorageWidget extends AbstractWidget {
 	
@@ -71,12 +71,11 @@ public class EnergyStorageWidget extends AbstractWidget {
 	public void renderToolTip(PoseStack matrixStack, int mouseX, int mouseY) {
 		if (isHovered) {
 			final var minecraft = Minecraft.getInstance();
-			final var mainWindow = minecraft.getWindow();
 			
 			final List<Component> list = new ArrayList<>();
 			list.add(Component.nullToEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
 			
-			GuiUtils.drawHoveringText(matrixStack, list, mouseX, mouseY, mainWindow.getScreenWidth(), mainWindow.getScreenHeight(), 300, minecraft.font);
+			minecraft.screen.renderTooltip(matrixStack, list, Optional.empty(), mouseX, mouseY, minecraft.font); // TODO verify this works
 		}
 	}
 	
