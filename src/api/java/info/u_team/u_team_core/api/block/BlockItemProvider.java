@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.api.registry;
+package info.u_team.u_team_core.api.block;
 
 import info.u_team.u_team_core.util.registry.BlockDeferredRegister;
 import net.minecraft.world.item.Item;

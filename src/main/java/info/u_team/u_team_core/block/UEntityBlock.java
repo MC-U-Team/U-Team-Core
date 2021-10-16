@@ -2,7 +2,7 @@ package info.u_team.u_team_core.block;
 
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.api.ITileEntityBlock;
+import info.u_team.u_team_core.api.block.EntityBlockProvider;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class UEntityBlock extends UBlock implements ITileEntityBlock {
+public class UEntityBlock extends UBlock implements EntityBlockProvider {
 	
 	protected final Supplier<? extends BlockEntityType<?>> tileEntityType;
 	

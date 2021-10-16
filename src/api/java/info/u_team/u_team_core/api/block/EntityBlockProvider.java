@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.api;
+package info.u_team.u_team_core.api.block;
 
 import java.util.Optional;
 
@@ -19,11 +19,11 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 /**
- * Implement this in your tile entity block when you want utility functions for opening guis with your tile entity.
+ * Implement this in your entity block when you want utility functions for opening guis.
  *
  * @author HyCraftHD
  */
-public interface ITileEntityBlock extends EntityBlock {
+public interface EntityBlockProvider extends EntityBlock {
 	
 	/**
 	 * Returns the {@link TileEntityType} of the block.

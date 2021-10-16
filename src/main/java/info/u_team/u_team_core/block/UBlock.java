@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.block;
 
-import info.u_team.u_team_core.api.registry.BlockItemProvider;
+import info.u_team.u_team_core.api.block.BlockItemProvider;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
