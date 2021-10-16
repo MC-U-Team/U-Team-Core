@@ -21,7 +21,7 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 	}
 	
 	@Override
-	public boolean matches(CraftingContainer container, Level world) {
+	public boolean matches(CraftingContainer container, Level level) {
 		var dyeableItem = ItemStack.EMPTY;
 		final List<ItemStack> dyeList = Lists.newArrayList();
 		

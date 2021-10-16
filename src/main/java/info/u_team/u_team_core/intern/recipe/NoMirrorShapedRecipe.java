@@ -22,7 +22,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 	}
 	
 	@Override
-	public boolean matches(CraftingContainer container, Level world) {
+	public boolean matches(CraftingContainer container, Level level) {
 		for (var i = 0; i <= container.getWidth() - getWidth(); ++i) {
 			for (var j = 0; j <= container.getHeight() - getHeight(); ++j) {
 				if (matches(container, i, j, false)) {
