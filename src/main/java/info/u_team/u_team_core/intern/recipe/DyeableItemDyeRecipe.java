@@ -21,12 +21,12 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 	}
 	
 	@Override
-	public boolean matches(CraftingContainer inventory, Level world) {
+	public boolean matches(CraftingContainer container, Level world) {
 		var dyeableItem = ItemStack.EMPTY;
 		final List<ItemStack> dyeList = Lists.newArrayList();
 		
-		for (var index = 0; index < inventory.getContainerSize(); ++index) {
-			final var slotStack = inventory.getItem(index);
+		for (var index = 0; index < container.getContainerSize(); ++index) {
+			final var slotStack = container.getItem(index);
 			if (!slotStack.isEmpty()) {
 				final var item = slotStack.getItem();
 				if (item instanceof IDyeableItem) {
@@ -47,12 +47,12 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 	}
 	
 	@Override
-	public ItemStack assemble(CraftingContainer inventory) {
+	public ItemStack assemble(CraftingContainer container) {
 		var dyeableItem = ItemStack.EMPTY;
 		final List<DyeItem> dyeItemList = Lists.newArrayList();
 		
-		for (var index = 0; index < inventory.getContainerSize(); ++index) {
-			final var slotStack = inventory.getItem(index);
+		for (var index = 0; index < container.getContainerSize(); ++index) {
+			final var slotStack = container.getItem(index);
 			if (!slotStack.isEmpty()) {
 				final var item = slotStack.getItem();
 				if (item instanceof IDyeableItem) {

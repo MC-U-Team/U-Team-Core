@@ -22,10 +22,10 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 	}
 	
 	@Override
-	public boolean matches(CraftingContainer inventory, Level world) {
-		for (var i = 0; i <= inventory.getWidth() - getWidth(); ++i) {
-			for (var j = 0; j <= inventory.getHeight() - getHeight(); ++j) {
-				if (matches(inventory, i, j, false)) {
+	public boolean matches(CraftingContainer container, Level world) {
+		for (var i = 0; i <= container.getWidth() - getWidth(); ++i) {
+			for (var j = 0; j <= container.getHeight() - getHeight(); ++j) {
+				if (matches(container, i, j, false)) {
 					return true;
 				}
 			}
@@ -56,7 +56,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 			final var recipeWidth = buffer.readVarInt();
 			final var recipeHeight = buffer.readVarInt();
 			final var group = buffer.readUtf(32767);
-			final NonNullList<Ingredient> ingredients = NonNullList.withSize(recipeWidth * recipeHeight, Ingredient.EMPTY);
+			final var ingredients = NonNullList.withSize(recipeWidth * recipeHeight, Ingredient.EMPTY);
 			for (var k = 0; k < ingredients.size(); ++k) {
 				ingredients.set(k, Ingredient.fromNetwork(buffer));
 			}
@@ -69,7 +69,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 			buffer.writeVarInt(recipe.getRecipeWidth());
 			buffer.writeVarInt(recipe.getRecipeHeight());
 			buffer.writeUtf(recipe.getGroup());
-			for (final Ingredient ingredient : recipe.getIngredients()) {
+			for (final var ingredient : recipe.getIngredients()) {
 				ingredient.toNetwork(buffer);
 			}
 			buffer.writeItem(recipe.getResultItem());
