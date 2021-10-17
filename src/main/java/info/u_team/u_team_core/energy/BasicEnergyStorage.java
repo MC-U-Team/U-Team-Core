@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.energy;
 
-import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
+import info.u_team.u_team_core.api.sync.DataHolder;
 import net.minecraftforge.energy.EnergyStorage;
 
 public class BasicEnergyStorage extends EnergyStorage {
@@ -65,8 +65,8 @@ public class BasicEnergyStorage extends EnergyStorage {
 	public void onEnergyChanged() {
 	}
 	
-	public BufferReferenceHolder createSyncHandler() {
-		return BufferReferenceHolder.createIntHolder(this::getEnergy, this::setEnergy);
+	public DataHolder createSyncHandler() {
+		return DataHolder.createIntHolder(this::getEnergy, this::setEnergy);
 	}
 	
 }

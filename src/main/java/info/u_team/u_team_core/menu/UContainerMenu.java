@@ -7,7 +7,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
+import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.BufferPropertyContainerMessage;
 import info.u_team.u_team_core.screen.UContainerScreen;
@@ -34,12 +34,12 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	/**
 	 * Server -> Client
 	 */
-	private final List<BufferReferenceHolder> syncServerToClient;
+	private final List<DataHolder> syncServerToClient;
 	
 	/**
 	 * Client -> Server
 	 */
-	private final List<BufferReferenceHolder> syncClientToServer;
+	private final List<DataHolder> syncClientToServer;
 	
 	/**
 	 * Creates a new container
@@ -54,18 +54,18 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	}
 	
 	/**
-	 * Adds a new {@link BufferReferenceHolder} that will sync values from the server to the client.
+	 * Adds a new {@link DataHolder} that will sync values from the server to the client.
 	 *
 	 * @param holder Buffer reference holder
 	 * @return The buffer reference holder
 	 */
-	protected <E extends BufferReferenceHolder> E addServerToClientTracker(E holder) {
+	protected <E extends DataHolder> E addServerToClientTracker(E holder) {
 		syncServerToClient.add(holder);
 		return holder;
 	}
 	
 	/**
-	 * Adds a new {@link BufferReferenceHolder} that will sync values from the client to the server. <br />
+	 * Adds a new {@link DataHolder} that will sync values from the client to the server. <br />
 	 * <br />
 	 * THE AUTO SYNC ONLY WORKS IF YOU USE AN IMPLEMENTION OF {@link UContainerScreen}. If not you must manually call
 	 * {@link #updateTrackedServerToClient()} every time you update values on the client that should be synced to the
@@ -74,7 +74,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	 * @param holder Buffer reference holder
 	 * @return The buffer reference holder
 	 */
-	protected <E extends BufferReferenceHolder> E addClientToServerTracker(E holder) {
+	protected <E extends DataHolder> E addClientToServerTracker(E holder) {
 		syncClientToServer.add(holder);
 		return holder;
 	}
@@ -114,7 +114,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	/**
 	 * We use this method to send the tracked values to the server
 	 *
-	 * @see #addClientToServerTracker(BufferReferenceHolder)
+	 * @see #addClientToServerTracker(DataHolder)
 	 */
 	public void updateTrackedServerToClient() {
 		getDirtyMap(syncClientToServer).forEach((property, holder) -> {
@@ -123,14 +123,14 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	}
 	
 	/**
-	 * Returns a map with all {@link BufferReferenceHolder} that are dirty. The key is the property index.
+	 * Returns a map with all {@link DataHolder} that are dirty. The key is the property index.
 	 *
-	 * @param list The list of {@link BufferReferenceHolder}
+	 * @param list The list of {@link DataHolder}
 	 * @return A map with dirty values
 	 */
-	private Map<Integer, BufferReferenceHolder> getDirtyMap(List<BufferReferenceHolder> list) {
+	private Map<Integer, DataHolder> getDirtyMap(List<DataHolder> list) {
 		return IntStream.range(0, list.size()) //
-				.filter(index -> list.get(index).isDirty()) //
+				.filter(index -> list.get(index).checkAndClearUpdateFlag()) //
 				.boxed() //
 				.collect(Collectors.toMap(Function.identity(), index -> list.get(index)));
 	}

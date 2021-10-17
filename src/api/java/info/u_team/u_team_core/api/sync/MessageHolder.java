@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 
-public class MessageHolder extends BufferReferenceHolder {
+public class MessageHolder extends DataHolder {
 	
 	private Supplier<FriendlyByteBuf> send;
 	private final Consumer<FriendlyByteBuf> receive;
@@ -28,7 +28,7 @@ public class MessageHolder extends BufferReferenceHolder {
 	}
 	
 	@Override
-	public boolean isDirty() {
+	public boolean checkAndClearUpdateFlag() {
 		if (isTriggered) {
 			isTriggered = false;
 			return true;

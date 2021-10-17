@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.menu;
 
-import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
+import info.u_team.u_team_core.api.sync.InitSyncedBlockEntity;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -76,8 +76,8 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 		super(type, id);
 		this.playerInventory = playerInventory;
 		this.tileEntity = getClientTileEntity(buffer);
-		if (tileEntity instanceof IInitSyncedTileEntity) {
-			((IInitSyncedTileEntity) tileEntity).handleInitialDataBuffer(new FriendlyByteBuf(Unpooled.wrappedBuffer(buffer.readByteArray(32592)))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
+		if (tileEntity instanceof InitSyncedBlockEntity) {
+			((InitSyncedBlockEntity) tileEntity).handleInitialDataBuffer(new FriendlyByteBuf(Unpooled.wrappedBuffer(buffer.readByteArray(32592)))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
 		}
 		if (init) {
 			init(false);

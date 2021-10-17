@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.tileentity;
 
-import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
+import info.u_team.u_team_core.api.sync.InitSyncedBlockEntity;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
@@ -22,7 +22,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BasicTileEntityTileEntity extends UBlockEntity implements IInitSyncedTileEntity {
+public class BasicTileEntityTileEntity extends UBlockEntity implements InitSyncedBlockEntity {
 	
 	private final TileEntityUItemStackHandler slots;
 	

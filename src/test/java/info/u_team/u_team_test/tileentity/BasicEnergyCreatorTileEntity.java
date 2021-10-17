@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.tileentity;
 
-import info.u_team.u_team_core.api.sync.IInitSyncedTileEntity;
+import info.u_team.u_team_core.api.sync.InitSyncedBlockEntity;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.energy.BasicEnergyStorage;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
@@ -24,7 +24,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BasicEnergyCreatorTileEntity extends UBlockEntity implements IInitSyncedTileEntity {
+public class BasicEnergyCreatorTileEntity extends UBlockEntity implements InitSyncedBlockEntity {
 	
 	private final TileEntityUItemStackHandler slots;
 	private final BasicEnergyStorage energy;

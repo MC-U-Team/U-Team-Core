@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.container;
 
-import info.u_team.u_team_core.api.sync.BufferReferenceHolder;
+import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
@@ -29,8 +29,8 @@ public class BasicTileEntityContainer extends UBlockEntityContainerMenu<BasicTil
 		appendInventory(tileEntity.getSlots(), 2, 9, 8, 41);
 		appendPlayerInventory(playerInventory, 8, 91);
 		
-		addServerToClientTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.value, value -> tileEntity.value = value));
-		addServerToClientTracker(BufferReferenceHolder.createIntHolder(() -> tileEntity.cooldown, value -> tileEntity.cooldown = value));
+		addServerToClientTracker(DataHolder.createIntHolder(() -> tileEntity.value, value -> tileEntity.value = value));
+		addServerToClientTracker(DataHolder.createIntHolder(() -> tileEntity.cooldown, value -> tileEntity.cooldown = value));
 		
 		valueMessage = addClientToServerTracker(new EmptyMessageHolder(() -> {
 			tileEntity.value += 100;
