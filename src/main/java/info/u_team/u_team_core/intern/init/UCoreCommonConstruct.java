@@ -4,13 +4,13 @@ import java.util.Objects;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.api.construct.Construct;
-import info.u_team.u_team_core.api.construct.IModConstruct;
+import info.u_team.u_team_core.api.construct.ModConstruct;
 import info.u_team.u_team_core.util.registry.BusRegister;
 import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
 import net.minecraftforge.fml.ModLoadingContext;
 
 @Construct(modid = UCoreMod.MODID)
-public class UCoreCommonConstruct implements IModConstruct {
+public class UCoreCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {

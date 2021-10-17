@@ -9,8 +9,8 @@ import org.apache.logging.log4j.MarkerManager;
 import org.objectweb.asm.Type;
 
 import info.u_team.u_team_core.api.construct.Construct;
-import info.u_team.u_team_core.api.construct.IModConstruct;
-import info.u_team.u_team_core.api.integration.IModIntegration;
+import info.u_team.u_team_core.api.construct.ModConstruct;
+import info.u_team.u_team_core.api.integration.ModIntegration;
 import info.u_team.u_team_core.api.integration.Integration;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ModList;
@@ -29,7 +29,7 @@ public class AnnotationManager {
 	private static final Marker INTEGRATION_MARKER = MarkerManager.getMarker("Integration");
 	
 	/**
-	 * Tries to invoke {@link IModConstruct#construct()} and {@link IModIntegration#construct()} methods of classes that are
+	 * Tries to invoke {@link ModConstruct#construct()} and {@link ModIntegration#construct()} methods of classes that are
 	 * annotated with {@link Construct} or {@link Integration}.
 	 * 
 	 * @param modid The modid that should be respected for calling
@@ -40,7 +40,7 @@ public class AnnotationManager {
 	}
 	
 	/**
-	 * Tries to invoke all {@link IModConstruct#construct()} methods of classes that are annotated with {@link Construct}.
+	 * Tries to invoke all {@link ModConstruct#construct()} methods of classes that are annotated with {@link Construct}.
 	 * 
 	 * @param modid The modid that should be respected for calling
 	 */
@@ -49,7 +49,7 @@ public class AnnotationManager {
 			if (canBeCalled(modid, data)) {
 				LOGGER.debug(CONSTRUCT_MARKER, "Load construct (" + data.memberName() + ") for mod " + modid);
 				try {
-					Class.forName(data.memberName()).asSubclass(IModConstruct.class).getConstructor().newInstance().construct();
+					Class.forName(data.memberName()).asSubclass(ModConstruct.class).getConstructor().newInstance().construct();
 				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
 					LOGGER.error(CONSTRUCT_MARKER, "Failed to load and call mod construct : {}", data.memberName(), ex);
 					throw new RuntimeException(ex);
@@ -70,7 +70,7 @@ public class AnnotationManager {
 			if (canBeCalled(modid, data) && ModList.get().isLoaded(integrationModid)) {
 				LOGGER.debug(INTEGRATION_MARKER, "Load " + integrationModid + " integration (" + data.memberName() + ") for mod " + modid);
 				try {
-					Class.forName(data.memberName()).asSubclass(IModIntegration.class).getConstructor().newInstance().construct();
+					Class.forName(data.memberName()).asSubclass(ModIntegration.class).getConstructor().newInstance().construct();
 				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
 					LOGGER.error(INTEGRATION_MARKER, "Failed to load and call integration : {}", data.memberName(), ex);
 					throw new RuntimeException(ex);
