@@ -11,6 +11,7 @@ public class UCoreClientConstruct implements IModConstruct {
 	@Override
 	public void construct() {
 		BusRegister.registerMod(UCoreColors::registerMod);
+		BusRegister.registerMod(UCorePostMenuScreensEvent::registerMod);
 	}
 	
 }
