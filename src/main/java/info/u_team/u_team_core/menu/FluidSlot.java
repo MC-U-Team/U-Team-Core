@@ -1,19 +1,19 @@
 package info.u_team.u_team_core.menu;
 
-import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
+import info.u_team.u_team_core.api.fluid.FluidHandlerModifiable;
 import info.u_team.u_team_core.inventory.UFluidStackHandler;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidSlot {
 	
-	private final IFluidHandlerModifiable fluidHandler;
+	private final FluidHandlerModifiable fluidHandler;
 	private final int slot;
 	private final int x;
 	private final int y;
 	
 	public int index;
 	
-	public FluidSlot(IFluidHandlerModifiable fluidHandler, int slot, int x, int y) {
+	public FluidSlot(FluidHandlerModifiable fluidHandler, int slot, int x, int y) {
 		this.fluidHandler = fluidHandler;
 		this.slot = slot;
 		this.x = x;
@@ -50,7 +50,7 @@ public class FluidSlot {
 		return getSlotCapacity() - getStack().getAmount();
 	}
 	
-	public IFluidHandlerModifiable getFluidHandler() {
+	public FluidHandlerModifiable getFluidHandler() {
 		return fluidHandler;
 	}
 	

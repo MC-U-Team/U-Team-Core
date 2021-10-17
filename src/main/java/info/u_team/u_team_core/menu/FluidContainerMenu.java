@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 import com.google.common.base.Suppliers;
 
-import info.u_team.u_team_core.api.fluid.IFluidHandlerModifiable;
+import info.u_team.u_team_core.api.fluid.FluidHandlerModifiable;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.FluidSetAllContainerMessage;
 import info.u_team.u_team_core.intern.network.FluidSetSlotContainerMessage;
@@ -314,7 +314,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	// }
 	
 	/**
-	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
+	 * This methods can add any {@link FluidHandlerModifiable} to the container. You can specialize the inventory height
 	 * (slot rows) and width (slot columns).
 	 *
 	 * @param handler Some fluid handler
@@ -323,12 +323,12 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendFluidInventory(IFluidHandlerModifiable handler, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendFluidInventory(FluidHandlerModifiable handler, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendFluidInventory(handler, 0, inventoryHeight, inventoryWidth, x, y);
 	}
 	
 	/**
-	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
+	 * This methods can add any {@link FluidHandlerModifiable} to the container. You can specialize the inventory height
 	 * (slot rows) and width (slot columns). You must supplier a function that create a fluid slot. With this you can set
 	 * your own slot. implementations.
 	 *
@@ -339,12 +339,12 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendFluidInventory(IFluidHandlerModifiable handler, FluidSlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendFluidInventory(FluidHandlerModifiable handler, FluidSlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendFluidInventory(handler, function, 0, inventoryHeight, inventoryWidth, x, y);
 	}
 	
 	/**
-	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
+	 * This methods can add any {@link FluidHandlerModifiable} to the container. You can specialize the inventory height
 	 * (slot rows) and width (slot columns).
 	 *
 	 * @param handler Some fluid handler
@@ -354,12 +354,12 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendFluidInventory(IFluidHandlerModifiable handler, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendFluidInventory(FluidHandlerModifiable handler, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
 		appendFluidInventory(handler, FluidSlot::new, startIndex, inventoryHeight, inventoryWidth, x, y);
 	}
 	
 	/**
-	 * This methods can add any {@link IFluidHandlerModifiable} to the container. You can specialize the inventory height
+	 * This methods can add any {@link FluidHandlerModifiable} to the container. You can specialize the inventory height
 	 * (slot rows) and width (slot columns). You must supplier a function that create a fluid slot. With this you can set
 	 * your own slot. implementations.
 	 *
@@ -371,7 +371,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendFluidInventory(IFluidHandlerModifiable handler, FluidSlotHandlerFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void appendFluidInventory(FluidHandlerModifiable handler, FluidSlotHandlerFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
 		for (var height = 0; height < inventoryHeight; height++) {
 			for (var width = 0; width < inventoryWidth; width++) {
 				addFluidSlot(function.getSlot(handler, startIndex + (width + height * inventoryWidth), width * 18 + x, height * 18 + y));
@@ -396,6 +396,6 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		 * @param yPosition y coordinate
 		 * @return A Slot instance
 		 */
-		FluidSlot getSlot(IFluidHandlerModifiable fluidHandler, int index, int xPosition, int yPosition);
+		FluidSlot getSlot(FluidHandlerModifiable fluidHandler, int index, int xPosition, int yPosition);
 	}
 }
