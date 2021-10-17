@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.tileentity;
 
-import info.u_team.u_team_core.blockentity.UTickableTileEntity;
+import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.inventory.TileEntityUFluidStackHandler;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_core.inventory.UFluidStackHandler;
@@ -22,7 +22,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BasicFluidInventoryTileEntity extends UTickableTileEntity implements MenuProvider {
+public class BasicFluidInventoryTileEntity extends UBlockEntity implements MenuProvider {
 	
 	protected final UItemStackHandler itemSlots;
 	protected final LazyOptional<UItemStackHandler> itemSlotsOptional;

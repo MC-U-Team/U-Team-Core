@@ -24,16 +24,16 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		addItem(TestItems.BETTER_ENDERPEARL, "Better Enderpearl");
 		addItem(TestItems.BASIC_FOOD, "Basic Food");
 		
-		addItem(TestItems.BASIC_ARMOR.getHelmet(), "Basic Helmet");
-		addItem(TestItems.BASIC_ARMOR.getChestplate(), "Basic Chestplate");
-		addItem(TestItems.BASIC_ARMOR.getLeggings(), "Basic Leggings");
-		addItem(TestItems.BASIC_ARMOR.getBoots(), "Basic Boots");
+		addItem(TestItems.BASIC_ARMOR.helmet(), "Basic Helmet");
+		addItem(TestItems.BASIC_ARMOR.chestplate(), "Basic Chestplate");
+		addItem(TestItems.BASIC_ARMOR.leggings(), "Basic Leggings");
+		addItem(TestItems.BASIC_ARMOR.boots(), "Basic Boots");
 		
-		addItem(TestItems.BASIC_TOOL.getAxe(), "Basic Axe");
-		addItem(TestItems.BASIC_TOOL.getHoe(), "Basic Hoe");
-		addItem(TestItems.BASIC_TOOL.getPickaxe(), "Basic Pickaxe");
-		addItem(TestItems.BASIC_TOOL.getShovel(), "Basic Shovel");
-		addItem(TestItems.BASIC_TOOL.getSword(), "Basic Sword");
+		addItem(TestItems.BASIC_TOOL.axe(), "Basic Axe");
+		addItem(TestItems.BASIC_TOOL.hoe(), "Basic Hoe");
+		addItem(TestItems.BASIC_TOOL.pickaxe(), "Basic Pickaxe");
+		addItem(TestItems.BASIC_TOOL.shovel(), "Basic Shovel");
+		addItem(TestItems.BASIC_TOOL.sword(), "Basic Sword");
 		
 		addItem(TestItems.TEST_LIVING_SPAWN_EGG, "Test Living Entity Spawn Egg");
 		
