@@ -17,33 +17,37 @@ import net.minecraft.world.item.ItemStack;
  */
 public interface DyeableItem {
 	
+	String TAG_DISPLAY = "display";
+	String TAG_COLOR = "color";
+	int DEFAULT_COLOR = 0xA06540;
+	
 	default <T extends Item & DyeableItem> void addColoredItem(T item) {
 		DyeableItemsRegistry.addItem(item);
 	}
 	
 	default boolean hasColor(ItemStack stack) {
-		final var compound = stack.getTagElement("display");
-		return compound != null && compound.contains("color", Tag.TAG_ANY_NUMERIC);
+		final var compound = stack.getTagElement(TAG_DISPLAY);
+		return compound != null && compound.contains(TAG_COLOR, Tag.TAG_ANY_NUMERIC);
 	}
 	
 	default int getColor(ItemStack stack) {
-		final var compound = stack.getTagElement("display");
-		return compound != null && compound.contains("color", Tag.TAG_ANY_NUMERIC) ? compound.getInt("color") : getDefaultColor();
+		final var compound = stack.getTagElement(TAG_DISPLAY);
+		return compound != null && compound.contains(TAG_COLOR, Tag.TAG_ANY_NUMERIC) ? compound.getInt(TAG_COLOR) : getDefaultColor();
 	}
 	
 	default void removeColor(ItemStack stack) {
-		final var compound = stack.getTagElement("display");
-		if (compound != null && compound.contains("color")) {
-			compound.remove("color");
+		final var compound = stack.getTagElement(TAG_DISPLAY);
+		if (compound != null && compound.contains(TAG_COLOR)) {
+			compound.remove(TAG_COLOR);
 		}
 	}
 	
 	default void setColor(ItemStack stack, int color) {
-		stack.getOrCreateTagElement("display").putInt("color", color);
+		stack.getOrCreateTagElement(TAG_DISPLAY).putInt(TAG_COLOR, color);
 	}
 	
 	default int getDefaultColor() {
-		return 0xA06540;
+		return DEFAULT_COLOR;
 	}
 	
 	public static ItemStack colorStack(ItemStack stack, List<DyeColor> dyeList) {
