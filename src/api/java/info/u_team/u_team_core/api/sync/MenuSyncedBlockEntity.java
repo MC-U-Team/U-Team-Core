@@ -11,7 +11,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
  *
  * @author HyCraftHD
  */
-public interface InitSyncedBlockEntity extends MenuProvider {
+public interface MenuSyncedBlockEntity extends MenuProvider {
 	
 	/**
 	 * Collect data here that should be sent to the client side when the container will be opened. The data comes to the

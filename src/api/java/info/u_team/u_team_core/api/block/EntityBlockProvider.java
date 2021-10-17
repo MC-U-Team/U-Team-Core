@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import javax.annotation.Nullable;
 
-import info.u_team.u_team_core.api.sync.InitSyncedBlockEntity;
+import info.u_team.u_team_core.api.sync.MenuSyncedBlockEntity;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -73,7 +73,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	
 	/**
 	 * Opens the container that is specified in the block entity with {@link MenuConstructor}. If the tile entity implements
-	 * {@link InitSyncedBlockEntity} then the {@link InitSyncedBlockEntity#sendInitialDataBuffer(PacketBuffer)} is called
+	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataBuffer(PacketBuffer)} is called
 	 * and the data will be send to the client. The container cannot be opened when secondary use is active.
 	 *
 	 * @param level Level
@@ -87,7 +87,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	
 	/**
 	 * Opens the container that is specified in the block entity with {@link MenuConstructor}. If the tile entity implements
-	 * {@link InitSyncedBlockEntity} then the {@link InitSyncedBlockEntity#sendInitialDataBuffer(PacketBuffer)} is called
+	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataBuffer(PacketBuffer)} is called
 	 * and the data will be send to the client.
 	 *
 	 * @param level Level
@@ -119,7 +119,7 @@ public interface EntityBlockProvider extends EntityBlock {
 		}
 		
 		final var buffer = new FriendlyByteBuf(Unpooled.buffer());
-		if (blockEntity instanceof InitSyncedBlockEntity syncedBlockEntity) {
+		if (blockEntity instanceof MenuSyncedBlockEntity syncedBlockEntity) {
 			syncedBlockEntity.sendInitialDataBuffer(buffer);
 		}
 		
