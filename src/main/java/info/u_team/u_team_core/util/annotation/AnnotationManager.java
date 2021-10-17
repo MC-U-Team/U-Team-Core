@@ -17,17 +17,33 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.forgespi.language.ModFileScanData.AnnotationData;
 
+/**
+ * Manager for calling the classes that are annotated with {@link Construct} or {@link Integration}
+ * 
+ * @author HyCraftHD
+ */
 public class AnnotationManager {
 	
 	private static final Logger LOGGER = LogManager.getLogger("AnnotationManager");
 	private static final Marker CONSTRUCT_MARKER = MarkerManager.getMarker("Construct");
 	private static final Marker INTEGRATION_MARKER = MarkerManager.getMarker("Integration");
 	
+	/**
+	 * Tries to invoke {@link IModConstruct#construct()} and {@link IModIntegration#construct()} methods of classes that are
+	 * annotated with {@link Construct} or {@link Integration}.
+	 * 
+	 * @param modid The modid that should be respected for calling
+	 */
 	public static void callAnnotations(String modid) {
 		callConstructs(modid);
 		callIntegrations(modid);
 	}
 	
+	/**
+	 * Tries to invoke all {@link IModConstruct#construct()} methods of classes that are annotated with {@link Construct}.
+	 * 
+	 * @param modid The modid that should be respected for calling
+	 */
 	public static void callConstructs(String modid) {
 		for (final var data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
 			if (canBeCalled(modid, data)) {
@@ -42,6 +58,12 @@ public class AnnotationManager {
 		}
 	}
 	
+	/**
+	 * Tries to invoke all {@link IModIntegrationg#construct()} methods of classes that are annotated with
+	 * {@link Integration}.
+	 * 
+	 * @param modid The modid that should be respected for calling
+	 */
 	public static void callIntegrations(String modid) {
 		for (final var data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
 			final var integrationModid = (String) data.annotationData().get("integration");
@@ -57,6 +79,14 @@ public class AnnotationManager {
 		}
 	}
 	
+	/**
+	 * Determines if an annotated class with the construct method can be called. Checks for the right modid and if the
+	 * environment matches.
+	 * 
+	 * @param modid The modid
+	 * @param data Annotation data to check with
+	 * @return True if method can be called
+	 */
 	private static boolean canBeCalled(String modid, AnnotationData data) {
 		final var annotationModid = (String) data.annotationData().get("modid");
 		final var client = (Boolean) data.annotationData().get("client");
