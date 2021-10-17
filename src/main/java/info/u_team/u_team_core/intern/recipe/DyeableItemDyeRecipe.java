@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.google.common.collect.Lists;
 
-import info.u_team.u_team_core.api.dye.IDyeableItem;
+import info.u_team.u_team_core.api.dye.DyeableItem;
 import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
@@ -29,7 +29,7 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 			final var slotStack = container.getItem(index);
 			if (!slotStack.isEmpty()) {
 				final var item = slotStack.getItem();
-				if (item instanceof IDyeableItem) {
+				if (item instanceof DyeableItem) {
 					if (!dyeableItem.isEmpty()) {
 						return false;
 					}
@@ -55,7 +55,7 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 			final var slotStack = container.getItem(index);
 			if (!slotStack.isEmpty()) {
 				final var item = slotStack.getItem();
-				if (item instanceof IDyeableItem) {
+				if (item instanceof DyeableItem) {
 					if (!dyeableItem.isEmpty()) {
 						return ItemStack.EMPTY;
 					}
@@ -70,7 +70,7 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 		}
 		
 		if (!dyeableItem.isEmpty() && !dyeItemList.isEmpty()) {
-			return IDyeableItem.colorStackDyeItem(dyeableItem, dyeItemList);
+			return DyeableItem.colorStackDyeItem(dyeableItem, dyeItemList);
 		} else {
 			return ItemStack.EMPTY;
 		}

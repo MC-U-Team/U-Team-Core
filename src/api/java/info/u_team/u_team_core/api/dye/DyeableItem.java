@@ -3,31 +3,32 @@ package info.u_team.u_team_core.api.dye;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Attach this to any item that can be colors. Automatically adds dye color recipes. Call addColoredItem(Item) to also
- * register the item to the item color manager.
+ * Attach this to any item that can be colors. Automatically adds dye color recipes. Call {@link #addColoredItem(Item)}
+ * to also register the item to the item color manager.
  *
  * @author HyCraftHD
  */
-public interface IDyeableItem {
+public interface DyeableItem {
 	
-	default <T extends Item & IDyeableItem> void addColoredItem(T item) {
+	default <T extends Item & DyeableItem> void addColoredItem(T item) {
 		DyeableItemsRegistry.addItem(item);
 	}
 	
 	default boolean hasColor(ItemStack stack) {
 		final var compound = stack.getTagElement("display");
-		return compound != null && compound.contains("color", 99);
+		return compound != null && compound.contains("color", Tag.TAG_ANY_NUMERIC);
 	}
 	
 	default int getColor(ItemStack stack) {
 		final var compound = stack.getTagElement("display");
-		return compound != null && compound.contains("color", 99) ? compound.getInt("color") : getDefaultColor();
+		return compound != null && compound.contains("color", Tag.TAG_ANY_NUMERIC) ? compound.getInt("color") : getDefaultColor();
 	}
 	
 	default void removeColor(ItemStack stack) {
@@ -42,14 +43,14 @@ public interface IDyeableItem {
 	}
 	
 	default int getDefaultColor() {
-		return 10511680;
+		return 0xA06540;
 	}
 	
 	public static ItemStack colorStack(ItemStack stack, List<DyeColor> dyeList) {
-		if (!(stack.getItem() instanceof IDyeableItem)) {
+		if (!(stack.getItem() instanceof DyeableItem)) {
 			return ItemStack.EMPTY;
 		}
-		final var dyeableItem = (IDyeableItem) stack.getItem();
+		final var dyeableItem = (DyeableItem) stack.getItem();
 		final var dyedStack = stack.copy();
 		dyedStack.setCount(1);
 		
@@ -108,6 +109,6 @@ public interface IDyeableItem {
 	}
 	
 	public static ItemStack colorStackDyeItem(ItemStack stack, List<DyeItem> dyeItemList) {
-		return colorStack(stack, dyeItemList.parallelStream().map(dyeItem -> dyeItem.getDyeColor()).collect(Collectors.toList()));
+		return colorStack(stack, dyeItemList.stream().map(dyeItem -> dyeItem.getDyeColor()).collect(Collectors.toList()));
 	}
 }

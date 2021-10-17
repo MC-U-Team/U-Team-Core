@@ -3,7 +3,7 @@ package info.u_team.u_team_core.integration.jei;
 import java.util.stream.Collectors;
 
 import info.u_team.u_team_core.UCoreMod;
-import info.u_team.u_team_core.api.dye.IDyeableItem;
+import info.u_team.u_team_core.api.dye.DyeableItem;
 import info.u_team.u_team_core.inventory.CraftingRecipeWrapper;
 import info.u_team.u_team_core.inventory.UItemStackHandler;
 import mezz.jei.api.IModPlugin;
@@ -38,7 +38,7 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 		handler.setStackInSlot(1, new ItemStack(Items.WHITE_DYE));
 		
 		final var items = ForgeRegistries.ITEMS.getValues().stream() //
-				.filter(item -> item instanceof IDyeableItem || item instanceof DyeableLeatherItem) //
+				.filter(item -> item instanceof DyeableItem || item instanceof DyeableLeatherItem) //
 				.map(ItemStack::new) //
 				.filter(stack -> {
 					handler.setStackInSlot(0, stack.copy());

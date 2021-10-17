@@ -10,7 +10,7 @@ public class DyeableItemsRegistry {
 	
 	private static final Set<Item> DYEABLE_ITEMS = new HashSet<>();
 	
-	public static <T extends Item & IDyeableItem> void addItem(T item) {
+	public static <T extends Item & DyeableItem> void addItem(T item) {
 		DYEABLE_ITEMS.add(item);
 	}
 	
