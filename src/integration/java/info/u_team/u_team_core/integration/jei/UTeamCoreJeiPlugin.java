@@ -35,6 +35,8 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 		final var level = minecraft.level;
 		
 		final var handler = new UItemStackHandler(9);
+		final var recipeWrapper = new CraftingRecipeWrapper(handler, 3, 3);
+		
 		handler.setStackInSlot(1, new ItemStack(Items.WHITE_DYE));
 		
 		final var items = ForgeRegistries.ITEMS.getValues().stream() //
@@ -42,7 +44,7 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 				.map(ItemStack::new) //
 				.filter(stack -> {
 					handler.setStackInSlot(0, stack.copy());
-					return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, new CraftingRecipeWrapper(handler, 3, 3), level).isPresent();
+					return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, recipeWrapper, level).isPresent();
 				}).collect(Collectors.toList());
 		
 		registration.addIngredientInfo(items, VanillaTypes.ITEM, new TranslatableComponent("jei.uteamcore.dyeable.info"));
