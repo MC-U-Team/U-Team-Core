@@ -62,8 +62,8 @@ public class BlockDeferredRegister {
 		
 		blockToItemsMap.forEach((blockObject, itemObject) -> {
 			final var block = blockObject.get();
-			if (block instanceof BlockItemProvider) {
-				final var blockItem = ((BlockItemProvider) block).blockItem();
+			if (block instanceof BlockItemProvider blockItemProvider) {
+				final var blockItem = blockItemProvider.blockItem();
 				if (blockItem != null) {
 					registry.register(blockItem.setRegistryName(itemObject.getId()));
 					((RegistryObject<Item>) itemObject).updateReference(registry);
