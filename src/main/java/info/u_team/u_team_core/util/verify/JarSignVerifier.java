@@ -16,6 +16,8 @@ import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.util.CertificateHelper;
 
+// TODO evaluate if this is still useful. Forge has now a system for checking the fingerprint too, but makes this
+// information not accessible
 public class JarSignVerifier {
 	
 	private static final Logger LOGGER = LogManager.getLogger("JarSignVerifier");
