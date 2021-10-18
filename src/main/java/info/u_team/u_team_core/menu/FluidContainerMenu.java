@@ -7,12 +7,14 @@ import java.util.function.Supplier;
 import com.google.common.base.Suppliers;
 
 import info.u_team.u_team_core.api.fluid.FluidHandlerModifiable;
+import info.u_team.u_team_core.api.menu.FluidContainerListener;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.FluidSetAllContainerMessage;
 import info.u_team.u_team_core.intern.network.FluidSetSlotContainerMessage;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -279,10 +281,11 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			final var copy = supplier.get();
 			lastFluidSlots.set(slotId, copy);
 			
-			// TODO call container listener if custom implementation or so
-			// for (ContainerListener containerlistener : this.containerListeners) {
-			// containerlistener.slotChanged(this, index, copy);
-			// }
+			for (ContainerListener listener : containerListeners) {
+				if (listener instanceof FluidContainerListener fluidListener) {
+					fluidListener.fluidSlotChanged(this, slotId, copy);
+				}
+			}
 		}
 	}
 	
