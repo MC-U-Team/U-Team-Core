@@ -22,16 +22,33 @@ import net.minecraftforge.fmllegacy.network.PacketDistributor;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
+/**
+ * Adds a management system for fluids in menus like items.
+ * 
+ * @author HyCraftHD
+ */
 public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	protected final NonNullList<FluidStack> lastFluidSlots = NonNullList.create();
 	public final List<FluidSlot> fluidSlots = NonNullList.create();
 	private final NonNullList<FluidStack> remoteFluidSlots = NonNullList.create();
 	
-	public FluidContainerMenu(MenuType<?> menuType, int containerId) {
+	/**
+	 * Creates an container menu. Must be implemented by a sub class to be used.
+	 * 
+	 * @param menuType Menu type
+	 * @param containerId Container id
+	 */
+	protected FluidContainerMenu(MenuType<?> menuType, int containerId) {
 		super(menuType, containerId);
 	}
 	
+	/**
+	 * Adds a fluid slot to the menu. Should be called in the constructor of the container that implements the menu.
+	 * 
+	 * @param slot Fluid slot to add
+	 * @return Same instance of the added fluid slot
+	 */
 	protected FluidSlot addFluidSlot(FluidSlot slot) {
 		slot.index = fluidSlots.size();
 		fluidSlots.add(slot);
@@ -40,8 +57,23 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		return slot;
 	}
 	
-	public FluidSlot getFluidSlot(int slot) {
-		return fluidSlots.get(slot);
+	/**
+	 * Returns the fluid slot for a give slot id. Throws exception if the id is out of bounds.
+	 * 
+	 * @param slotId Slot id
+	 * @return Fluid slot with that id
+	 */
+	public FluidSlot getFluidSlot(int slotId) {
+		return fluidSlots.get(slotId);
+	}
+	
+	public NonNullList<FluidStack> getFluids() {
+		final NonNullList<FluidStack> list = NonNullList.create();
+		
+		for (FluidSlot fluidSlot : fluidSlots) {
+			list.add(fluidSlot.getStack());
+		}
+		return list;
 	}
 	
 	// Called when a client clicks on a fluid slot
@@ -192,15 +224,9 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	// Send packets for client sync
 	
-	// @Override
-	// public void addSlotListener(ContainerListener listener) {
-	// super.addSlotListener(listener);
-	// if (listener instanceof ServerPlayer) {
-	// UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> (ServerPlayer) listener), new
-	// FluidSetAllContainerMessage(containerId, stateId, getFluids()));
-	// }
-	// }
-	
+	/**
+	 * Sends all menu data to the client.
+	 */
 	@Override
 	public void sendAllDataToRemote() {
 		super.sendAllDataToRemote();
@@ -209,20 +235,14 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			remoteFluidSlots.set(slot, fluidSlots.get(slot).getStack().copy());
 		}
 		
-		if (synchronizerPlayer != null) {
-			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> synchronizerPlayer), new FluidSetAllContainerMessage(containerId, incrementStateId(), remoteFluidSlots));
+		if (getSynchronizerPlayer() != null) {
+			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new FluidSetAllContainerMessage(containerId, incrementStateId(), remoteFluidSlots));
 		}
 	}
 	
-	public NonNullList<FluidStack> getFluids() {
-		final NonNullList<FluidStack> list = NonNullList.create();
-		
-		for (FluidSlot fluidSlot : fluidSlots) {
-			list.add(fluidSlot.getStack());
-		}
-		return list;
-	}
-	
+	/**
+	 * Broadcast changed data
+	 */
 	@Override
 	public void broadcastChanges() {
 		for (var slot = 0; slot < fluidSlots.size(); slot++) {
@@ -234,6 +254,9 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		super.broadcastChanges();
 	}
 	
+	/**
+	 * Broadcast all data
+	 */
 	@Override
 	public void broadcastFullState() {
 		for (var slot = 0; slot < fluidSlots.size(); slot++) {
@@ -243,11 +266,18 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		super.broadcastFullState();
 	}
 	
-	private void triggerFluidSlotListeners(int slot, FluidStack stack, Supplier<FluidStack> supplier) {
-		final var lastStack = this.lastFluidSlots.get(slot);
+	/**
+	 * Trigger the listeners for fluid slot changes and update internal slot state.
+	 * 
+	 * @param slotId Slot id
+	 * @param stack Fluid stack
+	 * @param supplier Supplier to get a copy of the fluid stack
+	 */
+	private void triggerFluidSlotListeners(int slotId, FluidStack stack, Supplier<FluidStack> supplier) {
+		final var lastStack = lastFluidSlots.get(slotId);
 		if (!lastStack.isFluidStackIdentical(stack)) {
 			final var copy = supplier.get();
-			lastFluidSlots.set(slot, copy);
+			lastFluidSlots.set(slotId, copy);
 			
 			// TODO call container listener if custom implementation or so
 			// for (ContainerListener containerlistener : this.containerListeners) {
@@ -256,62 +286,73 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		}
 	}
 	
-	private void synchronizeFluidSlotToRemote(int slot, FluidStack stack, Supplier<FluidStack> supplier) {
+	/**
+	 * Synchronize the slot to the client and update internal state.
+	 * 
+	 * @param slotId Slot id
+	 * @param stack Fluid stack
+	 * @param supplier Supplier the get a copy the fluid stack
+	 */
+	private void synchronizeFluidSlotToRemote(int slotId, FluidStack stack, Supplier<FluidStack> supplier) {
 		if (!suppressRemoteUpdates) {
-			final var remoteStack = remoteFluidSlots.get(slot);
+			final var remoteStack = remoteFluidSlots.get(slotId);
 			if (!remoteStack.isFluidStackIdentical(stack)) {
 				final var copy = supplier.get();
-				remoteFluidSlots.set(slot, copy);
+				remoteFluidSlots.set(slotId, copy);
 				
-				if (synchronizerPlayer != null) {
-					UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(() -> synchronizerPlayer), new FluidSetSlotContainerMessage(containerId, incrementStateId(), slot, copy));
+				if (getSynchronizerPlayer() != null) {
+					UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new FluidSetSlotContainerMessage(containerId, incrementStateId(), slotId, copy));
 				}
 			}
 		}
 	}
 	
-	public void setRemoteFluidSlot(int slot, FluidStack stack) {
-		remoteFluidSlots.set(slot, stack.copy());
+	/**
+	 * Set the fluid stack that should be in the remote fluid slot. Copies the stack.
+	 * 
+	 * @param slotId Slot id
+	 * @param stack Fluid stack
+	 */
+	public void setRemoteFluidSlot(int slotId, FluidStack stack) {
+		remoteFluidSlots.set(slotId, stack.copy());
 	}
 	
-	public void setRemoteFluidSlotNoCopy(int slot, FluidStack stack) {
-		remoteFluidSlots.set(slot, stack);
+	/**
+	 * Set the fluid stack that should be in the remote fluid slot. Doesn't copy the stack.
+	 * 
+	 * @param slotId Slot id
+	 * @param stack Fluid stack
+	 */
+	public void setRemoteFluidSlotNoCopy(int slotId, FluidStack stack) {
+		remoteFluidSlots.set(slotId, stack);
 	}
 	
 	// Used for sync with the client
 	
-	public void setFluid(int slot, int stateId, FluidStack stack) {
-		getFluidSlot(slot).putStack(stack);
+	/**
+	 * Sets a fluid slot on the client side
+	 * 
+	 * @param slotId Slot id
+	 * @param stateId State id
+	 * @param stack Fluid stack
+	 */
+	public void setFluid(int slotId, int stateId, FluidStack stack) {
+		getFluidSlot(slotId).putStack(stack);
 		this.stateId = stateId;
 	}
 	
+	/**
+	 * Sets the fluid slots on the client side
+	 * 
+	 * @param stateId State id
+	 * @param stacks Fluid stacks
+	 */
 	public void initializeFluidContents(int stateId, List<FluidStack> stacks) {
 		for (var index = 0; index < stacks.size(); index++) {
 			getFluidSlot(index).putStack(stacks.get(index));
 		}
 		this.stateId = stateId;
 	}
-	
-	// @Override
-	// public void broadcastChanges() {
-	// super.broadcastChanges();
-	// for (var index = 0; index < fluidSlots.size(); index++) {
-	// final var stackSlot = fluidSlots.get(index).getStack();
-	// final var stackSynced = lastFluidSlots.get(index);
-	// if (!stackSynced.isFluidStackIdentical(stackSlot)) {
-	// final var stackNewSynced = stackSlot.copy();
-	// lastFluidSlots.set(index, stackNewSynced);
-	//
-	// final List<Connection> networkManagers = containerListeners.stream() //
-	// .filter(listener -> listener instanceof ServerPlayer) //
-	// .map(listener -> ((ServerPlayer) listener).connection.getConnection()) //
-	// .collect(Collectors.toList());
-	//
-	// UCoreNetwork.NETWORK.send(PacketDistributor.NMLIST.with(() -> networkManagers), new
-	// FluidSetSlotContainerMessage(containerId, index, stackNewSynced));
-	// }
-	// }
-	// }
 	
 	/**
 	 * This methods can add any {@link FluidHandlerModifiable} to the container. You can specialize the inventory height

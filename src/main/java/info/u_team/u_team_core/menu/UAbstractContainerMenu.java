@@ -26,7 +26,9 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	
 	/**
 	 * Do not call your self. Will be called from an asm hook inside {@link ServerPlayer#initMenu(AbstractContainerMenu)}.
-	 * This method sets player that has the container opened.
+	 * This method sets player that has the container opened. Will be called before
+	 * {@link #setSynchronizer(net.minecraft.world.inventory.ContainerSynchronizer)} so that method can be used for
+	 * synchronizing already.
 	 * 
 	 * @param player Server player that opened the container
 	 */
