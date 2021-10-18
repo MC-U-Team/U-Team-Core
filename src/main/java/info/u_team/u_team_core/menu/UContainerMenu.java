@@ -16,10 +16,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fmllegacy.network.PacketDistributor;
 import net.minecraftforge.items.IItemHandler;
@@ -42,10 +40,10 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	private final List<DataHolder> syncClientToServer;
 	
 	/**
-	 * Creates a new container
+	 * Creates a new container. Must be implemented by a sub class to be used.
 	 *
-	 * @param menuType Container type
-	 * @param containerId Window id
+	 * @param menuType Menu type
+	 * @param containerId Container id
 	 */
 	protected UContainerMenu(MenuType<?> menuType, int containerId) {
 		super(menuType, containerId);
@@ -144,32 +142,13 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	}
 	
 	/**
-	 * Return the current {@link IContainerListener} that are subscribed to our container
-	 *
-	 * @return Container listener
-	 */
-	protected List<ContainerListener> getListeners() {
-		return containerListeners;
-	}
-	
-	/**
-	 * Returns a list of item stacks that are in the Slots in the container. This list is used to compare if something
-	 * changed and needs to be synchronized to the client with the {@link #detectAndSendChanges()} method
-	 *
-	 * @return ItemStack list
-	 */
-	protected List<ItemStack> getInventoryItemStacks() {
-		return lastSlots;
-	}
-	
-	/**
 	 * This methods adds a player inventory to the container.
 	 *
 	 * @param playerInventory Player inventory
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendPlayerInventory(Inventory playerInventory, int x, int y) {
+	protected void addPlayerInventory(Inventory playerInventory, int x, int y) {
 		for (var height = 0; height < 4; height++) {
 			for (var width = 0; width < 9; width++) {
 				if (height == 3) {

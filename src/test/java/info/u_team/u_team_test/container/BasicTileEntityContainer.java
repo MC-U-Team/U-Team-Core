@@ -27,7 +27,7 @@ public class BasicTileEntityContainer extends UBlockEntityContainerMenu<BasicTil
 	@Override
 	protected void init(boolean server) {
 		appendInventory(tileEntity.getSlots(), 2, 9, 8, 41);
-		appendPlayerInventory(playerInventory, 8, 91);
+		addPlayerInventory(playerInventory, 8, 91);
 		
 		addServerToClientTracker(DataHolder.createIntHolder(() -> tileEntity.value, value -> tileEntity.value = value));
 		addServerToClientTracker(DataHolder.createIntHolder(() -> tileEntity.cooldown, value -> tileEntity.cooldown = value));

@@ -19,7 +19,7 @@ public class BasicEnergyCreatorContainer extends UBlockEntityContainerMenu<Basic
 	@Override
 	protected void init(boolean server) {
 		appendInventory(tileEntity.getSlots(), 2, 3, 116, 41);
-		appendPlayerInventory(playerInventory, 8, 91);
+		addPlayerInventory(playerInventory, 8, 91);
 		addServerToClientTracker(tileEntity.getEnergy().createSyncHandler());
 	}
 }

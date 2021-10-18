@@ -22,7 +22,7 @@ public class BasicFluidInventoryContainer extends UBlockEntityContainerMenu<Basi
 	protected void init(boolean server) {
 		appendFluidInventory(tileEntity.getFluidTanks(), 1, 4, 8, 18);
 		appendInventory(tileEntity.getItemSlots(), 1, 4, 8, 50);
-		appendPlayerInventory(playerInventory, 8, 82);
+		addPlayerInventory(playerInventory, 8, 82);
 	}
 	
 }
