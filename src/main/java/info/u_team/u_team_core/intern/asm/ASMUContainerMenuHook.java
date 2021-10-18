@@ -4,11 +4,16 @@ import info.u_team.u_team_core.menu.UAbstractContainerMenu;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
+/**
+ * Class used for an asm hook (ucontainermenu-init-menu.js) for the {@link UAbstractContainerMenu}. <br>
+ * <strong>Do not change package, class or method names without changing them in the asm core mod!</strong>
+ * 
+ * @author HyCraftHD
+ */
 public class ASMUContainerMenuHook {
 	
 	/**
-	 * Called from asm core mod (ucontainermenu-init-menu.js) from {@link ServerPlayer#initMenu(AbstractContainerMenu)}
-	 * method.
+	 * Called from asm core mod from {@link ServerPlayer#initMenu(AbstractContainerMenu)} method.
 	 */
 	public static void hook(AbstractContainerMenu menu, ServerPlayer player) {
 		if (menu instanceof UAbstractContainerMenu uContainerMenu) {
