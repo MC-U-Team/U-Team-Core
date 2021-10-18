@@ -130,7 +130,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	}
 	
 	/**
-	 * Player can interact with this container
+	 * Default player interaction with this container to true
 	 */
 	@Override
 	public boolean stillValid(Player player) {
