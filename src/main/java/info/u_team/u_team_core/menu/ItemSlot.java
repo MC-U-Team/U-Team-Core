@@ -17,8 +17,8 @@ public class ItemSlot extends SlotItemHandler {
 	
 	@Override
 	public void setChanged() {
-		if (itemHandler instanceof UItemStackHandler) {
-			((UItemStackHandler) itemHandler).onContentsChanged(index);
+		if (itemHandler instanceof UItemStackHandler uItemHandler) {
+			uItemHandler.onContentsChanged(index);
 		}
 	}
 	

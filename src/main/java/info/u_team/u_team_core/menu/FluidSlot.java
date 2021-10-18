@@ -33,12 +33,12 @@ public class FluidSlot {
 	
 	public void putStack(FluidStack stack) {
 		fluidHandler.setFluidInTank(slot, stack);
-		onSlotChanged();
+		setChanged();
 	}
 	
-	public void onSlotChanged() {
-		if (fluidHandler instanceof UFluidStackHandler) {
-			((UFluidStackHandler) fluidHandler).onContentsChanged(slot);
+	public void setChanged() {
+		if (fluidHandler instanceof UFluidStackHandler uFluidHandler) {
+			uFluidHandler.onContentsChanged(slot);
 		}
 	}
 	

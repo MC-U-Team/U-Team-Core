@@ -150,7 +150,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 				fluidSlot.putStack(drainedFluidStack);
 			} else {
 				fluidSlot.getStack().grow(drainedFluidStack.getAmount());
-				fluidSlot.onSlotChanged();
+				fluidSlot.setChanged();
 			}
 			setCarried(outputStack);
 		} else {
@@ -159,7 +159,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 					fluidSlot.putStack(drainedFluidStack);
 				} else {
 					fluidSlot.getStack().grow(drainedFluidStack.getAmount());
-					fluidSlot.onSlotChanged();
+					fluidSlot.setChanged();
 				}
 				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
 				stack.shrink(1);
@@ -200,7 +200,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			if (fluidSlot.getStack().isEmpty()) {
 				fluidSlot.putStack(FluidStack.EMPTY);
 			} else {
-				fluidSlot.onSlotChanged();
+				fluidSlot.setChanged();
 			}
 			setCarried(outputStack);
 		} else {
@@ -209,7 +209,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 				if (fluidSlot.getStack().isEmpty()) {
 					fluidSlot.putStack(FluidStack.EMPTY);
 				} else {
-					fluidSlot.onSlotChanged();
+					fluidSlot.setChanged();
 				}
 				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
 				stack.shrink(1);
