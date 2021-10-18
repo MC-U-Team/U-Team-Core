@@ -15,7 +15,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	private ServerPlayer synchronizerPlayer;
 	
 	/**
-	 * Creates an container menu. Must be implemented by a sub class to be used.
+	 * Creates a container menu. Must be implemented by a sub class to be used.
 	 * 
 	 * @param menuType Menu type
 	 * @param containerId Container id

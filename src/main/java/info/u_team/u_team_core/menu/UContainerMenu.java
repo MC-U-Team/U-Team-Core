@@ -25,7 +25,7 @@ import net.minecraftforge.fmllegacy.network.PacketDistributor;
 import net.minecraftforge.items.IItemHandler;
 
 /**
- * A basic container
+ * A basic menu with synchronization capabilities that implements the {@link FluidContainerMenu}.
  *
  * @author HyCraftHD
  */
@@ -44,11 +44,11 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	/**
 	 * Creates a new container
 	 *
-	 * @param type Container type
-	 * @param id Window id
+	 * @param menuType Container type
+	 * @param containerId Window id
 	 */
-	public UContainerMenu(MenuType<?> type, int id) {
-		super(type, id);
+	protected UContainerMenu(MenuType<?> menuType, int containerId) {
+		super(menuType, containerId);
 		syncServerToClient = new ArrayList<>();
 		syncClientToServer = new ArrayList<>();
 	}
