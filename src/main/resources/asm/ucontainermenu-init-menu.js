@@ -26,6 +26,7 @@ function initializeCoreMod() {
 function injectUContainerMenuInitMenu(methodNode) {
 	var insList = new InsList()
 
+	// Build method call to ASMUContainerMenuHook.hook with the right parameters
 	insList.add(new LabelNode())
 	insList.add(new VarInsnNode(Opcodes.ALOAD, 1))
 	insList.add(new VarInsnNode(Opcodes.ALOAD, 0))
@@ -36,6 +37,7 @@ function injectUContainerMenuInitMenu(methodNode) {
 		ASMAPI.MethodType.STATIC
 	))
 
+	// Insert our method call at the top of the method
 	methodNode.instructions.insert(insList)
 
 	ASMAPI.log("INFO", "Injected ASMUContainerMenuHook call into ServerPlayer#initMenu")
