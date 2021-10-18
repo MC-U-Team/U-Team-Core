@@ -29,15 +29,15 @@ public class BasicTileEntityContainer extends UBlockEntityContainerMenu<BasicTil
 		appendInventory(tileEntity.getSlots(), 2, 9, 8, 41);
 		addPlayerInventory(playerInventory, 8, 91);
 		
-		addServerToClientTracker(DataHolder.createIntHolder(() -> tileEntity.value, value -> tileEntity.value = value));
-		addServerToClientTracker(DataHolder.createIntHolder(() -> tileEntity.cooldown, value -> tileEntity.cooldown = value));
+		addDataHolderToClient(DataHolder.createIntHolder(() -> tileEntity.value, value -> tileEntity.value = value));
+		addDataHolderToClient(DataHolder.createIntHolder(() -> tileEntity.cooldown, value -> tileEntity.cooldown = value));
 		
-		valueMessage = addClientToServerTracker(new EmptyMessageHolder(() -> {
+		valueMessage = addDataHolderToServer(new EmptyMessageHolder(() -> {
 			tileEntity.value += 100;
 			tileEntity.setChanged();
 		}));
 		
-		cooldownMessage = addClientToServerTracker(new MessageHolder(packet -> {
+		cooldownMessage = addDataHolderToServer(new MessageHolder(packet -> {
 			tileEntity.cooldown = Math.min(packet.readShort(), 100);
 			tileEntity.setChanged();
 		}));

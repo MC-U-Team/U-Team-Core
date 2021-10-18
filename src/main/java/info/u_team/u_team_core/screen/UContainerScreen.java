@@ -89,7 +89,7 @@ public class UContainerScreen<T extends AbstractContainerMenu> extends FluidCont
 			}
 		});
 		if (menu instanceof UContainerMenu) {
-			((UContainerMenu) menu).updateTrackedServerToClient();
+			((UContainerMenu) menu).broadcastChangesToServer();
 		}
 	}
 }
