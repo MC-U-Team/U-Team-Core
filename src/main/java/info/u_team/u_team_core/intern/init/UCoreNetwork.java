@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.intern.init;
 
 import info.u_team.u_team_core.UCoreMod;
-import info.u_team.u_team_core.intern.network.BufferPropertyContainerMessage;
+import info.u_team.u_team_core.intern.network.DataHolderMenuMessage;
 import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
 import info.u_team.u_team_core.intern.network.FluidSetAllContainerMessage;
 import info.u_team.u_team_core.intern.network.FluidSetSlotContainerMessage;
@@ -24,7 +24,7 @@ public class UCoreNetwork {
 	}, PROTOCOL::equals);
 	
 	public static void setup(FMLCommonSetupEvent event) {
-		NETWORK.registerMessage(0, BufferPropertyContainerMessage.class, BufferPropertyContainerMessage::encode, BufferPropertyContainerMessage::decode, BufferPropertyContainerMessage.Handler::handle);
+		NETWORK.registerMessage(0, DataHolderMenuMessage.class, DataHolderMenuMessage::encode, DataHolderMenuMessage::decode, DataHolderMenuMessage.Handler::handle);
 		NETWORK.registerMessage(1, FluidSetAllContainerMessage.class, FluidSetAllContainerMessage::encode, FluidSetAllContainerMessage::decode, FluidSetAllContainerMessage.Handler::handle);
 		NETWORK.registerMessage(2, FluidSetSlotContainerMessage.class, FluidSetSlotContainerMessage::encode, FluidSetSlotContainerMessage::decode, FluidSetSlotContainerMessage.Handler::handle);
 		NETWORK.registerMessage(3, FluidClickContainerMessage.class, FluidClickContainerMessage::encode, FluidClickContainerMessage::decode, FluidClickContainerMessage.Handler::handle);

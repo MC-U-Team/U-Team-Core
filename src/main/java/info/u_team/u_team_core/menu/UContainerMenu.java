@@ -6,8 +6,9 @@ import java.util.function.BiConsumer;
 
 import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
-import info.u_team.u_team_core.intern.network.BufferPropertyContainerMessage;
+import info.u_team.u_team_core.intern.network.DataHolderMenuMessage;
 import info.u_team.u_team_core.screen.UContainerScreen;
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.fml.LogicalSide;
@@ -79,7 +80,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 		if (getSynchronizerPlayer() != null) {
 			for (var index = 0; index < dataHolderToClient.size(); index++) {
 				final var dataHolder = dataHolderToClient.get(index);
-				UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new BufferPropertyContainerMessage(containerId, index, dataHolder.get()));
+				UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
 			}
 		}
 	}
@@ -93,7 +94,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 		
 		if (getSynchronizerPlayer() != null) {
 			checkForChanges(dataHolderToClient, (index, dataHolder) -> {
-				UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new BufferPropertyContainerMessage(containerId, index, dataHolder.get()));
+				UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
 			});
 		}
 	}
@@ -105,23 +106,22 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	 */
 	public void broadcastChangesToServer() {
 		checkForChanges(dataHolderToServer, (index, dataHolder) -> {
-			UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new BufferPropertyContainerMessage(containerId, index, dataHolder.get()));
+			UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
 		});
 	}
 	
 	/**
 	 * Called by the packet handler to update the values on the right side.
-	 *
-	 * @param message Received network message
-	 * @param side Side to handle the message on
+	 * 
+	 * @param side Side that should set the values
+	 * @param index Index of the data holder in the list
+	 * @param dataHolderBuffer The buffer that should be set
 	 */
-	public final void setDataHolder(BufferPropertyContainerMessage message, LogicalSide side) {
-		final var property = message.getProperty();
-		final var buffer = message.getBuffer();
+	public final void setDataHolder(LogicalSide side, int index, FriendlyByteBuf dataHolderBuffer) {
 		if (side == LogicalSide.CLIENT) {
-			dataHolderToClient.get(property).set(buffer);
+			dataHolderToClient.get(index).set(dataHolderBuffer);
 		} else if (side == LogicalSide.SERVER) {
-			dataHolderToServer.get(property).set(buffer);
+			dataHolderToServer.get(index).set(dataHolderBuffer);
 		}
 	}
 	
