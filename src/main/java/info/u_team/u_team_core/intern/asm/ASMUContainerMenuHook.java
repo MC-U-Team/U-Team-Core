@@ -7,7 +7,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 public class ASMUContainerMenuHook {
 	
 	/**
-	 * Called from asm core mod (ucontainermenu-init-menu.js)
+	 * Called from asm core mod (ucontainermenu-init-menu.js) from {@link ServerPlayer#initMenu(AbstractContainerMenu)}
+	 * method.
 	 */
 	public static void hook(AbstractContainerMenu menu, ServerPlayer player) {
 		if (menu instanceof UAbstractContainerMenu uContainerMenu) {
