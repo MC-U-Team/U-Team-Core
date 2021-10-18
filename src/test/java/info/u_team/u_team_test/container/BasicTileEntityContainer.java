@@ -26,7 +26,7 @@ public class BasicTileEntityContainer extends UBlockEntityContainerMenu<BasicTil
 	
 	@Override
 	protected void init(boolean server) {
-		appendInventory(tileEntity.getSlots(), 2, 9, 8, 41);
+		addSlots(tileEntity.getSlots(), 2, 9, 8, 41);
 		addPlayerInventory(playerInventory, 8, 91);
 		
 		addDataHolderToClient(DataHolder.createIntHolder(() -> tileEntity.value, value -> tileEntity.value = value));
