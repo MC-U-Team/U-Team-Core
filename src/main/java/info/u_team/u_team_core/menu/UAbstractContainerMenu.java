@@ -100,7 +100,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void addSlots(Container container, SlotInventoryFunction function, int rows, int columns, int x, int y) {
+	protected void addSlots(Container container, SlotContainerFunction function, int rows, int columns, int x, int y) {
 		addSlots(container, function, 0, rows, columns, x, y);
 	}
 	
@@ -129,7 +129,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void addSlots(Container container, SlotInventoryFunction function, int startIndex, int rows, int columns, int x, int y) {
+	protected void addSlots(Container container, SlotContainerFunction function, int startIndex, int rows, int columns, int x, int y) {
 		for (var height = 0; height < rows; height++) {
 			for (var width = 0; width < columns; width++) {
 				addSlot(function.getSlot(container, startIndex + (width + height * columns), width * 18 + x, height * 18 + y));
@@ -203,18 +203,18 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	 * @author HyCraftHD
 	 */
 	@FunctionalInterface
-	public static interface SlotInventoryFunction {
+	public static interface SlotContainerFunction {
 		
 		/**
 		 * Should return a slot with the applied parameters.
 		 *
-		 * @param inventory Inventory container
+		 * @param container Inventory container
 		 * @param index Index for this inventory
 		 * @param x X coordinate
 		 * @param y Y coordinate
 		 * @return A new slot instance
 		 */
-		Slot getSlot(Container inventory, int index, int x, int y);
+		Slot getSlot(Container container, int index, int x, int y);
 	}
 	
 	/**
