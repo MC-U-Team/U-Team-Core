@@ -12,7 +12,7 @@ public class TestCommonConstruct implements ModConstruct {
 	public void construct() {
 		BusRegister.registerMod(TestBlocks::registerMod);
 		BusRegister.registerMod(TestMenuTypes::registerMod);
-		BusRegister.registerMod(TestEffects::registerMod);
+		BusRegister.registerMod(TestMobEffects::registerMod);
 		BusRegister.registerMod(TestEnchantments::registerMod);
 		BusRegister.registerMod(TestEntitySpawnPlacementRegistries::registerMod);
 		BusRegister.registerMod(TestEntityTypes::registerMod);

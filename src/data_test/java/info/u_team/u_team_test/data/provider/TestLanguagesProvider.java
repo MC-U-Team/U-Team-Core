@@ -3,7 +3,7 @@ package info.u_team.u_team_test.data.provider;
 import info.u_team.u_team_core.data.CommonLanguagesProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestBlocks;
-import info.u_team.u_team_test.init.TestEffects;
+import info.u_team.u_team_test.init.TestMobEffects;
 import info.u_team.u_team_test.init.TestEnchantments;
 import info.u_team.u_team_test.init.TestEntityTypes;
 import info.u_team.u_team_test.init.TestItemGroups;
@@ -47,7 +47,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		
 		addEnchantment(TestEnchantments.AUTO_SMELT, "Auto Smelt");
 		
-		addEffect(TestEffects.RADIATION, "Radiation");
+		addEffect(TestMobEffects.RADIATION, "Radiation");
 		
 		add("death.attack.radiation", "%1$s dies of radiation");
 		

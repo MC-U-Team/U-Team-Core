@@ -8,14 +8,14 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class TestEffects {
+public class TestMobEffects {
 	
-	public static final CommonDeferredRegister<MobEffect> EFFECTS = CommonDeferredRegister.create(ForgeRegistries.MOB_EFFECTS, TestMod.MODID);
+	public static final CommonDeferredRegister<MobEffect> MOB_EFFECTS = CommonDeferredRegister.create(ForgeRegistries.MOB_EFFECTS, TestMod.MODID);
 	
-	public static final RegistryObject<MobEffect> RADIATION = EFFECTS.register("radiation", RadiationEffect::new);
+	public static final RegistryObject<MobEffect> RADIATION = MOB_EFFECTS.register("radiation", RadiationEffect::new);
 	
 	public static void registerMod(IEventBus bus) {
-		EFFECTS.register(bus);
+		MOB_EFFECTS.register(bus);
 	}
 	
 }
