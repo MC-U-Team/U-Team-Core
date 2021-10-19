@@ -4,7 +4,6 @@ import java.util.Optional;
 
 import javax.annotation.Nullable;
 
-import info.u_team.u_team_core.api.sync.MenuSyncedBlockEntity;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -72,23 +71,23 @@ public interface EntityBlockProvider extends EntityBlock {
 	}
 	
 	/**
-	 * Opens the container that is specified in the block entity with {@link MenuConstructor}. If the tile entity implements
-	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataToClient(PacketBuffer)} is called
-	 * and the data will be send to the client. The container cannot be opened when secondary use is active.
+	 * Opens the menu that is specified in the block entity with {@link MenuConstructor}. If the block entity implements
+	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataToClient(FriendlyByteBuf)} is
+	 * called and the data will be send to the client. The container cannot be opened when secondary use is active.
 	 *
 	 * @param level Level
 	 * @param pos The block entities position
 	 * @param player The player that opens the block entity
 	 * @return {@link InteractionResult} if the container could be opened
 	 */
-	default InteractionResult openContainer(Level world, BlockPos pos, Player player) {
-		return openContainer(world, pos, player, false);
+	default InteractionResult openMenu(Level world, BlockPos pos, Player player) {
+		return openMenu(world, pos, player, false);
 	}
 	
 	/**
-	 * Opens the container that is specified in the block entity with {@link MenuConstructor}. If the tile entity implements
-	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataToClient(PacketBuffer)} is called
-	 * and the data will be send to the client.
+	 * Opens the menu that is specified in the block entity with {@link MenuConstructor}. If the block entity implements
+	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataToClient(FriendlyByteBuf)} is
+	 * called and the data will be send to the client.
 	 *
 	 * @param level Level
 	 * @param pos The block entities position
@@ -96,7 +95,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	 * @param canOpenWhenSecondaryUse If the container can be opened when secondary use is active
 	 * @return {@link InteractionResult} if the container could be opened
 	 */
-	default InteractionResult openContainer(Level level, BlockPos pos, Player player, boolean canOpenWhenSecondaryUse) {
+	default InteractionResult openMenu(Level level, BlockPos pos, Player player, boolean canOpenWhenSecondaryUse) {
 		if (level.isClientSide() || !(player instanceof ServerPlayer)) {
 			return InteractionResult.SUCCESS;
 		}

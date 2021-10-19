@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.menu;
 
-import info.u_team.u_team_core.api.sync.MenuSyncedBlockEntity;
+import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
 import info.u_team.u_team_core.util.CastUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;

@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.tileentity;
 
-import info.u_team.u_team_core.api.sync.MenuSyncedBlockEntity;
+import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.energy.BasicEnergyStorage;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
