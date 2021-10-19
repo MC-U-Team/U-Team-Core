@@ -8,6 +8,7 @@ import info.u_team.u_team_test.init.TestContainers;
 import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraftforge.fml.LogicalSide;
 
 public class BasicTileEntityContainer extends UBlockEntityContainerMenu<BasicTileEntityTileEntity> {
 	
@@ -25,21 +26,21 @@ public class BasicTileEntityContainer extends UBlockEntityContainerMenu<BasicTil
 	}
 	
 	@Override
-	protected void init(boolean server) {
-		addSlots(tileEntity.getSlots(), 2, 9, 8, 41);
+	protected void init(LogicalSide side) {
+		addSlots(blockEntity.getSlots(), 2, 9, 8, 41);
 		addPlayerInventory(playerInventory, 8, 91);
 		
-		addDataHolderToClient(DataHolder.createIntHolder(() -> tileEntity.value, value -> tileEntity.value = value));
-		addDataHolderToClient(DataHolder.createIntHolder(() -> tileEntity.cooldown, value -> tileEntity.cooldown = value));
+		addDataHolderToClient(DataHolder.createIntHolder(() -> blockEntity.value, value -> blockEntity.value = value));
+		addDataHolderToClient(DataHolder.createIntHolder(() -> blockEntity.cooldown, value -> blockEntity.cooldown = value));
 		
 		valueMessage = addDataHolderToServer(new EmptyMessageHolder(() -> {
-			tileEntity.value += 100;
-			tileEntity.setChanged();
+			blockEntity.value += 100;
+			blockEntity.setChanged();
 		}));
 		
 		cooldownMessage = addDataHolderToServer(new MessageHolder(packet -> {
-			tileEntity.cooldown = Math.min(packet.readShort(), 100);
-			tileEntity.setChanged();
+			blockEntity.cooldown = Math.min(packet.readShort(), 100);
+			blockEntity.setChanged();
 		}));
 	}
 	
