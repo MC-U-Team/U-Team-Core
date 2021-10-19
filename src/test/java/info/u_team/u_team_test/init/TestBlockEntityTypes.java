@@ -14,9 +14,7 @@ public class TestBlockEntityTypes {
 	public static final BlockEntityTypeDeferredRegister BLOCK_ENTITY_TYPES = BlockEntityTypeDeferredRegister.create(TestMod.MODID);
 	
 	public static final RegistryObject<BlockEntityType<BasicTileEntityTileEntity>> BASIC = BLOCK_ENTITY_TYPES.register("basic_block_entity", () -> BlockEntityType.Builder.of(BasicTileEntityTileEntity::new, TestBlocks.BASIC_BLOCKENTITY.get()));
-	
 	public static final RegistryObject<BlockEntityType<BasicEnergyCreatorTileEntity>> BASIC_ENERGY_CREATOR = BLOCK_ENTITY_TYPES.register("energy_creator", () -> BlockEntityType.Builder.of(BasicEnergyCreatorTileEntity::new, TestBlocks.BASIC_ENERGY_CREATOR.get()));
-	
 	public static final RegistryObject<BlockEntityType<BasicFluidInventoryTileEntity>> BASIC_FLUID_INVENTORY = BLOCK_ENTITY_TYPES.register("fluid_inventory", () -> BlockEntityType.Builder.of(BasicFluidInventoryTileEntity::new, TestBlocks.BASIC_FLUID_INVENTORY.get()));
 	
 	public static void registerMod(IEventBus bus) {
