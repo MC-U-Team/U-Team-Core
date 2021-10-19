@@ -20,7 +20,7 @@ public class TestCommonConstruct implements ModConstruct {
 		BusRegister.registerMod(TestGlobalLootModifierSerializers::registerMod);
 		BusRegister.registerMod(TestItems::registerMod);
 		BusRegister.registerMod(TestPotions::registerMod);
-		BusRegister.registerMod(TestSounds::registerMod);
+		BusRegister.registerMod(TestSoundEvents::registerMod);
 		BusRegister.registerMod(TestTileEntityTypes::registerMod);
 		
 		BusRegister.registerForge(TestBiomeLoadingAdditions::registerForge);

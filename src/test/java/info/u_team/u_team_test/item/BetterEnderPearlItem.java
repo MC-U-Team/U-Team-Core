@@ -3,7 +3,7 @@ package info.u_team.u_team_test.item;
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_test.entity.BetterEnderPearlEntity;
 import info.u_team.u_team_test.init.TestCreativeTabs;
-import info.u_team.u_team_test.init.TestSounds;
+import info.u_team.u_team_test.init.TestSoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
@@ -23,7 +23,7 @@ public class BetterEnderPearlItem extends UItem {
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
 		final var stack = player.getItemInHand(hand);
 		
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), TestSounds.BETTER_ENDERPEARL_USE.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 1.5F));
+		world.playSound(null, player.getX(), player.getY(), player.getZ(), TestSoundEvents.BETTER_ENDERPEARL_USE.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 1.5F));
 		
 		player.getCooldowns().addCooldown(this, 10);
 		
