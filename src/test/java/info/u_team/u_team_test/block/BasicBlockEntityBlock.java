@@ -23,11 +23,11 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class BasicTileEntityBlock extends UEntityBlock {
+public class BasicBlockEntityBlock extends UEntityBlock {
 	
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	
-	public BasicTileEntityBlock() {
+	public BasicBlockEntityBlock() {
 		super(TestItemGroups.GROUP, Properties.of(Material.STONE).strength(2F).sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), TestTileEntityTypes.BASIC);
 		registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH));
 	}

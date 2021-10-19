@@ -22,7 +22,7 @@ public class TestItemModelsProvider extends CommonItemModelsProvider {
 		spawnEgg(TestItems.TEST_LIVING_SPAWN_EGG.get());
 		// Blocks
 		simpleBlock(TestBlocks.BASIC.get());
-		simpleBlock(TestBlocks.BASIC_TILEENTITY.get());
+		simpleBlock(TestBlocks.BASIC_BLOCKENTITY.get());
 		simpleBlock(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		simpleBlock(TestBlocks.BASIC_FLUID_INVENTORY.get());
 	}

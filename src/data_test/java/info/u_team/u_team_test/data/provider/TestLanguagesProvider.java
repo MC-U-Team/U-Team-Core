@@ -38,7 +38,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		addItem(TestItems.TEST_LIVING_SPAWN_EGG, "Test Living Entity Spawn Egg");
 		
 		addBlock(TestBlocks.BASIC, "Basic Block");
-		addBlock(TestBlocks.BASIC_TILEENTITY, "Tile Entity Block");
+		addBlock(TestBlocks.BASIC_BLOCKENTITY, "Tile Entity Block");
 		addBlock(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
 		addBlock(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
 		
@@ -57,7 +57,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		
 		// German test for umlaut
 		addBlock("de_de", TestBlocks.BASIC, "Ä");
-		addBlock("de_de", TestBlocks.BASIC_TILEENTITY, "Ö");
+		addBlock("de_de", TestBlocks.BASIC_BLOCKENTITY, "Ö");
 		addBlock("de_de", TestBlocks.BASIC_ENERGY_CREATOR, "Üabc");
 		addBlock("de_de", TestBlocks.BASIC_FLUID_INVENTORY, "Großes");
 	}
