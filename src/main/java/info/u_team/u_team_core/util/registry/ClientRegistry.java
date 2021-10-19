@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 
+@Deprecated(forRemoval = true) // TODO remove when everything as replacement
 public class ClientRegistry {
 	
 	@Deprecated // TODO remove
@@ -16,6 +17,7 @@ public class ClientRegistry {
 		MenuScreens.register(supplier.get(), factory);
 	}
 	
+	@Deprecated // TODO add event too. Currently no replacement
 	public static void registerKeybinding(KeyMapping key) {
 		net.minecraftforge.fmlclient.registry.ClientRegistry.registerKeyBinding(key);
 	}
