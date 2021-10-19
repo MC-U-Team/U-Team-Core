@@ -21,7 +21,7 @@ public class BasicFluidInventoryContainer extends UBlockEntityContainerMenu<Basi
 	
 	@Override
 	protected void init(LogicalSide side) {
-		appendFluidInventory(blockEntity.getFluidTanks(), 1, 4, 8, 18);
+		addFluidSlots(blockEntity.getFluidTanks(), 1, 4, 8, 18);
 		addSlots(blockEntity.getItemSlots(), 1, 4, 8, 50);
 		addPlayerInventory(playerInventory, 8, 82);
 	}

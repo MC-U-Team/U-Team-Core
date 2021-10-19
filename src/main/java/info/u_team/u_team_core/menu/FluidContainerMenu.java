@@ -367,8 +367,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendFluidInventory(FluidHandlerModifiable handler, int inventoryHeight, int inventoryWidth, int x, int y) {
-		appendFluidInventory(handler, 0, inventoryHeight, inventoryWidth, x, y);
+	protected void addFluidSlots(FluidHandlerModifiable handler, int inventoryHeight, int inventoryWidth, int x, int y) {
+		addFluidSlots(handler, 0, inventoryHeight, inventoryWidth, x, y);
 	}
 	
 	/**
@@ -383,8 +383,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendFluidInventory(FluidHandlerModifiable handler, FluidSlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
-		appendFluidInventory(handler, function, 0, inventoryHeight, inventoryWidth, x, y);
+	protected void addFluidSlots(FluidHandlerModifiable handler, FluidSlotHandlerFunction function, int inventoryHeight, int inventoryWidth, int x, int y) {
+		addFluidSlots(handler, function, 0, inventoryHeight, inventoryWidth, x, y);
 	}
 	
 	/**
@@ -398,8 +398,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendFluidInventory(FluidHandlerModifiable handler, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
-		appendFluidInventory(handler, FluidSlot::new, startIndex, inventoryHeight, inventoryWidth, x, y);
+	protected void addFluidSlots(FluidHandlerModifiable handler, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
+		addFluidSlots(handler, FluidSlot::new, startIndex, inventoryHeight, inventoryWidth, x, y);
 	}
 	
 	/**
@@ -415,7 +415,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void appendFluidInventory(FluidHandlerModifiable handler, FluidSlotHandlerFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
+	protected void addFluidSlots(FluidHandlerModifiable handler, FluidSlotHandlerFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
 		for (var height = 0; height < inventoryHeight; height++) {
 			for (var width = 0; width < inventoryWidth; width++) {
 				addFluidSlot(function.getSlot(handler, startIndex + (width + height * inventoryWidth), width * 18 + x, height * 18 + y));
