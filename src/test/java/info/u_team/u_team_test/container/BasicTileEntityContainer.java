@@ -4,7 +4,7 @@ import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
-import info.u_team.u_team_test.init.TestMenus;
+import info.u_team.u_team_test.init.TestMenuTypes;
 import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,12 +17,12 @@ public class BasicTileEntityContainer extends UBlockEntityContainerMenu<BasicTil
 	
 	// Client
 	public BasicTileEntityContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
-		super(TestMenus.BASIC_BLOCK_ENTITY.get(), id, playerInventory, buffer);
+		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), id, playerInventory, buffer);
 	}
 	
 	// Server
 	public BasicTileEntityContainer(int id, Inventory playerInventory, BasicTileEntityTileEntity tileEntity) {
-		super(TestMenus.BASIC_BLOCK_ENTITY.get(), id, playerInventory, tileEntity);
+		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), id, playerInventory, tileEntity);
 	}
 	
 	@Override

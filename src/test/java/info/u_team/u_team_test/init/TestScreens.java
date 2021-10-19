@@ -9,9 +9,9 @@ import net.minecraftforge.eventbus.api.IEventBus;
 public class TestScreens {
 	
 	private static void register(RegisterMenuScreensEvent event) {
-		event.registerScreen(TestMenus.BASIC_BLOCK_ENTITY, BasicTileEntityScreen::new);
-		event.registerScreen(TestMenus.BASIC_ENERGY_CREATOR, BasicEnergyCreatorScreen::new);
-		event.registerScreen(TestMenus.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
+		event.registerScreen(TestMenuTypes.BASIC_BLOCK_ENTITY, BasicTileEntityScreen::new);
+		event.registerScreen(TestMenuTypes.BASIC_ENERGY_CREATOR, BasicEnergyCreatorScreen::new);
+		event.registerScreen(TestMenuTypes.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
 	}
 	
 	public static void registerMod(IEventBus bus) {
