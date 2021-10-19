@@ -83,13 +83,13 @@ public class UContainerScreen<T extends AbstractContainerMenu> extends FluidCont
 	
 	@Override
 	public void containerTick() {
-		children().forEach(listener -> { // TODO change to direct variable?
-			if (listener instanceof IRenderTickable) {
-				((IRenderTickable) listener).renderTick();
+		children().forEach(listener -> {
+			if (listener instanceof IRenderTickable tickable) {
+				tickable.renderTick();
 			}
 		});
-		if (menu instanceof UContainerMenu) {
-			((UContainerMenu) menu).broadcastChangesToServer();
+		if (menu instanceof UContainerMenu uMenu) {
+			uMenu.broadcastChangesToServer();
 		}
 	}
 }

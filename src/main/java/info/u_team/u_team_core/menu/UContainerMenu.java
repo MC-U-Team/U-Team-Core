@@ -100,7 +100,9 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	}
 	
 	/**
-	 * Broadcast data from the client to the server if changed
+	 * Broadcast data from the client to the server if changed. Needs to be called everytime you want to send changed data
+	 * from the client to the server. Will be called automatically every tick if the screens base class is
+	 * {@link UContainerScreen}.
 	 *
 	 * @see #addDataHolderToServer(DataHolder)
 	 */
