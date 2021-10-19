@@ -14,7 +14,7 @@ public class TestCommonConstruct implements ModConstruct {
 		BusRegister.registerMod(TestMenuTypes::registerMod);
 		BusRegister.registerMod(TestMobEffects::registerMod);
 		BusRegister.registerMod(TestEnchantments::registerMod);
-		BusRegister.registerMod(TestEntitySpawnPlacementRegistries::registerMod);
+		BusRegister.registerMod(TestSpawnPlacementRegistries::registerMod);
 		BusRegister.registerMod(TestEntityTypes::registerMod);
 		BusRegister.registerMod(TestGlobalEntityTypeAttributes::registerMod);
 		BusRegister.registerMod(TestGlobalLootModifiers::registerMod);

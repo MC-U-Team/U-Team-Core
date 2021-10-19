@@ -6,7 +6,7 @@ import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
-public class TestEntitySpawnPlacementRegistries {
+public class TestSpawnPlacementRegistries {
 	
 	private static void setup(FMLCommonSetupEvent event) {
 		event.enqueueWork(() -> {
@@ -15,7 +15,7 @@ public class TestEntitySpawnPlacementRegistries {
 	}
 	
 	public static void registerMod(IEventBus bus) {
-		bus.addListener(TestEntitySpawnPlacementRegistries::setup);
+		bus.addListener(TestSpawnPlacementRegistries::setup);
 	}
 	
 }
