@@ -20,13 +20,13 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-public class BetterEnderPearlEntity extends ThrowableItemProjectile {
+public class BetterEnderPearl extends ThrowableItemProjectile {
 	
-	public BetterEnderPearlEntity(EntityType<? extends BetterEnderPearlEntity> type, Level world) {
+	public BetterEnderPearl(EntityType<? extends BetterEnderPearl> type, Level world) {
 		super(type, world);
 	}
 	
-	public BetterEnderPearlEntity(Level world, LivingEntity thrower) {
+	public BetterEnderPearl(Level world, LivingEntity thrower) {
 		super(TestEntityTypes.BETTER_ENDERPEARL.get(), thrower, world);
 	}
 	

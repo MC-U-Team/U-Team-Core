@@ -1,7 +1,7 @@
 package info.u_team.u_team_test.item;
 
 import info.u_team.u_team_core.item.UItem;
-import info.u_team.u_team_test.entity.BetterEnderPearlEntity;
+import info.u_team.u_team_test.entity.BetterEnderPearl;
 import info.u_team.u_team_test.init.TestCreativeTabs;
 import info.u_team.u_team_test.init.TestSoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -28,7 +28,7 @@ public class BetterEnderPearlItem extends UItem {
 		player.getCooldowns().addCooldown(this, 10);
 		
 		if (!world.isClientSide()) {
-			final var pearl = new BetterEnderPearlEntity(world, player);
+			final var pearl = new BetterEnderPearl(world, player);
 			pearl.setItem(stack);
 			pearl.shootFromRotation(player, player.getYRot(), player.getXRot(), 0.0F, 2.5F, 1.2F);
 			world.addFreshEntity(pearl);

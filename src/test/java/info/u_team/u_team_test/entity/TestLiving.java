@@ -23,13 +23,13 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
-public class TestLivingEntity extends Zombie {
+public class TestLiving extends Zombie {
 	
-	public TestLivingEntity(Level world) {
+	public TestLiving(Level world) {
 		this(TestEntityTypes.TEST_LIVING.get(), world);
 	}
 	
-	public TestLivingEntity(EntityType<? extends Zombie> type, Level world) {
+	public TestLiving(EntityType<? extends Zombie> type, Level world) {
 		super(type, world);
 	}
 	
@@ -38,7 +38,7 @@ public class TestLivingEntity extends Zombie {
 				.add(Attributes.ATTACK_DAMAGE, 6);
 	}
 	
-	public static boolean checkTestLivingSpawnRules(EntityType<TestLivingEntity> entityType, ServerLevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
+	public static boolean checkTestLivingSpawnRules(EntityType<TestLiving> entityType, ServerLevelAccessor world, MobSpawnType reason, BlockPos pos, Random random) {
 		return checkAnyLightMonsterSpawnRules(entityType, world, reason, pos, random) && (reason == MobSpawnType.SPAWNER || world.canSeeSky(pos));
 	}
 	
