@@ -5,7 +5,7 @@ import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.energy.BasicEnergyStorage;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_test.container.BasicEnergyCreatorContainer;
-import info.u_team.u_team_test.init.TestTileEntityTypes;
+import info.u_team.u_team_test.init.TestBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -33,7 +33,7 @@ public class BasicEnergyCreatorTileEntity extends UBlockEntity implements MenuSy
 	private final LazyOptional<BasicEnergyStorage> energyOptional;
 	
 	public BasicEnergyCreatorTileEntity(BlockPos pos, BlockState state) {
-		super(TestTileEntityTypes.BASIC_ENERGY_CREATOR.get(), pos, state);
+		super(TestBlockEntityTypes.BASIC_ENERGY_CREATOR.get(), pos, state);
 		slots = new TileEntityUItemStackHandler(6, this) {
 			
 			@Override

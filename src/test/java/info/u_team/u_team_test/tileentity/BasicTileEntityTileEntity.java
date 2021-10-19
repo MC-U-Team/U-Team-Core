@@ -4,7 +4,7 @@ import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_test.container.BasicTileEntityContainer;
-import info.u_team.u_team_test.init.TestTileEntityTypes;
+import info.u_team.u_team_test.init.TestBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -31,7 +31,7 @@ public class BasicTileEntityTileEntity extends UBlockEntity implements MenuSynce
 	public int cooldown, value;
 	
 	public BasicTileEntityTileEntity(BlockPos pos, BlockState state) {
-		super(TestTileEntityTypes.BASIC.get(), pos, state);
+		super(TestBlockEntityTypes.BASIC.get(), pos, state);
 		slots = new TileEntityUItemStackHandler(18, this);
 		slotsOptional = LazyOptional.of(() -> slots);
 	}

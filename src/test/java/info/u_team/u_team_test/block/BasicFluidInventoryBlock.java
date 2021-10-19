@@ -2,7 +2,7 @@ package info.u_team.u_team_test.block;
 
 import info.u_team.u_team_core.block.UEntityBlock;
 import info.u_team.u_team_test.init.TestCreativeTabs;
-import info.u_team.u_team_test.init.TestTileEntityTypes;
+import info.u_team.u_team_test.init.TestBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,7 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 public class BasicFluidInventoryBlock extends UEntityBlock {
 	
 	public BasicFluidInventoryBlock() {
-		super(TestCreativeTabs.TAB, Properties.of(Material.METAL).strength(1), TestTileEntityTypes.BASIC_FLUID_INVENTORY);
+		super(TestCreativeTabs.TAB, Properties.of(Material.METAL).strength(1), TestBlockEntityTypes.BASIC_FLUID_INVENTORY);
 	}
 	
 	@Override

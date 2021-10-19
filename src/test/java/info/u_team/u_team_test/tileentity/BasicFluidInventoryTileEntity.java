@@ -6,7 +6,7 @@ import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_core.inventory.UFluidStackHandler;
 import info.u_team.u_team_core.inventory.UItemStackHandler;
 import info.u_team.u_team_test.container.BasicFluidInventoryContainer;
-import info.u_team.u_team_test.init.TestTileEntityTypes;
+import info.u_team.u_team_test.init.TestBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -31,7 +31,7 @@ public class BasicFluidInventoryTileEntity extends UBlockEntity implements MenuP
 	protected final LazyOptional<UFluidStackHandler> fluidTanksOptional;
 	
 	public BasicFluidInventoryTileEntity(BlockPos pos, BlockState state) {
-		super(TestTileEntityTypes.BASIC_FLUID_INVENTORY.get(), pos, state);
+		super(TestBlockEntityTypes.BASIC_FLUID_INVENTORY.get(), pos, state);
 		
 		itemSlots = new TileEntityUItemStackHandler(4, this);
 		itemSlotsOptional = LazyOptional.of(() -> itemSlots);

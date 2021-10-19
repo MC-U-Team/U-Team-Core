@@ -9,15 +9,15 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class TileEntityTypeDeferredRegister {
+public class BlockEntityTypeDeferredRegister {
 	
-	public static TileEntityTypeDeferredRegister create(String modid) {
-		return new TileEntityTypeDeferredRegister(modid);
+	public static BlockEntityTypeDeferredRegister create(String modid) {
+		return new BlockEntityTypeDeferredRegister(modid);
 	}
 	
 	private final CommonDeferredRegister<BlockEntityType<?>> register;
 	
-	protected TileEntityTypeDeferredRegister(String modid) {
+	protected BlockEntityTypeDeferredRegister(String modid) {
 		register = CommonDeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, modid);
 	}
 	
