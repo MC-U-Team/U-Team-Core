@@ -16,9 +16,7 @@ public class TestMenuTypes {
 	public static final CommonDeferredRegister<MenuType<?>> MENU_TYPES = CommonDeferredRegister.create(ForgeRegistries.CONTAINERS, TestMod.MODID);
 	
 	public static final RegistryObject<UMenuType<BasicTileEntityContainer>> BASIC_BLOCK_ENTITY = MENU_TYPES.register("basic_block_entity", () -> new UMenuType<>(BasicTileEntityContainer::new));
-	
 	public static final RegistryObject<MenuType<BasicEnergyCreatorContainer>> BASIC_ENERGY_CREATOR = MENU_TYPES.register("energy_creator", () -> new UMenuType<>(BasicEnergyCreatorContainer::new));
-	
 	public static final RegistryObject<MenuType<BasicFluidInventoryContainer>> BASIC_FLUID_INVENTORY = MENU_TYPES.register("fluid_inventory", () -> new UMenuType<>(BasicFluidInventoryContainer::new));
 	
 	public static void registerMod(IEventBus bus) {
