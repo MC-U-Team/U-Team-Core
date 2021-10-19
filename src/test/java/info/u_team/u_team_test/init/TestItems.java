@@ -26,10 +26,10 @@ public class TestItems {
 	
 	public static final RegistryObject<BasicFoodItem> BASIC_FOOD = ITEMS.register("basicfood", BasicFoodItem::new);
 	
-	public static final TierSet BASIC_TOOL = TierSetCreator.create(ITEMS, "basictool", TestItemGroups.GROUP, new Properties(), TestToolMaterial.BASIC);
-	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create(ITEMS, "basicarmor", TestItemGroups.GROUP, new Properties(), TestArmorMaterial.BASIC);
+	public static final TierSet BASIC_TOOL = TierSetCreator.create(ITEMS, "basictool", TestCreativeTabs.TAB, new Properties(), TestToolMaterial.BASIC);
+	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create(ITEMS, "basicarmor", TestCreativeTabs.TAB, new Properties(), TestArmorMaterial.BASIC);
 	
-	public static final RegistryObject<USpawnEggItem> TEST_LIVING_SPAWN_EGG = ITEMS.register("test_living_spawn_egg", () -> new USpawnEggItem(TestItemGroups.GROUP, new Properties(), TestEntityTypes.TEST_LIVING, 0xFF0000, 0x00FF00));
+	public static final RegistryObject<USpawnEggItem> TEST_LIVING_SPAWN_EGG = ITEMS.register("test_living_spawn_egg", () -> new USpawnEggItem(TestCreativeTabs.TAB, new Properties(), TestEntityTypes.TEST_LIVING, 0xFF0000, 0x00FF00));
 	
 	public static void registerMod(IEventBus bus) {
 		ITEMS.register(bus);

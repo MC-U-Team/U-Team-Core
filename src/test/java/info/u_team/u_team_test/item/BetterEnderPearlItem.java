@@ -2,7 +2,7 @@ package info.u_team.u_team_test.item;
 
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_test.entity.BetterEnderPearlEntity;
-import info.u_team.u_team_test.init.TestItemGroups;
+import info.u_team.u_team_test.init.TestCreativeTabs;
 import info.u_team.u_team_test.init.TestSounds;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level;
 public class BetterEnderPearlItem extends UItem {
 	
 	public BetterEnderPearlItem() {
-		super(TestItemGroups.GROUP, new Properties().rarity(Rarity.EPIC));
+		super(TestCreativeTabs.TAB, new Properties().rarity(Rarity.EPIC));
 	}
 	
 	@Override

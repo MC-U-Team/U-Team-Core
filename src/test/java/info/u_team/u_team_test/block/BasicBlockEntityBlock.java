@@ -1,7 +1,7 @@
 package info.u_team.u_team_test.block;
 
 import info.u_team.u_team_core.block.UEntityBlock;
-import info.u_team.u_team_test.init.TestItemGroups;
+import info.u_team.u_team_test.init.TestCreativeTabs;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
 import net.minecraft.core.BlockPos;
@@ -28,7 +28,7 @@ public class BasicBlockEntityBlock extends UEntityBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	
 	public BasicBlockEntityBlock() {
-		super(TestItemGroups.GROUP, Properties.of(Material.STONE).strength(2F).sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), TestTileEntityTypes.BASIC);
+		super(TestCreativeTabs.TAB, Properties.of(Material.STONE).strength(2F).sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), TestTileEntityTypes.BASIC);
 		registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH));
 	}
 	

@@ -6,7 +6,7 @@ import info.u_team.u_team_test.init.TestBlocks;
 import info.u_team.u_team_test.init.TestMobEffects;
 import info.u_team.u_team_test.init.TestEnchantments;
 import info.u_team.u_team_test.init.TestEntityTypes;
-import info.u_team.u_team_test.init.TestItemGroups;
+import info.u_team.u_team_test.init.TestCreativeTabs;
 import info.u_team.u_team_test.init.TestItems;
 
 public class TestLanguagesProvider extends CommonLanguagesProvider {
@@ -17,7 +17,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 	
 	@Override
 	public void addTranslations() {
-		add(TestItemGroups.GROUP, "UTeamTest Tab");
+		add(TestCreativeTabs.TAB, "UTeamTest Tab");
 		
 		addItem(TestItems.BASIC, "Basic Item");
 		add(TestItems.BASIC.get().getDescriptionId() + ".outofrange", "\u00A74Out of range");

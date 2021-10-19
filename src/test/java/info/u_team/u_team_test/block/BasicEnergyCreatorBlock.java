@@ -1,7 +1,7 @@
 package info.u_team.u_team_test.block;
 
 import info.u_team.u_team_core.block.UEntityBlock;
-import info.u_team.u_team_test.init.TestItemGroups;
+import info.u_team.u_team_test.init.TestCreativeTabs;
 import info.u_team.u_team_test.init.TestTileEntityTypes;
 import info.u_team.u_team_test.tileentity.BasicEnergyCreatorTileEntity;
 import net.minecraft.core.BlockPos;
@@ -19,7 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 public class BasicEnergyCreatorBlock extends UEntityBlock {
 	
 	public BasicEnergyCreatorBlock() {
-		super(TestItemGroups.GROUP, Properties.of(Material.METAL).strength(2), TestTileEntityTypes.BASIC_ENERGY_CREATOR);
+		super(TestCreativeTabs.TAB, Properties.of(Material.METAL).strength(2), TestTileEntityTypes.BASIC_ENERGY_CREATOR);
 	}
 	
 	@Override
