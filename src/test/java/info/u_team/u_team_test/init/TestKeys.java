@@ -4,20 +4,20 @@ import org.lwjgl.glfw.GLFW;
 
 import com.mojang.blaze3d.platform.InputConstants;
 
-import info.u_team.u_team_core.util.registry.ClientRegistry;
 import info.u_team.u_team_test.screen.ButtonTestScreen;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.event.GuiScreenEvent.KeyboardKeyPressedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fmlclient.registry.ClientRegistry;
 
 public class TestKeys {
 	
 	public static final KeyMapping BASIC = new KeyMapping("Basic key", GLFW.GLFW_KEY_F8, "Basic category");
 	
 	private static void setup(FMLClientSetupEvent event) {
-		ClientRegistry.registerKeybinding(BASIC);
+		ClientRegistry.registerKeyBinding(BASIC);
 	}
 	
 	private static void onKeyboardPressed(KeyboardKeyPressedEvent.Post event) {
