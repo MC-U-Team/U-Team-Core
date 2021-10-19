@@ -5,7 +5,7 @@ import java.util.Collection;
 import com.mojang.brigadier.arguments.FloatArgumentType;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 
-import info.u_team.u_team_core.util.world.WorldUtil;
+import info.u_team.u_team_core.util.LevelUtil;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.commands.arguments.DimensionArgument;
@@ -40,7 +40,7 @@ public class DimensionTeleportSubCommand {
 	}
 	
 	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel level) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, level, entity.position()));
+		targets.forEach(entity -> LevelUtil.teleportEntity(entity, level, entity.position()));
 		if (targets.size() == 1) {
 			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), level.dimension().location()), true);
 		} else {
@@ -50,13 +50,13 @@ public class DimensionTeleportSubCommand {
 	}
 	
 	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel level, Vec3 pos) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, level, pos));
+		targets.forEach(entity -> LevelUtil.teleportEntity(entity, level, pos));
 		sendPositionInfo(source, targets, level, pos);
 		return 0;
 	}
 	
 	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel level, Vec3 pos, float yaw, float pitch) {
-		targets.forEach(entity -> WorldUtil.teleportEntity(entity, level, pos.x(), pos.y(), pos.z(), yaw, pitch));
+		targets.forEach(entity -> LevelUtil.teleportEntity(entity, level, pos.x(), pos.y(), pos.z(), yaw, pitch));
 		sendPositionInfo(source, targets, level, pos);
 		return 0;
 	}

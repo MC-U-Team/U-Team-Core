@@ -1,7 +1,7 @@
 package info.u_team.u_team_test.item;
 
 import info.u_team.u_team_core.item.UItem;
-import info.u_team.u_team_core.util.world.WorldUtil;
+import info.u_team.u_team_core.util.LevelUtil;
 import info.u_team.u_team_test.init.TestItemGroups;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerPlayer;
@@ -24,7 +24,7 @@ public class BasicItem extends UItem {
 		final var stack = player.getItemInHand(hand);
 		
 		if (!world.isClientSide()) {
-			final var rayTrace = WorldUtil.rayTraceServerSide(player, 50);
+			final var rayTrace = LevelUtil.rayTraceServerSide(player, 50);
 			
 			if (rayTrace.getType() == Type.MISS) {
 				player.displayClientMessage(new TranslatableComponent("item.uteamtest.basicitem.outofrange"), true);

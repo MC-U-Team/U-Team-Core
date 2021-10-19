@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.util.world;
+package info.u_team.u_team_core.util;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -29,7 +29,7 @@ import net.minecraft.world.phys.Vec3;
  *
  * @author HyCraftHD
  */
-public class WorldUtil {
+public class LevelUtil {
 	
 	/**
 	 * Raytrace from an entities look vector for collisions in range. Use default block mode {@link BlockMode#OUTLINE} and
@@ -86,18 +86,18 @@ public class WorldUtil {
 	}
 	
 	/**
-	 * Get the {@link ServerWorld} from the {@link DimensionType}
+	 * Get the {@link ServerLevel} from the {@link ResourceKey}
 	 *
 	 * @param entity An entity used to get the server instance with {@link Entity#getServer()}
 	 * @param type The dimension type
 	 * @return The server world for the given type
 	 */
-	public static ServerLevel getServerWorld(Entity entity, ResourceKey<Level> type) {
+	public static ServerLevel getServerLevel(Entity entity, ResourceKey<Level> type) {
 		return getServerWorld(entity.getServer(), type);
 	}
 	
 	/**
-	 * Get the {@link ServerWorld} from the {@link DimensionType}
+	 * Get the {@link ServerLevel} from the {@link ResourceKey}
 	 *
 	 * @param server The server instance
 	 * @param type The dimension type
@@ -130,7 +130,7 @@ public class WorldUtil {
 	 * @param pos The position the entity should be teleported to
 	 */
 	public static void teleportEntity(Entity entity, ResourceKey<Level> type, Vec3 pos) {
-		teleportEntity(entity, getServerWorld(entity, type), pos);
+		teleportEntity(entity, getServerLevel(entity, type), pos);
 	}
 	
 	/**
@@ -172,7 +172,7 @@ public class WorldUtil {
 	 * @param pitch Pitch
 	 */
 	public static void teleportEntity(Entity entity, ResourceKey<Level> type, double x, double y, double z, float yaw, float pitch) {
-		teleportEntity(entity, getServerWorld(entity, type), x, y, z, yaw, pitch);
+		teleportEntity(entity, getServerLevel(entity, type), x, y, z, yaw, pitch);
 	}
 	
 	/**
