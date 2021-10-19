@@ -37,14 +37,14 @@ public class BasicTileEntityTileEntity extends UBlockEntity implements MenuSynce
 	}
 	
 	@Override
-	public void sendInitialDataBuffer(FriendlyByteBuf buffer) {
+	public void sendInitialDataToClient(FriendlyByteBuf buffer) {
 		buffer.writeInt(value);
 		buffer.writeInt(cooldown);
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void handleInitialDataBuffer(FriendlyByteBuf buffer) {
+	public void handleInitialDataFromServer(FriendlyByteBuf buffer) {
 		value = buffer.readInt();
 		cooldown = buffer.readInt();
 	}

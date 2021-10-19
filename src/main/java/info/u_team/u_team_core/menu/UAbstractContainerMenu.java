@@ -61,18 +61,18 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	/**
 	 * This methods adds a player inventory to the container.
 	 *
-	 * @param inventory Player inventory
+	 * @param playerInventory Player inventory
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void addPlayerInventory(Inventory inventory, int x, int y) {
+	protected void addPlayerInventory(Inventory playerInventory, int x, int y) {
 		for (var height = 0; height < 4; height++) {
 			for (var width = 0; width < 9; width++) {
 				if (height == 3) {
-					addSlot(new Slot(inventory, width, width * 18 + x, height * 18 + 4 + y));
+					addSlot(new Slot(playerInventory, width, width * 18 + x, height * 18 + 4 + y));
 					continue;
 				}
-				addSlot(new Slot(inventory, width + height * 9 + 9, width * 18 + x, height * 18 + y));
+				addSlot(new Slot(playerInventory, width + height * 9 + 9, width * 18 + x, height * 18 + y));
 			}
 		}
 	}
@@ -140,7 +140,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	/**
 	 * This methods can add any {@link IItemHandler} to this menu.
 	 *
-	 * @param handler Inventory handler
+	 * @param handler Item inventory handler
 	 * @param rows Slot rows
 	 * @param columns Slot columns
 	 * @param x Start x
@@ -153,7 +153,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	/**
 	 * This methods can add any {@link IItemHandler} to this menu.
 	 *
-	 * @param handler Inventory handler
+	 * @param handler Item inventory handler
 	 * @param function Function to create a slot
 	 * @param rows Slot rows
 	 * @param columns Slot columns
@@ -167,7 +167,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	/**
 	 * This methods can add any {@link IItemHandler} to this menu.
 	 *
-	 * @param handler Inventory handler
+	 * @param handler Item inventory handler
 	 * @param startIndex Start index of inventory
 	 * @param rows Slot rows
 	 * @param columns Slot columns
@@ -181,7 +181,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	/**
 	 * This methods can add any {@link IItemHandler} to this menu.
 	 *
-	 * @param handler Inventory handler
+	 * @param handler Item inventory handler
 	 * @param function Function to create a slot
 	 * @param startIndex Start index of inventory
 	 * @param rows Slot rows
@@ -228,13 +228,13 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 		/**
 		 * Should return a slot with the applied parameters.
 		 *
-		 * @param itemHandler Item handler
+		 * @param handler Item inventory handler
 		 * @param index Index for this handler
 		 * @param x X coordinate
 		 * @param y Y coordinate
 		 * @return A new slot instance
 		 */
-		Slot getSlot(IItemHandler itemHandler, int index, int x, int y);
+		Slot getSlot(IItemHandler handler, int index, int x, int y);
 	}
 	
 }

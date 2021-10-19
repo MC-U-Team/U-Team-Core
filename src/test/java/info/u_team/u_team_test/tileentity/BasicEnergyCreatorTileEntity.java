@@ -68,13 +68,13 @@ public class BasicEnergyCreatorTileEntity extends UBlockEntity implements MenuSy
 	}
 	
 	@Override
-	public void sendInitialDataBuffer(FriendlyByteBuf buffer) {
+	public void sendInitialDataToClient(FriendlyByteBuf buffer) {
 		buffer.writeInt(energy.getEnergyStored());
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void handleInitialDataBuffer(FriendlyByteBuf buffer) {
+	public void handleInitialDataFromServer(FriendlyByteBuf buffer) {
 		energy.setEnergy(buffer.readInt());
 	}
 	

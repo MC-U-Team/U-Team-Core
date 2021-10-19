@@ -30,7 +30,7 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 			menu.getValueMessage().triggerMessage();
 		}));
 		
-		slider = addRenderableWidget(new USlider(leftPos + 7, topPos + 19, 162, 20, Component.nullToEmpty("Cooldown: "), Component.nullToEmpty(" Ticks"), 0, 100, menu.getTileEntity().cooldown, false, true, true, slider -> {
+		slider = addRenderableWidget(new USlider(leftPos + 7, topPos + 19, 162, 20, Component.nullToEmpty("Cooldown: "), Component.nullToEmpty(" Ticks"), 0, 100, menu.getBlockEntity().cooldown, false, true, true, slider -> {
 			menu.getCooldownMessage().triggerMessage(() -> new FriendlyByteBuf(Unpooled.copyShort(slider.getValueInt())));
 		}));
 	}
@@ -38,13 +38,13 @@ public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntity
 	@Override
 	public void containerTick() {
 		super.containerTick();
-		slider.setValue(menu.getTileEntity().cooldown);
+		slider.setValue(menu.getBlockEntity().cooldown);
 	}
 	
 	@Override
 	protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
 		super.renderLabels(matrixStack, mouseX, mouseY);
-		font.draw(matrixStack, Component.nullToEmpty("" + menu.getTileEntity().value), imageWidth / 2 + 32, 6, 0x404040);
+		font.draw(matrixStack, Component.nullToEmpty("" + menu.getBlockEntity().value), imageWidth / 2 + 32, 6, 0x404040);
 	}
 	
 	@Override

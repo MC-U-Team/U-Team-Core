@@ -20,6 +20,6 @@ public class BasicEnergyCreatorScreen extends UBasicContainerScreen<BasicEnergyC
 	@Override
 	protected void init() {
 		super.init();
-		addRenderableWidget(new EnergyStorageWidget(leftPos + 9, topPos + 20, 54, menu.getTileEntity().getCapability(CapabilityEnergy.ENERGY)));
+		addRenderableWidget(new EnergyStorageWidget(leftPos + 9, topPos + 20, 54, menu.getBlockEntity().getCapability(CapabilityEnergy.ENERGY)));
 	}
 }

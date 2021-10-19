@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.menu;
 
 import info.u_team.u_team_core.api.sync.MenuSyncedBlockEntity;
+import info.u_team.u_team_core.util.CastUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -10,112 +11,117 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fmllegacy.network.NetworkHooks;
 
 public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends UContainerMenu {
 	
 	protected final Inventory playerInventory;
-	protected final T tileEntity;
+	protected final T blockEntity;
 	
 	/**
-	 * This is the server constructor for the container. The {@link #init(boolean)} is called.
+	 * This is the server constructor. The method {@link #init(LogicalSide)} is called.
 	 *
-	 * @param type Container type
-	 * @param id Window id
+	 * @param menuType Menu type
+	 * @param containerId Container id
 	 * @param playerInventory Player inventory
-	 * @param tileEntity Tile entity
+	 * @param blockEntity Block entity
 	 */
-	public UBlockEntityContainerMenu(MenuType<?> type, int id, Inventory playerInventory, T tileEntity) {
-		this(type, id, playerInventory, tileEntity, true);
+	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, T blockEntity) {
+		this(menuType, containerId, playerInventory, blockEntity, true);
 	}
 	
 	/**
-	 * This is the server constructor for the container.
+	 * This is the server constructor.
 	 *
-	 * @param type Container type
-	 * @param id Window id
+	 * @param menuType Menu type
+	 * @param containerId Container id
 	 * @param playerInventory Player inventory
-	 * @param tileEntity Tile entity
-	 * @param init If the constructor should call {@link #init(boolean)}
+	 * @param blockEntity Block entity
+	 * @param callInit If the constructor should call {@link #init(LogicalSide)}
 	 */
-	public UBlockEntityContainerMenu(MenuType<?> type, int id, Inventory playerInventory, T tileEntity, boolean init) {
-		super(type, id);
+	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, T blockEntity, boolean callInit) {
+		super(menuType, containerId);
 		this.playerInventory = playerInventory;
-		this.tileEntity = tileEntity;
-		if (init) {
-			init(true);
+		this.blockEntity = blockEntity;
+		if (callInit) {
+			init(LogicalSide.SERVER);
 		}
 	}
 	
 	/**
-	 * This is the client constructor for the container. It calls {@link #getClientTileEntity(PacketBuffer)} to get the tile
-	 * entity. The {@link #init(boolean)} is called.
+	 * This is the client constructor. This methods reads the block entity pos from the supplied {@link FriendlyByteBuf} and
+	 * tries to get the block entity at the client side. The block pos must be the first entry in the buffer! The method
+	 * {@link #init(LogicalSide)} is called.
 	 *
-	 * @param type Container type
-	 * @param id Window id
+	 * @param menuType Menu type
+	 * @param containerId Container id
 	 * @param playerInventory Player inventory
-	 * @param buffer Initial data (specified with
-	 *        {@link NetworkHooks#openGui(net.minecraft.entity.player.ServerPlayerEntity, net.minecraft.inventory.container.INamedContainerProvider, java.util.function.Consumer)})
+	 * @param byteBuf Initial menu data (specified with {@link NetworkHooks#openGui(net.minecraft.server.level.ServerPlayer,
+	 *        net.minecraft.world.MenuProvider, java.util.function.Consumer))
 	 */
-	public UBlockEntityContainerMenu(MenuType<?> type, int id, Inventory playerInventory, FriendlyByteBuf buffer) {
-		this(type, id, playerInventory, buffer, true);
+	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf byteBuf) {
+		this(menuType, containerId, playerInventory, byteBuf, true);
 	}
 	
 	/**
-	 * This is the client constructor for the container. It calls {@link #getClientTileEntity(PacketBuffer)} to get the tile
-	 * entity.
+	 * This is the client constructor. This methods reads the block entity pos from the supplied {@link FriendlyByteBuf} and
+	 * tries to get the block entity at the client side. The block pos must be the first entry in the buffer!
 	 *
-	 * @param type Container type
-	 * @param id Window id
+	 * @param menuType Menu type
+	 * @param containerId Container id
 	 * @param playerInventory Player inventory
-	 * @param buffer Initial data (specified with
-	 *        {@link NetworkHooks#openGui(net.minecraft.entity.player.ServerPlayerEntity, net.minecraft.inventory.container.INamedContainerProvider, java.util.function.Consumer)})
-	 * @param init If the constructor should call {@link #init(boolean)}
+	 * @param byteBuf Initial menu data (specified with
+	 *        {@link NetworkHooks#openGui(net.minecraft.server.level.ServerPlayer, net.minecraft.world.MenuProvider, java.util.function.Consumer)})
+	 * @param callInit If the constructor should call {@link #init(LogicalSide)}
 	 */
-	public UBlockEntityContainerMenu(MenuType<?> type, int id, Inventory playerInventory, FriendlyByteBuf buffer, boolean init) {
-		super(type, id);
+	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf byteBuf, boolean callInit) {
+		super(menuType, containerId);
 		this.playerInventory = playerInventory;
-		this.tileEntity = getClientTileEntity(buffer);
-		if (tileEntity instanceof MenuSyncedBlockEntity) {
-			((MenuSyncedBlockEntity) tileEntity).handleInitialDataBuffer(new FriendlyByteBuf(Unpooled.wrappedBuffer(buffer.readByteArray(32592)))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
+		blockEntity = getClientTileEntity(byteBuf);
+		if (blockEntity instanceof MenuSyncedBlockEntity syncedBlockEntity) {
+			var data = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteBuf.readByteArray(32592))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
+			syncedBlockEntity.handleInitialDataFromServer(data);
+			data.release();
 		}
-		if (init) {
-			init(false);
+		if (callInit) {
+			init(LogicalSide.CLIENT);
 		}
 	}
 	
 	/**
-	 * This methods reads a position from the {@link PacketBuffer} and then tries to find a matching client tile entity.
-	 * This method is only client sided. If the tile entity does not exist an {@link IllegalStateException} is thrown.
+	 * This methods reads the {@link BlockPos} from the {@link FriendlyByteBuf} and then tries to find a client block
+	 * entity. This method is only client sided. If the tile entity does not exist an {@link IllegalStateException} is
+	 * thrown.
 	 *
-	 * @param buffer Packet buffer with the read index at a {@link BlockPos}
-	 * @return A tile entity that implements {@link ISyncedTileEntity}
+	 * @param byteBuf Buffer with the read index at the block entity {@link BlockPos}
+	 * @return The block entity on the clients side
 	 */
-	@SuppressWarnings("unchecked")
 	@OnlyIn(Dist.CLIENT)
-	private T getClientTileEntity(FriendlyByteBuf buffer) {
-		final var tile = Minecraft.getInstance().level.getBlockEntity(buffer.readBlockPos());
-		if (tile == null) {
-			throw new IllegalStateException("The client tile entity must be present.");
+	private T getClientTileEntity(FriendlyByteBuf byteBuf) {
+		final var pos = byteBuf.readBlockPos();
+		final var blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
+		if (blockEntity == null) {
+			throw new IllegalStateException("The client block entity at (" + pos.toShortString() + ") does not exists.");
 		}
-		return (T) tile;
+		return CastUtil.uncheckedCast(blockEntity);
 	}
 	
 	/**
 	 * Is called after the server and client constructor. If you want to use your own fields in the init method, set the
-	 * last constructor boolean to false and then call this method your self in all constructors.
+	 * last constructor boolean to false and then call this method in all constructors of the implementing class.
 	 *
-	 * @param server True if its the server side false otherwise
+	 * @param side Logical side this method is called on
 	 */
-	protected abstract void init(boolean server);
+	protected abstract void init(LogicalSide side);
 	
 	/**
-	 * Gets the tile entity
+	 * Gets the block entity
 	 *
-	 * @return tile entity
+	 * @return Block entity associated with this menu
 	 */
-	public T getTileEntity() {
-		return tileEntity;
+	public T getBlockEntity() {
+		return blockEntity;
 	}
 	
 }

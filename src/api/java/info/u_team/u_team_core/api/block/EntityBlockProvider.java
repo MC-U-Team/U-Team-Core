@@ -73,7 +73,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	
 	/**
 	 * Opens the container that is specified in the block entity with {@link MenuConstructor}. If the tile entity implements
-	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataBuffer(PacketBuffer)} is called
+	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataToClient(PacketBuffer)} is called
 	 * and the data will be send to the client. The container cannot be opened when secondary use is active.
 	 *
 	 * @param level Level
@@ -87,7 +87,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	
 	/**
 	 * Opens the container that is specified in the block entity with {@link MenuConstructor}. If the tile entity implements
-	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataBuffer(PacketBuffer)} is called
+	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataToClient(PacketBuffer)} is called
 	 * and the data will be send to the client.
 	 *
 	 * @param level Level
@@ -118,16 +118,16 @@ public interface EntityBlockProvider extends EntityBlock {
 			return InteractionResult.SUCCESS;
 		}
 		
-		final var buffer = new FriendlyByteBuf(Unpooled.buffer());
+		final var data = new FriendlyByteBuf(Unpooled.buffer());
 		if (blockEntity instanceof MenuSyncedBlockEntity syncedBlockEntity) {
-			syncedBlockEntity.sendInitialDataBuffer(buffer);
+			syncedBlockEntity.sendInitialDataToClient(data);
 		}
 		
-		NetworkHooks.openGui(serverPlayer, (MenuProvider) blockEntity, extraData -> {
-			extraData.writeBlockPos(pos);
-			extraData.writeVarInt(buffer.readableBytes());
-			extraData.writeBytes(buffer);
-			buffer.release();
+		NetworkHooks.openGui(serverPlayer, (MenuProvider) blockEntity, byteBuf -> {
+			byteBuf.writeBlockPos(pos);
+			byteBuf.writeVarInt(data.readableBytes());
+			byteBuf.writeBytes(data);
+			data.release();
 		});
 		
 		return InteractionResult.SUCCESS;
