@@ -11,7 +11,7 @@ public class BasicFluidInventoryScreen extends UBasicContainerScreen<BasicFluidI
 	
 	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/fluid_inventory.png");
 	
-	public BasicFluidInventoryScreen(BasicFluidInventoryMenu container, Inventory playerInventory, Component title) {
-		super(container, playerInventory, title, BACKGROUND);
+	public BasicFluidInventoryScreen(BasicFluidInventoryMenu menu, Inventory playerInventory, Component title) {
+		super(menu, playerInventory, title, BACKGROUND);
 	}
 }

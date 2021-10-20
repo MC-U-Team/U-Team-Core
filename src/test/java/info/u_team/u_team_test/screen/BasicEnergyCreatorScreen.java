@@ -13,8 +13,8 @@ public class BasicEnergyCreatorScreen extends UBasicContainerScreen<BasicEnergyC
 	
 	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/energy_creator.png");
 	
-	public BasicEnergyCreatorScreen(BasicEnergyCreatorMenu container, Inventory playerInventory, Component title) {
-		super(container, playerInventory, title, BACKGROUND, 176, 173);
+	public BasicEnergyCreatorScreen(BasicEnergyCreatorMenu menu, Inventory playerInventory, Component title) {
+		super(menu, playerInventory, title, BACKGROUND, 176, 173);
 	}
 	
 	@Override
