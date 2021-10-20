@@ -4,7 +4,7 @@ import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
-import info.u_team.u_team_test.menu.BasicTileEntityContainer;
+import info.u_team.u_team_test.menu.BasicBlockEntityMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -73,6 +73,22 @@ public class BasicBlockEntityBlockEntity extends UBlockEntity implements MenuSyn
 		return slots;
 	}
 	
+	public int getCooldown() {
+		return cooldown;
+	}
+	
+	public int getValue() {
+		return value;
+	}
+	
+	public void setCooldown(int cooldown) {
+		this.cooldown = cooldown;
+	}
+	
+	public void setValue(int value) {
+		this.value = value;
+	}
+	
 	// Capability
 	
 	@Override
@@ -100,7 +116,7 @@ public class BasicBlockEntityBlockEntity extends UBlockEntity implements MenuSyn
 	
 	@Override
 	public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-		return new BasicTileEntityContainer(containerId, playerInventory, this);
+		return new BasicBlockEntityMenu(containerId, playerInventory, this);
 	}
 	
 	@Override

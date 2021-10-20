@@ -10,19 +10,19 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.fml.LogicalSide;
 
-public class BasicTileEntityContainer extends UBlockEntityContainerMenu<BasicBlockEntityBlockEntity> {
+public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<BasicBlockEntityBlockEntity> {
 	
 	private EmptyMessageHolder valueMessage;
 	private MessageHolder cooldownMessage;
 	
 	// Client
-	public BasicTileEntityContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
-		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), id, playerInventory, buffer);
+	public BasicBlockEntityMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buffer) {
+		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), containerId, playerInventory, buffer);
 	}
 	
 	// Server
-	public BasicTileEntityContainer(int id, Inventory playerInventory, BasicBlockEntityBlockEntity tileEntity) {
-		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), id, playerInventory, tileEntity);
+	public BasicBlockEntityMenu(int containerId, Inventory playerInventory, BasicBlockEntityBlockEntity tileEntity) {
+		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), containerId, playerInventory, tileEntity);
 	}
 	
 	@Override
@@ -30,16 +30,16 @@ public class BasicTileEntityContainer extends UBlockEntityContainerMenu<BasicBlo
 		addSlots(blockEntity.getSlots(), 2, 9, 8, 41);
 		addPlayerInventory(playerInventory, 8, 91);
 		
-		addDataHolderToClient(DataHolder.createIntHolder(() -> blockEntity.value, value -> blockEntity.value = value));
-		addDataHolderToClient(DataHolder.createIntHolder(() -> blockEntity.cooldown, value -> blockEntity.cooldown = value));
+		addDataHolderToClient(DataHolder.createIntHolder(blockEntity::getValue, blockEntity::setValue));
+		addDataHolderToClient(DataHolder.createIntHolder(blockEntity::getCooldown, blockEntity::setCooldown));
 		
 		valueMessage = addDataHolderToServer(new EmptyMessageHolder(() -> {
-			blockEntity.value += 100;
+			blockEntity.setValue(blockEntity.getValue() + 100);
 			blockEntity.setChanged();
 		}));
 		
 		cooldownMessage = addDataHolderToServer(new MessageHolder(packet -> {
-			blockEntity.cooldown = Math.min(packet.readShort(), 100);
+			blockEntity.setCooldown(Math.min(packet.readShort(), 100));
 			blockEntity.setChanged();
 		}));
 	}

@@ -6,20 +6,20 @@ import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_core.gui.elements.USlider;
 import info.u_team.u_team_core.screen.UBasicContainerScreen;
 import info.u_team.u_team_test.TestMod;
-import info.u_team.u_team_test.menu.BasicTileEntityContainer;
+import info.u_team.u_team_test.menu.BasicBlockEntityMenu;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class BasicTileEntityScreen extends UBasicContainerScreen<BasicTileEntityContainer> {
+public class BasicTileEntityScreen extends UBasicContainerScreen<BasicBlockEntityMenu> {
 	
 	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png");
 	
 	private USlider slider;
 	
-	public BasicTileEntityScreen(BasicTileEntityContainer container, Inventory playerInventory, Component title) {
+	public BasicTileEntityScreen(BasicBlockEntityMenu container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title, BACKGROUND, 176, 173);
 	}
 	
