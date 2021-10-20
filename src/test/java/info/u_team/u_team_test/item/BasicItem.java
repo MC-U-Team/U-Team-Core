@@ -27,7 +27,7 @@ public class BasicItem extends UItem {
 			final var rayTrace = LevelUtil.rayTraceServerSide(player, 50);
 			
 			if (rayTrace.getType() == Type.MISS) {
-				player.displayClientMessage(new TranslatableComponent("item.uteamtest.basicitem.outofrange"), true);
+				player.displayClientMessage(new TranslatableComponent("item.uteamtest.basic_item.outofrange"), true);
 				return InteractionResultHolder.fail(stack);
 			}
 			
