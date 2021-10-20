@@ -1,6 +1,8 @@
 package info.u_team.u_team_core.energy;
 
 import info.u_team.u_team_core.api.sync.DataHolder;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraftforge.energy.EnergyStorage;
 
 public class BasicEnergyStorage extends EnergyStorage {
@@ -63,6 +65,22 @@ public class BasicEnergyStorage extends EnergyStorage {
 	}
 	
 	public void onEnergyChanged() {
+	}
+	
+	@Override
+	public CompoundTag serializeNBT() {
+		final var compound = new CompoundTag();
+		compound.putInt("energy", getEnergyStored());
+		return compound;
+	}
+	
+	@Override
+	public void deserializeNBT(Tag tag) {
+		if (tag instanceof CompoundTag compoundTag) {
+			setEnergy(compoundTag.getInt("energy"));
+		} else {
+			super.deserializeNBT(tag);
+		}
 	}
 	
 	public DataHolder createSyncHandler() {
