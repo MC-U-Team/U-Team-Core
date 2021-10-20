@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"": {
+			"model": "uteamtest:block/basic_energy_creator"
+		}
+	}
+}

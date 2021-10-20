@@ -1,0 +1,27 @@
+{
+	"variants": {
+		"facing=down": {
+			"model": "uteamtest:block/basic_block_entity",
+			"x": 90
+		},
+		"facing=up": {
+			"model": "uteamtest:block/basic_block_entity",
+			"x": 270
+		},
+		"facing=north": {
+			"model": "uteamtest:block/basic_block_entity"
+		},
+		"facing=south": {
+			"model": "uteamtest:block/basic_block_entity",
+			"y": 180
+		},
+		"facing=west": {
+			"model": "uteamtest:block/basic_block_entity",
+			"y": 270
+		},
+		"facing=east": {
+			"model": "uteamtest:block/basic_block_entity",
+			"y": 90
+		}
+	}
+}

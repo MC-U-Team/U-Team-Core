@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:block/cube_all",
 	"textures": {
-		"all": "uteamtest:block/basicblock"
+		"all": "uteamtest:block/basic_energy_creator"
 	}
 }

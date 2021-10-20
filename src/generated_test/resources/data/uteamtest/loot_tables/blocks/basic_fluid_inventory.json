@@ -2,11 +2,12 @@
 	"type": "minecraft:block",
 	"pools": [
 		{
-			"rolls": 1,
+			"rolls": 1.0,
+			"bonus_rolls": 0.0,
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "uteamtest:fluid_inventory"
+					"name": "uteamtest:basic_fluid_inventory"
 				}
 			],
 			"conditions": [
@@ -16,7 +17,7 @@
 			],
 			"functions": [
 				{
-					"function": "uteamcore:set_tileentity_nbt"
+					"function": "uteamcore:set_blockentity_nbt"
 				}
 			]
 		}

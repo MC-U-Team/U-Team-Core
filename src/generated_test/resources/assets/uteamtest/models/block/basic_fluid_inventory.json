@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:block/cube_all",
 	"textures": {
-		"all": "uteamtest:block/fluid_inventory"
+		"all": "uteamtest:block/basic_fluid_inventory"
 	}
 }

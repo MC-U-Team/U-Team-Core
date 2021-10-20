@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"": {
+			"model": "uteamtest:block/basic_fluid_inventory"
+		}
+	}
+}

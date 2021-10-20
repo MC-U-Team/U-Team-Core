@@ -1,6 +1,6 @@
 {
-	"block.uteamtest.basicblock": "Ä",
-	"block.uteamtest.energy_creator": "Üabc",
-	"block.uteamtest.fluid_inventory": "Großes",
-	"block.uteamtest.tileentity": "Ö"
+	"block.uteamtest.basic_block": "Ä",
+	"block.uteamtest.basic_block_entity": "Ö",
+	"block.uteamtest.basic_energy_creator": "Üabc",
+	"block.uteamtest.basic_fluid_inventory": "Großes"
 }

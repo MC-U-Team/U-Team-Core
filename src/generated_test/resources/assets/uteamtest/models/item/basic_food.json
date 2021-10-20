@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "uteamtest:item/basicarmor_chestplate"
+		"layer0": "uteamtest:item/basic_food"
 	}
 }

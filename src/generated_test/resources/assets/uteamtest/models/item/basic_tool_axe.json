@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/handheld",
 	"textures": {
-		"layer0": "uteamtest:item/basictool_shovel"
+		"layer0": "uteamtest:item/basic_tool_axe"
 	}
 }
