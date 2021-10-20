@@ -19,7 +19,7 @@ import net.minecraft.world.phys.BlockHitResult;
 public class BasicEnergyCreatorBlock extends UEntityBlock {
 	
 	public BasicEnergyCreatorBlock() {
-		super(TestCreativeTabs.TAB, Properties.of(Material.METAL).strength(2), TestBlockEntityTypes.BASIC_ENERGY_CREATOR);
+		super(TestCreativeTabs.TAB, Properties.of(Material.METAL).strength(2).requiresCorrectToolForDrops(), TestBlockEntityTypes.BASIC_ENERGY_CREATOR);
 	}
 	
 	@Override

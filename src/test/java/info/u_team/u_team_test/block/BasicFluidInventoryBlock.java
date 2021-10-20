@@ -15,7 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 public class BasicFluidInventoryBlock extends UEntityBlock {
 	
 	public BasicFluidInventoryBlock() {
-		super(TestCreativeTabs.TAB, Properties.of(Material.METAL).strength(1), TestBlockEntityTypes.BASIC_FLUID_INVENTORY);
+		super(TestCreativeTabs.TAB, Properties.of(Material.METAL).strength(1).requiresCorrectToolForDrops(), TestBlockEntityTypes.BASIC_FLUID_INVENTORY);
 	}
 	
 	@Override
