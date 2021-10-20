@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.tileentity;
+package info.u_team.u_team_test.blockentity;
 
 import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
@@ -68,13 +68,13 @@ public class BasicEnergyCreatorTileEntity extends UBlockEntity implements MenuSy
 	}
 	
 	@Override
-	public void sendInitialDataToClient(FriendlyByteBuf buffer) {
+	public void sendInitialMenuDataToClient(FriendlyByteBuf buffer) {
 		buffer.writeInt(energy.getEnergyStored());
 	}
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void handleInitialDataFromServer(FriendlyByteBuf buffer) {
+	public void handleInitialMenuDataFromServer(FriendlyByteBuf buffer) {
 		energy.setEnergy(buffer.readInt());
 	}
 	

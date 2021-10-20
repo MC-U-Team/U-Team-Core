@@ -19,21 +19,21 @@ public interface MenuSyncedBlockEntity extends MenuProvider {
 	 * automatically if
 	 * {@link EntityBlockProvider#openMenu(net.minecraft.world.level.Level, net.minecraft.core.BlockPos, Player, boolean)}
 	 * is used for opening the menu. <br>
-	 * The data will be received on the client side in this method: {@link #handleInitialDataFromServer(FriendlyByteBuf)}
+	 * The data will be received on the client side in this method: {@link #handleInitialMenuDataFromServer(FriendlyByteBuf)}
 	 *
 	 * @param byteBuf Data to be send to the client
 	 */
-	void sendInitialDataToClient(FriendlyByteBuf byteBuf);
+	void sendInitialMenuDataToClient(FriendlyByteBuf byteBuf);
 	
 	/**
 	 * The collected data for the initial menu opening is received here on the client side. The method will only be called
 	 * if {@link UBlockEntityContainerMenu} is used as a base class for the menu or an equivalent implementation is used.
 	 * <br>
-	 * The data is sent from the server side here: {@link #sendInitialDataToClient(FriendlyByteBuf)}
+	 * The data is sent from the server side here: {@link #sendInitialMenuDataToClient(FriendlyByteBuf)}
 	 *
 	 * @param byteBuf Received data from the server
 	 */
-	void handleInitialDataFromServer(FriendlyByteBuf byteBuf);
+	void handleInitialMenuDataFromServer(FriendlyByteBuf byteBuf);
 	
 	/**
 	 * Used to create a menu on the server side

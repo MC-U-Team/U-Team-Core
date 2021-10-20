@@ -2,8 +2,8 @@ package info.u_team.u_team_test.block;
 
 import info.u_team.u_team_core.block.UEntityBlock;
 import info.u_team.u_team_test.init.TestCreativeTabs;
+import info.u_team.u_team_test.blockentity.BasicBlockEntityBlockEntity;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
-import info.u_team.u_team_test.tileentity.BasicTileEntityTileEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -52,7 +52,7 @@ public class BasicBlockEntityBlock extends UEntityBlock {
 		if ((type != tileEntityType.get()) || level.isClientSide()) {
 			return null;
 		}
-		return (level_, pos, state_, instance) -> BasicTileEntityTileEntity.tick(level_, pos, state_, (BasicTileEntityTileEntity) instance);
+		return (level_, pos, state_, instance) -> BasicBlockEntityBlockEntity.serverTick(level_, pos, state_, (BasicBlockEntityBlockEntity) instance);
 	}
 	
 }

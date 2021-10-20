@@ -81,7 +81,7 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 		blockEntity = getClientTileEntity(byteBuf);
 		if (blockEntity instanceof MenuSyncedBlockEntity syncedBlockEntity) {
 			var data = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteBuf.readByteArray(32592))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
-			syncedBlockEntity.handleInitialDataFromServer(data);
+			syncedBlockEntity.handleInitialMenuDataFromServer(data);
 			data.release();
 		}
 		if (callInit) {

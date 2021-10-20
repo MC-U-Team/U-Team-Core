@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.tileentity;
+package info.u_team.u_team_test.blockentity;
 
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.inventory.TileEntityUFluidStackHandler;

@@ -72,7 +72,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	
 	/**
 	 * Opens the menu that is specified in the block entity with {@link MenuConstructor}. If the block entity implements
-	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataToClient(FriendlyByteBuf)} is
+	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialMenuDataToClient(FriendlyByteBuf)} is
 	 * called and the data will be send to the client. The container cannot be opened when secondary use is active.
 	 *
 	 * @param level Level
@@ -86,7 +86,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	
 	/**
 	 * Opens the menu that is specified in the block entity with {@link MenuConstructor}. If the block entity implements
-	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialDataToClient(FriendlyByteBuf)} is
+	 * {@link MenuSyncedBlockEntity} then the {@link MenuSyncedBlockEntity#sendInitialMenuDataToClient(FriendlyByteBuf)} is
 	 * called and the data will be send to the client.
 	 *
 	 * @param level Level
@@ -119,7 +119,7 @@ public interface EntityBlockProvider extends EntityBlock {
 		
 		final var data = new FriendlyByteBuf(Unpooled.buffer());
 		if (blockEntity instanceof MenuSyncedBlockEntity syncedBlockEntity) {
-			syncedBlockEntity.sendInitialDataToClient(data);
+			syncedBlockEntity.sendInitialMenuDataToClient(data);
 		}
 		
 		NetworkHooks.openGui(serverPlayer, (MenuProvider) blockEntity, byteBuf -> {
