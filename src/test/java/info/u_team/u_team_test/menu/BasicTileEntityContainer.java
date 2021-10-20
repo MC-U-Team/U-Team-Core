@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.container;
+package info.u_team.u_team_test.menu;
 
 import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder;

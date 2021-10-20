@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.container;
+package info.u_team.u_team_test.menu;
 
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
 import info.u_team.u_team_test.blockentity.BasicEnergyCreatorBlockEntity;
@@ -9,12 +9,12 @@ import net.minecraftforge.fml.LogicalSide;
 
 public class BasicEnergyCreatorContainer extends UBlockEntityContainerMenu<BasicEnergyCreatorBlockEntity> {
 	
-	public BasicEnergyCreatorContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
-		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), id, playerInventory, buffer);
+	public BasicEnergyCreatorContainer(int containerId, Inventory playerInventory, FriendlyByteBuf byteBuf) {
+		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), containerId, playerInventory, byteBuf);
 	}
 	
-	public BasicEnergyCreatorContainer(int id, Inventory playerInventory, BasicEnergyCreatorBlockEntity tileEntity) {
-		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), id, playerInventory, tileEntity);
+	public BasicEnergyCreatorContainer(int containerId, Inventory playerInventory, BasicEnergyCreatorBlockEntity tileEntity) {
+		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), containerId, playerInventory, tileEntity);
 	}
 	
 	@Override

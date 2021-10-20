@@ -6,7 +6,7 @@ import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_core.gui.elements.USlider;
 import info.u_team.u_team_core.screen.UBasicContainerScreen;
 import info.u_team.u_team_test.TestMod;
-import info.u_team.u_team_test.container.BasicTileEntityContainer;
+import info.u_team.u_team_test.menu.BasicTileEntityContainer;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;

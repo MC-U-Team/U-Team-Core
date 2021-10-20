@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.container;
+package info.u_team.u_team_test.menu;
 
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
 import info.u_team.u_team_test.blockentity.BasicFluidInventoryBlockEntity;

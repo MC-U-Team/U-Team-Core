@@ -2,7 +2,7 @@ package info.u_team.u_team_test.screen;
 
 import info.u_team.u_team_core.screen.UBasicContainerScreen;
 import info.u_team.u_team_test.TestMod;
-import info.u_team.u_team_test.container.BasicFluidInventoryContainer;
+import info.u_team.u_team_test.menu.BasicFluidInventoryContainer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
