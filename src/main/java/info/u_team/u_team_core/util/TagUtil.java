@@ -19,6 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Ingredient.TagValue;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.common.Tags.IOptionalNamedTag;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TagUtil {
@@ -58,7 +59,46 @@ public class TagUtil {
 	public static <T> Named<T> createTag(ResourceKey<? extends Registry<T>> key, ResourceLocation location) {
 		final StaticTagHelper<T> helper = CastUtil.uncheckedCast(StaticTags.get(key.location()));
 		
-		return helper.wrappers.stream().filter(tag -> tag.getName().equals(location)).map(tag -> (Tag.Named<T>) tag).findAny().orElse(helper.bind(location.toString()));
+		return helper.wrappers.stream().filter(tag -> tag.getName().equals(location)).map(tag -> (Named<T>) tag).findAny().orElse(helper.bind(location.toString()));
+	}
+	
+	public static IOptionalNamedTag<Block> createOptionalBlockTag(String modid, String name) {
+		return createOptionalBlockTag(new ResourceLocation(modid, name));
+	}
+	
+	public static IOptionalNamedTag<Block> createOptionalBlockTag(ResourceLocation location) {
+		return createOptionalTag(ForgeRegistries.Keys.BLOCKS, location);
+	}
+	
+	public static IOptionalNamedTag<Item> createOptionalItemTag(String modid, String name) {
+		return createOptionalItemTag(new ResourceLocation(modid, name));
+	}
+	
+	public static IOptionalNamedTag<Item> createOptionalItemTag(ResourceLocation location) {
+		return createOptionalTag(ForgeRegistries.Keys.ITEMS, location);
+	}
+	
+	public static IOptionalNamedTag<Fluid> createOptionalFluidTag(String modid, String name) {
+		return createOptionalFluidTag(new ResourceLocation(modid, name));
+	}
+	
+	public static IOptionalNamedTag<Fluid> createOptionalFluidTag(ResourceLocation location) {
+		return createOptionalTag(ForgeRegistries.Keys.FLUIDS, location);
+	}
+	
+	public static IOptionalNamedTag<EntityType<?>> createOptionalEntityTypeTag(String modid, String name) {
+		return createOptionalEntityTypeTag(new ResourceLocation(modid, name));
+	}
+	
+	public static IOptionalNamedTag<EntityType<?>> createOptionalEntityTypeTag(ResourceLocation location) {
+		return createOptionalTag(ForgeRegistries.Keys.ENTITY_TYPES, location);
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static <T> IOptionalNamedTag<T> createOptionalTag(ResourceKey<? extends Registry<T>> key, ResourceLocation location) {
+		final StaticTagHelper<T> helper = CastUtil.uncheckedCast(StaticTags.get(key.location()));
+		
+		return helper.wrappers.stream().filter(tag -> tag instanceof IOptionalNamedTag && tag.getName().equals(location)).map(tag -> (IOptionalNamedTag<T>) tag).findAny().orElse(helper.createOptional(location, null));
 	}
 	
 	public static Named<Block> fromItemTag(Named<Item> block) {
