@@ -1,10 +1,11 @@
 package info.u_team.u_team_core.screen;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IRenderTickable;
 import info.u_team.u_team_core.menu.UContainerMenu;
-import info.u_team.u_team_core.util.GuiUtil;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -64,30 +65,29 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
 		super.renderLabels(poseStack, mouseX, mouseY);
 		if (drawTitleText) {
-			font.draw(poseStack, title, titleLabelX, titleLabelY, 4210752);
+			font.draw(poseStack, title, titleLabelX, titleLabelY, 0x404040);
 		}
 		if (drawInventoryText) {
-			font.draw(poseStack, playerInventoryTitle, inventoryLabelX, inventoryLabelY, 4210752);
+			font.draw(poseStack, playerInventoryTitle, inventoryLabelX, inventoryLabelY, 0x404040);
 		}
 	}
 	
 	@Override
 	protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
-		GuiUtil.clearColor();
-		minecraft.getTextureManager().bindForSetup(background);
-		final var xStart = (width - imageWidth) / 2;
-		final var yStart = (height - imageHeight) / 2;
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderColor(1, 1, 1, 1);
+		RenderSystem.setShaderTexture(0, background);
 		
-		blit(poseStack, xStart, yStart, 0, 0, imageWidth, imageHeight, backgroundWidth, backgroundHeight);
+		blit(poseStack, leftPos, topPos, 0, 0, imageWidth, imageHeight, backgroundWidth, backgroundHeight);
 	}
 	
 	@Override
 	public void containerTick() {
-		children().forEach(listener -> {
+		for (final var listener : children()) {
 			if (listener instanceof IRenderTickable tickable) {
 				tickable.renderTick();
 			}
-		});
+		}
 		if (menu instanceof UContainerMenu uMenu) {
 			uMenu.broadcastChangesToServer();
 		}
