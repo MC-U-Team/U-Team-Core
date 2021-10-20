@@ -1,13 +1,13 @@
 package info.u_team.u_team_test.container;
 
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
-import info.u_team.u_team_test.blockentity.BasicFluidInventoryTileEntity;
+import info.u_team.u_team_test.blockentity.BasicFluidInventoryBlockEntity;
 import info.u_team.u_team_test.init.TestMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.fml.LogicalSide;
 
-public class BasicFluidInventoryContainer extends UBlockEntityContainerMenu<BasicFluidInventoryTileEntity> {
+public class BasicFluidInventoryContainer extends UBlockEntityContainerMenu<BasicFluidInventoryBlockEntity> {
 	
 	// Client
 	public BasicFluidInventoryContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
@@ -15,7 +15,7 @@ public class BasicFluidInventoryContainer extends UBlockEntityContainerMenu<Basi
 	}
 	
 	// Server
-	public BasicFluidInventoryContainer(int id, Inventory playerInventory, BasicFluidInventoryTileEntity tileEntity) {
+	public BasicFluidInventoryContainer(int id, Inventory playerInventory, BasicFluidInventoryBlockEntity tileEntity) {
 		super(TestMenuTypes.BASIC_FLUID_INVENTORY.get(), id, playerInventory, tileEntity);
 	}
 	

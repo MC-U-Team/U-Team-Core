@@ -22,7 +22,7 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BasicFluidInventoryTileEntity extends UBlockEntity implements MenuProvider {
+public class BasicFluidInventoryBlockEntity extends UBlockEntity implements MenuProvider {
 	
 	protected final UItemStackHandler itemSlots;
 	protected final LazyOptional<UItemStackHandler> itemSlotsOptional;
@@ -30,7 +30,7 @@ public class BasicFluidInventoryTileEntity extends UBlockEntity implements MenuP
 	protected final UFluidStackHandler fluidTanks;
 	protected final LazyOptional<UFluidStackHandler> fluidTanksOptional;
 	
-	public BasicFluidInventoryTileEntity(BlockPos pos, BlockState state) {
+	public BasicFluidInventoryBlockEntity(BlockPos pos, BlockState state) {
 		super(TestBlockEntityTypes.BASIC_FLUID_INVENTORY.get(), pos, state);
 		
 		itemSlots = new TileEntityUItemStackHandler(4, this);
@@ -78,6 +78,13 @@ public class BasicFluidInventoryTileEntity extends UBlockEntity implements MenuP
 	@Override
 	public void setRemoved() {
 		super.setRemoved();
+		itemSlotsOptional.invalidate();
+		fluidTanksOptional.invalidate();
+	}
+	
+	@Override
+	public void onChunkUnloaded() {
+		super.onChunkUnloaded();
 		itemSlotsOptional.invalidate();
 		fluidTanksOptional.invalidate();
 	}
