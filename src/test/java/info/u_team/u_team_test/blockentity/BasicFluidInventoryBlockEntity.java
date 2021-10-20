@@ -6,7 +6,7 @@ import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_core.inventory.UFluidStackHandler;
 import info.u_team.u_team_core.inventory.UItemStackHandler;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
-import info.u_team.u_team_test.menu.BasicFluidInventoryContainer;
+import info.u_team.u_team_test.menu.BasicFluidInventoryMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -93,7 +93,7 @@ public class BasicFluidInventoryBlockEntity extends UBlockEntity implements Menu
 	
 	@Override
 	public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-		return new BasicFluidInventoryContainer(id, playerInventory, this);
+		return new BasicFluidInventoryMenu(id, playerInventory, this);
 	}
 	
 	@Override

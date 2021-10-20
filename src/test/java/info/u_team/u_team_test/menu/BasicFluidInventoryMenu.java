@@ -7,16 +7,16 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.fml.LogicalSide;
 
-public class BasicFluidInventoryContainer extends UBlockEntityContainerMenu<BasicFluidInventoryBlockEntity> {
+public class BasicFluidInventoryMenu extends UBlockEntityContainerMenu<BasicFluidInventoryBlockEntity> {
 	
 	// Client
-	public BasicFluidInventoryContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
-		super(TestMenuTypes.BASIC_FLUID_INVENTORY.get(), id, playerInventory, buffer);
+	public BasicFluidInventoryMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buffer) {
+		super(TestMenuTypes.BASIC_FLUID_INVENTORY.get(), containerId, playerInventory, buffer);
 	}
 	
 	// Server
-	public BasicFluidInventoryContainer(int id, Inventory playerInventory, BasicFluidInventoryBlockEntity tileEntity) {
-		super(TestMenuTypes.BASIC_FLUID_INVENTORY.get(), id, playerInventory, tileEntity);
+	public BasicFluidInventoryMenu(int containerId, Inventory playerInventory, BasicFluidInventoryBlockEntity tileEntity) {
+		super(TestMenuTypes.BASIC_FLUID_INVENTORY.get(), containerId, playerInventory, tileEntity);
 	}
 	
 	@Override
