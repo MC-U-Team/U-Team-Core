@@ -30,7 +30,7 @@ public class BetterEnderPearlItem extends UItem {
 		if (!world.isClientSide()) {
 			final var pearl = new BetterEnderPearl(world, player);
 			pearl.setItem(stack);
-			pearl.shootFromRotation(player, player.getYRot(), player.getXRot(), 0.0F, 2.5F, 1.2F);
+			pearl.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.2F);
 			world.addFreshEntity(pearl);
 		}
 		
