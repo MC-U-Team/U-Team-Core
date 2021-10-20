@@ -5,7 +5,7 @@ import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.energy.BasicEnergyStorage;
 import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
-import info.u_team.u_team_test.menu.BasicEnergyCreatorContainer;
+import info.u_team.u_team_test.menu.BasicEnergyCreatorMenu;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -125,7 +125,7 @@ public class BasicEnergyCreatorBlockEntity extends UBlockEntity implements MenuS
 	
 	@Override
 	public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
-		return new BasicEnergyCreatorContainer(containerId, playerInventory, this);
+		return new BasicEnergyCreatorMenu(containerId, playerInventory, this);
 	}
 	
 	@Override

@@ -7,13 +7,13 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.fml.LogicalSide;
 
-public class BasicEnergyCreatorContainer extends UBlockEntityContainerMenu<BasicEnergyCreatorBlockEntity> {
+public class BasicEnergyCreatorMenu extends UBlockEntityContainerMenu<BasicEnergyCreatorBlockEntity> {
 	
-	public BasicEnergyCreatorContainer(int containerId, Inventory playerInventory, FriendlyByteBuf byteBuf) {
+	public BasicEnergyCreatorMenu(int containerId, Inventory playerInventory, FriendlyByteBuf byteBuf) {
 		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), containerId, playerInventory, byteBuf);
 	}
 	
-	public BasicEnergyCreatorContainer(int containerId, Inventory playerInventory, BasicEnergyCreatorBlockEntity tileEntity) {
+	public BasicEnergyCreatorMenu(int containerId, Inventory playerInventory, BasicEnergyCreatorBlockEntity tileEntity) {
 		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), containerId, playerInventory, tileEntity);
 	}
 	
