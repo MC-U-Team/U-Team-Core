@@ -17,14 +17,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.energy.CapabilityEnergy;
 import net.minecraftforge.items.CapabilityItemHandler;
 
-public class BasicEnergyCreatorTileEntity extends UBlockEntity implements MenuSyncedBlockEntity {
+public class BasicEnergyCreatorBlockEntity extends UBlockEntity implements MenuSyncedBlockEntity {
 	
 	private final TileEntityUItemStackHandler slots;
 	private final BasicEnergyStorage energy;
@@ -32,7 +30,9 @@ public class BasicEnergyCreatorTileEntity extends UBlockEntity implements MenuSy
 	private final LazyOptional<TileEntityUItemStackHandler> slotsOptional;
 	private final LazyOptional<BasicEnergyStorage> energyOptional;
 	
-	public BasicEnergyCreatorTileEntity(BlockPos pos, BlockState state) {
+	private boolean action = true;
+	
+	public BasicEnergyCreatorBlockEntity(BlockPos pos, BlockState state) {
 		super(TestBlockEntityTypes.BASIC_ENERGY_CREATOR.get(), pos, state);
 		slots = new TileEntityUItemStackHandler(6, this) {
 			
@@ -47,12 +47,7 @@ public class BasicEnergyCreatorTileEntity extends UBlockEntity implements MenuSy
 		energyOptional = LazyOptional.of(() -> energy);
 	}
 	
-	private boolean action = true;
-	
-	public static void tick(Level level, BlockPos pos, BlockState state, BasicEnergyCreatorTileEntity blockEntity) {
-		if (level.isClientSide()) {
-			return;
-		}
+	public static void serverTick(Level level, BlockPos pos, BlockState state, BasicEnergyCreatorBlockEntity blockEntity) {
 		if (blockEntity.action) {
 			blockEntity.energy.addEnergy(3);
 			if (blockEntity.energy.getEnergyStored() == blockEntity.energy.getMaxEnergyStored()) {
@@ -72,7 +67,6 @@ public class BasicEnergyCreatorTileEntity extends UBlockEntity implements MenuSy
 		buffer.writeInt(energy.getEnergyStored());
 	}
 	
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public void handleInitialMenuDataFromServer(FriendlyByteBuf buffer) {
 		energy.setEnergy(buffer.readInt());
@@ -120,11 +114,18 @@ public class BasicEnergyCreatorTileEntity extends UBlockEntity implements MenuSy
 		energyOptional.invalidate();
 	}
 	
+	@Override
+	public void onChunkUnloaded() {
+		super.onChunkUnloaded();
+		slotsOptional.invalidate();
+		energyOptional.invalidate();
+	}
+	
 	// Container
 	
 	@Override
-	public AbstractContainerMenu createMenu(int id, Inventory playerInventory, Player player) {
-		return new BasicEnergyCreatorContainer(id, playerInventory, this);
+	public AbstractContainerMenu createMenu(int containerId, Inventory playerInventory, Player player) {
+		return new BasicEnergyCreatorContainer(containerId, playerInventory, this);
 	}
 	
 	@Override

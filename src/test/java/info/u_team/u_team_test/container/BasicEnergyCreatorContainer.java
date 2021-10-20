@@ -1,19 +1,19 @@
 package info.u_team.u_team_test.container;
 
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
-import info.u_team.u_team_test.blockentity.BasicEnergyCreatorTileEntity;
+import info.u_team.u_team_test.blockentity.BasicEnergyCreatorBlockEntity;
 import info.u_team.u_team_test.init.TestMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.fml.LogicalSide;
 
-public class BasicEnergyCreatorContainer extends UBlockEntityContainerMenu<BasicEnergyCreatorTileEntity> {
+public class BasicEnergyCreatorContainer extends UBlockEntityContainerMenu<BasicEnergyCreatorBlockEntity> {
 	
 	public BasicEnergyCreatorContainer(int id, Inventory playerInventory, FriendlyByteBuf buffer) {
 		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), id, playerInventory, buffer);
 	}
 	
-	public BasicEnergyCreatorContainer(int id, Inventory playerInventory, BasicEnergyCreatorTileEntity tileEntity) {
+	public BasicEnergyCreatorContainer(int id, Inventory playerInventory, BasicEnergyCreatorBlockEntity tileEntity) {
 		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), id, playerInventory, tileEntity);
 	}
 	
