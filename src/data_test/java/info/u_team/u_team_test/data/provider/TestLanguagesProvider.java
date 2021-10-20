@@ -38,7 +38,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		addItem(TestItems.TEST_LIVING_SPAWN_EGG, "Test Living Entity Spawn Egg");
 		
 		addBlock(TestBlocks.BASIC, "Basic Block");
-		addBlock(TestBlocks.BASIC_BLOCKENTITY, "Tile Entity Block");
+		addBlock(TestBlocks.BASIC_BLOCKENTITY, "Block Entity Block");
 		addBlock(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
 		addBlock(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
 		
