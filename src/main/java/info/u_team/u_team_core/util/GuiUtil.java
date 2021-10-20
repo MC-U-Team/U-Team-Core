@@ -2,7 +2,6 @@ package info.u_team.u_team_core.util;
 
 import org.lwjgl.opengl.GL11;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -46,13 +45,6 @@ public class GuiUtil {
 		
 		GuiComponent.fill(matrixStack, x + 1, y + height, x + width - 1, y + height - 1, brightColor);
 		GuiComponent.fill(matrixStack, x + width - 1, y + 1, x + width, y + height, brightColor);
-	}
-	
-	/**
-	 * Set global color state to white
-	 */
-	public static void clearColor() { // TODO needed??
-		RenderSystem.setShaderColor(1, 1, 1, 1);
 	}
 	
 	/**
