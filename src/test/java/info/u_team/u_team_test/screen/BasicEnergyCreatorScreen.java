@@ -1,7 +1,7 @@
 package info.u_team.u_team_test.screen;
 
 import info.u_team.u_team_core.gui.elements.EnergyStorageWidget;
-import info.u_team.u_team_core.screen.UBasicContainerScreen;
+import info.u_team.u_team_core.screen.UBasicMenuContainerScreen;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.menu.BasicEnergyCreatorMenu;
 import net.minecraft.network.chat.Component;
@@ -9,7 +9,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraftforge.energy.CapabilityEnergy;
 
-public class BasicEnergyCreatorScreen extends UBasicContainerScreen<BasicEnergyCreatorMenu> {
+public class BasicEnergyCreatorScreen extends UBasicMenuContainerScreen<BasicEnergyCreatorMenu> {
 	
 	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/energy_creator.png");
 	

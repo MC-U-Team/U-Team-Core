@@ -7,7 +7,7 @@ import java.util.function.BiConsumer;
 import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.DataHolderMenuMessage;
-import info.u_team.u_team_core.screen.UContainerScreen;
+import info.u_team.u_team_core.screen.UContainerMenuScreen;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
@@ -58,7 +58,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	/**
 	 * Adds a new {@link DataHolder} that will synchronize values from the client to the server. <br />
 	 * <br />
-	 * To synchronize values automatically the screen must implement {@link UContainerScreen}. If not you must manually call
+	 * To synchronize values automatically the screen must implement {@link UContainerMenuScreen}. If not you must manually call
 	 * {@link #broadcastChangesToServer()} every time you update values on the client that should be synchronized to the
 	 * server.
 	 *
@@ -102,7 +102,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	/**
 	 * Broadcast data from the client to the server if changed. Needs to be called everytime you want to send changed data
 	 * from the client to the server. Will be called automatically every tick if the screens base class is
-	 * {@link UContainerScreen}.
+	 * {@link UContainerMenuScreen}.
 	 *
 	 * @see #addDataHolderToServer(DataHolder)
 	 */

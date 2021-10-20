@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
-public class UContainerScreen<T extends AbstractContainerMenu> extends FluidContainerScreen<T> {
+public class UContainerMenuScreen<T extends AbstractContainerMenu> extends FluidMenuContainerScreen<T> {
 	
 	protected ResourceLocation background;
 	protected int backgroundWidth, backgroundHeight;
@@ -18,7 +18,7 @@ public class UContainerScreen<T extends AbstractContainerMenu> extends FluidCont
 	protected boolean drawTitleText;
 	protected boolean drawInventoryText;
 	
-	public UContainerScreen(T container, Inventory playerInventory, Component title, ResourceLocation background) {
+	public UContainerMenuScreen(T container, Inventory playerInventory, Component title, ResourceLocation background) {
 		super(container, playerInventory, title);
 		this.background = background;
 		setBackgroundDimensions(256);
