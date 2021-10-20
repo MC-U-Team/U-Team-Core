@@ -18,8 +18,8 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	protected boolean drawTitleText;
 	protected boolean drawInventoryText;
 	
-	public UContainerMenuScreen(T container, Inventory playerInventory, Component title, ResourceLocation background) {
-		super(container, playerInventory, title);
+	public UContainerMenuScreen(T menu, Inventory playerInventory, Component title, ResourceLocation background) {
+		super(menu, playerInventory, title);
 		this.background = background;
 		setBackgroundDimensions(256);
 		setDrawText(true, true);
@@ -61,24 +61,24 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	}
 	
 	@Override
-	protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
-		super.renderLabels(matrixStack, mouseX, mouseY);
+	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
+		super.renderLabels(poseStack, mouseX, mouseY);
 		if (drawTitleText) {
-			font.draw(matrixStack, title, titleLabelX, titleLabelY, 4210752);
+			font.draw(poseStack, title, titleLabelX, titleLabelY, 4210752);
 		}
 		if (drawInventoryText) {
-			font.draw(matrixStack, playerInventoryTitle, inventoryLabelX, inventoryLabelY, 4210752);
+			font.draw(poseStack, playerInventoryTitle, inventoryLabelX, inventoryLabelY, 4210752);
 		}
 	}
 	
 	@Override
-	protected void renderBg(PoseStack matrixStack, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
 		GuiUtil.clearColor();
 		minecraft.getTextureManager().bindForSetup(background);
 		final var xStart = (width - imageWidth) / 2;
 		final var yStart = (height - imageHeight) / 2;
 		
-		blit(matrixStack, xStart, yStart, 0, 0, imageWidth, imageHeight, backgroundWidth, backgroundHeight);
+		blit(poseStack, xStart, yStart, 0, 0, imageWidth, imageHeight, backgroundWidth, backgroundHeight);
 	}
 	
 	@Override
