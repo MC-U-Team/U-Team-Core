@@ -5,6 +5,7 @@ import info.u_team.u_team_test.TestMod;
 import net.minecraft.tags.Tag.Named;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
+import net.minecraftforge.common.Tags.IOptionalNamedTag;
 
 public class TestTags {
 	
@@ -12,6 +13,9 @@ public class TestTags {
 		
 		public static Named<Block> TEST_TAG_1 = TagUtil.createBlockTag(TestMod.MODID, "test_1");
 		public static Named<Block> TEST_TAG_2 = TagUtil.createBlockTag(TestMod.MODID, "test_2");
+		
+		public static Named<Block> TEST_TAG_2_SAME = TagUtil.createBlockTag(TestMod.MODID, "test_2");
+		public static IOptionalNamedTag<Block> TEST_TAG_2_OPTIONAL = TagUtil.createOptionalBlockTag(TestMod.MODID, "test_2");
 	}
 	
 	public static class Items {
