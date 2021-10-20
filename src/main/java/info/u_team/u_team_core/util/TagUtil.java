@@ -56,7 +56,7 @@ public class TagUtil {
 	}
 	
 	public static <T> Named<T> createTag(ResourceKey<? extends Registry<T>> key, ResourceLocation location) {
-		final StaticTagHelper<T> helper = CastUtil.uncheckedCast(StaticTags.get(key.getRegistryName()));
+		final StaticTagHelper<T> helper = CastUtil.uncheckedCast(StaticTags.get(key.location()));
 		
 		return helper.wrappers.stream().filter(tag -> tag.getName().equals(location)).map(tag -> (Tag.Named<T>) tag).findAny().orElse(helper.bind(location.toString()));
 	}
