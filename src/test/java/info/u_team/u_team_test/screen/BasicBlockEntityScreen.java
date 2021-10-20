@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class BasicBlockEntityScreen extends UBasicContainerScreen<BasicBlockEntityMenu> {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/tileentity.png");
+	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/block_entity.png");
 	
 	private USlider slider;
 	
