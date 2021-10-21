@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.UCoreMod;
@@ -13,6 +14,7 @@ import info.u_team.u_team_core.util.GuiUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -42,8 +44,9 @@ public class EnergyStorageWidget extends AbstractWidget {
 	
 	@Override
 	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		final var minecraft = Minecraft.getInstance();
-		minecraft.getTextureManager().bindForSetup(ENERGY_TEXTURE);
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderTexture(0, ENERGY_TEXTURE);
+		RenderSystem.setShaderColor(1, 1, 1, 1);
 		
 		var ratio = (double) storage.getAsLong() / capacity.getAsLong();
 		if (ratio > 1) {
