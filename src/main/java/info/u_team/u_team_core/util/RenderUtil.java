@@ -1,47 +1,8 @@
 package info.u_team.u_team_core.util;
 
-import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
-import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.math.Matrix4f;
 
 public class RenderUtil {
-	
-	public static void enableBlend() {
-		RenderSystem.enableBlend();
-	}
-	
-	public static void disableBlend() {
-		RenderSystem.disableBlend();
-	}
-	
-	public static void defaultBlendFunc() {
-		RenderSystem.defaultBlendFunc();
-	}
-	
-	public static void blendFunc(SourceFactor srcFactor, DestFactor dstFactor) {
-		RenderSystem.blendFunc(srcFactor, dstFactor);
-	}
-	
-	public static void blendFuncSeparate(SourceFactor srcFactor, DestFactor dstFactor, SourceFactor srcFactorAlpha, DestFactor dstFactorAlpha) {
-		RenderSystem.blendFuncSeparate(srcFactor, dstFactor, srcFactorAlpha, dstFactorAlpha);
-	}
-	
-	public static void enableScissor(int x, int y, int width, int height) {
-		RenderSystem.enableScissor(x, y, width, height);
-	}
-	
-	public static void disableScissor() {
-		RenderSystem.disableScissor();
-	}
-	
-	public static void enableTexture() {
-		RenderSystem.enableTexture();
-	}
-	
-	public static void disableTexture() {
-		RenderSystem.disableTexture();
-	}
 	
 	public static class Matrix4fExtended extends Matrix4f {
 		
