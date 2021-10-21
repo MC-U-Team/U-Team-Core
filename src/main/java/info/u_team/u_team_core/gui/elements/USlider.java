@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.gui.elements;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
@@ -8,9 +9,9 @@ import info.u_team.u_team_core.api.gui.ITextProvider;
 import info.u_team.u_team_core.api.gui.ITextureProvider;
 import info.u_team.u_team_core.util.GuiUtil;
 import info.u_team.u_team_core.util.RGBA;
-import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -114,10 +115,16 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	public void renderBackground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
 		renderBg(matrixStack, minecraft, mouseX, mouseY);
 		if (visible) {
-			RenderUtil.enableBlend();
-			RenderUtil.defaultBlendFunc();
-			GuiUtil.drawContinuousTexturedBox(matrixStack, WIDGETS_LOCATION, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset(), getCurrentSliderColor(matrixStack, mouseX, mouseY, partialTicks));
-			RenderUtil.disableBlend();
+			RenderSystem.setShader(GameRenderer::getPositionTexShader);
+			RenderSystem.setShaderTexture(0, WIDGETS_LOCATION);
+			RenderSystem.setShaderColor(1, 1, 1, 1);
+			
+			RenderSystem.enableBlend();
+			RenderSystem.defaultBlendFunc();
+			
+			GuiUtil.drawContinuousTexturedBox(matrixStack, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset(), getCurrentSliderColor(matrixStack, mouseX, mouseY, partialTicks));
+			
+			RenderSystem.disableBlend();
 		}
 	}
 	
