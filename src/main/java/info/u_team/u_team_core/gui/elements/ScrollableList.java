@@ -2,14 +2,15 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 
-import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ObjectSelectionList;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.util.Mth;
 
 public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> extends ObjectSelectionList<T> {
@@ -101,7 +102,7 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			final var nativeWidth = Mth.ceil((x1 - x0) * scaleFactor);
 			final var nativeHeight = Mth.ceil((y1 - y0) * scaleFactor);
 			
-			RenderUtil.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
+			RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 			
 			// Uncomment to test scissor
 			// matrixStack.push();
@@ -110,7 +111,7 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			// matrixStack.pop();
 			
 			super.renderList(matrixStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
-			RenderUtil.disableScissor();
+			RenderSystem.disableScissor();
 		} else {
 			super.renderList(matrixStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
 		}
@@ -119,10 +120,12 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			final var tessellator = Tesselator.getInstance();
 			final var buffer = tessellator.getBuilder();
 			
-			RenderUtil.enableBlend();
-			RenderUtil.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ZERO, DestFactor.ONE);
+			RenderSystem.setShader(GameRenderer::getPositionShader); // TODO right shader or with color? Do we need disable texture?
+			
+			RenderSystem.enableBlend();
+			RenderSystem.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ZERO, DestFactor.ONE);
 			// RenderUtil.shadeModel(GL11.GL_SMOOTH); // TODO fix render
-			RenderUtil.disableTexture();
+			RenderSystem.disableTexture();
 			
 			buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 			buffer.vertex(x0, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
@@ -136,8 +139,8 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			
 			tessellator.end();
 			
-			RenderUtil.enableTexture();
-			RenderUtil.disableBlend();
+			RenderSystem.enableTexture();
+			RenderSystem.disableBlend();
 		}
 	}
 	
