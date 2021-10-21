@@ -1,12 +1,13 @@
 package info.u_team.u_team_core.gui.renderer;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.GuiUtil;
 import info.u_team.u_team_core.util.RGBA;
-import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -22,9 +23,11 @@ public class FluidInventoryRenderer extends GuiComponent {
 		}
 		
 		final var sprite = getFluidSprite(stack);
-		Minecraft.getInstance().getTextureManager().bindForSetup(ATLAS);
 		
-		RenderUtil.enableBlend();
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderTexture(0, ATLAS);
+		
+		RenderSystem.enableBlend();
 		// RenderUtil.enableAlphaTest(); // TODO Set shader?
 		
 		final var rgba = RGBA.fromARGB(stack.getFluid().getAttributes().getColor(stack));
@@ -32,7 +35,7 @@ public class FluidInventoryRenderer extends GuiComponent {
 		GuiUtil.drawTexturedColoredQuad(matrixStack, x, y, 16, 16, sprite, 100, rgba);
 		
 		// RenderUtil.disableAlphaTest();
-		RenderUtil.disableBlend();
+		RenderSystem.disableBlend();
 	}
 	
 	protected TextureAtlasSprite getFluidSprite(FluidStack stack) {
