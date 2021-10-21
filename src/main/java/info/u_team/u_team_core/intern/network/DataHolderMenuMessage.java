@@ -61,7 +61,7 @@ public class DataHolderMenuMessage {
 		}
 		
 		private static void handleServer(DataHolderMenuMessage message, Context context) {
-			updateDataHolder(context.getSender().containerMenu, LogicalSide.CLIENT, message);
+			updateDataHolder(context.getSender().containerMenu, LogicalSide.SERVER, message);
 		}
 		
 		private static void updateDataHolder(AbstractContainerMenu menuToTest, LogicalSide side, DataHolderMenuMessage message) {
