@@ -2,10 +2,10 @@ package info.u_team.u_team_core.gui.renderer;
 
 import java.util.function.Supplier;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
 
-import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.RenderUtil.Matrix4fExtended;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
@@ -78,11 +78,11 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 	}
 	
 	@Override
-	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		final var minecraft = Minecraft.getInstance();
 		final var window = minecraft.getWindow();
 		
-		final var matrix = new Matrix4fExtended(matrixStack.last().pose());
+		final var matrix = new Matrix4fExtended(poseStack.last().pose());
 		final var scaleFactor = window.getGuiScale();
 		
 		final var vectorXY = new Vector4f(x, y, 0, 1);
@@ -97,18 +97,18 @@ public class ScrollingTextRenderer extends ScalingTextRenderer {
 		final var nativeWidth = Mth.ceil(vectorWH.x() * scaleFactor);
 		final var nativeHeight = Mth.ceil(vectorWH.y() * scaleFactor);
 		
-		RenderUtil.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
+		RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 		
 		// Uncomment to test scissor
-		// matrixStack.push();
-		// matrixStack.getLast().getMatrix().setIdentity();
-		// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0x8F00FF00);
-		// matrixStack.pop();
+		// poseStack.push();
+		// poseStack.getLast().getMatrix().setIdentity();
+		// AbstractGui.fill(poseStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0x8F00FF00);
+		// poseStack.pop();
 		
 		setText(textSupplier.get());
-		renderFont(matrixStack, fontRenderer, getMovingX(x), y + 2 * scale);
+		renderFont(poseStack, fontRenderer, getMovingX(x), y + 2 * scale);
 		
-		RenderUtil.disableScissor();
+		RenderSystem.disableScissor();
 	}
 	
 	protected float getMovingX(float x) {

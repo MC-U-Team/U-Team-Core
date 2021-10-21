@@ -118,16 +118,16 @@ public class ScalingTextRenderer implements Widget {
 	}
 	
 	@Override
-	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		// Get new text and set if has changed
 		setText(textSupplier.get());
-		renderFont(matrixStack, fontRenderer, x, y);
+		renderFont(poseStack, fontRenderer, x, y);
 	}
 	
-	protected void renderFont(PoseStack matrixStack, Font fontRenderer, float x, float y) {
-		matrixStack.pushPose();
-		matrixStack.scale(scale, scale, 0);
-		fontRenderer.drawInternal(text, x * positionFactor, y * positionFactor, color.getColorARGB(), matrixStack.last().pose(), shadow, fontRenderer.isBidirectional());
-		matrixStack.popPose();
+	protected void renderFont(PoseStack poseStack, Font fontRenderer, float x, float y) {
+		poseStack.pushPose();
+		poseStack.scale(scale, scale, 0);
+		fontRenderer.drawInternal(text, x * positionFactor, y * positionFactor, color.getColorARGB(), poseStack.last().pose(), shadow, fontRenderer.isBidirectional());
+		poseStack.popPose();
 	}
 }
