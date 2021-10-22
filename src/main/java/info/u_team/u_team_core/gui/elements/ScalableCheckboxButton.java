@@ -3,12 +3,12 @@ package info.u_team.u_team_core.gui.elements;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.ScaleProvider;
-import info.u_team.u_team_core.api.gui.IScaleable;
+import info.u_team.u_team_core.api.gui.Scaleable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 
-public class ScalableCheckboxButton extends CheckboxButton implements IScaleable, ScaleProvider {
+public class ScalableCheckboxButton extends CheckboxButton implements Scaleable, ScaleProvider {
 	
 	protected float scale;
 	
