@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.gui.elements;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.LongSupplier;
@@ -81,10 +80,8 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		if (isHovered) {
 			final var minecraft = Minecraft.getInstance();
 			
-			final List<Component> list = new ArrayList<>();
-			list.add(Component.nullToEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
-			
-			minecraft.screen.renderTooltip(poseStack, list, Optional.empty(), mouseX, mouseY, minecraft.font); // TODO verify this works
+			final var list = List.of(Component.nullToEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
+			minecraft.screen.renderTooltip(poseStack, list, Optional.empty(), mouseX, mouseY, minecraft.font);
 		}
 	}
 	
