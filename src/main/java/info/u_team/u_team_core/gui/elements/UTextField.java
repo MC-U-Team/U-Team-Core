@@ -2,7 +2,7 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
+import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.TextSettingsProvider;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.RenderTickable;
@@ -12,7 +12,7 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 
-public class UTextField extends EditBox implements RenderTickable, PerspectiveRenderable, IBackgroundColorProvider, TextSettingsProvider {
+public class UTextField extends EditBox implements RenderTickable, PerspectiveRenderable, BackgroundColorProvider, TextSettingsProvider {
 	
 	protected static final ITooltip EMPTY_TOOLTIP = (textField, matrixStack, mouseX, mouseY) -> {
 	};

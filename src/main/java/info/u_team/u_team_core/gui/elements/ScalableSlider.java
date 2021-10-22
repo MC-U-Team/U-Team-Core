@@ -2,12 +2,12 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.api.gui.IScaleProvider;
+import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.IScaleable;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.network.chat.Component;
 
-public class ScalableSlider extends USlider implements IScaleable, IScaleProvider {
+public class ScalableSlider extends USlider implements IScaleable, ScaleProvider {
 	
 	protected float scale;
 	

@@ -2,14 +2,14 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.api.gui.IScaleProvider;
+import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.IScaleable;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
-public class ScalableTextField extends UTextField implements IScaleable, IScaleProvider {
+public class ScalableTextField extends UTextField implements IScaleable, ScaleProvider {
 	
 	protected float scale;
 	
