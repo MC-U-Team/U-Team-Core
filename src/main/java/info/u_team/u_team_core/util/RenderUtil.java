@@ -1,11 +1,110 @@
 package info.u_team.u_team_core.util;
 
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
+
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.resources.ResourceLocation;
 
 public class RenderUtil {
 	
+	public static void drawContinuousTexturedBox(PoseStack poseStack, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder, float blitOffset, ResourceLocation texture, RGBA color) {
+		final var fillerWidth = textureWidth - leftBorder - rightBorder;
+		final var fillerHeight = textureHeight - topBorder - bottomBorder;
+		final var canvasWidth = width - leftBorder - rightBorder;
+		final var canvasHeight = height - topBorder - bottomBorder;
+		final var xPasses = canvasWidth / fillerWidth;
+		final var remainderWidth = canvasWidth % fillerWidth;
+		final var yPasses = canvasHeight / fillerHeight;
+		final var remainderHeight = canvasHeight % fillerHeight;
+		
+		final var uScale = 1f / 256;
+		final var vScale = 1f / 256;
+		
+		final var tessellator = Tesselator.getInstance();
+		final var bufferBuilder = tessellator.getBuilder();
+		
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderTexture(0, texture);
+		setShaderColor(color);
+		
+		RenderSystem.enableBlend();
+		RenderSystem.defaultBlendFunc();
+		RenderSystem.enableDepthTest();
+		
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		
+		// Draw Border
+		// Top Left
+		addTexturedRect(bufferBuilder, poseStack, x, y, u, v, uScale, vScale, leftBorder, topBorder, blitOffset);
+		// Top Right
+		addTexturedRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y, u + leftBorder + fillerWidth, v, uScale, vScale, rightBorder, topBorder, blitOffset);
+		// Bottom Left
+		addTexturedRect(bufferBuilder, poseStack, x, y + topBorder + canvasHeight, u, v + topBorder + fillerHeight, uScale, vScale, leftBorder, bottomBorder, blitOffset);
+		// Bottom Right
+		addTexturedRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y + topBorder + canvasHeight, u + leftBorder + fillerWidth, v + topBorder + fillerHeight, uScale, vScale, rightBorder, bottomBorder, blitOffset);
+		
+		for (var i = 0; i < xPasses + (remainderWidth > 0 ? 1 : 0); i++) {
+			// Top Border
+			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (i * fillerWidth), y, u + leftBorder, v, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), topBorder, blitOffset);
+			// Bottom Border
+			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (i * fillerWidth), y + topBorder + canvasHeight, u + leftBorder, v + topBorder + fillerHeight, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), bottomBorder, blitOffset);
+			
+			// Throw in some filler for good measure
+			for (var j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
+				addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (i * fillerWidth), y + topBorder + (j * fillerHeight), u + leftBorder, v + topBorder, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), (j == yPasses ? remainderHeight : fillerHeight), blitOffset);
+			}
+		}
+		
+		// Side Borders
+		for (var j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
+			// Left Border
+			addTexturedRect(bufferBuilder, poseStack, x, y + topBorder + (j * fillerHeight), u, v + topBorder, uScale, vScale, leftBorder, (j == yPasses ? remainderHeight : fillerHeight), blitOffset);
+			// Right Border
+			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y + topBorder + (j * fillerHeight), u + leftBorder + fillerWidth, v + topBorder, uScale, vScale, rightBorder, (j == yPasses ? remainderHeight : fillerHeight), blitOffset);
+		}
+		
+		tessellator.end();
+		
+		RenderSystem.disableBlend();
+		RenderSystem.disableDepthTest();
+	}
+	
+	public static void addTexturedRect(BufferBuilder bufferBuilder, PoseStack poseStack, int x, int y, int u, int v, float uScale, float vScale, int width, int height, float blitOffset) {
+		final var matrix = poseStack.last().pose();
+		
+		bufferBuilder.vertex(matrix, x, y + height, blitOffset).uv(u * uScale, ((v + height) * vScale)).endVertex();
+		bufferBuilder.vertex(matrix, x + width, y + height, blitOffset).uv((u + width) * uScale, ((v + height) * vScale)).endVertex();
+		bufferBuilder.vertex(matrix, x + width, y, blitOffset).uv((u + width) * uScale, (v * vScale)).endVertex();
+		bufferBuilder.vertex(matrix, x, y, blitOffset).uv(u * uScale, (v * vScale)).endVertex();
+	}
+	
+	/**
+	 * Sets the shader color from {@link RGBA} type
+	 * 
+	 * @param rgba Color
+	 */
+	public static void setShaderColor(RGBA rgba) {
+		RenderSystem.setShaderColor(rgba.getRedComponent(), rgba.getGreenComponent(), rgba.getBlueComponent(), rgba.getAlphaComponent());
+	}
+	
+	/**
+	 * Extended matrix that adds getters and setters for all matrix values
+	 * 
+	 * @author HyCraftHD
+	 */
 	public static class Matrix4fExtended extends Matrix4f {
 		
+		/**
+		 * Creates a matrix4f with the values of the parameter
+		 * 
+		 * @param matrix4f Matrix4f to copy values
+		 */
 		public Matrix4fExtended(Matrix4f matrix4f) {
 			super(matrix4f);
 		}

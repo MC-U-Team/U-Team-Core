@@ -65,7 +65,7 @@ public class GuiUtil {
 	 * @param blitOffset The zLevel to draw at
 	 * @param color The color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
-	public static void drawContinuousTexturedBox(PoseStack poseStack, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder, float blitOffset, RGBA color) {
+	/*public static void drawContinuousTexturedBox(PoseStack poseStack, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder, float blitOffset, RGBA color) {
 		final var fillerWidth = textureWidth - leftBorder - rightBorder;
 		final var fillerHeight = textureHeight - topBorder - bottomBorder;
 		final var canvasWidth = width - leftBorder - rightBorder;
@@ -114,7 +114,7 @@ public class GuiUtil {
 		}
 		
 		tessellator.end();
-	}
+	}*/
 	
 	/**
 	 * Draw a textured quad that can be colored.
