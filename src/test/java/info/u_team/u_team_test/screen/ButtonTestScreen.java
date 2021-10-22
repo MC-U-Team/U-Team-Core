@@ -271,6 +271,7 @@ public class ButtonTestScreen extends UBasicScreen {
 	
 	@Override
 	public void onClose() {
+		super.onClose();
 		minecraft.keyboardHandler.setSendRepeatsToGui(false);
 	}
 	
