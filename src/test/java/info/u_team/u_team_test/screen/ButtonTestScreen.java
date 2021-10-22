@@ -17,7 +17,7 @@ import info.u_team.u_team_core.gui.elements.ScalableTextField;
 import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_core.gui.elements.USlider;
 import info.u_team.u_team_core.gui.elements.UTextField;
-import info.u_team.u_team_core.gui.renderer.ScalingTextRenderer;
+import info.u_team.u_team_core.gui.renderer.ScalableTextRenderer;
 import info.u_team.u_team_core.gui.renderer.ScrollingTextRenderer;
 import info.u_team.u_team_core.screen.UBasicScreen;
 import info.u_team.u_team_core.util.RGBA;
@@ -38,7 +38,7 @@ public class ButtonTestScreen extends UBasicScreen {
 	private ScalableTextField scalableTextFieldWidget;
 	private ScalableTextField scalableTextFieldWidget2;
 	
-	private ScalingTextRenderer scalingRenderer;
+	private ScalableTextRenderer scalingRenderer;
 	
 	private ScrollingTextRenderer scrollingRenderer;
 	
@@ -254,7 +254,7 @@ public class ButtonTestScreen extends UBasicScreen {
 		});
 		
 		// Scaling Renderer Test
-		scalingRenderer = new ScalingTextRenderer(font, () -> "This is a test for the scaling text renderer", 220, 10);
+		scalingRenderer = new ScalableTextRenderer(font, () -> "This is a test for the scaling text renderer", 220, 10);
 		scalingRenderer.setColor(new RGBA(0xFF00FF40));
 		scalingRenderer.setScale(1.5F);
 		

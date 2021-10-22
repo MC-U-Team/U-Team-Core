@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.util.Mth;
 
-public class ScrollingTextRenderer extends ScalingTextRenderer {
+public class ScrollingTextRenderer extends ScalableTextRenderer {
 	
 	protected int width;
 	protected float stepSize;

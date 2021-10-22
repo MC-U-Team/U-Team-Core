@@ -6,13 +6,14 @@ import java.util.function.Supplier;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import info.u_team.u_team_core.api.gui.Scalable;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Widget;
 
-public class ScalingTextRenderer implements Widget {
+public class ScalableTextRenderer implements Widget, Scalable {
 	
-	protected static final Consumer<ScalingTextRenderer> EMPTY_TEXT_CHANGED = renderer -> {
+	protected static final Consumer<ScalableTextRenderer> EMPTY_TEXT_CHANGED = renderer -> {
 	};
 	
 	protected final Font fontRenderer;
@@ -30,9 +31,9 @@ public class ScalingTextRenderer implements Widget {
 	protected float scale;
 	private float positionFactor;
 	
-	protected Consumer<ScalingTextRenderer> textChanged;
+	protected Consumer<ScalableTextRenderer> textChanged;
 	
-	public ScalingTextRenderer(Font fontRenderer, Supplier<String> textSupplier, float x, float y) {
+	public ScalableTextRenderer(Font fontRenderer, Supplier<String> textSupplier, float x, float y) {
 		this.fontRenderer = fontRenderer;
 		this.textSupplier = textSupplier;
 		this.x = x;
@@ -94,7 +95,7 @@ public class ScalingTextRenderer implements Widget {
 		positionFactor = 1 / scale;
 	}
 	
-	public void setTextChanged(Consumer<ScalingTextRenderer> textChanged) {
+	public void setTextChanged(Consumer<ScalableTextRenderer> textChanged) {
 		this.textChanged = textChanged;
 	}
 	
