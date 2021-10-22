@@ -46,77 +46,6 @@ public class GuiUtil {
 	}
 	
 	/**
-	 * Draws a textured box of any size (smallest size is borderSize * 2 square) based on a fixed size textured box with
-	 * continuous borders and filler. It is assumed that the desired texture and shader is set.
-	 *
-	 * @param poseStack Pose stack
-	 * @param x X coordinate
-	 * @param y Y coordinate
-	 * @param u Image x coordinate
-	 * @param v Image y coordinate
-	 * @param width Width
-	 * @param height Height
-	 * @param textureWidth Texture width
-	 * @param textureHeight Texture height
-	 * @param topBorder Top border
-	 * @param bottomBorder Bottom border
-	 * @param leftBorder Left border
-	 * @param rightBorder Right border
-	 * @param blitOffset The zLevel to draw at
-	 * @param color The color of the drawing. If using {@link RGBA#WHITE} then the image will not be colored
-	 */
-	/*public static void drawContinuousTexturedBox(PoseStack poseStack, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder, float blitOffset, RGBA color) {
-		final var fillerWidth = textureWidth - leftBorder - rightBorder;
-		final var fillerHeight = textureHeight - topBorder - bottomBorder;
-		final var canvasWidth = width - leftBorder - rightBorder;
-		final var canvasHeight = height - topBorder - bottomBorder;
-		final var xPasses = canvasWidth / fillerWidth;
-		final var remainderWidth = canvasWidth % fillerWidth;
-		final var yPasses = canvasHeight / fillerHeight;
-		final var remainderHeight = canvasHeight % fillerHeight;
-		
-		final var uScale = 1f / 256;
-		final var vScale = 1f / 256;
-		
-		final var tessellator = Tesselator.getInstance();
-		final var bufferBuilder = tessellator.getBuilder();
-		
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
-		
-		// Draw Border
-		// Top Left
-		addTexturedColoredRect(bufferBuilder, poseStack, x, y, u, v, uScale, vScale, leftBorder, topBorder, blitOffset, color);
-		// Top Right
-		addTexturedColoredRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y, u + leftBorder + fillerWidth, v, uScale, vScale, rightBorder, topBorder, blitOffset, color);
-		// Bottom Left
-		addTexturedColoredRect(bufferBuilder, poseStack, x, y + topBorder + canvasHeight, u, v + topBorder + fillerHeight, uScale, vScale, leftBorder, bottomBorder, blitOffset, color);
-		// Bottom Right
-		addTexturedColoredRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y + topBorder + canvasHeight, u + leftBorder + fillerWidth, v + topBorder + fillerHeight, uScale, vScale, rightBorder, bottomBorder, blitOffset, color);
-		
-		for (var i = 0; i < xPasses + (remainderWidth > 0 ? 1 : 0); i++) {
-			// Top Border
-			addTexturedColoredRect(bufferBuilder, poseStack, x + leftBorder + (i * fillerWidth), y, u + leftBorder, v, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), topBorder, blitOffset, color);
-			// Bottom Border
-			addTexturedColoredRect(bufferBuilder, poseStack, x + leftBorder + (i * fillerWidth), y + topBorder + canvasHeight, u + leftBorder, v + topBorder + fillerHeight, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), bottomBorder, blitOffset, color);
-			
-			// Throw in some filler for good measure
-			for (var j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
-				addTexturedColoredRect(bufferBuilder, poseStack, x + leftBorder + (i * fillerWidth), y + topBorder + (j * fillerHeight), u + leftBorder, v + topBorder, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), (j == yPasses ? remainderHeight : fillerHeight), blitOffset, color);
-			}
-		}
-		
-		// Side Borders
-		for (var j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
-			// Left Border
-			addTexturedColoredRect(bufferBuilder, poseStack, x, y + topBorder + (j * fillerHeight), u, v + topBorder, uScale, vScale, leftBorder, (j == yPasses ? remainderHeight : fillerHeight), blitOffset, color);
-			// Right Border
-			addTexturedColoredRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y + topBorder + (j * fillerHeight), u + leftBorder + fillerWidth, v + topBorder, uScale, vScale, rightBorder, (j == yPasses ? remainderHeight : fillerHeight), blitOffset, color);
-		}
-		
-		tessellator.end();
-	}*/
-	
-	/**
 	 * Draw a textured quad that can be colored.
 	 *
 	 * @param poseStack The gui matrix stack
@@ -203,32 +132,6 @@ public class GuiUtil {
 		addVertexColor(bufferBuilder.vertex(matrix, x2, y2, zLevel), color).uv(u2, v2).endVertex();
 		addVertexColor(bufferBuilder.vertex(matrix, x2, y1, zLevel), color).uv(u2, v1).endVertex();
 		addVertexColor(bufferBuilder.vertex(matrix, x1, y1, zLevel), color).uv(u1, v1).endVertex();
-	}
-	
-	/**
-	 * Adds a textured rectangle that can be colored to the buffer builder. The vertex format must be
-	 * {@link DefaultVertexFormat#POSITION_COLOR_TEX} and the draw format must be {@link VertexFormat.Mode#QUADS}
-	 * 
-	 * @param bufferBuilder Buffer builder
-	 * @param poseStack Pose stack
-	 * @param x X coordiante
-	 * @param y Y coordinate
-	 * @param u
-	 * @param v
-	 * @param uScale
-	 * @param vScale
-	 * @param width
-	 * @param height
-	 * @param blitOffset
-	 * @param color
-	 */
-	public static void addTexturedColoredRect(BufferBuilder bufferBuilder, PoseStack poseStack, int x, int y, int u, int v, float uScale, float vScale, int width, int height, float blitOffset, RGBA color) {
-		final var matrix = poseStack.last().pose();
-		
-		bufferBuilder.vertex(matrix, x, y + height, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).uv(u * uScale, ((v + height) * vScale)).endVertex();
-		bufferBuilder.vertex(matrix, x + width, y + height, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).uv((u + width) * uScale, ((v + height) * vScale)).endVertex();
-		bufferBuilder.vertex(matrix, x + width, y, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).uv((u + width) * uScale, (v * vScale)).endVertex();
-		bufferBuilder.vertex(matrix, x, y, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).uv(u * uScale, (v * vScale)).endVertex();
 	}
 	
 	/**
