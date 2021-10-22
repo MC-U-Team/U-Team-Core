@@ -9,16 +9,16 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
-public class ScalableTextField extends UTextField implements Scalable, ScaleProvider {
+public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider {
 	
 	protected float scale;
 	
-	public ScalableTextField(Font fontRenderer, int x, int y, int width, int height, UTextField previousTextField, Component title, float scale) {
-		this(fontRenderer, x, y, width, height, previousTextField, title, scale, EMPTY_TOOLTIP);
+	public ScalableEditBox(Font fontRenderer, int x, int y, int width, int height, UEditBox previousEditBox, Component title, float scale) {
+		this(fontRenderer, x, y, width, height, previousEditBox, title, scale, EMPTY_TOOLTIP);
 	}
 	
-	public ScalableTextField(Font fontRenderer, int x, int y, int width, int height, UTextField previousTextField, Component title, float scale, ITooltip tooltip) {
-		super(fontRenderer, x, y, width, height, previousTextField, title, tooltip);
+	public ScalableEditBox(Font fontRenderer, int x, int y, int width, int height, UEditBox previousEditBox, Component title, float scale, OnTooltip tooltip) {
+		super(fontRenderer, x, y, width, height, previousEditBox, title, tooltip);
 		this.scale = scale;
 	}
 	

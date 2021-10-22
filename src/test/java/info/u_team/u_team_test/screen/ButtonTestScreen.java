@@ -14,11 +14,11 @@ import info.u_team.u_team_core.gui.elements.ScalableButton;
 import info.u_team.u_team_core.gui.elements.ScalableCheckboxButton;
 import info.u_team.u_team_core.gui.elements.ScalableSlider;
 import info.u_team.u_team_core.gui.elements.ScalableText;
-import info.u_team.u_team_core.gui.elements.ScalableTextField;
+import info.u_team.u_team_core.gui.elements.ScalableEditBox;
 import info.u_team.u_team_core.gui.elements.ScrollingText;
 import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_core.gui.elements.USlider;
-import info.u_team.u_team_core.gui.elements.UTextField;
+import info.u_team.u_team_core.gui.elements.UEditBox;
 import info.u_team.u_team_core.screen.UBasicScreen;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
@@ -34,9 +34,9 @@ public class ButtonTestScreen extends UBasicScreen {
 	private static final ResourceLocation TEXTURE1 = new ResourceLocation(TestMod.MODID, "textures/item/better_enderpearl.png");
 	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMod.MODID, "textures/item/basicitem.png");
 	
-	private UTextField textFieldWidget;
-	private ScalableTextField scalableTextFieldWidget;
-	private ScalableTextField scalableTextFieldWidget2;
+	private UEditBox textFieldWidget;
+	private ScalableEditBox scalableTextFieldWidget;
+	private ScalableEditBox scalableTextFieldWidget2;
 	
 	private ScalableText scalingRenderer;
 	
@@ -228,7 +228,7 @@ public class ButtonTestScreen extends UBasicScreen {
 		// U Text Field Test
 		minecraft.keyboardHandler.setSendRepeatsToGui(true);
 		
-		textFieldWidget = addRenderableWidget(new UTextField(font, 220, 110, 200, 20, textFieldWidget, Component.nullToEmpty("U Text Field")));
+		textFieldWidget = addRenderableWidget(new UEditBox(font, 220, 110, 200, 20, textFieldWidget, Component.nullToEmpty("U Text Field")));
 		textFieldWidget.setMaxLength(500);
 		textFieldWidget.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
@@ -237,7 +237,7 @@ public class ButtonTestScreen extends UBasicScreen {
 		});
 		
 		// Scalable Text Field Test
-		scalableTextFieldWidget = addRenderableWidget(new ScalableTextField(font, 220, 140, 200, 30, scalableTextFieldWidget, Component.nullToEmpty("Scalable Text Field"), 1.5F));
+		scalableTextFieldWidget = addRenderableWidget(new ScalableEditBox(font, 220, 140, 200, 30, scalableTextFieldWidget, Component.nullToEmpty("Scalable Text Field"), 1.5F));
 		scalableTextFieldWidget.setMaxLength(500);
 		scalableTextFieldWidget.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
@@ -245,7 +245,7 @@ public class ButtonTestScreen extends UBasicScreen {
 			}
 		});
 		
-		scalableTextFieldWidget2 = addRenderableWidget(new ScalableTextField(font, 220, 180, 200, 15, scalableTextFieldWidget, Component.nullToEmpty("Scalable Text Field 2"), 0.5F));
+		scalableTextFieldWidget2 = addRenderableWidget(new ScalableEditBox(font, 220, 180, 200, 15, scalableTextFieldWidget, Component.nullToEmpty("Scalable Text Field 2"), 0.5F));
 		scalableTextFieldWidget2.setMaxLength(500);
 		scalableTextFieldWidget2.setTooltip((textField, matrixStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {

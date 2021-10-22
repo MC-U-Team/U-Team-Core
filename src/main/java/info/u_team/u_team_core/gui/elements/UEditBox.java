@@ -12,9 +12,9 @@ import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 
-public class UTextField extends EditBox implements RenderTickable, PerspectiveRenderable, BackgroundColorProvider, TextSettingsProvider {
+public class UEditBox extends EditBox implements RenderTickable, PerspectiveRenderable, BackgroundColorProvider, TextSettingsProvider {
 	
-	protected static final ITooltip EMPTY_TOOLTIP = (textField, matrixStack, mouseX, mouseY) -> {
+	protected static final OnTooltip EMPTY_TOOLTIP = (textField, matrixStack, mouseX, mouseY) -> {
 	};
 	
 	protected static final RGBA BLACK = RGBA.BLACK;
@@ -26,7 +26,7 @@ public class UTextField extends EditBox implements RenderTickable, PerspectiveRe
 	protected static final RGBA DARKER_GRAY = new RGBA(0x808080FF);
 	protected static final RGBA DARK_GRAY = new RGBA(0x707070FF);
 	
-	protected ITooltip onTooltip;
+	protected OnTooltip onTooltip;
 	
 	protected RGBA backgroundFrameColor;
 	protected RGBA unfocusedBackgroundFrameColor;
@@ -38,13 +38,13 @@ public class UTextField extends EditBox implements RenderTickable, PerspectiveRe
 	
 	protected RGBA cursorColor;
 	
-	public UTextField(Font fontRenderer, int x, int y, int width, int height, UTextField previousTextField, Component title) {
-		this(fontRenderer, x, y, width, height, previousTextField, title, EMPTY_TOOLTIP);
+	public UEditBox(Font fontRenderer, int x, int y, int width, int height, UEditBox previousEditBox, Component title) {
+		this(fontRenderer, x, y, width, height, previousEditBox, title, EMPTY_TOOLTIP);
 	}
 	
-	public UTextField(Font fontRenderer, int x, int y, int width, int height, UTextField previousTextField, Component title, ITooltip tooltip) {
+	public UEditBox(Font fontRenderer, int x, int y, int width, int height, UEditBox previousEditBox, Component title, OnTooltip tooltip) {
 		super(fontRenderer, x, y, width, height, title);
-		setPreviousText(previousTextField);
+		setPreviousText(previousEditBox);
 		onTooltip = tooltip;
 		backgroundFrameColor = WHITE;
 		unfocusedBackgroundFrameColor = GRAY;
@@ -55,7 +55,7 @@ public class UTextField extends EditBox implements RenderTickable, PerspectiveRe
 		cursorColor = LIGHTER_GRAY;
 	}
 	
-	public void setTooltip(ITooltip tooltip) {
+	public void setTooltip(OnTooltip tooltip) {
 		onTooltip = tooltip;
 	}
 	
@@ -127,7 +127,7 @@ public class UTextField extends EditBox implements RenderTickable, PerspectiveRe
 		setDisabledTextColor(RGBA.fromARGB(color));
 	}
 	
-	public void setPreviousText(UTextField textField) {
+	public void setPreviousText(UEditBox textField) {
 		if (textField != null) {
 			value = textField.value;
 			maxLength = textField.maxLength;
@@ -243,9 +243,9 @@ public class UTextField extends EditBox implements RenderTickable, PerspectiveRe
 	}
 	
 	@FunctionalInterface
-	public interface ITooltip {
+	public interface OnTooltip {
 		
-		void onTooltip(UTextField textField, PoseStack matrixStack, int mouseX, int mouseY);
+		void onTooltip(UEditBox textField, PoseStack matrixStack, int mouseX, int mouseY);
 	}
 	
 }
