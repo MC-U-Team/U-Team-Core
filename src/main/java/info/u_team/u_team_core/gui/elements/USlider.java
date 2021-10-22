@@ -3,7 +3,7 @@ package info.u_team.u_team_core.gui.elements;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
-import info.u_team.u_team_core.api.gui.ITextProvider;
+import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.RGBA;
@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraftforge.fmlclient.gui.widget.Slider;
 
-public class USlider extends Slider implements PerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
+public class USlider extends Slider implements PerspectiveRenderable, IBackgroundColorProvider, TextProvider {
 	
 	protected static final ISlider EMTPY_SLIDER = slider -> {
 	};

@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
-import info.u_team.u_team_core.api.gui.ITextProvider;
+import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
@@ -18,7 +18,7 @@ import net.minecraft.network.chat.Component;
  *
  * @author HyCraftHD
  */
-public class UButton extends Button implements PerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
+public class UButton extends Button implements PerspectiveRenderable, IBackgroundColorProvider, TextProvider {
 	
 	protected static final OnPress EMTPY_PRESSABLE = button -> {
 	};

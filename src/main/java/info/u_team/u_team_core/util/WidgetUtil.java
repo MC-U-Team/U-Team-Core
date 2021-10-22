@@ -6,7 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.IScaleProvider;
-import info.u_team.u_team_core.api.gui.ITextProvider;
+import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import net.minecraft.client.Minecraft;
@@ -28,7 +28,7 @@ public class WidgetUtil {
 		widget.renderForeground(poseStack, mouseX, mouseY, partialTicks);
 	}
 	
-	public static <T extends AbstractWidget & ITextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		final var minecraft = Minecraft.getInstance(); // TODO replace with font provider
 		final var fontRenderer = minecraft.font;
 		
@@ -48,7 +48,7 @@ public class WidgetUtil {
 		}
 	}
 	
-	public static <T extends AbstractWidget & ITextProvider & IScaleProvider> void renderScaledText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends AbstractWidget & TextProvider & IScaleProvider> void renderScaledText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		final var scale = widget.getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
 		
 		if (scale == 1) {
