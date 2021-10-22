@@ -23,7 +23,6 @@ import info.u_team.u_team_core.screen.UBasicScreen;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
 import info.u_team.u_team_test.TestMod;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -276,7 +275,7 @@ public class ButtonTestScreen extends UBasicScreen {
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		scalingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);
 		scrollingRenderer.render(matrixStack, mouseX, mouseY, partialTicks);
 		scrollingList.render(matrixStack, mouseX, mouseY, partialTicks);

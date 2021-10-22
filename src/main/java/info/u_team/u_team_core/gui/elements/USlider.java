@@ -3,8 +3,8 @@ package info.u_team.u_team_core.gui.elements;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
-import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.ITextProvider;
+import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
@@ -12,12 +12,10 @@ import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.Mth;
 import net.minecraftforge.fmlclient.gui.widget.Slider;
 
-public class USlider extends Slider implements IPerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
+public class USlider extends Slider implements PerspectiveRenderable, IBackgroundColorProvider, ITextProvider {
 	
 	protected static final ISlider EMTPY_SLIDER = slider -> {
 	};
@@ -110,20 +108,20 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	}
 	
 	@Override
-	public void renderBackground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		renderBg(matrixStack, minecraft, mouseX, mouseY);
+	public void renderBackground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		renderBg(matrixStack, Minecraft.getInstance(), mouseX, mouseY);
 		if (visible) {
 			RenderUtil.drawContinuousTexturedBox(matrixStack, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset(), WIDGETS_LOCATION, getCurrentSliderColor(matrixStack, mouseX, mouseY, partialTicks));
 		}
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderText(this, matrixStack, minecraft, mouseX, mouseY, partialTicks);
+	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		WidgetUtil.renderText(this, matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void renderToolTip(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderToolTip(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		renderToolTip(matrixStack, mouseX, mouseY);
 	}
 	

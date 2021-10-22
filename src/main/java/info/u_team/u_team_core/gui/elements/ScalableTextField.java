@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IScaleProvider;
 import info.u_team.u_team_core.api.gui.IScaleable;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
@@ -34,7 +33,7 @@ public class ScalableTextField extends UTextField implements IScaleable, IScaleP
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final var currentScale = getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
 		
 		final var positionFactor = 1 / scale;

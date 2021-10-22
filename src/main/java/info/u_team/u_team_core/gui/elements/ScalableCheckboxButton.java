@@ -40,9 +40,10 @@ public class ScalableCheckboxButton extends CheckboxButton implements IScaleable
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			final var fontRenderer = minecraft.font;
+			// TODO replace with font getter!
+			final var fontRenderer = Minecraft.getInstance().font;
 			
 			final var message = getCurrentText();
 			if (message != TextComponent.EMPTY) {

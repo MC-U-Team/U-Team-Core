@@ -3,17 +3,16 @@ package info.u_team.u_team_core.gui.elements;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
-import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
-import info.u_team.u_team_core.api.gui.RenderTickable;
 import info.u_team.u_team_core.api.gui.ITextColorProvider;
+import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
+import info.u_team.u_team_core.api.gui.RenderTickable;
 import info.u_team.u_team_core.util.RGBA;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 
-public class UTextField extends EditBox implements RenderTickable, IPerspectiveRenderable, IBackgroundColorProvider, ITextColorProvider {
+public class UTextField extends EditBox implements RenderTickable, PerspectiveRenderable, IBackgroundColorProvider, ITextColorProvider {
 	
 	protected static final ITooltip EMPTY_TOOLTIP = (textField, matrixStack, mouseX, mouseY) -> {
 	};
@@ -145,13 +144,12 @@ public class UTextField extends EditBox implements RenderTickable, IPerspectiveR
 	
 	@Override
 	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		final var minecraft = Minecraft.getInstance();
-		renderBackground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
-		renderForeground(matrixStack, minecraft, mouseX, mouseY, partialTicks);
+		renderBackground(matrixStack, mouseX, mouseY, partialTicks);
+		renderForeground(matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void renderBackground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderBackground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		if (bordered) {
 			fill(matrixStack, x - 1, y - 1, x + width + 1, y + height + 1, getCurrentBackgroundFrameColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
 			fill(matrixStack, x, y, x + width, y + height, getCurrentBackgroundColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
@@ -159,7 +157,7 @@ public class UTextField extends EditBox implements RenderTickable, IPerspectiveR
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		final var currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
 		
 		final var currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
@@ -213,7 +211,7 @@ public class UTextField extends EditBox implements RenderTickable, IPerspectiveR
 	}
 	
 	@Override
-	public void renderToolTip(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public void renderToolTip(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		renderToolTip(matrixStack, mouseX, mouseY);
 	}
 	

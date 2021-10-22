@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.api.gui.IScaleProvider;
 import info.u_team.u_team_core.api.gui.IScaleable;
 import info.u_team.u_team_core.util.WidgetUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
 
 public class ScalableButton extends UButton implements IScaleable, IScaleProvider {
@@ -40,8 +39,8 @@ public class ScalableButton extends UButton implements IScaleable, IScaleProvide
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderScaledText(this, matrixStack, minecraft, mouseX, mouseY, partialTicks);
+	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+		WidgetUtil.renderScaledText(this, matrixStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override

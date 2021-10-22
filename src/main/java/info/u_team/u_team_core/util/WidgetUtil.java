@@ -5,9 +5,9 @@ import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
-import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.IScaleProvider;
 import info.u_team.u_team_core.api.gui.ITextProvider;
+import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -21,16 +21,15 @@ public class WidgetUtil {
 		return widget.isHovered;
 	}
 	
-	public static <T extends AbstractWidget & IPerspectiveRenderable & IBackgroundColorProvider> void renderButtonLikeWidget(T widget, TextureProvider textureProvider, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends AbstractWidget & PerspectiveRenderable & IBackgroundColorProvider> void renderButtonLikeWidget(T widget, TextureProvider textureProvider, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		RenderUtil.drawContinuousTexturedBox(poseStack, widget.x, widget.y, textureProvider.getU(), textureProvider.getV(), widget.width, widget.height, textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, widget.getBlitOffset(), textureProvider.getTexture(), widget.getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTicks));
 		
-		final var minecraft = Minecraft.getInstance();
-		
-		widget.renderBackground(poseStack, minecraft, mouseX, mouseY, partialTicks);
-		widget.renderForeground(poseStack, minecraft, mouseX, mouseY, partialTicks);
+		widget.renderBackground(poseStack, mouseX, mouseY, partialTicks);
+		widget.renderForeground(poseStack, mouseX, mouseY, partialTicks);
 	}
 	
-	public static <T extends AbstractWidget & ITextProvider> void renderText(T widget, PoseStack poseStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends AbstractWidget & ITextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		final var minecraft = Minecraft.getInstance(); // TODO replace with font provider
 		final var fontRenderer = minecraft.font;
 		
 		var message = widget.getCurrentText();
@@ -49,12 +48,13 @@ public class WidgetUtil {
 		}
 	}
 	
-	public static <T extends AbstractWidget & ITextProvider & IScaleProvider> void renderScaledText(T widget, PoseStack poseStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends AbstractWidget & ITextProvider & IScaleProvider> void renderScaledText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		final var scale = widget.getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
 		
 		if (scale == 1) {
-			renderText(widget, poseStack, minecraft, mouseX, mouseY, partialTicks);
+			renderText(widget, poseStack, mouseX, mouseY, partialTicks);
 		} else {
+			final var minecraft = Minecraft.getInstance(); // TODO replace with font provider
 			final var fontRenderer = minecraft.font;
 			
 			var message = widget.getCurrentText();
@@ -79,12 +79,12 @@ public class WidgetUtil {
 		}
 	}
 	
-	public static void renderTooltips(List<Widget> widgets, PoseStack poseStack, Minecraft minecraft, int mouseX, int mouseY, float partialTicks) {
+	public static void renderTooltips(List<Widget> widgets, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		widgets.forEach(widget -> {
-			if (widget instanceof IPerspectiveRenderable perspectiveRenderable) {
-				perspectiveRenderable.renderToolTip(poseStack, minecraft, mouseX, mouseY, partialTicks);
+			if (widget instanceof PerspectiveRenderable perspectiveRenderable) {
+				perspectiveRenderable.renderToolTip(poseStack, mouseX, mouseY, partialTicks);
 			} else if (widget instanceof AbstractWidget abstractWidget) {
-				abstractWidget.renderToolTip(poseStack, mouseX, mouseY);
+				abstractWidget.renderToolTip(poseStack, mouseX, mouseY); // TODO probably renders stuff twice when implementation like in Button is used. Just do not call this?
 			}
 		});
 	}
