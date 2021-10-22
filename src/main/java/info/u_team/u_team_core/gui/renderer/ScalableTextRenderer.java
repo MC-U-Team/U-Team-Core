@@ -16,7 +16,7 @@ public class ScalableTextRenderer implements Widget, Scalable {
 	protected static final Consumer<ScalableTextRenderer> EMPTY_TEXT_CHANGED = renderer -> {
 	};
 	
-	protected final Font fontRenderer;
+	protected final Font font;
 	
 	protected Supplier<String> textSupplier;
 	
@@ -33,8 +33,8 @@ public class ScalableTextRenderer implements Widget, Scalable {
 	
 	protected Consumer<ScalableTextRenderer> textChanged;
 	
-	public ScalableTextRenderer(Font fontRenderer, Supplier<String> textSupplier, float x, float y) {
-		this.fontRenderer = fontRenderer;
+	public ScalableTextRenderer(Font font, Supplier<String> textSupplier, float x, float y) {
+		this.font = font;
 		this.textSupplier = textSupplier;
 		this.x = x;
 		this.y = y;
@@ -109,7 +109,7 @@ public class ScalableTextRenderer implements Widget, Scalable {
 	protected void setText(String newText) {
 		if ((newText != null && !newText.equals(text)) || (newText == null && text != null)) {
 			text = newText;
-			textWidth = fontRenderer.width(newText);
+			textWidth = font.width(newText);
 			updatedText();
 		}
 	}
@@ -122,13 +122,13 @@ public class ScalableTextRenderer implements Widget, Scalable {
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		// Get new text and set if has changed
 		setText(textSupplier.get());
-		renderFont(poseStack, fontRenderer, x, y);
+		renderFont(poseStack, font, x, y);
 	}
 	
-	protected void renderFont(PoseStack poseStack, Font fontRenderer, float x, float y) {
+	protected void renderFont(PoseStack poseStack, Font font, float x, float y) {
 		poseStack.pushPose();
 		poseStack.scale(scale, scale, 0);
-		fontRenderer.drawInternal(text, x * positionFactor, y * positionFactor, color.getColorARGB(), poseStack.last().pose(), shadow, fontRenderer.isBidirectional());
+		font.drawInternal(text, x * positionFactor, y * positionFactor, color.getColorARGB(), poseStack.last().pose(), shadow, font.isBidirectional());
 		poseStack.popPose();
 	}
 }

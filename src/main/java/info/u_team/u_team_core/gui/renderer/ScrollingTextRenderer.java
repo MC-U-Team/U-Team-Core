@@ -22,8 +22,8 @@ public class ScrollingTextRenderer extends ScalableTextRenderer {
 	protected long lastTime = 0;
 	protected State state = State.WAITING;
 	
-	public ScrollingTextRenderer(Font fontRenderer, Supplier<String> textSupplier, float x, float y) {
-		super(fontRenderer, textSupplier, x, y);
+	public ScrollingTextRenderer(Font font, Supplier<String> textSupplier, float x, float y) {
+		super(font, textSupplier, x, y);
 		width = 100;
 		stepSize = 1;
 		speedTime = 20;
@@ -89,7 +89,7 @@ public class ScrollingTextRenderer extends ScalableTextRenderer {
 		vectorXY.transform(matrix);
 		
 		// Cannot use transform here, because we only care about the scaling. M00 and M11 should have the right scaling
-		final var vectorWH = new Vector4f(width * matrix.getM00(), (fontRenderer.lineHeight + 1) * scale * matrix.getM11(), 0, 1);
+		final var vectorWH = new Vector4f(width * matrix.getM00(), (font.lineHeight + 1) * scale * matrix.getM11(), 0, 1);
 		
 		final var nativeX = Mth.ceil(vectorXY.x() * scaleFactor);
 		final var nativeY = Mth.ceil(vectorXY.y() * scaleFactor);
@@ -106,7 +106,7 @@ public class ScrollingTextRenderer extends ScalableTextRenderer {
 		// poseStack.pop();
 		
 		setText(textSupplier.get());
-		renderFont(poseStack, fontRenderer, getMovingX(x), y + 2 * scale);
+		renderFont(poseStack, font, getMovingX(x), y + 2 * scale);
 		
 		RenderSystem.disableScissor();
 	}
