@@ -5,10 +5,11 @@ import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
+import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.TextProvider;
-import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.TextureProvider;
+import info.u_team.u_team_core.api.gui.TooltipRenderable;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Widget;
@@ -81,10 +82,8 @@ public class WidgetUtil {
 	
 	public static void renderTooltips(List<Widget> widgets, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		widgets.forEach(widget -> {
-			if (widget instanceof PerspectiveRenderable perspectiveRenderable) {
-				perspectiveRenderable.renderToolTip(poseStack, mouseX, mouseY, partialTicks);
-			} else if (widget instanceof AbstractWidget abstractWidget) {
-				abstractWidget.renderToolTip(poseStack, mouseX, mouseY); // TODO probably renders stuff twice when implementation like in Button is used. Just do not call this?
+			if (widget instanceof TooltipRenderable tooltipRenderable) {
+				tooltipRenderable.renderToolTip(poseStack, mouseX, mouseY, partialTicks);
 			}
 		});
 	}

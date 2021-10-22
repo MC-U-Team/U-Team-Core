@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.components.Widget;
 
-public interface PerspectiveRenderable extends Widget {
+public interface PerspectiveRenderable extends TooltipRenderable, Widget {
 	
 	@Override
 	void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
@@ -12,7 +12,5 @@ public interface PerspectiveRenderable extends Widget {
 	void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
 	
 	void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
-	
-	void renderToolTip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
 	
 }

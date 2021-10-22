@@ -7,7 +7,6 @@ import info.u_team.u_team_test.menu.BasicEnergyCreatorMenu;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraftforge.energy.CapabilityEnergy;
 
 public class BasicEnergyCreatorScreen extends UBasicMenuContainerScreen<BasicEnergyCreatorMenu> {
 	
@@ -20,6 +19,6 @@ public class BasicEnergyCreatorScreen extends UBasicMenuContainerScreen<BasicEne
 	@Override
 	protected void init() {
 		super.init();
-		addRenderableWidget(new EnergyStorageWidget(leftPos + 9, topPos + 20, 54, menu.getBlockEntity().getCapability(CapabilityEnergy.ENERGY)));
+		addRenderableWidget(new EnergyStorageWidget(leftPos + 9, topPos + 20, 54, menu.getBlockEntity()::getEnergy));
 	}
 }
