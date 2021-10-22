@@ -8,7 +8,7 @@ import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.IScaleProvider;
 import info.u_team.u_team_core.api.gui.ITextProvider;
-import info.u_team.u_team_core.api.gui.ITextureProvider;
+import info.u_team.u_team_core.api.gui.TextureProvider;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Widget;
@@ -21,7 +21,7 @@ public class WidgetUtil {
 		return widget.isHovered;
 	}
 	
-	public static <T extends AbstractWidget & IPerspectiveRenderable & IBackgroundColorProvider> void renderButtonLikeWidget(T widget, ITextureProvider textureProvider, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends AbstractWidget & IPerspectiveRenderable & IBackgroundColorProvider> void renderButtonLikeWidget(T widget, TextureProvider textureProvider, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		RenderUtil.drawContinuousTexturedBox(poseStack, widget.x, widget.y, textureProvider.getU(), textureProvider.getV(), widget.width, widget.height, textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, widget.getBlitOffset(), textureProvider.getTexture(), widget.getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTicks));
 		
 		final var minecraft = Minecraft.getInstance();

@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.ITextProvider;
-import info.u_team.u_team_core.api.gui.ITextureProvider;
+import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
@@ -28,7 +28,7 @@ public class UButton extends Button implements IPerspectiveRenderable, IBackgrou
 	protected static final RGBA WHITE = RGBA.WHITE;
 	protected static final RGBA LIGHT_GRAY = new RGBA(0xA0A0A0FF);
 	
-	protected ITextureProvider buttonTextureProvider;
+	protected TextureProvider buttonTextureProvider;
 	
 	protected RGBA buttonColor;
 	

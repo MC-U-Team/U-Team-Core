@@ -2,11 +2,11 @@ package info.u_team.u_team_core.gui.elements;
 
 import java.util.function.Function;
 
-import info.u_team.u_team_core.api.gui.ITextureProvider;
+import info.u_team.u_team_core.api.gui.TextureProvider;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.resources.ResourceLocation;
 
-public class WidgetTextureProvider implements ITextureProvider {
+public class WidgetTextureProvider implements TextureProvider {
 	
 	protected AbstractWidget widget;
 	protected Function<Boolean, Integer> yImage;

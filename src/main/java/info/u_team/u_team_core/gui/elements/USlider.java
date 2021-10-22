@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.api.gui.IBackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.IPerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.ITextProvider;
-import info.u_team.u_team_core.api.gui.ITextureProvider;
+import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
@@ -29,7 +29,7 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	
 	protected final boolean isInContainer;
 	
-	protected ITextureProvider sliderBackgroundTextureProvider;
+	protected TextureProvider sliderBackgroundTextureProvider;
 	
 	protected RGBA sliderBackgroundColor;
 	protected RGBA sliderColor;
@@ -190,11 +190,6 @@ public class USlider extends Slider implements IPerspectiveRenderable, IBackgrou
 	
 	@Override
 	public void playDownSound(SoundManager handler) {
-	}
-	
-	@Override
-	protected MutableComponent createNarrationMessage() {
-		return new TranslatableComponent("gui.narrate.slider", getMessage());
 	}
 	
 	protected void changeSliderValue(double mouseX) {
