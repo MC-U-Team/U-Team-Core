@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.gui.renderer;
+package info.u_team.u_team_core.gui.elements;
 
 import java.util.function.Supplier;
 
@@ -11,7 +11,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.util.Mth;
 
-public class ScrollingTextRenderer extends ScalableTextRenderer {
+public class ScrollingText extends ScalableText {
 	
 	protected int width;
 	protected float stepSize;
@@ -22,7 +22,7 @@ public class ScrollingTextRenderer extends ScalableTextRenderer {
 	protected long lastTime = 0;
 	protected State state = State.WAITING;
 	
-	public ScrollingTextRenderer(Font font, Supplier<String> textSupplier, float x, float y) {
+	public ScrollingText(Font font, Supplier<String> textSupplier, float x, float y) {
 		super(font, textSupplier, x, y);
 		width = 100;
 		stepSize = 1;
@@ -62,7 +62,7 @@ public class ScrollingTextRenderer extends ScalableTextRenderer {
 		waitTime = waittime;
 	}
 	
-	public void copyState(ScrollingTextRenderer renderer) {
+	public void copyState(ScrollingText renderer) {
 		setText(textSupplier.get());
 		state = renderer.state;
 		moveDifference = renderer.moveDifference;

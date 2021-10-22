@@ -13,12 +13,12 @@ import info.u_team.u_team_core.gui.elements.ScalableActivatableButton;
 import info.u_team.u_team_core.gui.elements.ScalableButton;
 import info.u_team.u_team_core.gui.elements.ScalableCheckboxButton;
 import info.u_team.u_team_core.gui.elements.ScalableSlider;
+import info.u_team.u_team_core.gui.elements.ScalableText;
 import info.u_team.u_team_core.gui.elements.ScalableTextField;
+import info.u_team.u_team_core.gui.elements.ScrollingText;
 import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_core.gui.elements.USlider;
 import info.u_team.u_team_core.gui.elements.UTextField;
-import info.u_team.u_team_core.gui.renderer.ScalableTextRenderer;
-import info.u_team.u_team_core.gui.renderer.ScrollingTextRenderer;
 import info.u_team.u_team_core.screen.UBasicScreen;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
@@ -38,9 +38,9 @@ public class ButtonTestScreen extends UBasicScreen {
 	private ScalableTextField scalableTextFieldWidget;
 	private ScalableTextField scalableTextFieldWidget2;
 	
-	private ScalableTextRenderer scalingRenderer;
+	private ScalableText scalingRenderer;
 	
-	private ScrollingTextRenderer scrollingRenderer;
+	private ScrollingText scrollingRenderer;
 	
 	private BasicTestList scrollingList;
 	
@@ -254,12 +254,12 @@ public class ButtonTestScreen extends UBasicScreen {
 		});
 		
 		// Scaling Renderer Test
-		scalingRenderer = new ScalableTextRenderer(font, () -> "This is a test for the scaling text renderer", 220, 10);
+		scalingRenderer = new ScalableText(font, () -> "This is a test for the scaling text renderer", 220, 10);
 		scalingRenderer.setColor(new RGBA(0xFF00FF40));
 		scalingRenderer.setScale(1.5F);
 		
 		// Scrolling Renderer Test
-		scrollingRenderer = new ScrollingTextRenderer(font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling", 220, 25);
+		scrollingRenderer = new ScrollingText(font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling", 220, 25);
 		scrollingRenderer.setColor(new RGBA(0x00FFFFFF));
 		scrollingRenderer.setWidth(200);
 		scrollingRenderer.setScale(2F);

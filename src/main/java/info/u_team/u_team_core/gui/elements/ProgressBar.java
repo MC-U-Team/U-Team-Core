@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.gui.renderer;
+package info.u_team.u_team_core.gui.elements;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;

@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.gui.renderer;
+package info.u_team.u_team_core.gui.elements;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -11,9 +11,9 @@ import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.Widget;
 
-public class ScalableTextRenderer implements Widget, Scalable {
+public class ScalableText implements Widget, Scalable {
 	
-	protected static final Consumer<ScalableTextRenderer> EMPTY_TEXT_CHANGED = renderer -> {
+	protected static final Consumer<ScalableText> EMPTY_TEXT_CHANGED = renderer -> {
 	};
 	
 	protected final Font font;
@@ -31,9 +31,9 @@ public class ScalableTextRenderer implements Widget, Scalable {
 	protected float scale;
 	private float positionFactor;
 	
-	protected Consumer<ScalableTextRenderer> textChanged;
+	protected Consumer<ScalableText> textChanged;
 	
-	public ScalableTextRenderer(Font font, Supplier<String> textSupplier, float x, float y) {
+	public ScalableText(Font font, Supplier<String> textSupplier, float x, float y) {
 		this.font = font;
 		this.textSupplier = textSupplier;
 		this.x = x;
@@ -95,7 +95,7 @@ public class ScalableTextRenderer implements Widget, Scalable {
 		positionFactor = 1 / scale;
 	}
 	
-	public void setTextChanged(Consumer<ScalableTextRenderer> textChanged) {
+	public void setTextChanged(Consumer<ScalableText> textChanged) {
 		this.textChanged = textChanged;
 	}
 	
