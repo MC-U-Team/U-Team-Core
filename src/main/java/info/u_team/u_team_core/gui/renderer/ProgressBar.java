@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.gui.elements;
+package info.u_team.u_team_core.gui.renderer;
 
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -14,7 +14,7 @@ import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.sounds.SoundEvents;
 
-public class ProgressBar extends GuiComponent implements GuiEventListener, Widget {
+public class ProgressBar implements GuiEventListener, Widget {
 	
 	protected Supplier<Double> progress;
 	protected Consumer<Double> click;
@@ -48,8 +48,8 @@ public class ProgressBar extends GuiComponent implements GuiEventListener, Widge
 		if (visible) {
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			
-			fill(matrixStack, x, y, x + width, y + height, backgroundColor.getColorARGB());
-			fill(matrixStack, x, y, (int) (x + (progress.get() * width)), y + height, progressColor.getColorARGB());
+			GuiComponent.fill(matrixStack, x, y, x + width, y + height, backgroundColor.getColorARGB());
+			GuiComponent.fill(matrixStack, x, y, (int) (x + (progress.get() * width)), y + height, progressColor.getColorARGB());
 		}
 	}
 	
