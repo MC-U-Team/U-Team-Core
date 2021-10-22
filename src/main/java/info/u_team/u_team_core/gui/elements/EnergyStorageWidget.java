@@ -80,7 +80,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		if (isHovered) {
 			final var minecraft = Minecraft.getInstance();
 			
-			final var list = List.of(Component.nullToEmpty(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
+			final List<Component> list = List.of(new TextComponent(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
 			minecraft.screen.renderTooltip(poseStack, list, Optional.empty(), mouseX, mouseY, minecraft.font);
 		}
 	}
