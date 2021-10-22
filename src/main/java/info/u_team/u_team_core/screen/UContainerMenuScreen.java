@@ -3,7 +3,7 @@ package info.u_team.u_team_core.screen;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.api.gui.IRenderTickable;
+import info.u_team.u_team_core.api.gui.RenderTickable;
 import info.u_team.u_team_core.menu.UContainerMenu;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
@@ -84,7 +84,7 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	@Override
 	public void containerTick() {
 		for (final var listener : children()) {
-			if (listener instanceof IRenderTickable tickable) {
+			if (listener instanceof RenderTickable tickable) {
 				tickable.renderTick();
 			}
 		}
