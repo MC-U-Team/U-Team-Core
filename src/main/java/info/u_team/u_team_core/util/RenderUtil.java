@@ -11,8 +11,34 @@ import com.mojang.math.Matrix4f;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.resources.ResourceLocation;
 
+/**
+ * Utility methods for rendering
+ * 
+ * @author HyCraftHD
+ */
 public class RenderUtil {
 	
+	/**
+	 * Draws a textured box of any size (smallest size is borderSize * 2 square) based on a fixed size textured box with
+	 * continuous borders and filler.
+	 * 
+	 * @param poseStack Pose stack
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param u U coordinate
+	 * @param v V coordinate
+	 * @param width Width
+	 * @param height Height
+	 * @param textureWidth Texture width
+	 * @param textureHeight Texture height
+	 * @param topBorder Top border
+	 * @param bottomBorder Bottom border
+	 * @param leftBorder Left border
+	 * @param rightBorder Right border
+	 * @param blitOffset zLevel for drawing
+	 * @param texture Texture location
+	 * @param color The shader color. If using {@link RGBA#WHITE} then the image will not be colored
+	 */
 	public static void drawContinuousTexturedBox(PoseStack poseStack, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder, float blitOffset, ResourceLocation texture, RGBA color) {
 		final var fillerWidth = textureWidth - leftBorder - rightBorder;
 		final var fillerHeight = textureHeight - topBorder - bottomBorder;
@@ -35,7 +61,7 @@ public class RenderUtil {
 		
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		RenderSystem.enableDepthTest();
+		RenderSystem.enableDepthTest(); // TODO Should be use depth testing here?
 		
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
@@ -49,24 +75,24 @@ public class RenderUtil {
 		// Bottom Right
 		addTexturedRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y + topBorder + canvasHeight, u + leftBorder + fillerWidth, v + topBorder + fillerHeight, uScale, vScale, rightBorder, bottomBorder, blitOffset);
 		
-		for (var i = 0; i < xPasses + (remainderWidth > 0 ? 1 : 0); i++) {
+		for (var index = 0; index < xPasses + (remainderWidth > 0 ? 1 : 0); index++) {
 			// Top Border
-			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (i * fillerWidth), y, u + leftBorder, v, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), topBorder, blitOffset);
+			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (index * fillerWidth), y, u + leftBorder, v, uScale, vScale, (index == xPasses ? remainderWidth : fillerWidth), topBorder, blitOffset);
 			// Bottom Border
-			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (i * fillerWidth), y + topBorder + canvasHeight, u + leftBorder, v + topBorder + fillerHeight, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), bottomBorder, blitOffset);
+			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (index * fillerWidth), y + topBorder + canvasHeight, u + leftBorder, v + topBorder + fillerHeight, uScale, vScale, (index == xPasses ? remainderWidth : fillerWidth), bottomBorder, blitOffset);
 			
 			// Throw in some filler for good measure
 			for (var j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
-				addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (i * fillerWidth), y + topBorder + (j * fillerHeight), u + leftBorder, v + topBorder, uScale, vScale, (i == xPasses ? remainderWidth : fillerWidth), (j == yPasses ? remainderHeight : fillerHeight), blitOffset);
+				addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (index * fillerWidth), y + topBorder + (j * fillerHeight), u + leftBorder, v + topBorder, uScale, vScale, (index == xPasses ? remainderWidth : fillerWidth), (j == yPasses ? remainderHeight : fillerHeight), blitOffset);
 			}
 		}
 		
 		// Side Borders
-		for (var j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
+		for (var index = 0; index < yPasses + (remainderHeight > 0 ? 1 : 0); index++) {
 			// Left Border
-			addTexturedRect(bufferBuilder, poseStack, x, y + topBorder + (j * fillerHeight), u, v + topBorder, uScale, vScale, leftBorder, (j == yPasses ? remainderHeight : fillerHeight), blitOffset);
+			addTexturedRect(bufferBuilder, poseStack, x, y + topBorder + (index * fillerHeight), u, v + topBorder, uScale, vScale, leftBorder, (index == yPasses ? remainderHeight : fillerHeight), blitOffset);
 			// Right Border
-			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y + topBorder + (j * fillerHeight), u + leftBorder + fillerWidth, v + topBorder, uScale, vScale, rightBorder, (j == yPasses ? remainderHeight : fillerHeight), blitOffset);
+			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y + topBorder + (index * fillerHeight), u + leftBorder + fillerWidth, v + topBorder, uScale, vScale, rightBorder, (index == yPasses ? remainderHeight : fillerHeight), blitOffset);
 		}
 		
 		tessellator.end();
@@ -75,6 +101,22 @@ public class RenderUtil {
 		RenderSystem.disableDepthTest();
 	}
 	
+	/**
+	 * Adds a textured rectangle to the buffer builder. The vertex format must be {@link DefaultVertexFormat#POSITION_TEX}
+	 * and the draw format must be {@link VertexFormat.Mode#QUADS}
+	 * 
+	 * @param bufferBuilder Buffer builder
+	 * @param poseStack Pose stack
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param u U coordinate
+	 * @param v V coordinate
+	 * @param uScale U scale
+	 * @param vScale V scale
+	 * @param width Width
+	 * @param height Height
+	 * @param blitOffset zLevel for drawing
+	 */
 	public static void addTexturedRect(BufferBuilder bufferBuilder, PoseStack poseStack, int x, int y, int u, int v, float uScale, float vScale, int width, int height, float blitOffset) {
 		final var matrix = poseStack.last().pose();
 		
