@@ -46,7 +46,7 @@ public class ImageActivatableButton extends ImageButton {
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return activated ? activatedColor : buttonColor;
 	}
 	
