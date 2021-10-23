@@ -91,7 +91,7 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	}
 	
 	@Override
-	protected void renderList(PoseStack matrixStack, int rowLeft, int scrollAmount, int mouseX, int mouseY, float partialTicks) {
+	protected void renderList(PoseStack poseStack, int rowLeft, int scrollAmount, int mouseX, int mouseY, float partialTicks) {
 		if (shouldUseScissor) {
 			final var window = minecraft.getWindow();
 			final var scaleFactor = window.getGuiScale();
@@ -105,22 +105,22 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 			
 			// Uncomment to test scissor
-			// matrixStack.push();
-			// matrixStack.getLast().getMatrix().setIdentity();
-			// AbstractGui.fill(matrixStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0x8F00FF00);
-			// matrixStack.pop();
+			// poseStack.push();
+			// poseStack.getLast().getMatrix().setIdentity();
+			// AbstractGui.fill(poseStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0x8F00FF00);
+			// poseStack.pop();
 			
-			super.renderList(matrixStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
+			super.renderList(poseStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
 			RenderSystem.disableScissor();
 		} else {
-			super.renderList(matrixStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
+			super.renderList(poseStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
 		}
 		
 		if (shouldRenderTransparentBorder) {
 			final var tessellator = Tesselator.getInstance();
 			final var buffer = tessellator.getBuilder();
 			
-			RenderSystem.setShader(GameRenderer::getPositionShader); // TODO right shader or with color? Do we need disable texture?
+			RenderSystem.setShader(GameRenderer::getPositionColorShader); // TODO right shader or with color? Do we need disable texture?
 			
 			RenderSystem.enableBlend();
 			RenderSystem.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ZERO, DestFactor.ONE);

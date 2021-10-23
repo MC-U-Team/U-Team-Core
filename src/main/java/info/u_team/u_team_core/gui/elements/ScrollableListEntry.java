@@ -6,6 +6,7 @@ import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 
@@ -20,6 +21,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 		widgets = new ArrayList<>();
 	}
 	
+	// TODO rename to match screen
 	protected <B extends AbstractWidget> B addButton(B button) {
 		widgets.add(button);
 		return button;
@@ -33,7 +35,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	
 	@Override
 	public boolean mouseReleased(double mouseX, double mouseY, int button) {
-		for (final AbstractWidget widget : widgets) {
+		for (final var widget : widgets) {
 			if (widget.mouseReleased(mouseX, mouseY, button)) {
 				return true;
 			}
@@ -43,7 +45,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	
 	@Override
 	public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-		for (final AbstractWidget widget : widgets) {
+		for (final var widget : widgets) {
 			if (widget.mouseDragged(mouseX, mouseY, button, dragX, dragY)) {
 				return true;
 			}
@@ -52,10 +54,10 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	}
 	
 	@Override
-	public abstract void render(PoseStack matrixStack, int slotIndex, int entryY, int entryX, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float partialTicks);
+	public abstract void render(PoseStack poseStack, int slotIndex, int entryY, int entryX, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float partialTicks);
 	
 	@SuppressWarnings("deprecation")
-	protected net.minecraft.client.gui.components.AbstractSelectionList<T> getList() {
+	protected AbstractSelectionList<T> getList() {
 		return list;
 	}
 }
