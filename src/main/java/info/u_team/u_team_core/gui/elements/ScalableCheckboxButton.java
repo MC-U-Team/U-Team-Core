@@ -2,9 +2,8 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.Scalable;
-import net.minecraft.client.Minecraft;
+import info.u_team.u_team_core.api.gui.ScaleProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 
@@ -42,8 +41,7 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 	@Override
 	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			// TODO replace with font getter!
-			final var fontRenderer = Minecraft.getInstance().font;
+			final var font = getCurrentTextFont();
 			
 			final var message = getCurrentText();
 			if (message != TextComponent.EMPTY) {
@@ -55,7 +53,7 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 				final var yStart = (y + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
 				
 				if (leftSideText) {
-					xStart = (x - ((fontRenderer.width(message) * currentScale) + 4)) * positionFactor;
+					xStart = (x - ((font.width(message) * currentScale) + 4)) * positionFactor;
 				} else {
 					xStart = (x + width + 4) * positionFactor;
 				}
@@ -66,9 +64,9 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 				matrixStack.scale(currentScale, currentScale, 0);
 				
 				if (dropShadow) {
-					fontRenderer.drawShadow(matrixStack, getCurrentText(), xStart, yStart, color);
+					font.drawShadow(matrixStack, getCurrentText(), xStart, yStart, color);
 				} else {
-					fontRenderer.draw(matrixStack, getCurrentText(), xStart, yStart, color);
+					font.draw(matrixStack, getCurrentText(), xStart, yStart, color);
 				}
 				
 				matrixStack.popPose();

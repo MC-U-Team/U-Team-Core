@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.GuiUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -75,7 +74,7 @@ public class CheckboxButton extends UButton {
 	}
 	
 	@Override
-	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, TEXTURE);
 		RenderSystem.setShaderColor(1, 1, 1, 1);
@@ -83,19 +82,18 @@ public class CheckboxButton extends UButton {
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		
-		GuiUtil.drawTexturedColoredQuad(matrixStack, x, y, width, height, 20, 20, isHovered() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, getCurrentBackgroundColor(matrixStack, mouseX, mouseY, partialTicks));
+		GuiUtil.drawTexturedColoredQuad(poseStack, x, y, width, height, 20, 20, isHovered() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks));
 		
 		RenderSystem.disableBlend();
 		
-		renderBackground(matrixStack, mouseX, mouseY, partialTicks);
-		renderForeground(matrixStack, mouseX, mouseY, partialTicks);
+		renderBackground(poseStack, mouseX, mouseY, partialTicks);
+		renderForeground(poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			// TODO replace with font getter!
-			final var fontRenderer = Minecraft.getInstance().font;
+			final var font = getCurrentTextFont();
 			
 			final var message = getCurrentText();
 			if (message != TextComponent.EMPTY) {
@@ -103,17 +101,17 @@ public class CheckboxButton extends UButton {
 				final float yStart = y + (height - 8) / 2;
 				
 				if (leftSideText) {
-					xStart = x - (fontRenderer.width(message) + 4);
+					xStart = x - (font.width(message) + 4);
 				} else {
 					xStart = x + width + 4;
 				}
 				
-				final var color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
+				final var color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();
 				
 				if (dropShadow) {
-					fontRenderer.drawShadow(matrixStack, getCurrentText(), xStart, yStart, color);
+					font.drawShadow(poseStack, getCurrentText(), xStart, yStart, color);
 				} else {
-					fontRenderer.draw(matrixStack, getCurrentText(), xStart, yStart, color);
+					font.draw(poseStack, getCurrentText(), xStart, yStart, color);
 				}
 			}
 		}
