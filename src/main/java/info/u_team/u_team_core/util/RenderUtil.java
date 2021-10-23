@@ -10,6 +10,7 @@ import com.mojang.math.Matrix4f;
 
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 
 /**
@@ -130,6 +131,82 @@ public class RenderUtil {
 	}
 	
 	/**
+	 * Draws a textured quad.
+	 * 
+	 * @param poseStack Pose stack
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param width Width
+	 * @param height Height
+	 * @param uWidth U Width
+	 * @param vHeight V Height
+	 * @param uOffset U Offset
+	 * @param vOffset V Offset
+	 * @param textureWidth Texture width
+	 * @param textureHeight Texture height
+	 * @param blitOffset zLevel for drawing
+	 * @param texture Texture location
+	 * @param color The shader color. If using {@link RGBA#WHITE} then the image will not be colored
+	 */
+	public static void drawTexturedQuad(PoseStack poseStack, int x, int y, int width, int height, int uWidth, int vHeight, float uOffset, float vOffset, int textureWidth, int textureHeight, float blitOffset, ResourceLocation texture, RGBA color) {
+		drawTexturedQuad(poseStack, x, x + width, y, y + height, uOffset / textureWidth, (uOffset + uWidth) / textureWidth, vOffset / textureHeight, (vOffset + vHeight) / textureHeight, blitOffset, texture, color);
+	}
+	
+	/**
+	 * Draws a textured quad.
+	 * 
+	 * @param poseStack Pose stack
+	 * @param x X coordinate
+	 * @param y Y coordinate
+	 * @param width Width
+	 * @param height Height
+	 * @param blitOffset zLevel for drawing
+	 * @param sprite Texture sprite from texture atlas
+	 * @param color The shader color. If using {@link RGBA#WHITE} then the image will not be colored
+	 */
+	public static void drawTexturedQuad(PoseStack poseStack, int x, int y, int width, int height, float blitOffset, TextureAtlasSprite sprite, RGBA color) {
+		drawTexturedQuad(poseStack, x, x + width, y, y + height, sprite.getU0(), sprite.getU1(), sprite.getV0(), sprite.getV1(), blitOffset, sprite.atlas().location(), color);
+	}
+	
+	/**
+	 * Draws a textured quad.
+	 * 
+	 * @param poseStack Pose stack
+	 * @param x1 X1 coordinate
+	 * @param x2 X2 coordinate
+	 * @param y1 Y1 coordinate
+	 * @param y2 Y2 coordinate
+	 * @param u1 U1 coordinate
+	 * @param u2 U2 coordinate
+	 * @param v1 V1 coordinate
+	 * @param v2 V2 coordinate
+	 * @param blitOffset zLevel for drawing
+	 * @param texture Texture location
+	 * @param color The shader color. If using {@link RGBA#WHITE} then the image will not be colored
+	 */
+	public static void drawTexturedQuad(PoseStack poseStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float blitOffset, ResourceLocation texture, RGBA color) {
+		final var tessellator = Tesselator.getInstance();
+		final var bufferBuilder = tessellator.getBuilder();
+		
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderTexture(0, texture);
+		setShaderColor(color);
+		
+		RenderSystem.enableBlend();
+		RenderSystem.defaultBlendFunc();
+		RenderSystem.enableDepthTest(); // TODO Should be use depth testing here?
+		
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
+		
+		addTexturedQuad(bufferBuilder, poseStack, x1, x2, y1, y2, u1, u2, v1, v2, blitOffset);
+		
+		tessellator.end();
+		
+		RenderSystem.disableBlend();
+		RenderSystem.disableDepthTest();
+	}
+	
+	/**
 	 * Adds a textured rectangle to the buffer builder. The vertex format must be {@link DefaultVertexFormat#POSITION_TEX}
 	 * and the draw format must be {@link VertexFormat.Mode#QUADS}
 	 * 
@@ -152,6 +229,31 @@ public class RenderUtil {
 		bufferBuilder.vertex(matrix, x + width, y + height, blitOffset).uv((u + width) * uScale, ((v + height) * vScale)).endVertex();
 		bufferBuilder.vertex(matrix, x + width, y, blitOffset).uv((u + width) * uScale, (v * vScale)).endVertex();
 		bufferBuilder.vertex(matrix, x, y, blitOffset).uv(u * uScale, (v * vScale)).endVertex();
+	}
+	
+	/**
+	 * Adds a textured quad to the buffer builder. The vertex format must be {@link DefaultVertexFormat#POSITION_TEX} and
+	 * the draw format must be {@link VertexFormat.Mode#QUADS}
+	 * 
+	 * @param bufferBuilder Buffer builder
+	 * @param poseStack Pose stack
+	 * @param x1 X1 coordinate
+	 * @param x2 X2 coordinate
+	 * @param y1 Y1 coordinate
+	 * @param y2 Y2 coordinate
+	 * @param u1 U1 coordinate
+	 * @param u2 U2 coordinate
+	 * @param v1 V1 coordinate
+	 * @param v2 V2 coordinate
+	 * @param blitOffset zLevel for drawing
+	 */
+	public static void addTexturedQuad(BufferBuilder bufferBuilder, PoseStack poseStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float blitOffset) {
+		final var matrix = poseStack.last().pose();
+		
+		bufferBuilder.vertex(matrix, x1, y2, blitOffset).uv(u1, v2).endVertex();
+		bufferBuilder.vertex(matrix, x2, y2, blitOffset).uv(u2, v2).endVertex();
+		bufferBuilder.vertex(matrix, x2, y1, blitOffset).uv(u2, v1).endVertex();
+		bufferBuilder.vertex(matrix, x1, y1, blitOffset).uv(u1, v1).endVertex();
 	}
 	
 	/**
