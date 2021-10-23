@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_core.gui.elements.USlider;
-import info.u_team.u_team_core.screen.UBasicMenuContainerScreen;
+import info.u_team.u_team_core.screen.UContainerMenuScreen;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.menu.BasicBlockEntityMenu;
 import io.netty.buffer.Unpooled;
@@ -13,7 +13,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class BasicBlockEntityScreen extends UBasicMenuContainerScreen<BasicBlockEntityMenu> {
+public class BasicBlockEntityScreen extends UContainerMenuScreen<BasicBlockEntityMenu> {
 	
 	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/block_entity.png");
 	

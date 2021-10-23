@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
-public class UMenuContainerScreen<T extends AbstractContainerMenu> extends FluidContainerMenuScreen<T> implements PerspectiveRenderable {
+public class UContainerMenuScreen<T extends AbstractContainerMenu> extends FluidContainerMenuScreen<T> implements PerspectiveRenderable {
 	
 	protected ResourceLocation background;
 	protected int backgroundWidth, backgroundHeight;
@@ -21,12 +21,12 @@ public class UMenuContainerScreen<T extends AbstractContainerMenu> extends Fluid
 	protected boolean drawTitleText;
 	protected boolean drawInventoryText;
 	
-	public UMenuContainerScreen(T menu, Inventory playerInventory, Component title, ResourceLocation background, int xSize, int ySize) {
+	public UContainerMenuScreen(T menu, Inventory playerInventory, Component title, ResourceLocation background, int xSize, int ySize) {
 		this(menu, playerInventory, title, background);
 		setSize(xSize, ySize);
 	}
 	
-	public UMenuContainerScreen(T menu, Inventory playerInventory, Component title, ResourceLocation background) {
+	public UContainerMenuScreen(T menu, Inventory playerInventory, Component title, ResourceLocation background) {
 		super(menu, playerInventory, title);
 		this.background = background;
 		setBackgroundDimensions(256);

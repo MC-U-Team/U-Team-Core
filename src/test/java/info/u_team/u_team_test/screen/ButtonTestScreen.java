@@ -12,14 +12,14 @@ import info.u_team.u_team_core.gui.elements.ImageToggleButton;
 import info.u_team.u_team_core.gui.elements.ScalableActivatableButton;
 import info.u_team.u_team_core.gui.elements.ScalableButton;
 import info.u_team.u_team_core.gui.elements.ScalableCheckboxButton;
+import info.u_team.u_team_core.gui.elements.ScalableEditBox;
 import info.u_team.u_team_core.gui.elements.ScalableSlider;
 import info.u_team.u_team_core.gui.elements.ScalableText;
-import info.u_team.u_team_core.gui.elements.ScalableEditBox;
 import info.u_team.u_team_core.gui.elements.ScrollingText;
 import info.u_team.u_team_core.gui.elements.UButton;
-import info.u_team.u_team_core.gui.elements.USlider;
 import info.u_team.u_team_core.gui.elements.UEditBox;
-import info.u_team.u_team_core.screen.UBasicScreen;
+import info.u_team.u_team_core.gui.elements.USlider;
+import info.u_team.u_team_core.screen.UScreen;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
 import info.u_team.u_team_test.TestMod;
@@ -27,7 +27,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 
-public class ButtonTestScreen extends UBasicScreen {
+public class ButtonTestScreen extends UScreen {
 	
 	private static final Logger LOGGER = LogManager.getLogger();
 	
