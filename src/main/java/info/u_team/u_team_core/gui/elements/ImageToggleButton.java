@@ -67,12 +67,12 @@ public class ImageToggleButton extends ImageButton {
 	}
 	
 	@Override
-	public ResourceLocation getCurrentImage() {
+	public ResourceLocation getCurrentImage(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return toggled ? toggleImage : image;
 	}
 	
 	@Override
-	public RGBA getCurrentImageColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentImageColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return toggled ? toggleImageColor : imageColor;
 	}
 }

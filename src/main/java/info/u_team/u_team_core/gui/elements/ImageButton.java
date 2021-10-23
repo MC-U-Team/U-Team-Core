@@ -50,24 +50,25 @@ public class ImageButton extends UButton {
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		// TODO fix render
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, getCurrentImage());
+		RenderSystem.setShaderTexture(0, getCurrentImage(poseStack, mouseX, mouseY, partialTicks));
 		RenderSystem.setShaderColor(1, 1, 1, 1);
 		
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		
-		GuiUtil.drawTexturedColoredQuad(matrixStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, getCurrentImageColor(matrixStack, mouseX, mouseY, partialTicks));
+		GuiUtil.drawTexturedColoredQuad(poseStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, getCurrentImageColor(poseStack, mouseX, mouseY, partialTicks));
 		
 		RenderSystem.disableBlend();
 	}
 	
-	public ResourceLocation getCurrentImage() {
+	public ResourceLocation getCurrentImage(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return image;
 	}
 	
-	public RGBA getCurrentImageColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentImageColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return imageColor;
 	}
 }
