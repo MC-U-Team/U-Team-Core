@@ -7,7 +7,6 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.VertexFormat;
 
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 
 /**
@@ -18,33 +17,6 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 // TODO docs are not finished
 @Deprecated(forRemoval = true)
 public class GuiUtil {
-	
-	/**
-	 * Draws the default container border
-	 *
-	 * @param poseStack Pose stack
-	 * @param x X coordinate
-	 * @param y Y coordinate
-	 * @param width Width
-	 * @param height Height
-	 */
-	public static void drawContainerBorder(PoseStack poseStack, int x, int y, int width, int height) {
-		// TODO draw everything in batch
-		
-		// TODO make color variables constants
-		final var darkColor = 0xFF373737;
-		final var mediumColor = 0xFF8B8B8B;
-		final var brightColor = 0xFFFFFFFF;
-		
-		GuiComponent.fill(poseStack, x, y, x + width - 1, y + 1, darkColor);
-		GuiComponent.fill(poseStack, x, y, x + 1, y + height - 1, darkColor);
-		
-		GuiComponent.fill(poseStack, x + width - 1, y, x + width, y + 1, mediumColor);
-		GuiComponent.fill(poseStack, x, y + height - 1, x + 1, y + height, mediumColor);
-		
-		GuiComponent.fill(poseStack, x + 1, y + height, x + width - 1, y + height - 1, brightColor);
-		GuiComponent.fill(poseStack, x + width - 1, y + 1, x + width, y + height, brightColor);
-	}
 	
 	/**
 	 * Draw a textured quad that can be colored.
