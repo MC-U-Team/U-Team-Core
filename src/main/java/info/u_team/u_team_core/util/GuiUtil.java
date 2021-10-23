@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
  * @author HyCraftHD
  */
 // TODO docs are not finished
+@Deprecated(forRemoval = true)
 public class GuiUtil {
 	
 	/**
