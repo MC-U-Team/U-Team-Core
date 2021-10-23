@@ -10,7 +10,6 @@ import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.api.gui.TooltipRenderable;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Widget;
 import net.minecraft.network.chat.TextComponent;
@@ -30,22 +29,21 @@ public class WidgetUtil {
 	}
 	
 	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final var minecraft = Minecraft.getInstance(); // TODO replace with font provider
-		final var fontRenderer = minecraft.font;
+		final var font = widget.getCurrentTextFont();
 		
 		var message = widget.getCurrentText();
 		if (message != TextComponent.EMPTY) {
-			final var messageWidth = fontRenderer.width(message);
-			final var ellipsisWidth = fontRenderer.width("...");
+			final var messageWidth = font.width(message);
+			final var ellipsisWidth = font.width("...");
 			
 			if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
-				message = new TextComponent(fontRenderer.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
+				message = new TextComponent(font.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
 			}
 			
 			final float xStart = (widget.x + (widget.width / 2) - messageWidth / 2);
 			final float yStart = (widget.y + (widget.height - 8) / 2);
 			
-			fontRenderer.drawShadow(poseStack, message, xStart, yStart, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+			font.drawShadow(poseStack, message, xStart, yStart, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
 	}
 	
@@ -55,16 +53,15 @@ public class WidgetUtil {
 		if (scale == 1) {
 			renderText(widget, poseStack, mouseX, mouseY, partialTicks);
 		} else {
-			final var minecraft = Minecraft.getInstance(); // TODO replace with font provider
-			final var fontRenderer = minecraft.font;
+			final var font = widget.getCurrentTextFont();
 			
 			var message = widget.getCurrentText();
 			if (message != TextComponent.EMPTY) {
-				final var messageWidth = Mth.ceil(scale * fontRenderer.width(message));
-				final var ellipsisWidth = Mth.ceil(scale * fontRenderer.width("..."));
+				final var messageWidth = Mth.ceil(scale * font.width(message));
+				final var ellipsisWidth = Mth.ceil(scale * font.width("..."));
 				
 				if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
-					message = new TextComponent(fontRenderer.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
+					message = new TextComponent(font.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
 				}
 				
 				final var positionFactor = 1 / scale;
@@ -74,7 +71,7 @@ public class WidgetUtil {
 				
 				poseStack.pushPose();
 				poseStack.scale(scale, scale, 0);
-				fontRenderer.drawShadow(poseStack, message, xStart, yStart, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+				font.drawShadow(poseStack, message, xStart, yStart, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
 				poseStack.popPose();
 			}
 		}
