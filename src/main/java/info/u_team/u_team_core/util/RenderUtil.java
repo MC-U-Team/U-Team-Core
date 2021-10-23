@@ -196,7 +196,7 @@ public class RenderUtil {
 		RenderSystem.defaultBlendFunc();
 		RenderSystem.enableDepthTest(); // TODO Should be use depth testing here?
 		
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR_TEX);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
 		addTexturedQuad(bufferBuilder, poseStack, x1, x2, y1, y2, u1, u2, v1, v2, blitOffset);
 		
