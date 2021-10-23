@@ -8,7 +8,6 @@ import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import com.mojang.math.Matrix4f;
 
-import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
@@ -20,6 +19,10 @@ import net.minecraft.resources.ResourceLocation;
  */
 public class RenderUtil {
 	
+	public static final RGBA DARK_CONTAINER_BORDER_COLOR = new RGBA(0xFF373737);
+	public static final RGBA MEDIUM_CONTAINER_BORDER_COLOR = new RGBA(0xFF8B8B8B);
+	public static final RGBA BRIGHT_CONTAINER_BORDER_COLOR = new RGBA(0xFFFFFFFF);
+	
 	/**
 	 * Draws the default container border
 	 *
@@ -28,23 +31,35 @@ public class RenderUtil {
 	 * @param y Y coordinate
 	 * @param width Width
 	 * @param height Height
+	 * @param blitOffset zLevel for drawing
+	 * @param color The shader color. If using {@link RGBA#WHITE} then the drawing will not be colored
 	 */
-	public static void drawContainerBorder(PoseStack poseStack, int x, int y, int width, int height) {
-		// TODO draw everything in batch
+	public static void drawContainerBorder(PoseStack poseStack, int x, int y, int width, int height, float blitOffset, RGBA color) {
+		final var tessellator = Tesselator.getInstance();
+		final var bufferBuilder = tessellator.getBuilder();
 		
-		// TODO make color variables constants
-		final var darkColor = 0xFF373737;
-		final var mediumColor = 0xFF8B8B8B;
-		final var brightColor = 0xFFFFFFFF;
+		RenderSystem.setShader(GameRenderer::getPositionColorShader);
+		setShaderColor(color);
 		
-		GuiComponent.fill(poseStack, x, y, x + width - 1, y + 1, darkColor);
-		GuiComponent.fill(poseStack, x, y, x + 1, y + height - 1, darkColor);
+		RenderSystem.enableBlend();
+		RenderSystem.defaultBlendFunc();
+		RenderSystem.disableTexture();
 		
-		GuiComponent.fill(poseStack, x + width - 1, y, x + width, y + 1, mediumColor);
-		GuiComponent.fill(poseStack, x, y + height - 1, x + 1, y + height, mediumColor);
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 		
-		GuiComponent.fill(poseStack, x + 1, y + height, x + width - 1, y + height - 1, brightColor);
-		GuiComponent.fill(poseStack, x + width - 1, y + 1, x + width, y + height, brightColor);
+		addColoredQuad(bufferBuilder, poseStack, x, y, x + width - 1, y + 1, DARK_CONTAINER_BORDER_COLOR, blitOffset);
+		addColoredQuad(bufferBuilder, poseStack, x, y, x + 1, y + height - 1, DARK_CONTAINER_BORDER_COLOR, blitOffset);
+		
+		addColoredQuad(bufferBuilder, poseStack, x + width - 1, y, x + width, y + 1, MEDIUM_CONTAINER_BORDER_COLOR, blitOffset);
+		addColoredQuad(bufferBuilder, poseStack, x, y + height - 1, x + 1, y + height, MEDIUM_CONTAINER_BORDER_COLOR, blitOffset);
+		
+		addColoredQuad(bufferBuilder, poseStack, x + 1, y + height, x + width - 1, y + height - 1, BRIGHT_CONTAINER_BORDER_COLOR, blitOffset);
+		addColoredQuad(bufferBuilder, poseStack, x + width - 1, y + 1, x + width, y + height, BRIGHT_CONTAINER_BORDER_COLOR, blitOffset);
+		
+		tessellator.end();
+		
+		RenderSystem.disableBlend();
+		RenderSystem.enableTexture();
 	}
 	
 	/**
@@ -254,6 +269,49 @@ public class RenderUtil {
 		bufferBuilder.vertex(matrix, x2, y2, blitOffset).uv(u2, v2).endVertex();
 		bufferBuilder.vertex(matrix, x2, y1, blitOffset).uv(u2, v1).endVertex();
 		bufferBuilder.vertex(matrix, x1, y1, blitOffset).uv(u1, v1).endVertex();
+	}
+	
+	/**
+	 * Adds a quad to the buffer builder. The vertex format must be {@link DefaultVertexFormat#POSITION_COLOR} and the draw
+	 * format must be {@link VertexFormat.Mode#QUADS}
+	 * 
+	 * @param bufferBuilder Buffer builder
+	 * @param poseStack Pose stack
+	 * @param x1 X1 coordinate
+	 * @param x2 X2 coordinate
+	 * @param y1 Y1 coordinate
+	 * @param y2 Y2 coordinate
+	 * @param color Color of the vertices
+	 * @param blitOffset zLevel for drawing
+	 */
+	public static void addColoredQuad(BufferBuilder bufferBuilder, PoseStack poseStack, int x1, int x2, int y1, int y2, RGBA color, float blitOffset) {
+		final var matrix = poseStack.last().pose();
+		
+		bufferBuilder.vertex(matrix, x1, y2, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+		bufferBuilder.vertex(matrix, x2, y2, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+		bufferBuilder.vertex(matrix, x2, y1, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+		bufferBuilder.vertex(matrix, x1, y1, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+	}
+	
+	/**
+	 * Adds a quad to the buffer builder. The vertex format must be {@link DefaultVertexFormat#POSITION} and the draw format
+	 * must be {@link VertexFormat.Mode#QUADS}
+	 * 
+	 * @param bufferBuilder Buffer builder
+	 * @param poseStack Pose stack
+	 * @param x1 X1 coordinate
+	 * @param x2 X2 coordinate
+	 * @param y1 Y1 coordinate
+	 * @param y2 Y2 coordinate
+	 * @param blitOffset zLevel for drawing
+	 */
+	public static void addQuad(BufferBuilder bufferBuilder, PoseStack poseStack, int x1, int x2, int y1, int y2, float blitOffset) {
+		final var matrix = poseStack.last().pose();
+		
+		bufferBuilder.vertex(matrix, x1, y2, blitOffset).endVertex();
+		bufferBuilder.vertex(matrix, x2, y2, blitOffset).endVertex();
+		bufferBuilder.vertex(matrix, x2, y1, blitOffset).endVertex();
+		bufferBuilder.vertex(matrix, x1, y1, blitOffset).endVertex();
 	}
 	
 	/**

@@ -10,6 +10,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
+import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -72,7 +73,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderUtil.drawContainerBorder(poseStack, x, y, width, height);
+		RenderUtil.drawContainerBorder(poseStack, x, y, width, height, getBlitOffset(), RGBA.WHITE);
 	}
 	
 	@Override
