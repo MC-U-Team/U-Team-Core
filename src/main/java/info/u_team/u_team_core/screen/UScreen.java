@@ -38,10 +38,10 @@ public class UScreen extends Screen implements PerspectiveRenderable {
 	
 	@Override
 	public void tick() {
-		children().forEach(listener -> {
+		for (final var listener : children()) {
 			if (listener instanceof RenderTickable tickable) {
 				tickable.renderTick();
 			}
-		});
+		}
 	}
 }

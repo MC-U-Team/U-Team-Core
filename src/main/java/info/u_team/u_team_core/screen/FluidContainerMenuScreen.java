@@ -19,7 +19,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public abstract class FluidMenuContainerScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
+public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 	
 	private static final FluidInventoryRenderer FLUID_RENDERER = new FluidInventoryRenderer();
 	
@@ -27,7 +27,7 @@ public abstract class FluidMenuContainerScreen<T extends AbstractContainerMenu> 
 	
 	protected FluidSlot hoveredFluidSlot;
 	
-	public FluidMenuContainerScreen(T container, Inventory playerInventory, Component title) {
+	public FluidContainerMenuScreen(T container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);
 		setFluidRenderer(FLUID_RENDERER);
 	}
