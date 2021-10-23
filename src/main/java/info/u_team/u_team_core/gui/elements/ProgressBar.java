@@ -44,12 +44,12 @@ public class ProgressBar implements GuiEventListener, Widget {
 	}
 	
 	@Override
-	public void render(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		if (visible) {
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			
-			GuiComponent.fill(matrixStack, x, y, x + width, y + height, backgroundColor.getColorARGB());
-			GuiComponent.fill(matrixStack, x, y, (int) (x + (progress.get() * width)), y + height, progressColor.getColorARGB());
+			GuiComponent.fill(poseStack, x, y, x + width, y + height, backgroundColor.getColorARGB());
+			GuiComponent.fill(poseStack, x, y, (int) (x + (progress.get() * width)), y + height, progressColor.getColorARGB());
 		}
 	}
 	
