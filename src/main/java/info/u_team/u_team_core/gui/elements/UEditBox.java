@@ -38,8 +38,8 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	
 	protected RGBA cursorColor;
 	
-	public UEditBox(Font fontRenderer, int x, int y, int width, int height, UEditBox previousEditBox, Component title) {
-		this(fontRenderer, x, y, width, height, previousEditBox, title, EMPTY_TOOLTIP);
+	public UEditBox(Font font, int x, int y, int width, int height, UEditBox previousEditBox, Component title) {
+		this(font, x, y, width, height, previousEditBox, title, EMPTY_TOOLTIP);
 	}
 	
 	public UEditBox(Font fontRenderer, int x, int y, int width, int height, UEditBox previousEditBox, Component title, OnTooltip tooltip) {

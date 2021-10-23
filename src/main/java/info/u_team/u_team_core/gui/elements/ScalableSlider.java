@@ -39,12 +39,12 @@ public class ScalableSlider extends USlider implements Scalable, ScaleProvider {
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderScaledText(this, matrixStack, mouseX, mouseY, partialTicks);
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		WidgetUtil.renderScaledText(this, poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public float getCurrentScale(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return scale;
 	}
 }

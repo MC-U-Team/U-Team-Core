@@ -13,12 +13,12 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 	
 	protected float scale;
 	
-	public ScalableEditBox(Font fontRenderer, int x, int y, int width, int height, UEditBox previousEditBox, Component title, float scale) {
-		this(fontRenderer, x, y, width, height, previousEditBox, title, scale, EMPTY_TOOLTIP);
+	public ScalableEditBox(Font font, int x, int y, int width, int height, UEditBox previousEditBox, Component title, float scale) {
+		this(font, x, y, width, height, previousEditBox, title, scale, EMPTY_TOOLTIP);
 	}
 	
-	public ScalableEditBox(Font fontRenderer, int x, int y, int width, int height, UEditBox previousEditBox, Component title, float scale, OnTooltip tooltip) {
-		super(fontRenderer, x, y, width, height, previousEditBox, title, tooltip);
+	public ScalableEditBox(Font font, int x, int y, int width, int height, UEditBox previousEditBox, Component title, float scale, OnTooltip tooltip) {
+		super(font, x, y, width, height, previousEditBox, title, tooltip);
 		this.scale = scale;
 	}
 	
@@ -33,15 +33,15 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		final var currentScale = getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		final var currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
 		
 		final var positionFactor = 1 / scale;
 		
-		matrixStack.pushPose();
-		matrixStack.scale(currentScale, currentScale, 0);
+		poseStack.pushPose();
+		poseStack.scale(currentScale, currentScale, 0);
 		
-		final var currentTextColor = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks);
+		final var currentTextColor = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks);
 		
 		final var currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
 		
@@ -59,7 +59,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		
 		if (!currentText.isEmpty()) {
 			final var firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
-			leftRenderedTextX = font.drawShadow(matrixStack, formatter.apply(firstTextPart, displayPos), xOffset, yOffset, currentTextColor.getColorARGB());
+			leftRenderedTextX = font.drawShadow(poseStack, formatter.apply(firstTextPart, displayPos), xOffset, yOffset, currentTextColor.getColorARGB());
 		}
 		
 		var rightRenderedTextX = leftRenderedTextX;
@@ -72,18 +72,18 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		}
 		
 		if (!currentText.isEmpty() && isCursorInText && cursorOffset < currentText.length()) {
-			font.drawShadow(matrixStack, formatter.apply(currentText.substring(cursorOffset), cursorPos), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
+			font.drawShadow(poseStack, formatter.apply(currentText.substring(cursorOffset), cursorPos), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
 		}
 		
 		if (!isCursorInTheMiddle && suggestion != null) {
-			font.drawShadow(matrixStack, suggestion, rightRenderedTextX - 1, yOffset, getCurrentSuggestionTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
+			font.drawShadow(poseStack, suggestion, rightRenderedTextX - 1, yOffset, getCurrentSuggestionTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
 		
 		if (shouldCursorBlink) {
 			if (isCursorInTheMiddle) {
-				GuiComponent.fill(matrixStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, getCurrentCursorColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB());
+				GuiComponent.fill(poseStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, getCurrentCursorColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
 			} else {
-				font.drawShadow(matrixStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
+				font.drawShadow(poseStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
 			}
 		}
 		
@@ -92,11 +92,11 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 			renderHighlight((int) (rightRenderedTextX * currentScale), (int) ((yOffset - 1) * currentScale), (int) ((selectedX - 1) * currentScale), (int) ((yOffset + 1 + 9) * currentScale));
 		}
 		
-		matrixStack.popPose();
+		poseStack.popPose();
 	}
 	
 	@Override
-	public float getCurrentScale(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return getCurrentScale(mouseX, mouseY);
 	}
 	
