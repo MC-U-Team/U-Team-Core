@@ -1,11 +1,9 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.util.GuiUtil;
 import info.u_team.u_team_core.util.RGBA;
-import net.minecraft.client.renderer.GameRenderer;
+import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
 
@@ -51,17 +49,7 @@ public class ImageButton extends UButton {
 	
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		// TODO fix render
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, getCurrentImage(poseStack, mouseX, mouseY, partialTicks));
-		RenderSystem.setShaderColor(1, 1, 1, 1);
-		
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
-		
-		GuiUtil.drawTexturedColoredQuad(poseStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, getCurrentImageColor(poseStack, mouseX, mouseY, partialTicks));
-		
-		RenderSystem.disableBlend();
+		RenderUtil.drawTexturedQuad(poseStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, getCurrentImage(poseStack, mouseX, mouseY, partialTicks), getCurrentImageColor(poseStack, mouseX, mouseY, partialTicks));
 	}
 	
 	public ResourceLocation getCurrentImage(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {

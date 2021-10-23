@@ -1,10 +1,8 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.util.GuiUtil;
-import net.minecraft.client.renderer.GameRenderer;
+import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -75,16 +73,7 @@ public class CheckboxButton extends UButton {
 	
 	@Override
 	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, TEXTURE);
-		RenderSystem.setShaderColor(1, 1, 1, 1);
-		
-		RenderSystem.enableBlend();
-		RenderSystem.defaultBlendFunc();
-		
-		GuiUtil.drawTexturedColoredQuad(poseStack, x, y, width, height, 20, 20, isHovered() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks));
-		
-		RenderSystem.disableBlend();
+		RenderUtil.drawTexturedQuad(poseStack, x, y, width, height, 20, 20, isHovered() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, TEXTURE, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks));
 		
 		renderBackground(poseStack, mouseX, mouseY, partialTicks);
 		renderForeground(poseStack, mouseX, mouseY, partialTicks);
