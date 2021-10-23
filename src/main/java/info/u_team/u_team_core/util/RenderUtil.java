@@ -105,7 +105,6 @@ public class RenderUtil {
 		
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		RenderSystem.enableDepthTest(); // TODO Should be use depth testing here?
 		
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
@@ -142,7 +141,6 @@ public class RenderUtil {
 		tessellator.end();
 		
 		RenderSystem.disableBlend();
-		RenderSystem.disableDepthTest();
 	}
 	
 	/**
@@ -209,7 +207,6 @@ public class RenderUtil {
 		
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		RenderSystem.enableDepthTest(); // TODO Should be use depth testing here?
 		
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
@@ -218,7 +215,6 @@ public class RenderUtil {
 		tessellator.end();
 		
 		RenderSystem.disableBlend();
-		RenderSystem.disableDepthTest();
 	}
 	
 	/**
