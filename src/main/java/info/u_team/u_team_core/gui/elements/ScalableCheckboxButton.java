@@ -39,13 +39,13 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
 			final var font = getCurrentTextFont();
 			
 			final var message = getCurrentText();
 			if (message != TextComponent.EMPTY) {
-				final var currentScale = getCurrentScale(matrixStack, mouseX, mouseY, partialTicks);
+				final var currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
 				
 				final var positionFactor = 1 / currentScale;
 				
@@ -58,24 +58,24 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 					xStart = (x + width + 4) * positionFactor;
 				}
 				
-				final var color = getCurrentTextColor(matrixStack, mouseX, mouseY, partialTicks).getColorARGB();
+				final var color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();
 				
-				matrixStack.pushPose();
-				matrixStack.scale(currentScale, currentScale, 0);
+				poseStack.pushPose();
+				poseStack.scale(currentScale, currentScale, 0);
 				
 				if (dropShadow) {
-					font.drawShadow(matrixStack, getCurrentText(), xStart, yStart, color);
+					font.drawShadow(poseStack, getCurrentText(), xStart, yStart, color);
 				} else {
-					font.draw(matrixStack, getCurrentText(), xStart, yStart, color);
+					font.draw(poseStack, getCurrentText(), xStart, yStart, color);
 				}
 				
-				matrixStack.popPose();
+				poseStack.popPose();
 			}
 		}
 	}
 	
 	@Override
-	public float getCurrentScale(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return scale;
 	}
 }
