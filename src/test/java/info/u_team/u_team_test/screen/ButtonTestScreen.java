@@ -39,7 +39,6 @@ public class ButtonTestScreen extends UScreen {
 	private ScalableEditBox scalableTextFieldWidget2;
 	
 	private ScalableText scalingRenderer;
-	
 	private ScrollingText scrollingRenderer;
 	
 	private BasicTestList scrollingList;
