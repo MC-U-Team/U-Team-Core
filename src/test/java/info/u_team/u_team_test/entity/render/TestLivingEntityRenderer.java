@@ -17,9 +17,9 @@ public class TestLivingEntityRenderer extends ZombieRenderer {
 	}
 	
 	@Override
-	protected void scale(Zombie zombie, PoseStack matrixStack, float partialTickTime) {
-		matrixStack.scale(1.8F, 1.8F, 1.8F);
-		super.scale(zombie, matrixStack, partialTickTime);
+	protected void scale(Zombie zombie, PoseStack poseStack, float partialTickTime) {
+		poseStack.scale(1.8F, 1.8F, 1.8F);
+		super.scale(zombie, poseStack, partialTickTime);
 	}
 	
 	@Override
