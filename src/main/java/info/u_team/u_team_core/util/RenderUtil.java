@@ -19,9 +19,9 @@ import net.minecraft.resources.ResourceLocation;
  */
 public class RenderUtil {
 	
-	public static final RGBA DARK_CONTAINER_BORDER_COLOR = new RGBA(0xFF373737);
-	public static final RGBA MEDIUM_CONTAINER_BORDER_COLOR = new RGBA(0xFF8B8B8B);
-	public static final RGBA BRIGHT_CONTAINER_BORDER_COLOR = new RGBA(0xFFFFFFFF);
+	public static final RGBA DARK_CONTAINER_BORDER_COLOR = new RGBA(0x373737FF);
+	public static final RGBA MEDIUM_CONTAINER_BORDER_COLOR = new RGBA(0x8B8B8BFF);
+	public static final RGBA BRIGHT_CONTAINER_BORDER_COLOR = RGBA.WHITE;
 	
 	/**
 	 * Draws the default container border
@@ -47,14 +47,14 @@ public class RenderUtil {
 		
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 		
-		addColoredQuad(bufferBuilder, poseStack, x, y, x + width - 1, y + 1, DARK_CONTAINER_BORDER_COLOR, blitOffset);
-		addColoredQuad(bufferBuilder, poseStack, x, y, x + 1, y + height - 1, DARK_CONTAINER_BORDER_COLOR, blitOffset);
+		addColoredQuad(bufferBuilder, poseStack, x, x + width - 1, y, y + 1, DARK_CONTAINER_BORDER_COLOR, blitOffset);
+		addColoredQuad(bufferBuilder, poseStack, x, x + 1, y, y + height - 1, DARK_CONTAINER_BORDER_COLOR, blitOffset);
 		
-		addColoredQuad(bufferBuilder, poseStack, x + width - 1, y, x + width, y + 1, MEDIUM_CONTAINER_BORDER_COLOR, blitOffset);
-		addColoredQuad(bufferBuilder, poseStack, x, y + height - 1, x + 1, y + height, MEDIUM_CONTAINER_BORDER_COLOR, blitOffset);
+		addColoredQuad(bufferBuilder, poseStack, x + width - 1, x + width, y, y + 1, MEDIUM_CONTAINER_BORDER_COLOR, blitOffset);
+		addColoredQuad(bufferBuilder, poseStack, x, x + 1, y + height - 1, y + height, MEDIUM_CONTAINER_BORDER_COLOR, blitOffset);
 		
-		addColoredQuad(bufferBuilder, poseStack, x + 1, y + height, x + width - 1, y + height - 1, BRIGHT_CONTAINER_BORDER_COLOR, blitOffset);
-		addColoredQuad(bufferBuilder, poseStack, x + width - 1, y + 1, x + width, y + height, BRIGHT_CONTAINER_BORDER_COLOR, blitOffset);
+		addColoredQuad(bufferBuilder, poseStack, x + 1, x + width - 1, y + height - 1, y + height, BRIGHT_CONTAINER_BORDER_COLOR, blitOffset);
+		addColoredQuad(bufferBuilder, poseStack, x + width - 1, x + width, y + 1, y + height, BRIGHT_CONTAINER_BORDER_COLOR, blitOffset);
 		
 		tessellator.end();
 		
