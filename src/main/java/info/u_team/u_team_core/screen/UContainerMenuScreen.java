@@ -25,9 +25,9 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	protected boolean drawInventoryText;
 	protected RGBA textColor;
 	
-	public UContainerMenuScreen(T menu, Inventory playerInventory, Component title, ResourceLocation background, int xSize, int ySize) {
+	public UContainerMenuScreen(T menu, Inventory playerInventory, Component title, ResourceLocation background, int imageWidth, int imageHeight) {
 		this(menu, playerInventory, title, background);
-		setImageDimensions(xSize, ySize);
+		setImageDimensions(imageWidth, imageHeight);
 	}
 	
 	public UContainerMenuScreen(T menu, Inventory playerInventory, Component title, ResourceLocation background) {
