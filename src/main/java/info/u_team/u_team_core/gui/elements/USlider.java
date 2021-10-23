@@ -103,34 +103,35 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 	}
 	
 	@Override
-	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderButtonLikeWidget(this, sliderBackgroundTextureProvider, matrixStack, mouseX, mouseY, partialTicks);
+	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		WidgetUtil.renderButtonLikeWidget(this, sliderBackgroundTextureProvider, poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void renderBackground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		renderBg(matrixStack, Minecraft.getInstance(), mouseX, mouseY);
+	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		renderBg(poseStack, Minecraft.getInstance(), mouseX, mouseY);
 		if (visible) {
-			RenderUtil.drawContinuousTexturedBox(matrixStack, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset(), WIDGETS_LOCATION, getCurrentSliderColor(matrixStack, mouseX, mouseY, partialTicks));
+			// TODO make dynamic with texture etc
+			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset(), WIDGETS_LOCATION, getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
 		}
 	}
 	
 	@Override
-	public void renderForeground(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderText(this, matrixStack, mouseX, mouseY, partialTicks);
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		WidgetUtil.renderText(this, poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
-	public void renderToolTip(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		renderToolTip(matrixStack, mouseX, mouseY);
+	public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		renderToolTip(poseStack, mouseX, mouseY);
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return sliderBackgroundColor;
 	}
 	
-	public RGBA getCurrentSliderColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentSliderColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return sliderColor;
 	}
 	
@@ -140,7 +141,7 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 	}
 	
 	@Override
-	public RGBA getCurrentTextColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return active ? textColor : disabledTextColor;
 	}
 	
@@ -170,7 +171,7 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 	}
 	
 	@Override
-	protected void renderBg(PoseStack matrixStack, Minecraft minecraft, int mouseX, int mouseY) {
+	protected void renderBg(PoseStack poseStack, Minecraft minecraft, int mouseX, int mouseY) {
 		if (isInContainer && visible && dragging) {
 			changeSliderValue(mouseX);
 		}
