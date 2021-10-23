@@ -32,7 +32,7 @@ public class ButtonTestScreen extends UScreen {
 	private static final Logger LOGGER = LogManager.getLogger();
 	
 	private static final ResourceLocation TEXTURE1 = new ResourceLocation(TestMod.MODID, "textures/item/better_enderpearl.png");
-	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMod.MODID, "textures/item/basicitem.png");
+	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMod.MODID, "textures/item/basic_item.png");
 	
 	private UEditBox textFieldWidget;
 	private ScalableEditBox scalableTextFieldWidget;
