@@ -6,6 +6,6 @@ import info.u_team.u_team_core.util.RGBA;
 
 public interface BackgroundColorProvider {
 	
-	RGBA getCurrentBackgroundColor(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks);
+	RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
 	
 }

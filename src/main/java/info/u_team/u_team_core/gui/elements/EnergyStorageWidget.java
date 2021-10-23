@@ -39,9 +39,9 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	}
 	
 	@Override
-	public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-		renderBackground(matrixStack, mouseX, mouseY, partialTicks);
-		renderForeground(matrixStack, mouseX, mouseY, partialTicks);
+	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		renderBackground(poseStack, mouseX, mouseY, partialTicks);
+		renderForeground(poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override

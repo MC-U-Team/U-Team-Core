@@ -42,9 +42,9 @@ public class BasicBlockEntityScreen extends UBasicMenuContainerScreen<BasicBlock
 	}
 	
 	@Override
-	protected void renderLabels(PoseStack matrixStack, int mouseX, int mouseY) {
-		super.renderLabels(matrixStack, mouseX, mouseY);
-		font.draw(matrixStack, Component.nullToEmpty("" + menu.getBlockEntity().getValue()), imageWidth / 2 + 32, 6, 0x404040);
+	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
+		super.renderLabels(poseStack, mouseX, mouseY);
+		font.draw(poseStack, Component.nullToEmpty("" + menu.getBlockEntity().getValue()), imageWidth / 2 + 32, 6, 0x404040);
 	}
 	
 	@Override

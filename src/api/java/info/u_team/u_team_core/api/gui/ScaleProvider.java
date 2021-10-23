@@ -4,6 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 public interface ScaleProvider {
 	
-	float getCurrentScale(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks);
+	float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
 	
 }

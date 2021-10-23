@@ -17,7 +17,7 @@ public class FluidInventoryRenderer extends GuiComponent {
 	
 	private static final ResourceLocation ATLAS = InventoryMenu.BLOCK_ATLAS;
 	
-	public void drawFluid(PoseStack matrixStack, int x, int y, FluidStack stack) {
+	public void drawFluid(PoseStack poseStack, int x, int y, FluidStack stack) {
 		if (stack == null || stack.isEmpty()) {
 			return;
 		}
@@ -32,7 +32,7 @@ public class FluidInventoryRenderer extends GuiComponent {
 		
 		final var rgba = RGBA.fromARGB(stack.getFluid().getAttributes().getColor(stack));
 		
-		GuiUtil.drawTexturedColoredQuad(matrixStack, x, y, 16, 16, sprite, 100, rgba);
+		GuiUtil.drawTexturedColoredQuad(poseStack, x, y, 16, 16, sprite, 100, rgba);
 		
 		// RenderUtil.disableAlphaTest();
 		RenderSystem.disableBlend();
