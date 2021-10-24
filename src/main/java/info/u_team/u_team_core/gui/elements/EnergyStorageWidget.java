@@ -6,7 +6,10 @@ import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.Tesselator;
+import com.mojang.blaze3d.vertex.VertexFormat;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
@@ -29,6 +32,9 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	private final LongSupplier capacity;
 	private final LongSupplier storage;
 	
+	protected ResourceLocation texture;
+	protected RGBA color;
+	
 	public EnergyStorageWidget(int x, int y, int height, Supplier<IEnergyStorage> energyStorage) {
 		this(x, y, height, () -> energyStorage.get().getMaxEnergyStored(), () -> energyStorage.get().getEnergyStored());
 	}
@@ -37,6 +43,8 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		super(x, y, 14, height < 3 ? 3 : height, TextComponent.EMPTY);
 		this.capacity = capacity;
 		this.storage = storage;
+		texture = ENERGY_TEXTURE;
+		color = RGBA.WHITE;
 	}
 	
 	@Override
@@ -47,10 +55,6 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	
 	@Override
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderSystem.setShader(GameRenderer::getPositionTexShader);
-		RenderSystem.setShaderTexture(0, ENERGY_TEXTURE);
-		RenderSystem.setShaderColor(1, 1, 1, 1);
-		
 		var ratio = (double) storage.getAsLong() / capacity.getAsLong();
 		if (ratio > 1) {
 			ratio = 1;
@@ -58,17 +62,33 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		
 		final var storageOffset = (int) ((1 - ratio) * (height - 2));
 		
+		final var tessellator = Tesselator.getInstance();
+		final var bufferBuilder = tessellator.getBuilder();
+		
+		RenderSystem.setShader(GameRenderer::getPositionTexShader);
+		RenderSystem.setShaderTexture(0, texture);
+		RenderUtil.setShaderColor(color);
+		
+		RenderSystem.enableBlend();
+		RenderSystem.defaultBlendFunc();
+		
+		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
+		
 		for (var yComponent = 1; yComponent < height - 1; yComponent += 2) {
-			blit(poseStack, x + 1, y + yComponent, 0, 0, 12, 2, 16, 16); // Background with side border
+			RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 2, 0, 12 / 16f, 0, 2 / 16f, getBlitOffset()); // Background
 		}
 		
 		for (var yComponent = 1 + storageOffset; yComponent < height - 1; yComponent++) {
 			if (yComponent % 2 == 0) {
-				blit(poseStack, x + 1, y + yComponent, 0, 3, 12, 1, 16, 16); // Fuel
+				RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 1, 0, 12 / 16f, 3 / 16f, 4 / 16f, getBlitOffset()); // Background
 			} else {
-				blit(poseStack, x + 1, y + yComponent, 0, 2, 12, 1, 16, 16); // Fuel
+				RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 1, 0, 12 / 16f, 2 / 16f, 3 / 16f, getBlitOffset()); // Background
 			}
 		}
+		
+		tessellator.end();
+		
+		RenderSystem.disableBlend();
 	}
 	
 	@Override
