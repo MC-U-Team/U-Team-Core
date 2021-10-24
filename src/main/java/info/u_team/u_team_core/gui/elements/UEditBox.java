@@ -14,7 +14,7 @@ import net.minecraft.network.chat.Component;
 
 public class UEditBox extends EditBox implements RenderTickable, PerspectiveRenderable, BackgroundColorProvider, TextSettingsProvider {
 	
-	protected static final OnTooltip EMPTY_TOOLTIP = (textField, poseStack, mouseX, mouseY) -> {
+	protected static final OnTooltip EMPTY_TOOLTIP = (editBox, poseStack, mouseX, mouseY) -> {
 	};
 	
 	protected static final RGBA BLACK = RGBA.BLACK;
@@ -42,8 +42,8 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 		this(font, x, y, width, height, previousEditBox, title, EMPTY_TOOLTIP);
 	}
 	
-	public UEditBox(Font fontRenderer, int x, int y, int width, int height, UEditBox previousEditBox, Component title, OnTooltip tooltip) {
-		super(fontRenderer, x, y, width, height, title);
+	public UEditBox(Font font, int x, int y, int width, int height, UEditBox previousEditBox, Component title, OnTooltip tooltip) {
+		super(font, x, y, width, height, title);
 		setPreviousText(previousEditBox);
 		onTooltip = tooltip;
 		backgroundFrameColor = WHITE;
@@ -245,7 +245,7 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	@FunctionalInterface
 	public interface OnTooltip {
 		
-		void onTooltip(UEditBox textField, PoseStack poseStack, int mouseX, int mouseY);
+		void onTooltip(UEditBox editBox, PoseStack poseStack, int mouseX, int mouseY);
 	}
 	
 }

@@ -8,6 +8,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 
+import info.u_team.u_team_core.util.RGBA;
+import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.renderer.GameRenderer;
@@ -18,7 +20,7 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	protected int sideDistance;
 	
 	protected boolean shouldUseScissor;
-	protected boolean shouldRenderTransparentBorder;
+	protected boolean renderTransparentBorder;
 	protected float transparentBorderSize;
 	
 	public ScrollableList(int x, int y, int width, int height, int slotHeight, int sideDistance) {
@@ -64,12 +66,12 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 		this.shouldUseScissor = shouldUseScissor;
 	}
 	
-	public boolean isShouldRenderTransparentBorder() {
-		return shouldRenderTransparentBorder;
+	public boolean isRenderTransparentBorder() {
+		return renderTransparentBorder;
 	}
 	
-	public void setShouldRenderTransparentBorder(boolean shouldRenderTransparentBorder) {
-		this.shouldRenderTransparentBorder = shouldRenderTransparentBorder;
+	public void setRenderTransparentBorder(boolean renderTransparentBorder) {
+		this.renderTransparentBorder = renderTransparentBorder;
 	}
 	
 	public float getTransparentBorderSize() {
@@ -105,26 +107,27 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 			
 			// Uncomment to test scissor
-			// poseStack.push();
-			// poseStack.getLast().getMatrix().setIdentity();
-			// AbstractGui.fill(poseStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0x8F00FF00);
-			// poseStack.pop();
+			// poseStack.pushPose();
+			// poseStack.last().pose().setIdentity();
+			// GuiComponent.fill(poseStack, 0, 0, window.getGuiScaledWidth(), window.getGuiScaledHeight(), 0x8F00FF00);
+			// poseStack.popPose();
 			
 			super.renderList(poseStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
+			
 			RenderSystem.disableScissor();
 		} else {
 			super.renderList(poseStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
 		}
 		
-		if (shouldRenderTransparentBorder) {
+		if (renderTransparentBorder) {
 			final var tessellator = Tesselator.getInstance();
 			final var buffer = tessellator.getBuilder();
 			
-			RenderSystem.setShader(GameRenderer::getPositionColorShader); // TODO right shader or with color? Do we need disable texture?
+			RenderSystem.setShader(GameRenderer::getPositionColorShader);
+			RenderUtil.setShaderColor(RGBA.BLACK);
 			
 			RenderSystem.enableBlend();
 			RenderSystem.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ZERO, DestFactor.ONE);
-			// RenderUtil.shadeModel(GL11.GL_SMOOTH); // TODO fix render
 			RenderSystem.disableTexture();
 			
 			buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
@@ -143,5 +146,4 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			RenderSystem.disableBlend();
 		}
 	}
-	
 }

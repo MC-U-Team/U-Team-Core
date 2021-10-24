@@ -29,7 +29,6 @@ public class UButton extends Button implements PerspectiveRenderable, Background
 	protected static final RGBA LIGHT_GRAY = new RGBA(0xA0A0A0FF);
 	
 	protected TextureProvider buttonTextureProvider;
-	
 	protected RGBA buttonColor;
 	
 	protected RGBA textColor;

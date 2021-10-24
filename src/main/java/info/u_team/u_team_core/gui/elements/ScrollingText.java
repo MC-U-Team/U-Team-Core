@@ -100,10 +100,10 @@ public class ScrollingText extends ScalableText {
 		RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 		
 		// Uncomment to test scissor
-		// poseStack.push();
-		// poseStack.getLast().getMatrix().setIdentity();
-		// AbstractGui.fill(poseStack, 0, 0, window.getScaledWidth(), window.getScaledHeight(), 0x8F00FF00);
-		// poseStack.pop();
+		// poseStack.pushPose();
+		// poseStack.last().pose().setIdentity();
+		// GuiComponent.fill(poseStack, 0, 0, window.getGuiScaledWidth(), window.getGuiScaledHeight(), 0x8F00FF00);
+		// poseStack.popPose();
 		
 		setText(textSupplier.get());
 		renderFont(poseStack, font, getMovingX(x), y + 2 * scale);
