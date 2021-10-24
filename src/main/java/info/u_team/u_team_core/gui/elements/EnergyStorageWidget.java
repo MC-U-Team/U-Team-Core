@@ -15,13 +15,16 @@ import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
+import info.u_team.u_team_core.util.SiUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.energy.IEnergyStorage;
 
@@ -101,7 +104,17 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		if (isHovered) {
 			final var minecraft = Minecraft.getInstance();
 			
-			final List<Component> list = List.of(new TextComponent(storage.getAsLong() + " / " + capacity.getAsLong() + " FE"));
+			final String storageString, capacityString;
+			
+			if (!Screen.hasShiftDown()) {
+				storageString = SiUtil.readableSi(storage.getAsLong());
+				capacityString = SiUtil.readableSi(capacity.getAsLong());
+			} else {
+				storageString = Long.toString(storage.getAsLong()) + " ";
+				capacityString = Long.toString(capacity.getAsLong()) + " ";
+			}
+			
+			final List<Component> list = List.of(new TranslatableComponent("gui.widget.uteamcore.energy.fe_tooltip", storageString, capacityString));
 			minecraft.screen.renderTooltip(poseStack, list, Optional.empty(), mouseX, mouseY, minecraft.font);
 		}
 	}

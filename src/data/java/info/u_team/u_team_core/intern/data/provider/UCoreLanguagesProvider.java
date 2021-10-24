@@ -44,12 +44,8 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 		// English
 		add("jei.uteamcore.dyeable.info", "These items can be dyed with dye in the crafting field.");
 		
-		// Discord config
+		// Energy translation
 		// English
-		final var discordConfigScreen = "screen.uteamcore.config.discord.";
-		add(discordConfigScreen + "title", "U Team Core Discord Config Options");
-		add(discordConfigScreen + "on", "Discord connection is on");
-		add(discordConfigScreen + "off", "Discord connection is off");
-		add(discordConfigScreen + "done", "Done");
+		add("gui.widget.uteamcore.energy.fe_tooltip", "%sFE/%sFE");
 	}
 }

@@ -41,7 +41,7 @@ public class BasicEnergyCreatorBlockEntity extends UBlockEntity implements MenuS
 				return 16;
 			}
 		};
-		energy = new BasicEnergyStorage(1000, 10);
+		energy = new BasicEnergyStorage(10_000_000, 10);
 		
 		slotsOptional = LazyOptional.of(() -> slots);
 		energyOptional = LazyOptional.of(() -> energy);
@@ -49,12 +49,12 @@ public class BasicEnergyCreatorBlockEntity extends UBlockEntity implements MenuS
 	
 	public static void serverTick(Level level, BlockPos pos, BlockState state, BasicEnergyCreatorBlockEntity blockEntity) {
 		if (blockEntity.action) {
-			blockEntity.energy.addEnergy(3);
+			blockEntity.energy.addEnergy(3 * 10000);
 			if (blockEntity.energy.getEnergyStored() == blockEntity.energy.getMaxEnergyStored()) {
 				blockEntity.action = !blockEntity.action;
 			}
 		} else {
-			blockEntity.energy.addEnergy(-3);
+			blockEntity.energy.addEnergy(-3 * 10000);
 			if (blockEntity.energy.getEnergyStored() == 0) {
 				blockEntity.action = !blockEntity.action;
 			}
