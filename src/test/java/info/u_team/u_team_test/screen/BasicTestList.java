@@ -9,7 +9,7 @@ public class BasicTestList extends ScrollableList<BasicTestListEntry> {
 		setRenderTopAndBottom(false);
 		setRenderBackground(false);
 		setShouldUseScissor(true);
-		setShouldRenderTransparentBorder(true);
+		setRenderTransparentBorder(true);
 		setTransparentBorderSize(10);
 		
 		for (var i = 0; i < 50; i++) {
