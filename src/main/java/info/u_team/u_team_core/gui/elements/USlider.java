@@ -3,8 +3,8 @@ package info.u_team.u_team_core.gui.elements;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
-import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
+import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
@@ -28,8 +28,9 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 	protected final boolean isInContainer;
 	
 	protected TextureProvider sliderBackgroundTextureProvider;
-	
 	protected RGBA sliderBackgroundColor;
+	
+	protected TextureProvider sliderTextureProvider;
 	protected RGBA sliderColor;
 	
 	protected RGBA textColor;
@@ -51,8 +52,9 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, UButton.EMTPY_PRESSABLE, slider);
 		this.isInContainer = isInContainer;
 		onTooltip = tooltip;
-		sliderBackgroundTextureProvider = new WidgetTextureProvider(this, this::getYImage);
+		sliderBackgroundTextureProvider = new WidgetTextureProvider(this, hovered -> 0);
 		sliderBackgroundColor = WHITE;
+		sliderTextureProvider = new WidgetTextureProvider(this, hovered -> hovered ? 2 : 1);
 		sliderColor = WHITE;
 		textColor = WHITE;
 		disabledTextColor = LIGHT_GRAY;
@@ -111,8 +113,7 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		renderBg(poseStack, Minecraft.getInstance(), mouseX, mouseY);
 		if (visible) {
-			// TODO make dynamic with texture etc
-			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (sliderValue * (width - 8)), y, 0, 66 + (isHovered() ? 20 : 0), 8, height, 200, 20, 2, 3, 2, 2, getBlitOffset(), WIDGETS_LOCATION, getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
+			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (sliderValue * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderBackgroundTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, getBlitOffset(), sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
 		}
 	}
 	
