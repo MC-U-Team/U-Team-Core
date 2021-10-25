@@ -7,18 +7,18 @@ import net.minecraftforge.items.SlotItemHandler;
 public class ItemSlot extends SlotItemHandler {
 	
 	private final IItemHandler itemHandler;
-	private final int index;
+	private final int slot;
 	
-	public ItemSlot(IItemHandler itemHandler, int index, int x, int y) {
-		super(itemHandler, index, x, y);
+	public ItemSlot(IItemHandler itemHandler, int slot, int x, int y) {
+		super(itemHandler, slot, x, y);
 		this.itemHandler = itemHandler;
-		this.index = index;
+		this.slot = slot;
 	}
 	
 	@Override
 	public void setChanged() {
 		if (itemHandler instanceof UItemStackHandler uItemHandler) {
-			uItemHandler.onContentsChanged(index);
+			uItemHandler.onContentsChanged(slot);
 		}
 	}
 	
