@@ -69,15 +69,6 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		return fluidSlots.get(slotId);
 	}
 	
-	public NonNullList<FluidStack> getFluids() {
-		final NonNullList<FluidStack> list = NonNullList.create();
-		
-		for (FluidSlot fluidSlot : fluidSlots) {
-			list.add(fluidSlot.getStack());
-		}
-		return list;
-	}
-	
 	// Called when a client clicks on a fluid slot
 	
 	public void fluidSlotClick(ServerPlayer player, int index, boolean shift, ItemStack clientClickStack) {
@@ -224,8 +215,6 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		return true;
 	}
 	
-	// Send packets for client sync
-	
 	/**
 	 * Sends all menu data to the client.
 	 */
@@ -329,8 +318,6 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	public void setRemoteFluidSlotNoCopy(int slotId, FluidStack stack) {
 		remoteFluidSlots.set(slotId, stack);
 	}
-	
-	// Used for sync with the client
 	
 	/**
 	 * Sets a fluid slot on the client side
