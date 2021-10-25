@@ -14,7 +14,6 @@ import info.u_team.u_team_core.intern.network.FluidSetSlotContainerMessage;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fluids.FluidStack;
@@ -220,8 +219,6 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 */
 	@Override
 	public void sendAllDataToRemote() {
-		super.sendAllDataToRemote();
-		
 		for (var slot = 0; slot < fluidSlots.size(); slot++) {
 			remoteFluidSlots.set(slot, fluidSlots.get(slot).getStack().copy());
 		}
@@ -229,6 +226,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		if (getSynchronizerPlayer() != null) {
 			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new FluidSetAllContainerMessage(containerId, incrementStateId(), remoteFluidSlots));
 		}
+		
+		super.sendAllDataToRemote();
 	}
 	
 	/**
@@ -242,6 +241,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			triggerFluidSlotListeners(slot, stack, supplier);
 			synchronizeFluidSlotToRemote(slot, stack, supplier);
 		}
+		
 		super.broadcastChanges();
 	}
 	
@@ -254,6 +254,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			final var stack = fluidSlots.get(slot).getStack();
 			triggerFluidSlotListeners(slot, stack, stack::copy);
 		}
+		
 		super.broadcastFullState();
 	}
 	
@@ -270,7 +271,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			final var copy = supplier.get();
 			lastFluidSlots.set(slotId, copy);
 			
-			for (ContainerListener listener : containerListeners) {
+			for (var listener : containerListeners) {
 				if (listener instanceof FluidContainerListener fluidListener) {
 					fluidListener.fluidSlotChanged(this, slotId, copy);
 				}
