@@ -3,8 +3,8 @@ package info.u_team.u_team_core.intern.init;
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.intern.network.DataHolderMenuMessage;
 import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
-import info.u_team.u_team_core.intern.network.FluidSetAllContainerMessage;
-import info.u_team.u_team_core.intern.network.FluidSetSlotContainerMessage;
+import info.u_team.u_team_core.intern.network.ContainerSetFluidContentMessage;
+import info.u_team.u_team_core.intern.network.ContainerSetFluidSlotMessage;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -25,8 +25,8 @@ public class UCoreNetwork {
 	
 	public static void setup(FMLCommonSetupEvent event) {
 		NETWORK.registerMessage(0, DataHolderMenuMessage.class, DataHolderMenuMessage::encode, DataHolderMenuMessage::decode, DataHolderMenuMessage.Handler::handle);
-		NETWORK.registerMessage(1, FluidSetAllContainerMessage.class, FluidSetAllContainerMessage::encode, FluidSetAllContainerMessage::decode, FluidSetAllContainerMessage.Handler::handle);
-		NETWORK.registerMessage(2, FluidSetSlotContainerMessage.class, FluidSetSlotContainerMessage::encode, FluidSetSlotContainerMessage::decode, FluidSetSlotContainerMessage.Handler::handle);
+		NETWORK.registerMessage(1, ContainerSetFluidContentMessage.class, ContainerSetFluidContentMessage::encode, ContainerSetFluidContentMessage::decode, ContainerSetFluidContentMessage.Handler::handle);
+		NETWORK.registerMessage(2, ContainerSetFluidSlotMessage.class, ContainerSetFluidSlotMessage::encode, ContainerSetFluidSlotMessage::decode, ContainerSetFluidSlotMessage.Handler::handle);
 		NETWORK.registerMessage(3, FluidClickContainerMessage.class, FluidClickContainerMessage::encode, FluidClickContainerMessage::decode, FluidClickContainerMessage.Handler::handle);
 	}
 	
