@@ -13,17 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
 
-public class DataHolderMenuMessage {
-	
-	private final int containerId;
-	private final int index;
-	private final FriendlyByteBuf dataHolderBuffer;
-	
-	public DataHolderMenuMessage(int id, int property, FriendlyByteBuf dataHolderBuffer) {
-		this.containerId = id;
-		this.index = property;
-		this.dataHolderBuffer = dataHolderBuffer;
-	}
+public record DataHolderMenuMessage(int containerId, int index, FriendlyByteBuf dataHolderBuffer) {
 	
 	public static void encode(DataHolderMenuMessage message, FriendlyByteBuf byteBuf) {
 		byteBuf.writeByte(message.containerId);
