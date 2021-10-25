@@ -21,8 +21,8 @@ public class CraftingRecipeWrapper extends CraftingContainer {
 	
 	@Override
 	public boolean isEmpty() {
-		for (var index = 0; index < inventory.getSlots(); index++) {
-			if (!inventory.getStackInSlot(index).isEmpty()) {
+		for (var slot = 0; slot < inventory.getSlots(); slot++) {
+			if (!inventory.getStackInSlot(slot).isEmpty()) {
 				return false;
 			}
 		}
@@ -35,12 +35,12 @@ public class CraftingRecipeWrapper extends CraftingContainer {
 	}
 	
 	@Override
-	public ItemStack removeItemNoUpdate(int index) {
-		final var stack = getItem(index);
+	public ItemStack removeItemNoUpdate(int slot) {
+		final var stack = getItem(slot);
 		if (stack.isEmpty()) {
 			return ItemStack.EMPTY;
 		}
-		setItem(index, ItemStack.EMPTY);
+		setItem(slot, ItemStack.EMPTY);
 		return stack;
 	}
 	
@@ -57,8 +57,8 @@ public class CraftingRecipeWrapper extends CraftingContainer {
 	
 	@Override
 	public void clearContent() {
-		for (var index = 0; index < inventory.getSlots(); index++) {
-			inventory.setStackInSlot(index, ItemStack.EMPTY);
+		for (var slot = 0; slot < inventory.getSlots(); slot++) {
+			inventory.setStackInSlot(slot, ItemStack.EMPTY);
 		}
 	}
 	
@@ -69,9 +69,8 @@ public class CraftingRecipeWrapper extends CraftingContainer {
 	
 	@Override
 	public void fillStackedContents(StackedContents helper) {
-		for (var index = 0; index < inventory.getSlots(); index++) {
-			final var stack = inventory.getStackInSlot(index);
-			helper.accountSimpleStack(stack);
+		for (var slot = 0; slot < inventory.getSlots(); slot++) {
+			helper.accountSimpleStack(inventory.getStackInSlot(slot));
 		}
 	}
 }
