@@ -16,7 +16,7 @@ import net.minecraftforge.fmllegacy.network.simple.SimpleChannel;
 
 public class UCoreNetwork {
 	
-	public static final String PROTOCOL = "1.17.1-alpha-1";
+	public static final String PROTOCOL = "1.17.1-1";
 	
 	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMod.MODID, "network"), () -> PROTOCOL, version -> {
 		// Allow clients to join / view servers without errors when uteamcore is not present there
