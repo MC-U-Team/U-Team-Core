@@ -21,15 +21,13 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
 	
-	private static final FluidInventoryRenderer FLUID_RENDERER = new FluidInventoryRenderer();
-	
 	protected FluidInventoryRenderer fluidRenderer;
 	
 	protected FluidSlot hoveredFluidSlot;
 	
 	public FluidContainerMenuScreen(T container, Inventory playerInventory, Component title) {
 		super(container, playerInventory, title);
-		setFluidRenderer(FLUID_RENDERER);
+		fluidRenderer = FluidInventoryRenderer.DEFAULT_INSTANCE;
 	}
 	
 	protected void setFluidRenderer(FluidInventoryRenderer fluidRenderer) {
@@ -90,7 +88,9 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	}
 	
 	protected void drawFluidSlot(PoseStack poseStack, FluidSlot fluidSlot) {
-		fluidRenderer.drawFluid(poseStack, fluidSlot.getX(), fluidSlot.getY(), fluidSlot.getStack());
+		setBlitOffset(100);
+		fluidRenderer.drawFluidInSlot(poseStack, fluidSlot.getX(), fluidSlot.getY(), getBlitOffset(), fluidSlot.getStack());
+		setBlitOffset(0);
 	}
 	
 	protected boolean isFluidSlotSelected(FluidSlot fluidSlot, double mouseX, double mouseY) {
