@@ -12,7 +12,6 @@ import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidContentMessage;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidSlotMessage;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.protocol.game.ClientboundContainerSetSlotPacket;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
@@ -160,7 +159,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 				}
 			}
 		}
-		player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, 0, getCarried())); // TODO what is state id? Third parameter 0
+		// player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, 0, getCarried())); // TODO what is state id?
+		// Third parameter 0
 		return true;
 	}
 	
@@ -210,7 +210,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 				}
 			}
 		}
-		player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, 0, getCarried())); // TODO what is state id? Third parameter 0
+		// player.connection.send(new ClientboundContainerSetSlotPacket(-1, -1, 0, getCarried())); // TODO what is state id?
+		// Third parameter 0
 		return true;
 	}
 	
