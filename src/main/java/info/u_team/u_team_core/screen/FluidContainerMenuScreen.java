@@ -10,6 +10,8 @@ import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
 import info.u_team.u_team_core.menu.FluidContainerMenu;
 import info.u_team.u_team_core.menu.FluidSlot;
+import info.u_team.u_team_core.util.RGBA;
+import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
@@ -46,6 +48,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 					
 					if (isHovering(fluidSlot, mouseX, mouseY)) {
 						hoveredFluidSlot = fluidSlot;
+						RenderUtil.setShaderColor(RGBA.WHITE);
 						renderSlotHighlight(poseStack, fluidSlot.getX(), fluidSlot.getY(), getBlitOffset(), getFluidSlotColor(index));
 					}
 				}
@@ -107,7 +110,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 		final List<Component> list = new ArrayList<>();
 		
 		list.add(stack.getDisplayName());
-		list.add(new TextComponent(stack.getAmount() + "/" + fluidSlot.getSlotCapacity()).withStyle(ChatFormatting.GRAY));
+		list.add(new TextComponent(stack.getAmount() + " mb/" + fluidSlot.getSlotCapacity() + " mb").withStyle(ChatFormatting.GRAY));
 		
 		if (minecraft.options.advancedItemTooltips) {
 			list.add(new TextComponent(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString()).withStyle(ChatFormatting.DARK_GRAY));

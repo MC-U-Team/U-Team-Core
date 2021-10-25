@@ -26,6 +26,8 @@ public class FluidInventoryRenderer {
 		final var rgba = RGBA.fromARGB(attributes.getColor(stack));
 		
 		RenderUtil.drawTexturedQuad(poseStack, x, y, 16, 16, blitOffset, sprite, rgba);
+		
+		RenderUtil.setShaderColor(RGBA.WHITE);
 	}
 	
 }
