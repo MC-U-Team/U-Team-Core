@@ -58,9 +58,9 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	/**
 	 * Adds a new {@link DataHolder} that will synchronize values from the client to the server. <br />
 	 * <br />
-	 * To synchronize values automatically the screen must implement {@link UContainerMenuScreen}. If not you must manually call
-	 * {@link #broadcastChangesToServer()} every time you update values on the client that should be synchronized to the
-	 * server.
+	 * To synchronize values automatically the screen must implement {@link UContainerMenuScreen}. If not you must manually
+	 * call {@link #broadcastChangesToServer()} every time you update values on the client that should be synchronized to
+	 * the server.
 	 *
 	 * @param holder Data holder
 	 * @return The supplied data holder
