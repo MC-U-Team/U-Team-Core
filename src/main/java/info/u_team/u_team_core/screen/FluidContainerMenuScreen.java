@@ -66,7 +66,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	protected void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
 		super.renderTooltip(poseStack, mouseX, mouseY);
 		
-		if (menu.getCarried().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getFluid().isEmpty()) { // TODO add more methods to fluid slot to make this easier
+		if (menu.getCarried().isEmpty() && hoveredFluidSlot != null && hoveredFluidSlot.hasFluid()) {
 			renderComponentTooltip(poseStack, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
 		}
 	}
