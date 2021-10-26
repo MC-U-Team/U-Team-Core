@@ -18,7 +18,8 @@
 ### How to build this mod
 
 #### How to clone
-- ``git clone --recursive https://github.com/MC-U-Team/U-Team-Core``
+- For a fesh clone use ``git clone --recursive https://github.com/MC-U-Team/U-Team-Core``
+- For already cloned repository use ``git submodule update --init --recursive`` to initialise the submodules.
 
 #### Setup Eclipse
 - ``./gradlew genEclipseRuns``
@@ -34,18 +35,18 @@
 ### How to include this mod
 
 - Repository: [repo.u-team.info](https://repo.u-team.info)
-- Artifact: **info.u-team:u_team_core-${config.forge.mcversion}:${config.uteamcore.version}** 
-- *{config.forge.mcversion}* is the minecraft version.
-- *{config.uteamcore.version}* is the uteamcore version.
+- Artifact: **info.u-team:u_team_core-${mcversion}:${modversion}** 
+- *{mcversion}* is the minecraft version.
+- *{modversion}* is the uteamcore version.
 
 #### Using in Forge Gradle 5:
 ```gradle
 repositories {
-    maven { url = "https://repo.u-team.info" }
+	maven { url = "https://repo.u-team.info" }
 }
 
 dependencies {
-  compileOnly fg.deobf("info.u-team:u_team_core-${config.forge.mcversion}:${config.uteamcore.version}")
+	implementation fg.deobf("info.u-team:u_team_core-${mcversion}:${modversion}")
 }
 ```
 
@@ -56,4 +57,4 @@ dependencies {
 
 ### Issues
 
-- Please report issues to the [github issues](../../issues).
+- Please report issues [here](../../issues).

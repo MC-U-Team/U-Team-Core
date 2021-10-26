@@ -56,6 +56,6 @@ body:
     id: mod_version
     attributes:
       label: Used mod version
-      placeholder: "e.g. 4.0.0.198-SNAPSHOT"
+      placeholder: "e.g. 4.0.0.198"
     validations:
       required: true
