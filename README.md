@@ -6,25 +6,29 @@
 ](https://www.curseforge.com/minecraft/mc-mods/u-team-core)
 [
 ![Discord](https://img.shields.io/discord/297104769649213441?label=Discord)
-](https://discordapp.com/invite/QXbWS36)
+](https://discord.u-team.info)
 
 ### This is an opensource api and library for u-team's mods.
 
+- Please ask questions in our [discord server](https://discord.u-team.info).
 - Download on [curseforge](https://www.curseforge.com/minecraft/mc-mods/u-team-core).  
 - Find more information on our [website](https://u-team.info/mods/uteamcore).
 - Updates can be found in the [changelog](CHANGELOG.md).
 
 ### How to build this mod
 
+#### How to clone
+- ``git clone --recursive https://github.com/MC-U-Team/U-Team-Core``
+
 #### Setup Eclipse
-- ``./gradlew genEclipseRuns eclipse``
-- Import project as existing workspace
+- ``./gradlew genEclipseRuns``
+- Import as gradle project
 
 #### Setup IntelliJ IDEA
 - ``./gradlew genIntellijRuns``
 - Import as gradle project
 
-#### Build
+#### Build a jar
 - ``./gradlew build``
 
 ### How to include this mod
@@ -34,7 +38,7 @@
 - *{config.forge.mcversion}* is the minecraft version.
 - *{config.uteamcore.version}* is the uteamcore version.
 
-#### Using in Forge Gradle 3:
+#### Using in Forge Gradle 5:
 ```gradle
 repositories {
     maven { url = "https://repo.u-team.info" }
@@ -53,5 +57,3 @@ dependencies {
 ### Issues
 
 - Please report issues to the [github issues](../../issues).
-- Include your minecraft version, forge version and mod version.
-- Upload your log on [gist](https://gist.github.com) or [pastebin](https://pastebin.com) and include link in your report.
