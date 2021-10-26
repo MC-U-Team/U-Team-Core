@@ -57,8 +57,23 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	}
 	
 	protected void renderFluidSlot(PoseStack poseStack, FluidSlot fluidSlot) {
-		setBlitOffset(100);
-		fluidRenderer.drawFluidInSlot(poseStack, fluidSlot.getX(), fluidSlot.getY(), getBlitOffset(), fluidSlot.getFluid());
+		final var blitOffset = 100;
+		setBlitOffset(blitOffset);
+		
+		final var x = fluidSlot.getX();
+		final var y = fluidSlot.getY();
+		
+		if (!fluidSlot.hasFluid() && fluidSlot.isActive()) {
+			final var pair = fluidSlot.getNoItemIcon();
+			if (pair != null) {
+				final var sprite = minecraft.getTextureAtlas(pair.getFirst()).apply(pair.getSecond());
+				
+				RenderUtil.drawTexturedQuad(poseStack, x, y, 16, 16, blitOffset, sprite, RGBA.WHITE);
+			}
+		}
+		
+		fluidRenderer.drawFluidInSlot(poseStack, x, y, blitOffset, fluidSlot.getFluid());
+		
 		setBlitOffset(0);
 	}
 	
