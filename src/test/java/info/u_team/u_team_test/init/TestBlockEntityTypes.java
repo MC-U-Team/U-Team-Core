@@ -2,9 +2,9 @@ package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_core.util.registry.BlockEntityTypeDeferredRegister;
 import info.u_team.u_team_test.TestMod;
+import info.u_team.u_team_test.blockentity.BasicBlockEntityBlockEntity;
 import info.u_team.u_team_test.blockentity.BasicEnergyCreatorBlockEntity;
 import info.u_team.u_team_test.blockentity.BasicFluidInventoryBlockEntity;
-import info.u_team.u_team_test.blockentity.BasicBlockEntityBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fmllegacy.RegistryObject;

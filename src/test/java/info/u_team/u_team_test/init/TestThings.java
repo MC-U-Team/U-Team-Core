@@ -12,6 +12,7 @@ public class TestThings implements ModConstruct {
 	
 	private static Logger LOGGER = LogManager.getLogger();
 	
+	@Override
 	public void construct() {
 		testTagAssumptions();
 	}

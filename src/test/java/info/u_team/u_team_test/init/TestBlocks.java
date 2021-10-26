@@ -4,9 +4,9 @@ import info.u_team.u_team_core.util.registry.BlockDeferredRegister;
 import info.u_team.u_team_core.util.registry.BlockRegistryObject;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.block.BasicBlock;
+import info.u_team.u_team_test.block.BasicBlockEntityBlock;
 import info.u_team.u_team_test.block.BasicEnergyCreatorBlock;
 import info.u_team.u_team_test.block.BasicFluidInventoryBlock;
-import info.u_team.u_team_test.block.BasicBlockEntityBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 

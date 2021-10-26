@@ -1,9 +1,9 @@
 package info.u_team.u_team_test.block;
 
 import info.u_team.u_team_core.block.UEntityBlock;
-import info.u_team.u_team_test.init.TestCreativeTabs;
 import info.u_team.u_team_test.blockentity.BasicEnergyCreatorBlockEntity;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
+import info.u_team.u_team_test.init.TestCreativeTabs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;

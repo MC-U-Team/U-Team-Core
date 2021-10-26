@@ -114,7 +114,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	
 	/**
 	 * Called by the packet handler to update the values on the right side.
-	 * 
+	 *
 	 * @param side Side that should set the values
 	 * @param index Index of the data holder in the list
 	 * @param dataHolderBuffer The buffer that should be set
@@ -129,7 +129,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	
 	/**
 	 * Checks the supplied data holder list and calls the consumer if something changed and should be updated.
-	 * 
+	 *
 	 * @param dataHolders List of data holders
 	 * @param consumer Consumer that should handle the change
 	 */

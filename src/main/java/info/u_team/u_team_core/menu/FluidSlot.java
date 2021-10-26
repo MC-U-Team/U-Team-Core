@@ -87,7 +87,7 @@ public class FluidSlot {
 	 * @return this
 	 */
 	public FluidSlot setBackground(ResourceLocation atlas, ResourceLocation sprite) {
-		this.backgroundPair = Pair.of(atlas, sprite);
+		backgroundPair = Pair.of(atlas, sprite);
 		return this;
 	}
 	

@@ -43,7 +43,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	 * The default implementation creates a new {@link BlockEntity} by using the
 	 * {@link #blockEntityType(BlockPos, BlockState)} method and invoke {@link BlockEntityType#create(BlockPos, BlockState)}
 	 * Can return null if no block entity should be created for that position or state.
-	 * 
+	 *
 	 * @param pos Position of the block
 	 * @param state Block state
 	 */
@@ -60,7 +60,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	/**
 	 * Returns a optional with can contain the {@link BlockEntity} at that give position if the {@link BlockEntityType} is
 	 * correct. Otherwise returns an empty optional.
-	 * 
+	 *
 	 * @param <T> Block entity
 	 * @param level Level
 	 * @param pos Position of the block
@@ -135,7 +135,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	/**
 	 * Private helper method to avoid exposing the unchecked cast. Tries to find the matching block entity for our type in
 	 * the world at the give position.
-	 * 
+	 *
 	 * @param <T> Block entity
 	 * @param level Level
 	 * @param pos Position of the block

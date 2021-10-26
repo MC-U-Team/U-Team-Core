@@ -9,14 +9,14 @@ import com.google.gson.stream.JsonWriter;
 
 /**
  * Utility methods for gson
- * 
+ *
  * @author HyCraftHD
  */
 public class GsonUtil {
 	
 	/**
 	 * Creates a {@link JsonWriter} with the indent set to one tab
-	 * 
+	 *
 	 * @param gson Gson instance
 	 * @param writer Write
 	 * @return Configured writer with one tab

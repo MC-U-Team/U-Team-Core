@@ -3,11 +3,11 @@ package info.u_team.u_team_test.data.provider;
 import info.u_team.u_team_core.data.CommonLanguagesProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestBlocks;
-import info.u_team.u_team_test.init.TestMobEffects;
+import info.u_team.u_team_test.init.TestCreativeTabs;
 import info.u_team.u_team_test.init.TestEnchantments;
 import info.u_team.u_team_test.init.TestEntityTypes;
-import info.u_team.u_team_test.init.TestCreativeTabs;
 import info.u_team.u_team_test.init.TestItems;
+import info.u_team.u_team_test.init.TestMobEffects;
 
 public class TestLanguagesProvider extends CommonLanguagesProvider {
 	

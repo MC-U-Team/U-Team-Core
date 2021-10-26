@@ -86,10 +86,12 @@ public class ScalableText implements Widget, Scalable {
 		this.shadow = shadow;
 	}
 	
+	@Override
 	public float getScale() {
 		return scale;
 	}
 	
+	@Override
 	public void setScale(float scale) {
 		this.scale = scale;
 		positionFactor = 1 / scale;

@@ -15,7 +15,7 @@ import net.minecraft.network.FriendlyByteBuf;
 /**
  * This class holds a data buffer with setter and getter for synchronizing. Furthermore the data holder implemented a
  * method to check if the data has changed and should be synchronized.
- * 
+ *
  * @author HyCraftHD
  */
 public abstract class DataHolder {
@@ -25,14 +25,14 @@ public abstract class DataHolder {
 	/**
 	 * Should return an instance of {@link FriendlyByteBuf} that cannot be manipulated after that call. Generally it is a
 	 * good idea to return a copy of the original data buffer here.
-	 * 
+	 *
 	 * @return A buffer for synchronizing
 	 */
 	public abstract FriendlyByteBuf get();
 	
 	/**
 	 * Sets the received instance of the {@link FriendlyByteBuf}. From this buffer the data can be read.
-	 * 
+	 *
 	 * @param byteBuf The received buffer
 	 */
 	public abstract void set(FriendlyByteBuf byteBuf);
@@ -41,7 +41,7 @@ public abstract class DataHolder {
 	 * Checks if the data has changed. Resets the changed bit afterwards. For performance reasons this method should be
 	 * overwritten if the change check can be implemented directly on the data types. The default methods compared the
 	 * buffers.
-	 * 
+	 *
 	 * @return True if data has changed
 	 */
 	public boolean checkAndClearUpdateFlag() {
@@ -133,7 +133,7 @@ public abstract class DataHolder {
 			
 			@Override
 			public boolean checkAndClearUpdateFlag() {
-				final int value = supplier.getAsInt();
+				final var value = supplier.getAsInt();
 				final var changed = value != lastKnownValue;
 				lastKnownValue = value;
 				return changed;
@@ -158,7 +158,7 @@ public abstract class DataHolder {
 			
 			@Override
 			public boolean checkAndClearUpdateFlag() {
-				final long value = supplier.getAsLong();
+				final var value = supplier.getAsLong();
 				final var changed = value != lastKnownValue;
 				lastKnownValue = value;
 				return changed;
@@ -233,7 +233,7 @@ public abstract class DataHolder {
 			
 			@Override
 			public boolean checkAndClearUpdateFlag() {
-				final boolean value = supplier.getAsBoolean();
+				final var value = supplier.getAsBoolean();
 				final var changed = value != lastKnownValue;
 				lastKnownValue = value;
 				return changed;

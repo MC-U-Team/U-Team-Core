@@ -15,7 +15,7 @@ public class RegisterMenuScreensEvent extends Event implements IModBusEvent {
 	
 	/**
 	 * Registers a menu screen.
-	 * 
+	 *
 	 * @param menuTypeSupplier The menu type as a supplier to register a screen for
 	 * @param screenConstructor The constructor of the screen
 	 */
@@ -25,7 +25,7 @@ public class RegisterMenuScreensEvent extends Event implements IModBusEvent {
 	
 	/**
 	 * Registers a menu screen.
-	 * 
+	 *
 	 * @param menuType The menu type to register a screen for
 	 * @param screenConstructor The constructor of the screen
 	 */

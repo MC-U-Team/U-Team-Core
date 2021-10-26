@@ -12,7 +12,7 @@ import net.minecraftforge.items.IItemHandler;
  * Enhanced version of {@link AbstractContainerMenu} with the benefit that the player that opened the container is known
  * and a method is called when the container is opened on the logical server. Furthermore adds some convenience methods
  * to add multiple slots.
- * 
+ *
  * @author HyCraftHD
  */
 public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
@@ -21,7 +21,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	
 	/**
 	 * Creates a container menu. Must be implemented by a sub class to be used.
-	 * 
+	 *
 	 * @param menuType Menu type
 	 * @param containerId Container id
 	 */
@@ -34,7 +34,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	 * This method sets player that has the container opened. Will be called before
 	 * {@link #setSynchronizer(net.minecraft.world.inventory.ContainerSynchronizer)} so that method can be used for
 	 * synchronizing already.
-	 * 
+	 *
 	 * @param player Server player that opened the container
 	 */
 	public final void setSynchronizerPlayer(ServerPlayer player) {
@@ -43,7 +43,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	
 	/**
 	 * Returns the player that opened the container and should be used for synchronizing purposes.
-	 * 
+	 *
 	 * @return Server player that opened the container
 	 */
 	public final ServerPlayer getSynchronizerPlayer() {
@@ -52,7 +52,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	
 	/**
 	 * Will be called immediately after the {@link #setSynchronizerPlayer(ServerPlayer)}.
-	 * 
+	 *
 	 * @param player Server player that openend the container
 	 */
 	public void initMenu(ServerPlayer player) {

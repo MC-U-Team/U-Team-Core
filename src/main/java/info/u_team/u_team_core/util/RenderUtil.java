@@ -14,7 +14,7 @@ import net.minecraft.resources.ResourceLocation;
 
 /**
  * Utility methods for rendering
- * 
+ *
  * @author HyCraftHD
  */
 public class RenderUtil {
@@ -65,7 +65,7 @@ public class RenderUtil {
 	/**
 	 * Draws a textured box of any size (smallest size is borderSize * 2 square) based on a fixed size textured box with
 	 * continuous borders and filler.
-	 * 
+	 *
 	 * @param poseStack Pose stack
 	 * @param x X coordinate
 	 * @param y Y coordinate
@@ -145,7 +145,7 @@ public class RenderUtil {
 	
 	/**
 	 * Draws a textured quad.
-	 * 
+	 *
 	 * @param poseStack Pose stack
 	 * @param x X coordinate
 	 * @param y Y coordinate
@@ -167,7 +167,7 @@ public class RenderUtil {
 	
 	/**
 	 * Draws a textured quad.
-	 * 
+	 *
 	 * @param poseStack Pose stack
 	 * @param x X coordinate
 	 * @param y Y coordinate
@@ -183,7 +183,7 @@ public class RenderUtil {
 	
 	/**
 	 * Draws a textured quad.
-	 * 
+	 *
 	 * @param poseStack Pose stack
 	 * @param x1 X1 coordinate
 	 * @param x2 X2 coordinate
@@ -220,7 +220,7 @@ public class RenderUtil {
 	/**
 	 * Adds a textured rectangle to the buffer builder. The vertex format must be {@link DefaultVertexFormat#POSITION_TEX}
 	 * and the draw format must be {@link VertexFormat.Mode#QUADS}
-	 * 
+	 *
 	 * @param bufferBuilder Buffer builder
 	 * @param poseStack Pose stack
 	 * @param x X coordinate
@@ -245,7 +245,7 @@ public class RenderUtil {
 	/**
 	 * Adds a textured quad to the buffer builder. The vertex format must be {@link DefaultVertexFormat#POSITION_TEX} and
 	 * the draw format must be {@link VertexFormat.Mode#QUADS}
-	 * 
+	 *
 	 * @param bufferBuilder Buffer builder
 	 * @param poseStack Pose stack
 	 * @param x1 X1 coordinate
@@ -270,7 +270,7 @@ public class RenderUtil {
 	/**
 	 * Adds a quad to the buffer builder. The vertex format must be {@link DefaultVertexFormat#POSITION_COLOR} and the draw
 	 * format must be {@link VertexFormat.Mode#QUADS}
-	 * 
+	 *
 	 * @param bufferBuilder Buffer builder
 	 * @param poseStack Pose stack
 	 * @param x1 X1 coordinate
@@ -292,7 +292,7 @@ public class RenderUtil {
 	/**
 	 * Adds a quad to the buffer builder. The vertex format must be {@link DefaultVertexFormat#POSITION} and the draw format
 	 * must be {@link VertexFormat.Mode#QUADS}
-	 * 
+	 *
 	 * @param bufferBuilder Buffer builder
 	 * @param poseStack Pose stack
 	 * @param x1 X1 coordinate
@@ -312,7 +312,7 @@ public class RenderUtil {
 	
 	/**
 	 * Sets the shader color from {@link RGBA} type
-	 * 
+	 *
 	 * @param rgba Color
 	 */
 	public static void setShaderColor(RGBA rgba) {
@@ -321,14 +321,14 @@ public class RenderUtil {
 	
 	/**
 	 * Extended matrix that adds getters and setters for all matrix values
-	 * 
+	 *
 	 * @author HyCraftHD
 	 */
 	public static class Matrix4fExtended extends Matrix4f {
 		
 		/**
 		 * Creates a matrix4f with the values of the parameter
-		 * 
+		 *
 		 * @param matrix4f Matrix4f to copy values
 		 */
 		public Matrix4fExtended(Matrix4f matrix4f) {

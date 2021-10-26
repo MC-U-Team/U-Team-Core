@@ -9,7 +9,7 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
 /**
  * Utility methods for reflection stuff
- * 
+ *
  * @author HyCraftHD
  */
 public class ReflectionUtil {
@@ -19,7 +19,7 @@ public class ReflectionUtil {
 	/**
 	 * Method to find a field in a give class. The name will be mapped to the right mappings. Will return the field with
 	 * widened access.
-	 * 
+	 *
 	 * @param clazz Class of the field
 	 * @param field The name of the field
 	 * @return The field
@@ -30,7 +30,7 @@ public class ReflectionUtil {
 	
 	/**
 	 * Sets the value of a field. Catches exceptions and throws a runtime exception.
-	 * 
+	 *
 	 * @param field The field
 	 * @param instance The object instance. Null for static fields
 	 * @param value The value
@@ -47,7 +47,7 @@ public class ReflectionUtil {
 	
 	/**
 	 * Gets the value of a field. Catches exceptions and throws a runtime exception.
-	 * 
+	 *
 	 * @param field The field
 	 * @param instance The object instance. Null for static fields
 	 * @return The value
@@ -65,7 +65,7 @@ public class ReflectionUtil {
 	/**
 	 * Utility method to copy a field value from an old oject instance to a new instance. Catches exceptions and throws a
 	 * runtime exception.
-	 * 
+	 *
 	 * @param field The field
 	 * @param oldInstance Old object
 	 * @param newInstance New object
@@ -76,7 +76,7 @@ public class ReflectionUtil {
 	
 	/**
 	 * Runtime exception for field access exceptions.
-	 * 
+	 *
 	 * @author HyCraftHD
 	 */
 	private static class AccessFieldException extends RuntimeException {

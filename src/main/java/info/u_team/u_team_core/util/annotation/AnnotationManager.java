@@ -10,8 +10,8 @@ import org.objectweb.asm.Type;
 
 import info.u_team.u_team_core.api.construct.Construct;
 import info.u_team.u_team_core.api.construct.ModConstruct;
-import info.u_team.u_team_core.api.integration.ModIntegration;
 import info.u_team.u_team_core.api.integration.Integration;
+import info.u_team.u_team_core.api.integration.ModIntegration;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -19,7 +19,7 @@ import net.minecraftforge.forgespi.language.ModFileScanData.AnnotationData;
 
 /**
  * Manager for calling the classes that are annotated with {@link Construct} or {@link Integration}
- * 
+ *
  * @author HyCraftHD
  */
 public class AnnotationManager {
@@ -31,7 +31,7 @@ public class AnnotationManager {
 	/**
 	 * Tries to invoke {@link ModConstruct#construct()} and {@link ModIntegration#construct()} methods of classes that are
 	 * annotated with {@link Construct} or {@link Integration}.
-	 * 
+	 *
 	 * @param modid The modid that should be respected for calling
 	 */
 	public static void callAnnotations(String modid) {
@@ -41,7 +41,7 @@ public class AnnotationManager {
 	
 	/**
 	 * Tries to invoke all {@link ModConstruct#construct()} methods of classes that are annotated with {@link Construct}.
-	 * 
+	 *
 	 * @param modid The modid that should be respected for calling
 	 */
 	public static void callConstructs(String modid) {
@@ -61,7 +61,7 @@ public class AnnotationManager {
 	/**
 	 * Tries to invoke all {@link IModIntegrationg#construct()} methods of classes that are annotated with
 	 * {@link Integration}.
-	 * 
+	 *
 	 * @param modid The modid that should be respected for calling
 	 */
 	public static void callIntegrations(String modid) {
@@ -82,7 +82,7 @@ public class AnnotationManager {
 	/**
 	 * Determines if an annotated class with the construct method can be called. Checks for the right modid and if the
 	 * environment matches.
-	 * 
+	 *
 	 * @param modid The modid
 	 * @param data Annotation data to check with
 	 * @return True if method can be called

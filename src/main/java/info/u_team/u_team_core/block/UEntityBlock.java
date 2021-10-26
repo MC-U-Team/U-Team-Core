@@ -29,7 +29,7 @@ public class UEntityBlock extends UBlock implements EntityBlockProvider {
 	
 	public UEntityBlock(CreativeModeTab creativeTab, Properties properties, Item.Properties blockItemProperties, Supplier<? extends BlockEntityType<?>> blockEntityType) {
 		super(creativeTab, properties, blockItemProperties);
-		this.tileEntityType = Suppliers.memoize(blockEntityType::get);
+		tileEntityType = Suppliers.memoize(blockEntityType::get);
 	}
 	
 	@Override

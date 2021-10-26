@@ -7,7 +7,7 @@ import net.minecraft.world.phys.Vec3;
 
 /**
  * Utility methods for math
- * 
+ *
  * @author HyCraftHD
  */
 public class MathUtil {
@@ -19,7 +19,7 @@ public class MathUtil {
 	
 	/**
 	 * Rotate a vector counter clock wise around the y axis.
-	 * 
+	 *
 	 * @param vec Vector to rotate
 	 * @param angle Rotation angle
 	 * @return Rotated vector
@@ -30,7 +30,7 @@ public class MathUtil {
 	
 	/**
 	 * Rotate a vector counter clock wise around an axis.
-	 * 
+	 *
 	 * @param vec Vector to rotate
 	 * @param axis Rotation axis
 	 * @param angle Rotation angle

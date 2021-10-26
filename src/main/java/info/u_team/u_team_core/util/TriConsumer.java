@@ -2,7 +2,7 @@ package info.u_team.u_team_core.util;
 
 /**
  * Consumer with three parameters
- * 
+ *
  * @author HyCraftHD
  */
 @FunctionalInterface

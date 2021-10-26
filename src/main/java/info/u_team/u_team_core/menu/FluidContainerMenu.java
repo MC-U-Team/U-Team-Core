@@ -24,7 +24,7 @@ import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 
 /**
  * Adds a management system for fluids in menus like items.
- * 
+ *
  * @author HyCraftHD
  */
 public abstract class FluidContainerMenu extends UAbstractContainerMenu {
@@ -35,7 +35,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	/**
 	 * Creates a container menu. Must be implemented by a sub class to be used.
-	 * 
+	 *
 	 * @param menuType Menu type
 	 * @param containerId Container id
 	 */
@@ -45,7 +45,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	/**
 	 * Adds a fluid slot to the menu. Should be called in the constructor of the container that implements the menu.
-	 * 
+	 *
 	 * @param slot Fluid slot to add
 	 * @return Same instance of the added fluid slot
 	 */
@@ -59,7 +59,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	/**
 	 * Returns the fluid slot for a give slot id. Throws exception if the id is out of bounds.
-	 * 
+	 *
 	 * @param slotId Slot id
 	 * @return Fluid slot with that id
 	 */
@@ -261,7 +261,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	/**
 	 * Trigger the listeners for fluid slot changes and update internal slot state.
-	 * 
+	 *
 	 * @param slotId Slot id
 	 * @param stack Fluid stack
 	 * @param supplier Supplier to get a copy of the fluid stack
@@ -282,7 +282,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	/**
 	 * Synchronize the slot to the client and update internal state.
-	 * 
+	 *
 	 * @param slotId Slot id
 	 * @param stack Fluid stack
 	 * @param supplier Supplier the get a copy the fluid stack
@@ -303,7 +303,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	/**
 	 * Set the fluid stack that should be in the remote fluid slot. Copies the stack.
-	 * 
+	 *
 	 * @param slotId Slot id
 	 * @param stack Fluid stack
 	 */
@@ -313,7 +313,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	/**
 	 * Set the fluid stack that should be in the remote fluid slot. Doesn't copy the stack.
-	 * 
+	 *
 	 * @param slotId Slot id
 	 * @param stack Fluid stack
 	 */
@@ -323,7 +323,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	/**
 	 * Sets a fluid slot on the client side
-	 * 
+	 *
 	 * @param slotId Slot id
 	 * @param stateId State id
 	 * @param stack Fluid stack
@@ -335,7 +335,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
 	/**
 	 * Sets the fluid slots on the client side
-	 * 
+	 *
 	 * @param stateId State id
 	 * @param stacks Fluid stacks
 	 */

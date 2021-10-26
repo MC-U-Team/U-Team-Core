@@ -7,7 +7,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 /**
  * Class used for an asm hook (ucontainermenu-init-menu.js) for the {@link UAbstractContainerMenu}. <br>
  * <strong>Do not change package, class or method names without changing them in the asm core mod!</strong>
- * 
+ *
  * @author HyCraftHD
  */
 public class ASMUContainerMenuHook {
