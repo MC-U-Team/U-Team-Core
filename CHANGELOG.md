@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.17.1-4.0.0.199] - 2021-10-26
+### Changed
+ - Restructured git repository and added discord link
+
 ## [1.17.1-4.0.0.198-SNAPSHOT] - 2021-10-26
 ### Changed
  - Refined public api and method names for first beta release
