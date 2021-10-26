@@ -12,7 +12,7 @@ authors="HyCraftHD, MrTroble"
 	version="${file.jarVersion}"
 	displayName="U Team Core"
 	updateJSONURL="https://api.u-team.info/update/uteamcore.json"
-	description="This library contains many useful modding stuff!"
+	description="Join our discord server here: https://discord.u-team.info\n\nThis library contains many useful modding stuff!"
 	
 	[[dependencies.uteamcore]]
 	    modId="forge"
