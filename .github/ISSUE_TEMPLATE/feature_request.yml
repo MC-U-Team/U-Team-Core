@@ -1,0 +1,21 @@
+name: Feature request
+description: Propose a new feature
+labels: ["feature"]
+title: "[MC-Version] "
+
+body:
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: Detailed description of the feature
+    validations:
+      required: true
+      
+  - type: checkboxes
+    id: verified_feature
+    attributes:
+      label: Verify feature request
+      description: Make sure that this is not a duplicate feature request
+      options:
+        - label: Yes
+          required: true
