@@ -1,7 +1,10 @@
 package info.u_team.u_team_core.menu;
 
+import com.mojang.datafixers.util.Pair;
+
 import info.u_team.u_team_core.api.fluid.FluidHandlerModifiable;
 import info.u_team.u_team_core.inventory.UFluidStackHandler;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidSlot {
@@ -13,6 +16,8 @@ public class FluidSlot {
 	
 	public int index;
 	
+	private Pair<ResourceLocation, ResourceLocation> backgroundPair;
+	
 	public FluidSlot(FluidHandlerModifiable fluidHandler, int slot, int x, int y) {
 		this.fluidHandler = fluidHandler;
 		this.slot = slot;
@@ -20,18 +25,22 @@ public class FluidSlot {
 		this.y = y;
 	}
 	
-	public boolean isFluidValid(FluidStack stack) {
+	public boolean mayPlace(FluidStack stack) {
 		if (stack.isEmpty()) {
 			return false;
 		}
 		return fluidHandler.isFluidValid(slot, stack);
 	}
 	
-	public FluidStack getStack() {
+	public FluidStack getFluid() {
 		return fluidHandler.getFluidInTank(slot);
 	}
 	
-	public void putStack(FluidStack stack) {
+	public boolean hasFluid() {
+		return !getFluid().isEmpty();
+	}
+	
+	public void set(FluidStack stack) {
 		fluidHandler.setFluidInTank(slot, stack);
 		setChanged();
 	}
@@ -46,15 +55,15 @@ public class FluidSlot {
 		return fluidHandler.getTankCapacity(slot);
 	}
 	
-	public int getSlotCurrentyCapacity() {
-		return getSlotCapacity() - getStack().getAmount();
+	public int getRemainingSlotCapacity() {
+		return getSlotCapacity() - getFluid().getAmount();
 	}
 	
 	public FluidHandlerModifiable getFluidHandler() {
 		return fluidHandler;
 	}
 	
-	public int getSlotIndex() {
+	public int getContainerSlot() {
 		return slot;
 	}
 	
@@ -66,7 +75,24 @@ public class FluidSlot {
 		return y;
 	}
 	
-	public boolean isEnabled() {
+	public boolean isActive() {
 		return true;
 	}
+	
+	/**
+	 * Sets the background atlas and sprite location.
+	 *
+	 * @param atlas The atlas name
+	 * @param sprite The sprite located on that atlas
+	 * @return this
+	 */
+	public FluidSlot setBackground(ResourceLocation atlas, ResourceLocation sprite) {
+		this.backgroundPair = Pair.of(atlas, sprite);
+		return this;
+	}
+	
+	public Pair<ResourceLocation, ResourceLocation> getNoItemIcon() {
+		return backgroundPair;
+	}
+	
 }

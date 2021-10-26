@@ -121,16 +121,16 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		
 		final var handler = fluidHandlerOptional.orElseThrow(AssertionError::new);
 		
-		final var maxAmountToFill = fluidSlot.getSlotCurrentyCapacity();
+		final var maxAmountToFill = fluidSlot.getRemainingSlotCapacity();
 		final var drainedFluidStack = handler.drain(maxAmountToFill, FluidAction.EXECUTE);
 		
-		if (drainedFluidStack.isEmpty() || !fluidSlot.isFluidValid(drainedFluidStack)) {
+		if (drainedFluidStack.isEmpty() || !fluidSlot.mayPlace(drainedFluidStack)) {
 			return false;
 		}
 		
-		final var slotEmpty = fluidSlot.getStack().isEmpty();
+		final var slotEmpty = fluidSlot.getFluid().isEmpty();
 		
-		if (!slotEmpty && !drainedFluidStack.isFluidEqual(fluidSlot.getStack())) {
+		if (!slotEmpty && !drainedFluidStack.isFluidEqual(fluidSlot.getFluid())) {
 			return false;
 		}
 		
@@ -138,18 +138,18 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		
 		if (stack.getCount() == 1 && !shift) {
 			if (slotEmpty) {
-				fluidSlot.putStack(drainedFluidStack);
+				fluidSlot.set(drainedFluidStack);
 			} else {
-				fluidSlot.getStack().grow(drainedFluidStack.getAmount());
+				fluidSlot.getFluid().grow(drainedFluidStack.getAmount());
 				fluidSlot.setChanged();
 			}
 			setCarried(outputStack);
 		} else {
 			if (ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, true).isEmpty()) {
 				if (slotEmpty) {
-					fluidSlot.putStack(drainedFluidStack);
+					fluidSlot.set(drainedFluidStack);
 				} else {
-					fluidSlot.getStack().grow(drainedFluidStack.getAmount());
+					fluidSlot.getFluid().grow(drainedFluidStack.getAmount());
 					fluidSlot.setChanged();
 				}
 				ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, false);
@@ -179,7 +179,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		
 		final var handler = fluidHandlerOptional.orElseThrow(AssertionError::new);
 		
-		final var amountFilled = handler.fill(fluidSlot.getStack(), FluidAction.EXECUTE);
+		final var amountFilled = handler.fill(fluidSlot.getFluid(), FluidAction.EXECUTE);
 		
 		if (amountFilled <= 0) {
 			return false;
@@ -188,18 +188,18 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		final var outputStack = handler.getContainer();
 		
 		if (stack.getCount() == 1 && !shift) {
-			fluidSlot.getStack().shrink(amountFilled);
-			if (fluidSlot.getStack().isEmpty()) {
-				fluidSlot.putStack(FluidStack.EMPTY);
+			fluidSlot.getFluid().shrink(amountFilled);
+			if (fluidSlot.getFluid().isEmpty()) {
+				fluidSlot.set(FluidStack.EMPTY);
 			} else {
 				fluidSlot.setChanged();
 			}
 			setCarried(outputStack);
 		} else {
 			if (ItemHandlerHelper.insertItemStacked(playerInventory, outputStack, true).isEmpty()) {
-				fluidSlot.getStack().shrink(amountFilled);
-				if (fluidSlot.getStack().isEmpty()) {
-					fluidSlot.putStack(FluidStack.EMPTY);
+				fluidSlot.getFluid().shrink(amountFilled);
+				if (fluidSlot.getFluid().isEmpty()) {
+					fluidSlot.set(FluidStack.EMPTY);
 				} else {
 					fluidSlot.setChanged();
 				}
@@ -221,7 +221,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	@Override
 	public void sendAllDataToRemote() {
 		for (var slot = 0; slot < fluidSlots.size(); slot++) {
-			remoteFluidSlots.set(slot, fluidSlots.get(slot).getStack().copy());
+			remoteFluidSlots.set(slot, fluidSlots.get(slot).getFluid().copy());
 		}
 		
 		if (getSynchronizerPlayer() != null) {
@@ -237,7 +237,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	@Override
 	public void broadcastChanges() {
 		for (var slot = 0; slot < fluidSlots.size(); slot++) {
-			final var stack = fluidSlots.get(slot).getStack();
+			final var stack = fluidSlots.get(slot).getFluid();
 			final var supplier = Suppliers.memoize(stack::copy);
 			triggerFluidSlotListeners(slot, stack, supplier);
 			synchronizeFluidSlotToRemote(slot, stack, supplier);
@@ -252,7 +252,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	@Override
 	public void broadcastFullState() {
 		for (var slot = 0; slot < fluidSlots.size(); slot++) {
-			final var stack = fluidSlots.get(slot).getStack();
+			final var stack = fluidSlots.get(slot).getFluid();
 			triggerFluidSlotListeners(slot, stack, stack::copy);
 		}
 		
@@ -329,7 +329,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param stack Fluid stack
 	 */
 	public void setFluid(int slotId, int stateId, FluidStack stack) {
-		getFluidSlot(slotId).putStack(stack);
+		getFluidSlot(slotId).set(stack);
 		this.stateId = stateId;
 	}
 	
@@ -341,7 +341,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 */
 	public void initializeFluidContents(int stateId, List<FluidStack> stacks) {
 		for (var index = 0; index < stacks.size(); index++) {
-			getFluidSlot(index).putStack(stacks.get(index));
+			getFluidSlot(index).set(stacks.get(index));
 		}
 		this.stateId = stateId;
 	}

@@ -43,7 +43,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 			for (var index = 0; index < fluidMenu.fluidSlots.size(); index++) {
 				final var fluidSlot = fluidMenu.fluidSlots.get(index);
 				
-				if (fluidSlot.isEnabled()) {
+				if (fluidSlot.isActive()) {
 					renderFluidSlot(poseStack, fluidSlot);
 					
 					if (isHovering(fluidSlot, mouseX, mouseY)) {
@@ -58,7 +58,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	
 	protected void renderFluidSlot(PoseStack poseStack, FluidSlot fluidSlot) {
 		setBlitOffset(100);
-		fluidRenderer.drawFluidInSlot(poseStack, fluidSlot.getX(), fluidSlot.getY(), getBlitOffset(), fluidSlot.getStack());
+		fluidRenderer.drawFluidInSlot(poseStack, fluidSlot.getX(), fluidSlot.getY(), getBlitOffset(), fluidSlot.getFluid());
 		setBlitOffset(0);
 	}
 	
@@ -66,7 +66,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	protected void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
 		super.renderTooltip(poseStack, mouseX, mouseY);
 		
-		if (menu.getCarried().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getStack().isEmpty()) { // TODO add more methods to fluid slot to make this easier
+		if (menu.getCarried().isEmpty() && hoveredFluidSlot != null && !hoveredFluidSlot.getFluid().isEmpty()) { // TODO add more methods to fluid slot to make this easier
 			renderComponentTooltip(poseStack, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
 		}
 	}
@@ -88,7 +88,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	protected FluidSlot findFluidSlot(double mouseX, double mouseY) {
 		if (menu instanceof FluidContainerMenu fluidMenu) {
 			for (final var fluidSlot : fluidMenu.fluidSlots) {
-				if (isHovering(fluidSlot, mouseX, mouseY) && fluidSlot.isEnabled()) {
+				if (isHovering(fluidSlot, mouseX, mouseY) && fluidSlot.isActive()) {
 					return fluidSlot;
 				}
 			}
@@ -105,7 +105,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	}
 	
 	public List<Component> getTooltipFromFluid(FluidSlot fluidSlot) {
-		final var stack = fluidSlot.getStack();
+		final var stack = fluidSlot.getFluid();
 		
 		final List<Component> list = new ArrayList<>();
 		
