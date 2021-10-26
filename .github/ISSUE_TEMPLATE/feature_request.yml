@@ -15,7 +15,6 @@ body:
     id: verified_feature
     attributes:
       label: Verify feature request
-      description: Make sure that this is not a duplicate feature request
       options:
-        - label: Yes
+        - label: "I have checked that this is not a duplicate feature request and the feature does not yet exist in the latest version"
           required: true
