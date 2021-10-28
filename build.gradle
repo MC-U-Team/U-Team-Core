@@ -44,6 +44,7 @@ minecraft {
 	runs {
 		client = {
 			workingDirectory file("run/client")
+			
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -56,6 +57,7 @@ minecraft {
 		}
 		server = {
 			workingDirectory file("run/server")
+			
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -69,7 +71,12 @@ minecraft {
 		data = {
 			workingDirectory file("run/data")
 			
-			args "--mod", config.mod.modid, "--all", "--output", file("src/generated/resources")
+			args "--mod", config.mod.modid
+			args "--all"
+			args "--output", file("src/generated/resources")
+			args "--validate"
+			args "--existing", file("src/main/resources")
+			
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -81,7 +88,13 @@ minecraft {
 			
 			parent data // Does not work as the other args are added too...
 			
-			args "--mod", "uteamtest", "--all", "--flat", "--output", file("src/generated_test/resources"), "--validate", "--existing", sourceSets.test.resources.srcDirs[0]
+			args "--mod", "uteamtest"
+			args "--all"
+			args "--output", file("src/generated_test/resources")
+			args "--validate"
+			args "--existing", file("src/test/resources")
+			args "--existing-mod", "uteamcore"
+			
 			mods {
 				uteamtest {
 					source sourceSets.test
