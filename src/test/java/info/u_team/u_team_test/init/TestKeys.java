@@ -7,10 +7,10 @@ import com.mojang.blaze3d.platform.InputConstants;
 import info.u_team.u_team_test.screen.ButtonTestScreen;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.event.GuiScreenEvent.KeyboardKeyPressedEvent;
+import net.minecraftforge.client.ClientRegistry;
+import net.minecraftforge.client.event.ScreenEvent.KeyboardKeyPressedEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fmlclient.registry.ClientRegistry;
 
 public class TestKeys {
 	

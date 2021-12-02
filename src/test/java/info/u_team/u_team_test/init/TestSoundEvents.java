@@ -4,8 +4,8 @@ import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
 import info.u_team.u_team_test.TestMod;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class TestSoundEvents {
 	

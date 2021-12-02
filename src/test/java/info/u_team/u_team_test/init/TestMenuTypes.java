@@ -8,8 +8,8 @@ import info.u_team.u_team_test.menu.BasicEnergyCreatorMenu;
 import info.u_team.u_team_test.menu.BasicFluidInventoryMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class TestMenuTypes {
 	

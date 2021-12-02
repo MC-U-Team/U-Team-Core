@@ -5,8 +5,8 @@ import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.potion.RadiationPotion;
 import net.minecraft.world.item.alchemy.Potion;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public class TestPotions {
 	

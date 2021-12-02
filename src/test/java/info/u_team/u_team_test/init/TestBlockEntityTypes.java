@@ -7,7 +7,7 @@ import info.u_team.u_team_test.blockentity.BasicEnergyCreatorBlockEntity;
 import info.u_team.u_team_test.blockentity.BasicFluidInventoryBlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 public class TestBlockEntityTypes {
 	
