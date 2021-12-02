@@ -14,7 +14,6 @@ import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraftforge.client.gui.widget.Slider;
-import net.minecraftforge.client.gui.widget.Slider.ISlider;
 
 public class USlider extends Slider implements PerspectiveRenderable, BackgroundColorProvider, TextProvider {
 	
