@@ -20,10 +20,9 @@ public abstract class UBlockEntity extends BlockEntity {
 	}
 	
 	@Override
-	public CompoundTag save(CompoundTag tag) {
-		super.save(tag);
+	public void saveAdditional(CompoundTag tag) {
+		super.saveAdditional(tag);
 		saveNBT(tag);
-		return tag;
 	}
 	
 	@Override
@@ -33,7 +32,7 @@ public abstract class UBlockEntity extends BlockEntity {
 	}
 	
 	/**
-	 * Save data to disk. The {@link #setChanged()} method must be called before.
+	 * Save data to disk. To mark the block entity to save data {@link #setChanged()} must be called.
 	 *
 	 * @param tag
 	 */
@@ -43,7 +42,6 @@ public abstract class UBlockEntity extends BlockEntity {
 	/**
 	 * Reads data from disk.
 	 *
-	 * @param state
 	 * @param tag
 	 */
 	public void loadNBT(CompoundTag tag) {
@@ -53,6 +51,7 @@ public abstract class UBlockEntity extends BlockEntity {
 	
 	// synchronization on chunk load
 	
+	// TODO save methods have changed. Some parts here might not work, Wait for some forge changes!
 	@Override
 	public CompoundTag getUpdateTag() {
 		final var tag = super.getUpdateTag();
@@ -91,7 +90,7 @@ public abstract class UBlockEntity extends BlockEntity {
 		final var tag = new CompoundTag();
 		sendUpdateStateData(tag);
 		if (!tag.isEmpty()) {
-			return new ClientboundBlockEntityDataPacket(worldPosition, -1, tag);
+			return ClientboundBlockEntityDataPacket.create(this);
 		}
 		return null;
 	}
