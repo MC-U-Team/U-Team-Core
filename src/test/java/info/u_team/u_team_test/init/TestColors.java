@@ -1,7 +1,8 @@
 package info.u_team.u_team_test.init;
 
+import java.awt.Color;
+
 import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.RenderTooltipEvent.Color;
 import net.minecraftforge.eventbus.api.IEventBus;
 
 public class TestColors {
