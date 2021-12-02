@@ -28,7 +28,7 @@ public class WidgetTextureProvider implements TextureProvider {
 	
 	@Override
 	public int getV() {
-		return 46 + yImage.apply(widget.isHovered()) * 20;
+		return 46 + yImage.apply(widget.isHoveredOrFocused()) * 20;
 	}
 	
 	@Override

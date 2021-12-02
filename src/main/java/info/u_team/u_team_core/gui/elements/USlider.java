@@ -164,7 +164,7 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 	
 	@Override
 	public void onRelease(double mouseX, double mouseY) {
-		if (isHovered()) {
+		if (isHoveredOrFocused()) {
 			super.playDownSound(Minecraft.getInstance().getSoundManager());
 		}
 		if (isInContainer) {

@@ -73,7 +73,7 @@ public class CheckboxButton extends UButton {
 	
 	@Override
 	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderUtil.drawTexturedQuad(poseStack, x, y, width, height, 20, 20, isHovered() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, TEXTURE, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks));
+		RenderUtil.drawTexturedQuad(poseStack, x, y, width, height, 20, 20, isHoveredOrFocused() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, TEXTURE, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks));
 		
 		renderBackground(poseStack, mouseX, mouseY, partialTicks);
 		renderForeground(poseStack, mouseX, mouseY, partialTicks);
