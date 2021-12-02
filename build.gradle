@@ -222,7 +222,7 @@ repositories {
 }
 
 dependencies {
-	minecraft "net.minecraftforge:forge:1.17.1-37.1.0"
+	minecraft "net.minecraftforge:forge:1.18-38.0.8"
 	compileOnly fg.deobf("mezz.jei:jei-1.17.1:8.2.0.37:api")
 	runtimeOnly fg.deobf("mezz.jei:jei-1.17.1:8.2.0.37")
 }
