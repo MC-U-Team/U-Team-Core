@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.google.common.collect.Iterators;
 
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 public record ArmorSet(RegistryObject<UHelmetItem> helmet, RegistryObject<UChestplateItem> chestplate, RegistryObject<ULeggingsItem> leggings, RegistryObject<UBootsItem> boots) implements Iterable<RegistryObject<? extends UArmorItem>> {
 	

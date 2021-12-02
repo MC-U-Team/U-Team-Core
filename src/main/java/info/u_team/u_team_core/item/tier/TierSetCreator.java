@@ -6,7 +6,7 @@ import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 public class TierSetCreator {
 	

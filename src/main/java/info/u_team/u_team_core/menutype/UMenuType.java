@@ -2,7 +2,7 @@ package info.u_team.u_team_core.menutype;
 
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.fmllegacy.network.IContainerFactory;
+import net.minecraftforge.network.IContainerFactory;
 
 public class UMenuType<T extends AbstractContainerMenu> extends MenuType<T> {
 	

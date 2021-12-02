@@ -5,7 +5,7 @@ import java.util.Iterator;
 import com.google.common.collect.Iterators;
 
 import net.minecraft.world.item.TieredItem;
-import net.minecraftforge.fmllegacy.RegistryObject;
+import net.minecraftforge.registries.RegistryObject;
 
 public record TierSet(RegistryObject<UAxeItem> axe, RegistryObject<UHoeItem> hoe, RegistryObject<UPickaxeItem> pickaxe, RegistryObject<UShovelItem> shovel, RegistryObject<USwordItem> sword) implements Iterable<RegistryObject<? extends TieredItem>> {
 	
