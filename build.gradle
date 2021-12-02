@@ -32,7 +32,7 @@ version = generateVersion()
 
 java {
 	toolchain {
-		languageVersion = JavaLanguageVersion.of(16)
+		languageVersion = JavaLanguageVersion.of(17)
 	}
 }
 
@@ -222,7 +222,7 @@ repositories {
 }
 
 dependencies {
-	minecraft "net.minecraftforge:forge:1.17.1-37.1.0"
+	minecraft "net.minecraftforge:forge:1.18-38.0.8"
 	compileOnly fg.deobf("mezz.jei:jei-1.17.1:8.2.0.37:api")
 	runtimeOnly fg.deobf("mezz.jei:jei-1.17.1:8.2.0.37")
 }
@@ -244,7 +244,7 @@ curseforge {
 		
 		addGameVersion config.forge.mcversion
 		addGameVersion "Forge"
-		addGameVersion "Java 16"
+		addGameVersion "Java 17"
 		
 		relations {
 			optionalDependency "basic-discord-rich-presence"
