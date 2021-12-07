@@ -31,8 +31,7 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 	
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
-		final var minecraft = Minecraft.getInstance();
-		final var level = minecraft.level;
+		final var level = Minecraft.getInstance().level;
 		
 		final var handler = new UItemStackHandler(9);
 		final var recipeWrapper = new CraftingRecipeWrapper(handler, 3, 3);
