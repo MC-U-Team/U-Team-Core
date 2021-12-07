@@ -257,7 +257,8 @@ curseforge {
 			changelog = "<a href=\"${generateChangelogUrl()}\">Changelog of ${project.version}</a>"
 		}
 		
-		addArtifact(deobfJar) { // TODO remove deobf maybe?
+		addArtifact(deobfJar) {
+			// TODO remove deobf maybe?
 			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}-dev (Use only for development)"
 			changelogType = "text"
 			changelog = "ONLY for development environment!\nMappings: ${config.forge.mapping_channel}_${config.forge.mapping}"
