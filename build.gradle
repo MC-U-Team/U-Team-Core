@@ -198,7 +198,7 @@ sourceSets {
 		java {
 			srcDirs += "src/data/java"
 			srcDirs += "src/api/java"
-			//srcDirs += "src/integration/java"
+			srcDirs += "src/integration/java"
 		}
 		resources {
 			srcDirs += "src/generated/resources"
@@ -223,8 +223,8 @@ repositories {
 
 dependencies {
 	minecraft "net.minecraftforge:forge:1.18-38.0.15"
-	//compileOnly fg.deobf("mezz.jei:jei-1.17.1:8.2.0.37:api")
-	//runtimeOnly fg.deobf("mezz.jei:jei-1.17.1:8.2.0.37")
+	compileOnly fg.deobf("mezz.jei:jei-1.18:9.0.0.40:api")
+	runtimeOnly fg.deobf("mezz.jei:jei-1.18:9.0.0.40")
 }
 
 curseforge {
@@ -257,8 +257,8 @@ curseforge {
 			changelog = "<a href=\"${generateChangelogUrl()}\">Changelog of ${project.version}</a>"
 		}
 		
-		addArtifact(deobfJar) {
-			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}-dev"
+		addArtifact(deobfJar) { // TODO remove deobf maybe?
+			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}-dev (Use only for development)"
 			changelogType = "text"
 			changelog = "ONLY for development environment!\nMappings: ${config.forge.mapping_channel}_${config.forge.mapping}"
 		}
