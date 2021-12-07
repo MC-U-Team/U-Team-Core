@@ -144,6 +144,8 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			
 			RenderSystem.enableTexture();
 			RenderSystem.disableBlend();
+			
+			RenderUtil.setShaderColor(RGBA.WHITE);
 		}
 	}
 }
