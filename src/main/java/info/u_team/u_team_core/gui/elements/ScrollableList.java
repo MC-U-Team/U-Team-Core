@@ -19,7 +19,7 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	
 	protected int sideDistance;
 	
-	protected boolean shouldUseScissor;
+	protected boolean useScissor;
 	protected boolean renderTransparentBorder;
 	protected float transparentBorderSize;
 	
@@ -58,12 +58,12 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 		this.sideDistance = sideDistance;
 	}
 	
-	public boolean isShouldUseScissor() {
-		return shouldUseScissor;
+	public boolean isUseScissor() {
+		return useScissor;
 	}
 	
-	public void setShouldUseScissor(boolean shouldUseScissor) {
-		this.shouldUseScissor = shouldUseScissor;
+	public void setUseScissor(boolean useScissor) {
+		this.useScissor = useScissor;
 	}
 	
 	public boolean isRenderTransparentBorder() {
@@ -94,7 +94,7 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	
 	@Override
 	protected void renderList(PoseStack poseStack, int rowLeft, int scrollAmount, int mouseX, int mouseY, float partialTicks) {
-		if (shouldUseScissor) {
+		if (useScissor) {
 			final var window = minecraft.getWindow();
 			final var scaleFactor = window.getGuiScale();
 			
