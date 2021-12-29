@@ -1,11 +1,14 @@
 package info.u_team.u_team_core.menu;
 
+import java.util.List;
+
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
 /**
@@ -56,6 +59,16 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	 * @param player Server player that openend the container
 	 */
 	public void initMenu(ServerPlayer player) {
+	}
+	
+	/**
+	 * Returns the last slot list that is used to check if a stack has changed since last check. The list should not be
+	 * modified manually.
+	 * 
+	 * @return List with item stacks
+	 */
+	protected List<ItemStack> getLastSlots() {
+		return lastSlots;
 	}
 	
 	/**

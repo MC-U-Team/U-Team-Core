@@ -29,7 +29,7 @@ import net.minecraftforge.network.PacketDistributor;
  */
 public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	
-	protected final NonNullList<FluidStack> lastFluidSlots = NonNullList.create();
+	private final NonNullList<FluidStack> lastFluidSlots = NonNullList.create();
 	public final List<FluidSlot> fluidSlots = NonNullList.create();
 	private final NonNullList<FluidStack> remoteFluidSlots = NonNullList.create();
 	
@@ -344,6 +344,16 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			getFluidSlot(index).set(stacks.get(index));
 		}
 		this.stateId = stateId;
+	}
+	
+	/**
+	 * Returns the last slot list that is used to check if a fluid stack has changed since last check. The list should not
+	 * be modified manually.
+	 * 
+	 * @return List with fluid stacks
+	 */
+	protected List<FluidStack> getLastFluidSlots() {
+		return lastFluidSlots;
 	}
 	
 	/**
