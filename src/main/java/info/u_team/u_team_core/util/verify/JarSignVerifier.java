@@ -1,8 +1,6 @@
 package info.u_team.u_team_core.util.verify;
 
 import java.nio.file.Files;
-import java.security.cert.Certificate;
-import java.util.Arrays;
 import java.util.Optional;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
@@ -16,7 +14,6 @@ import com.google.common.io.ByteStreams;
 
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
 import net.minecraftforge.fml.util.CertificateHelper;
 
 // TODO evaluate if this is still useful. Forge has now a system for checking the fingerprint too, but makes this
@@ -45,20 +42,22 @@ public class JarSignVerifier {
 	public static VerifyStatus verify(String modid) {
 		final var info = ModList.get().getModFileById(modid);
 		
-		if (info instanceof ModFileInfo concreteInfo) {
-			LOGGER.info("The code signing fingerprint for {} reported by forge is {}", modid, concreteInfo.getCodeSigningFingerprint().orElse("NULL"));
-			
-			var signers = info.getFile().getSecureJar().getManifestSigners();
-			if (signers != null) {
-				Arrays.stream(signers).forEach(csa -> {
-					System.out.println(CertificateHelper.getFingerprints(csa.getSignerCertPath().getCertificates().toArray(Certificate[]::new)));
-				});
-			}
-			
-			// if (FMLEnvironment.secureJarsEnabled) {
-			// LOGGER.info("The trust data reported by forge is {}", concreteInfo.getTrustData().orElse("NULL"));
-			// }
-		}
+		// TODO replace with this as this is forge native
+		// if (info instanceof ModFileInfo concreteInfo) {
+		// LOGGER.info("The code signing fingerprint for {} reported by forge is {}", modid,
+		// concreteInfo.getCodeSigningFingerprint().orElse("NULL"));
+		//
+		// var signers = info.getFile().getSecureJar().getManifestSigners();
+		// if (signers != null) {
+		// Arrays.stream(signers).forEach(csa -> {
+		// System.out.println(CertificateHelper.getFingerprints(csa.getSignerCertPath().getCertificates().toArray(Certificate[]::new)));
+		// });
+		// }
+		//
+		// // if (FMLEnvironment.secureJarsEnabled) {
+		// // LOGGER.info("The trust data reported by forge is {}", concreteInfo.getTrustData().orElse("NULL"));
+		// // }
+		// }
 		
 		// We don't need to check sign in dev environment
 		if (!FMLEnvironment.production) {
