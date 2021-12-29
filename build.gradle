@@ -222,9 +222,9 @@ repositories {
 }
 
 dependencies {
-	minecraft "net.minecraftforge:forge:1.18-38.0.15"
-	compileOnly fg.deobf("mezz.jei:jei-1.18:9.0.0.40:api")
-	runtimeOnly fg.deobf("mezz.jei:jei-1.18:9.0.0.40")
+	minecraft "net.minecraftforge:forge:1.18-39.0.9"
+	compileOnly fg.deobf("mezz.jei:jei-1.18.1:9.1.1.48:api")
+	runtimeOnly fg.deobf("mezz.jei:jei-1.18.1:9.1.1.48")
 }
 
 curseforge {
