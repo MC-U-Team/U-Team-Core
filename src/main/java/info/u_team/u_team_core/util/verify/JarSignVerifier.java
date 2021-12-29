@@ -45,7 +45,9 @@ public class JarSignVerifier {
 		
 		if (info instanceof ModFileInfo concreteInfo) {
 			LOGGER.info("The code signing fingerprint reported by forge is {}", concreteInfo.getCodeSigningFingerprint().orElse("NULL"));
-			LOGGER.info("The trust data reported by forge is {}", concreteInfo.getTrustData().orElse("NULL"));
+			// if (FMLEnvironment.secureJarsEnabled) {
+			// LOGGER.info("The trust data reported by forge is {}", concreteInfo.getTrustData().orElse("NULL"));
+			// }
 		}
 		
 		// We don't need to check sign in dev environment
