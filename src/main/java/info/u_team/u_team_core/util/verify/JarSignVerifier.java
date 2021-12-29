@@ -44,7 +44,7 @@ public class JarSignVerifier {
 		final var info = ModList.get().getModFileById(modid);
 		
 		if (info instanceof ModFileInfo concreteInfo) {
-			LOGGER.info("The code signing fingerprint reported by forge is {}", concreteInfo.getCodeSigningFingerprint().orElse("NULL"));
+			LOGGER.info("The code signing fingerprint for {} reported by forge is {}", modid, concreteInfo.getCodeSigningFingerprint().orElse("NULL"));
 			// if (FMLEnvironment.secureJarsEnabled) {
 			// LOGGER.info("The trust data reported by forge is {}", concreteInfo.getTrustData().orElse("NULL"));
 			// }
