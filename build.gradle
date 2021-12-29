@@ -258,8 +258,7 @@ curseforge {
 		}
 		
 		addArtifact(deobfJar) {
-			// TODO remove deobf maybe?
-			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}-dev (Use only for development)"
+			displayName = "(For development use) ${config.curse.display}-${config.forge.mcversion}-${project.version}-dev"
 			changelogType = "text"
 			changelog = "ONLY for development environment!\nMappings: ${config.forge.mapping_channel}_${config.forge.mapping}"
 		}
