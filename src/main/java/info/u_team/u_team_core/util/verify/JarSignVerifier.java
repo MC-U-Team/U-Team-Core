@@ -14,6 +14,7 @@ import com.google.common.io.ByteStreams;
 
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.fml.loading.moddiscovery.ModFileInfo;
 import net.minecraftforge.fml.util.CertificateHelper;
 
 // TODO evaluate if this is still useful. Forge has now a system for checking the fingerprint too, but makes this
@@ -40,13 +41,17 @@ public class JarSignVerifier {
 	}
 	
 	public static VerifyStatus verify(String modid) {
+		final var info = ModList.get().getModFileById(modid);
+		
+		if (info instanceof ModFileInfo concreteInfo) {
+			LOGGER.info("The code signing fingerprint reported by forge is {}", concreteInfo.getCodeSigningFingerprint().orElse("NULL"));
+			LOGGER.info("The trust data reported by forge is {}", concreteInfo.getTrustData().orElse("NULL"));
+		}
 		
 		// We don't need to check sign in dev environment
 		if (!FMLEnvironment.production) {
 			return VerifyStatus.DEV;
 		}
-		
-		final var info = ModList.get().getModFileById(modid);
 		
 		final var path = info.getFile().getFilePath();
 		
