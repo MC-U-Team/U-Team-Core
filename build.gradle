@@ -14,26 +14,34 @@ buildscript {
 	dependencies {
 		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
 		classpath group: "org.parchmentmc", name: "librarian", version: "1.+", changing: true
+		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "1.0.0"
 		classpath group: "info.u-team.curse_gradle_uploader", name: "curse_gradle_uploader", version: "1.5.0"
 	}
 }
 
-apply from: "gradle_files/default-project-fg-5.groovy"
-
 apply plugin: "net.minecraftforge.gradle"
 apply plugin: "org.parchmentmc.librarian.forgegradle"
-apply plugin: "eclipse"
+apply plugin: "info.u_team.gradle_files"
 apply plugin: "info.u_team.curse_gradle_uploader"
 apply plugin: "maven-publish"
 
 group = "info.u-team"
-archivesBaseName = generateArchivesBaseName()
-version = generateVersion()
+archivesBaseName = gradlefiles.archivesBaseName()
+version = gradlefiles.version()
+
+gradlefiles {
+	vendor "Team UTeam"
+	
+	signJars true
+}
 
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
+	withDeobfJar()
+	withSourcesJar()
+	withJavadocJar()
 }
 
 minecraft {
@@ -104,94 +112,33 @@ minecraft {
 	}
 }
 
-jar {
-	archiveClassifier = ""
-	
-	from "LICENSE"
-	
-	exclude ".cache"
-	
-	manifest normalManifest
-}
-
-task deobfJar(type: Jar) {
-	archiveClassifier = "dev"
-	
-	from sourceSets.main.output
-	from "LICENSE"
-	
-	exclude ".cache"
-	
-	manifest normalManifest
-}
-
-task sourcesJar(type: Jar) {
-	archiveClassifier = "sources"
-	
-	from sourceSets.main.allJava
-	from "LICENSE"
-}
-
-task docJar(type: Jar) {
-	archiveClassifier = "javadoc"
-	
-	from javadoc
-	from "LICENSE"
-	
-	tasks.withType(Javadoc) {
-		options.addStringOption("Xdoclint:none", "-quiet")
-		options.addStringOption("encoding", "UTF-8")
-		options.addStringOption("charSet", "UTF-8")
-	}
-}
-
 task testJar(type: Jar) {
 	archiveClassifier = "test"
 	
 	from sourceSets.test.output
-	from "LICENSE"
-	
-	exclude ".cache"
-	
-	afterEvaluate {
-		reobf.create("testJar");
-		reobfTestJar.dependsOn createMcpToSrg
-		reobfTestJar.setMappings(createMcpToSrg.getOutput())
-		reobfTestJar.getClasspath().plus(files(jar))
-	}
-	
-	manifest normalManifest
 }
 
+gradlefiles.createReobfJar(testJar)
+
 task testDeobfJar(type: Jar) {
-	archiveClassifier = "testdev"
+	archiveClassifier = "testdeobf"
 	
 	from sourceSets.test.output
-	from "LICENSE"
-	
-	exclude ".cache"
-	
-	manifest normalManifest
 }
 
 task testSourcesJar(type: Jar) {
 	archiveClassifier = "testsources"
 	
 	from sourceSets.test.allJava
-	from "LICENSE"
 }
 
-artifacts {
-	archives jar
-	archives deobfJar
-	archives sourcesJar
-	archives docJar
-	archives testJar
-	archives testDeobfJar
-	archives testSourcesJar
+tasks.withType(Jar) { task ->
+	gradlefiles.defaultJar(task)
 }
 
-signAllJars()
+tasks.withType(Javadoc) { task ->
+	task.options.addStringOption("Xdoclint:none", "-quiet")
+}
 
 sourceSets {
 	main {
@@ -222,21 +169,14 @@ repositories {
 }
 
 dependencies {
-	minecraft "net.minecraftforge:forge:${config.forge.mcversion}-${config.forge.version}"
+	minecraft gradlefiles.forgeDependency()
+	
 	compileOnly fg.deobf("mezz.jei:jei-1.18.1:9.1.1.48:api")
 	runtimeOnly fg.deobf("mezz.jei:jei-1.18.1:9.1.1.48")
 }
 
 curseforge {
-	afterEvaluate {
-		tasks."curseforge${config.curse.id}".onlyIf {
-			getValue("token") != null
-		}
-	}
-	
-	tasks.curseforge.dependsOn build
-	
-	apiKey = getValueDefault("token")
+	apiKey = defaultPropertyValue("curseforge.token")
 	
 	project {
 		id = config.curse.id
@@ -251,51 +191,29 @@ curseforge {
 			optionalDependency "jei"
 		}
 		
-		mainArtifact(jar) {
+		mainArtifact(tasks.getByName("jar")) {
 			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}"
 			changelogType = "html"
-			changelog = "<a href=\"${generateChangelogUrl()}\">Changelog of ${project.version}</a>"
+			//changelog = "<a href=\"${generateChangelogUrl()}\">Changelog of ${project.version}</a>" TODO fix me
 		}
-		
-		addArtifact(deobfJar) {
-			displayName = "(For development use) ${config.curse.display}-${config.forge.mcversion}-${project.version}-dev"
-			changelogType = "text"
-			changelog = "ONLY for development environment!\nMappings: ${config.forge.mapping_channel}_${config.forge.mapping}"
-		}
-	}
-}
-
-tasks.withType(PublishToMavenRepository) {
-	onlyIf {
-		getValue("mavenpass") != null
 	}
 }
 
 publishing {
-	publish.dependsOn build
-	
 	repositories {
 		maven {
 			url "https://repo.u-team.info"
 			credentials {
 				username = "maven"
-				password = getValue("mavenpass")
+				password = defaultPropertyValue("maven.password")
 			}
 		}
 	}
 	publications {
 		mavenJava(MavenPublication) {
-			artifact jar
-			artifact deobfJar
-			artifact sourcesJar
-			artifact docJar
-			artifact testJar
-			artifact testDeobfJar
-			artifact testSourcesJar
+			artifactId archivesBaseName
 			
-			groupId = project.group
-			artifactId = project.archivesBaseName
-			version = project.version
+			from components.java
 			
 			pom {
 				name = project.archivesBaseName
@@ -327,22 +245,5 @@ publishing {
 				}
 			}
 		}
-	}
-}
-
-task uploadBoth {
-	tasks.uploadBoth.dependsOn build
-	tasks.uploadBoth.dependsOn publish
-	tasks.uploadBoth.dependsOn "curseforge${config.curse.id}"
-	tasks.uploadBoth.dependsOn setBuildNumber
-	tasks.uploadBoth.dependsOn tagRelease
-	doLast {
-		println "Published both"
-	}
-}
-
-gradle.taskGraph.whenReady {
-	if (gradle.taskGraph.hasTask(":curseforge${config.curse.id}") || gradle.taskGraph.hasTask(":publish")) {
-		validateBuild()
 	}
 }
