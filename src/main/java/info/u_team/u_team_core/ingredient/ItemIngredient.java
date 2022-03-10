@@ -9,7 +9,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.tags.SetTag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -30,7 +30,7 @@ public class ItemIngredient extends Ingredient {
 		return new ItemIngredient(amount, Arrays.stream(stacks).map((stack) -> new ItemValue(stack)));
 	}
 	
-	public static ItemIngredient fromTag(int amount, SetTag<Item> tag) {
+	public static ItemIngredient fromTag(int amount, TagKey<Item> tag) {
 		return new ItemIngredient(amount, Stream.of(new Ingredient.TagValue(tag)));
 	}
 	

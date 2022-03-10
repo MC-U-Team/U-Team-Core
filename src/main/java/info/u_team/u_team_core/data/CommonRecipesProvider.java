@@ -11,7 +11,7 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
 import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
@@ -62,7 +62,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	protected void registerDefaultAdvancementsRecipes(Consumer<FinishedRecipe> consumer) {
 	}
 	
-	protected InventoryChangeTrigger.TriggerInstance hasItem(Tag<Item> tag) {
+	protected InventoryChangeTrigger.TriggerInstance hasItem(TagKey<Item> tag) {
 		return hasItem(ItemPredicate.Builder.item().of(tag).build());
 	}
 	
@@ -74,7 +74,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 		return new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, Ints.ANY, Ints.ANY, Ints.ANY, predicates);
 	}
 	
-	public static Ingredient getIngredientOfTag(Tag<Item> tag) {
+	public static Ingredient getIngredientOfTag(TagKey<Item> tag) {
 		return TagUtil.getSerializableIngredientOfTag(tag);
 	}
 	

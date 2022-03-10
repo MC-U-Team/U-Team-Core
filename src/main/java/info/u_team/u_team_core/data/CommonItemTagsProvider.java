@@ -4,12 +4,13 @@ import java.util.function.Function;
 
 import net.minecraft.core.Registry;
 import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
 public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	
-	private final Function<Tag.Named<Block>, Tag.Builder> blockTagBuilderFunction;
+	private final Function<TagKey<Block>, Tag.Builder> blockTagBuilderFunction;
 	
 	public CommonItemTagsProvider(GenerationData data) {
 		this(data, new CommonBlockTagsProvider(data) {
@@ -36,7 +37,7 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 		return "Item-Tags";
 	}
 	
-	protected void copy(Tag.Named<Block> blockTag, Tag.Named<Item> itemTag) {
+	protected void copy(TagKey<Block> blockTag, TagKey<Item> itemTag) {
 		final var itemTagBuilder = getTagBuilder(itemTag);
 		final var blockTagBuilder = blockTagBuilderFunction.apply(blockTag);
 		blockTagBuilder.getEntries().forEach(itemTagBuilder::add);

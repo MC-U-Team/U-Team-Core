@@ -19,10 +19,10 @@ import net.minecraft.tags.Tag;
 import net.minecraft.tags.Tag.BuilderEntry;
 import net.minecraft.tags.Tag.ElementEntry;
 import net.minecraft.tags.Tag.Entry;
-import net.minecraft.tags.Tag.Named;
 import net.minecraft.tags.Tag.OptionalElementEntry;
 import net.minecraft.tags.Tag.OptionalTagEntry;
 import net.minecraft.tags.Tag.TagEntry;
+import net.minecraft.tags.TagKey;
 import net.minecraftforge.common.data.ExistingFileHelper.IResourceType;
 import net.minecraftforge.common.data.ExistingFileHelper.ResourceType;
 
@@ -49,7 +49,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		
 		tagToBuilder.forEach((location, builder) -> {
 			final List<Tag.BuilderEntry> list = builder.getEntries() //
-					.filter(builderEntry -> !builderEntry.getEntry().verifyIfPresent(id -> tagToBuilder.containsKey(id), id -> registry.getOptional(id).isPresent())) // TODO verify that this is the right replacement
+					.filter(builderEntry -> !builderEntry.entry().verifyIfPresent(id -> tagToBuilder.containsKey(id), id -> registry.getOptional(id).isPresent())) // TODO verify that this is the right replacement
 					.filter(this::missing) //
 					.collect(Collectors.toList());
 			if (!list.isEmpty()) {
@@ -66,7 +66,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	}
 	
 	private boolean missing(BuilderEntry proxy) {
-		final var entry = proxy.getEntry();
+		final var entry = proxy.entry();
 		if (entry instanceof TagEntry) {
 			return !data.getExistingFileHelper().exists(((TagEntry) entry).id, resourceType);
 		}
@@ -79,13 +79,13 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		return resolveData(location).resolve("tags").resolve(getTagFolder()).resolve(location.getPath() + ".json");
 	}
 	
-	protected BetterBuilder<T> getBuilder(Tag.Named<T> tag) {
+	protected BetterBuilder<T> getBuilder(TagKey<T> tag) {
 		final var tagBuilder = getTagBuilder(tag);
 		return new BetterBuilder<>(tagBuilder, registry, modid);
 	}
 	
-	protected Tag.Builder getTagBuilder(Tag.Named<T> tag) {
-		return tagToBuilder.computeIfAbsent(tag.getName(), location -> {
+	protected Tag.Builder getTagBuilder(TagKey<T> tag) {
+		return tagToBuilder.computeIfAbsent(tag.location(), location -> {
 			data.getExistingFileHelper().trackGenerated(location, resourceType);
 			return new UniqueBuilder();
 		});
@@ -108,7 +108,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		}
 		
 		@SafeVarargs
-		public final BetterBuilder<T> add(Named<T>... values) {
+		public final BetterBuilder<T> add(TagKey<T>... values) {
 			internalBuilder.addTags(values);
 			return this;
 		}
@@ -120,8 +120,8 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		}
 		
 		@SafeVarargs
-		public final BetterBuilder<T> addOptional(Named<T>... values) {
-			Stream.of(values).map(Named::getName).forEach(internalBuilder::addOptionalTag);
+		public final BetterBuilder<T> addOptional(TagKey<T>... values) {
+			Stream.of(values).map(TagKey::location).forEach(internalBuilder::addOptionalTag);
 			return this;
 		}
 		
@@ -130,7 +130,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			return this;
 		}
 		
-		public BetterBuilder<T> add(Named<T> value) {
+		public BetterBuilder<T> add(TagKey<T> value) {
 			internalBuilder.addTag(value);
 			return this;
 		}
@@ -151,9 +151,9 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		
 		@Override
 		public Tag.Builder add(BuilderEntry proxyTag) {
-			final var identifier = getIdentifier(proxyTag.getEntry());
+			final var identifier = getIdentifier(proxyTag.entry());
 			final var duplicate = getEntries() //
-					.map(BuilderEntry::getEntry) //
+					.map(BuilderEntry::entry) //
 					.anyMatch(entry -> getIdentifier(entry).equals(identifier));
 			
 			if (!duplicate) {

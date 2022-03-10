@@ -22,12 +22,13 @@ public class SetBlockEntityNBTLootFunction extends LootItemConditionalFunction {
 	@Override
 	public ItemStack run(ItemStack stack, LootContext context) {
 		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
-			final var compound = new CompoundTag();
 			final var blockEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
+			final CompoundTag compound;
 			if (blockEntity instanceof UBlockEntity uBlockEntity) {
+				compound = new CompoundTag();
 				uBlockEntity.saveNBT(compound);
 			} else {
-				blockEntity.save(compound);
+				compound = blockEntity.saveWithId();
 			}
 			if (!compound.isEmpty()) {
 				stack.addTagElement("BlockEntityTag", compound);

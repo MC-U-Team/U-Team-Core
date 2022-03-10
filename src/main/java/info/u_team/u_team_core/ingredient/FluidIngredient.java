@@ -15,13 +15,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
+import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.FluidTags;
-import net.minecraft.tags.SerializationTags;
-import net.minecraft.tags.SetTag;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
@@ -45,7 +43,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		return new FluidIngredient(amount, Arrays.stream(stacks).map((stack) -> new SingleFluidList(stack)));
 	}
 	
-	public static FluidIngredient fromTag(int amount, SetTag<Fluid> tag) {
+	public static FluidIngredient fromTag(int amount, TagKey<Fluid> tag) {
 		return new FluidIngredient(amount, Stream.of(new TagList(tag)));
 	}
 	
@@ -155,10 +153,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			return new SingleFluidList(new FluidStack(fluid, 1000));
 		} else if (jsonObject.has("tag")) {
 			final var key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "tag"));
-			final var tag = FluidTags.getAllTags().getTag(key);
-			if (tag == null) {
-				throw new JsonSyntaxException("Unknown fluid tag '" + key + "'");
-			}
+			final TagKey<Fluid> tag = TagKey.create(Registry.FLUID_REGISTRY, key);
 			return new TagList(tag);
 		} else {
 			throw new JsonParseException("An ingredient entry needs either a tag or a fluid");
@@ -195,18 +190,19 @@ public class FluidIngredient implements Predicate<FluidStack> {
 	
 	public static class TagList implements IFluidList {
 		
-		private final Tag<Fluid> tag;
+		private final TagKey<Fluid> tag;
 		
-		public TagList(Tag<Fluid> tag) {
+		public TagList(TagKey<Fluid> tag) {
 			this.tag = tag;
 		}
 		
+		@SuppressWarnings("deprecation")
 		@Override
 		public Collection<FluidStack> getStacks() {
 			final List<FluidStack> list = Lists.newArrayList();
 			
-			for (final Fluid fluid : tag.getValues()) {
-				list.add(new FluidStack(fluid, 1000));
+			for (final Holder<Fluid> holder : Registry.FLUID.getTagOrEmpty(this.tag)) {
+				list.add(new FluidStack(holder.value(), 1000));
 			}
 			
 			if (list.size() == 0 && !ForgeConfig.SERVER.treatEmptyTagsAsAir.get()) {
@@ -218,7 +214,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		@Override
 		public JsonObject serialize() {
 			final var jsonObject = new JsonObject();
-			jsonObject.addProperty("tag", SerializationTags.getInstance().getIdOrThrow(Registry.FLUID_REGISTRY, tag, () -> new IllegalStateException("Unrecognized tag")).toString());
+			jsonObject.addProperty("tag", tag.location().toString());
 			return jsonObject;
 		}
 	}
