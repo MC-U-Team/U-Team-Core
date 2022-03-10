@@ -34,7 +34,7 @@ public class TestItemTagsProvider extends CommonItemTagsProvider {
 				.add(Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE) //
 				.add(Tags.Items.CHESTS_TRAPPED, Tags.Items.CHESTS_WOODEN) //
 				.addOptional(Items.ANCIENT_DEBRIS.getRegistryName()) //
-				.addOptionalTag(ItemTags.ANVIL.getName());
+				.addOptionalTag(ItemTags.ANVIL.location());
 	}
 	
 }

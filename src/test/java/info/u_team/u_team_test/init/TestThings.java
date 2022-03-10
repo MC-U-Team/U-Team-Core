@@ -23,8 +23,8 @@ public class TestThings implements ModConstruct {
 		if (TestTags.Blocks.TEST_TAG_2 != TestTags.Blocks.TEST_TAG_2_SAME) {
 			throw new IllegalStateException("Two calls with the same tag must return the same tag instance");
 		}
-		if (TestTags.Blocks.TEST_TAG_2 == TestTags.Blocks.TEST_TAG_2_OPTIONAL) {
-			throw new IllegalStateException("First non optional, now optional tag cannot be the same");
+		if (TestTags.Blocks.TEST_TAG_2 != TestTags.Blocks.TEST_TAG_2_OPTIONAL) {
+			throw new IllegalStateException("Two calls with the same tag must return the same tag instance");
 		}
 	}
 }
