@@ -112,21 +112,21 @@ minecraft {
 	}
 }
 
-task testJar(type: Jar) {
+tasks.create("testJar", Jar) {
 	archiveClassifier = "test"
 	
 	from sourceSets.test.output
 }
 
-gradlefiles.createReobfJar(testJar)
+gradlefiles.createReobfJar(tasks.getByName("testJar"))
 
-task testDeobfJar(type: Jar) {
+tasks.create("testDeobfJar", Jar) {
 	archiveClassifier = "testdeobf"
 	
 	from sourceSets.test.output
 }
 
-task testSourcesJar(type: Jar) {
+tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
 	
 	from sourceSets.test.allJava
@@ -194,7 +194,7 @@ curseforge {
 		mainArtifact(tasks.getByName("jar")) {
 			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}"
 			changelogType = "html"
-			//changelog = "<a href=\"${generateChangelogUrl()}\">Changelog of ${project.version}</a>" TODO fix me
+			changelog = "<a href=\"${gradlefiles.changelogUrl()}\">Changelog of ${project.version}</a>"
 		}
 	}
 }
@@ -214,6 +214,9 @@ publishing {
 			artifactId archivesBaseName
 			
 			from components.java
+			artifact tasks.getByName("testJar")
+			artifact tasks.getByName("testDeobfJar")
+			artifact tasks.getByName("testSourcesJar")
 			
 			pom {
 				name = project.archivesBaseName
