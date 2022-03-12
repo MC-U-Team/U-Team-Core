@@ -56,7 +56,6 @@ public class BlockDeferredRegister {
 		bus.addGenericListener(Item.class, this::registerItems);
 	}
 	
-	@SuppressWarnings("unchecked")
 	private void registerItems(Register<Item> event) {
 		final var registry = event.getRegistry();
 		
@@ -66,7 +65,6 @@ public class BlockDeferredRegister {
 				final var blockItem = blockItemProvider.blockItem();
 				if (blockItem != null) {
 					registry.register(blockItem.setRegistryName(itemObject.getId()));
-					((RegistryObject<Item>) itemObject).updateReference(registry); // TODO check if this is nessessary?
 				}
 			}
 		});
