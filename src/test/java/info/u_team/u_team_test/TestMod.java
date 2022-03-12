@@ -1,7 +1,8 @@
 package info.u_team.u_team_test;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+
+import com.mojang.logging.LogUtils;
 
 import info.u_team.u_team_core.util.annotation.AnnotationManager;
 import info.u_team.u_team_core.util.verify.JarSignVerifier;
@@ -11,7 +12,7 @@ import net.minecraftforge.fml.common.Mod;
 public class TestMod {
 	
 	public static final String MODID = "uteamtest";
-	public static final Logger LOGGER = LogManager.getLogger("UTeamTest");
+	public static final Logger LOGGER = LogUtils.getLogger();
 	
 	public TestMod() {
 		JarSignVerifier.checkSigned(MODID);
