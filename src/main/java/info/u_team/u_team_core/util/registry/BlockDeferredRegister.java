@@ -66,7 +66,7 @@ public class BlockDeferredRegister {
 				final var blockItem = blockItemProvider.blockItem();
 				if (blockItem != null) {
 					registry.register(blockItem.setRegistryName(itemObject.getId()));
-					((RegistryObject<Item>) itemObject).updateReference(registry);
+					((RegistryObject<Item>) itemObject).updateReference(registry); // TODO check if this is nessessary?
 				}
 			}
 		});
