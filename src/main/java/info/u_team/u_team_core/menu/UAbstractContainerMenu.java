@@ -64,7 +64,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	/**
 	 * Returns the last slot list that is used to check if a stack has changed since last check. The list should not be
 	 * modified manually.
-	 * 
+	 *
 	 * @return List with item stacks
 	 */
 	protected List<ItemStack> getLastSlots() {

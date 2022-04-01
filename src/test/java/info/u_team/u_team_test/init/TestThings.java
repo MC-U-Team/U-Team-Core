@@ -24,10 +24,7 @@ public class TestThings implements ModConstruct {
 	public static void testTagAssumptions() {
 		LOGGER.info("Check if tag assumption are working with tag util");
 		
-		if (TestTags.Blocks.TEST_TAG_2 != TestTags.Blocks.TEST_TAG_2_SAME) {
-			throw new IllegalStateException("Two calls with the same tag must return the same tag instance");
-		}
-		if (TestTags.Blocks.TEST_TAG_2 != TestTags.Blocks.TEST_TAG_2_OPTIONAL) {
+		if ((TestTags.Blocks.TEST_TAG_2 != TestTags.Blocks.TEST_TAG_2_SAME) || (TestTags.Blocks.TEST_TAG_2 != TestTags.Blocks.TEST_TAG_2_OPTIONAL)) {
 			throw new IllegalStateException("Two calls with the same tag must return the same tag instance");
 		}
 	}

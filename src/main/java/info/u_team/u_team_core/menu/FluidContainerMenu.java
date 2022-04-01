@@ -349,7 +349,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	/**
 	 * Returns the last slot list that is used to check if a fluid stack has changed since last check. The list should not
 	 * be modified manually.
-	 * 
+	 *
 	 * @return List with fluid stacks
 	 */
 	protected List<FluidStack> getLastFluidSlots() {
