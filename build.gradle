@@ -171,8 +171,8 @@ repositories {
 dependencies {
 	minecraft gradlefiles.forgeDependency()
 	
-	compileOnly fg.deobf("mezz.jei:jei-${config.forge.mcversion}:${config.jei.version}:api")
-	runtimeOnly fg.deobf("mezz.jei:jei-${config.forge.mcversion}:${config.jei.version}")
+	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}:${config.jei.version}:api")
+	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}:${config.jei.version}")
 }
 
 curseforge {
@@ -182,7 +182,7 @@ curseforge {
 		id = config.curse.id
 		releaseType = config.curse.type
 		
-		addGameVersion config.forge.mcversion
+		addGameVersion config.minecraft.version
 		addGameVersion "Forge"
 		addGameVersion "Java 17"
 		
@@ -192,7 +192,7 @@ curseforge {
 		}
 		
 		mainArtifact(tasks.getByName("jar")) {
-			displayName = "${config.curse.display}-${config.forge.mcversion}-${project.version}"
+			displayName = "${config.curse.display}-${config.minecraft.version}-${project.version}"
 			changelogType = "html"
 			changelog = "<a href=\"${gradlefiles.changelogUrl()}\">Changelog of ${project.version}</a>"
 		}
