@@ -143,9 +143,6 @@ repositories {
 
 dependencies {
 	minecraft gradlefiles.forgeDependency()
-	
-	//compileOnly fg.deobf("mezz.jei:jei_${config.minecraft.version}:${config.jei.version}:api")
-	//runtimeOnly fg.deobf("mezz.jei:jei_${config.minecraft.version}:${config.jei.version}")
 }
 
 curseforge {
