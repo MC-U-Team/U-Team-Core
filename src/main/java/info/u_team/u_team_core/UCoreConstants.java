@@ -28,8 +28,8 @@ public final class UCoreConstants {
 	
 	public static final String MODID = "uteamcore";
 	public static final String NAME = "UTeam Core";
-	public static final String VERSION = "${version}"; // Version is replaced when compiling
-	public static final String MCVERSION = "${mcversion}"; // Version is replaced when compiling
+	public static final String VERSION = "@VERSION@"; // Version is replaced when compiling
+	public static final String MCVERSION = "@MCVERSION@"; // Version is replaced when compiling
 	public static final String DEPENDENCIES = "required:forge@[14.23.5.2768,)";
 	public static final String UPDATEURL = "https://api.u-team.info/update/uteamcore.json";
 	
