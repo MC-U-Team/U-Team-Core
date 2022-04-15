@@ -35,7 +35,7 @@ public class ClientConfig {
 		
 		@Comment("If you have discord installed it will show your some details about your game as rich presence")
 		@Name("Discord Rich Presence")
-		public boolean discord_richpresence = true;
+		public boolean discord_richpresence = false;
 		
 	}
 	
