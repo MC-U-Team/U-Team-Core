@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.2-3.0.2.207] - 2022-04-16
+### Changed
+ - Update toolchain to forge gradle 5 and use gradle files plugin
+ - Update to forge 31.2.57
+
 ## [1.15.2-3.0.2.169] - 2020-08-12
 ### Added
  - Now only print the discord client close message if the discord client was connected before
