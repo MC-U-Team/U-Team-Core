@@ -107,12 +107,6 @@ minecraft {
 	}
 }
 
-afterEvaluate {
-	println minecraft.runs.findByName("client").getEnvironment()
-	println minecraft.runs.findByName("client").parents()
-//println project.getExtensions().getExtraProperties().get("MC_VERSION")
-}
-
 tasks.create("testJar", Jar) {
 	archiveClassifier = "test"
 	
