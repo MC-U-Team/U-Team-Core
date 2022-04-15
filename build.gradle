@@ -126,9 +126,6 @@ tasks.getByName("compileJava") { task ->
 }
 
 processResources {
-	//inputs.property "version", project.version
-	//inputs.property "mcversion", config.minecraft.version
-	
 	filesMatching("mcmod.info") {
 		expand "version": project.version, "mcversion": config.minecraft.version
 	}
