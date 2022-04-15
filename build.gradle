@@ -138,19 +138,17 @@ tasks.withType(Javadoc) { task ->
 sourceSets {
 	main {
 		java {
-			srcDirs += "src/data/java"
+			srcDirs += "src/repack/java"
 			srcDirs += "src/api/java"
 			srcDirs += "src/integration/java"
 		}
 		resources {
+			srcDirs += "src/repack/resources"
 			srcDirs += "src/generated/resources"
 		}
 	}
 	test {
-		java {
-			srcDirs += "src/data_test/java"
-			srcDirs += "src/integration_test/java"
-		}
+		java
 		resources {
 			srcDirs += "src/generated_test/resources"
 		}
