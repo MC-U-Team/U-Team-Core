@@ -10,7 +10,8 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class TestGlobalLootModifierSerializers {
 	
-	public static final CommonDeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIER_SERIALIZERS = CommonDeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS, TestMod.MODID);
+	// TODO registry rework
+	public static final CommonDeferredRegister<GlobalLootModifierSerializer<?>> GLOBAL_LOOT_MODIFIER_SERIALIZERS = CommonDeferredRegister.create(ForgeRegistries.LOOT_MODIFIER_SERIALIZERS.get(), TestMod.MODID);
 	
 	public static final RegistryObject<AutoSmeltLootModifier.Serializer> AUTO_SMELT = GLOBAL_LOOT_MODIFIER_SERIALIZERS.register("auto_smelt", AutoSmeltLootModifier.Serializer::new);
 	
