@@ -24,13 +24,13 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 	
 	public boolean dragging = false;
 	
-	protected AbstractSliderLogic(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, OnSliderChange slider, OnTooltip tooltip) {
+	protected AbstractSliderLogic(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double currentValue, boolean decimalPrecision, boolean drawDescription, OnSliderChange slider, OnTooltip tooltip) {
 		super(x, y, width, height, prefix, EMTPY_PRESSABLE, tooltip);
 		this.prefix = prefix;
 		this.suffix = suffix;
 		this.minValue = minValue;
 		this.maxValue = maxValue;
-		this.value = (value - minValue) / (maxValue - minValue);
+		this.value = (currentValue - minValue) / (maxValue - minValue);
 		this.decimalPrecision = decimalPrecision;
 		this.drawDescription = drawDescription;
 		
@@ -62,7 +62,7 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 	}
 	
 	public void updateSlider() {
-		value = Mth.clamp(0, 1, value);
+		value = Mth.clamp(value, 0, 1);
 		
 		String displayValue;
 		

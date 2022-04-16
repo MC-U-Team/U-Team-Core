@@ -179,9 +179,9 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 		setSliderValue((mouseX - (x + 4)) / (width - 8));
 	}
 	
-	protected void setSliderValue(double value) {
+	protected void setSliderValue(double newValue) {
 		final var oldValue = value;
-		value = Mth.clamp(value, 0, 1);
+		value = Mth.clamp(newValue, 0, 1);
 		if (oldValue != value) {
 			updateSlider();
 		}
