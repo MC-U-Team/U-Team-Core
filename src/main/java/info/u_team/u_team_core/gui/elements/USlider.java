@@ -13,14 +13,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
-import net.minecraftforge.client.gui.widget.Slider;
 
-public class USlider extends Slider implements PerspectiveRenderable, BackgroundColorProvider, TextProvider {
+public non-sealed class USlider extends AbstractSliderLogic implements PerspectiveRenderable, BackgroundColorProvider, TextProvider {
 	
-	protected static final ISlider EMTPY_SLIDER = slider -> {
-	};
-	
-	protected static final OnTooltip EMPTY_TOOLTIP = UButton.EMPTY_TOOLTIP;
+	protected static final OnSliderChange EMPTY_SLIDER = AbstractSliderLogic.EMPTY_SLIDER;
 	
 	protected static final RGBA WHITE = UButton.WHITE;
 	protected static final RGBA LIGHT_GRAY = UButton.LIGHT_GRAY;
@@ -37,39 +33,26 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 	protected RGBA disabledTextColor;
 	
 	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer) {
-		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, EMTPY_SLIDER);
+		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, EMPTY_SLIDER);
 	}
 	
-	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, ISlider slider) {
+	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnSliderChange slider) {
 		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, slider, EMPTY_TOOLTIP);
 	}
 	
 	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnTooltip tooltip) {
-		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, EMTPY_SLIDER, tooltip);
+		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, EMPTY_SLIDER, tooltip);
 	}
 	
-	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, ISlider slider, OnTooltip tooltip) {
-		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, UButton.EMTPY_PRESSABLE, slider);
+	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnSliderChange slider, OnTooltip tooltip) {
+		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, slider, tooltip);
 		this.isInContainer = isInContainer;
-		onTooltip = tooltip;
 		sliderBackgroundTextureProvider = new WidgetTextureProvider(this, hovered -> 0);
 		sliderBackgroundColor = WHITE;
 		sliderTextureProvider = new WidgetTextureProvider(this, hovered -> hovered ? 2 : 1);
 		sliderColor = WHITE;
 		textColor = WHITE;
 		disabledTextColor = LIGHT_GRAY;
-	}
-	
-	public void setSlider(ISlider slider) {
-		parent = slider;
-	}
-	
-	public void setSlider(Runnable runnable) {
-		parent = slider -> runnable.run();
-	}
-	
-	public void setTooltip(OnTooltip tooltip) {
-		onTooltip = tooltip;
 	}
 	
 	public RGBA getSliderBackgroundColor() {
@@ -113,7 +96,7 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		renderBg(poseStack, Minecraft.getInstance(), mouseX, mouseY);
 		if (visible) {
-			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (sliderValue * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderBackgroundTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, getBlitOffset(), sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
+			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (value * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderBackgroundTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, getBlitOffset(), sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
 		}
 	}
 	
@@ -183,7 +166,7 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 		final var flag = keyCode == 263;
 		if (flag || keyCode == 262) {
 			final var direction = flag ? -1.0F : 1.0F;
-			setSliderValue(sliderValue + direction / (width - 8));
+			setSliderValue(value + direction / (width - 8));
 		}
 		return false;
 	}
@@ -197,9 +180,9 @@ public class USlider extends Slider implements PerspectiveRenderable, Background
 	}
 	
 	protected void setSliderValue(double value) {
-		final var oldValue = sliderValue;
-		sliderValue = Mth.clamp(value, 0, 1);
-		if (oldValue != sliderValue) {
+		final var oldValue = value;
+		value = Mth.clamp(value, 0, 1);
+		if (oldValue != value) {
 			updateSlider();
 		}
 	}
