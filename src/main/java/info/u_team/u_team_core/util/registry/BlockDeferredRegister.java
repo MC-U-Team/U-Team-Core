@@ -33,7 +33,7 @@ public class BlockDeferredRegister {
 	
 	public <B extends Block & BlockItemProvider, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
 		final RegistryObject<B> block = blocks.register(name, supplier);
-		final RegistryObject<I> item = RegistryObject.of(new ResourceLocation(blocks.getModid(), name), ForgeRegistries.ITEMS);
+		final RegistryObject<I> item = RegistryObject.create(new ResourceLocation(blocks.getModid(), name), ForgeRegistries.ITEMS);
 		
 		blockToItemsMap.put(block, item);
 		

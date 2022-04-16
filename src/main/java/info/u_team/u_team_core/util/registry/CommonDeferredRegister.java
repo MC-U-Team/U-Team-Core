@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import net.minecraft.core.Registry;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -14,6 +16,10 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class CommonDeferredRegister<R extends IForgeRegistryEntry<R>> implements Iterable<RegistryObject<R>> {
 	
+	public static <C extends IForgeRegistryEntry<C>> CommonDeferredRegister<C> create(ResourceKey<? extends Registry<C>> key, String modid) {
+		return new CommonDeferredRegister<>(key, modid);
+	}
+	
 	public static <C extends IForgeRegistryEntry<C>> CommonDeferredRegister<C> create(IForgeRegistry<C> registry, String modid) {
 		return new CommonDeferredRegister<>(registry, modid);
 	}
@@ -21,6 +27,11 @@ public class CommonDeferredRegister<R extends IForgeRegistryEntry<R>> implements
 	private final String modid;
 	
 	private final DeferredRegister<R> register;
+	
+	protected CommonDeferredRegister(ResourceKey<? extends Registry<R>> key, String modid) {
+		this.modid = modid;
+		register = DeferredRegister.create(key, modid);
+	}
 	
 	protected CommonDeferredRegister(IForgeRegistry<R> registry, String modid) {
 		this.modid = modid;
@@ -50,6 +61,10 @@ public class CommonDeferredRegister<R extends IForgeRegistryEntry<R>> implements
 	@Override
 	public Iterator<RegistryObject<R>> iterator() {
 		return getEntries().iterator();
+	}
+	
+	public DeferredRegister<R> getRegister() {
+		return register;
 	}
 	
 }
