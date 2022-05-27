@@ -46,7 +46,7 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 					return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, recipeWrapper, level).isPresent();
 				}).collect(Collectors.toList());
 		
-		registration.addIngredientInfo(items, VanillaTypes.ITEM, new TranslatableComponent("jei.uteamcore.dyeable.info"));
+		registration.addIngredientInfo(items, VanillaTypes.ITEM_STACK, new TranslatableComponent("jei.uteamcore.dyeable.info"));
 	}
 	
 }
