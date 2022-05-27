@@ -14,7 +14,7 @@ buildscript {
 	dependencies {
 		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
 		classpath group: "org.parchmentmc", name: "librarian", version: "1.+", changing: true
-		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "1.1.1"
+		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "1.2.0"
 		classpath group: "info.u-team.curse_gradle_uploader", name: "curse_gradle_uploader", version: "1.5.0"
 	}
 }
@@ -31,15 +31,12 @@ version = gradlefiles.version()
 
 gradlefiles {
 	vendor "Team UTeam"
-	
-	signJars true
 }
 
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
 	}
-	withDeobfJar()
 	withSourcesJar()
 	withJavadocJar()
 }
@@ -112,7 +109,7 @@ minecraft {
 	}
 }
 
-tasks.create("testJar", Jar) {
+def testJarTask = tasks.create("testJar", Jar) {
 	archiveClassifier = "test"
 	
 	from sourceSets.test.output
@@ -120,17 +117,15 @@ tasks.create("testJar", Jar) {
 
 gradlefiles.createReobfJar(tasks.getByName("testJar"))
 
-tasks.create("testDeobfJar", Jar) {
-	archiveClassifier = "testdeobf"
-	
-	from sourceSets.test.output
-}
-
-tasks.create("testSourcesJar", Jar) {
+def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
 	
 	from sourceSets.test.allJava
 }
+
+def assembleTask = tasks.findByName(org.gradle.language.base.plugins.LifecycleBasePlugin.ASSEMBLE_TASK_NAME)
+assembleTask.dependsOn(testJarTask)
+assembleTask.dependsOn(testSourcesJar)
 
 tasks.withType(Jar) { task ->
 	gradlefiles.defaultJar(task)
@@ -139,6 +134,9 @@ tasks.withType(Jar) { task ->
 tasks.withType(Javadoc) { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
+
+gradlefiles.signDefaultForgeJar()
+gradlefiles.signJar("reobfTestJar")
 
 sourceSets {
 	main {
@@ -215,7 +213,6 @@ publishing {
 			
 			from components.java
 			artifact tasks.getByName("testJar")
-			artifact tasks.getByName("testDeobfJar")
 			artifact tasks.getByName("testSourcesJar")
 			
 			pom {
