@@ -1,3 +1,5 @@
+import cpw.mods.jarhandling.impl.Jar
+
 buildscript {
 	repositories {
 		maven {
@@ -123,9 +125,7 @@ def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
 	from sourceSets.test.allJava
 }
 
-def assembleTask = tasks.findByName(org.gradle.language.base.plugins.LifecycleBasePlugin.ASSEMBLE_TASK_NAME)
-assembleTask.dependsOn(testJarTask)
-assembleTask.dependsOn(testSourcesJar)
+gradlefiles.assembleDependOn(testJarTask, testSourcesJar)
 
 tasks.withType(Jar) { task ->
 	gradlefiles.defaultJar(task)
