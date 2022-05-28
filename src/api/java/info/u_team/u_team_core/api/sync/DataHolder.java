@@ -45,8 +45,8 @@ public abstract class DataHolder {
 	 * @return True if data has changed
 	 */
 	public boolean checkAndClearUpdateFlag() {
-		final var buffer = get();
-		final var changed = !buffer.equals(lastKnownValue);
+		final FriendlyByteBuf buffer = get();
+		final boolean changed = !buffer.equals(lastKnownValue);
 		lastKnownValue = buffer;
 		return changed;
 	}
@@ -84,7 +84,7 @@ public abstract class DataHolder {
 			@Override
 			public boolean checkAndClearUpdateFlag() {
 				final byte value = supplier.get();
-				final var changed = value != lastKnownValue;
+				final boolean changed = value != lastKnownValue;
 				lastKnownValue = value;
 				return changed;
 			}
@@ -109,7 +109,7 @@ public abstract class DataHolder {
 			@Override
 			public boolean checkAndClearUpdateFlag() {
 				final short value = supplier.get();
-				final var changed = value != lastKnownValue;
+				final boolean changed = value != lastKnownValue;
 				lastKnownValue = value;
 				return changed;
 			}
@@ -133,8 +133,8 @@ public abstract class DataHolder {
 			
 			@Override
 			public boolean checkAndClearUpdateFlag() {
-				final var value = supplier.getAsInt();
-				final var changed = value != lastKnownValue;
+				final int value = supplier.getAsInt();
+				final boolean changed = value != lastKnownValue;
 				lastKnownValue = value;
 				return changed;
 			}
@@ -158,8 +158,8 @@ public abstract class DataHolder {
 			
 			@Override
 			public boolean checkAndClearUpdateFlag() {
-				final var value = supplier.getAsLong();
-				final var changed = value != lastKnownValue;
+				final long value = supplier.getAsLong();
+				final boolean changed = value != lastKnownValue;
 				lastKnownValue = value;
 				return changed;
 			}
@@ -184,7 +184,7 @@ public abstract class DataHolder {
 			@Override
 			public boolean checkAndClearUpdateFlag() {
 				final float value = supplier.get();
-				final var changed = value != lastKnownValue;
+				final boolean changed = value != lastKnownValue;
 				lastKnownValue = value;
 				return changed;
 			}
@@ -209,7 +209,7 @@ public abstract class DataHolder {
 			@Override
 			public boolean checkAndClearUpdateFlag() {
 				final double value = supplier.get();
-				final var changed = value != lastKnownValue;
+				final boolean changed = value != lastKnownValue;
 				lastKnownValue = value;
 				return changed;
 			}
@@ -233,8 +233,8 @@ public abstract class DataHolder {
 			
 			@Override
 			public boolean checkAndClearUpdateFlag() {
-				final var value = supplier.getAsBoolean();
-				final var changed = value != lastKnownValue;
+				final boolean value = supplier.getAsBoolean();
+				final boolean changed = value != lastKnownValue;
 				lastKnownValue = value;
 				return changed;
 			}

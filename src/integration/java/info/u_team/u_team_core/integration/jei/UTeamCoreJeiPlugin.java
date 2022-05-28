@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.integration.jei;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import info.u_team.u_team_core.UCoreMod;
@@ -11,6 +12,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.DyeableLeatherItem;
@@ -31,14 +33,14 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 	
 	@Override
 	public void registerRecipes(IRecipeRegistration registration) {
-		final var level = Minecraft.getInstance().level;
+		final ClientLevel level = Minecraft.getInstance().level;
 		
-		final var handler = new UItemStackHandler(9);
-		final var recipeWrapper = new CraftingRecipeWrapper(handler, 3, 3);
+		final UItemStackHandler handler = new UItemStackHandler(9);
+		final CraftingRecipeWrapper recipeWrapper = new CraftingRecipeWrapper(handler, 3, 3);
 		
 		handler.setStackInSlot(1, new ItemStack(Items.WHITE_DYE));
 		
-		final var items = ForgeRegistries.ITEMS.getValues().stream() //
+		final List<ItemStack> items = ForgeRegistries.ITEMS.getValues().stream() //
 				.filter(item -> item instanceof DyeableItem || item instanceof DyeableLeatherItem) //
 				.map(ItemStack::new) //
 				.filter(stack -> {

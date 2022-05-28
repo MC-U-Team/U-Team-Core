@@ -55,20 +55,20 @@ public interface DyeableItem {
 		if (!(stack.getItem() instanceof DyeableItem)) {
 			return ItemStack.EMPTY;
 		}
-		final var dyeableItem = (DyeableItem) stack.getItem();
-		final var dyedStack = stack.copy();
+		final DyeableItem dyeableItem = (DyeableItem) stack.getItem();
+		final ItemStack dyedStack = stack.copy();
 		dyedStack.setCount(1);
 		
-		final var rbgItemSum = new int[3];
-		var mostIntenseChannelSum = 0;
-		var colorItemSum = 0;
+		final int[] rbgItemSum = new int[3];
+		int mostIntenseChannelSum = 0;
+		int colorItemSum = 0;
 		
 		if (dyeableItem.hasColor(dyedStack)) {
-			final var color = dyeableItem.getColor(dyedStack);
+			final int color = dyeableItem.getColor(dyedStack);
 			
-			final var red = (color >> 16 & 255) / 255.0F;
-			final var green = (color >> 8 & 255) / 255.0F;
-			final var blue = (color & 255) / 255.0F;
+			final float red = (color >> 16 & 255) / 255.0F;
+			final float green = (color >> 8 & 255) / 255.0F;
+			final float blue = (color & 255) / 255.0F;
 			
 			mostIntenseChannelSum = (int) (mostIntenseChannelSum + Math.max(red, Math.max(green, blue)) * 255.0F);
 			
@@ -79,12 +79,12 @@ public interface DyeableItem {
 			++colorItemSum;
 		}
 		
-		for (final var dye : dyeList) {
-			final var colorComponents = dye.getTextureDiffuseColors();
+		for (final DyeColor dye : dyeList) {
+			final float[] colorComponents = dye.getTextureDiffuseColors();
 			
-			final var red = (int) (colorComponents[0] * 255.0F);
-			final var green = (int) (colorComponents[1] * 255.0F);
-			final var blue = (int) (colorComponents[2] * 255.0F);
+			final int red = (int) (colorComponents[0] * 255.0F);
+			final int green = (int) (colorComponents[1] * 255.0F);
+			final int blue = (int) (colorComponents[2] * 255.0F);
 			
 			mostIntenseChannelSum += Math.max(red, Math.max(green, blue));
 			
@@ -95,18 +95,18 @@ public interface DyeableItem {
 			++colorItemSum;
 		}
 		
-		var red = rbgItemSum[0] / colorItemSum;
-		var green = rbgItemSum[1] / colorItemSum;
-		var blue = rbgItemSum[2] / colorItemSum;
+		int red = rbgItemSum[0] / colorItemSum;
+		int green = rbgItemSum[1] / colorItemSum;
+		int blue = rbgItemSum[2] / colorItemSum;
 		
-		final var averageChannel = mostIntenseChannelSum / (float) colorItemSum; // float division
+		final float averageChannel = mostIntenseChannelSum / (float) colorItemSum; // float division
 		final float mostIntenseChannel = Math.max(red, Math.max(green, blue));
 		
 		red = (int) (red * averageChannel / mostIntenseChannel);
 		green = (int) (green * averageChannel / mostIntenseChannel);
 		blue = (int) (blue * averageChannel / mostIntenseChannel);
 		
-		var finalColor = (red << 8) + green;
+		int finalColor = (red << 8) + green;
 		finalColor = (finalColor << 8) + blue;
 		
 		dyeableItem.setColor(dyedStack, finalColor);
