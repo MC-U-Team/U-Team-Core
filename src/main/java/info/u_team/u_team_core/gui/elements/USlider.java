@@ -29,9 +29,6 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	protected TextureProvider sliderTextureProvider;
 	protected RGBA sliderColor;
 	
-	protected RGBA textColor;
-	protected RGBA disabledTextColor;
-	
 	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer) {
 		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, EMPTY_SLIDER);
 	}
@@ -51,8 +48,6 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 		sliderBackgroundColor = WHITE;
 		sliderTextureProvider = new WidgetTextureProvider(this, hovered -> hovered ? 2 : 1);
 		sliderColor = WHITE;
-		textColor = WHITE;
-		disabledTextColor = LIGHT_GRAY;
 	}
 	
 	public RGBA getSliderBackgroundColor() {
@@ -69,26 +64,6 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	
 	public void setSliderColor(RGBA sliderColor) {
 		this.sliderColor = sliderColor;
-	}
-	
-	@Override
-	public RGBA getTextColor() {
-		return textColor;
-	}
-	
-	@Override
-	public void setTextColor(RGBA textColor) {
-		this.textColor = textColor;
-	}
-	
-	@Override
-	public RGBA getDisabledTextColor() {
-		return disabledTextColor;
-	}
-	
-	@Override
-	public void setDisabledTextColor(RGBA disabledTextColor) {
-		this.disabledTextColor = disabledTextColor;
 	}
 	
 	@Override
