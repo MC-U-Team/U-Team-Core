@@ -26,7 +26,7 @@ public class AutoSmeltLootModifier extends LootModifier {
 	}
 	
 	private static ItemStack smeltItem(ItemStack stack, LootContext context) {
-		final var container = new SimpleContainer(stack);
+		final SimpleContainer container = new SimpleContainer(stack);
 		
 		return context.getLevel() //
 				.getRecipeManager() //

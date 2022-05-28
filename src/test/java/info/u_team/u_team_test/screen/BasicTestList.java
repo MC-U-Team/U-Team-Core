@@ -12,7 +12,7 @@ public class BasicTestList extends ScrollableList<BasicTestListEntry> {
 		setRenderTransparentBorder(true);
 		setTransparentBorderSize(10);
 		
-		for (var i = 0; i < 50; i++) {
+		for (int index = 0; index < 50; index++) {
 			addEntry(new BasicTestListEntry());
 		}
 	}

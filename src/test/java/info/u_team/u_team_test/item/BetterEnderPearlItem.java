@@ -21,14 +21,14 @@ public class BetterEnderPearlItem extends UItem {
 	
 	@Override
 	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
-		final var stack = player.getItemInHand(hand);
+		final ItemStack stack = player.getItemInHand(hand);
 		
 		world.playSound(null, player.getX(), player.getY(), player.getZ(), TestSoundEvents.BETTER_ENDERPEARL_USE.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 1.5F));
 		
 		player.getCooldowns().addCooldown(this, 10);
 		
 		if (!world.isClientSide()) {
-			final var pearl = new BetterEnderPearl(world, player);
+			final BetterEnderPearl pearl = new BetterEnderPearl(world, player);
 			pearl.setItem(stack);
 			pearl.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.2F);
 			world.addFreshEntity(pearl);

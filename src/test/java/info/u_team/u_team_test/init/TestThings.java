@@ -5,8 +5,11 @@ import org.apache.logging.log4j.Logger;
 
 import info.u_team.u_team_core.api.construct.Construct;
 import info.u_team.u_team_core.api.construct.ModConstruct;
+import info.u_team.u_team_core.util.registry.BlockRegistryObject;
 import info.u_team.u_team_core.util.registry.BusRegister;
 import info.u_team.u_team_test.TestMod;
+import info.u_team.u_team_test.block.BasicBlock;
+import net.minecraft.world.item.BlockItem;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Construct(modid = TestMod.MODID)
@@ -30,7 +33,7 @@ public class TestThings implements ModConstruct {
 	}
 	
 	private static void setup(FMLCommonSetupEvent event) {
-		final var registryObject = TestBlocks.BASIC;
+		final BlockRegistryObject<BasicBlock, BlockItem> registryObject = TestBlocks.BASIC;
 		
 		if (!registryObject.getItem().getRegistryName().equals(registryObject.getItemId())) {
 			throw new IllegalStateException("Registry name of item must be set and match the expected one");

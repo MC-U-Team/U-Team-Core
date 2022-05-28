@@ -19,7 +19,7 @@ public class TestDataGenerator {
 	
 	@SubscribeEvent
 	public static void data(GatherDataEvent event) {
-		final var data = new GenerationData(TestMod.MODID, event);
+		final GenerationData data = new GenerationData(TestMod.MODID, event);
 		if (event.includeServer()) {
 			data.addProvider(TestBlockTagsProvider::new);
 			data.addProvider(TestItemTagsProvider::new);

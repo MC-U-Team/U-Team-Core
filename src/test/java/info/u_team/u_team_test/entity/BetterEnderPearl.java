@@ -50,12 +50,12 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 	protected void onHit(HitResult result) {
 		super.onHit(result);
 		
-		for (var i = 0; i < 32; ++i) {
+		for (int index = 0; index < 32; ++index) {
 			level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + random.nextDouble() * 2.0D, this.getZ(), random.nextGaussian(), 0.0D, random.nextGaussian());
 		}
 		
 		if (!level.isClientSide && !isRemoved()) {
-			var entity = getOwner();
+			final Entity entity = getOwner();
 			if (entity instanceof ServerPlayer player) {
 				if (player.connection.getConnection().isConnected() && player.level == level && !player.isSleeping()) {
 					
@@ -79,7 +79,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 	
 	@Override
 	public void tick() {
-		var entity = getOwner();
+		Entity entity = getOwner();
 		if (entity instanceof Player && !entity.isAlive()) {
 			discard();
 		} else {
@@ -91,7 +91,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 	@Override
 	@Nullable
 	public Entity changeDimension(ServerLevel level, net.minecraftforge.common.util.ITeleporter teleporter) {
-		var entity = getOwner();
+		Entity entity = getOwner();
 		if (entity != null && entity.level.dimension() != level.dimension()) {
 			setOwner(null);
 		}
