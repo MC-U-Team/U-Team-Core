@@ -11,9 +11,12 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.network.chat.Style;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class ItemStackInfoSubCommand {
@@ -25,8 +28,8 @@ public class ItemStackInfoSubCommand {
 	}
 	
 	private static int execute(CommandSourceStack source) throws CommandSyntaxException {
-		final var stack = source.getPlayerOrException().getMainHandItem();
-		final var item = stack.getItem();
+		final ItemStack stack = source.getPlayerOrException().getMainHandItem();
+		final Item item = stack.getItem();
 		
 		source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item)), false);
 		
@@ -42,8 +45,8 @@ public class ItemStackInfoSubCommand {
 	
 	private static Component createRegistryInfo(IForgeRegistryEntry<?> entry) {
 		final MutableComponent component = new TextComponent(entry.getRegistryName().toString());
-		var style = component.getStyle();
-		final var className = getClassString(entry);
+		Style style = component.getStyle();
+		final String className = getClassString(entry);
 		style = style.withColor(ChatFormatting.AQUA);
 		style = style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent(className).withStyle(ChatFormatting.YELLOW)));
 		style = style.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));

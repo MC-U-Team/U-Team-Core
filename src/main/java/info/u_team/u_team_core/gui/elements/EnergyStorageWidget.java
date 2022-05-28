@@ -6,6 +6,7 @@ import java.util.function.LongSupplier;
 import java.util.function.Supplier;
 
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
@@ -58,15 +59,15 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	
 	@Override
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		var ratio = (double) storage.getAsLong() / capacity.getAsLong();
+		double ratio = (double) storage.getAsLong() / capacity.getAsLong();
 		if (ratio > 1) {
 			ratio = 1;
 		}
 		
-		final var storageOffset = (int) ((1 - ratio) * (height - 2));
+		final int storageOffset = (int) ((1 - ratio) * (height - 2));
 		
-		final var tessellator = Tesselator.getInstance();
-		final var bufferBuilder = tessellator.getBuilder();
+		final Tesselator tessellator = Tesselator.getInstance();
+		final BufferBuilder bufferBuilder = tessellator.getBuilder();
 		
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, texture);
@@ -77,11 +78,11 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
-		for (var yComponent = 1; yComponent < height - 1; yComponent += 2) {
+		for (int yComponent = 1; yComponent < height - 1; yComponent += 2) {
 			RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 2, 0, 12 / 16f, 0, 2 / 16f, getBlitOffset()); // Background
 		}
 		
-		for (var yComponent = 1 + storageOffset; yComponent < height - 1; yComponent++) {
+		for (int yComponent = 1 + storageOffset; yComponent < height - 1; yComponent++) {
 			if (yComponent % 2 == 0) {
 				RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 1, 0, 12 / 16f, 3 / 16f, 4 / 16f, getBlitOffset()); // Background
 			} else {
@@ -102,7 +103,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	@Override
 	public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		if (isHovered) {
-			final var minecraft = Minecraft.getInstance();
+			final Minecraft minecraft = Minecraft.getInstance();
 			
 			final String storageString, capacityString;
 			

@@ -24,7 +24,7 @@ public class ContainerSetFluidContentMessage {
 		
 		this.fluids = NonNullList.withSize(fluids.size(), FluidStack.EMPTY);
 		
-		for (var index = 0; index < fluids.size(); index++) {
+		for (int index = 0; index < fluids.size(); index++) {
 			this.fluids.set(index, fluids.get(index).copy());
 		}
 	}
@@ -36,16 +36,16 @@ public class ContainerSetFluidContentMessage {
 	}
 	
 	public static ContainerSetFluidContentMessage decode(FriendlyByteBuf byteBuf) {
-		final var containerId = byteBuf.readByte();
-		final var stateId = byteBuf.readVarInt();
-		final var fluids = byteBuf.readCollection(NonNullList::createWithCapacity, FriendlyByteBuf::readFluidStack);
+		final byte containerId = byteBuf.readByte();
+		final int stateId = byteBuf.readVarInt();
+		final List<FluidStack> fluids = byteBuf.readCollection(NonNullList::createWithCapacity, FriendlyByteBuf::readFluidStack);
 		return new ContainerSetFluidContentMessage(containerId, stateId, fluids);
 	}
 	
 	public static class Handler {
 		
 		public static void handle(ContainerSetFluidContentMessage message, Supplier<Context> contextSupplier) {
-			final var context = contextSupplier.get();
+			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
 				testContainerMenu(Minecraft.getInstance().player.containerMenu, message.containerId).ifPresent(menu -> menu.initializeFluidContents(message.stateId, message.fluids));
 			});

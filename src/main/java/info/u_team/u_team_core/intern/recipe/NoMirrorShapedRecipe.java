@@ -23,8 +23,8 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 	
 	@Override
 	public boolean matches(CraftingContainer container, Level level) {
-		for (var i = 0; i <= container.getWidth() - getWidth(); ++i) {
-			for (var j = 0; j <= container.getHeight() - getHeight(); ++j) {
+		for (int i = 0; i <= container.getWidth() - getWidth(); ++i) {
+			for (int j = 0; j <= container.getHeight() - getHeight(); ++j) {
 				if (matches(container, i, j, false)) {
 					return true;
 				}
@@ -42,25 +42,25 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 		
 		@Override
 		public NoMirrorShapedRecipe fromJson(ResourceLocation location, JsonObject json) {
-			final var pattern = patternFromJson(GsonHelper.getAsJsonArray(json, "pattern"));
-			final var recipeWidth = pattern[0].length();
-			final var recipeHeight = pattern.length;
-			final var group = GsonHelper.getAsString(json, "group", "");
-			final var ingredients = deserializeIngredients(pattern, deserializeKey(GsonHelper.getAsJsonObject(json, "key")), recipeWidth, recipeHeight);
-			final var output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
+			final String[] pattern = patternFromJson(GsonHelper.getAsJsonArray(json, "pattern"));
+			final int recipeWidth = pattern[0].length();
+			final int recipeHeight = pattern.length;
+			final String group = GsonHelper.getAsString(json, "group", "");
+			final NonNullList<Ingredient> ingredients = deserializeIngredients(pattern, deserializeKey(GsonHelper.getAsJsonObject(json, "key")), recipeWidth, recipeHeight);
+			final ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
 			return new NoMirrorShapedRecipe(location, group, recipeWidth, recipeHeight, ingredients, output);
 		}
 		
 		@Override
 		public NoMirrorShapedRecipe fromNetwork(ResourceLocation location, FriendlyByteBuf buffer) {
-			final var recipeWidth = buffer.readVarInt();
-			final var recipeHeight = buffer.readVarInt();
-			final var group = buffer.readUtf(32767);
-			final var ingredients = NonNullList.withSize(recipeWidth * recipeHeight, Ingredient.EMPTY);
-			for (var k = 0; k < ingredients.size(); ++k) {
+			final int recipeWidth = buffer.readVarInt();
+			final int recipeHeight = buffer.readVarInt();
+			final String group = buffer.readUtf(32767);
+			final NonNullList<Ingredient> ingredients = NonNullList.withSize(recipeWidth * recipeHeight, Ingredient.EMPTY);
+			for (int k = 0; k < ingredients.size(); ++k) {
 				ingredients.set(k, Ingredient.fromNetwork(buffer));
 			}
-			final var output = buffer.readItem();
+			final ItemStack output = buffer.readItem();
 			return new NoMirrorShapedRecipe(location, group, recipeWidth, recipeHeight, ingredients, output);
 		}
 		
@@ -69,7 +69,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 			buffer.writeVarInt(recipe.getRecipeWidth());
 			buffer.writeVarInt(recipe.getRecipeHeight());
 			buffer.writeUtf(recipe.getGroup());
-			for (final var ingredient : recipe.getIngredients()) {
+			for (final Ingredient ingredient : recipe.getIngredients()) {
 				ingredient.toNetwork(buffer);
 			}
 			buffer.writeItem(recipe.getResultItem());

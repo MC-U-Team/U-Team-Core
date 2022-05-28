@@ -18,7 +18,7 @@ public class UItemStackHandler extends ItemStackHandler implements ExtendedItemH
 	
 	@Override
 	public CompoundTag serializeNBT() {
-		final var compound = new CompoundTag();
+		final CompoundTag compound = new CompoundTag();
 		ContainerHelper.saveAllItems(compound, stacks, false);
 		return compound;
 	}

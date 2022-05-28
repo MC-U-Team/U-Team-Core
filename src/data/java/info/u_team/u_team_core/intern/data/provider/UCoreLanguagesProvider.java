@@ -17,14 +17,14 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 	private void addUTeamCoreCommand() {
 		// Stack info
 		// English
-		final var stackInfoSuccess = "commands.uteamcore.stackinfo.success.";
+		final String stackInfoSuccess = "commands.uteamcore.stackinfo.success.";
 		add(stackInfoSuccess + "item", "Item: %s");
 		add(stackInfoSuccess + "block", "Block: %s");
 		add(stackInfoSuccess + "nbt", "NBT: %s");
 		
 		// Ping
 		// English
-		final var pingSuccess = "commands.uteamcore.ping.success.";
+		final String pingSuccess = "commands.uteamcore.ping.success.";
 		add(pingSuccess + "self", "Your ping is %sms");
 		add(pingSuccess + "other", "%s's ping is %sms");
 		
@@ -34,7 +34,7 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 		
 		// Dim teleport
 		// English
-		final var dimTeleportSuccess = "commands.uteamcore.dimteleport.success.";
+		final String dimTeleportSuccess = "commands.uteamcore.dimteleport.success.";
 		add(dimTeleportSuccess + "single", "Teleported %s to %s");
 		add(dimTeleportSuccess + "multiple", "Teleported %s entities to %s");
 		add(dimTeleportSuccess + "position.single", "Teleported %s to %s at %s, %s, %s");

@@ -54,7 +54,7 @@ public abstract class UBlockEntity extends BlockEntity {
 	// TODO save methods have changed. Some parts here might not work, Wait for some forge changes!
 	@Override
 	public CompoundTag getUpdateTag() {
-		final var tag = super.getUpdateTag();
+		final CompoundTag tag = super.getUpdateTag();
 		sendChunkLoadData(tag);
 		return tag;
 	}
@@ -87,7 +87,7 @@ public abstract class UBlockEntity extends BlockEntity {
 	
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
-		final var tag = new CompoundTag();
+		final CompoundTag tag = new CompoundTag();
 		sendUpdateStateData(tag);
 		if (!tag.isEmpty()) {
 			return ClientboundBlockEntityDataPacket.create(this);
@@ -134,7 +134,7 @@ public abstract class UBlockEntity extends BlockEntity {
 	 * @param flags Are described above
 	 */
 	public void sendChangesToClient(int flags) {
-		final var state = getBlockState();
+		final BlockState state = getBlockState();
 		level.sendBlockUpdated(worldPosition, state, state, flags);
 	}
 	

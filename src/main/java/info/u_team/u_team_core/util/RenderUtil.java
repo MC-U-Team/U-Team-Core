@@ -35,8 +35,8 @@ public class RenderUtil {
 	 * @param color The shader color. If using {@link RGBA#WHITE} then the drawing will not be colored
 	 */
 	public static void drawContainerBorder(PoseStack poseStack, int x, int y, int width, int height, float blitOffset, RGBA color) {
-		final var tessellator = Tesselator.getInstance();
-		final var bufferBuilder = tessellator.getBuilder();
+		final Tesselator tessellator = Tesselator.getInstance();
+		final BufferBuilder bufferBuilder = tessellator.getBuilder();
 		
 		RenderSystem.setShader(GameRenderer::getPositionColorShader);
 		setShaderColor(color);
@@ -84,20 +84,20 @@ public class RenderUtil {
 	 * @param color The shader color. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
 	public static void drawContinuousTexturedBox(PoseStack poseStack, int x, int y, int u, int v, int width, int height, int textureWidth, int textureHeight, int topBorder, int bottomBorder, int leftBorder, int rightBorder, float blitOffset, ResourceLocation texture, RGBA color) {
-		final var fillerWidth = textureWidth - leftBorder - rightBorder;
-		final var fillerHeight = textureHeight - topBorder - bottomBorder;
-		final var canvasWidth = width - leftBorder - rightBorder;
-		final var canvasHeight = height - topBorder - bottomBorder;
-		final var xPasses = canvasWidth / fillerWidth;
-		final var remainderWidth = canvasWidth % fillerWidth;
-		final var yPasses = canvasHeight / fillerHeight;
-		final var remainderHeight = canvasHeight % fillerHeight;
+		final int fillerWidth = textureWidth - leftBorder - rightBorder;
+		final int fillerHeight = textureHeight - topBorder - bottomBorder;
+		final int canvasWidth = width - leftBorder - rightBorder;
+		final int canvasHeight = height - topBorder - bottomBorder;
+		final int xPasses = canvasWidth / fillerWidth;
+		final int remainderWidth = canvasWidth % fillerWidth;
+		final int yPasses = canvasHeight / fillerHeight;
+		final int remainderHeight = canvasHeight % fillerHeight;
 		
-		final var uScale = 1f / 256;
-		final var vScale = 1f / 256;
+		final float uScale = 1f / 256;
+		final float vScale = 1f / 256;
 		
-		final var tessellator = Tesselator.getInstance();
-		final var bufferBuilder = tessellator.getBuilder();
+		final Tesselator tessellator = Tesselator.getInstance();
+		final BufferBuilder bufferBuilder = tessellator.getBuilder();
 		
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, texture);
@@ -118,20 +118,20 @@ public class RenderUtil {
 		// Bottom Right
 		addTexturedRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y + topBorder + canvasHeight, u + leftBorder + fillerWidth, v + topBorder + fillerHeight, uScale, vScale, rightBorder, bottomBorder, blitOffset);
 		
-		for (var index = 0; index < xPasses + (remainderWidth > 0 ? 1 : 0); index++) {
+		for (int index = 0; index < xPasses + (remainderWidth > 0 ? 1 : 0); index++) {
 			// Top Border
 			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (index * fillerWidth), y, u + leftBorder, v, uScale, vScale, (index == xPasses ? remainderWidth : fillerWidth), topBorder, blitOffset);
 			// Bottom Border
 			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (index * fillerWidth), y + topBorder + canvasHeight, u + leftBorder, v + topBorder + fillerHeight, uScale, vScale, (index == xPasses ? remainderWidth : fillerWidth), bottomBorder, blitOffset);
 			
 			// Throw in some filler for good measure
-			for (var j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
+			for (int j = 0; j < yPasses + (remainderHeight > 0 ? 1 : 0); j++) {
 				addTexturedRect(bufferBuilder, poseStack, x + leftBorder + (index * fillerWidth), y + topBorder + (j * fillerHeight), u + leftBorder, v + topBorder, uScale, vScale, (index == xPasses ? remainderWidth : fillerWidth), (j == yPasses ? remainderHeight : fillerHeight), blitOffset);
 			}
 		}
 		
 		// Side Borders
-		for (var index = 0; index < yPasses + (remainderHeight > 0 ? 1 : 0); index++) {
+		for (int index = 0; index < yPasses + (remainderHeight > 0 ? 1 : 0); index++) {
 			// Left Border
 			addTexturedRect(bufferBuilder, poseStack, x, y + topBorder + (index * fillerHeight), u, v + topBorder, uScale, vScale, leftBorder, (index == yPasses ? remainderHeight : fillerHeight), blitOffset);
 			// Right Border
@@ -198,8 +198,8 @@ public class RenderUtil {
 	 * @param color The shader color. If using {@link RGBA#WHITE} then the image will not be colored
 	 */
 	public static void drawTexturedQuad(PoseStack poseStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float blitOffset, ResourceLocation texture, RGBA color) {
-		final var tessellator = Tesselator.getInstance();
-		final var bufferBuilder = tessellator.getBuilder();
+		final Tesselator tessellator = Tesselator.getInstance();
+		final BufferBuilder bufferBuilder = tessellator.getBuilder();
 		
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, texture);
@@ -234,7 +234,7 @@ public class RenderUtil {
 	 * @param blitOffset zLevel for drawing
 	 */
 	public static void addTexturedRect(BufferBuilder bufferBuilder, PoseStack poseStack, int x, int y, int u, int v, float uScale, float vScale, int width, int height, float blitOffset) {
-		final var matrix = poseStack.last().pose();
+		final Matrix4f matrix = poseStack.last().pose();
 		
 		bufferBuilder.vertex(matrix, x, y + height, blitOffset).uv(u * uScale, ((v + height) * vScale)).endVertex();
 		bufferBuilder.vertex(matrix, x + width, y + height, blitOffset).uv((u + width) * uScale, ((v + height) * vScale)).endVertex();
@@ -259,7 +259,7 @@ public class RenderUtil {
 	 * @param blitOffset zLevel for drawing
 	 */
 	public static void addTexturedQuad(BufferBuilder bufferBuilder, PoseStack poseStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float blitOffset) {
-		final var matrix = poseStack.last().pose();
+		final Matrix4f matrix = poseStack.last().pose();
 		
 		bufferBuilder.vertex(matrix, x1, y2, blitOffset).uv(u1, v2).endVertex();
 		bufferBuilder.vertex(matrix, x2, y2, blitOffset).uv(u2, v2).endVertex();
@@ -281,7 +281,7 @@ public class RenderUtil {
 	 * @param blitOffset zLevel for drawing
 	 */
 	public static void addColoredQuad(BufferBuilder bufferBuilder, PoseStack poseStack, int x1, int x2, int y1, int y2, RGBA color, float blitOffset) {
-		final var matrix = poseStack.last().pose();
+		final Matrix4f matrix = poseStack.last().pose();
 		
 		bufferBuilder.vertex(matrix, x1, y2, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
 		bufferBuilder.vertex(matrix, x2, y2, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
@@ -302,7 +302,7 @@ public class RenderUtil {
 	 * @param blitOffset zLevel for drawing
 	 */
 	public static void addQuad(BufferBuilder bufferBuilder, PoseStack poseStack, int x1, int x2, int y1, int y2, float blitOffset) {
-		final var matrix = poseStack.last().pose();
+		final Matrix4f matrix = poseStack.last().pose();
 		
 		bufferBuilder.vertex(matrix, x1, y2, blitOffset).endVertex();
 		bufferBuilder.vertex(matrix, x2, y2, blitOffset).endVertex();

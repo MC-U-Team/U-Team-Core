@@ -34,7 +34,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	
 	@Override
 	public boolean mouseReleased(double mouseX, double mouseY, int button) {
-		for (final var listener : children) {
+		for (final GuiEventListener listener : children) {
 			if (listener.mouseReleased(mouseX, mouseY, button)) {
 				return true;
 			}
@@ -44,7 +44,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	
 	@Override
 	public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
-		for (final var listener : children) {
+		for (final GuiEventListener listener : children) {
 			if (listener.mouseDragged(mouseX, mouseY, button, dragX, dragY)) {
 				return true;
 			}

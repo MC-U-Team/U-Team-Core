@@ -9,7 +9,7 @@ public class SiUtil {
 		if (-1000 < value && value < 1000) {
 			return Long.toString(value) + " ";
 		}
-		final var ci = new StringCharacterIterator("kMGTPE");
+		final StringCharacterIterator ci = new StringCharacterIterator("kMGTPE");
 		while (value <= -999_950 || value >= 999_950) {
 			value /= 1000;
 			ci.next();

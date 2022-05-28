@@ -13,11 +13,14 @@ import info.u_team.u_team_core.intern.network.ContainerSetFluidContentMessage;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidSlotMessage;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 import net.minecraftforge.network.PacketDistributor;
@@ -70,7 +73,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	// Called when a client clicks on a fluid slot
 	
 	public void fluidSlotClick(ServerPlayer player, int index, boolean shift, ItemStack clientClickStack) {
-		final var serverClickStack = getCarried();
+		final ItemStack serverClickStack = getCarried();
 		
 		// Check if an item is in the hand
 		
@@ -80,7 +83,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			return;
 		}
 		
-		final var fluidSlot = fluidSlots.get(index);
+		final FluidSlot fluidSlot = fluidSlots.get(index);
 		
 		final Optional<FluidStack> containedFluidOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(serverClickStack, 1)).map(handler -> handler.drain(Integer.MAX_VALUE, FluidAction.SIMULATE));
 		
@@ -89,16 +92,16 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			return;
 		}
 		
-		final var maximumTries = shift ? serverClickStack.getCount() : 1;
+		final int maximumTries = shift ? serverClickStack.getCount() : 1;
 		
 		if (!containedFluidOptional.orElseThrow(AssertionError::new).isEmpty()) {
-			for (var i = 0; i < maximumTries; i++) {
+			for (int i = 0; i < maximumTries; i++) {
 				if (!insertFluidFromItem(player, fluidSlot, shift)) {
 					break;
 				}
 			}
 		} else {
-			for (var i = 0; i < maximumTries; i++) {
+			for (int i = 0; i < maximumTries; i++) {
 				if (!extractFluidToItem(player, fluidSlot, shift)) {
 					break;
 				}
@@ -109,32 +112,32 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	// TODO make this method better
 	private boolean insertFluidFromItem(ServerPlayer player, FluidSlot fluidSlot, boolean shift) {
 		
-		final var playerInventory = new PlayerMainInvWrapper(player.getInventory());
+		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.getInventory());
 		
-		final var stack = getCarried();
+		final ItemStack stack = getCarried();
 		
-		final var fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
+		final LazyOptional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
 		
 		if (!fluidHandlerOptional.isPresent()) {
 			return false;
 		}
 		
-		final var handler = fluidHandlerOptional.orElseThrow(AssertionError::new);
+		final IFluidHandlerItem handler = fluidHandlerOptional.orElseThrow(AssertionError::new);
 		
-		final var maxAmountToFill = fluidSlot.getRemainingSlotCapacity();
-		final var drainedFluidStack = handler.drain(maxAmountToFill, FluidAction.EXECUTE);
+		final int maxAmountToFill = fluidSlot.getRemainingSlotCapacity();
+		final FluidStack drainedFluidStack = handler.drain(maxAmountToFill, FluidAction.EXECUTE);
 		
 		if (drainedFluidStack.isEmpty() || !fluidSlot.mayPlace(drainedFluidStack)) {
 			return false;
 		}
 		
-		final var slotEmpty = fluidSlot.getFluid().isEmpty();
+		final boolean slotEmpty = fluidSlot.getFluid().isEmpty();
 		
 		if (!slotEmpty && !drainedFluidStack.isFluidEqual(fluidSlot.getFluid())) {
 			return false;
 		}
 		
-		final var outputStack = handler.getContainer();
+		final ItemStack outputStack = handler.getContainer();
 		
 		if (stack.getCount() == 1 && !shift) {
 			if (slotEmpty) {
@@ -167,25 +170,25 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	// TODO make this method better (maybe extract to an other class??)
 	private boolean extractFluidToItem(ServerPlayer player, FluidSlot fluidSlot, boolean shift) {
 		
-		final var playerInventory = new PlayerMainInvWrapper(player.getInventory());
+		final PlayerMainInvWrapper playerInventory = new PlayerMainInvWrapper(player.getInventory());
 		
-		final var stack = getCarried();
+		final ItemStack stack = getCarried();
 		
-		final var fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
+		final LazyOptional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
 		
 		if (!fluidHandlerOptional.isPresent()) {
 			return false;
 		}
 		
-		final var handler = fluidHandlerOptional.orElseThrow(AssertionError::new);
+		final IFluidHandlerItem handler = fluidHandlerOptional.orElseThrow(AssertionError::new);
 		
-		final var amountFilled = handler.fill(fluidSlot.getFluid(), FluidAction.EXECUTE);
+		final int amountFilled = handler.fill(fluidSlot.getFluid(), FluidAction.EXECUTE);
 		
 		if (amountFilled <= 0) {
 			return false;
 		}
 		
-		final var outputStack = handler.getContainer();
+		final ItemStack outputStack = handler.getContainer();
 		
 		if (stack.getCount() == 1 && !shift) {
 			fluidSlot.getFluid().shrink(amountFilled);
@@ -220,7 +223,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 */
 	@Override
 	public void sendAllDataToRemote() {
-		for (var slot = 0; slot < fluidSlots.size(); slot++) {
+		for (int slot = 0; slot < fluidSlots.size(); slot++) {
 			remoteFluidSlots.set(slot, fluidSlots.get(slot).getFluid().copy());
 		}
 		
@@ -236,9 +239,9 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 */
 	@Override
 	public void broadcastChanges() {
-		for (var slot = 0; slot < fluidSlots.size(); slot++) {
-			final var stack = fluidSlots.get(slot).getFluid();
-			final var supplier = Suppliers.memoize(stack::copy);
+		for (int slot = 0; slot < fluidSlots.size(); slot++) {
+			final FluidStack stack = fluidSlots.get(slot).getFluid();
+			final Supplier<FluidStack> supplier = Suppliers.memoize(stack::copy);
 			triggerFluidSlotListeners(slot, stack, supplier);
 			synchronizeFluidSlotToRemote(slot, stack, supplier);
 		}
@@ -251,8 +254,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 */
 	@Override
 	public void broadcastFullState() {
-		for (var slot = 0; slot < fluidSlots.size(); slot++) {
-			final var stack = fluidSlots.get(slot).getFluid();
+		for (int slot = 0; slot < fluidSlots.size(); slot++) {
+			final FluidStack stack = fluidSlots.get(slot).getFluid();
 			triggerFluidSlotListeners(slot, stack, stack::copy);
 		}
 		
@@ -267,12 +270,12 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param supplier Supplier to get a copy of the fluid stack
 	 */
 	private void triggerFluidSlotListeners(int slotId, FluidStack stack, Supplier<FluidStack> supplier) {
-		final var lastStack = lastFluidSlots.get(slotId);
+		final FluidStack lastStack = lastFluidSlots.get(slotId);
 		if (!lastStack.isFluidStackIdentical(stack)) {
-			final var copy = supplier.get();
+			final FluidStack copy = supplier.get();
 			lastFluidSlots.set(slotId, copy);
 			
-			for (var listener : containerListeners) {
+			for (ContainerListener listener : containerListeners) {
 				if (listener instanceof FluidContainerListener fluidListener) {
 					fluidListener.fluidSlotChanged(this, slotId, copy);
 				}
@@ -289,9 +292,9 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 */
 	private void synchronizeFluidSlotToRemote(int slotId, FluidStack stack, Supplier<FluidStack> supplier) {
 		if (!suppressRemoteUpdates) {
-			final var remoteStack = remoteFluidSlots.get(slotId);
+			final FluidStack remoteStack = remoteFluidSlots.get(slotId);
 			if (!remoteStack.isFluidStackIdentical(stack)) {
-				final var copy = supplier.get();
+				final FluidStack copy = supplier.get();
 				remoteFluidSlots.set(slotId, copy);
 				
 				if (getSynchronizerPlayer() != null) {
@@ -340,7 +343,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param stacks Fluid stacks
 	 */
 	public void initializeFluidContents(int stateId, List<FluidStack> stacks) {
-		for (var index = 0; index < stacks.size(); index++) {
+		for (int index = 0; index < stacks.size(); index++) {
 			getFluidSlot(index).set(stacks.get(index));
 		}
 		this.stateId = stateId;
@@ -415,8 +418,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 	 * @param y Start y
 	 */
 	protected void addFluidSlots(FluidHandlerModifiable handler, FluidSlotHandlerFunction function, int startIndex, int inventoryHeight, int inventoryWidth, int x, int y) {
-		for (var height = 0; height < inventoryHeight; height++) {
-			for (var width = 0; width < inventoryWidth; width++) {
+		for (int height = 0; height < inventoryHeight; height++) {
+			for (int width = 0; width < inventoryWidth; width++) {
 				addFluidSlot(function.getSlot(handler, startIndex + (width + height * inventoryWidth), width * 18 + x, height * 18 + y));
 			}
 		}

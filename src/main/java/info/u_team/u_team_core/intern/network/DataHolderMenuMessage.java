@@ -25,7 +25,7 @@ public record DataHolderMenuMessage(int containerId, int index, FriendlyByteBuf 
 		final int containerId = byteBuf.readByte();
 		final int index = byteBuf.readShort();
 		
-		final var bytes = new byte[byteBuf.readableBytes()]; // Is there a better way to read all bytes??
+		final byte[] bytes = new byte[byteBuf.readableBytes()]; // Is there a better way to read all bytes??
 		byteBuf.readBytes(bytes);
 		
 		return new DataHolderMenuMessage(containerId, index, new FriendlyByteBuf(Unpooled.wrappedBuffer(bytes)));
@@ -34,7 +34,7 @@ public record DataHolderMenuMessage(int containerId, int index, FriendlyByteBuf 
 	public static class Handler {
 		
 		public static void handle(DataHolderMenuMessage message, Supplier<Context> contextSupplier) {
-			final var context = contextSupplier.get();
+			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
 				if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
 					handleClient(message);

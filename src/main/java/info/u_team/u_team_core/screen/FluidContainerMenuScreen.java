@@ -14,10 +14,12 @@ import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> extends AbstractContainerScreen<T> {
@@ -40,8 +42,8 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 		if (menu instanceof FluidContainerMenu fluidMenu) {
 			hoveredFluidSlot = null;
 			
-			for (var index = 0; index < fluidMenu.fluidSlots.size(); index++) {
-				final var fluidSlot = fluidMenu.fluidSlots.get(index);
+			for (int slot = 0; slot < fluidMenu.fluidSlots.size(); slot++) {
+				final FluidSlot fluidSlot = fluidMenu.fluidSlots.get(slot);
 				
 				if (fluidSlot.isActive()) {
 					renderFluidSlot(poseStack, fluidSlot);
@@ -49,7 +51,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 					if (isHovering(fluidSlot, mouseX, mouseY)) {
 						hoveredFluidSlot = fluidSlot;
 						RenderUtil.setShaderColor(RGBA.WHITE);
-						renderSlotHighlight(poseStack, fluidSlot.getX(), fluidSlot.getY(), getBlitOffset(), getFluidSlotColor(index));
+						renderSlotHighlight(poseStack, fluidSlot.getX(), fluidSlot.getY(), getBlitOffset(), getFluidSlotColor(slot));
 					}
 				}
 			}
@@ -57,16 +59,16 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	}
 	
 	protected void renderFluidSlot(PoseStack poseStack, FluidSlot fluidSlot) {
-		final var blitOffset = 100;
+		final int blitOffset = 100;
 		setBlitOffset(blitOffset);
 		
-		final var x = fluidSlot.getX();
-		final var y = fluidSlot.getY();
+		final int x = fluidSlot.getX();
+		final int y = fluidSlot.getY();
 		
 		if (!fluidSlot.hasFluid() && fluidSlot.isActive()) {
 			final var pair = fluidSlot.getNoItemIcon();
 			if (pair != null) {
-				final var sprite = minecraft.getTextureAtlas(pair.getFirst()).apply(pair.getSecond());
+				final TextureAtlasSprite sprite = minecraft.getTextureAtlas(pair.getFirst()).apply(pair.getSecond());
 				
 				RenderUtil.drawTexturedQuad(poseStack, x, y, 16, 16, blitOffset, sprite, RGBA.WHITE);
 			}
@@ -89,7 +91,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
 		if (button == 0) {
-			final var fluidSlot = findFluidSlot(mouseX, mouseY);
+			final FluidSlot fluidSlot = findFluidSlot(mouseX, mouseY);
 			if (fluidSlot != null) {
 				if (!menu.getCarried().isEmpty()) {
 					UCoreNetwork.NETWORK.sendToServer(new FluidClickContainerMessage(menu.containerId, fluidSlot.index, hasShiftDown(), menu.getCarried()));
@@ -102,7 +104,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	
 	protected FluidSlot findFluidSlot(double mouseX, double mouseY) {
 		if (menu instanceof FluidContainerMenu fluidMenu) {
-			for (final var fluidSlot : fluidMenu.fluidSlots) {
+			for (final FluidSlot fluidSlot : fluidMenu.fluidSlots) {
 				if (isHovering(fluidSlot, mouseX, mouseY) && fluidSlot.isActive()) {
 					return fluidSlot;
 				}
@@ -120,7 +122,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	}
 	
 	public List<Component> getTooltipFromFluid(FluidSlot fluidSlot) {
-		final var stack = fluidSlot.getFluid();
+		final FluidStack stack = fluidSlot.getFluid();
 		
 		final List<Component> list = new ArrayList<>();
 		

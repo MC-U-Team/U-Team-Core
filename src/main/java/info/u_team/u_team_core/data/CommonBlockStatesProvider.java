@@ -44,7 +44,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 		registerModels0(cache);
 		models().generatedModels.values().forEach(model -> {
 			try {
-				final var location = model.getLocation();
+				final ResourceLocation location = model.getLocation();
 				CommonProvider.write(cache, model.toJson(), generator.getOutputFolder().resolve("assets/" + location.getNamespace() + "/models/" + location.getPath() + ".json"));
 			} catch (final IOException ex) {
 				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
@@ -59,7 +59,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 		
 		registeredBlocks.forEach((block, generatedState) -> {
 			try {
-				final var location = Preconditions.checkNotNull(block.getRegistryName());
+				final ResourceLocation location = Preconditions.checkNotNull(block.getRegistryName());
 				CommonProvider.write(cache, generatedState.toJson(), generator.getOutputFolder().resolve("assets/" + location.getNamespace() + "/blockstates/" + location.getPath() + ".json"));
 			} catch (final IOException ex) {
 				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
@@ -83,7 +83,7 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	
 	protected void facingBlock(Block block, Function<BlockState, ModelFile> modelFunc, int angleOffset) {
 		getVariantBuilder(block).forAllStates(state -> {
-			final var direction = state.getValue(BlockStateProperties.FACING);
+			final Direction direction = state.getValue(BlockStateProperties.FACING);
 			return ConfiguredModel.builder() //
 					.modelFile(modelFunc.apply(state)) //
 					.rotationX(direction == Direction.DOWN ? 90 : direction == Direction.UP ? 270 : 0) //

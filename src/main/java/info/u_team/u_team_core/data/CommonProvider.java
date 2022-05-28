@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.data;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.nio.file.Files;
@@ -15,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
+import com.google.gson.stream.JsonWriter;
 
 import info.u_team.u_team_core.util.GsonUtil;
 import net.minecraft.data.DataGenerator;
@@ -71,8 +73,8 @@ public abstract class CommonProvider implements DataProvider {
 	}
 	
 	public static void write(HashCache cache, JsonElement element, Path path, Gson gson) throws IOException {
-		try (final var writer = new StringWriter(); //
-				final var jsonWriter = GsonUtil.createTabWriter(gson, writer)) {
+		try (final StringWriter writer = new StringWriter(); //
+				final JsonWriter jsonWriter = GsonUtil.createTabWriter(gson, writer)) {
 			GSON.toJson(element, jsonWriter);
 			write(cache, writer.toString(), path);
 		} catch (final IOException ex) {
@@ -81,10 +83,10 @@ public abstract class CommonProvider implements DataProvider {
 	}
 	
 	public static void write(HashCache cache, String string, Path path) throws IOException {
-		final var hash = SHA1.hashUnencodedChars(string).toString();
+		final String hash = SHA1.hashUnencodedChars(string).toString();
 		if (!Objects.equals(cache.getHash(path), hash) || !Files.exists(path)) {
 			Files.createDirectories(path.getParent());
-			try (final var writer = Files.newBufferedWriter(path)) {
+			try (final BufferedWriter writer = Files.newBufferedWriter(path)) {
 				writer.write(string);
 			}
 		}

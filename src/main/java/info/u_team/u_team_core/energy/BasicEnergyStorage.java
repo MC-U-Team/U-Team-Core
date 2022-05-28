@@ -25,7 +25,7 @@ public class BasicEnergyStorage extends EnergyStorage {
 	
 	@Override
 	public int extractEnergy(int maxExtract, boolean simulate) {
-		final var value = super.extractEnergy(maxExtract, simulate);
+		final int value = super.extractEnergy(maxExtract, simulate);
 		if (!simulate) {
 			onEnergyChanged();
 		}
@@ -34,7 +34,7 @@ public class BasicEnergyStorage extends EnergyStorage {
 	
 	@Override
 	public int receiveEnergy(int maxReceive, boolean simulate) {
-		final var value = super.receiveEnergy(maxReceive, simulate);
+		final int value = super.receiveEnergy(maxReceive, simulate);
 		if (!simulate) {
 			onEnergyChanged();
 		}
@@ -69,7 +69,7 @@ public class BasicEnergyStorage extends EnergyStorage {
 	
 	@Override
 	public CompoundTag serializeNBT() {
-		final var compound = new CompoundTag();
+		final CompoundTag compound = new CompoundTag();
 		compound.putInt("energy", getEnergyStored());
 		return compound;
 	}

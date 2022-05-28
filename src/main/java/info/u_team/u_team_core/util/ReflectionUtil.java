@@ -39,7 +39,7 @@ public class ReflectionUtil {
 		try {
 			field.set(instance, value);
 		} catch (IllegalArgumentException | IllegalAccessException ex) {
-			var exception = new AccessFieldException("", ex);
+			final AccessFieldException exception = new AccessFieldException("", ex);
 			LOGGER.error("Unable to set any field {} on type {}", field.getName(), field.getDeclaringClass(), exception);
 			throw exception;
 		}
@@ -55,8 +55,8 @@ public class ReflectionUtil {
 	public static <I, V> V getValue(Field field, I instance) {
 		try {
 			return CastUtil.uncheckedCast(field.get(instance));
-		} catch (IllegalArgumentException | IllegalAccessException ex) {
-			var exception = new AccessFieldException("", ex);
+		} catch (IllegalArgumentException | IllegalAccessException | ClassCastException ex) {
+			final AccessFieldException exception = new AccessFieldException("", ex);
 			LOGGER.error("Unable to access field {} on type {}", field.getName(), field.getDeclaringClass(), exception);
 			throw exception;
 		}

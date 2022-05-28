@@ -245,10 +245,10 @@ public class RGBA {
 	 * @return RGBA object
 	 */
 	public static RGBA fromARGB(int color) {
-		final var red = (color >> 16 & 255);
-		final var green = (color >> 8 & 255);
-		final var blue = (color & 255);
-		final var alpha = (color >> 24 & 255);
+		final int red = (color >> 16 & 255);
+		final int green = (color >> 8 & 255);
+		final int blue = (color & 255);
+		final int alpha = (color >> 24 & 255);
 		return new RGBA(red, green, blue, alpha);
 	}
 }

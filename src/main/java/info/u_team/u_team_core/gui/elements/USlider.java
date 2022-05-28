@@ -163,9 +163,9 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
-		final var flag = keyCode == 263;
+		final boolean flag = keyCode == 263;
 		if (flag || keyCode == 262) {
-			final var direction = flag ? -1.0F : 1.0F;
+			final float direction = flag ? -1.0F : 1.0F;
 			setSliderValue(value + direction / (width - 8));
 		}
 		return false;
@@ -180,7 +180,7 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	}
 	
 	protected void setSliderValue(double newValue) {
-		final var oldValue = value;
+		final double oldValue = value;
 		value = Mth.clamp(newValue, 0, 1);
 		if (oldValue != value) {
 			updateSlider();

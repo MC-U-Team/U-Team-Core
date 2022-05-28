@@ -85,21 +85,21 @@ public class FluidIngredient implements Predicate<FluidStack> {
 	
 	// Network read
 	public static FluidIngredient read(FriendlyByteBuf buffer) {
-		final var amount = buffer.readInt();
-		final var length = buffer.readVarInt();
+		final int amount = buffer.readInt();
+		final int length = buffer.readVarInt();
 		
 		return new FluidIngredient(amount, Stream.generate(() -> new SingleFluidList(buffer.readFluidStack())).limit(length));
 	}
 	
 	// Serialize
 	public JsonElement serialize() {
-		final var jsonObject = new JsonObject();
+		final JsonObject jsonObject = new JsonObject();
 		jsonObject.addProperty("amount", amount);
 		
 		if (acceptedFluids.length == 1) {
 			jsonObject.add("fluids", acceptedFluids[0].serialize());
 		} else {
-			final var jsonArray = new JsonArray();
+			final JsonArray jsonArray = new JsonArray();
 			
 			for (final IFluidList list : acceptedFluids) {
 				jsonArray.add(list.serialize());
@@ -116,19 +116,19 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			throw new JsonSyntaxException("Fluid ingredient must be a json object");
 		}
 		
-		final var jsonObject = jsonElement.getAsJsonObject();
+		final JsonObject jsonObject = jsonElement.getAsJsonObject();
 		
 		if (!jsonObject.has("amount") || !jsonObject.has("fluids")) {
 			throw new JsonSyntaxException("Expected amount and fluids");
 		}
 		
-		final var amount = GsonHelper.getAsInt(jsonObject, "amount");
-		final var ingredientJsonElement = jsonObject.get("fluids");
+		final int amount = GsonHelper.getAsInt(jsonObject, "amount");
+		final JsonElement ingredientJsonElement = jsonObject.get("fluids");
 		
 		if (ingredientJsonElement.isJsonObject()) {
 			return new FluidIngredient(amount, Stream.of(deserializeFluidList(ingredientJsonElement.getAsJsonObject())));
 		} else if (ingredientJsonElement.isJsonArray()) {
-			final var jsonArray = ingredientJsonElement.getAsJsonArray();
+			final JsonArray jsonArray = ingredientJsonElement.getAsJsonArray();
 			if (jsonArray.size() == 0) {
 				throw new JsonSyntaxException("Fluid array cannot be empty, at least one fluid must be defined");
 			} else {
@@ -145,14 +145,14 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		if (jsonObject.has("fluid") && jsonObject.has("tag")) {
 			throw new JsonParseException("An ingredient entry is either a tag or a fluid, not both");
 		} else if (jsonObject.has("fluid")) {
-			final var key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "fluid"));
-			final var fluid = ForgeRegistries.FLUIDS.getValue(key);
+			final ResourceLocation key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "fluid"));
+			final Fluid fluid = ForgeRegistries.FLUIDS.getValue(key);
 			if (fluid == null) {
 				throw new JsonSyntaxException("Unknown fluid '" + key + "'");
 			}
 			return new SingleFluidList(new FluidStack(fluid, 1000));
 		} else if (jsonObject.has("tag")) {
-			final var key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "tag"));
+			final ResourceLocation key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "tag"));
 			final TagKey<Fluid> tag = TagKey.create(Registry.FLUID_REGISTRY, key);
 			return new TagList(tag);
 		} else {
@@ -182,7 +182,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		
 		@Override
 		public JsonObject serialize() {
-			final var jsonObject = new JsonObject();
+			final JsonObject jsonObject = new JsonObject();
 			jsonObject.addProperty("fluid", ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString());
 			return jsonObject;
 		}
@@ -213,7 +213,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		
 		@Override
 		public JsonObject serialize() {
-			final var jsonObject = new JsonObject();
+			final JsonObject jsonObject = new JsonObject();
 			jsonObject.addProperty("tag", tag.location().toString());
 			return jsonObject;
 		}

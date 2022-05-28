@@ -15,7 +15,7 @@ public class UCoreDataGenerator {
 	
 	@SubscribeEvent
 	public static void data(GatherDataEvent event) {
-		final var data = new GenerationData(UCoreMod.MODID, event);
+		final GenerationData data = new GenerationData(UCoreMod.MODID, event);
 		if (event.includeServer()) {
 			data.addProvider(UCoreRecipesProvider::new);
 		}

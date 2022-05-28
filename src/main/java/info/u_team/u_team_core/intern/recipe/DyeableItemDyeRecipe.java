@@ -9,6 +9,7 @@ import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.DyeItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -22,13 +23,13 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 	
 	@Override
 	public boolean matches(CraftingContainer container, Level level) {
-		var dyeableItem = ItemStack.EMPTY;
+		ItemStack dyeableItem = ItemStack.EMPTY;
 		final List<ItemStack> dyeList = Lists.newArrayList();
 		
-		for (var index = 0; index < container.getContainerSize(); ++index) {
-			final var slotStack = container.getItem(index);
+		for (int index = 0; index < container.getContainerSize(); ++index) {
+			final ItemStack slotStack = container.getItem(index);
 			if (!slotStack.isEmpty()) {
-				final var item = slotStack.getItem();
+				final Item item = slotStack.getItem();
 				if (item instanceof DyeableItem) {
 					if (!dyeableItem.isEmpty()) {
 						return false;
@@ -48,13 +49,13 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 	
 	@Override
 	public ItemStack assemble(CraftingContainer container) {
-		var dyeableItem = ItemStack.EMPTY;
+		ItemStack dyeableItem = ItemStack.EMPTY;
 		final List<DyeItem> dyeItemList = Lists.newArrayList();
 		
-		for (var index = 0; index < container.getContainerSize(); ++index) {
-			final var slotStack = container.getItem(index);
+		for (int index = 0; index < container.getContainerSize(); ++index) {
+			final ItemStack slotStack = container.getItem(index);
 			if (!slotStack.isEmpty()) {
-				final var item = slotStack.getItem();
+				final Item item = slotStack.getItem();
 				if (item instanceof DyeableItem) {
 					if (!dyeableItem.isEmpty()) {
 						return ItemStack.EMPTY;

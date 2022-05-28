@@ -7,6 +7,7 @@ import com.google.gson.JsonSyntaxException;
 
 import info.u_team.u_team_core.ingredient.FluidIngredient;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.CraftingHelper;
@@ -31,10 +32,10 @@ public class SerializeUtil {
 	}
 	
 	public static JsonElement serializeItemStack(ItemStack stack) {
-		final var itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).toString();
-		final var count = stack.getCount();
+		final String itemName = ForgeRegistries.ITEMS.getKey(stack.getItem()).toString();
+		final int count = stack.getCount();
 		if (stack.hasTag() || count != 1) {
-			final var object = new JsonObject();
+			final JsonObject object = new JsonObject();
 			object.addProperty("item", itemName);
 			if (count != 1) {
 				object.addProperty("count", stack.getCount());
@@ -53,7 +54,7 @@ public class SerializeUtil {
 			if (json.isJsonObject()) {
 				return CraftingHelper.getItemStack(json.getAsJsonObject(), true);
 			} else if (json.isJsonPrimitive()) {
-				final var item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(json.getAsString()));
+				final Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(json.getAsString()));
 				if (item == null) {
 					throw new IllegalStateException("Item: " + json.getAsString() + " does not exist");
 				}

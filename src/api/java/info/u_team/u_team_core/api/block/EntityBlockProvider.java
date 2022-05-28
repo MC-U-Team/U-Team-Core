@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.annotation.Nullable;
 
+import info.u_team.u_team_core.util.CastUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -50,7 +51,7 @@ public interface EntityBlockProvider extends EntityBlock {
 	@Nullable
 	@Override
 	default BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-		final var type = blockEntityType(pos, state);
+		final BlockEntityType<?> type = blockEntityType(pos, state);
 		if (type != null) {
 			return type.create(pos, state);
 		}
@@ -100,14 +101,14 @@ public interface EntityBlockProvider extends EntityBlock {
 			return InteractionResult.SUCCESS;
 		}
 		
-		final var serverPlayer = (ServerPlayer) player;
-		final var blockEntityOptional = getBlockEntity(level, pos);
+		final ServerPlayer serverPlayer = (ServerPlayer) player;
+		final Optional<BlockEntity> blockEntityOptional = getBlockEntity(level, pos);
 		
 		if (!blockEntityOptional.isPresent()) {
 			return InteractionResult.PASS;
 		}
 		
-		final var blockEntity = blockEntityOptional.get();
+		final BlockEntity blockEntity = blockEntityOptional.get();
 		
 		if (!(blockEntity instanceof MenuProvider)) {
 			return InteractionResult.PASS;
@@ -117,7 +118,7 @@ public interface EntityBlockProvider extends EntityBlock {
 			return InteractionResult.SUCCESS;
 		}
 		
-		final var data = new FriendlyByteBuf(Unpooled.buffer());
+		final FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
 		if (blockEntity instanceof MenuSyncedBlockEntity syncedBlockEntity) {
 			syncedBlockEntity.sendInitialMenuDataToClient(data);
 		}
@@ -141,9 +142,8 @@ public interface EntityBlockProvider extends EntityBlock {
 	 * @param pos Position of the block
 	 * @return Optional with the block entity
 	 */
-	@SuppressWarnings("unchecked")
 	private <T extends BlockEntity> Optional<T> getMatchingBlockEntity(BlockGetter level, BlockPos pos) {
-		return (Optional<T>) level.getBlockEntity(pos, blockEntityType(pos, level.getBlockState(pos)));
+		return CastUtil.uncheckedCast(level.getBlockEntity(pos, blockEntityType(pos, level.getBlockState(pos))));
 	}
 	
 }

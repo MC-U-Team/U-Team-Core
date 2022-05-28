@@ -1,10 +1,13 @@
 package info.u_team.u_team_core.util.verify;
 
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 import java.util.jar.Manifest;
+import java.util.stream.Stream;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,6 +18,7 @@ import com.google.common.io.ByteStreams;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.util.CertificateHelper;
+import net.minecraftforge.forgespi.language.IModFileInfo;
 
 // TODO evaluate if this is still useful. Forge has now a system for checking the fingerprint too, but makes this
 // information not accessible
@@ -23,8 +27,8 @@ public class JarSignVerifier {
 	private static final Logger LOGGER = LogManager.getLogger("JarSignVerifier");
 	
 	public static void checkSigned(String modid) {
-		final var watch = Stopwatch.createStarted();
-		final var status = verify(modid);
+		final Stopwatch watch = Stopwatch.createStarted();
+		final VerifyStatus status = verify(modid);
 		watch.stop();
 		LOGGER.debug("Took {} to check if mod {} is signed.", watch, modid);
 		if (status == VerifyStatus.SIGNED) {
@@ -40,7 +44,7 @@ public class JarSignVerifier {
 	}
 	
 	public static VerifyStatus verify(String modid) {
-		final var info = ModList.get().getModFileById(modid);
+		final IModFileInfo info = ModList.get().getModFileById(modid);
 		
 		// TODO replace with this as this is forge native
 		// if (info instanceof ModFileInfo concreteInfo) {
@@ -64,28 +68,28 @@ public class JarSignVerifier {
 			return VerifyStatus.DEV;
 		}
 		
-		final var path = info.getFile().getFilePath();
+		final Path path = info.getFile().getFilePath();
 		
 		if (Files.isDirectory(path)) {
 			return VerifyStatus.DEV;
 		}
 		
-		try (final var jarFile = new JarFile(path.toFile())) {
+		try (final JarFile jarFile = new JarFile(path.toFile())) {
 			
 			// Get fingerprint from manifest
-			final var fingerPrintOptional = getFingerPrint(Optional.ofNullable(jarFile.getManifest()));
+			final Optional<String> fingerPrintOptional = getFingerPrint(Optional.ofNullable(jarFile.getManifest()));
 			
 			if (!fingerPrintOptional.isPresent()) {
 				return VerifyStatus.UNSIGNED;
 			}
 			
-			final var fingerprint = fingerPrintOptional.get();
+			final String fingerprint = fingerPrintOptional.get();
 			
-			try (final var entryStream = jarFile.stream()) {
+			try (final Stream<JarEntry> entryStream = jarFile.stream()) {
 				// Check sign on every resource excluding directories and the certificate files
 				if (entryStream.filter(JarSignVerifier::checkEntryForSign).allMatch(entry -> {
 					// Read everything so the certificate gets loaded but trash the input
-					try (final var stream = jarFile.getInputStream(entry)) {
+					try (final InputStream stream = jarFile.getInputStream(entry)) {
 						ByteStreams.copy(stream, ByteStreams.nullOutputStream());
 					} catch (final Exception ex) {
 						return false;
@@ -106,7 +110,7 @@ public class JarSignVerifier {
 		if (entry.isDirectory()) {
 			return false;
 		}
-		final var name = entry.getName().toUpperCase();
+		final String name = entry.getName().toUpperCase();
 		return !name.endsWith(".SF") && !name.endsWith(".DSA") && !name.endsWith(".EC") && !name.endsWith(".RSA");
 	}
 	

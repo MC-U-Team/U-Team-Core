@@ -32,10 +32,10 @@ public class ContainerSetFluidSlotMessage {
 	}
 	
 	public static ContainerSetFluidSlotMessage decode(FriendlyByteBuf byteBuf) {
-		final var containerId = byteBuf.readByte();
-		final var stateId = byteBuf.readVarInt();
-		final var slot = byteBuf.readShort();
-		final var stack = byteBuf.readFluidStack();
+		final byte containerId = byteBuf.readByte();
+		final int stateId = byteBuf.readVarInt();
+		final short slot = byteBuf.readShort();
+		final FluidStack stack = byteBuf.readFluidStack();
 		
 		return new ContainerSetFluidSlotMessage(containerId, stateId, slot, stack);
 	}
@@ -43,7 +43,7 @@ public class ContainerSetFluidSlotMessage {
 	public static class Handler {
 		
 		public static void handle(ContainerSetFluidSlotMessage message, Supplier<Context> contextSupplier) {
-			final var context = contextSupplier.get();
+			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
 				testContainerMenu(Minecraft.getInstance().player.containerMenu, message.containerId).ifPresent(container -> container.setFluid(message.slot, message.stateId, message.stack));
 			});

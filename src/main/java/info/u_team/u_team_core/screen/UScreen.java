@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.RenderTickable;
 import info.u_team.u_team_core.util.WidgetUtil;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
@@ -38,8 +39,8 @@ public class UScreen extends Screen implements PerspectiveRenderable {
 	
 	@Override
 	public void tick() {
-		for (final var listener : children()) {
-			if (listener instanceof RenderTickable tickable) {
+		for (final GuiEventListener listener : children()) {
+			if (listener instanceof final RenderTickable tickable) {
 				tickable.renderTick();
 			}
 		}

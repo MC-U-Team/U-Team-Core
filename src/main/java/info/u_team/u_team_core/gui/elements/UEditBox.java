@@ -158,28 +158,28 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final var currentTextColor = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks);
+		final RGBA currentTextColor = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks);
 		
-		final var currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
+		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
 		
-		final var cursorOffset = cursorPos - displayPos;
-		final var selectionOffset = Math.min(highlightPos - displayPos, currentText.length());
+		final int cursorOffset = cursorPos - displayPos;
+		final int selectionOffset = Math.min(highlightPos - displayPos, currentText.length());
 		
-		final var isCursorInText = cursorOffset >= 0 && cursorOffset <= currentText.length();
-		final var shouldCursorBlink = isFocused() && frame / 6 % 2 == 0 && isCursorInText;
-		final var isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
+		final boolean isCursorInText = cursorOffset >= 0 && cursorOffset <= currentText.length();
+		final boolean shouldCursorBlink = isFocused() && frame / 6 % 2 == 0 && isCursorInText;
+		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 		
-		final var xOffset = bordered ? x + 4 : x;
-		final var yOffset = bordered ? y + (height - 8) / 2 : y;
+		final int xOffset = bordered ? x + 4 : x;
+		final int yOffset = bordered ? y + (height - 8) / 2 : y;
 		
-		var leftRenderedTextX = xOffset;
+		int leftRenderedTextX = xOffset;
 		
 		if (!currentText.isEmpty()) {
-			final var firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
+			final String firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
 			leftRenderedTextX = font.drawShadow(poseStack, formatter.apply(firstTextPart, displayPos), xOffset, yOffset, currentTextColor.getColorARGB());
 		}
 		
-		var rightRenderedTextX = leftRenderedTextX;
+		int rightRenderedTextX = leftRenderedTextX;
 		
 		if (!isCursorInText) {
 			rightRenderedTextX = cursorOffset > 0 ? xOffset + width : xOffset;
@@ -205,7 +205,7 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 		}
 		
 		if (selectionOffset != cursorOffset) {
-			final var selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
+			final int selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
 			renderHighlight(rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
 		}
 	}

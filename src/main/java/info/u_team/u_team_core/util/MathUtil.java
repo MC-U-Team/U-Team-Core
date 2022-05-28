@@ -37,17 +37,17 @@ public class MathUtil {
 	 * @return Rotated vector
 	 */
 	public static Vec3 rotateVectorCC(Vec3 vec, Vec3 axis, double angle) {
-		final var x = vec.x();
-		final var y = vec.y();
-		final var z = vec.z();
+		final double x = vec.x();
+		final double y = vec.y();
+		final double z = vec.z();
 		
-		final var u = axis.x();
-		final var v = axis.y();
-		final var w = axis.z();
+		final double u = axis.x();
+		final double v = axis.y();
+		final double w = axis.z();
 		
-		final var rotationX = u * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + x * Math.cos(angle) + (-w * y + v * z) * Math.sin(angle);
-		final var rotationY = v * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + y * Math.cos(angle) + (w * x - u * z) * Math.sin(angle);
-		final var rotationZ = w * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + z * Math.cos(angle) + (-v * x + u * y) * Math.sin(angle);
+		final double rotationX = u * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + x * Math.cos(angle) + (-w * y + v * z) * Math.sin(angle);
+		final double rotationY = v * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + y * Math.cos(angle) + (w * x - u * z) * Math.sin(angle);
+		final double rotationZ = w * (u * x + v * y + w * z) * (1 - Math.cos(angle)) + z * Math.cos(angle) + (-v * x + u * y) * Math.sin(angle);
 		return new Vec3(rotationX, rotationY, rotationZ);
 	}
 	
@@ -178,8 +178,8 @@ public class MathUtil {
 	 * @return The distance between these two coordinates
 	 */
 	public static float getPlaneDistance(int x1, int z1, int x2, int z2) {
-		final var xDiff = x2 - x1;
-		final var zDiff = z2 - z1;
+		final int xDiff = x2 - x1;
+		final int zDiff = z2 - z1;
 		return Mth.sqrt(xDiff * xDiff + zDiff * zDiff);
 	}
 	

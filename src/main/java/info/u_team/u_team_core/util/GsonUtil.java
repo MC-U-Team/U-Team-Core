@@ -23,7 +23,7 @@ public class GsonUtil {
 	 * @throws IOException
 	 */
 	public static JsonWriter createTabWriter(Gson gson, Writer writer) throws IOException {
-		final var jsonWriter = gson.newJsonWriter(Streams.writerForAppendable(writer));
+		final JsonWriter jsonWriter = gson.newJsonWriter(Streams.writerForAppendable(writer));
 		jsonWriter.setIndent("	"); // Use tab instead of two spaces
 		return jsonWriter;
 	}

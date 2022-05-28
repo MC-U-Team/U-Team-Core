@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.util;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -58,17 +59,17 @@ public class ConfigUtil {
 	 * @throws IOException
 	 */
 	public static <T> T loadConfig(Path directory, String name, String extension, Gson gson, Function<JsonWriter, T> write, Function<BufferedReader, T> read) throws IOException {
-		final var path = directory.resolve(name + extension);
+		final Path path = directory.resolve(name + extension);
 		if (Files.exists(path) && Files.isReadable(path) && Files.isReadable(path)) {
-			try (var reader = Files.newBufferedReader(path)) {
+			try (BufferedReader reader = Files.newBufferedReader(path)) {
 				return read.apply(reader);
 			}
 		} else {
 			Files.deleteIfExists(path);
 			Files.createDirectories(directory);
 			Files.createFile(path);
-			try (var bufferedWriter = Files.newBufferedWriter(path); //
-					var writer = GsonUtil.createTabWriter(gson, bufferedWriter)) {
+			try (BufferedWriter bufferedWriter = Files.newBufferedWriter(path); //
+					JsonWriter writer = GsonUtil.createTabWriter(gson, bufferedWriter)) {
 				return write.apply(writer);
 			}
 		}

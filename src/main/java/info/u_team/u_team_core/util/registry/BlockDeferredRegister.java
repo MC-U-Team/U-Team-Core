@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 
 public class BlockDeferredRegister {
@@ -57,12 +58,12 @@ public class BlockDeferredRegister {
 	}
 	
 	private void registerItems(Register<Item> event) {
-		final var registry = event.getRegistry();
+		final IForgeRegistry<Item> registry = event.getRegistry();
 		
 		blockToItemsMap.forEach((blockObject, itemObject) -> {
-			final var block = blockObject.get();
-			if (block instanceof BlockItemProvider blockItemProvider) {
-				final var blockItem = blockItemProvider.blockItem();
+			final Block block = blockObject.get();
+			if (block instanceof final BlockItemProvider blockItemProvider) {
+				final Item blockItem = blockItemProvider.blockItem();
 				if (blockItem != null) {
 					registry.register(blockItem.setRegistryName(itemObject.getId()));
 				}

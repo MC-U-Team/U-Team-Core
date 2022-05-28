@@ -53,9 +53,9 @@ public class LevelUtil {
 	 * @return Raytrace result with information about the trace
 	 */
 	public static HitResult rayTraceServerSide(Entity entity, double range, Block blockMode, Fluid fluidMode) {
-		final var playerVector = entity.position().add(0, entity.getEyeHeight(), 0);
-		final var lookVector = entity.getLookAngle();
-		final var locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
+		final Vec3 playerVector = entity.position().add(0, entity.getEyeHeight(), 0);
+		final Vec3 lookVector = entity.getLookAngle();
+		final Vec3 locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
 		return entity.level.clip(new ClipContext(playerVector, locationVector, blockMode, fluidMode, entity));
 	}
 	
@@ -205,8 +205,7 @@ public class LevelUtil {
 	 * @param detach Detach the entity
 	 */
 	public static void teleportEntity(Entity entity, ServerLevel world, double x, double y, double z, float yaw, float pitch, boolean detach) {
-		if (entity instanceof ServerPlayer) {
-			final var player = (ServerPlayer) entity;
+		if (entity instanceof final ServerPlayer player) {
 			world.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getId());
 			if (detach) {
 				player.stopRiding();
@@ -221,8 +220,8 @@ public class LevelUtil {
 			}
 			entity.setYHeadRot(yaw);
 		} else {
-			final var wrapedYaw = Mth.wrapDegrees(yaw);
-			final var wrapedPitch = Mth.clamp(Mth.wrapDegrees(pitch), -90.0F, 90.0F);
+			final float wrapedYaw = Mth.wrapDegrees(yaw);
+			final float wrapedPitch = Mth.clamp(Mth.wrapDegrees(pitch), -90F, 90F);
 			if (world == entity.level) {
 				entity.moveTo(x, y, z, wrapedYaw, wrapedPitch);
 				entity.setYHeadRot(wrapedYaw);
@@ -230,7 +229,7 @@ public class LevelUtil {
 				if (detach) {
 					entity.unRide();
 				}
-				final var entityOld = entity;
+				final Entity entityOld = entity;
 				entity = entity.getType().create(world);
 				if (entity == null) {
 					return;
@@ -252,8 +251,8 @@ public class LevelUtil {
 			entity.setOnGround(true);
 		}
 		
-		if (entity instanceof PathfinderMob) {
-			((PathfinderMob) entity).getNavigation().stop();
+		if (entity instanceof final PathfinderMob pathFinderMob) {
+			pathFinderMob.getNavigation().stop();
 		}
 	}
 }

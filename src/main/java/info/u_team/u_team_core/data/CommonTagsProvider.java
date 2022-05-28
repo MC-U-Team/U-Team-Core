@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import com.google.common.collect.Maps;
+import com.google.gson.JsonObject;
 
 import net.minecraft.core.Registry;
 import net.minecraft.data.HashCache;
@@ -55,8 +56,8 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 			if (!list.isEmpty()) {
 				throw new IllegalArgumentException(String.format("Couldn't define tag %s as it is missing following references: %s", location, list.stream().map(Objects::toString).collect(Collectors.joining(","))));
 			}
-			final var object = builder.serializeToJson();
-			final var path = makePath(location);
+			final JsonObject object = builder.serializeToJson();
+			final Path path = makePath(location);
 			try {
 				write(cache, object, path);
 			} catch (final IOException ex) {
@@ -66,7 +67,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	}
 	
 	private boolean missing(BuilderEntry proxy) {
-		final var entry = proxy.entry();
+		final Tag.Entry entry = proxy.entry();
 		if (entry instanceof TagEntry) {
 			return !data.getExistingFileHelper().exists(((TagEntry) entry).id, resourceType);
 		}
@@ -80,7 +81,7 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 	}
 	
 	protected BetterBuilder<T> getBuilder(TagKey<T> tag) {
-		final var tagBuilder = getTagBuilder(tag);
+		final Tag.Builder tagBuilder = getTagBuilder(tag);
 		return new BetterBuilder<>(tagBuilder, registry, modid);
 	}
 	
@@ -151,8 +152,8 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		
 		@Override
 		public Tag.Builder add(BuilderEntry proxyTag) {
-			final var identifier = getIdentifier(proxyTag.entry());
-			final var duplicate = getEntries() //
+			final ResourceLocation identifier = getIdentifier(proxyTag.entry());
+			final boolean duplicate = getEntries() //
 					.map(BuilderEntry::entry) //
 					.anyMatch(entry -> getIdentifier(entry).equals(identifier));
 			

@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import java.util.function.Supplier;
 
 import net.minecraft.data.HashCache;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
@@ -48,7 +49,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(CreativeModeTab key, String name) {
-		final var component = key.getDisplayName();
+		final Component component = key.getDisplayName();
 		if (component instanceof TranslatableComponent) {
 			add(((TranslatableComponent) component).getKey(), name);
 		}
@@ -115,7 +116,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, CreativeModeTab key, String name) {
-		final var component = key.getDisplayName();
+		final Component component = key.getDisplayName();
 		if (component instanceof TranslatableComponent) {
 			add(locale, ((TranslatableComponent) component).getKey(), name);
 		}
@@ -178,7 +179,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, String key, String value) {
-		final var map = data.computeIfAbsent(locale, unused -> new TreeMap<>());
+		final Map<String, String> map = data.computeIfAbsent(locale, unused -> new TreeMap<>());
 		if (map.put(key, value) != null) {
 			throw new IllegalStateException("Duplicate translation key " + key);
 		}

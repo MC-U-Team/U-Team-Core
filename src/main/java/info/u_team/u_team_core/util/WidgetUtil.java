@@ -10,8 +10,10 @@ import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.api.gui.TooltipRenderable;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Widget;
+import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
 
@@ -29,12 +31,12 @@ public class WidgetUtil {
 	}
 	
 	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final var font = widget.getCurrentTextFont();
+		final Font font = widget.getCurrentTextFont();
 		
-		var message = widget.getCurrentText();
+		Component message = widget.getCurrentText();
 		if (message != TextComponent.EMPTY) {
-			final var messageWidth = font.width(message);
-			final var ellipsisWidth = font.width("...");
+			final int messageWidth = font.width(message);
+			final int ellipsisWidth = font.width("...");
 			
 			if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
 				message = new TextComponent(font.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
@@ -48,26 +50,26 @@ public class WidgetUtil {
 	}
 	
 	public static <T extends AbstractWidget & TextProvider & ScaleProvider> void renderScaledText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final var scale = widget.getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
+		final float scale = widget.getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
 		
 		if (scale == 1) {
 			renderText(widget, poseStack, mouseX, mouseY, partialTicks);
 		} else {
-			final var font = widget.getCurrentTextFont();
+			final Font font = widget.getCurrentTextFont();
 			
-			var message = widget.getCurrentText();
+			Component message = widget.getCurrentText();
 			if (message != TextComponent.EMPTY) {
-				final var messageWidth = Mth.ceil(scale * font.width(message));
-				final var ellipsisWidth = Mth.ceil(scale * font.width("..."));
+				final int messageWidth = Mth.ceil(scale * font.width(message));
+				final int ellipsisWidth = Mth.ceil(scale * font.width("..."));
 				
 				if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
 					message = new TextComponent(font.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
 				}
 				
-				final var positionFactor = 1 / scale;
+				final float positionFactor = 1 / scale;
 				
-				final var xStart = (widget.x + (widget.width / 2) - messageWidth / 2) * positionFactor;
-				final var yStart = (widget.y + ((int) (widget.height - 8 * scale)) / 2) * positionFactor;
+				final float xStart = (widget.x + (widget.width / 2) - messageWidth / 2) * positionFactor;
+				final float yStart = (widget.y + ((int) (widget.height - 8 * scale)) / 2) * positionFactor;
 				
 				poseStack.pushPose();
 				poseStack.scale(scale, scale, 0);

@@ -14,7 +14,7 @@ public class UCoreCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		final var version = ModLoadingContext.get().getActiveContainer().getModInfo().getVersion().toString();
+		final String version = ModLoadingContext.get().getActiveContainer().getModInfo().getVersion().toString();
 		ModLoadingContext.get().registerExtensionPoint(DisplayTest.class, () -> new DisplayTest(() -> version, (remoteVersion, network) -> {
 			if (remoteVersion == null) {
 				return true;

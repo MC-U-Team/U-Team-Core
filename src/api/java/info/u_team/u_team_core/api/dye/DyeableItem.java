@@ -3,6 +3,7 @@ package info.u_team.u_team_core.api.dye;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.DyeItem;
@@ -26,17 +27,17 @@ public interface DyeableItem {
 	}
 	
 	default boolean hasColor(ItemStack stack) {
-		final var compound = stack.getTagElement(TAG_DISPLAY);
+		final CompoundTag compound = stack.getTagElement(TAG_DISPLAY);
 		return compound != null && compound.contains(TAG_COLOR, Tag.TAG_ANY_NUMERIC);
 	}
 	
 	default int getColor(ItemStack stack) {
-		final var compound = stack.getTagElement(TAG_DISPLAY);
+		final CompoundTag compound = stack.getTagElement(TAG_DISPLAY);
 		return compound != null && compound.contains(TAG_COLOR, Tag.TAG_ANY_NUMERIC) ? compound.getInt(TAG_COLOR) : getDefaultColor();
 	}
 	
 	default void removeColor(ItemStack stack) {
-		final var compound = stack.getTagElement(TAG_DISPLAY);
+		final CompoundTag compound = stack.getTagElement(TAG_DISPLAY);
 		if (compound != null && compound.contains(TAG_COLOR)) {
 			compound.remove(TAG_COLOR);
 		}

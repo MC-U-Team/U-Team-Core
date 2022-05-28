@@ -5,8 +5,10 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidInventoryRenderer {
@@ -20,10 +22,10 @@ public class FluidInventoryRenderer {
 			return;
 		}
 		
-		final var attributes = stack.getFluid().getAttributes();
+		final FluidAttributes attributes = stack.getFluid().getAttributes();
 		
-		final var sprite = Minecraft.getInstance().getTextureAtlas(ATLAS).apply(attributes.getStillTexture(stack));
-		final var rgba = RGBA.fromARGB(attributes.getColor(stack));
+		final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(ATLAS).apply(attributes.getStillTexture(stack));
+		final RGBA rgba = RGBA.fromARGB(attributes.getColor(stack));
 		
 		RenderUtil.drawTexturedQuad(poseStack, x, y, 16, 16, blitOffset, sprite, rgba);
 		

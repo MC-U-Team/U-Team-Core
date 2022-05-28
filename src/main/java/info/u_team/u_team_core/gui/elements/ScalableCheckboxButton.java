@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.Scalable;
 import info.u_team.u_team_core.api.gui.ScaleProvider;
+import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 
@@ -41,16 +42,16 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			final var font = getCurrentTextFont();
+			final Font font = getCurrentTextFont();
 			
-			final var message = getCurrentText();
+			final Component message = getCurrentText();
 			if (message != TextComponent.EMPTY) {
-				final var currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
+				final float currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
 				
-				final var positionFactor = 1 / currentScale;
+				final float positionFactor = 1 / currentScale;
 				
 				final float xStart;
-				final var yStart = (y + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
+				final float yStart = (y + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
 				
 				if (leftSideText) {
 					xStart = (x - ((font.width(message) * currentScale) + 4)) * positionFactor;
@@ -58,7 +59,7 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 					xStart = (x + width + 4) * positionFactor;
 				}
 				
-				final var color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();
+				final int color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();
 				
 				poseStack.pushPose();
 				poseStack.scale(currentScale, currentScale, 0);

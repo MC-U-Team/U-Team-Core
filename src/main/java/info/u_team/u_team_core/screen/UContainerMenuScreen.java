@@ -8,6 +8,7 @@ import info.u_team.u_team_core.menu.UContainerMenu;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
+import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -117,12 +118,12 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	
 	@Override
 	public void containerTick() {
-		for (final var listener : children()) {
-			if (listener instanceof RenderTickable tickable) {
+		for (final GuiEventListener listener : children()) {
+			if (listener instanceof final RenderTickable tickable) {
 				tickable.renderTick();
 			}
 		}
-		if (menu instanceof UContainerMenu uMenu) {
+		if (menu instanceof final UContainerMenu uMenu) {
 			uMenu.broadcastChangesToServer();
 		}
 	}

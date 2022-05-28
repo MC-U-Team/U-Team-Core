@@ -3,6 +3,7 @@ package info.u_team.u_team_core.gui.elements;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.RenderUtil;
+import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -82,9 +83,9 @@ public class CheckboxButton extends UButton {
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		if (drawText) {
-			final var font = getCurrentTextFont();
+			final Font font = getCurrentTextFont();
 			
-			final var message = getCurrentText();
+			final Component message = getCurrentText();
 			if (message != TextComponent.EMPTY) {
 				final float xStart;
 				final float yStart = y + (height - 8) / 2;
@@ -95,7 +96,7 @@ public class CheckboxButton extends UButton {
 					xStart = x + width + 4;
 				}
 				
-				final var color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();
+				final int color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();
 				
 				if (dropShadow) {
 					font.drawShadow(poseStack, getCurrentText(), xStart, yStart, color);

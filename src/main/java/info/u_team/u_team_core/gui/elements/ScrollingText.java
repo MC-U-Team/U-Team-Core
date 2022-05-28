@@ -2,6 +2,7 @@ package info.u_team.u_team_core.gui.elements;
 
 import java.util.function.Supplier;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Vector4f;
@@ -79,23 +80,23 @@ public class ScrollingText extends ScalableText {
 	
 	@Override
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final var minecraft = Minecraft.getInstance();
-		final var window = minecraft.getWindow();
+		final Minecraft minecraft = Minecraft.getInstance();
+		final Window window = minecraft.getWindow();
 		
-		final var matrix = new Matrix4fExtended(poseStack.last().pose());
-		final var scaleFactor = window.getGuiScale();
+		final Matrix4fExtended matrix = new Matrix4fExtended(poseStack.last().pose());
+		final double scaleFactor = window.getGuiScale();
 		
-		final var vectorXY = new Vector4f(x, y, 0, 1);
+		final Vector4f vectorXY = new Vector4f(x, y, 0, 1);
 		vectorXY.transform(matrix);
 		
 		// Cannot use transform here, because we only care about the scaling. M00 and M11 should have the right scaling
-		final var vectorWH = new Vector4f(width * matrix.getM00(), (font.lineHeight + 1) * scale * matrix.getM11(), 0, 1);
+		final Vector4f vectorWH = new Vector4f(width * matrix.getM00(), (font.lineHeight + 1) * scale * matrix.getM11(), 0, 1);
 		
-		final var nativeX = Mth.ceil(vectorXY.x() * scaleFactor);
-		final var nativeY = Mth.ceil(vectorXY.y() * scaleFactor);
+		final int nativeX = Mth.ceil(vectorXY.x() * scaleFactor);
+		final int nativeY = Mth.ceil(vectorXY.y() * scaleFactor);
 		
-		final var nativeWidth = Mth.ceil(vectorWH.x() * scaleFactor);
-		final var nativeHeight = Mth.ceil(vectorWH.y() * scaleFactor);
+		final int nativeWidth = Mth.ceil(vectorWH.x() * scaleFactor);
+		final int nativeHeight = Mth.ceil(vectorWH.y() * scaleFactor);
 		
 		RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 		
@@ -112,9 +113,9 @@ public class ScrollingText extends ScalableText {
 	}
 	
 	protected float getMovingX(float x) {
-		final var textWidth = getTextWidth();
+		final float textWidth = getTextWidth();
 		if (width < textWidth) {
-			final var maxMove = width - textWidth;
+			final float maxMove = width - textWidth;
 			
 			if (lastTime == 0) {
 				lastTime = System.currentTimeMillis();

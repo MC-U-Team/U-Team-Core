@@ -64,7 +64,5 @@ public class ModelUtil {
 		public ImmutableList<BlockState> getPossibleStates() {
 			return getOwner().getStateDefinition().getPossibleStates();
 		}
-		
 	}
-	
 }

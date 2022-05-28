@@ -14,6 +14,7 @@ public class UMenuType<T extends AbstractContainerMenu> extends MenuType<T> {
 		super(factory);
 	}
 	
+	@FunctionalInterface
 	public static interface ForgeMenuSupplier<T extends AbstractContainerMenu> extends IContainerFactory<T> {
 	}
 }

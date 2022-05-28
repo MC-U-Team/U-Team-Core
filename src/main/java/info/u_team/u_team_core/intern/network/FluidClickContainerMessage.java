@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.menu.FluidContainerMenu;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent.Context;
@@ -23,18 +24,18 @@ public class FluidClickContainerMessage {
 		this.stack = stack;
 	}
 	
-	public static void encode(FluidClickContainerMessage message, FriendlyByteBuf sendBuffer) {
-		sendBuffer.writeByte(message.id);
-		sendBuffer.writeShort(message.slot);
-		sendBuffer.writeBoolean(message.shift);
-		sendBuffer.writeItemStack(message.stack, false);
+	public static void encode(FluidClickContainerMessage message, FriendlyByteBuf byteBuf) {
+		byteBuf.writeByte(message.id);
+		byteBuf.writeShort(message.slot);
+		byteBuf.writeBoolean(message.shift);
+		byteBuf.writeItemStack(message.stack, false);
 	}
 	
-	public static FluidClickContainerMessage decode(FriendlyByteBuf sendBuffer) {
-		final int id = sendBuffer.readByte();
-		final int slot = sendBuffer.readShort();
-		final var shift = sendBuffer.readBoolean();
-		final var stack = sendBuffer.readItem();
+	public static FluidClickContainerMessage decode(FriendlyByteBuf byteBuf) {
+		final int id = byteBuf.readByte();
+		final int slot = byteBuf.readShort();
+		final boolean shift = byteBuf.readBoolean();
+		final ItemStack stack = byteBuf.readItem();
 		
 		return new FluidClickContainerMessage(id, slot, shift, stack);
 	}
@@ -42,9 +43,9 @@ public class FluidClickContainerMessage {
 	public static class Handler {
 		
 		public static void handle(FluidClickContainerMessage message, Supplier<Context> contextSupplier) {
-			final var context = contextSupplier.get();
+			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
-				final var player = context.getSender();
+				final ServerPlayer player = context.getSender();
 				getFluidContainer(player.containerMenu, message.id).ifPresent(container -> container.fluidSlotClick(player, message.slot, message.shift, message.stack));
 			});
 			context.setPacketHandled(true);

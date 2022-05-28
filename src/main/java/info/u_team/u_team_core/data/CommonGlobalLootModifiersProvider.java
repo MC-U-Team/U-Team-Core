@@ -35,9 +35,9 @@ public abstract class CommonGlobalLootModifiersProvider extends CommonProvider {
 		});
 		
 		final List<String> entries = serializers.entrySet().stream().map(entry -> {
-			final var name = entry.getKey();
+			final String name = entry.getKey();
 			final var tuple = entry.getValue();
-			final var json = tuple.getB();
+			final JsonObject json = tuple.getB();
 			
 			json.addProperty("type", tuple.getA().getRegistryName().toString());
 			
@@ -49,7 +49,7 @@ public abstract class CommonGlobalLootModifiersProvider extends CommonProvider {
 			return new ResourceLocation(modid, name);
 		}).map(ResourceLocation::toString).collect(Collectors.toList());
 		
-		final var json = new JsonObject();
+		final JsonObject json = new JsonObject();
 		json.addProperty("replace", replace);
 		json.add("entries", GSON.toJsonTree(entries));
 		

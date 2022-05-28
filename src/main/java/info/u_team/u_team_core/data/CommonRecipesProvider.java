@@ -11,6 +11,7 @@ import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
 import net.minecraft.data.HashCache;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -35,12 +36,12 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	
 	private void generateRecipe(HashCache cache, FinishedRecipe recipe, boolean vanillaAdvancement) {
 		try {
-			final var recipeLocation = recipe.getId();
+			final ResourceLocation recipeLocation = recipe.getId();
 			write(cache, recipe.serializeRecipe(), resolveData(recipeLocation).resolve("recipes").resolve(recipe.getId().getPath() + ".json"));
 			if (recipe.serializeAdvancement() != null) {
 				final Path advancementPath;
 				if (vanillaAdvancement) {
-					final var advancementLocation = recipe.getAdvancementId();
+					final ResourceLocation advancementLocation = recipe.getAdvancementId();
 					advancementPath = resolveData(advancementLocation).resolve("advancements").resolve(advancementLocation.getPath() + ".json");
 				} else {
 					advancementPath = resolveData(recipeLocation).resolve("advancements").resolve("recipes").resolve(recipeLocation.getPath() + ".json");

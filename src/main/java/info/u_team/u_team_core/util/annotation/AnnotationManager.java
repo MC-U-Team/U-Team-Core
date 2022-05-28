@@ -45,7 +45,7 @@ public class AnnotationManager {
 	 * @param modid The modid that should be respected for calling
 	 */
 	public static void callConstructs(String modid) {
-		for (final var data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
+		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
 			if (canBeCalled(modid, data)) {
 				LOGGER.debug(CONSTRUCT_MARKER, "Load construct (" + data.memberName() + ") for mod " + modid);
 				try {
@@ -65,8 +65,8 @@ public class AnnotationManager {
 	 * @param modid The modid that should be respected for calling
 	 */
 	public static void callIntegrations(String modid) {
-		for (final var data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
-			final var integrationModid = (String) data.annotationData().get("integration");
+		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
+			final String integrationModid = (String) data.annotationData().get("integration");
 			if (canBeCalled(modid, data) && ModList.get().isLoaded(integrationModid)) {
 				LOGGER.debug(INTEGRATION_MARKER, "Load " + integrationModid + " integration (" + data.memberName() + ") for mod " + modid);
 				try {
@@ -88,8 +88,8 @@ public class AnnotationManager {
 	 * @return True if method can be called
 	 */
 	private static boolean canBeCalled(String modid, AnnotationData data) {
-		final var annotationModid = (String) data.annotationData().get("modid");
-		final var client = (Boolean) data.annotationData().get("client");
+		final String annotationModid = (String) data.annotationData().get("modid");
+		final Boolean client = (Boolean) data.annotationData().get("client");
 		return modid.equals(annotationModid) && (client == null || !client || client && FMLEnvironment.dist == Dist.CLIENT);
 	}
 	

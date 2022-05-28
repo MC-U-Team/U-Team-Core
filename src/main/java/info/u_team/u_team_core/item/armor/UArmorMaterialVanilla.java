@@ -4,8 +4,6 @@ import java.util.function.Supplier;
 
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class UArmorMaterialVanilla extends UArmorMaterial {
 	
@@ -20,7 +18,6 @@ public class UArmorMaterialVanilla extends UArmorMaterial {
 		this.texture = texture;
 	}
 	
-	@OnlyIn(Dist.CLIENT)
 	@Override
 	public String getName() {
 		return texture == null ? super.getName() : texture;
@@ -29,9 +26,9 @@ public class UArmorMaterialVanilla extends UArmorMaterial {
 	private static final int[] BASE_DURABILITY = new int[] { 13, 15, 16, 11 };
 	
 	private static int[] createDurabilityVanillaArray(int durability) {
-		final var array = new int[4];
-		for (var i = 0; i < array.length; i++) {
-			array[i] = BASE_DURABILITY[i] * durability;
+		final int[] array = new int[4];
+		for (int index = 0; index < array.length; index++) {
+			array[index] = BASE_DURABILITY[index] * durability;
 		}
 		return array;
 	}

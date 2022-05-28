@@ -1,8 +1,10 @@
 package info.u_team.u_team_core.gui.elements;
 
+import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
@@ -95,14 +97,14 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	@Override
 	protected void renderList(PoseStack poseStack, int rowLeft, int scrollAmount, int mouseX, int mouseY, float partialTicks) {
 		if (useScissor) {
-			final var window = minecraft.getWindow();
-			final var scaleFactor = window.getGuiScale();
+			final Window window = minecraft.getWindow();
+			final double scaleFactor = window.getGuiScale();
 			
-			final var nativeX = Mth.ceil(x0 * scaleFactor);
-			final var nativeY = Mth.ceil(y0 * scaleFactor);
+			final int nativeX = Mth.ceil(x0 * scaleFactor);
+			final int nativeY = Mth.ceil(y0 * scaleFactor);
 			
-			final var nativeWidth = Mth.ceil((x1 - x0) * scaleFactor);
-			final var nativeHeight = Mth.ceil((y1 - y0) * scaleFactor);
+			final int nativeWidth = Mth.ceil((x1 - x0) * scaleFactor);
+			final int nativeHeight = Mth.ceil((y1 - y0) * scaleFactor);
 			
 			RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 			
@@ -120,8 +122,8 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 		}
 		
 		if (renderTransparentBorder) {
-			final var tessellator = Tesselator.getInstance();
-			final var buffer = tessellator.getBuilder();
+			final Tesselator tessellator = Tesselator.getInstance();
+			final BufferBuilder buffer = tessellator.getBuilder();
 			
 			RenderSystem.setShader(GameRenderer::getPositionColorShader);
 			RenderUtil.setShaderColor(RGBA.BLACK);

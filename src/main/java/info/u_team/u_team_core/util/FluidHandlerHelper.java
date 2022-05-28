@@ -16,7 +16,7 @@ public class FluidHandlerHelper {
 		if (size == 0) {
 			return FluidStack.EMPTY;
 		}
-		final var copy = stack.copy();
+		final FluidStack copy = stack.copy();
 		copy.setAmount(size);
 		return copy;
 	}

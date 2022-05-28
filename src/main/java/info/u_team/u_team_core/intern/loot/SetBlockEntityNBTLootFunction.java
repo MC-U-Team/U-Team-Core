@@ -7,6 +7,7 @@ import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.intern.init.UCoreLootFunctions;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.LootItemConditionalFunction;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
@@ -22,7 +23,7 @@ public class SetBlockEntityNBTLootFunction extends LootItemConditionalFunction {
 	@Override
 	public ItemStack run(ItemStack stack, LootContext context) {
 		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
-			final var blockEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
+			final BlockEntity blockEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
 			final CompoundTag compound;
 			if (blockEntity instanceof UBlockEntity uBlockEntity) {
 				compound = new CompoundTag();
