@@ -78,8 +78,8 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 		super.sendAllDataToRemote();
 		
 		if (getSynchronizerPlayer() != null) {
-			for (var index = 0; index < dataHolderToClient.size(); index++) {
-				final var dataHolder = dataHolderToClient.get(index);
+			for (int index = 0; index < dataHolderToClient.size(); index++) {
+				final DataHolder dataHolder = dataHolderToClient.get(index);
 				UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
 			}
 		}
@@ -134,8 +134,8 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	 * @param consumer Consumer that should handle the change
 	 */
 	private void checkForChanges(List<DataHolder> dataHolders, BiConsumer<Integer, DataHolder> consumer) {
-		for (var index = 0; index < dataHolders.size(); index++) {
-			final var dataHolder = dataHolders.get(index);
+		for (int index = 0; index < dataHolders.size(); index++) {
+			final DataHolder dataHolder = dataHolders.get(index);
 			if (dataHolder.checkAndClearUpdateFlag()) {
 				consumer.accept(index, dataHolder);
 			}

@@ -79,8 +79,8 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	 * @param y Start y
 	 */
 	protected void addPlayerInventory(Inventory playerInventory, int x, int y) {
-		for (var height = 0; height < 4; height++) {
-			for (var width = 0; width < 9; width++) {
+		for (int height = 0; height < 4; height++) {
+			for (int width = 0; width < 9; width++) {
 				if (height == 3) {
 					addSlot(new Slot(playerInventory, width, width * 18 + x, height * 18 + 4 + y));
 					continue;
@@ -143,8 +143,8 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	 * @param y Start y
 	 */
 	protected void addSlots(Container container, SlotContainerFunction function, int startIndex, int rows, int columns, int x, int y) {
-		for (var height = 0; height < rows; height++) {
-			for (var width = 0; width < columns; width++) {
+		for (int height = 0; height < rows; height++) {
+			for (int width = 0; width < columns; width++) {
 				addSlot(function.getSlot(container, startIndex + (width + height * columns), width * 18 + x, height * 18 + y));
 			}
 		}
@@ -203,8 +203,8 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	 * @param y Start y
 	 */
 	protected void addSlots(IItemHandler handler, SlotHandlerFunction function, int startIndex, int rows, int columns, int x, int y) {
-		for (var height = 0; height < rows; height++) {
-			for (var width = 0; width < columns; width++) {
+		for (int height = 0; height < rows; height++) {
+			for (int width = 0; width < columns; width++) {
 				addSlot(function.getSlot(handler, startIndex + (width + height * columns), width * 18 + x, height * 18 + y));
 			}
 		}

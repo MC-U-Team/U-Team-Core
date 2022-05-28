@@ -80,7 +80,7 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 		this.playerInventory = playerInventory;
 		blockEntity = getClientTileEntity(byteBuf);
 		if (blockEntity instanceof final MenuSyncedBlockEntity syncedBlockEntity) {
-			final var data = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteBuf.readByteArray(32592))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
+			final FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteBuf.readByteArray(32592))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
 			syncedBlockEntity.handleInitialMenuDataFromServer(data);
 			data.release();
 		}
@@ -99,8 +99,8 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	 */
 	@OnlyIn(Dist.CLIENT)
 	private T getClientTileEntity(FriendlyByteBuf byteBuf) {
-		final var pos = byteBuf.readBlockPos();
-		final var blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
+		final BlockPos pos = byteBuf.readBlockPos();
+		final BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
 		if (blockEntity == null) {
 			throw new IllegalStateException("The client block entity at (" + pos.toShortString() + ") does not exists.");
 		}
