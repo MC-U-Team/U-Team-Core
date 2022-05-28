@@ -79,8 +79,8 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 		super(menuType, containerId);
 		this.playerInventory = playerInventory;
 		blockEntity = getClientTileEntity(byteBuf);
-		if (blockEntity instanceof MenuSyncedBlockEntity syncedBlockEntity) {
-			var data = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteBuf.readByteArray(32592))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
+		if (blockEntity instanceof final MenuSyncedBlockEntity syncedBlockEntity) {
+			final var data = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteBuf.readByteArray(32592))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
 			syncedBlockEntity.handleInitialMenuDataFromServer(data);
 			data.release();
 		}

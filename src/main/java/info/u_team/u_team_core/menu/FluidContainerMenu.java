@@ -275,8 +275,8 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 			final FluidStack copy = supplier.get();
 			lastFluidSlots.set(slotId, copy);
 			
-			for (ContainerListener listener : containerListeners) {
-				if (listener instanceof FluidContainerListener fluidListener) {
+			for (final ContainerListener listener : containerListeners) {
+				if (listener instanceof final FluidContainerListener fluidListener) {
 					fluidListener.fluidSlotChanged(this, slotId, copy);
 				}
 			}

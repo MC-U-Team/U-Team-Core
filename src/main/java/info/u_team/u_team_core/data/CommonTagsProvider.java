@@ -165,13 +165,13 @@ public abstract class CommonTagsProvider<T> extends CommonProvider {
 		
 		private ResourceLocation getIdentifier(Entry entry) {
 			final ResourceLocation identifier;
-			if (entry instanceof ElementEntry elementEntry) {
+			if (entry instanceof final ElementEntry elementEntry) {
 				identifier = elementEntry.id;
-			} else if (entry instanceof OptionalElementEntry optionalEntry) {
+			} else if (entry instanceof final OptionalElementEntry optionalEntry) {
 				identifier = optionalEntry.id;
-			} else if (entry instanceof TagEntry tagEntry) {
+			} else if (entry instanceof final TagEntry tagEntry) {
 				identifier = tagEntry.id;
-			} else if (entry instanceof OptionalTagEntry optionalTagEntry) {
+			} else if (entry instanceof final OptionalTagEntry optionalTagEntry) {
 				identifier = optionalTagEntry.id;
 			} else {
 				throw new IllegalArgumentException("Unknown implementation of ITagEntry");

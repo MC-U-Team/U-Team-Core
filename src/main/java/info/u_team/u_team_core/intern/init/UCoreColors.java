@@ -10,7 +10,7 @@ public class UCoreColors {
 	
 	private static void colorItem(ColorHandlerEvent.Item event) {
 		event.getItemColors().register((stack, index) -> {
-			if (stack.getItem() instanceof DyeableItem dyeable) {
+			if (stack.getItem() instanceof final DyeableItem dyeable) {
 				return dyeable.getColor(stack);
 			}
 			return 0;

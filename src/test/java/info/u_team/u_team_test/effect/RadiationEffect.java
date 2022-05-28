@@ -21,7 +21,7 @@ public class RadiationEffect extends MobEffect {
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
 		amplifier += 2;
 		entity.hurt(TestDamageSources.RADIATION, random.nextInt(amplifier));
-		if (entity instanceof Player player) {
+		if (entity instanceof final Player player) {
 			player.causeFoodExhaustion(0.005F * amplifier);
 		}
 	}

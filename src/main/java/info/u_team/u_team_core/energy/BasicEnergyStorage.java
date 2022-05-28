@@ -76,7 +76,7 @@ public class BasicEnergyStorage extends EnergyStorage {
 	
 	@Override
 	public void deserializeNBT(Tag tag) {
-		if (tag instanceof CompoundTag compoundTag) {
+		if (tag instanceof final CompoundTag compoundTag) {
 			setEnergy(compoundTag.getInt("energy"));
 		} else {
 			super.deserializeNBT(tag);

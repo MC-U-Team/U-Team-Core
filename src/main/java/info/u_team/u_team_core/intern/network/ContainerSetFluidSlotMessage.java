@@ -51,7 +51,7 @@ public class ContainerSetFluidSlotMessage {
 		}
 		
 		private static final Optional<FluidContainerMenu> testContainerMenu(AbstractContainerMenu container, int containerId) {
-			if (container instanceof FluidContainerMenu fluidMenu && container.containerId == containerId) {
+			if (container instanceof final FluidContainerMenu fluidMenu && container.containerId == containerId) {
 				return Optional.of(fluidMenu);
 			}
 			return Optional.empty();

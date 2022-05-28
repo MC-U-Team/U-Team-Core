@@ -71,18 +71,22 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 		this.sliderColor = sliderColor;
 	}
 	
+	@Override
 	public RGBA getTextColor() {
 		return textColor;
 	}
 	
+	@Override
 	public void setTextColor(RGBA textColor) {
 		this.textColor = textColor;
 	}
 	
+	@Override
 	public RGBA getDisabledTextColor() {
 		return disabledTextColor;
 	}
 	
+	@Override
 	public void setDisabledTextColor(RGBA disabledTextColor) {
 		this.disabledTextColor = disabledTextColor;
 	}

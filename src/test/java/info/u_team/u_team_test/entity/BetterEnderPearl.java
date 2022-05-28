@@ -56,7 +56,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 		
 		if (!level.isClientSide && !isRemoved()) {
 			final Entity entity = getOwner();
-			if (entity instanceof ServerPlayer player) {
+			if (entity instanceof final ServerPlayer player) {
 				if (player.connection.getConnection().isConnected() && player.level == level && !player.isSleeping()) {
 					
 					if (entity.isPassenger()) {
@@ -79,7 +79,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 	
 	@Override
 	public void tick() {
-		Entity entity = getOwner();
+		final Entity entity = getOwner();
 		if (entity instanceof Player && !entity.isAlive()) {
 			discard();
 		} else {
@@ -91,7 +91,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 	@Override
 	@Nullable
 	public Entity changeDimension(ServerLevel level, net.minecraftforge.common.util.ITeleporter teleporter) {
-		Entity entity = getOwner();
+		final Entity entity = getOwner();
 		if (entity != null && entity.level.dimension() != level.dimension()) {
 			setOwner(null);
 		}

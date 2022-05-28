@@ -59,7 +59,7 @@ public record DataHolderMenuMessage(int containerId, int index, FriendlyByteBuf 
 		}
 		
 		private static Optional<UContainerMenu> testContainerMenu(AbstractContainerMenu menu, int containerId) {
-			if (menu instanceof UContainerMenu uContainer && menu.containerId == containerId) {
+			if (menu instanceof final UContainerMenu uContainer && menu.containerId == containerId) {
 				return Optional.of(uContainer);
 			}
 			return Optional.empty();

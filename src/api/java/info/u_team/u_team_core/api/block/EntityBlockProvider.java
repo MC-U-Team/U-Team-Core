@@ -119,7 +119,7 @@ public interface EntityBlockProvider extends EntityBlock {
 		}
 		
 		final FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.buffer());
-		if (blockEntity instanceof MenuSyncedBlockEntity syncedBlockEntity) {
+		if (blockEntity instanceof final MenuSyncedBlockEntity syncedBlockEntity) {
 			syncedBlockEntity.sendInitialMenuDataToClient(data);
 		}
 		

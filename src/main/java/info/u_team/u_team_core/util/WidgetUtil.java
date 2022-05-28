@@ -81,7 +81,7 @@ public class WidgetUtil {
 	
 	public static void renderTooltips(List<Widget> widgets, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		widgets.forEach(widget -> {
-			if (widget instanceof TooltipRenderable tooltipRenderable) {
+			if (widget instanceof final TooltipRenderable tooltipRenderable) {
 				tooltipRenderable.renderToolTip(poseStack, mouseX, mouseY, partialTicks);
 			}
 		});

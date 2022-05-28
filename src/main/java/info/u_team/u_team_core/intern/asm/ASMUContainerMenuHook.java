@@ -16,7 +16,7 @@ public class ASMUContainerMenuHook {
 	 * Called from asm core mod from {@link ServerPlayer#initMenu(AbstractContainerMenu)} method.
 	 */
 	public static void hook(AbstractContainerMenu menu, ServerPlayer player) {
-		if (menu instanceof UAbstractContainerMenu uContainerMenu) {
+		if (menu instanceof final UAbstractContainerMenu uContainerMenu) {
 			uContainerMenu.setSynchronizerPlayer(player);
 			uContainerMenu.initMenu(player);
 		}

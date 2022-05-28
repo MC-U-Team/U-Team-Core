@@ -46,7 +46,7 @@ public class FluidSlot {
 	}
 	
 	public void setChanged() {
-		if (fluidHandler instanceof UFluidStackHandler uFluidHandler) {
+		if (fluidHandler instanceof final UFluidStackHandler uFluidHandler) {
 			uFluidHandler.onContentsChanged(slot);
 		}
 	}

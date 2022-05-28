@@ -39,7 +39,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	
 	@Override
 	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
-		if (menu instanceof FluidContainerMenu fluidMenu) {
+		if (menu instanceof final FluidContainerMenu fluidMenu) {
 			hoveredFluidSlot = null;
 			
 			for (int slot = 0; slot < fluidMenu.fluidSlots.size(); slot++) {
@@ -103,7 +103,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	}
 	
 	protected FluidSlot findFluidSlot(double mouseX, double mouseY) {
-		if (menu instanceof FluidContainerMenu fluidMenu) {
+		if (menu instanceof final FluidContainerMenu fluidMenu) {
 			for (final FluidSlot fluidSlot : fluidMenu.fluidSlots) {
 				if (isHovering(fluidSlot, mouseX, mouseY) && fluidSlot.isActive()) {
 					return fluidSlot;
