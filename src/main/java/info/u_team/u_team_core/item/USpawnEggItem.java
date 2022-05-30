@@ -19,6 +19,7 @@ public class USpawnEggItem extends SpawnEggItem {
 		this(null, properties, entityType, primaryColor, secondaryColor);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public USpawnEggItem(ItemGroup group, Properties properties, Supplier<? extends EntityType<?>> entityType, int primaryColor, int secondaryColor) {
 		super(null, primaryColor, secondaryColor, group == null ? properties : properties.group(group));
 		EGGS.remove(null);
