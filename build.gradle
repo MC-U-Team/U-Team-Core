@@ -10,7 +10,7 @@ buildscript {
 	}
 	dependencies {
 		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
-		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "1.1.1"
+		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "1.2.1"
 		classpath group: "info.u-team.curse_gradle_uploader", name: "curse_gradle_uploader", version: "1.5.0"
 	}
 }
@@ -26,33 +26,30 @@ version = gradlefiles.version()
 
 gradlefiles {
 	vendor "Team UTeam"
-	
-	signJars true
 }
 
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(8)
 	}
-	withDeobfJar()
 	withSourcesJar()
 	withJavadocJar()
 }
 
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
-	
+
 	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
-	
+
 	runs {
 		client = {
 			workingDirectory file("run/client")
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest {
 					source sourceSets.test
 				}
@@ -60,12 +57,12 @@ minecraft {
 		}
 		server = {
 			workingDirectory file("run/server")
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest {
 					source sourceSets.test
 				}
@@ -73,13 +70,13 @@ minecraft {
 		}
 		data = {
 			workingDirectory file("run/data")
-			
+
 			args "--mod", config.mod.modid
 			args "--all"
 			args "--output", file("src/generated/resources")
 			args "--validate"
 			args "--existing", file("src/main/resources")
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -88,16 +85,16 @@ minecraft {
 		}
 		data_test = {
 			workingDirectory file("run/data")
-			
+
 			parent data // Does not work as the other args are added too...
-			
+
 			args "--mod", "uteamtest"
 			args "--all"
 			args "--output", file("src/generated_test/resources")
 			args "--validate"
 			args "--existing", file("src/test/resources")
 			args "--existing-mod", "uteamcore"
-			
+
 			mods {
 				uteamtest {
 					source sourceSets.test
@@ -107,25 +104,21 @@ minecraft {
 	}
 }
 
-tasks.create("testJar", Jar) {
+def testJarTask = tasks.create("testJar", Jar) {
 	archiveClassifier = "test"
-	
+
 	from sourceSets.test.output
 }
 
 gradlefiles.createReobfJar(tasks.getByName("testJar"))
 
-tasks.create("testDeobfJar", Jar) {
-	archiveClassifier = "testdeobf"
-	
-	from sourceSets.test.output
-}
-
-tasks.create("testSourcesJar", Jar) {
+def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
-	
+
 	from sourceSets.test.allJava
 }
+
+gradlefiles.assembleDependOn(testJarTask, testSourcesJar)
 
 tasks.withType(Jar) { task ->
 	gradlefiles.defaultJar(task)
@@ -135,10 +128,13 @@ tasks.withType(Javadoc) { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
+gradlefiles.signDefaultForgeJar()
+gradlefiles.signJar("reobfTestJar")
+
 sourceSets {
 	main {
 		java {
-			srcDirs += "src/repack/java"
+			srcDirs += "src/data/java"
 			srcDirs += "src/api/java"
 			srcDirs += "src/integration/java"
 		}
@@ -163,27 +159,26 @@ repositories {
 
 dependencies {
 	minecraft gradlefiles.forgeDependency()
-	
+
 	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}:${config.jei.version}:api")
 	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}:${config.jei.version}")
 }
 
 curseforge {
 	apiKey = defaultPropertyValue("curseforge.token")
-	
+
 	project {
 		id = config.curse.id
 		releaseType = config.curse.type
-		
+
 		addGameVersion config.minecraft.version
 		addGameVersion "Forge"
 		addGameVersion "Java 8"
-		
+
 		relations {
-			optionalDependency "basic-discord-rich-presence"
 			optionalDependency "jei"
 		}
-		
+
 		mainArtifact(tasks.getByName("jar")) {
 			displayName = "${config.curse.display}-${config.minecraft.version}-${project.version}"
 			changelogType = "html"
@@ -205,12 +200,11 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifactId archivesBaseName
-			
+
 			from components.java
 			artifact tasks.getByName("testJar")
-			artifact tasks.getByName("testDeobfJar")
 			artifact tasks.getByName("testSourcesJar")
-			
+
 			pom {
 				name = project.archivesBaseName
 				description = "${config.github.name}"
