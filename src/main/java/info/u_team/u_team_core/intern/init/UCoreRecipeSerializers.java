@@ -9,9 +9,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 public class UCoreRecipeSerializers {
@@ -21,12 +21,14 @@ public class UCoreRecipeSerializers {
 	public static final RegistryObject<SimpleRecipeSerializer<DyeableItemDyeRecipe>> CRAFTING_SPECIAL_ITEMDYE = RECIPE_SERIALIZERS.register("crafting_special_itemdye", () -> new SimpleRecipeSerializer<>(DyeableItemDyeRecipe::new));
 	public static final RegistryObject<NoMirrorShapedRecipe.Serializer> NO_MIRROR_SHAPED = RECIPE_SERIALIZERS.register("crafting_shaped_no_mirror", NoMirrorShapedRecipe.Serializer::new);
 	
-	private static void registerIngredient(Register<RecipeSerializer<?>> event) {
-		CraftingHelper.register(new ResourceLocation(UCoreMod.MODID, "item"), ItemIngredient.Serializer.INSTANCE);
+	private static void registerIngredient(RegisterEvent event) {
+		if (event.getRegistryKey().equals(ForgeRegistries.Keys.RECIPE_SERIALIZERS)) {
+			CraftingHelper.register(new ResourceLocation(UCoreMod.MODID, "item"), ItemIngredient.Serializer.INSTANCE);
+		}
 	}
 	
 	public static void registerMod(IEventBus bus) {
 		RECIPE_SERIALIZERS.register(bus);
-		bus.addGenericListener(RecipeSerializer.class, UCoreRecipeSerializers::registerIngredient);
+		bus.addListener(UCoreRecipeSerializers::registerIngredient);
 	}
 }
