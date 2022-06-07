@@ -11,16 +11,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.registries.RegistryObject;
 
-public class CommonDeferredRegister<R extends IForgeRegistryEntry<R>> implements Iterable<RegistryObject<R>> {
+public class CommonDeferredRegister<R> implements Iterable<RegistryObject<R>> {
 	
-	public static <C extends IForgeRegistryEntry<C>> CommonDeferredRegister<C> create(ResourceKey<? extends Registry<C>> key, String modid) {
+	public static <C> CommonDeferredRegister<C> create(ResourceKey<? extends Registry<C>> key, String modid) {
 		return new CommonDeferredRegister<>(key, modid);
 	}
 	
-	public static <C extends IForgeRegistryEntry<C>> CommonDeferredRegister<C> create(IForgeRegistry<C> registry, String modid) {
+	public static <C> CommonDeferredRegister<C> create(IForgeRegistry<C> registry, String modid) {
 		return new CommonDeferredRegister<>(registry, modid);
 	}
 	

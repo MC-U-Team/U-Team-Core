@@ -9,10 +9,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
 public class BlockDeferredRegister {
@@ -54,21 +53,21 @@ public class BlockDeferredRegister {
 	public void register(IEventBus bus) {
 		blocks.register(bus);
 		items.register(bus);
-		bus.addGenericListener(Item.class, this::registerItems);
+		bus.addListener(this::registerItems);
 	}
 	
-	private void registerItems(Register<Item> event) {
-		final IForgeRegistry<Item> registry = event.getRegistry();
-		
-		blockToItemsMap.forEach((blockObject, itemObject) -> {
-			final Block block = blockObject.get();
-			if (block instanceof final BlockItemProvider blockItemProvider) {
-				final Item blockItem = blockItemProvider.blockItem();
-				if (blockItem != null) {
-					registry.register(blockItem.setRegistryName(itemObject.getId()));
+	private void registerItems(RegisterEvent event) {
+		if (event.getRegistryKey().equals(ForgeRegistries.Keys.ITEMS)) {
+			blockToItemsMap.forEach((blockObject, itemObject) -> {
+				final Block block = blockObject.get();
+				if (block instanceof final BlockItemProvider blockItemProvider) {
+					final Item blockItem = blockItemProvider.blockItem();
+					if (blockItem != null) {
+						event.register(ForgeRegistries.Keys.ITEMS, itemObject.getId(), () -> blockItem);
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 	
 	public CommonDeferredRegister<Block> getBlockRegister() {
