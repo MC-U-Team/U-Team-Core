@@ -6,6 +6,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class UArmorItem extends ArmorItem {
 	
@@ -25,7 +26,7 @@ public class UArmorItem extends ArmorItem {
 		if (!material.getName().equals("invalid")) {
 			return null;
 		}
-		return String.format("%s:textures/models/armor/%s_layer_%d%s.png", getRegistryName().getNamespace(), textureName, (slot == EquipmentSlot.LEGS ? 2 : 1), type == null ? "" : String.format("_%s", type));
+		return String.format("%s:textures/models/armor/%s_layer_%d%s.png", ForgeRegistries.ITEMS.getKey(this).getNamespace(), textureName, (slot == EquipmentSlot.LEGS ? 2 : 1), type == null ? "" : String.format("_%s", type));
 	}
 	
 	protected String getTypeString(EquipmentSlot slot) {
