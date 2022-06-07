@@ -2,38 +2,41 @@ package info.u_team.u_team_test.data.provider;
 
 import java.util.stream.IntStream;
 
-import info.u_team.u_team_core.data.CommonBlockTagsProvider;
-import info.u_team.u_team_core.data.CommonItemTagsProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestTags;
+import net.minecraft.core.Registry;
+import net.minecraft.data.tags.TagsProvider;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.registries.ForgeRegistries;
 
-public class TestItemTagsProvider extends CommonItemTagsProvider {
+public class TestItemTagsProvider extends TagsProvider<Item> {
 	
-	public TestItemTagsProvider(GenerationData data, CommonBlockTagsProvider blockProvider) {
-		super(data, blockProvider);
+	@SuppressWarnings("deprecation")
+	public TestItemTagsProvider(GenerationData data) {
+		super(data.getGenerator(), Registry.ITEM, data.getModid(), data.getExistingFileHelper());
 	}
 	
+	@SuppressWarnings("unchecked")
 	@Override
-	protected void registerTags() {
-		copy(TestTags.Blocks.TEST_TAG_1, TestTags.Items.TEST_TAG_1);
-		copy(TestTags.Blocks.TEST_TAG_2, TestTags.Items.TEST_TAG_2);
+	protected void addTags() {
+		// copy(TestTags.Blocks.TEST_TAG_1, TestTags.Items.TEST_TAG_1); // TODO Fix how?
+		// copy(TestTags.Blocks.TEST_TAG_2, TestTags.Items.TEST_TAG_2);
 		
-		getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).add(TestTags.Items.TEST_TAG_2).add(Items.BARREL).add(Items.BEACON, Items.ACACIA_BUTTON);
+		tag(TestTags.Items.TEST_TAG_3).add(Items.BEACON).addTag(TestTags.Items.TEST_TAG_2).add(Items.BARREL).add(Items.BEACON, Items.ACACIA_BUTTON);
 		
 		IntStream.range(0, 10).forEach(index -> {
-			getBuilder(TestTags.Items.TEST_TAG_3).add(Items.BEACON).add(TestTags.Items.TEST_TAG_2).add(Item.byId(index + 1));
+			tag(TestTags.Items.TEST_TAG_3).add(Items.BEACON).addTag(TestTags.Items.TEST_TAG_2).add(Item.byId(index + 1));
 		});
 		
-		getBuilder(TestTags.Items.TEST_TAG_4) //
+		tag(TestTags.Items.TEST_TAG_4) //
 				.add(Items.BLACKSTONE) //
-				.add(ItemTags.LOGS) //
+				.addTag(ItemTags.LOGS) //
 				.add(Items.FURNACE, Items.SMOKER, Items.BLAST_FURNACE) //
-				.add(Tags.Items.CHESTS_TRAPPED, Tags.Items.CHESTS_WOODEN) //
-				.addOptional(Items.ANCIENT_DEBRIS.getRegistryName()) //
+				.addTags(Tags.Items.CHESTS_TRAPPED, Tags.Items.CHESTS_WOODEN) //
+				.addOptional(ForgeRegistries.ITEMS.getKey(Items.ANCIENT_DEBRIS)) //
 				.addOptionalTag(ItemTags.ANVIL.location());
 	}
 	
