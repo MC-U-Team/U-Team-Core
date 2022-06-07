@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.gui.Font;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -85,7 +86,7 @@ public class CheckboxButton extends UButton {
 			final Font font = getCurrentTextFont();
 			
 			final Component message = getCurrentText();
-			if (!message.getString().isBlank()) {
+			if (message != CommonComponents.EMPTY) {
 				final float xStart;
 				final float yStart = y + (height - 8) / 2;
 				

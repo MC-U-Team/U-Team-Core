@@ -16,7 +16,6 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.fluids.FluidStack;
@@ -127,10 +126,10 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 		final List<Component> list = new ArrayList<>();
 		
 		list.add(stack.getDisplayName());
-		list.add(new TextComponent(stack.getAmount() + " mb/" + fluidSlot.getSlotCapacity() + " mb").withStyle(ChatFormatting.GRAY));
+		list.add(Component.literal(stack.getAmount() + " mb/" + fluidSlot.getSlotCapacity() + " mb").withStyle(ChatFormatting.GRAY));
 		
 		if (minecraft.options.advancedItemTooltips) {
-			list.add(new TextComponent(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString()).withStyle(ChatFormatting.DARK_GRAY));
+			list.add(Component.literal(ForgeRegistries.FLUIDS.getKey(stack.getFluid()).toString()).withStyle(ChatFormatting.DARK_GRAY));
 		}
 		
 		return list;

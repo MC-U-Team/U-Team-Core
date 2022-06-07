@@ -13,8 +13,8 @@ import info.u_team.u_team_core.api.gui.TooltipRenderable;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Widget;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
 
 public class WidgetUtil {
@@ -34,12 +34,12 @@ public class WidgetUtil {
 		final Font font = widget.getCurrentTextFont();
 		
 		Component message = widget.getCurrentText();
-		if (message != TextComponent.EMPTY) {
+		if (message != CommonComponents.EMPTY) {
 			final int messageWidth = font.width(message);
 			final int ellipsisWidth = font.width("...");
 			
 			if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
-				message = new TextComponent(font.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
+				message = Component.literal(font.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
 			}
 			
 			final float xStart = (widget.x + (widget.width / 2) - messageWidth / 2);
@@ -58,12 +58,12 @@ public class WidgetUtil {
 			final Font font = widget.getCurrentTextFont();
 			
 			Component message = widget.getCurrentText();
-			if (message != TextComponent.EMPTY) {
+			if (message != CommonComponents.EMPTY) {
 				final int messageWidth = Mth.ceil(scale * font.width(message));
 				final int ellipsisWidth = Mth.ceil(scale * font.width("..."));
 				
 				if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
-					message = new TextComponent(font.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
+					message = Component.literal(font.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
 				}
 				
 				final float positionFactor = 1 / scale;
