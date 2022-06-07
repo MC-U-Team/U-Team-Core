@@ -7,9 +7,10 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.ShapedRecipe;
 
-public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> extends URecipeSerializer<T> {
+public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> implements RecipeSerializer<T> {
 	
 	protected static Map<String, Ingredient> deserializeKey(JsonObject json) {
 		return ShapedRecipe.keyFromJson(json);
