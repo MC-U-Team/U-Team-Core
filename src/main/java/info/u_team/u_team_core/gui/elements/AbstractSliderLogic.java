@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.gui.elements;
 
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
 
 public abstract sealed class AbstractSliderLogic extends UButton permits USlider {
@@ -45,9 +44,9 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 				precision = 0;
 			}
 			
-			setMessage(new TextComponent("").append(prefix).append(displayValue).append(suffix));
+			setMessage(Component.empty().append(prefix).append(displayValue).append(suffix));
 		} else {
-			setMessage(new TextComponent(""));
+			setMessage(Component.empty());
 		}
 		
 		this.slider = slider;
@@ -85,7 +84,7 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 		}
 		
 		if (drawDescription) {
-			setMessage(new TextComponent("").append(prefix).append(displayValue).append(suffix));
+			setMessage(Component.empty().append(prefix).append(displayValue).append(suffix));
 		}
 		
 		slider.onChange(this);

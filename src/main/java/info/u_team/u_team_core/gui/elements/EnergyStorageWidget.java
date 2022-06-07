@@ -24,8 +24,6 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.energy.IEnergyStorage;
 
@@ -44,7 +42,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	}
 	
 	public EnergyStorageWidget(int x, int y, int height, LongSupplier capacity, LongSupplier storage) {
-		super(x, y, 14, height < 3 ? 3 : height, TextComponent.EMPTY);
+		super(x, y, 14, height < 3 ? 3 : height, Component.empty());
 		this.capacity = capacity;
 		this.storage = storage;
 		texture = ENERGY_TEXTURE;
@@ -115,7 +113,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 				capacityString = Long.toString(capacity.getAsLong()) + " ";
 			}
 			
-			final List<Component> list = List.of(new TranslatableComponent("gui.widget.uteamcore.energy.fe_tooltip", storageString, capacityString));
+			final List<Component> list = List.of(Component.translatable("gui.widget.uteamcore.energy.fe_tooltip", storageString, capacityString));
 			minecraft.screen.renderTooltip(poseStack, list, Optional.empty(), mouseX, mouseY, minecraft.font);
 		}
 	}

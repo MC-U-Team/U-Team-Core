@@ -6,7 +6,6 @@ import info.u_team.u_team_core.api.gui.Scalable;
 import info.u_team.u_team_core.api.gui.ScaleProvider;
 import net.minecraft.client.gui.Font;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 
 public class ScalableCheckboxButton extends CheckboxButton implements Scalable, ScaleProvider {
 	
@@ -45,7 +44,7 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 			final Font font = getCurrentTextFont();
 			
 			final Component message = getCurrentText();
-			if (message != TextComponent.EMPTY) {
+			if (!message.getString().isBlank()) {
 				final float currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
 				
 				final float positionFactor = 1 / currentScale;

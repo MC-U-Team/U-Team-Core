@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class ImageButton extends UButton {
@@ -26,7 +26,7 @@ public class ImageButton extends UButton {
 	}
 	
 	public ImageButton(int x, int y, int width, int height, ResourceLocation image, OnPress pessable, OnTooltip tooltip) {
-		super(x, y, width, height, TextComponent.EMPTY, pessable, tooltip);
+		super(x, y, width, height, Component.empty(), pessable, tooltip);
 		this.image = image;
 		imageColor = WHITE;
 	}
