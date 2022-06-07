@@ -9,7 +9,7 @@ import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
-import net.minecraft.data.HashCache;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -24,7 +24,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void run(HashCache cache) throws IOException {
+	public void run(CachedOutput cache) throws IOException {
 		registerRecipes(recipe -> generateRecipe(cache, recipe, false));
 		registerDefaultAdvancementsRecipes(recipe -> generateRecipe(cache, recipe, true));
 	}
@@ -34,7 +34,7 @@ public abstract class CommonRecipesProvider extends CommonProvider {
 		return "Recipes";
 	}
 	
-	private void generateRecipe(HashCache cache, FinishedRecipe recipe, boolean vanillaAdvancement) {
+	private void generateRecipe(CachedOutput cache, FinishedRecipe recipe, boolean vanillaAdvancement) {
 		try {
 			final ResourceLocation recipeLocation = recipe.getId();
 			write(cache, recipe.serializeRecipe(), resolveData(recipeLocation).resolve("recipes").resolve(recipe.getId().getPath() + ".json"));

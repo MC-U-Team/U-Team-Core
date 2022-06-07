@@ -9,14 +9,15 @@ import org.apache.logging.log4j.MarkerManager;
 
 import com.google.common.collect.Streams;
 
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
+import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
 public abstract class CommonItemModelsProvider extends ItemModelProvider {
@@ -36,7 +37,7 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	}
 	
 	@Override
-	public void run(HashCache cache) throws IOException {
+	public void run(CachedOutput cache) throws IOException {
 		generatedModels.clear();
 		registerModels();
 		generatedModels.values().forEach(model -> {
@@ -65,16 +66,16 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	}
 	
 	protected void spawnEgg(ItemLike provider) {
-		withExistingParent(provider.asItem().getRegistryName().getPath(), "item/template_spawn_egg");
+		withExistingParent(ForgeRegistries.ITEMS.getKey(provider.asItem()).getPath(), "item/template_spawn_egg");
 	}
 	
 	protected void simpleParent(ItemLike provider, final String parent) {
-		final String registryPath = provider.asItem().getRegistryName().getPath();
+		final String registryPath = ForgeRegistries.ITEMS.getKey(provider.asItem()).getPath();
 		getBuilder(registryPath).parent(new UncheckedModelFile(parent)).texture("layer0", "item/" + registryPath);
 	}
 	
 	protected void simpleBlock(Block block) {
-		final ResourceLocation registryName = block.getRegistryName();
+		final ResourceLocation registryName = ForgeRegistries.BLOCKS.getKey(block);
 		getBuilder(registryName.getPath()).parent(new UncheckedModelFile(new ResourceLocation(registryName.getNamespace(), "block/" + registryName.getPath())));
 	}
 	
@@ -88,7 +89,7 @@ public abstract class CommonItemModelsProvider extends ItemModelProvider {
 	}
 	
 	protected String getPath(ItemLike provider) {
-		return provider.asItem().getRegistryName().getPath();
+		return ForgeRegistries.ITEMS.getKey(provider.asItem()).getPath();
 	}
 	
 }

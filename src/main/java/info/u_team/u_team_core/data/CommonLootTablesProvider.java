@@ -8,7 +8,7 @@ import info.u_team.u_team_core.intern.loot.SetBlockEntityNBTLootFunction;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
-import net.minecraft.data.HashCache;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
@@ -23,6 +23,7 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonLootTablesProvider extends CommonProvider {
 	
@@ -31,7 +32,7 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void run(HashCache cache) throws IOException {
+	public void run(CachedOutput cache) throws IOException {
 		registerLootTables((location, lootTable) -> {
 			try {
 				write(cache, LootTables.serialize(lootTable), resolveData(location).resolve("loot_tables").resolve(location.getPath() + ".json"));
@@ -53,7 +54,7 @@ public abstract class CommonLootTablesProvider extends CommonProvider {
 	}
 	
 	protected static void registerBlock(Block block, LootTable lootTable, BiConsumer<ResourceLocation, LootTable> consumer) {
-		final ResourceLocation registryName = block.getRegistryName();
+		final ResourceLocation registryName = ForgeRegistries.BLOCKS.getKey(block);
 		consumer.accept(new ResourceLocation(registryName.getNamespace(), "blocks/" + registryName.getPath()), lootTable);
 	}
 	

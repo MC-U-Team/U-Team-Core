@@ -6,9 +6,9 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 
-import net.minecraft.data.HashCache;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -28,7 +28,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void run(HashCache cache) throws IOException {
+	public void run(CachedOutput cache) throws IOException {
 		addTranslations();
 		data.forEach((locale, map) -> {
 			if (!map.isEmpty()) {
@@ -50,8 +50,8 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	
 	protected void add(CreativeModeTab key, String name) {
 		final Component component = key.getDisplayName();
-		if (component instanceof TranslatableComponent) {
-			add(((TranslatableComponent) component).getKey(), name);
+		if (component.getContents() instanceof TranslatableContents translatableContents) {
+			add(translatableContents.getKey(), name);
 		}
 	}
 	
@@ -117,8 +117,8 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	
 	protected void add(String locale, CreativeModeTab key, String name) {
 		final Component component = key.getDisplayName();
-		if (component instanceof TranslatableComponent) {
-			add(locale, ((TranslatableComponent) component).getKey(), name);
+		if (component.getContents() instanceof TranslatableContents translatableContents) {
+			add(locale, translatableContents.getKey(), name);
 		}
 	}
 	

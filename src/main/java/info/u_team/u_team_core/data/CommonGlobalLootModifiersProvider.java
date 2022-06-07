@@ -11,11 +11,12 @@ import com.google.gson.JsonObject;
 
 import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.TriConsumer;
-import net.minecraft.data.HashCache;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonGlobalLootModifiersProvider extends CommonProvider {
 	
@@ -26,7 +27,7 @@ public abstract class CommonGlobalLootModifiersProvider extends CommonProvider {
 	}
 	
 	@Override
-	public void run(HashCache cache) throws IOException {
+	public void run(CachedOutput cache) throws IOException {
 		final Map<String, Tuple<GlobalLootModifierSerializer<?>, JsonObject>> serializers = new TreeMap<>();
 		
 		registerGlobalLootModifiers((modifier, serializerSupplier, instance) -> {
@@ -39,7 +40,7 @@ public abstract class CommonGlobalLootModifiersProvider extends CommonProvider {
 			final var tuple = entry.getValue();
 			final JsonObject json = tuple.getB();
 			
-			json.addProperty("type", tuple.getA().getRegistryName().toString());
+			json.addProperty("type", ForgeRegistries.LOOT_MODIFIER_SERIALIZERS.get().getKey(tuple.getA()).toString());
 			
 			try {
 				write(cache, json, resolveModData().resolve("loot_modifiers").resolve(name + ".json"));
