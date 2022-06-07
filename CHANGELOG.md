@@ -1,16 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.18.2-4.0.1.210] - 2022-05-28
+## [1.19-4.1.0.211] - 2022-06-08
 ### Changed
- - Some minor code cleanup. Should have no changes to the function
- - Replaced all vars with concrete types
-
-## [1.18.2-4.0.1.209] - 2022-05-27
-### Changed
- - Replace forge slider implementation with custom one
- - Update forge to 40.1.25
-
-## [1.18.2-4.0.0.204] - 2022-03-12
-### Changed
- - Port to 1.18.2
+ - Port to 1.19
+ - Data generators are broken right now
