@@ -44,7 +44,7 @@ public class SetBlockEntityNBTLootFunction extends LootItemConditionalFunction {
 	
 	@Override
 	public LootItemFunctionType getType() {
-		return UCoreLootFunctions.SET_BLOCKENTITY_NBT;
+		return UCoreLootFunctions.SET_BLOCKENTITY_NBT.get();
 	}
 	
 	public static class Serializer extends LootItemConditionalFunction.Serializer<SetBlockEntityNBTLootFunction> {
