@@ -1,10 +1,8 @@
 package info.u_team.u_team_test.global_loot_modifier;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 import com.google.gson.JsonObject;
 
+import it.unimi.dsi.fastutil.objects.ObjectArrayList;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.item.ItemStack;
@@ -21,8 +19,8 @@ public class AutoSmeltLootModifier extends LootModifier {
 	}
 	
 	@Override
-	protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
-		return generatedLoot.stream().map(stack -> smeltItem(stack, context)).collect(Collectors.toList());
+	protected ObjectArrayList<ItemStack> doApply(ObjectArrayList<ItemStack> generatedLoot, LootContext context) {
+		return generatedLoot.stream().map(stack -> smeltItem(stack, context)).collect(ObjectArrayList.toList());
 	}
 	
 	private static ItemStack smeltItem(ItemStack stack, LootContext context) {

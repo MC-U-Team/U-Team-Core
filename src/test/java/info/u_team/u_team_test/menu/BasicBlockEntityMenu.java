@@ -8,6 +8,8 @@ import info.u_team.u_team_test.blockentity.BasicBlockEntityBlockEntity;
 import info.u_team.u_team_test.init.TestMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.fml.LogicalSide;
 
 public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<BasicBlockEntityBlockEntity> {
@@ -50,5 +52,10 @@ public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<BasicBlockEn
 	
 	public MessageHolder getCooldownMessage() {
 		return cooldownMessage;
+	}
+	
+	@Override
+	public ItemStack quickMoveStack(Player p_38941_, int p_38942_) {
+		return null;
 	}
 }

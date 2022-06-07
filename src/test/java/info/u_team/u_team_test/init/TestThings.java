@@ -11,6 +11,7 @@ import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.block.BasicBlock;
 import net.minecraft.world.item.BlockItem;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 @Construct(modid = TestMod.MODID)
 public class TestThings implements ModConstruct {
@@ -35,7 +36,7 @@ public class TestThings implements ModConstruct {
 	private static void setup(FMLCommonSetupEvent event) {
 		final BlockRegistryObject<BasicBlock, BlockItem> registryObject = TestBlocks.BASIC;
 		
-		if (!registryObject.getItem().getRegistryName().equals(registryObject.getItemId())) {
+		if (!ForgeRegistries.ITEMS.getKey(registryObject.getItem()).equals(registryObject.getItemId())) {
 			throw new IllegalStateException("Registry name of item must be set and match the expected one");
 		}
 		

@@ -3,7 +3,7 @@ package info.u_team.u_team_test.item;
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.util.LevelUtil;
 import info.u_team.u_team_test.init.TestCreativeTabs;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -29,7 +29,7 @@ public class BasicItem extends UItem {
 			final HitResult rayTrace = LevelUtil.rayTraceServerSide(player, 50);
 			
 			if (rayTrace.getType() == Type.MISS) {
-				player.displayClientMessage(new TranslatableComponent("item.uteamtest.basic_item.outofrange"), true);
+				player.displayClientMessage(Component.translatable("item.uteamtest.basic_item.outofrange"), true);
 				return InteractionResultHolder.fail(stack);
 			}
 			

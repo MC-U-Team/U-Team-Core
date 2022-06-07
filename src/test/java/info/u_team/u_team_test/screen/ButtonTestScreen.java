@@ -23,7 +23,7 @@ import info.u_team.u_team_core.screen.UScreen;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
 import info.u_team.u_team_test.TestMod;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
 public class ButtonTestScreen extends UScreen {
@@ -43,39 +43,39 @@ public class ButtonTestScreen extends UScreen {
 	private BasicTestList scrollingList;
 	
 	public ButtonTestScreen() {
-		super(new TextComponent("test"));
+		super(Component.literal("test"));
 	}
 	
 	@Override
 	protected void init() {
 		// U Button Test
-		final UButton uButton = addRenderableWidget(new UButton(10, 10, 200, 15, new TextComponent("U Button")));
+		final UButton uButton = addRenderableWidget(new UButton(10, 10, 200, 15, Component.literal("U Button")));
 		uButton.setPressable(() -> LOGGER.info("Pressed U Button"));
 		uButton.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("U Button Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("U Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
 		// Scalable Button Test
-		final ScalableButton scalableButton = addRenderableWidget(new ScalableButton(10, 30, 200, 15, new TextComponent("Scalable Button"), 0.75F));
+		final ScalableButton scalableButton = addRenderableWidget(new ScalableButton(10, 30, 200, 15, Component.literal("Scalable Button"), 0.75F));
 		scalableButton.setTextColor(new RGBA(0x00FFFF80));
 		scalableButton.setPressable(button -> LOGGER.info("Pressed Scalable Button"));
 		scalableButton.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Scalable Button Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Scalable Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
 		// Scalable Activatable Button Test
-		final ScalableActivatableButton scalableActivatableButton = addRenderableWidget(new ScalableActivatableButton(10, 50, 200, 15, new TextComponent("Scalable Activatable Button"), 0.75F, false, new RGBA(0x006442FF)));
+		final ScalableActivatableButton scalableActivatableButton = addRenderableWidget(new ScalableActivatableButton(10, 50, 200, 15, Component.literal("Scalable Activatable Button"), 0.75F, false, new RGBA(0x006442FF)));
 		scalableActivatableButton.setPressable(() -> {
 			LOGGER.info("Pressed Scalable Activatable Button");
 			scalableActivatableButton.setActivated(!scalableActivatableButton.isActivated());
 		});
 		scalableActivatableButton.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Scalable Activatable Button Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Scalable Activatable Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
@@ -86,7 +86,7 @@ public class ButtonTestScreen extends UScreen {
 		});
 		imageButton.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Image Button Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Image Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
@@ -98,7 +98,7 @@ public class ButtonTestScreen extends UScreen {
 		});
 		imageButton2.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Image Button 2 Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Image Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
 		
@@ -110,7 +110,7 @@ public class ButtonTestScreen extends UScreen {
 		});
 		imageActivatableButton.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Image Activatable Button Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Image Activatable Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
@@ -121,7 +121,7 @@ public class ButtonTestScreen extends UScreen {
 		});
 		imageToggleButton.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Image Toggle Button Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Image Toggle Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
@@ -133,33 +133,33 @@ public class ButtonTestScreen extends UScreen {
 		});
 		imageToggleButton2.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Image Toggle Button 2 Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Image Toggle Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
 		
 		// U Slider Test
-		final USlider uSlider = addRenderableWidget(new USlider(10, 130, 200, 20, new TextComponent("U Slider: "), new TextComponent("%"), 0, 100, 20, false, true, false));
+		final USlider uSlider = addRenderableWidget(new USlider(10, 130, 200, 20, Component.literal("U Slider: "), Component.literal("%"), 0, 100, 20, false, true, false));
 		uSlider.setSlider(() -> {
 			LOGGER.info("Updated U Slider: " + uSlider.getValueInt());
 		});
 		uSlider.setTooltip((slider, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(slider)) {
-				renderTooltip(poseStack, new TextComponent("U Slider Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("U Slider Tooltip"), mouseX, mouseY);
 			}
 		});
 		
 		// Scalable Slider Test
-		final ScalableSlider scalableSlider = addRenderableWidget(new ScalableSlider(10, 155, 200, 15, new TextComponent("Scalable Slider: "), new TextComponent("%"), 0, 100, 20, false, true, false, 0.5F));
+		final ScalableSlider scalableSlider = addRenderableWidget(new ScalableSlider(10, 155, 200, 15, Component.literal("Scalable Slider: "), Component.literal("%"), 0, 100, 20, false, true, false, 0.5F));
 		scalableSlider.setSlider(() -> {
 			LOGGER.info("Updated Scalable Slider: " + scalableSlider.getValueInt());
 		});
 		scalableSlider.setTooltip((slider, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(slider)) {
-				renderTooltip(poseStack, new TextComponent("Scalable Slider Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Scalable Slider Tooltip"), mouseX, mouseY);
 			}
 		});
 		
-		final ScalableSlider scalableSlider2 = addRenderableWidget(new ScalableSlider(10, 175, 200, 30, new TextComponent("Scalable Slider 2: "), new TextComponent("%"), 0, 100, 20, false, true, false, 1.5F));
+		final ScalableSlider scalableSlider2 = addRenderableWidget(new ScalableSlider(10, 175, 200, 30, Component.literal("Scalable Slider 2: "), Component.literal("%"), 0, 100, 20, false, true, false, 1.5F));
 		scalableSlider2.setSliderBackgroundColor(new RGBA(0x0000FFFF));
 		scalableSlider2.setSliderColor(new RGBA(0x00FF00FF));
 		scalableSlider2.setTextColor(new RGBA(0xFF0000FF));
@@ -172,45 +172,45 @@ public class ButtonTestScreen extends UScreen {
 		});
 		scalableSlider2.setTooltip((slider, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(slider)) {
-				renderTooltip(poseStack, new TextComponent("Scalable Slider 2 Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Scalable Slider 2 Tooltip"), mouseX, mouseY);
 				scalableSlider2.active = true;
 			}
 		});
 		
 		// Checkbox Button Test
-		final CheckboxButton checkboxButton = addRenderableWidget(new CheckboxButton(10, 210, 15, 15, new TextComponent("Checkbox Button"), false, true));
+		final CheckboxButton checkboxButton = addRenderableWidget(new CheckboxButton(10, 210, 15, 15, Component.literal("Checkbox Button"), false, true));
 		checkboxButton.setPressable(() -> {
 			LOGGER.info("Pressed Checkbox Button");
 		});
 		checkboxButton.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Checkbox Button Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Checkbox Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
-		final CheckboxButton checkboxButton2 = addRenderableWidget(new CheckboxButton(110, 230, 15, 15, new TextComponent("Checkbox Button 2"), false, true));
+		final CheckboxButton checkboxButton2 = addRenderableWidget(new CheckboxButton(110, 230, 15, 15, Component.literal("Checkbox Button 2"), false, true));
 		checkboxButton2.setLeftSideText(true);
 		checkboxButton2.setPressable(() -> {
 			LOGGER.info("Pressed Checkbox Button 2");
 		});
 		checkboxButton2.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Checkbox Button 2 Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Checkbox Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
 		
 		// Scalable Checkbox Button Test
-		final ScalableCheckboxButton scalableCheckboxButton = addRenderableWidget(new ScalableCheckboxButton(10, 250, 15, 15, new TextComponent("Scalable Checkbox Button"), false, true, 0.75F));
+		final ScalableCheckboxButton scalableCheckboxButton = addRenderableWidget(new ScalableCheckboxButton(10, 250, 15, 15, Component.literal("Scalable Checkbox Button"), false, true, 0.75F));
 		scalableCheckboxButton.setPressable(() -> {
 			LOGGER.info("Pressed Scalable Checkbox Button");
 		});
 		scalableCheckboxButton.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Scalable Checkbox Button Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Scalable Checkbox Button Tooltip"), mouseX, mouseY);
 			}
 		});
 		
-		final ScalableCheckboxButton scalableCheckboxButton2 = addRenderableWidget(new ScalableCheckboxButton(110, 270, 15, 15, new TextComponent("Scalable Checkbox Button 2"), false, true, 0.65F));
+		final ScalableCheckboxButton scalableCheckboxButton2 = addRenderableWidget(new ScalableCheckboxButton(110, 270, 15, 15, Component.literal("Scalable Checkbox Button 2"), false, true, 0.65F));
 		scalableCheckboxButton2.setLeftSideText(true);
 		scalableCheckboxButton2.setButtonColor(new RGBA(0x0000F0FF));
 		scalableCheckboxButton2.setTextColor(new RGBA(0xA0A0A0FF));
@@ -219,35 +219,35 @@ public class ButtonTestScreen extends UScreen {
 		});
 		scalableCheckboxButton2.setTooltip((button, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(button)) {
-				renderTooltip(poseStack, new TextComponent("Scalable Checkbox Button 2 Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Scalable Checkbox Button 2 Tooltip"), mouseX, mouseY);
 			}
 		});
 		
 		// U Text Field Test
 		minecraft.keyboardHandler.setSendRepeatsToGui(true);
 		
-		textFieldWidget = addRenderableWidget(new UEditBox(font, 220, 110, 200, 20, textFieldWidget, new TextComponent("U Text Field")));
+		textFieldWidget = addRenderableWidget(new UEditBox(font, 220, 110, 200, 20, textFieldWidget, Component.literal("U Text Field")));
 		textFieldWidget.setMaxLength(500);
 		textFieldWidget.setTooltip((textField, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
-				renderTooltip(poseStack, new TextComponent("U Text Field Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("U Text Field Tooltip"), mouseX, mouseY);
 			}
 		});
 		
 		// Scalable Text Field Test
-		scalableTextFieldWidget = addRenderableWidget(new ScalableEditBox(font, 220, 140, 200, 30, scalableTextFieldWidget, new TextComponent("Scalable Text Field"), 1.5F));
+		scalableTextFieldWidget = addRenderableWidget(new ScalableEditBox(font, 220, 140, 200, 30, scalableTextFieldWidget, Component.literal("Scalable Text Field"), 1.5F));
 		scalableTextFieldWidget.setMaxLength(500);
 		scalableTextFieldWidget.setTooltip((textField, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
-				renderTooltip(poseStack, new TextComponent("Scalable Text Field Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Scalable Text Field Tooltip"), mouseX, mouseY);
 			}
 		});
 		
-		scalableTextFieldWidget2 = addRenderableWidget(new ScalableEditBox(font, 220, 180, 200, 15, scalableTextFieldWidget, new TextComponent("Scalable Text Field 2"), 0.5F));
+		scalableTextFieldWidget2 = addRenderableWidget(new ScalableEditBox(font, 220, 180, 200, 15, scalableTextFieldWidget, Component.literal("Scalable Text Field 2"), 0.5F));
 		scalableTextFieldWidget2.setMaxLength(500);
 		scalableTextFieldWidget2.setTooltip((textField, poseStack, mouseX, mouseY) -> {
 			if (WidgetUtil.isHovered(textField)) {
-				renderTooltip(poseStack, new TextComponent("Scalable Text Field 2 Tooltip"), mouseX, mouseY);
+				renderTooltip(poseStack, Component.literal("Scalable Text Field 2 Tooltip"), mouseX, mouseY);
 			}
 		});
 		

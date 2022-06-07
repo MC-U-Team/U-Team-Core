@@ -1,12 +1,11 @@
 package info.u_team.u_team_test.entity;
 
-import java.util.Random;
-
 import info.u_team.u_team_test.init.TestEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -38,7 +37,7 @@ public class TestLiving extends Zombie {
 				.add(Attributes.ATTACK_DAMAGE, 6);
 	}
 	
-	public static boolean checkTestLivingSpawnRules(EntityType<TestLiving> entityType, ServerLevelAccessor world, MobSpawnType spawnType, BlockPos pos, Random random) {
+	public static boolean checkTestLivingSpawnRules(EntityType<TestLiving> entityType, ServerLevelAccessor world, MobSpawnType spawnType, BlockPos pos, RandomSource random) {
 		return checkAnyLightMonsterSpawnRules(entityType, world, spawnType, pos, random) && (spawnType == MobSpawnType.SPAWNER || world.canSeeSky(pos));
 	}
 	

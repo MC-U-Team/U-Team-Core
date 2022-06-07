@@ -24,7 +24,7 @@ public class TestCommonConstruct implements ModConstruct {
 		BusRegister.registerMod(TestBlockEntityTypes::registerMod);
 		BusRegister.registerMod(TestTiers::registerMod);
 		
-		BusRegister.registerForge(TestBiomeLoadingAdditions::registerForge);
+		// BusRegister.registerForge(TestBiomeLoadingAdditions::registerForge);
 	}
 	
 }
