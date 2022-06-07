@@ -12,12 +12,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.IForgeRegistry;
 
 public class ItemStackInfoSubCommand {
 	
@@ -31,25 +30,25 @@ public class ItemStackInfoSubCommand {
 		final ItemStack stack = source.getPlayerOrException().getMainHandItem();
 		final Item item = stack.getItem();
 		
-		source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item)), false);
+		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, ForgeRegistries.ITEMS)), false);
 		
 		if (item instanceof BlockItem) {
-			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(((BlockItem) item).getBlock())), false);
+			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(((BlockItem) item).getBlock(), ForgeRegistries.BLOCKS)), false);
 		}
 		
 		if (stack.hasTag()) {
-			source.sendSuccess(new TranslatableComponent(SUCCESS_TRANSLATION_STRING + "nbt", NbtUtils.toPrettyComponent(stack.getTag())), false);
+			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "nbt", NbtUtils.toPrettyComponent(stack.getTag())), false);
 		}
 		return 0;
 	}
 	
-	private static Component createRegistryInfo(IForgeRegistryEntry<?> entry) {
-		final MutableComponent component = new TextComponent(entry.getRegistryName().toString());
-		Style style = component.getStyle();
+	private static <T> Component createRegistryInfo(T entry, IForgeRegistry<T> registry) {
+		final MutableComponent component = Component.literal(registry.getKey(entry).toString());
 		final String className = getClassString(entry);
-		style = style.withColor(ChatFormatting.AQUA);
-		style = style.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent(className).withStyle(ChatFormatting.YELLOW)));
-		style = style.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
+		final Style style = component.getStyle() //
+				.withColor(ChatFormatting.AQUA) //
+				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal(className).withStyle(ChatFormatting.YELLOW))) //
+				.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
 		component.setStyle(style);
 		return component;
 	}
