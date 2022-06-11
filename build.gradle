@@ -123,7 +123,7 @@ def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
 	from sourceSets.test.allJava
 }
 
-gradlefiles.assembleDependOn(testJarTask, testSourcesJar)
+gradlefiles.assembleDependOn(testJarTask, testSourcesJarTask)
 
 tasks.withType(Jar) { task ->
 	gradlefiles.defaultJar(task)
