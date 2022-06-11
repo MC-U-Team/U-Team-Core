@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.12.2-2.2.5.212] - 2022-06-11
+### Changed
+ - Update gradle files version
+ - Fix Umlaut
+
 ## [1.12.2-2.2.5.205] - 2022-04-16
 ### Changed
  - Update toolchain to forge gradle 5 and use gradle files plugin
