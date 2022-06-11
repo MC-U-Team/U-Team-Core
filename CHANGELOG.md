@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.18.2-4.0.1.216] - 2022-06-11
+### Changed
+ - Update gradle files version
+
 ## [1.18.2-4.0.1.210] - 2022-05-28
 ### Changed
  - Some minor code cleanup. Should have no changes to the function
