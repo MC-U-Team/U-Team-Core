@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.2-3.0.2.214] - 2022-06-11
+### Changed
+ - Update gradle files version
+
 ## [1.15.2-3.0.2.207] - 2022-04-16
 ### Changed
  - Update toolchain to forge gradle 5 and use gradle files plugin
