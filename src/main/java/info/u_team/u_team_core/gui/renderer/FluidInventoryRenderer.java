@@ -8,7 +8,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.client.IFluidTypeRenderProperties;
+import net.minecraftforge.client.RenderProperties;
 import net.minecraftforge.fluids.FluidStack;
 
 public class FluidInventoryRenderer {
@@ -22,10 +23,10 @@ public class FluidInventoryRenderer {
 			return;
 		}
 		
-		final FluidAttributes attributes = stack.getFluid().getAttributes();
+		final IFluidTypeRenderProperties renderProperties = RenderProperties.get(stack.getFluid());
 		
-		final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(ATLAS).apply(attributes.getStillTexture(stack));
-		final RGBA rgba = RGBA.fromARGB(attributes.getColor(stack));
+		final TextureAtlasSprite sprite = Minecraft.getInstance().getTextureAtlas(ATLAS).apply(renderProperties.getStillTexture(stack));
+		final RGBA rgba = RGBA.fromARGB(renderProperties.getColorTint(stack));
 		
 		RenderUtil.drawTexturedQuad(poseStack, x, y, 16, 16, blitOffset, sprite, rgba);
 		
