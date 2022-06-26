@@ -108,7 +108,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(Fluid key, String name) {
-		add(key.getAttributes().getTranslationKey(), name);
+		add(key.getFluidType().getDescriptionId(), name);
 	}
 	
 	protected void add(String key, String value) {
@@ -175,7 +175,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String locale, Fluid key, String name) {
-		add(locale, key.getAttributes().getTranslationKey(), name);
+		add(locale, key.getFluidType().getDescriptionId(), name);
 	}
 	
 	protected void add(String locale, String key, String value) {
