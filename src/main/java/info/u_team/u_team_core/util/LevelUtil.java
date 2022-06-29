@@ -25,7 +25,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 /**
- * Some utility methods for world interaction.
+ * Some utility methods for level interaction.
  *
  * @author HyCraftHD
  */
@@ -60,142 +60,148 @@ public class LevelUtil {
 	}
 	
 	/**
-	 * Get a saved instance (own implementation) of {@link WorldSavedData}. If it does not exist, a new one is created.
+	 * Get a saved instance (own implementation) of {@link SavedData}. If it does not exist, a new one is created.
 	 *
-	 * @param <T> Custom world save data class
-	 * @param world Server world
+	 * @param <T> Custom level save data class
+	 * @param level Server level
 	 * @param name Name of this data
 	 * @param defaultData Function for creating an instance and for the default instance
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
-	public static <T extends SavedData> T getSaveData(ServerLevel world, Function<CompoundTag, T> load, String name, Function<String, T> defaultData) {
-		return getSaveData(world, name, load, () -> defaultData.apply(name));
+	public static <T extends SavedData> T getSaveData(ServerLevel level, Function<CompoundTag, T> load, String name, Function<String, T> defaultData) {
+		return getSaveData(level, name, load, () -> defaultData.apply(name));
 	}
 	
 	/**
-	 * Get a saved instance (own implementation) of {@link WorldSavedData}. If it does not exist, a new one is created.
+	 * Get a saved instance (own implementation) of {@link SavedData}. If it does not exist, a new one is created.
 	 *
-	 * @param <T> Custom world save data class
-	 * @param world Server world
+	 * @param <T> Custom level save data class
+	 * @param level Server level
 	 * @param name Name of this data
 	 * @param defaultData Supplier for creating an instance and for the default instance
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
-	public static <T extends SavedData> T getSaveData(ServerLevel world, String name, Function<CompoundTag, T> load, Supplier<T> defaultData) {
-		return world.getDataStorage().computeIfAbsent(load, defaultData, name);
+	public static <T extends SavedData> T getSaveData(ServerLevel level, String name, Function<CompoundTag, T> load, Supplier<T> defaultData) {
+		return level.getDataStorage().computeIfAbsent(load, defaultData, name);
 	}
 	
 	/**
 	 * Get the {@link ServerLevel} from the {@link ResourceKey}
 	 *
 	 * @param entity An entity used to get the server instance with {@link Entity#getServer()}
-	 * @param type The dimension type
-	 * @return The server world for the given type
+	 * @param key The dimension key
+	 * @return The server level for the given key
 	 */
-	public static ServerLevel getServerLevel(Entity entity, ResourceKey<Level> type) {
-		return getServerWorld(entity.getServer(), type);
+	public static ServerLevel getServerLevel(Entity entity, ResourceKey<Level> key) {
+		return getServerLevel(entity.getServer(), key);
 	}
 	
 	/**
 	 * Get the {@link ServerLevel} from the {@link ResourceKey}
 	 *
 	 * @param server The server instance
-	 * @param type The dimension type
-	 * @return The server world for the given type
+	 * @param key The dimension key
+	 * @return The server level for the given key
 	 */
-	public static ServerLevel getServerWorld(MinecraftServer server, ResourceKey<Level> type) {
-		return server.getLevel(type);
+	public static ServerLevel getServerLevel(MinecraftServer server, ResourceKey<Level> key) {
+		return server.getLevel(key);
 	}
 	
 	/**
-	 * Teleports any entity to a given location in a given {@link ServerWorld}. Don't change the yaw and pitch of the
+	 * Teleports any entity to a given location in a given {@link ServerLevel}. Don't change the yaw and pitch of the
 	 * entity.
 	 *
 	 * @param entity The entity to teleport
-	 * @param type The dimension type where the entity should be teleported. Can be the same as the current dimension type
-	 *        or a different one
-	 * @param pos The position the entity should be teleported to
-	 */
-	public static void teleportEntity(Entity entity, ResourceKey<Level> type, BlockPos pos) {
-		teleportEntity(entity, type, Vec3.atCenterOf(pos));
-	}
-	
-	/**
-	 * Teleports any entity to a given location in a given {@link ServerWorld}. Don't change the yaw and pitch of the
-	 * entity.
-	 *
-	 * @param entity The entity to teleport
-	 * @param type The dimension type where the entity should be teleported. Can be the same as the current dimension type
-	 *        or a different one
-	 * @param pos The position the entity should be teleported to
-	 */
-	public static void teleportEntity(Entity entity, ResourceKey<Level> type, Vec3 pos) {
-		teleportEntity(entity, getServerLevel(entity, type), pos);
-	}
-	
-	/**
-	 * Teleports any entity to a given location in a given {@link ServerWorld}. Don't change the yaw and pitch of the
-	 * entity.
-	 *
-	 * @param entity The entity to teleport
-	 * @param world The server world where the entity should be teleported. Can be the same as the current world or a
+	 * @param key The dimension key where the entity should be teleported. Can be the same as the current dimension key or a
 	 *        different one
 	 * @param pos The position the entity should be teleported to
+	 * @return The teleported entity
 	 */
-	public static void teleportEntity(Entity entity, ServerLevel world, BlockPos pos) {
-		teleportEntity(entity, world, Vec3.atCenterOf(pos));
+	public static Entity teleportEntity(Entity entity, ResourceKey<Level> key, BlockPos pos) {
+		return teleportEntity(entity, key, Vec3.atCenterOf(pos));
 	}
 	
 	/**
-	 * Teleports any entity to a given location in a given {@link ServerWorld}. Don't change the yaw and pitch of the
+	 * Teleports any entity to a given location in a given {@link ServerLevel}. Don't change the yaw and pitch of the
 	 * entity.
 	 *
 	 * @param entity The entity to teleport
-	 * @param world The server world where the entity should be teleported. Can be the same as the current world or a
+	 * @param key The dimension key where the entity should be teleported. Can be the same as the current dimension key or a
 	 *        different one
 	 * @param pos The position the entity should be teleported to
+	 * @return The teleported entity
 	 */
-	public static void teleportEntity(Entity entity, ServerLevel world, Vec3 pos) {
-		teleportEntity(entity, world, pos.x(), pos.y(), pos.z(), entity.getYRot(), entity.getXRot());
+	public static Entity teleportEntity(Entity entity, ResourceKey<Level> key, Vec3 pos) {
+		return teleportEntity(entity, getServerLevel(entity, key), pos);
+	}
+	
+	/**
+	 * Teleports any entity to a given location in a given {@link ServerLevel}. Don't change the yaw and pitch of the
+	 * entity.
+	 *
+	 * @param entity The entity to teleport
+	 * @param level The server level where the entity should be teleported. Can be the same as the current level or a
+	 *        different one
+	 * @param pos The position the entity should be teleported to
+	 * @return The teleported entity
+	 */
+	public static Entity teleportEntity(Entity entity, ServerLevel level, BlockPos pos) {
+		return teleportEntity(entity, level, Vec3.atCenterOf(pos));
+	}
+	
+	/**
+	 * Teleports any entity to a given location in a given {@link ServerLevel}. Don't change the yaw and pitch of the
+	 * entity.
+	 *
+	 * @param entity The entity to teleport
+	 * @param level The server level where the entity should be teleported. Can be the same as the current level or a
+	 *        different one
+	 * @param pos The position the entity should be teleported to
+	 * @return The teleported entity
+	 */
+	public static Entity teleportEntity(Entity entity, ServerLevel level, Vec3 pos) {
+		return teleportEntity(entity, level, pos.x(), pos.y(), pos.z(), entity.getYRot(), entity.getXRot());
 	}
 	
 	/**
 	 * Teleports any entity to a given location in a given {@link DimensionType}.
 	 *
 	 * @param entity The entity to teleport
-	 * @param type The dimension type where the entity should be teleported. Can be the same as the current dimension type
-	 *        or a different one
-	 * @param x X-Coordinate
-	 * @param y Y-Coordinate
-	 * @param z Z-Coordinate
-	 * @param yaw Yaw
-	 * @param pitch Pitch
-	 */
-	public static void teleportEntity(Entity entity, ResourceKey<Level> type, double x, double y, double z, float yaw, float pitch) {
-		teleportEntity(entity, getServerLevel(entity, type), x, y, z, yaw, pitch);
-	}
-	
-	/**
-	 * Teleports any entity to a given location in a given {@link ServerWorld}.
-	 *
-	 * @param entity The entity to teleport
-	 * @param world The server world where the entity should be teleported. Can be the same as the current world or a
+	 * @param key The dimension key where the entity should be teleported. Can be the same as the current dimension key or a
 	 *        different one
 	 * @param x X-Coordinate
 	 * @param y Y-Coordinate
 	 * @param z Z-Coordinate
 	 * @param yaw Yaw
 	 * @param pitch Pitch
+	 * @return The teleported entity
 	 */
-	public static void teleportEntity(Entity entity, ServerLevel world, double x, double y, double z, float yaw, float pitch) {
-		teleportEntity(entity, world, x, y, z, yaw, pitch, true);
+	public static Entity teleportEntity(Entity entity, ResourceKey<Level> key, double x, double y, double z, float yaw, float pitch) {
+		return teleportEntity(entity, getServerLevel(entity, key), x, y, z, yaw, pitch);
 	}
 	
 	/**
-	 * Teleports any entity to a given location in a given {@link ServerWorld}.
+	 * Teleports any entity to a given location in a given {@link ServerLevel}.
 	 *
 	 * @param entity The entity to teleport
-	 * @param world The server world where the entity should be teleported. Can be the same as the current world or a
+	 * @param level The server level where the entity should be teleported. Can be the same as the current level or a
+	 *        different one
+	 * @param x X-Coordinate
+	 * @param y Y-Coordinate
+	 * @param z Z-Coordinate
+	 * @param yaw Yaw
+	 * @param pitch Pitch
+	 * @return The teleported entity
+	 */
+	public static Entity teleportEntity(Entity entity, ServerLevel level, double x, double y, double z, float yaw, float pitch) {
+		return teleportEntity(entity, level, x, y, z, yaw, pitch, true);
+	}
+	
+	/**
+	 * Teleports any entity to a given location in a given {@link ServerLevel}.
+	 *
+	 * @param entity The entity to teleport
+	 * @param level The server level where the entity should be teleported. Can be the same as the current level or a
 	 *        different one
 	 * @param x X-Coordinate
 	 * @param y Y-Coordinate
@@ -203,50 +209,48 @@ public class LevelUtil {
 	 * @param yaw Yaw
 	 * @param pitch Pitch
 	 * @param detach Detach the entity
+	 * @return The teleported entity
 	 */
-	public static void teleportEntity(Entity entity, ServerLevel world, double x, double y, double z, float yaw, float pitch, boolean detach) {
+	public static Entity teleportEntity(Entity entity, ServerLevel level, double x, double y, double z, float yaw, float pitch, boolean detach) {
+		final float wrapedYaw = Mth.wrapDegrees(yaw);
+		final float wrapedPitch = Mth.wrapDegrees(pitch);
 		if (entity instanceof final ServerPlayer player) {
-			world.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getId());
+			level.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getId());
 			if (detach) {
 				player.stopRiding();
 			}
 			if (player.isSleeping()) {
 				player.stopSleepInBed(true, true);
 			}
-			if (world == entity.level) {
-				player.connection.teleport(x, y, z, yaw, pitch);
+			if (level == entity.level) {
+				player.connection.teleport(x, y, z, wrapedYaw, wrapedPitch);
 			} else {
-				player.teleportTo(world, x, y, z, yaw, pitch);
+				player.teleportTo(level, x, y, z, wrapedYaw, wrapedPitch);
 			}
-			entity.setYHeadRot(yaw);
+			entity.setYHeadRot(wrapedYaw);
 		} else {
-			final float wrapedYaw = Mth.wrapDegrees(yaw);
-			final float wrapedPitch = Mth.clamp(Mth.wrapDegrees(pitch), -90F, 90F);
-			if (world == entity.level) {
-				entity.moveTo(x, y, z, wrapedYaw, wrapedPitch);
+			final float clampedPitch = Mth.clamp(wrapedPitch, -90F, 90F);
+			if (level == entity.level) {
+				entity.moveTo(x, y, z, wrapedYaw, clampedPitch);
 				entity.setYHeadRot(wrapedYaw);
 			} else {
 				if (detach) {
 					entity.unRide();
 				}
 				final Entity entityOld = entity;
-				entity = entity.getType().create(world);
+				entity = entity.getType().create(level);
 				if (entity == null) {
-					return;
+					return null;
 				}
 				entity.restoreFrom(entityOld);
-				// if (entityOld instanceof AbstractMinecartContainer) { // TODO is this still needed?
-				// // Prevent duplication
-				// ((AbstractMinecartContainer) entityOld).dropContentsWhenDead(false);
-				// }
-				entity.moveTo(x, y, z, wrapedYaw, wrapedPitch);
+				entity.moveTo(x, y, z, wrapedYaw, clampedPitch);
 				entity.setYHeadRot(wrapedYaw);
 				entityOld.setRemoved(Entity.RemovalReason.CHANGED_DIMENSION);
-				world.addDuringTeleport(entity);
+				level.addDuringTeleport(entity);
 			}
 		}
 		
-		if (!(entity instanceof LivingEntity) || !((LivingEntity) entity).isFallFlying()) {
+		if (!(entity instanceof LivingEntity livingEntity) || !livingEntity.isFallFlying()) {
 			entity.setDeltaMovement(entity.getDeltaMovement().multiply(1, 0, 1));
 			entity.setOnGround(true);
 		}
@@ -254,5 +258,7 @@ public class LevelUtil {
 		if (entity instanceof final PathfinderMob pathFinderMob) {
 			pathFinderMob.getNavigation().stop();
 		}
+		
+		return entity;
 	}
 }
