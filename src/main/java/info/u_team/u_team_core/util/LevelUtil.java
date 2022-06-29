@@ -32,8 +32,8 @@ import net.minecraft.world.phys.Vec3;
 public class LevelUtil {
 	
 	/**
-	 * Raytrace from an entities look vector for collisions in range. Use default block mode {@link BlockMode#OUTLINE} and
-	 * fluid mode {@link FluidMode#NONE}.
+	 * Raytrace from an entities look vector for collisions in range. Use default block mode {@link Block#OUTLINE} and fluid
+	 * mode {@link Fluid#NONE}.
 	 *
 	 * @param entity Entity from where we get the look vector
 	 * @param range Range in blocks
