@@ -59,7 +59,7 @@ public class AnnotationManager {
 	}
 	
 	/**
-	 * Tries to invoke all {@link IModIntegrationg#construct()} methods of classes that are annotated with
+	 * Tries to invoke all {@link ModIntegration#construct()} methods of classes that are annotated with
 	 * {@link Integration}.
 	 *
 	 * @param modid The modid that should be respected for calling

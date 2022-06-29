@@ -81,8 +81,8 @@ public interface EntityBlockProvider extends EntityBlock {
 	 * @param player The player that opens the block entity
 	 * @return {@link InteractionResult} if the container could be opened
 	 */
-	default InteractionResult openMenu(Level world, BlockPos pos, Player player) {
-		return openMenu(world, pos, player, false);
+	default InteractionResult openMenu(Level level, BlockPos pos, Player player) {
+		return openMenu(level, pos, player, false);
 	}
 	
 	/**

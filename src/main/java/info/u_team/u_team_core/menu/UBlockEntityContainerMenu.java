@@ -57,8 +57,8 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	 * @param menuType Menu type
 	 * @param containerId Container id
 	 * @param playerInventory Player inventory
-	 * @param byteBuf Initial menu data (specified with {@link NetworkHooks#openGui(net.minecraft.server.level.ServerPlayer,
-	 *        net.minecraft.world.MenuProvider, java.util.function.Consumer))
+	 * @param byteBuf Initial menu data (specified with
+	 *        {@link NetworkHooks#openGui(net.minecraft.server.level.ServerPlayer, net.minecraft.world.MenuProvider, java.util.function.Consumer)})
 	 */
 	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf byteBuf) {
 		this(menuType, containerId, playerInventory, byteBuf, true);

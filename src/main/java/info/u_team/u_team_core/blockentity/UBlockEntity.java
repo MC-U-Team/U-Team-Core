@@ -4,6 +4,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -103,7 +104,7 @@ public abstract class UBlockEntity extends BlockEntity {
 	/**
 	 * Data here will be send to the client side when the block is updated. The data is received in
 	 * {@link UBlockEntity#handleUpdateStateData(CompoundNBT)}. To trigger an update call
-	 * {@link World#notifyBlockUpdate(net.minecraft.util.math.BlockPos, BlockState, BlockState, int)} or
+	 * {@link Level#sendBlockUpdated(BlockPos, BlockState, BlockState, int)} or
 	 * {@link UBlockEntity#sendChangesToClient(int)}
 	 *
 	 * @param tag
@@ -129,7 +130,7 @@ public abstract class UBlockEntity extends BlockEntity {
 	
 	/**
 	 * Triggers a block update to send the data from the server to the client. For flags see here:
-	 * {@link World#setBlockState(net.minecraft.util.math.BlockPos, BlockState, int)}
+	 * {@link Level#setBlock(BlockPos, BlockState, int)}
 	 *
 	 * @param flags Are described above
 	 */
