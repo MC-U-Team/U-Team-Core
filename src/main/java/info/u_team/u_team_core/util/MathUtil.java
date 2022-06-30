@@ -1,7 +1,12 @@
 package info.u_team.u_team_core.util;
 
+import java.util.Random;
+
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.level.levelgen.LegacyRandomSource;
+import net.minecraft.world.level.levelgen.LegacyRandomSource.LegacyPositionalRandomFactory;
+import net.minecraft.world.level.levelgen.PositionalRandomFactory;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -182,4 +187,61 @@ public class MathUtil {
 		return Mth.sqrt(xDiff * xDiff + zDiff * zDiff);
 	}
 	
+	/**
+	 * Wrapper around the {@link RandomSource} for normal {@link Random} instances
+	 * 
+	 * @author HyCraftHD
+	 */
+	public static final record RandomSourceWrapper(Random random) implements RandomSource {
+		
+		@Override
+		public RandomSource fork() {
+			return new LegacyRandomSource(nextLong());
+		}
+		
+		@Override
+		public PositionalRandomFactory forkPositional() {
+			return new LegacyPositionalRandomFactory(nextLong());
+		}
+		
+		@Override
+		public void setSeed(long seed) {
+			random.setSeed(seed);
+		}
+		
+		@Override
+		public int nextInt() {
+			return random.nextInt();
+		}
+		
+		@Override
+		public int nextInt(int bound) {
+			return random.nextInt(bound);
+		}
+		
+		@Override
+		public long nextLong() {
+			return random.nextLong();
+		}
+		
+		@Override
+		public boolean nextBoolean() {
+			return random.nextBoolean();
+		}
+		
+		@Override
+		public float nextFloat() {
+			return random.nextFloat();
+		}
+		
+		@Override
+		public double nextDouble() {
+			return random.nextDouble();
+		}
+		
+		@Override
+		public double nextGaussian() {
+			return random.nextGaussian();
+		}
+	}
 }
