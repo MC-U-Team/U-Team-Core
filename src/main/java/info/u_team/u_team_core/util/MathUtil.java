@@ -1,8 +1,7 @@
 package info.u_team.u_team_core.util;
 
-import java.util.Random;
-
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
 /**
@@ -15,7 +14,7 @@ public class MathUtil {
 	/**
 	 * Static random instance if random numbers without specific seed are desired.
 	 */
-	public static final Random RANDOM = new Random();
+	public static final RandomSource RANDOM = RandomSource.create();
 	
 	/**
 	 * Rotate a vector counter clock wise around the y axis.
@@ -70,7 +69,7 @@ public class MathUtil {
 	 * @param max Maximal value (inclusive)
 	 * @return Return a random value between min and max
 	 */
-	public static int randomNumberInRange(Random random, int min, int max) {
+	public static int randomNumberInRange(RandomSource random, int min, int max) {
 		return random.nextInt(max - min + 1) + min;
 	}
 	
@@ -93,7 +92,7 @@ public class MathUtil {
 	 * @param max Maximal value (inclusive)
 	 * @return Return a random value between min and max
 	 */
-	public static float randomNumberInRange(Random random, float min, float max) {
+	public static float randomNumberInRange(RandomSource random, float min, float max) {
 		return random.nextFloat() * (max - min) + min;
 	}
 	
@@ -116,7 +115,7 @@ public class MathUtil {
 	 * @param max Maximal value (inclusive)
 	 * @return Return a random value between min and max
 	 */
-	public static double randomNumberInRange(Random random, double min, double max) {
+	public static double randomNumberInRange(RandomSource random, double min, double max) {
 		return random.nextDouble() * (max - min) + min;
 	}
 	
