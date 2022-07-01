@@ -1,4 +1,4 @@
-// 1.19	2022-07-01T19:21:20.7621409	Tags for minecraft:block
+// 1.19	2022-07-02T01:44:59.3646184	Block-Tags
 3e329805277fa7d296f762f9f0492a1d7d7b614b data/minecraft/tags/blocks/mineable/pickaxe.json
 db7155511d9e4f67a2e3752ccd5a67e2875228a7 data/minecraft/tags/blocks/mineable/shovel.json
 3e329805277fa7d296f762f9f0492a1d7d7b614b data/minecraft/tags/blocks/needs_iron_tool.json
