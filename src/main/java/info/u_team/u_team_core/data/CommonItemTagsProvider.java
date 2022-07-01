@@ -19,8 +19,8 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	}
 	
 	protected void copy(TagKey<Block> blockTag, TagKey<Item> itemTag) {
-		TagBuilder itemBuilder = getOrCreateRawBuilder(itemTag);
-		TagBuilder blockBuilder = blockTagFunction.apply(blockTag);
+		final TagBuilder itemBuilder = getOrCreateRawBuilder(itemTag);
+		final TagBuilder blockBuilder = blockTagFunction.apply(blockTag);
 		blockBuilder.build().forEach(itemBuilder::add);
 	}
 	

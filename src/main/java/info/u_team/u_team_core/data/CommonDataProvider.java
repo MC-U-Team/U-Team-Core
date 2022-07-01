@@ -14,7 +14,7 @@ public interface CommonDataProvider<V> extends DataProvider {
 	
 	default String modid() {
 		return getGenerationData().modid();
-	};
+	}
 	
 	void register(V data);
 	

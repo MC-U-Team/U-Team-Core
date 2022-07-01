@@ -250,7 +250,7 @@ public class LevelUtil {
 			}
 		}
 		
-		if (!(entity instanceof LivingEntity livingEntity) || !livingEntity.isFallFlying()) {
+		if (!(entity instanceof final LivingEntity livingEntity) || !livingEntity.isFallFlying()) {
 			entity.setDeltaMovement(entity.getDeltaMovement().multiply(1, 0, 1));
 			entity.setOnGround(true);
 		}

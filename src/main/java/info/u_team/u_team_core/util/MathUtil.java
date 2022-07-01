@@ -189,7 +189,7 @@ public class MathUtil {
 	
 	/**
 	 * Wrapper around the {@link RandomSource} for normal {@link Random} instances
-	 * 
+	 *
 	 * @author HyCraftHD
 	 */
 	public static final record RandomSourceWrapper(Random random) implements RandomSource {

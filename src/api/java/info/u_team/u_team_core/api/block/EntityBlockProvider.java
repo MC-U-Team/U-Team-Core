@@ -97,11 +97,10 @@ public interface EntityBlockProvider extends EntityBlock {
 	 * @return {@link InteractionResult} if the container could be opened
 	 */
 	default InteractionResult openMenu(Level level, BlockPos pos, Player player, boolean canOpenWhenSecondaryUse) {
-		if (level.isClientSide() || !(player instanceof ServerPlayer)) {
+		if (level.isClientSide() || !(player instanceof ServerPlayer serverPlayer)) {
 			return InteractionResult.SUCCESS;
 		}
 		
-		final ServerPlayer serverPlayer = (ServerPlayer) player;
 		final Optional<BlockEntity> blockEntityOptional = getBlockEntity(level, pos);
 		
 		if (!blockEntityOptional.isPresent()) {

@@ -66,7 +66,7 @@ public abstract class CommonLanguageProvider implements DataProvider, CommonData
 	
 	protected void add(CreativeModeTab key, String name) {
 		final Component component = key.getDisplayName();
-		if (component.getContents() instanceof TranslatableContents translatableContents) {
+		if (component.getContents() instanceof final TranslatableContents translatableContents) {
 			add(translatableContents.getKey(), name);
 		}
 	}
@@ -133,7 +133,7 @@ public abstract class CommonLanguageProvider implements DataProvider, CommonData
 	
 	protected void add(String locale, CreativeModeTab key, String name) {
 		final Component component = key.getDisplayName();
-		if (component.getContents() instanceof TranslatableContents translatableContents) {
+		if (component.getContents() instanceof final TranslatableContents translatableContents) {
 			add(locale, translatableContents.getKey(), name);
 		}
 	}
