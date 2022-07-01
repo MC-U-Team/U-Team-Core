@@ -1,8 +1,8 @@
 {
 	"parent": "uteamcore:block/facing",
 	"textures": {
-		"particle": "uteamtest:block/basic_block_entity",
 		"front": "uteamtest:block/basic_block_entity_front",
+		"particle": "uteamtest:block/basic_block_entity",
 		"side": "uteamtest:block/basic_block_entity"
 	}
 }

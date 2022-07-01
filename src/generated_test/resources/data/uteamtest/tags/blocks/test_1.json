@@ -1,9 +1,0 @@
-{
-	"replace": false,
-	"values": [
-		"minecraft:acacia_button",
-		"minecraft:acacia_door",
-		"minecraft:birch_leaves",
-		"#minecraft:beds"
-	]
-}
