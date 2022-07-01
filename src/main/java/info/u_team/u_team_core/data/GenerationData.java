@@ -13,8 +13,9 @@ public record GenerationData(String modid, DataGenerator generator, ExistingFile
 		this(modid, event.getGenerator(), event.getExistingFileHelper());
 	}
 	
-	public void addProvider(boolean shouldRun, Function<GenerationData, DataProvider> function) {
-		final DataProvider provider = function.apply(this);
+	public <T extends DataProvider> T addProvider(boolean shouldRun, Function<GenerationData, T> function) {
+		final T provider = function.apply(this);
 		generator.addProvider(shouldRun, provider);
+		return provider;
 	}
 }
