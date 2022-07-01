@@ -1,11 +1,11 @@
 {
 	"parent": "minecraft:block/cube",
 	"textures": {
-		"north": "#front",
+		"down": "#bottom",
 		"east": "#side",
+		"north": "#front",
 		"south": "#side",
-		"west": "#side",
 		"up": "#top",
-		"down": "#bottom"
+		"west": "#side"
 	}
 }
