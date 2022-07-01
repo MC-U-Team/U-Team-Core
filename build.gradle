@@ -107,6 +107,10 @@ minecraft {
 			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
 			
 			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+				
 				uteamtest {
 					source sourceSets.test
 				}
