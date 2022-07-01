@@ -2,10 +2,6 @@ function initializeCoreMod() {
 	ASMAPI = Java.type("net.minecraftforge.coremod.api.ASMAPI")
 
 	Opcodes = Java.type("org.objectweb.asm.Opcodes")
-	InsList = Java.type("org.objectweb.asm.tree.InsnList")
-
-	LabelNode = Java.type("org.objectweb.asm.tree.LabelNode")
-	LdcInsnNode = Java.type("org.objectweb.asm.tree.LdcInsnNode")
 
 	return {
 		"DataProvider#saveStable": {
