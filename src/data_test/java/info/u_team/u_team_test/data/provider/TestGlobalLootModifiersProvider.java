@@ -2,7 +2,7 @@ package info.u_team.u_team_test.data.provider;
 
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.data.CommonGlobalLootModifiersProvider;
+import info.u_team.u_team_core.data.CommonGlobalLootModifierProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_core.util.TriConsumer;
 import info.u_team.u_team_test.global_loot_modifier.AutoSmeltLootModifier;
@@ -16,7 +16,7 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 
-public class TestGlobalLootModifiersProvider extends CommonGlobalLootModifiersProvider {
+public class TestGlobalLootModifiersProvider extends CommonGlobalLootModifierProvider {
 	
 	public TestGlobalLootModifiersProvider(GenerationData data) {
 		super(data);

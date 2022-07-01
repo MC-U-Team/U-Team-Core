@@ -23,7 +23,7 @@ import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public abstract class CommonGlobalLootModifiersProvider implements DataProvider, CommonDataProvider<TriConsumer<String, Supplier<? extends GlobalLootModifierSerializer<? extends IGlobalLootModifier>>, ? super IGlobalLootModifier>> {
+public abstract class CommonGlobalLootModifierProvider implements DataProvider, CommonDataProvider<TriConsumer<String, Supplier<? extends GlobalLootModifierSerializer<? extends IGlobalLootModifier>>, ? super IGlobalLootModifier>> {
 	
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	
@@ -33,7 +33,7 @@ public abstract class CommonGlobalLootModifiersProvider implements DataProvider,
 	
 	protected boolean replace;
 	
-	public CommonGlobalLootModifiersProvider(GenerationData generationData) {
+	public CommonGlobalLootModifierProvider(GenerationData generationData) {
 		this.generationData = generationData;
 		
 		pathProvider = generationData.generator().createPathProvider(Target.DATA_PACK, "loot_modifiers");
