@@ -205,7 +205,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 				list.add(new FluidStack(holder.value(), 1000));
 			}
 			
-			if (list.size() == 0 && !ForgeConfig.SERVER.treatEmptyTagsAsAir.get()) {
+			if (list.size() == 0) {
 				list.add(new FluidStack(Fluids.LAVA, Integer.MAX_VALUE)); // TODO
 			}
 			return list;
