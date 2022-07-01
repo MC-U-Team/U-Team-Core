@@ -7,6 +7,7 @@ import info.u_team.u_team_test.data.provider.TestBlockTagsProvider;
 import info.u_team.u_team_test.data.provider.TestGlobalLootModifiersProvider;
 import info.u_team.u_team_test.data.provider.TestItemModelsProvider;
 import info.u_team.u_team_test.data.provider.TestItemTagsProvider;
+import info.u_team.u_team_test.data.provider.TestJsonCodecsProvider;
 import info.u_team.u_team_test.data.provider.TestLanguagesProvider;
 import info.u_team.u_team_test.data.provider.TestLootTablesProvider;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -24,6 +25,7 @@ public class TestDataGenerator {
 		data.addProvider(event.includeServer(), TestBlockTagsProvider::new, TestItemTagsProvider::new);
 		data.addProvider(event.includeServer(), TestLootTablesProvider::new);
 		data.addProvider(event.includeServer(), TestGlobalLootModifiersProvider::new);
+		data.addProvider(event.includeServer(), TestJsonCodecsProvider::new);
 		
 		data.addProvider(event.includeClient(), TestBlockStatesProvider::new);
 		data.addProvider(event.includeClient(), TestItemModelsProvider::new);
