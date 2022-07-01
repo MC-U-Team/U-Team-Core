@@ -9,6 +9,9 @@ import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataGenerator.PathProvider;
+import net.minecraft.data.DataGenerator.Target;
+import net.minecraft.data.DataProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
@@ -25,24 +28,29 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public abstract class CommonLootTablesProvider extends CommonProvider {
+public abstract class CommonLootTableProvider implements DataProvider, CommonDataProvider<BiConsumer<ResourceLocation, LootTable>> {
 	
-	public CommonLootTablesProvider(GenerationData data) {
-		super(data);
+	private final GenerationData generationData;
+	
+	private final PathProvider pathProvider;
+	
+	public CommonLootTableProvider(GenerationData generationData) {
+		this.generationData = generationData;
+		
+		pathProvider = generationData.generator().createPathProvider(Target.DATA_PACK, "loot_tables");
+	}
+	
+	@Override
+	public GenerationData getGenerationData() {
+		return generationData;
 	}
 	
 	@Override
 	public void run(CachedOutput cache) throws IOException {
-		registerLootTables((location, lootTable) -> {
-			try {
-				write(cache, LootTables.serialize(lootTable), resolveData(location).resolve("loot_tables").resolve(location.getPath() + ".json"));
-			} catch (final IOException ex) {
-				LOGGER.error(marker, "Could not write data.", ex);
-			}
+		register((location, lootTable) -> {
+			CommonDataProvider.saveData(cache, LootTables.serialize(lootTable), pathProvider.json(location), "Could not save loot table");
 		});
 	}
-	
-	protected abstract void registerLootTables(BiConsumer<ResourceLocation, LootTable> consumer);
 	
 	@Override
 	public String getName() {

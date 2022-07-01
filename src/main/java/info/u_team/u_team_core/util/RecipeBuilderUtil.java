@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.util;
 
+import java.util.function.Supplier;
+
 import com.google.gson.JsonObject;
 
 import net.minecraft.data.recipes.FinishedRecipe;
@@ -20,7 +22,7 @@ public class RecipeBuilderUtil {
 	 * @param serializer Serializer
 	 * @return Finished recipe with serializer
 	 */
-	public static FinishedRecipe getRecipeWithSerializer(FinishedRecipe recipe, RecipeSerializer<?> serializer) {
+	public static FinishedRecipe getRecipeWithSerializer(FinishedRecipe recipe, Supplier<? extends RecipeSerializer<?>> serializer) {
 		return new FinishedRecipe() {
 			
 			@Override
@@ -30,7 +32,7 @@ public class RecipeBuilderUtil {
 			
 			@Override
 			public RecipeSerializer<?> getType() {
-				return serializer;
+				return serializer.get();
 			}
 			
 			@Override

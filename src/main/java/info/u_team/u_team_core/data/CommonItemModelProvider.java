@@ -1,16 +1,10 @@
 package info.u_team.u_team_core.data;
 
-import java.io.IOException;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
-
 import com.google.common.collect.Streams;
 
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -20,39 +14,23 @@ import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public abstract class CommonItemModelsProvider extends ItemModelProvider {
+public abstract class CommonItemModelProvider extends ItemModelProvider implements CommonDataProvider.NoParam {
 	
-	protected final Marker marker;
+	private final GenerationData generationData;
 	
-	protected final GenerationData data;
-	protected final String modid;
-	protected final DataGenerator generator;
-	
-	public CommonItemModelsProvider(GenerationData data) {
-		super(data.getGenerator(), data.getModid(), data.getExistingFileHelper());
-		this.data = data;
-		modid = data.getModid();
-		generator = data.getGenerator();
-		marker = MarkerManager.getMarker(getName());
+	public CommonItemModelProvider(GenerationData generationData) {
+		super(generationData.generator(), generationData.modid(), generationData.existingFileHelper());
+		this.generationData = generationData;
 	}
 	
 	@Override
-	public void run(CachedOutput cache) throws IOException {
-		generatedModels.clear();
-		registerModels();
-		generatedModels.values().forEach(model -> {
-			try {
-				final ResourceLocation location = model.getLocation();
-				CommonProvider.write(cache, model.toJson(), generator.getOutputFolder().resolve("assets/" + location.getNamespace() + "/models/" + location.getPath() + ".json"));
-			} catch (final IOException ex) {
-				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
-			}
-		});
+	public GenerationData getGenerationData() {
+		return generationData;
 	}
 	
 	@Override
-	public String getName() {
-		return "Item-Models";
+	protected final void registerModels() {
+		register(null);
 	}
 	
 	// Item model methods

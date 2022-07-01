@@ -1,12 +1,18 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Supplier;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataGenerator.Target;
+import net.minecraft.data.DataProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.effect.MobEffect;
@@ -18,30 +24,36 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
-public abstract class CommonLanguagesProvider extends CommonProvider {
+public abstract class CommonLanguageProvider implements DataProvider, CommonDataProvider.NoParam {
 	
-	protected final Map<String, Map<String, String>> data;
+	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
+	private static final String DEFAULT_LANG = "en_us";
 	
-	public CommonLanguagesProvider(GenerationData data) {
-		super(data);
+	private final GenerationData generationData;
+	
+	private final Map<String, Map<String, String>> data;
+	
+	public CommonLanguageProvider(GenerationData generationData) {
+		this.generationData = generationData;
 		this.data = new HashMap<>();
 	}
 	
 	@Override
+	public GenerationData getGenerationData() {
+		return generationData;
+	}
+	
+	@Override
 	public void run(CachedOutput cache) throws IOException {
-		addTranslations();
+		register(null);
+		
 		data.forEach((locale, map) -> {
 			if (!map.isEmpty()) {
-				try {
-					write(cache, GSON.toJsonTree(map), resolveModAssets().resolve("lang").resolve(locale + ".json"));
-				} catch (final IOException ex) {
-					LOGGER.error(marker, "Could not write data.", ex);
-				}
+				final Path path = getGenerationData().generator().getOutputFolder(Target.RESOURCE_PACK).resolve(modid()).resolve("lang").resolve(locale + ".json");
+				CommonDataProvider.saveData(cache, GSON.toJsonTree(map), path, "Cannot write language file");
 			}
 		});
 	}
-	
-	public abstract void addTranslations();
 	
 	@Override
 	public String getName() {
@@ -112,7 +124,7 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 	}
 	
 	protected void add(String key, String value) {
-		add("en_us", key, value);
+		add(DEFAULT_LANG, key, value);
 	}
 	
 	protected void add(String locale, CreativeModeTab key, String name) {
@@ -213,14 +225,14 @@ public abstract class CommonLanguagesProvider extends CommonProvider {
 		if (!category.isEmpty()) {
 			category += ".";
 		}
-		add("general." + modid + "." + key + ".tooltip." + category + line, value);
+		add("general." + modid() + "." + key + ".tooltip." + category + line, value);
 	}
 	
 	protected void addTooltip(String locale, String key, String category, int line, String value) {
 		if (!category.isEmpty()) {
 			category += ".";
 		}
-		add(locale, "general." + modid + "." + key + ".tooltip." + category + line, value);
+		add(locale, "general." + modid() + "." + key + ".tooltip." + category + line, value);
 	}
 	
 }

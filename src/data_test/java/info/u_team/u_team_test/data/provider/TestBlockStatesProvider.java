@@ -1,10 +1,10 @@
 package info.u_team.u_team_test.data.provider;
 
-import info.u_team.u_team_core.data.CommonBlockStatesProvider;
+import info.u_team.u_team_core.data.CommonBlockStateProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestBlocks;
 
-public class TestBlockStatesProvider extends CommonBlockStatesProvider {
+public class TestBlockStatesProvider extends CommonBlockStateProvider {
 	
 	public TestBlockStatesProvider(GenerationData data) {
 		super(data);

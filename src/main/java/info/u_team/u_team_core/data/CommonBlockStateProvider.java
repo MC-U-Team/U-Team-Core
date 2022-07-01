@@ -1,17 +1,9 @@
 package info.u_team.u_team_core.data;
 
-import java.io.IOException;
 import java.util.function.Function;
-
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
-
-import com.google.common.base.Preconditions;
 
 import info.u_team.u_team_core.UCoreMod;
 import net.minecraft.core.Direction;
-import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,54 +15,23 @@ import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public abstract class CommonBlockStatesProvider extends BlockStateProvider {
+public abstract class CommonBlockStateProvider extends BlockStateProvider implements CommonDataProvider.NoParam {
 	
-	protected final Marker marker;
+	private final GenerationData generationData;
 	
-	protected final GenerationData data;
-	protected final String modid;
-	protected final DataGenerator generator;
-	
-	public CommonBlockStatesProvider(GenerationData data) {
-		super(data.getGenerator(), data.getModid(), data.getExistingFileHelper());
-		this.data = data;
-		modid = data.getModid();
-		generator = data.getGenerator();
-		marker = MarkerManager.getMarker(getName());
+	public CommonBlockStateProvider(GenerationData generationData) {
+		super(generationData.generator(), generationData.modid(), generationData.existingFileHelper());
+		this.generationData = generationData;
 	}
 	
 	@Override
-	public void run(CachedOutput cache) throws IOException {
-		models().generatedModels.clear();
-		registerModels0(cache);
-		models().generatedModels.values().forEach(model -> {
-			try {
-				final ResourceLocation location = model.getLocation();
-				CommonProvider.write(cache, model.toJson(), generator.getOutputFolder().resolve("assets/" + location.getNamespace() + "/models/" + location.getPath() + ".json"));
-			} catch (final IOException ex) {
-				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
-			}
-		});
-	}
-	
-	// We need to overide registerModels, but this method is marked final...
-	private void registerModels0(CachedOutput cache) {
-		registeredBlocks.clear();
-		registerStatesAndModels();
-		
-		registeredBlocks.forEach((block, generatedState) -> {
-			try {
-				final ResourceLocation location = Preconditions.checkNotNull(ForgeRegistries.BLOCKS.getKey(block));
-				CommonProvider.write(cache, generatedState.toJson(), generator.getOutputFolder().resolve("assets/" + location.getNamespace() + "/blockstates/" + location.getPath() + ".json"));
-			} catch (final IOException ex) {
-				CommonProvider.LOGGER.error(marker, "Could not write data.", ex);
-			}
-		});
+	public GenerationData getGenerationData() {
+		return generationData;
 	}
 	
 	@Override
-	public String getName() {
-		return "Block-States | Block-Models";
+	protected final void registerStatesAndModels() {
+		register(null);
 	}
 	
 	// Block state methods
@@ -124,4 +85,5 @@ public abstract class CommonBlockStatesProvider extends BlockStateProvider {
 	protected String getPath(Block block) {
 		return ForgeRegistries.BLOCKS.getKey(block).getPath();
 	}
+	
 }

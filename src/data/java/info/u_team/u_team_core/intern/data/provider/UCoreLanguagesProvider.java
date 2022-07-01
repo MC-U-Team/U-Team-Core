@@ -1,9 +1,9 @@
 package info.u_team.u_team_core.intern.data.provider;
 
-import info.u_team.u_team_core.data.CommonLanguagesProvider;
+import info.u_team.u_team_core.data.CommonLanguageProvider;
 import info.u_team.u_team_core.data.GenerationData;
 
-public class UCoreLanguagesProvider extends CommonLanguagesProvider {
+public class UCoreLanguagesProvider extends CommonLanguageProvider {
 	
 	public UCoreLanguagesProvider(GenerationData data) {
 		super(data);

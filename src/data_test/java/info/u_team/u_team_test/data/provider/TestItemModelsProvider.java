@@ -1,11 +1,11 @@
 package info.u_team.u_team_test.data.provider;
 
-import info.u_team.u_team_core.data.CommonItemModelsProvider;
+import info.u_team.u_team_core.data.CommonItemModelProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestBlocks;
 import info.u_team.u_team_test.init.TestItems;
 
-public class TestItemModelsProvider extends CommonItemModelsProvider {
+public class TestItemModelsProvider extends CommonItemModelProvider {
 	
 	public TestItemModelsProvider(GenerationData data) {
 		super(data);

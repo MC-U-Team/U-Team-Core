@@ -16,12 +16,9 @@ public class UCoreDataGenerator {
 	@SubscribeEvent
 	public static void data(GatherDataEvent event) {
 		final GenerationData data = new GenerationData(UCoreMod.MODID, event);
-		if (event.includeServer()) {
-			data.addProvider(UCoreRecipesProvider::new);
-		}
-		if (event.includeClient()) {
-			data.addProvider(UCoreLanguagesProvider::new);
-			data.addProvider(UCoreBlockStatesProvider::new);
-		}
+		
+		data.addProvider(event.includeServer(), UCoreRecipesProvider::new);
+		data.addProvider(event.includeClient(), UCoreLanguagesProvider::new);
+		data.addProvider(event.includeClient(), UCoreBlockStatesProvider::new);
 	}
 }
