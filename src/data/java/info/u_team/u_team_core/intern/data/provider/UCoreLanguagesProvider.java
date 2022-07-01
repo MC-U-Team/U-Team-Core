@@ -10,7 +10,7 @@ public class UCoreLanguagesProvider extends CommonLanguageProvider {
 	}
 	
 	@Override
-	public void addTranslations() {
+	public void register() {
 		addUTeamCoreCommand();
 	}
 	

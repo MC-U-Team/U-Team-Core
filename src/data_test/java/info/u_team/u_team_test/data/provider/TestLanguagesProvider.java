@@ -16,7 +16,7 @@ public class TestLanguagesProvider extends CommonLanguageProvider {
 	}
 	
 	@Override
-	public void addTranslations() {
+	public void register() {
 		add(TestCreativeTabs.TAB, "UTeamTest Tab");
 		
 		addItem(TestItems.BASIC, "Basic Item");

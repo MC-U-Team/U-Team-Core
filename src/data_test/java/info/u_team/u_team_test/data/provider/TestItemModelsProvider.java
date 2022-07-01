@@ -12,7 +12,7 @@ public class TestItemModelsProvider extends CommonItemModelProvider {
 	}
 	
 	@Override
-	protected void registerModels() {
+	public void register() {
 		// Items
 		simpleGenerated(TestItems.BASIC.get());
 		simpleGenerated(TestItems.BASIC_FOOD.get());

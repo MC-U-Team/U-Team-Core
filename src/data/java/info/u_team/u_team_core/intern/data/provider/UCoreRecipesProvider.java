@@ -16,7 +16,7 @@ public class UCoreRecipesProvider extends CommonRecipeProvider {
 	}
 	
 	@Override
-	protected void registerRecipes(Consumer<FinishedRecipe> consumer) {
+	public void register(Consumer<FinishedRecipe> consumer) {
 		SpecialRecipeBuilder.special(UCoreRecipeSerializers.CRAFTING_SPECIAL_ITEMDYE.get()).save(consumer, UCoreMod.MODID + ":custom_dyeable_item");
 	}
 	

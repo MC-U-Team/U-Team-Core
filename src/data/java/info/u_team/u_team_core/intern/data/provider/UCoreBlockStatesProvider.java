@@ -10,7 +10,7 @@ public class UCoreBlockStatesProvider extends CommonBlockStateProvider {
 	}
 	
 	@Override
-	protected void registerStatesAndModels() {
+	public void register() {
 		models().withExistingParent("facing", "cube") //
 				.texture("north", "#front") //
 				.texture("east", "#side") //

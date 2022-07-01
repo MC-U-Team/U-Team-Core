@@ -23,7 +23,7 @@ public class TestGlobalLootModifiersProvider extends CommonGlobalLootModifiersPr
 	}
 	
 	@Override
-	protected void registerGlobalLootModifiers(TriConsumer<String, Supplier<? extends GlobalLootModifierSerializer<? extends IGlobalLootModifier>>, ? super IGlobalLootModifier> consumer) {
+	public void register(TriConsumer<String, Supplier<? extends GlobalLootModifierSerializer<? extends IGlobalLootModifier>>, ? super IGlobalLootModifier> consumer) {
 		consumer.accept("auto_smelt", TestGlobalLootModifierSerializers.AUTO_SMELT, new AutoSmeltLootModifier(new LootItemCondition[] { MatchTool.toolMatches(ItemPredicate.Builder.item().hasEnchantment(new EnchantmentPredicate(TestEnchantments.AUTO_SMELT.get(), MinMaxBounds.Ints.atLeast(1)))).build() }));
 	}
 }

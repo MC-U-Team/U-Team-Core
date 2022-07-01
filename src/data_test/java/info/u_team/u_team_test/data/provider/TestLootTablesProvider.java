@@ -16,7 +16,7 @@ public class TestLootTablesProvider extends CommonLootTableProvider {
 	}
 	
 	@Override
-	protected void registerLootTables(BiConsumer<ResourceLocation, LootTable> consumer) {
+	public void register(BiConsumer<ResourceLocation, LootTable> consumer) {
 		registerBlock(TestBlocks.BASIC, addFortuneBlockLootTable(TestBlocks.BASIC.get(), TestItems.BASIC.get()), consumer);
 		registerBlock(TestBlocks.BASIC_BLOCKENTITY, addTileEntityBlockLootTable(TestBlocks.BASIC_BLOCKENTITY.get()), consumer);
 		registerBlock(TestBlocks.BASIC_ENERGY_CREATOR, addTileEntityBlockLootTable(TestBlocks.BASIC_ENERGY_CREATOR.get()), consumer);

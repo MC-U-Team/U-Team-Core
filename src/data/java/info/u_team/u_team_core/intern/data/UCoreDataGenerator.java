@@ -18,6 +18,7 @@ public class UCoreDataGenerator {
 		final GenerationData data = new GenerationData(UCoreMod.MODID, event);
 		
 		data.addProvider(event.includeServer(), UCoreRecipesProvider::new);
+		
 		data.addProvider(event.includeClient(), UCoreLanguagesProvider::new);
 		data.addProvider(event.includeClient(), UCoreBlockStatesProvider::new);
 	}
