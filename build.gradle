@@ -94,7 +94,7 @@ minecraft {
 		data_test = {
 			workingDirectory file("run/data")
 			
-			parent data // Does not work as the other args are added too...
+			setParents(data.getParents())
 			
 			args "--mod", "uteamtest"
 			args "--all"
@@ -102,6 +102,9 @@ minecraft {
 			args "--validate"
 			args "--existing", file("src/test/resources")
 			args "--existing-mod", "uteamcore"
+			
+			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
 			
 			mods {
 				uteamtest {
