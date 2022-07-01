@@ -20,8 +20,8 @@ public class TestDataGenerator {
 	@SubscribeEvent
 	public static void data(GatherDataEvent event) {
 		final GenerationData data = new GenerationData(TestMod.MODID, event);
-		final TestBlockTagsProvider blockTags = data.addProvider(event.includeServer(), TestBlockTagsProvider::new);
-		data.addProvider(event.includeServer(), dataX -> new TestItemTagsProvider(dataX, blockTags));
+		
+		data.addProvider(event.includeServer(), TestBlockTagsProvider::new, TestItemTagsProvider::new);
 		data.addProvider(event.includeServer(), TestLootTablesProvider::new);
 		data.addProvider(event.includeServer(), TestGlobalLootModifiersProvider::new);
 		
