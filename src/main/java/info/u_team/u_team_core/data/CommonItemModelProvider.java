@@ -33,6 +33,11 @@ public abstract class CommonItemModelProvider extends ItemModelProvider implemen
 		register(null);
 	}
 	
+	@Override
+	public String getName() {
+		return "Item-Model";
+	}
+	
 	// Item model methods
 	
 	protected void simpleGenerated(ItemLike provider) {

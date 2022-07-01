@@ -18,6 +18,11 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 		blockTagFunction = blockTagsProvider::getOrCreateRawBuilder;
 	}
 	
+	@Override
+	public String getName() {
+		return "Item-Tags";
+	}
+	
 	protected void copy(TagKey<Block> blockTag, TagKey<Item> itemTag) {
 		final TagBuilder itemBuilder = getOrCreateRawBuilder(itemTag);
 		final TagBuilder blockBuilder = blockTagFunction.apply(blockTag);

@@ -50,7 +50,7 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	
 	@Override
 	public String getName() {
-		return "Recipes";
+		return "Recipe";
 	}
 	
 	private void generateRecipe(CachedOutput cache, FinishedRecipe recipe, Set<ResourceLocation> duplicates) {

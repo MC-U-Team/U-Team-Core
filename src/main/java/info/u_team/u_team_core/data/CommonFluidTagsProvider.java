@@ -10,4 +10,9 @@ public abstract class CommonFluidTagsProvider extends CommonTagsProvider<Fluid> 
 		super(generationData, Registry.FLUID);
 	}
 	
+	@Override
+	public String getName() {
+		return "Fluid-Tags";
+	}
+	
 }

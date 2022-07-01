@@ -54,7 +54,7 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 	
 	@Override
 	public String getName() {
-		return "Loot-Tables";
+		return "Loot-Table";
 	}
 	
 	protected static void registerBlock(Supplier<? extends Block> supplier, LootTable lootTable, BiConsumer<ResourceLocation, LootTable> consumer) {

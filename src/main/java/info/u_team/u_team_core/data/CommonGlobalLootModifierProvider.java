@@ -80,7 +80,7 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 	
 	@Override
 	public String getName() {
-		return "Global-Loot-Modifiers";
+		return "Global-Loot-Modifier";
 	}
 	
 }

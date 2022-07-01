@@ -34,6 +34,11 @@ public abstract class CommonBlockStateProvider extends BlockStateProvider implem
 		register(null);
 	}
 	
+	@Override
+	public String getName() {
+		return "Block-State";
+	}
+	
 	// Block state methods
 	protected void facingBlock(Block block, ModelFile modelFile) {
 		facingBlock(block, modelFile, 0);

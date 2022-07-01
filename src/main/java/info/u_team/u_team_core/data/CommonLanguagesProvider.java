@@ -25,7 +25,7 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
-public abstract class CommonLanguageProvider implements DataProvider, CommonDataProvider.NoParam {
+public abstract class CommonLanguagesProvider implements DataProvider, CommonDataProvider.NoParam {
 	
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 	private static final String DEFAULT_LANG = "en_us";
@@ -36,7 +36,7 @@ public abstract class CommonLanguageProvider implements DataProvider, CommonData
 	
 	private final PathProvider pathProvider;
 	
-	public CommonLanguageProvider(GenerationData generationData) {
+	public CommonLanguagesProvider(GenerationData generationData) {
 		this.generationData = generationData;
 		data = new HashMap<>();
 		

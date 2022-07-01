@@ -10,4 +10,9 @@ public abstract class CommonBlockTagsProvider extends CommonTagsProvider<Block> 
 		super(generationData, Registry.BLOCK);
 	}
 	
+	@Override
+	public String getName() {
+		return "Block-Tags";
+	}
+	
 }
