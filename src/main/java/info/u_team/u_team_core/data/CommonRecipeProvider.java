@@ -60,11 +60,11 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 			throw new IllegalStateException("Duplicate recipe " + recipeLocation);
 		}
 		
-		CommonDataProvider.saveData(cache, recipe.serializeRecipe(), recipePathProvider.json(recipeLocation), "Cannot save recipe");
+		CommonDataProvider.saveData(cache, recipe.serializeRecipe(), recipePathProvider.json(recipeLocation), "Could not save recipe");
 		
 		final JsonObject advancementJson = recipe.serializeAdvancement();
 		if (advancementJson != null) {
-			CommonDataProvider.saveData(cache, advancementJson, advancementPathProvider.json(recipe.getAdvancementId()), "Cannot save advancement");
+			CommonDataProvider.saveData(cache, advancementJson, advancementPathProvider.json(recipe.getAdvancementId()), "Could not save advancement");
 		}
 	}
 	

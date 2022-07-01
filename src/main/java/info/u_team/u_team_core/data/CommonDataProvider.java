@@ -8,7 +8,7 @@ import com.google.gson.JsonElement;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 
-public interface CommonDataProvider<V> {
+public interface CommonDataProvider<V> extends DataProvider {
 	
 	GenerationData getGenerationData();
 	
@@ -22,7 +22,7 @@ public interface CommonDataProvider<V> {
 		try {
 			DataProvider.saveStable(cachedOutput, json, path);
 		} catch (final IOException ex) {
-			throw new RuntimeException(errorMessage + ". Path: " + path, ex);
+			throw new RuntimeException(errorMessage + " to " + path, ex);
 		}
 	}
 	

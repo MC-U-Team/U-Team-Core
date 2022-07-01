@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.data;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
@@ -11,10 +10,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.minecraft.data.CachedOutput;
+import net.minecraft.data.DataGenerator.PathProvider;
 import net.minecraft.data.DataGenerator.Target;
 import net.minecraft.data.DataProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -33,9 +34,13 @@ public abstract class CommonLanguageProvider implements DataProvider, CommonData
 	
 	private final Map<String, Map<String, String>> data;
 	
+	private final PathProvider pathProvider;
+	
 	public CommonLanguageProvider(GenerationData generationData) {
 		this.generationData = generationData;
-		this.data = new HashMap<>();
+		data = new HashMap<>();
+		
+		pathProvider = generationData.generator().createPathProvider(Target.RESOURCE_PACK, "lang");
 	}
 	
 	@Override
@@ -49,8 +54,7 @@ public abstract class CommonLanguageProvider implements DataProvider, CommonData
 		
 		data.forEach((locale, map) -> {
 			if (!map.isEmpty()) {
-				final Path path = getGenerationData().generator().getOutputFolder(Target.RESOURCE_PACK).resolve(modid()).resolve("lang").resolve(locale + ".json");
-				CommonDataProvider.saveData(cache, GSON.toJsonTree(map), path, "Cannot write language file");
+				CommonDataProvider.saveData(cache, GSON.toJsonTree(map), pathProvider.json(new ResourceLocation(modid(), locale)), "Cannot write language file");
 			}
 		});
 	}
