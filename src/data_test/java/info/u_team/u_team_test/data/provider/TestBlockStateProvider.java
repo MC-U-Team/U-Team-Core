@@ -4,9 +4,9 @@ import info.u_team.u_team_core.data.CommonBlockStateProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestBlocks;
 
-public class TestBlockStatesProvider extends CommonBlockStateProvider {
+public class TestBlockStateProvider extends CommonBlockStateProvider {
 	
-	public TestBlockStatesProvider(GenerationData data) {
+	public TestBlockStateProvider(GenerationData data) {
 		super(data);
 	}
 	

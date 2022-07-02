@@ -9,9 +9,9 @@ import info.u_team.u_team_test.init.TestItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.LootTable;
 
-public class TestLootTablesProvider extends CommonLootTableProvider {
+public class TestLootTableProvider extends CommonLootTableProvider {
 	
-	public TestLootTablesProvider(GenerationData data) {
+	public TestLootTableProvider(GenerationData data) {
 		super(data);
 	}
 	

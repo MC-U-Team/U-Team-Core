@@ -16,9 +16,9 @@ import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 
-public class TestGlobalLootModifiersProvider extends CommonGlobalLootModifierProvider {
+public class TestGlobalLootModifierProvider extends CommonGlobalLootModifierProvider {
 	
-	public TestGlobalLootModifiersProvider(GenerationData data) {
+	public TestGlobalLootModifierProvider(GenerationData data) {
 		super(data);
 	}
 	
