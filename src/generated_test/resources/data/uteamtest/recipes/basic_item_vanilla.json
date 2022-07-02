@@ -1,0 +1,25 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"key": {
+		"E": {
+			"item": "minecraft:ender_chest"
+		},
+		"L": {
+			"item": "minecraft:acacia_button"
+		},
+		"S": {
+			"item": "minecraft:allium"
+		},
+		"W": {
+			"tag": "minecraft:wool"
+		}
+	},
+	"pattern": [
+		"WLW",
+		"ESE",
+		"WLW"
+	],
+	"result": {
+		"item": "uteamtest:basic_item"
+	}
+}
