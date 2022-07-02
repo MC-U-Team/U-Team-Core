@@ -12,7 +12,7 @@ license="Apache-2.0 License"
 	logoFile="logo.png"
 	credits="Team U-Team"
 	authors="HyCraftHD, MrTroble"
-	description="Join our discord server here: https://discord.u-team.info\n\nThis library contains many useful modding stuff!"
+	description="Join our discord server here: https://discord.hycrafthd.net\n\nThis library contains many useful modding stuff!"
 	
 	[[dependencies.uteamcore]]
 	    modId="forge"
