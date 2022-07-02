@@ -16,7 +16,7 @@ public interface CommonDataProvider<V> extends DataProvider {
 		return getGenerationData().modid();
 	}
 	
-	void register(V data);
+	void register(V param);
 	
 	static void saveData(CachedOutput cachedOutput, JsonElement json, Path path, String errorMessage) {
 		try {

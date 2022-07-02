@@ -45,7 +45,8 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	@Override
 	public void run(CachedOutput cache) throws IOException {
 		final Set<ResourceLocation> duplicates = Sets.newHashSet();
-		register(recipe -> generateRecipe(cache, recipe, duplicates));
+		register(recipe -> generateRecipe(cache, recipe, duplicates, false));
+		registerVanilla(recipe -> generateRecipe(cache, recipe, duplicates, true));
 	}
 	
 	@Override
@@ -53,7 +54,10 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 		return "Recipe";
 	}
 	
-	private void generateRecipe(CachedOutput cache, FinishedRecipe recipe, Set<ResourceLocation> duplicates) {
+	public void registerVanilla(Consumer<FinishedRecipe> consumer) {
+	}
+	
+	private void generateRecipe(CachedOutput cache, FinishedRecipe recipe, Set<ResourceLocation> duplicates, boolean vanillaAdvancements) {
 		final ResourceLocation recipeLocation = recipe.getId();
 		
 		if (!duplicates.add(recipeLocation)) {
@@ -64,7 +68,8 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 		
 		final JsonObject advancementJson = recipe.serializeAdvancement();
 		if (advancementJson != null) {
-			CommonDataProvider.saveData(cache, advancementJson, advancementPathProvider.json(recipe.getAdvancementId()), "Could not save advancement");
+			final ResourceLocation advancementLocation = vanillaAdvancements ? recipe.getAdvancementId() : new ResourceLocation(recipeLocation.getNamespace(), "recipes/" + recipeLocation.getPath());
+			CommonDataProvider.saveData(cache, advancementJson, advancementPathProvider.json(advancementLocation), "Could not save advancement");
 		}
 	}
 	
