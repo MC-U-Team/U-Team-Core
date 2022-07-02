@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19-4.2.0.221] - 2022-07-02
+### Changed
+ - Fix recipe data generator
+ - Minify jsons in jar now
+
 ## [1.19-4.2.0.220] - 2022-07-02
 ### Changed
  - Update forge version to 41.0.63
