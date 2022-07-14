@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19-4.3.0.222] - 2022-07-14
+### Changed
+ - Update to forge 41.0.98
+
 ## [1.19-4.2.0.221] - 2022-07-02
 ### Changed
  - Fix recipe data generator
