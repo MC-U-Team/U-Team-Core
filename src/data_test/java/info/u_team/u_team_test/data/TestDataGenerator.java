@@ -11,10 +11,10 @@ import info.u_team.u_team_test.data.provider.TestJsonCodecsProvider;
 import info.u_team.u_team_test.data.provider.TestLanguagesProvider;
 import info.u_team.u_team_test.data.provider.TestLootTableProvider;
 import info.u_team.u_team_test.data.provider.TestRecipeProvider;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 @EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)
 public class TestDataGenerator {

@@ -60,7 +60,7 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 			
 			final ResourceLocation location = new ResourceLocation(modid(), name);
 			
-			json.addProperty("type", ForgeRegistries.LOOT_MODIFIER_SERIALIZERS.get().getKey(tuple.getA()).toString());
+			json.addProperty("type", ForgeRegistries.GLOBAL_LOOT_MODIFIER_SERIALIZERS.get().getKey(tuple.getA()).toString());
 			
 			CommonDataProvider.saveData(cache, json, pathProvider.json(location), "Cannot save global loot modifier");
 			

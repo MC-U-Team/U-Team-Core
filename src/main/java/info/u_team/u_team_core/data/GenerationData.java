@@ -6,7 +6,7 @@ import java.util.function.Function;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 
 public record GenerationData(String modid, DataGenerator generator, ExistingFileHelper existingFileHelper) {
 	

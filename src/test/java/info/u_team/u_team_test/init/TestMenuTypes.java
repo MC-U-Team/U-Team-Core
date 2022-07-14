@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 public class TestMenuTypes {
 	
-	public static final CommonDeferredRegister<MenuType<?>> MENU_TYPES = CommonDeferredRegister.create(ForgeRegistries.CONTAINERS, TestMod.MODID);
+	public static final CommonDeferredRegister<MenuType<?>> MENU_TYPES = CommonDeferredRegister.create(ForgeRegistries.MENU_TYPES, TestMod.MODID);
 	
 	public static final RegistryObject<UMenuType<BasicBlockEntityMenu>> BASIC_BLOCK_ENTITY = MENU_TYPES.register("basic_block_entity", () -> new UMenuType<>(BasicBlockEntityMenu::new));
 	public static final RegistryObject<MenuType<BasicEnergyCreatorMenu>> BASIC_ENERGY_CREATOR = MENU_TYPES.register("energy_creator", () -> new UMenuType<>(BasicEnergyCreatorMenu::new));

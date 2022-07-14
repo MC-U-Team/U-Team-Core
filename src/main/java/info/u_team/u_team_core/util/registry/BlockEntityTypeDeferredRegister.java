@@ -18,7 +18,7 @@ public class BlockEntityTypeDeferredRegister {
 	private final CommonDeferredRegister<BlockEntityType<?>> register;
 	
 	protected BlockEntityTypeDeferredRegister(String modid) {
-		register = CommonDeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, modid);
+		register = CommonDeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, modid);
 	}
 	
 	public <T extends BlockEntity> RegistryObject<BlockEntityType<T>> register(String name, Supplier<Builder<T>> supplier) {

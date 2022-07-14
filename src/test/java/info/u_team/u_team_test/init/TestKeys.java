@@ -8,7 +8,7 @@ import info.u_team.u_team_test.screen.ButtonTestScreen;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.client.ClientRegistry;
-import net.minecraftforge.client.event.ScreenEvent.KeyboardKeyPressedEvent;
+import net.minecraftforge.client.event.ScreenEvent.KeyPressed;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
@@ -20,7 +20,7 @@ public class TestKeys {
 		ClientRegistry.registerKeyBinding(BASIC);
 	}
 	
-	private static void onKeyboardPressed(KeyboardKeyPressedEvent.Post event) {
+	private static void onKeyboardPressed(KeyPressed.Post event) {
 		if (BASIC.isActiveAndMatches(InputConstants.getKey(event.getKeyCode(), event.getScanCode()))) {
 			Minecraft.getInstance().setScreen(new ButtonTestScreen());
 			event.setCanceled(true);

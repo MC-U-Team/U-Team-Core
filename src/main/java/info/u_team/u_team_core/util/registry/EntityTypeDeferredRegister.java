@@ -18,7 +18,7 @@ public class EntityTypeDeferredRegister {
 	private final CommonDeferredRegister<EntityType<?>> register;
 	
 	protected EntityTypeDeferredRegister(String modid) {
-		register = CommonDeferredRegister.create(ForgeRegistries.ENTITIES, modid);
+		register = CommonDeferredRegister.create(ForgeRegistries.ENTITY_TYPES, modid);
 	}
 	
 	public <E extends Entity> RegistryObject<EntityType<E>> register(String name, Supplier<Builder<E>> supplier) {
