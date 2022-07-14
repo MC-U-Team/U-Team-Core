@@ -4,26 +4,23 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.function.Supplier;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.serialization.JsonOps;
 
-import info.u_team.u_team_core.util.CastUtil;
-import info.u_team.u_team_core.util.TriConsumer;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator.PathProvider;
 import net.minecraft.data.DataGenerator.Target;
 import net.minecraft.data.DataProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.Tuple;
-import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
-import net.minecraftforge.registries.ForgeRegistries;
 
-public abstract class CommonGlobalLootModifierProvider implements DataProvider, CommonDataProvider<TriConsumer<String, Supplier<? extends GlobalLootModifierSerializer<? extends IGlobalLootModifier>>, ? super IGlobalLootModifier>> {
+public abstract class CommonGlobalLootModifierProvider implements DataProvider, CommonDataProvider<BiConsumer<String, ? super IGlobalLootModifier>> {
 	
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	
@@ -46,21 +43,19 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 	
 	@Override
 	public void run(CachedOutput cache) throws IOException {
-		final Map<String, Tuple<GlobalLootModifierSerializer<?>, JsonObject>> serializers = new TreeMap<>();
+		final Map<String, JsonElement> serializers = new TreeMap<>();
 		
-		register((modifier, serializerSupplier, instance) -> {
-			final GlobalLootModifierSerializer<IGlobalLootModifier> serializer = CastUtil.uncheckedCast(serializerSupplier.get());
-			serializers.put(modifier, new Tuple<>(serializer, serializer.write(instance)));
+		register((modifier, instance) -> {
+			final JsonElement json = IGlobalLootModifier.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, instance).getOrThrow(false, error -> {
+			});
+			serializers.put(modifier, json);
 		});
 		
 		final List<String> entries = serializers.entrySet().stream().map(entry -> {
 			final String name = entry.getKey();
-			final var tuple = entry.getValue();
-			final JsonObject json = tuple.getB();
+			final JsonElement json = entry.getValue();
 			
 			final ResourceLocation location = new ResourceLocation(modid(), name);
-			
-			json.addProperty("type", ForgeRegistries.GLOBAL_LOOT_MODIFIER_SERIALIZERS.get().getKey(tuple.getA()).toString());
 			
 			CommonDataProvider.saveData(cache, json, pathProvider.json(location), "Cannot save global loot modifier");
 			

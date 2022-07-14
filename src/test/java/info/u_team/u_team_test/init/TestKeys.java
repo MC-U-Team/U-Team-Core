@@ -7,17 +7,16 @@ import com.mojang.blaze3d.platform.InputConstants;
 import info.u_team.u_team_test.screen.ButtonTestScreen;
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraftforge.client.ClientRegistry;
+import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 import net.minecraftforge.client.event.ScreenEvent.KeyPressed;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 public class TestKeys {
 	
 	public static final KeyMapping BASIC = new KeyMapping("Basic key", GLFW.GLFW_KEY_F8, "Basic category");
 	
-	private static void setup(FMLClientSetupEvent event) {
-		ClientRegistry.registerKeyBinding(BASIC);
+	private static void register(RegisterKeyMappingsEvent event) {
+		event.register(BASIC);
 	}
 	
 	private static void onKeyboardPressed(KeyPressed.Post event) {
@@ -28,7 +27,7 @@ public class TestKeys {
 	}
 	
 	public static void registerMod(IEventBus bus) {
-		bus.addListener(TestKeys::setup);
+		bus.addListener(TestKeys::register);
 	}
 	
 	public static void registerForge(IEventBus bus) {
