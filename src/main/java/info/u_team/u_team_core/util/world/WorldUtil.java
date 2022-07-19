@@ -116,8 +116,8 @@ public class WorldUtil {
 	 *        or a different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, RegistryKey<World> type, BlockPos pos) {
-		teleportEntity(entity, type, Vector3d.copyCentered(pos));
+	public static Entity teleportEntity(Entity entity, RegistryKey<World> type, BlockPos pos) {
+		return teleportEntity(entity, type, Vector3d.copyCentered(pos));
 	}
 	
 	/**
@@ -129,8 +129,8 @@ public class WorldUtil {
 	 *        or a different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, RegistryKey<World> type, Vector3d pos) {
-		teleportEntity(entity, getServerWorld(entity, type), pos);
+	public static Entity teleportEntity(Entity entity, RegistryKey<World> type, Vector3d pos) {
+		return teleportEntity(entity, getServerWorld(entity, type), pos);
 	}
 	
 	/**
@@ -142,8 +142,8 @@ public class WorldUtil {
 	 *        different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, ServerWorld world, BlockPos pos) {
-		teleportEntity(entity, world, Vector3d.copyCentered(pos));
+	public static Entity teleportEntity(Entity entity, ServerWorld world, BlockPos pos) {
+		return teleportEntity(entity, world, Vector3d.copyCentered(pos));
 	}
 	
 	/**
@@ -155,8 +155,8 @@ public class WorldUtil {
 	 *        different one
 	 * @param pos The position the entity should be teleported to
 	 */
-	public static void teleportEntity(Entity entity, ServerWorld world, Vector3d pos) {
-		teleportEntity(entity, world, pos.getX(), pos.getY(), pos.getZ(), entity.rotationYaw, entity.rotationPitch);
+	public static Entity teleportEntity(Entity entity, ServerWorld world, Vector3d pos) {
+		return teleportEntity(entity, world, pos.getX(), pos.getY(), pos.getZ(), entity.rotationYaw, entity.rotationPitch);
 	}
 	
 	/**
@@ -171,8 +171,8 @@ public class WorldUtil {
 	 * @param yaw Yaw
 	 * @param pitch Pitch
 	 */
-	public static void teleportEntity(Entity entity, RegistryKey<World> type, double x, double y, double z, float yaw, float pitch) {
-		teleportEntity(entity, getServerWorld(entity, type), x, y, z, yaw, pitch);
+	public static Entity teleportEntity(Entity entity, RegistryKey<World> type, double x, double y, double z, float yaw, float pitch) {
+		return teleportEntity(entity, getServerWorld(entity, type), x, y, z, yaw, pitch);
 	}
 	
 	/**
@@ -187,8 +187,8 @@ public class WorldUtil {
 	 * @param yaw Yaw
 	 * @param pitch Pitch
 	 */
-	public static void teleportEntity(Entity entity, ServerWorld world, double x, double y, double z, float yaw, float pitch) {
-		teleportEntity(entity, world, x, y, z, yaw, pitch, true);
+	public static Entity teleportEntity(Entity entity, ServerWorld world, double x, double y, double z, float yaw, float pitch) {
+		return teleportEntity(entity, world, x, y, z, yaw, pitch, true);
 	}
 	
 	/**
@@ -204,7 +204,7 @@ public class WorldUtil {
 	 * @param pitch Pitch
 	 * @param detach Detach the entity
 	 */
-	public static void teleportEntity(Entity entity, ServerWorld world, double x, double y, double z, float yaw, float pitch, boolean detach) {
+	public static Entity teleportEntity(Entity entity, ServerWorld world, double x, double y, double z, float yaw, float pitch, boolean detach) {
 		if (entity instanceof ServerPlayerEntity) {
 			final ServerPlayerEntity player = (ServerPlayerEntity) entity;
 			world.getChunkProvider().registerTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getEntityId());
@@ -233,7 +233,7 @@ public class WorldUtil {
 				final Entity entityOld = entity;
 				entity = entity.getType().create(world);
 				if (entity == null) {
-					return;
+					return null;
 				}
 				entity.copyDataFromOld(entityOld);
 				if (entityOld instanceof ContainerMinecartEntity) {
@@ -257,5 +257,7 @@ public class WorldUtil {
 		if (entity instanceof CreatureEntity) {
 			((CreatureEntity) entity).getNavigator().clearPath();
 		}
+		
+		return entity;
 	}
 }
