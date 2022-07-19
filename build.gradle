@@ -86,7 +86,7 @@ minecraft {
 		data_test = {
 			workingDirectory file("run/data")
 			
-			parent data // Does not work as the other args are added too...
+			setParents(data.getParents())
 			
 			args "--mod", "uteamtest"
 			args "--all"
@@ -96,6 +96,10 @@ minecraft {
 			args "--existing-mod", "uteamcore"
 			
 			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+				
 				uteamtest {
 					source sourceSets.test
 				}
@@ -130,6 +134,14 @@ tasks.withType(Javadoc) { task ->
 
 gradlefiles.signDefaultForgeJar()
 gradlefiles.signJar("reobfTestJar")
+
+processResources {
+	doLast {
+		fileTree(dir: outputs.files.asPath, include: "**/*.json").each { File file ->
+			file.text = groovy.json.JsonOutput.toJson(new groovy.json.JsonSlurper().parse(file))
+		}
+	}
+}
 
 sourceSets {
 	main {
