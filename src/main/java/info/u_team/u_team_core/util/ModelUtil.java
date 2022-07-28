@@ -12,10 +12,12 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 /**
  * Utility methods for interaction with {@link ModelBakery} private methods.<br>
- * All methods should be called in the {@link ModelRegistryEvent} event.
+ * All methods should be called in the {@link FMLClientSetupEvent} event with
+ * {@link FMLClientSetupEvent#enqueueWork(Runnable)}
  *
  * @author HyCraftHD
  */
