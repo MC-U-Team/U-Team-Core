@@ -95,7 +95,7 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	}
 	
 	@Override
-	protected void renderList(PoseStack poseStack, int rowLeft, int scrollAmount, int mouseX, int mouseY, float partialTicks) {
+	protected void renderList(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		if (useScissor) {
 			final Window window = minecraft.getWindow();
 			final double scaleFactor = window.getGuiScale();
@@ -114,11 +114,11 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			// GuiComponent.fill(poseStack, 0, 0, window.getGuiScaledWidth(), window.getGuiScaledHeight(), 0x8F00FF00);
 			// poseStack.popPose();
 			
-			super.renderList(poseStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
+			super.renderList(poseStack, mouseX, mouseY, partialTicks);
 			
 			RenderSystem.disableScissor();
 		} else {
-			super.renderList(poseStack, rowLeft, scrollAmount, mouseX, mouseY, partialTicks);
+			super.renderList(poseStack, mouseX, mouseY, partialTicks);
 		}
 		
 		if (renderTransparentBorder) {
