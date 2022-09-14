@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.18.2-4.0.1.230] - 2022-09-14
+### Changed
+ - Update gradle files version
+ - Update gradle wrapper
+ - Compress jsons in jar now
+
 ## [1.18.2-4.0.1.216] - 2022-06-11
 ### Changed
  - Update gradle files version
