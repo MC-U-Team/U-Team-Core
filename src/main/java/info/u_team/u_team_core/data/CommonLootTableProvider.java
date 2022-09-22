@@ -76,7 +76,7 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 				.build();
 	}
 	
-	protected static LootTable addTileEntityBlockLootTable(ItemLike item) {
+	protected static LootTable addBlockEntityBlockLootTable(ItemLike item) {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
