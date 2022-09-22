@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class UEntityBlock extends UBlock implements EntityBlockProvider {
 	
-	protected final Supplier<? extends BlockEntityType<?>> tileEntityType;
+	protected final Supplier<? extends BlockEntityType<?>> blockEntityType;
 	
 	public UEntityBlock(Properties properties, Supplier<? extends BlockEntityType<?>> blockEntityType) {
 		this(null, properties, blockEntityType);
@@ -29,12 +29,12 @@ public class UEntityBlock extends UBlock implements EntityBlockProvider {
 	
 	public UEntityBlock(CreativeModeTab creativeTab, Properties properties, Item.Properties blockItemProperties, Supplier<? extends BlockEntityType<?>> blockEntityType) {
 		super(creativeTab, properties, blockItemProperties);
-		tileEntityType = Suppliers.memoize(blockEntityType::get);
+		this.blockEntityType = Suppliers.memoize(blockEntityType::get);
 	}
 	
 	@Override
 	public BlockEntityType<?> blockEntityType(BlockPos pos, BlockState state) {
-		return tileEntityType.get();
+		return blockEntityType.get();
 	}
 	
 }

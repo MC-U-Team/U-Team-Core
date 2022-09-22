@@ -29,7 +29,7 @@ public class BasicEnergyCreatorBlock extends UEntityBlock {
 	
 	@Override
 	public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-		if ((type != tileEntityType.get()) || level.isClientSide()) {
+		if ((type != blockEntityType.get()) || level.isClientSide()) {
 			return null;
 		}
 		return (level_, pos, state_, instance) -> BasicEnergyCreatorBlockEntity.serverTick(level_, pos, state_, (BasicEnergyCreatorBlockEntity) instance);

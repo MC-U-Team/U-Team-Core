@@ -18,8 +18,8 @@ public class BasicFluidInventoryMenu extends UBlockEntityContainerMenu<BasicFlui
 	}
 	
 	// Server
-	public BasicFluidInventoryMenu(int containerId, Inventory playerInventory, BasicFluidInventoryBlockEntity tileEntity) {
-		super(TestMenuTypes.BASIC_FLUID_INVENTORY.get(), containerId, playerInventory, tileEntity);
+	public BasicFluidInventoryMenu(int containerId, Inventory playerInventory, BasicFluidInventoryBlockEntity blockEntity) {
+		super(TestMenuTypes.BASIC_FLUID_INVENTORY.get(), containerId, playerInventory, blockEntity);
 	}
 	
 	@Override

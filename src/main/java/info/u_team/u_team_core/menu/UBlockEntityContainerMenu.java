@@ -78,9 +78,9 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf byteBuf, boolean callInit) {
 		super(menuType, containerId);
 		this.playerInventory = playerInventory;
-		blockEntity = getClientTileEntity(byteBuf);
+		blockEntity = getClientBlockEntity(byteBuf);
 		if (blockEntity instanceof final MenuSyncedBlockEntity syncedBlockEntity) {
-			final FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteBuf.readByteArray(32592))); // 32600 bytes, but minus the tile entity pos which takes 8 bytes
+			final FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteBuf.readByteArray(32592))); // 32600 bytes, but minus the block entity pos which takes 8 bytes
 			syncedBlockEntity.handleInitialMenuDataFromServer(data);
 			data.release();
 		}
@@ -91,14 +91,14 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	
 	/**
 	 * This methods reads the {@link BlockPos} from the {@link FriendlyByteBuf} and then tries to find a client block
-	 * entity. This method is only client sided. If the tile entity does not exist an {@link IllegalStateException} is
+	 * entity. This method is only client sided. If the block entity does not exist an {@link IllegalStateException} is
 	 * thrown.
 	 *
 	 * @param byteBuf Buffer with the read index at the block entity {@link BlockPos}
 	 * @return The block entity on the clients side
 	 */
 	@OnlyIn(Dist.CLIENT)
-	private T getClientTileEntity(FriendlyByteBuf byteBuf) {
+	private T getClientBlockEntity(FriendlyByteBuf byteBuf) {
 		final BlockPos pos = byteBuf.readBlockPos();
 		final BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
 		if (blockEntity == null) {

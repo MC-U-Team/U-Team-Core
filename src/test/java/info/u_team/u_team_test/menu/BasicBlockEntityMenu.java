@@ -23,8 +23,8 @@ public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<BasicBlockEn
 	}
 	
 	// Server
-	public BasicBlockEntityMenu(int containerId, Inventory playerInventory, BasicBlockEntityBlockEntity tileEntity) {
-		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), containerId, playerInventory, tileEntity);
+	public BasicBlockEntityMenu(int containerId, Inventory playerInventory, BasicBlockEntityBlockEntity blockEntity) {
+		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), containerId, playerInventory, blockEntity);
 	}
 	
 	@Override

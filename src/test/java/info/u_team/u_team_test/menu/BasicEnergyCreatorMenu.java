@@ -15,8 +15,8 @@ public class BasicEnergyCreatorMenu extends UBlockEntityContainerMenu<BasicEnerg
 		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), containerId, playerInventory, byteBuf);
 	}
 	
-	public BasicEnergyCreatorMenu(int containerId, Inventory playerInventory, BasicEnergyCreatorBlockEntity tileEntity) {
-		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), containerId, playerInventory, tileEntity);
+	public BasicEnergyCreatorMenu(int containerId, Inventory playerInventory, BasicEnergyCreatorBlockEntity blockEntity) {
+		super(TestMenuTypes.BASIC_ENERGY_CREATOR.get(), containerId, playerInventory, blockEntity);
 	}
 	
 	@Override
