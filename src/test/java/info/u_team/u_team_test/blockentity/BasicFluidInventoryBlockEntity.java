@@ -1,8 +1,8 @@
 package info.u_team.u_team_test.blockentity;
 
 import info.u_team.u_team_core.blockentity.UBlockEntity;
-import info.u_team.u_team_core.inventory.TileEntityUFluidStackHandler;
-import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
+import info.u_team.u_team_core.inventory.BlockEntityUFluidStackHandler;
+import info.u_team.u_team_core.inventory.BlockEntityUItemStackHandler;
 import info.u_team.u_team_core.inventory.UFluidStackHandler;
 import info.u_team.u_team_core.inventory.UItemStackHandler;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
@@ -32,10 +32,10 @@ public class BasicFluidInventoryBlockEntity extends UBlockEntity implements Menu
 	public BasicFluidInventoryBlockEntity(BlockPos pos, BlockState state) {
 		super(TestBlockEntityTypes.BASIC_FLUID_INVENTORY.get(), pos, state);
 		
-		itemSlots = new TileEntityUItemStackHandler(4, this);
+		itemSlots = new BlockEntityUItemStackHandler(4, this);
 		itemSlotsOptional = LazyOptional.of(() -> itemSlots);
 		
-		fluidTanks = new TileEntityUFluidStackHandler(4, this);
+		fluidTanks = new BlockEntityUFluidStackHandler(4, this);
 		fluidTanksOptional = LazyOptional.of(() -> fluidTanks);
 	}
 	

@@ -3,7 +3,7 @@ package info.u_team.u_team_test.blockentity;
 import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.energy.BasicEnergyStorage;
-import info.u_team.u_team_core.inventory.TileEntityUItemStackHandler;
+import info.u_team.u_team_core.inventory.BlockEntityUItemStackHandler;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
 import info.u_team.u_team_test.menu.BasicEnergyCreatorMenu;
 import net.minecraft.core.BlockPos;
@@ -23,17 +23,17 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 public class BasicEnergyCreatorBlockEntity extends UBlockEntity implements MenuSyncedBlockEntity {
 	
-	private final TileEntityUItemStackHandler slots;
+	private final BlockEntityUItemStackHandler slots;
 	private final BasicEnergyStorage energy;
 	
-	private final LazyOptional<TileEntityUItemStackHandler> slotsOptional;
+	private final LazyOptional<BlockEntityUItemStackHandler> slotsOptional;
 	private final LazyOptional<BasicEnergyStorage> energyOptional;
 	
 	private boolean action = true;
 	
 	public BasicEnergyCreatorBlockEntity(BlockPos pos, BlockState state) {
 		super(TestBlockEntityTypes.BASIC_ENERGY_CREATOR.get(), pos, state);
-		slots = new TileEntityUItemStackHandler(6, this) {
+		slots = new BlockEntityUItemStackHandler(6, this) {
 			
 			@Override
 			public int getSlotLimit(int slot) {
@@ -71,7 +71,7 @@ public class BasicEnergyCreatorBlockEntity extends UBlockEntity implements MenuS
 		energy.setEnergy(buffer.readInt());
 	}
 	
-	public TileEntityUItemStackHandler getSlots() {
+	public BlockEntityUItemStackHandler getSlots() {
 		return slots;
 	}
 	
