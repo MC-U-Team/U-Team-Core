@@ -17,9 +17,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 public class BasicFluidInventoryBlockEntity extends UBlockEntity implements MenuProvider {
 	
@@ -65,9 +64,9 @@ public class BasicFluidInventoryBlockEntity extends UBlockEntity implements Menu
 	
 	@Override
 	public <X> LazyOptional<X> getCapability(Capability<X> capability, Direction side) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+		if (capability == ForgeCapabilities.ITEM_HANDLER) {
 			return itemSlotsOptional.cast();
-		} else if (capability == CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY) {
+		} else if (capability == ForgeCapabilities.FLUID_HANDLER) {
 			return fluidTanksOptional.cast();
 		} else {
 			return super.getCapability(capability, side);

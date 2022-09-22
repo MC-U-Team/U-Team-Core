@@ -16,8 +16,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 public class BasicBlockEntityBlockEntity extends UBlockEntity implements MenuSyncedBlockEntity {
 	
@@ -92,7 +92,7 @@ public class BasicBlockEntityBlockEntity extends UBlockEntity implements MenuSyn
 	
 	@Override
 	public <X> LazyOptional<X> getCapability(Capability<X> capability, Direction side) {
-		if (capability == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+		if (capability == ForgeCapabilities.ITEM_HANDLER) {
 			return slotsOptional.cast();
 		} else {
 			return super.getCapability(capability, side);
