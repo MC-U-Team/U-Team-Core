@@ -15,19 +15,54 @@ public class BasicSyncBlockEntity extends UBlockEntity {
 	
 	private static final Logger LOGGER = LogUtils.getLogger();
 	
+	private int counter;
+	
 	public BasicSyncBlockEntity(BlockPos pos, BlockState state) {
 		super(TestBlockEntityTypes.BASIC_SYNC.get(), pos, state);
 	}
 	
+	public void triggerCounter() {
+		counter++;
+		sendChangesToClient();
+	}
+	
+	@Override
+	public void saveNBT(CompoundTag tag) {
+		tag.putInt("counter", counter);
+	}
+	
+	@Override
+	public void loadNBT(CompoundTag tag) {
+		counter = tag.getInt("counter");
+	}
+	
 	@Override
 	public void sendChunkLoadData(CompoundTag tag) {
-		tag.putString("data", "This is chunk load data");
+		tag.putInt("chunk-val", counter);
+		tag.putString("info", "Chunk load data");
 		
 		logMethod(tag);
 	}
 	
 	@Override
 	public void handleChunkLoadData(CompoundTag tag) {
+		counter = tag.getInt("chunk-val");
+		
+		logMethod(tag);
+	}
+	
+	@Override
+	public void sendUpdateStateData(CompoundTag tag) {
+		tag.putInt("update-val", counter);
+		tag.putString("info", "Update data");
+		
+		logMethod(tag);
+	}
+	
+	@Override
+	public void handleUpdateStateData(CompoundTag tag) {
+		counter = tag.getInt("update-val");
+		
 		logMethod(tag);
 	}
 	

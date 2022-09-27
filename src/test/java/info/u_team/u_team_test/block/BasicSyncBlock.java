@@ -1,9 +1,13 @@
 package info.u_team.u_team_test.block;
 
+import java.util.Optional;
+
 import info.u_team.u_team_core.block.UEntityBlock;
+import info.u_team.u_team_test.blockentity.BasicSyncBlockEntity;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
 import info.u_team.u_team_test.init.TestCreativeTabs;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
@@ -19,8 +23,19 @@ public class BasicSyncBlock extends UEntityBlock {
 	}
 	
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		return openMenu(world, pos, player, true);
+	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+		if (level.isClientSide() || !(player instanceof final ServerPlayer)) {
+			return InteractionResult.SUCCESS;
+		}
+		
+		final Optional<BasicSyncBlockEntity> blockEntityOptional = getBlockEntity(level, pos);
+		if (!blockEntityOptional.isPresent()) {
+			return InteractionResult.PASS;
+		}
+		
+		final BasicSyncBlockEntity blockEntity = blockEntityOptional.get();
+		blockEntity.triggerCounter();
+		return InteractionResult.SUCCESS;
 	}
 	
 }
