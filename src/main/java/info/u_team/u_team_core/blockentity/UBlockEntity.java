@@ -14,7 +14,7 @@ import net.minecraft.world.level.block.state.BlockState;
  *
  * @author HyCraftHD
  */
-public abstract class UBlockEntity extends BlockEntity {
+public abstract class UBlockEntity extends BlockEntity implements SyncedBlockEntity {
 	
 	public UBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
 		super(type, pos, state);
@@ -48,40 +48,18 @@ public abstract class UBlockEntity extends BlockEntity {
 	public void loadNBT(CompoundTag tag) {
 	}
 	
-	// sync server -> client
-	
 	// synchronization on chunk load
 	
-	// TODO save methods have changed. Some parts here might not work, Wait for some forge changes!
 	@Override
 	public CompoundTag getUpdateTag() {
-		final CompoundTag tag = super.getUpdateTag();
+		final CompoundTag tag = new CompoundTag();
 		sendChunkLoadData(tag);
 		return tag;
 	}
 	
 	@Override
 	public void handleUpdateTag(CompoundTag tag) {
-		super.load(tag);
 		handleChunkLoadData(tag);
-	}
-	
-	/**
-	 * Data here will be send to the client side when the chunk is loaded. The data is received in
-	 * {@link UBlockEntity#handleChunkLoadData(CompoundNBT)}
-	 *
-	 * @param tag
-	 */
-	public void sendChunkLoadData(CompoundTag tag) {
-	}
-	
-	/**
-	 * The data from the chunk load is received here. The data is send from
-	 * {@link UBlockEntity#sendChunkLoadData(CompoundNBT)}
-	 *
-	 * @param tag
-	 */
-	public void handleChunkLoadData(CompoundTag tag) {
 	}
 	
 	// synchronization on block update
@@ -91,34 +69,17 @@ public abstract class UBlockEntity extends BlockEntity {
 		final CompoundTag tag = new CompoundTag();
 		sendUpdateStateData(tag);
 		if (!tag.isEmpty()) {
-			return ClientboundBlockEntityDataPacket.create(this);
+			return ClientboundBlockEntityDataPacket.create(this, blockEntity -> tag);
 		}
 		return null;
 	}
 	
 	@Override
 	public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
-		handleUpdateStateData(packet.getTag());
-	}
-	
-	/**
-	 * Data here will be send to the client side when the block is updated. The data is received in
-	 * {@link UBlockEntity#handleUpdateStateData(CompoundNBT)}. To trigger an update call
-	 * {@link Level#sendBlockUpdated(BlockPos, BlockState, BlockState, int)} or
-	 * {@link UBlockEntity#sendChangesToClient(int)}
-	 *
-	 * @param tag
-	 */
-	public void sendUpdateStateData(CompoundTag tag) {
-	}
-	
-	/**
-	 * The data from the block update is received here. The data is send from
-	 * {@link UBlockEntity#sendUpdateStateData(CompoundNBT)}
-	 *
-	 * @param tag
-	 */
-	public void handleUpdateStateData(CompoundTag tag) {
+		final CompoundTag tag = packet.getTag();
+		if (tag != null) {
+			handleUpdateStateData(packet.getTag());
+		}
 	}
 	
 	/**
@@ -137,6 +98,51 @@ public abstract class UBlockEntity extends BlockEntity {
 	public void sendChangesToClient(int flags) {
 		final BlockState state = getBlockState();
 		level.sendBlockUpdated(worldPosition, state, state, flags);
+	}
+	
+}
+
+/**
+ * Interface to hold synced methods
+ */
+interface SyncedBlockEntity {
+	
+	/**
+	 * Data here will be send to the client side when the chunk is loaded. The data is received in
+	 * {@link SyncedBlockEntity#handleChunkLoadData(CompoundNBT)}
+	 *
+	 * @param tag
+	 */
+	default void sendChunkLoadData(CompoundTag tag) {
+	}
+	
+	/**
+	 * The data from the chunk load is received here. The data is send from
+	 * {@link SyncedBlockEntity#sendChunkLoadData(CompoundNBT)}
+	 *
+	 * @param tag
+	 */
+	default void handleChunkLoadData(CompoundTag tag) {
+	}
+	
+	/**
+	 * Data here will be send to the client side when the block is updated. The data is received in
+	 * {@link SyncedBlockEntity#handleUpdateStateData(CompoundNBT)}. To trigger an update call
+	 * {@link Level#sendBlockUpdated(BlockPos, BlockState, BlockState, int)} or
+	 * {@link UBlockEntity#sendChangesToClient(int)}
+	 *
+	 * @param tag
+	 */
+	default void sendUpdateStateData(CompoundTag tag) {
+	}
+	
+	/**
+	 * The data from the block update is received here. The data is send from
+	 * {@link SyncedBlockEntity#sendUpdateStateData(CompoundNBT)}
+	 *
+	 * @param tag
+	 */
+	default void handleUpdateStateData(CompoundTag tag) {
 	}
 	
 }
