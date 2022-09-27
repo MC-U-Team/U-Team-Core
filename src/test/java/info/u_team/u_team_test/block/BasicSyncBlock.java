@@ -15,7 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 public class BasicSyncBlock extends UEntityBlock {
 	
 	public BasicSyncBlock() {
-		super(TestCreativeTabs.TAB, Properties.of(Material.METAL).strength(2).requiresCorrectToolForDrops(), TestBlockEntityTypes.BASIC_ENERGY_CREATOR);
+		super(TestCreativeTabs.TAB, Properties.of(Material.METAL).strength(2).requiresCorrectToolForDrops(), TestBlockEntityTypes.BASIC_SYNC);
 	}
 	
 	@Override
