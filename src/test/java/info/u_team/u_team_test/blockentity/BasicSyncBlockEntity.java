@@ -23,6 +23,7 @@ public class BasicSyncBlockEntity extends UBlockEntity {
 	
 	public void triggerCounter() {
 		counter++;
+		setChanged();
 		sendChangesToClient();
 	}
 	
