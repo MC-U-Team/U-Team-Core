@@ -3,9 +3,7 @@ package info.u_team.u_team_core.intern.loot;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 
-import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.intern.init.UCoreLootFunctions;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -16,6 +14,10 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class SetBlockEntityNBTLootFunction extends LootItemConditionalFunction {
 	
+	public static LootItemConditionalFunction.Builder<?> builder() {
+		return simpleBuilder(SetBlockEntityNBTLootFunction::new);
+	}
+	
 	private SetBlockEntityNBTLootFunction(LootItemCondition[] conditions) {
 		super(conditions);
 	}
@@ -24,22 +26,9 @@ public class SetBlockEntityNBTLootFunction extends LootItemConditionalFunction {
 	public ItemStack run(ItemStack stack, LootContext context) {
 		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
 			final BlockEntity blockEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
-			final CompoundTag compound;
-			if (blockEntity instanceof final UBlockEntity uBlockEntity) {
-				compound = new CompoundTag();
-				uBlockEntity.saveNBT(compound);
-			} else {
-				compound = blockEntity.saveWithId();
-			}
-			if (!compound.isEmpty()) {
-				stack.addTagElement("BlockEntityTag", compound);
-			}
+			blockEntity.saveToItem(stack);
 		}
 		return stack;
-	}
-	
-	public static LootItemConditionalFunction.Builder<?> builder() {
-		return simpleBuilder((conditions) -> new SetBlockEntityNBTLootFunction(conditions));
 	}
 	
 	@Override
