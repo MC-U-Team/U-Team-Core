@@ -25,6 +25,7 @@ public class TestItemModelProvider extends CommonItemModelProvider {
 		simpleBlock(TestBlocks.BASIC_BLOCKENTITY.get());
 		simpleBlock(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		simpleBlock(TestBlocks.BASIC_FLUID_INVENTORY.get());
+		simpleBlock(TestBlocks.BASIC_SYNC.get());
 	}
 	
 }

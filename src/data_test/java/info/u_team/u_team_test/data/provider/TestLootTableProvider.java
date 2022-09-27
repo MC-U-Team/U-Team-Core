@@ -21,6 +21,7 @@ public class TestLootTableProvider extends CommonLootTableProvider {
 		registerBlock(TestBlocks.BASIC_BLOCKENTITY, addBlockEntityBlockLootTable(TestBlocks.BASIC_BLOCKENTITY.get()), consumer);
 		registerBlock(TestBlocks.BASIC_ENERGY_CREATOR, addBlockEntityBlockLootTable(TestBlocks.BASIC_ENERGY_CREATOR.get()), consumer);
 		registerBlock(TestBlocks.BASIC_FLUID_INVENTORY, addBlockEntityBlockLootTable(TestBlocks.BASIC_FLUID_INVENTORY.get()), consumer);
+		registerBlock(TestBlocks.BASIC_FLUID_INVENTORY, addBlockEntityBlockLootTable(TestBlocks.BASIC_SYNC.get()), consumer);
 	}
 	
 }
