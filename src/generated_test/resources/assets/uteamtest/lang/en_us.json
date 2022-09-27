@@ -3,6 +3,7 @@
 	"block.uteamtest.basic_block_entity": "Block Entity Block",
 	"block.uteamtest.basic_energy_creator": "Energy Creator",
 	"block.uteamtest.basic_fluid_inventory": "Fluid Inventory",
+	"block.uteamtest.basic_sync": "Sync Block",
 	"death.attack.radiation": "%1$s dies of radiation",
 	"effect.uteamtest.radiation": "Radiation",
 	"enchantment.uteamtest.auto_smelt": "Auto Smelt",
