@@ -27,6 +27,10 @@ public class BasicSyncBlockEntity extends UBlockEntity {
 		sendChangesToClient();
 	}
 	
+	public int getCounter() {
+		return counter;
+	}
+	
 	@Override
 	public void saveNBT(CompoundTag tag) {
 		tag.putInt("counter", counter);
