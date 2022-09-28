@@ -1,0 +1,19 @@
+{
+	"values": [
+		"minecraft:blackstone",
+		"#minecraft:logs",
+		"minecraft:furnace",
+		"minecraft:smoker",
+		"minecraft:blast_furnace",
+		"#forge:chests/trapped",
+		"#forge:chests/wooden",
+		{
+			"id": "minecraft:ancient_debris",
+			"required": false
+		},
+		{
+			"id": "#minecraft:anvil",
+			"required": false
+		}
+	]
+}

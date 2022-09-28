@@ -41,6 +41,10 @@ java {
 	withJavadocJar()
 }
 
+sourceSets {
+	test_mod
+}
+
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
 	
@@ -56,7 +60,7 @@ minecraft {
 				}
 				
 				uteamtest {
-					source sourceSets.test
+					source sourceSets.test_mod
 				}
 			}
 		}
@@ -69,7 +73,7 @@ minecraft {
 				}
 				
 				uteamtest {
-					source sourceSets.test
+					source sourceSets.test_mod
 				}
 			}
 		}
@@ -98,9 +102,9 @@ minecraft {
 			
 			args "--mod", "uteamtest"
 			args "--all"
-			args "--output", file("src/generated_test/resources")
+			args "--output", file("src/generated_test_mod/resources")
 			args "--validate"
-			args "--existing", file("src/test/resources")
+			args "--existing", file("src/test_mod/resources")
 			args "--existing-mod", "uteamcore"
 			
 			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
@@ -112,7 +116,7 @@ minecraft {
 				}
 				
 				uteamtest {
-					source sourceSets.test
+					source sourceSets.test_mod
 				}
 			}
 		}
@@ -122,7 +126,7 @@ minecraft {
 def testJarTask = tasks.create("testJar", Jar) {
 	archiveClassifier = "test"
 	
-	from sourceSets.test.output
+	from sourceSets.test_mod.output
 }
 
 gradlefiles.createReobfJar(tasks.getByName("testJar"))
@@ -130,7 +134,7 @@ gradlefiles.createReobfJar(tasks.getByName("testJar"))
 def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
 	
-	from sourceSets.test.allJava
+	from sourceSets.test_mod.allJava
 }
 
 gradlefiles.assembleDependOn(testJarTask, testSourcesJarTask)
@@ -165,13 +169,13 @@ sourceSets {
 			srcDirs += "src/generated/resources"
 		}
 	}
-	test {
+	test_mod {
 		java {
-			srcDirs += "src/data_test/java"
-			srcDirs += "src/integration_test/java"
+			srcDirs += "src/data_test_mod/java"
+			srcDirs += "src/integration_test_mod/java"
 		}
 		resources {
-			srcDirs += "src/generated_test/resources"
+			srcDirs += "src/generated_test_mod/resources"
 		}
 	}
 }

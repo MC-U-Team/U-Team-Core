@@ -1,0 +1,18 @@
+{
+	"type": "uteamtest:auto_smelt",
+	"conditions": [
+		{
+			"condition": "minecraft:match_tool",
+			"predicate": {
+				"enchantments": [
+					{
+						"enchantment": "uteamtest:auto_smelt",
+						"levels": {
+							"min": 1
+						}
+					}
+				]
+			}
+		}
+	]
+}
