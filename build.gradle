@@ -42,7 +42,10 @@ java {
 }
 
 sourceSets {
-	test_mod
+	test_mod {
+		compileClasspath += main.runtimeClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
 }
 
 minecraft {
