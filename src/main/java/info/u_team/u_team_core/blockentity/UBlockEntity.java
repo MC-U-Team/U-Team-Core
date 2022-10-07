@@ -68,18 +68,13 @@ public abstract class UBlockEntity extends BlockEntity implements SyncedBlockEnt
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		final CompoundTag tag = new CompoundTag();
 		sendUpdateStateData(tag);
-		if (!tag.isEmpty()) {
-			return ClientboundBlockEntityDataPacket.create(this, blockEntity -> tag);
-		}
-		return null;
+		return ClientboundBlockEntityDataPacket.create(this, blockEntity -> tag);
 	}
 	
 	@Override
 	public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
 		final CompoundTag tag = packet.getTag();
-		if (tag != null) {
-			handleUpdateStateData(packet.getTag());
-		}
+		handleUpdateStateData(tag == null ? new CompoundTag() : tag);
 	}
 	
 	/**
