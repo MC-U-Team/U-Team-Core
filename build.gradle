@@ -42,10 +42,7 @@ java {
 }
 
 sourceSets {
-	test_mod {
-		compileClasspath += main.runtimeClasspath
-		runtimeClasspath += main.runtimeClasspath
-	}
+	test_mod
 }
 
 minecraft {
@@ -180,6 +177,8 @@ sourceSets {
 		resources {
 			srcDirs += "src/generated_test_mod/resources"
 		}
+		compileClasspath += main.runtimeClasspath
+		runtimeClasspath += main.runtimeClasspath
 	}
 }
 
