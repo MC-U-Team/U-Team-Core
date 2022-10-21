@@ -61,6 +61,12 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 	}
 	
 	public void updateSlider() {
+		updateSliderText();
+		
+		slider.onChange(this);
+	}
+	
+	public void updateSliderText() {
 		value = Mth.clamp(value, 0, 1);
 		
 		String displayValue;
@@ -86,8 +92,6 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 		if (drawDescription) {
 			setMessage(Component.empty().append(prefix).append(displayValue).append(suffix));
 		}
-		
-		slider.onChange(this);
 	}
 	
 	public int getValueInt() {
@@ -100,6 +104,7 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 	
 	public void setValue(double value) {
 		this.value = (value - minValue) / (maxValue - minValue);
+		updateSliderText();
 	}
 	
 	public static interface OnSliderChange {
