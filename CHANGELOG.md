@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.2-4.4.1.233] - 2022-10-21
+### Changed
+ - Abstract slider updates the slider text when the value is set manually
+
 ## [1.19.2-4.4.0.232] - 2022-10-16
 ### Changed
  - Fix tile entity synchronization
