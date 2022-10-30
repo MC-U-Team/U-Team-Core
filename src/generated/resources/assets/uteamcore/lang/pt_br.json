@@ -1,0 +1,13 @@
+{
+	"commands.uteamcore.dimteleport.success.multiple": "Teleportou %s entidades para %s",
+	"commands.uteamcore.dimteleport.success.position.multiple": "Teleportou %s entidades para %s em %s, %s, %s",
+	"commands.uteamcore.dimteleport.success.position.single": "Teleportou %s para %s em %s, %s, %s",
+	"commands.uteamcore.dimteleport.success.single": "Teleportou %s para %s",
+	"commands.uteamcore.ping.success.other": "ping de %s é %sms",
+	"commands.uteamcore.ping.success.self": "Seu ping é %sms",
+	"commands.uteamcore.stackinfo.success.block": "Bloco: %s",
+	"commands.uteamcore.stackinfo.success.item": "Item: %s",
+	"commands.uteamcore.stackinfo.success.nbt": "NBT: %s",
+	"gui.widget.uteamcore.energy.fe_tooltip": "%sFE/%sFE",
+	"jei.uteamcore.dyeable.info": "Esses itens podem ser tingidos com corante no campo de artesanato."
+}
