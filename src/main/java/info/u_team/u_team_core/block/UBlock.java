@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.block;
 
+import java.util.function.Supplier;
+
 import info.u_team.u_team_core.api.block.BlockItemProvider;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -8,7 +10,7 @@ import net.minecraft.world.level.block.Block;
 
 public class UBlock extends Block implements BlockItemProvider {
 	
-	protected final Item blockItem;
+	protected final Supplier<Item> blockItem;
 	
 	public UBlock(Properties properties) {
 		this(null, properties);
@@ -24,7 +26,7 @@ public class UBlock extends Block implements BlockItemProvider {
 	
 	public UBlock(CreativeModeTab creativeTab, Properties properties, Item.Properties blockItemProperties) {
 		super(properties);
-		blockItem = createBlockItem(blockItemProperties == null ? new Item.Properties().tab(creativeTab) : creativeTab == null ? blockItemProperties : blockItemProperties.tab(creativeTab));
+		blockItem = () -> createBlockItem(blockItemProperties == null ? new Item.Properties().tab(creativeTab) : creativeTab == null ? blockItemProperties : blockItemProperties.tab(creativeTab));
 	}
 	
 	protected Item createBlockItem(Item.Properties blockItemProperties) {
@@ -33,6 +35,6 @@ public class UBlock extends Block implements BlockItemProvider {
 	
 	@Override
 	public Item blockItem() {
-		return blockItem;
+		return blockItem.get();
 	}
 }
