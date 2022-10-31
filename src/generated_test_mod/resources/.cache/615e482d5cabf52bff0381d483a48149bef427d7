@@ -1,11 +1,15 @@
-// 1.19.2	2022-09-28T16:03:17.2165005	Block-State
+// 1.19.2	2022-10-31T22:12:51.7107627	Block-State
 b65960c4bf061b2cd847d01e3758e9e490e90034 assets/uteamtest/blockstates/basic_block.json
 d6e490ac05c146899e3274b916b3f9c8672207ed assets/uteamtest/blockstates/basic_block_entity.json
 13f765551b0bb8dddf2f214f7d2386069b481563 assets/uteamtest/blockstates/basic_energy_creator.json
 265e18684b9135edeefcaeff9fd626c2c8a95e7a assets/uteamtest/blockstates/basic_fluid_inventory.json
+b9d79281a30a8a9642d4b899e1a0952f70d9b1f1 assets/uteamtest/blockstates/basic_no_item.json
+b430448c832e57402d382a1136db5669d2174f84 assets/uteamtest/blockstates/basic_no_item_implicit.json
 0146a9d053ee2c75da6b6ac71807cb7a55c63cad assets/uteamtest/blockstates/basic_sync.json
 be52cc60032ed3a20a5f3a41425fb4ab2a9bee8f assets/uteamtest/models/block/basic_block.json
 3134b35e85aa138f9b6c05376c697e8f104f0358 assets/uteamtest/models/block/basic_block_entity.json
 1dd96787bee4bb8c26e8e8a6fe8f7e8a01835196 assets/uteamtest/models/block/basic_energy_creator.json
 0dabc4c4509955ebdf55dfa4418c3c641eb9276c assets/uteamtest/models/block/basic_fluid_inventory.json
+95bc30c4d5fa0b7e30ba7d72ad3ac299d7407e3e assets/uteamtest/models/block/basic_no_item.json
+cd492d7316f98634f877828d5d8b4d0edd7c8fc9 assets/uteamtest/models/block/basic_no_item_implicit.json
 2a175d514ba0eac9e2015396fe7e24c418a7daa1 assets/uteamtest/models/block/basic_sync.json

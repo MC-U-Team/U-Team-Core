@@ -17,5 +17,7 @@ public class TestBlockStateProvider extends CommonBlockStateProvider {
 		simpleBlock(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		simpleBlock(TestBlocks.BASIC_FLUID_INVENTORY.get());
 		simpleBlock(TestBlocks.BASIC_SYNC.get());
+		simpleBlock(TestBlocks.BASIC_NO_ITEM.get());
+		simpleBlock(TestBlocks.BASIC_NO_ITEM_IMPLICIT.get());
 	}
 }
