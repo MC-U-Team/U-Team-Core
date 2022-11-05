@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.2-4.4.3.235] - 2022-11-05
+### Changed
+ - Fix contract for block item provider
+
+### Added
+ - Add "Copy to clipboard" for the nbt tag in the stackinfo command
+
 ## [1.19.2-4.4.2.234] - 2022-11-02
 ### Changed
  - Fix crash when block item is not registered for a block
