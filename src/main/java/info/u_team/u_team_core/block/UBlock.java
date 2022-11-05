@@ -2,6 +2,8 @@ package info.u_team.u_team_core.block;
 
 import java.util.function.Supplier;
 
+import com.google.common.base.Suppliers;
+
 import info.u_team.u_team_core.api.block.BlockItemProvider;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -26,7 +28,7 @@ public class UBlock extends Block implements BlockItemProvider {
 	
 	public UBlock(CreativeModeTab creativeTab, Properties properties, Item.Properties blockItemProperties) {
 		super(properties);
-		blockItem = () -> createBlockItem(blockItemProperties == null ? new Item.Properties().tab(creativeTab) : creativeTab == null ? blockItemProperties : blockItemProperties.tab(creativeTab));
+		blockItem = Suppliers.memoize(() -> createBlockItem(blockItemProperties == null ? new Item.Properties().tab(creativeTab) : creativeTab == null ? blockItemProperties : blockItemProperties.tab(creativeTab)));
 	}
 	
 	protected Item createBlockItem(Item.Properties blockItemProperties) {
