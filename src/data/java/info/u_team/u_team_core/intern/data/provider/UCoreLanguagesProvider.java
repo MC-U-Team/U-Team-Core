@@ -21,6 +21,7 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 		add(stackInfoSuccess + "item", "Item: %s");
 		add(stackInfoSuccess + "block", "Block: %s");
 		add(stackInfoSuccess + "nbt", "NBT: %s");
+		add(stackInfoSuccess + "copy", "Copy to clipboard");
 		
 		// Ping
 		// English

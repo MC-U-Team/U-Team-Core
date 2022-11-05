@@ -32,12 +32,17 @@ public class ItemStackInfoSubCommand {
 		
 		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, ForgeRegistries.ITEMS)), false);
 		
-		if (item instanceof BlockItem) {
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(((BlockItem) item).getBlock(), ForgeRegistries.BLOCKS)), false);
+		if (item instanceof BlockItem blockItem) {
+			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), ForgeRegistries.BLOCKS)), false);
 		}
 		
 		if (stack.hasTag()) {
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "nbt", NbtUtils.toPrettyComponent(stack.getTag())), false);
+			final MutableComponent component = NbtUtils.toPrettyComponent(stack.getTag()).copy();
+			final Style style = component.getStyle() //
+					.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(SUCCESS_TRANSLATION_STRING + "copy").withStyle(ChatFormatting.GREEN))) //
+					.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, component.getString()));
+			component.setStyle(style);
+			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "nbt", component), false);
 		}
 		return 0;
 	}
