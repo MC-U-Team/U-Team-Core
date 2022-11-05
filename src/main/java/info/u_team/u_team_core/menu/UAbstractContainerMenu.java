@@ -56,7 +56,7 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	/**
 	 * Will be called immediately after the {@link #setSynchronizerPlayer(ServerPlayer)}.
 	 *
-	 * @param player Server player that openend the container
+	 * @param player Server player that opened the container
 	 */
 	public void initMenu(ServerPlayer player) {
 	}
