@@ -12,7 +12,7 @@ public interface BlockItemProvider {
 	
 	/**
 	 * Must return the same block item instance every time you call this method. The registry name will be set to the name
-	 * from the block. Can return null for no block item.
+	 * from the block. Can return null for no block item. If this method is called the block item must be registered!
 	 *
 	 * @return Block item instance
 	 */
