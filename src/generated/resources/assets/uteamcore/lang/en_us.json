@@ -6,6 +6,7 @@
 	"commands.uteamcore.ping.success.other": "%s's ping is %sms",
 	"commands.uteamcore.ping.success.self": "Your ping is %sms",
 	"commands.uteamcore.stackinfo.success.block": "Block: %s",
+	"commands.uteamcore.stackinfo.success.copy": "Copy to clipboard",
 	"commands.uteamcore.stackinfo.success.item": "Item: %s",
 	"commands.uteamcore.stackinfo.success.nbt": "NBT: %s",
 	"gui.widget.uteamcore.energy.fe_tooltip": "%sFE/%sFE",
