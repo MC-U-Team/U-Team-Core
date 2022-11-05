@@ -29,7 +29,7 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 		this.suffix = suffix;
 		this.minValue = minValue;
 		this.maxValue = maxValue;
-		this.value = (currentValue - minValue) / (maxValue - minValue);
+		value = (currentValue - minValue) / (maxValue - minValue);
 		this.decimalPrecision = decimalPrecision;
 		this.drawDescription = drawDescription;
 		

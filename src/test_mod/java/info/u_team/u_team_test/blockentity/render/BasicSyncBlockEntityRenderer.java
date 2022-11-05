@@ -28,7 +28,7 @@ public class BasicSyncBlockEntityRenderer implements BlockEntityRenderer<BasicSy
 		poseStack.scale(-0.025F, -0.025F, -0.025F);
 		poseStack.mulPose(entityRenderer.cameraOrientation());
 		
-		final float x = (float) (-font.width(displayString) / 2);
+		final float x = -font.width(displayString) / 2;
 		font.draw(poseStack, displayString, x, 0, 0xFFFF00);
 		
 		poseStack.popPose();

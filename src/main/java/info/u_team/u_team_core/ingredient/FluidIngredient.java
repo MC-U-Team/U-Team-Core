@@ -200,7 +200,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		public Collection<FluidStack> getStacks() {
 			final List<FluidStack> list = Lists.newArrayList();
 			
-			for (final Holder<Fluid> holder : Registry.FLUID.getTagOrEmpty(this.tag)) {
+			for (final Holder<Fluid> holder : Registry.FLUID.getTagOrEmpty(tag)) {
 				list.add(new FluidStack(holder.value(), 1000));
 			}
 			
