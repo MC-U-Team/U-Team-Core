@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.2-4.4.3.236] - 2022-12-09
+### Changed
+ - Update forge version to 43.2.0
+
 ## [1.19.2-4.4.3.235] - 2022-11-05
 ### Changed
  - Fix contract for block item provider
