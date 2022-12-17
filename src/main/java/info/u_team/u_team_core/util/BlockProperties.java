@@ -29,6 +29,7 @@ public class BlockProperties extends Properties {
 		drops = properties.drops;
 		canOcclude = properties.canOcclude;
 		isAir = properties.isAir;
+		spawnParticlesOnBreak = properties.spawnParticlesOnBreak;
 		isValidSpawn = properties.isValidSpawn;
 		isRedstoneConductor = properties.isRedstoneConductor;
 		isSuffocating = properties.isSuffocating;
@@ -36,6 +37,8 @@ public class BlockProperties extends Properties {
 		hasPostProcess = properties.hasPostProcess;
 		emissiveRendering = properties.emissiveRendering;
 		dynamicShape = properties.dynamicShape;
+		requiredFeatures = properties.requiredFeatures;
+		offsetType = properties.offsetType;
 		
 		ReflectionUtil.copyValue(LOOT_TABLE_SUPPLIER_FIELD, properties, this);
 	}

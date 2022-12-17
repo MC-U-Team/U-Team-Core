@@ -15,10 +15,10 @@ public class ItemProperties extends Properties {
 		maxStackSize = properties.maxStackSize;
 		maxDamage = properties.maxDamage;
 		craftingRemainingItem = properties.craftingRemainingItem;
-		category = properties.category;
 		rarity = properties.rarity;
 		foodProperties = properties.foodProperties;
 		isFireResistant = properties.isFireResistant;
+		requiredFeatures = properties.requiredFeatures;
 		
 		ReflectionUtil.copyValue(CAN_REPAIR_FIELD, properties, this);
 	}
