@@ -47,7 +47,6 @@ public class ItemIngredient extends Ingredient {
 		} else if (values.length == 0) {
 			return stack.isEmpty();
 		} else {
-			dissolve();
 			for (final ItemStack itemstack : itemStacks) {
 				if (itemstack.getItem() == stack.getItem()) {
 					return stack.getCount() >= amount;

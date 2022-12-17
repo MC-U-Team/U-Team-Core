@@ -16,7 +16,8 @@ import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -152,7 +153,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			return new SingleFluidList(new FluidStack(fluid, 1000));
 		} else if (jsonObject.has("tag")) {
 			final ResourceLocation key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "tag"));
-			final TagKey<Fluid> tag = TagKey.create(Registry.FLUID_REGISTRY, key);
+			final TagKey<Fluid> tag = TagKey.create(Registries.FLUID, key);
 			return new TagList(tag);
 		} else {
 			throw new JsonParseException("An ingredient entry needs either a tag or a fluid");
@@ -200,7 +201,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		public Collection<FluidStack> getStacks() {
 			final List<FluidStack> list = Lists.newArrayList();
 			
-			for (final Holder<Fluid> holder : Registry.FLUID.getTagOrEmpty(tag)) {
+			for (final Holder<Fluid> holder : BuiltInRegistries.FLUID.getTagOrEmpty(tag)) {
 				list.add(new FluidStack(holder.value(), 1000));
 			}
 			
