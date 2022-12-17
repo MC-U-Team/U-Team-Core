@@ -4,17 +4,12 @@ import java.util.function.Supplier;
 
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 
 public class USpawnEggItem extends ForgeSpawnEggItem {
 	
 	public USpawnEggItem(Properties properties, Supplier<? extends EntityType<? extends Mob>> entityType, int primaryColor, int secondaryColor) {
-		this(null, properties, entityType, primaryColor, secondaryColor);
-	}
-	
-	public USpawnEggItem(CreativeModeTab creativeTab, Properties properties, Supplier<? extends EntityType<? extends Mob>> entityType, int primaryColor, int secondaryColor) {
-		super(entityType, primaryColor, secondaryColor, creativeTab == null ? properties : properties.tab(creativeTab));
+		super(entityType, primaryColor, secondaryColor, properties);
 	}
 	
 }

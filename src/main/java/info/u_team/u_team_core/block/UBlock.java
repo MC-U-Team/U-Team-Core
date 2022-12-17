@@ -6,7 +6,6 @@ import com.google.common.base.Suppliers;
 
 import info.u_team.u_team_core.api.block.BlockItemProvider;
 import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -15,20 +14,12 @@ public class UBlock extends Block implements BlockItemProvider {
 	protected final Supplier<Item> blockItem;
 	
 	public UBlock(Properties properties) {
-		this(null, properties);
-	}
-	
-	public UBlock(CreativeModeTab creativeTab, Properties properties) {
-		this(creativeTab, properties, null);
+		this(properties, null);
 	}
 	
 	public UBlock(Properties properties, Item.Properties blockItemProperties) {
-		this(null, properties, blockItemProperties);
-	}
-	
-	public UBlock(CreativeModeTab creativeTab, Properties properties, Item.Properties blockItemProperties) {
 		super(properties);
-		blockItem = Suppliers.memoize(() -> createBlockItem(blockItemProperties == null ? new Item.Properties().tab(creativeTab) : creativeTab == null ? blockItemProperties : blockItemProperties.tab(creativeTab)));
+		blockItem = Suppliers.memoize(() -> createBlockItem(blockItemProperties == null ? new Item.Properties() : blockItemProperties));
 	}
 	
 	protected Item createBlockItem(Item.Properties blockItemProperties) {

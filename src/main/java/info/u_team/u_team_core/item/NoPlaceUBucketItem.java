@@ -6,7 +6,6 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.material.Fluid;
@@ -14,11 +13,7 @@ import net.minecraft.world.level.material.Fluid;
 public class NoPlaceUBucketItem extends UBucketItem {
 	
 	public NoPlaceUBucketItem(Properties properties, Supplier<? extends Fluid> fluid) {
-		this(null, properties, fluid);
-	}
-	
-	public NoPlaceUBucketItem(CreativeModeTab creativeTab, Properties properties, Supplier<? extends Fluid> fluid) {
-		super(creativeTab, properties, fluid);
+		super(properties, fluid);
 	}
 	
 	@Override

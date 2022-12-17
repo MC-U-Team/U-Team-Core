@@ -4,7 +4,6 @@ import java.util.function.Supplier;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.item.BucketItem;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
@@ -13,11 +12,7 @@ import net.minecraftforge.fluids.capability.wrappers.FluidBucketWrapper;
 public class UBucketItem extends BucketItem {
 	
 	public UBucketItem(Properties properties, Supplier<? extends Fluid> fluid) {
-		this(null, properties, fluid);
-	}
-	
-	public UBucketItem(CreativeModeTab creativeTab, Properties properties, Supplier<? extends Fluid> fluid) {
-		super(fluid, creativeTab == null ? properties : properties.tab(creativeTab));
+		super(fluid, properties);
 	}
 	
 	@Override
