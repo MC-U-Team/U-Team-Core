@@ -11,14 +11,15 @@ import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.CustomRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.level.Level;
 
 public class DyeableItemDyeRecipe extends CustomRecipe {
 	
-	public DyeableItemDyeRecipe(ResourceLocation location) {
-		super(location);
+	public DyeableItemDyeRecipe(ResourceLocation location, CraftingBookCategory category) {
+		super(location, category);
 	}
 	
 	@Override
