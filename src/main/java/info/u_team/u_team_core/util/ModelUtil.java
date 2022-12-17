@@ -6,7 +6,6 @@ import java.util.Map;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 
-import net.minecraft.client.resources.model.Material;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -39,15 +38,6 @@ public class ModelUtil {
 	 */
 	public static void addCustomStateContainer(ResourceLocation location, StateDefinition<Block, BlockState> definition) {
 		ModelBakery.STATIC_DEFINITIONS.put(location, definition);
-	}
-	
-	/**
-	 * Add {@link Material} to be loaded to the atlas texture and stitched.
-	 *
-	 * @param material Render Material
-	 */
-	public static void addTexture(Material material) {
-		ModelBakery.UNREFERENCED_TEXTURES.add(material);
 	}
 	
 	/**
