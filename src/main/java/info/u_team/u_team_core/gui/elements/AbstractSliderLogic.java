@@ -23,8 +23,8 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 	
 	public boolean dragging = false;
 	
-	protected AbstractSliderLogic(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double currentValue, boolean decimalPrecision, boolean drawDescription, OnSliderChange slider, OnTooltip tooltip) {
-		super(x, y, width, height, prefix, EMTPY_PRESSABLE, tooltip);
+	protected AbstractSliderLogic(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double currentValue, boolean decimalPrecision, boolean drawDescription, OnSliderChange slider) {
+		super(x, y, width, height, prefix, EMTPY_PRESSABLE);
 		this.prefix = prefix;
 		this.suffix = suffix;
 		this.minValue = minValue;

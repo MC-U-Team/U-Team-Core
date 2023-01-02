@@ -34,15 +34,7 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	}
 	
 	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnSliderChange slider) {
-		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, slider, EMPTY_TOOLTIP);
-	}
-	
-	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnTooltip tooltip) {
-		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, EMPTY_SLIDER, tooltip);
-	}
-	
-	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnSliderChange slider, OnTooltip tooltip) {
-		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, slider, tooltip);
+		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, slider);
 		this.isInContainer = isInContainer;
 		sliderBackgroundTextureProvider = new WidgetTextureProvider(this, hovered -> 0);
 		sliderBackgroundColor = WHITE;
@@ -75,18 +67,13 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		renderBg(poseStack, Minecraft.getInstance(), mouseX, mouseY);
 		if (visible) {
-			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (value * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderBackgroundTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, getBlitOffset(), sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
+			RenderUtil.drawContinuousTexturedBox(poseStack, getX() + (int) (value * (width - 8)), getY(), sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderBackgroundTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, getBlitOffset(), sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
 		}
 	}
 	
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderText(this, poseStack, mouseX, mouseY, partialTicks);
-	}
-	
-	@Override
-	public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		renderToolTip(poseStack, mouseX, mouseY);
 	}
 	
 	@Override
@@ -155,7 +142,7 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	}
 	
 	protected void changeSliderValue(double mouseX) {
-		setSliderValue((mouseX - (x + 4)) / (width - 8));
+		setSliderValue((mouseX - (getX() + 4)) / (width - 8));
 	}
 	
 	protected void setSliderValue(double newValue) {

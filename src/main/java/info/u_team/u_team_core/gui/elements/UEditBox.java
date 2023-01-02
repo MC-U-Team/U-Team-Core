@@ -14,9 +14,6 @@ import net.minecraft.network.chat.Component;
 
 public class UEditBox extends EditBox implements RenderTickable, PerspectiveRenderable, BackgroundColorProvider, TextSettingsProvider {
 	
-	protected static final OnTooltip EMPTY_TOOLTIP = (editBox, poseStack, mouseX, mouseY) -> {
-	};
-	
 	protected static final RGBA BLACK = RGBA.BLACK;
 	protected static final RGBA WHITE = RGBA.WHITE;
 	
@@ -25,8 +22,6 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	protected static final RGBA GRAY = new RGBA(0xA0A0A0FF);
 	protected static final RGBA DARKER_GRAY = new RGBA(0x808080FF);
 	protected static final RGBA DARK_GRAY = new RGBA(0x707070FF);
-	
-	protected OnTooltip onTooltip;
 	
 	protected RGBA backgroundFrameColor;
 	protected RGBA unfocusedBackgroundFrameColor;
@@ -39,13 +34,8 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	protected RGBA cursorColor;
 	
 	public UEditBox(Font font, int x, int y, int width, int height, UEditBox previousEditBox, Component title) {
-		this(font, x, y, width, height, previousEditBox, title, EMPTY_TOOLTIP);
-	}
-	
-	public UEditBox(Font font, int x, int y, int width, int height, UEditBox previousEditBox, Component title, OnTooltip tooltip) {
 		super(font, x, y, width, height, title);
 		setPreviousText(previousEditBox);
-		onTooltip = tooltip;
 		backgroundFrameColor = WHITE;
 		unfocusedBackgroundFrameColor = GRAY;
 		backgroundColor = BLACK;
@@ -53,10 +43,6 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 		disabledTextColor = DARK_GRAY;
 		suggestionTextColor = DARKER_GRAY;
 		cursorColor = LIGHTER_GRAY;
-	}
-	
-	public void setTooltip(OnTooltip tooltip) {
-		onTooltip = tooltip;
 	}
 	
 	public RGBA getBackgroundFrameColor() {
@@ -151,8 +137,8 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	@Override
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		if (bordered) {
-			fill(poseStack, x - 1, y - 1, x + width + 1, y + height + 1, getCurrentBackgroundFrameColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
-			fill(poseStack, x, y, x + width, y + height, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+			fill(poseStack, getX() - 1, getY() - 1, getX() + width + 1, getY() + height + 1, getCurrentBackgroundFrameColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+			fill(poseStack, getX(), getY(), getX() + width, getY() + height, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
 	}
 	
@@ -169,8 +155,8 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 		final boolean shouldCursorBlink = isFocused() && frame / 6 % 2 == 0 && isCursorInText;
 		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 		
-		final int xOffset = bordered ? x + 4 : x;
-		final int yOffset = bordered ? y + (height - 8) / 2 : y;
+		final int xOffset = bordered ? getX() + 4 : getX();
+		final int yOffset = bordered ? getY() + (height - 8) / 2 : getY();
 		
 		int leftRenderedTextX = xOffset;
 		
@@ -208,16 +194,6 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 			final int selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
 			renderHighlight(rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
 		}
-	}
-	
-	@Override
-	public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		renderToolTip(poseStack, mouseX, mouseY);
-	}
-	
-	@Override
-	public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY) {
-		onTooltip.onTooltip(this, poseStack, mouseX, mouseY);
 	}
 	
 	@Override
