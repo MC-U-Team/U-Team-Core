@@ -12,7 +12,7 @@ import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.api.gui.TooltipRenderable;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -79,9 +79,9 @@ public class WidgetUtil {
 		}
 	}
 	
-	public static void renderTooltips(List<Widget> widgets, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		widgets.forEach(widget -> {
-			if (widget instanceof final TooltipRenderable tooltipRenderable) {
+	public static void renderTooltips(List<Renderable> renderables, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		renderables.forEach(renderable -> {
+			if (renderable instanceof final TooltipRenderable tooltipRenderable) {
 				tooltipRenderable.renderToolTip(poseStack, mouseX, mouseY, partialTicks);
 			}
 		});
