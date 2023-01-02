@@ -4,7 +4,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
@@ -13,11 +12,7 @@ public class UArmorItem extends ArmorItem {
 	protected final String textureName;
 	
 	public UArmorItem(String textureName, Properties properties, ArmorMaterial material, EquipmentSlot slot) {
-		this(textureName, null, properties, material, slot);
-	}
-	
-	public UArmorItem(String textureName, CreativeModeTab creativeTab, Properties properties, ArmorMaterial material, EquipmentSlot slot) {
-		super(material, slot, creativeTab == null ? properties : properties.tab(creativeTab));
+		super(material, slot, properties);
 		this.textureName = textureName;
 	}
 	
