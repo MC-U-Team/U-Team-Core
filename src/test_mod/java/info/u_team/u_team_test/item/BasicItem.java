@@ -2,7 +2,6 @@ package info.u_team.u_team_test.item;
 
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.util.LevelUtil;
-import info.u_team.u_team_test.init.TestCreativeTabs;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -18,7 +17,7 @@ import net.minecraft.world.phys.Vec3;
 public class BasicItem extends UItem {
 	
 	public BasicItem() {
-		super(TestCreativeTabs.TAB, new Properties().rarity(Rarity.EPIC).defaultDurability(10));
+		super(new Properties().rarity(Rarity.EPIC).defaultDurability(10));
 	}
 	
 	@Override

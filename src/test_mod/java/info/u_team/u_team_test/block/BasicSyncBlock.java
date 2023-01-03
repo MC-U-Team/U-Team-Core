@@ -5,7 +5,6 @@ import java.util.Optional;
 import info.u_team.u_team_core.block.UEntityBlock;
 import info.u_team.u_team_test.blockentity.BasicSyncBlockEntity;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
-import info.u_team.u_team_test.init.TestCreativeTabs;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -19,7 +18,7 @@ import net.minecraft.world.phys.BlockHitResult;
 public class BasicSyncBlock extends UEntityBlock {
 	
 	public BasicSyncBlock() {
-		super(TestCreativeTabs.TAB, Properties.of(Material.METAL).strength(2).requiresCorrectToolForDrops(), TestBlockEntityTypes.BASIC_SYNC);
+		super(Properties.of(Material.METAL).strength(2).requiresCorrectToolForDrops(), TestBlockEntityTypes.BASIC_SYNC);
 	}
 	
 	@Override
