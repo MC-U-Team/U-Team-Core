@@ -77,14 +77,14 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
 		for (int yComponent = 1; yComponent < height - 1; yComponent += 2) {
-			RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 2, 0, 12 / 16f, 0, 2 / 16f, getBlitOffset()); // Background
+			RenderUtil.addTexturedQuad(bufferBuilder, poseStack, getX() + 1, getX() + 1 + 12, getY() + yComponent, getY() + yComponent + 2, 0, 12 / 16f, 0, 2 / 16f, getBlitOffset()); // Background
 		}
 		
 		for (int yComponent = 1 + storageOffset; yComponent < height - 1; yComponent++) {
 			if (yComponent % 2 == 0) {
-				RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 1, 0, 12 / 16f, 3 / 16f, 4 / 16f, getBlitOffset()); // Background
+				RenderUtil.addTexturedQuad(bufferBuilder, poseStack, getX() + 1, getX() + 1 + 12, getY() + yComponent, getY() + yComponent + 1, 0, 12 / 16f, 3 / 16f, 4 / 16f, getBlitOffset()); // Background
 			} else {
-				RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 1, 0, 12 / 16f, 2 / 16f, 3 / 16f, getBlitOffset()); // Background
+				RenderUtil.addTexturedQuad(bufferBuilder, poseStack, getX() + 1, getX() + 1 + 12, getY() + yComponent, getY() + yComponent + 1, 0, 12 / 16f, 2 / 16f, 3 / 16f, getBlitOffset()); // Background
 			}
 		}
 		
@@ -95,7 +95,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderUtil.drawContainerBorder(poseStack, x, y, width, height, getBlitOffset(), RGBA.WHITE);
+		RenderUtil.drawContainerBorder(poseStack, getX(), getY(), width, height, getBlitOffset(), RGBA.WHITE);
 	}
 	
 	@Override
@@ -124,7 +124,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	}
 	
 	@Override
-	public void updateNarration(NarrationElementOutput narrationElementOutput) {
+	protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
 	}
 	
 }

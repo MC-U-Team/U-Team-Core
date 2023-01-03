@@ -8,13 +8,13 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
 import net.minecraft.client.sounds.SoundManager;
 import net.minecraft.sounds.SoundEvents;
 
-public class ProgressBar implements GuiEventListener, Widget {
+public class ProgressBar implements GuiEventListener, Renderable {
 	
 	protected Supplier<Double> progress;
 	protected Consumer<Double> click;
