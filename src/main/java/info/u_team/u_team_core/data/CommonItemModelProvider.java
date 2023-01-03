@@ -19,7 +19,7 @@ public abstract class CommonItemModelProvider extends ItemModelProvider implemen
 	private final GenerationData generationData;
 	
 	public CommonItemModelProvider(GenerationData generationData) {
-		super(generationData.generator(), generationData.modid(), generationData.existingFileHelper());
+		super(generationData.output(), generationData.modid(), generationData.existingFileHelper());
 		this.generationData = generationData;
 	}
 	
