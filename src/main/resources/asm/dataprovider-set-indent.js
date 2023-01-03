@@ -4,25 +4,27 @@ function initializeCoreMod() {
 	Opcodes = Java.type("org.objectweb.asm.Opcodes")
 
 	return {
-		"DataProvider#saveStable": {
+		"DataProvider": {
 			"target": {
-				"type": "METHOD",
-				"class": "net.minecraft.data.DataProvider",
-				"methodName": "m_236072_",
-				"methodDesc": "(Lnet/minecraft/data/CachedOutput;Lcom/google/gson/JsonElement;Ljava/nio/file/Path;)V"
+				"type": "CLASS",
+				"name": "net.minecraft.data.DataProvider"
 			},
-			"transformer": function(methodNode) {
+			"transformer": function(classNode) {
 				if (ASMAPI.getSystemPropertyFlag("uteamcore.dataprovider-set-indent")) {
-					replaceIndent(methodNode);
+					replaceIndent(classNode);
 				}
-				return methodNode;
+				return classNode;
 			}
 		}
 	}
 }
 
-function replaceIndent(methodNode) {
-	var ldc = ASMAPI.findFirstInstruction(methodNode, Opcodes.LDC)
-	ldc.cst = "\u0009";
-	ASMAPI.log("INFO", "Replaced json indent in DataProvider#saveStable")
+function replaceIndent(classNode) {
+	classNode.methods.forEach(function(methodNode) {
+		var ldc = ASMAPI.findFirstInstruction(methodNode, Opcodes.LDC)
+		if (ldc != null && ldc.cst.equals("\u0020\u0020")) {
+			ldc.cst = "\u0009";
+			ASMAPI.log("INFO", "Replaced json indent in {}#{}", classNode.name, methodNode.name)
+		}
+	});
 }

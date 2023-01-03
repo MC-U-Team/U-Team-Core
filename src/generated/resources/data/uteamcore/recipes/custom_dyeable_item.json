@@ -1,3 +1,4 @@
 {
-	"type": "uteamcore:crafting_special_itemdye"
+	"type": "uteamcore:crafting_special_itemdye",
+	"category": "misc"
 }
