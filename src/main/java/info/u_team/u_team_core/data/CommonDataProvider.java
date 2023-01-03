@@ -1,7 +1,7 @@
 package info.u_team.u_team_core.data;
 
-import java.io.IOException;
 import java.nio.file.Path;
+import java.util.concurrent.CompletableFuture;
 
 import com.google.gson.JsonElement;
 
@@ -18,12 +18,8 @@ public interface CommonDataProvider<V> extends DataProvider {
 	
 	void register(V param);
 	
-	static void saveData(CachedOutput cachedOutput, JsonElement json, Path path, String errorMessage) {
-		try {
-			DataProvider.saveStable(cachedOutput, json, path);
-		} catch (final IOException ex) {
-			throw new RuntimeException(errorMessage + " to " + path, ex);
-		}
+	static CompletableFuture<?> saveData(CachedOutput cachedOutput, JsonElement json, Path path) {
+		return DataProvider.saveStable(cachedOutput, json, path);
 	}
 	
 	interface NoParam extends CommonDataProvider<Void> {

@@ -20,7 +20,7 @@ public abstract class CommonBlockStateProvider extends BlockStateProvider implem
 	private final GenerationData generationData;
 	
 	public CommonBlockStateProvider(GenerationData generationData) {
-		super(generationData.generator(), generationData.modid(), generationData.existingFileHelper());
+		super(generationData.output(), generationData.modid(), generationData.existingFileHelper());
 		this.generationData = generationData;
 	}
 	
