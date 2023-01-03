@@ -6,6 +6,7 @@ import info.u_team.u_team_core.data.CommonRecipeProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestItems;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
@@ -18,7 +19,7 @@ public class TestRecipeProvider extends CommonRecipeProvider {
 	
 	@Override
 	public void register(Consumer<FinishedRecipe> consumer) {
-		ShapedRecipeBuilder.shaped(TestItems.BASIC.get()) //
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, TestItems.BASIC.get()) //
 				.pattern("WLW") //
 				.pattern("ESE") //
 				.pattern("WLW") //
@@ -32,7 +33,8 @@ public class TestRecipeProvider extends CommonRecipeProvider {
 	
 	@Override
 	public void registerVanilla(Consumer<FinishedRecipe> consumer) {
-		ShapedRecipeBuilder.shaped(TestItems.BASIC.get()) //
+		ShapedRecipeBuilder.shaped(RecipeCategory.MISC,
+				TestItems.BASIC.get()) //
 				.pattern("WLW") //
 				.pattern("ESE") //
 				.pattern("WLW") //

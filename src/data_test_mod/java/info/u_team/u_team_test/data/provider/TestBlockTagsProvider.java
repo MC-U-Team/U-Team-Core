@@ -7,6 +7,7 @@ import info.u_team.u_team_core.data.CommonBlockTagsProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_core.item.tier.VanillaTierTags;
 import info.u_team.u_team_test.init.TestBlocks;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 
@@ -17,7 +18,7 @@ public class TestBlockTagsProvider extends CommonBlockTagsProvider {
 	}
 	
 	@Override
-	public void register() {
+	public void register(HolderLookup.Provider provider) {
 		// Add block tags for mining
 		tag(VanillaTierTags.MINEABLE_WITH_SHOVEL).add(TestBlocks.BASIC.get());
 		tag(VanillaTierTags.NEEDS_STONE_TOOL).add(TestBlocks.BASIC.get());

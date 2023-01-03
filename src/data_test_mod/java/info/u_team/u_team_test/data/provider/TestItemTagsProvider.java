@@ -5,6 +5,7 @@ import java.util.stream.IntStream;
 import info.u_team.u_team_core.data.CommonItemTagsProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestTags;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -19,7 +20,7 @@ public class TestItemTagsProvider extends CommonItemTagsProvider {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void register() {
+	public void register(HolderLookup.Provider provider) {
 		copy(TestTags.Blocks.TEST_TAG_1, TestTags.Items.TEST_TAG_1);
 		copy(TestTags.Blocks.TEST_TAG_2, TestTags.Items.TEST_TAG_2);
 		
