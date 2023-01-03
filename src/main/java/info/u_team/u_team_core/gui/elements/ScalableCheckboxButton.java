@@ -46,9 +46,9 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 				final float yStart = (getY() + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
 				
 				if (leftSideText) {
-					xStart = (getX() - ((font.width(message) * currentScale) + 4)) * positionFactor;
+					xStart = (x - ((font.width(message) * currentScale) + 4)) * positionFactor;
 				} else {
-					xStart = (getX() + width + 4) * positionFactor;
+					xStart = (x + width + 4) * positionFactor;
 				}
 				
 				final int color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();

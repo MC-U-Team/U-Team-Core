@@ -49,7 +49,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		final boolean shouldCursorBlink = isFocused() && frame / 6 % 2 == 0 && isCursorInText;
 		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 		
-		final int xOffset = (int) ((bordered ? getX() + 4 : getX()) * positionFactor);
+		final int xOffset = (int) ((bordered ? x + 4 : x) * positionFactor);
 		final int yOffset = (int) ((bordered ? getY() + (int) (height - 8 * scale) / 2 : getY()) * positionFactor);
 		
 		int leftRenderedTextX = xOffset;
@@ -113,7 +113,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 			}
 			
 			if (isFocused() && clicked && button == 0) {
-				int clickOffset = Mth.floor(mouseX) - getX();
+				int clickOffset = Mth.floor(mouseX) - x;
 				if (bordered) {
 					clickOffset -= 4;
 				}

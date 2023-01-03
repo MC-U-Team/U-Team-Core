@@ -38,12 +38,12 @@ public class WidgetUtil {
 			final int messageWidth = font.width(message);
 			final int ellipsisWidth = font.width("...");
 			
-			if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
-				message = Component.literal(font.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
+			if (messageWidth > widget.getWidth() - 6 && messageWidth > ellipsisWidth) {
+				message = Component.literal(font.substrByWidth(message, widget.getWidth() - 6 - ellipsisWidth).getString() + "...");
 			}
 			
-			final float xStart = (widget.getX() + (widget.width / 2) - messageWidth / 2);
-			final float yStart = (widget.getY() + (widget.height - 8) / 2);
+			final float xStart = (widget.getX() + (widget.getWidth() / 2) - messageWidth / 2);
+			final float yStart = (widget.getY() + (widget.getHeight() - 8) / 2);
 			
 			font.drawShadow(poseStack, message, xStart, yStart, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
@@ -62,14 +62,14 @@ public class WidgetUtil {
 				final int messageWidth = Mth.ceil(scale * font.width(message));
 				final int ellipsisWidth = Mth.ceil(scale * font.width("..."));
 				
-				if (messageWidth > widget.width - 6 && messageWidth > ellipsisWidth) {
-					message = Component.literal(font.substrByWidth(message, widget.width - 6 - ellipsisWidth).getString() + "...");
+				if (messageWidth > widget.getWidth() - 6 && messageWidth > ellipsisWidth) {
+					message = Component.literal(font.substrByWidth(message, widget.getWidth() - 6 - ellipsisWidth).getString() + "...");
 				}
 				
 				final float positionFactor = 1 / scale;
 				
-				final float xStart = (widget.getX() + (widget.width / 2) - messageWidth / 2) * positionFactor;
-				final float yStart = (widget.getY() + ((int) (widget.height - 8 * scale)) / 2) * positionFactor;
+				final float xStart = (widget.getX() + (widget.getWidth() / 2) - messageWidth / 2) * positionFactor;
+				final float yStart = (widget.getY() + ((int) (widget.getHeight() - 8 * scale)) / 2) * positionFactor;
 				
 				poseStack.pushPose();
 				poseStack.scale(scale, scale, 0);

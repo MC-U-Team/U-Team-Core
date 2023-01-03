@@ -41,7 +41,7 @@ public class ImageButton extends UButton {
 	
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderUtil.drawTexturedQuad(poseStack, getX() + 2, getX() + width - 2, getY() + 2, getY() + height - 2, 0, 1, 0, 1, 0, getCurrentImage(poseStack, mouseX, mouseY, partialTicks), getCurrentImageColor(poseStack, mouseX, mouseY, partialTicks));
+		RenderUtil.drawTexturedQuad(poseStack, x + 2, x + width - 2, getY() + 2, getY() + height - 2, 0, 1, 0, 1, 0, getCurrentImage(poseStack, mouseX, mouseY, partialTicks), getCurrentImageColor(poseStack, mouseX, mouseY, partialTicks));
 	}
 	
 	public ResourceLocation getCurrentImage(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {

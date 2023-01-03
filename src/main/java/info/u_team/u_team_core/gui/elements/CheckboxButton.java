@@ -66,7 +66,7 @@ public class CheckboxButton extends UButton {
 	
 	@Override
 	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderUtil.drawTexturedQuad(poseStack, getX(), getY(), width, height, 20, 20, isHoveredOrFocused() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, TEXTURE, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks));
+		RenderUtil.drawTexturedQuad(poseStack, x, getY(), width, height, 20, 20, isHoveredOrFocused() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, TEXTURE, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks));
 		
 		renderBackground(poseStack, mouseX, mouseY, partialTicks);
 		renderForeground(poseStack, mouseX, mouseY, partialTicks);
@@ -83,9 +83,9 @@ public class CheckboxButton extends UButton {
 				final float yStart = getY() + (height - 8) / 2;
 				
 				if (leftSideText) {
-					xStart = getX() - (font.width(message) + 4);
+					xStart = x - (font.width(message) + 4);
 				} else {
-					xStart = getX() + width + 4;
+					xStart = x + width + 4;
 				}
 				
 				final int color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();
