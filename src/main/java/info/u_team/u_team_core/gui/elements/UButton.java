@@ -33,7 +33,7 @@ public class UButton extends Button implements PerspectiveRenderable, Background
 	}
 	
 	public UButton(int x, int y, int width, int height, Component text, OnPress pressable) {
-		this(x, y, width, height, text, EMTPY_PRESSABLE, DEFAULT_NARRATION);
+		this(x, y, width, height, text, pressable, DEFAULT_NARRATION);
 	}
 	
 	public UButton(int x, int y, int width, int height, Component text, OnPress pressable, CreateNarration narration) {
