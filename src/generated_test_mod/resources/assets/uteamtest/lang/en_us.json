@@ -28,5 +28,5 @@
 	"item.uteamtest.basic_tool_sword": "Basic Sword",
 	"item.uteamtest.better_enderpearl": "Better Enderpearl",
 	"item.uteamtest.test_living_spawn_egg": "Test Living Entity Spawn Egg",
-	"itemGroup.uteamtest.tab": "UTeamTest Tab"
+	"itemGroup.testmod.tab": "UTeamTest Tab"
 }
