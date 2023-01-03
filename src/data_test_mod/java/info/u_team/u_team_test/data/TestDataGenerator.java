@@ -7,7 +7,7 @@ import info.u_team.u_team_test.data.provider.TestBlockTagsProvider;
 import info.u_team.u_team_test.data.provider.TestGlobalLootModifierProvider;
 import info.u_team.u_team_test.data.provider.TestItemModelProvider;
 import info.u_team.u_team_test.data.provider.TestItemTagsProvider;
-import info.u_team.u_team_test.data.provider.TestJsonCodecsProvider;
+import info.u_team.u_team_test.data.provider.TestDatapackBuiltinEntriesProvider;
 import info.u_team.u_team_test.data.provider.TestLanguagesProvider;
 import info.u_team.u_team_test.data.provider.TestLootTableProvider;
 import info.u_team.u_team_test.data.provider.TestRecipeProvider;
@@ -26,7 +26,7 @@ public class TestDataGenerator {
 		data.addProvider(event.includeServer(), TestBlockTagsProvider::new, TestItemTagsProvider::new);
 		data.addProvider(event.includeServer(), TestLootTableProvider::new);
 		data.addProvider(event.includeServer(), TestGlobalLootModifierProvider::new);
-		data.addProvider(event.includeServer(), TestJsonCodecsProvider::new);
+		data.addProvider(event.includeServer(), TestDatapackBuiltinEntriesProvider::new);
 		data.addProvider(event.includeServer(), TestRecipeProvider::new);
 		
 		data.addProvider(event.includeClient(), TestBlockStateProvider::new);
