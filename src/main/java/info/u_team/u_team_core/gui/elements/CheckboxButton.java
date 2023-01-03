@@ -23,15 +23,7 @@ public class CheckboxButton extends UButton {
 	}
 	
 	public CheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, OnPress pessable) {
-		this(x, y, width, height, text, checked, drawText, pessable, EMPTY_TOOLTIP);
-	}
-	
-	public CheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, OnTooltip tooltip) {
-		this(x, y, width, height, text, checked, drawText, EMTPY_PRESSABLE, tooltip);
-	}
-	
-	public CheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, OnPress pessable, OnTooltip tooltip) {
-		super(x, y, width, height, text, pessable, tooltip);
+		super(x, y, width, height, text, pessable);
 		this.checked = checked;
 		this.drawText = drawText;
 		leftSideText = false;
@@ -74,7 +66,7 @@ public class CheckboxButton extends UButton {
 	
 	@Override
 	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderUtil.drawTexturedQuad(poseStack, x, y, width, height, 20, 20, isHoveredOrFocused() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, TEXTURE, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks));
+		RenderUtil.drawTexturedQuad(poseStack, getX(), getY(), width, height, 20, 20, isHoveredOrFocused() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, TEXTURE, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks));
 		
 		renderBackground(poseStack, mouseX, mouseY, partialTicks);
 		renderForeground(poseStack, mouseX, mouseY, partialTicks);
@@ -88,12 +80,12 @@ public class CheckboxButton extends UButton {
 			final Component message = getCurrentText();
 			if (message != CommonComponents.EMPTY) {
 				final float xStart;
-				final float yStart = y + (height - 8) / 2;
+				final float yStart = getY() + (height - 8) / 2;
 				
 				if (leftSideText) {
-					xStart = x - (font.width(message) + 4);
+					xStart = getX() - (font.width(message) + 4);
 				} else {
-					xStart = x + width + 4;
+					xStart = getX() + width + 4;
 				}
 				
 				final int color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();

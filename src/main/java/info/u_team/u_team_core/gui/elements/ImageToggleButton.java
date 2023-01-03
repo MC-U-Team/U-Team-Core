@@ -18,15 +18,7 @@ public class ImageToggleButton extends ImageButton {
 	}
 	
 	public ImageToggleButton(int x, int y, int width, int height, ResourceLocation image, ResourceLocation toggleImage, boolean toggled, OnPress pessable) {
-		this(x, y, width, height, image, toggleImage, toggled, pessable, EMPTY_TOOLTIP);
-	}
-	
-	public ImageToggleButton(int x, int y, int width, int height, ResourceLocation image, ResourceLocation toggleImage, boolean toggled, OnTooltip tooltip) {
-		this(x, y, width, height, image, toggleImage, toggled, EMTPY_PRESSABLE, tooltip);
-	}
-	
-	public ImageToggleButton(int x, int y, int width, int height, ResourceLocation image, ResourceLocation toggleImage, boolean toggled, OnPress pessable, OnTooltip tooltip) {
-		super(x, y, width, height, image, pessable, tooltip);
+		super(x, y, width, height, image, pessable);
 		this.toggleImage = toggleImage;
 		toggleImageColor = WHITE;
 		this.toggled = toggled;

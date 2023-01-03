@@ -16,15 +16,7 @@ public class ScalableButton extends UButton implements Scalable, ScaleProvider {
 	}
 	
 	public ScalableButton(int x, int y, int width, int height, Component text, float scale, OnPress pessable) {
-		this(x, y, width, height, text, scale, pessable, EMPTY_TOOLTIP);
-	}
-	
-	public ScalableButton(int x, int y, int width, int height, Component text, float scale, OnTooltip tooltip) {
-		this(x, y, width, height, text, scale, EMTPY_PRESSABLE, tooltip);
-	}
-	
-	public ScalableButton(int x, int y, int width, int height, Component text, float scale, OnPress pessable, OnTooltip tooltip) {
-		super(x, y, width, height, text, pessable, tooltip);
+		super(x, y, width, height, text, pessable);
 		this.scale = scale;
 	}
 	

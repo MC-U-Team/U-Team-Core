@@ -12,12 +12,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
-/**
- * A button that fixes vanilla not drawing the continuous border if the button is smaller than 20. Also adds utility
- * methods to add an IPressable and ITooltip
- *
- * @author HyCraftHD
- */
 public class UButton extends Button implements PerspectiveRenderable, BackgroundColorProvider, TextProvider {
 	
 	protected static final OnPress EMTPY_PRESSABLE = button -> {
@@ -56,6 +50,10 @@ public class UButton extends Button implements PerspectiveRenderable, Background
 	
 	public void setPressable(Runnable runnable) {
 		onPress = button -> runnable.run();
+	}
+	
+	public void setCreateNarration(CreateNarration narration) {
+		createNarration = narration;
 	}
 	
 	public RGBA getButtonColor() {

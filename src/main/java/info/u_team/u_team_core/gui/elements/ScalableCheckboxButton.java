@@ -17,15 +17,7 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 	}
 	
 	public ScalableCheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, float scale, OnPress pessable) {
-		this(x, y, width, height, text, checked, drawText, scale, pessable, EMPTY_TOOLTIP);
-	}
-	
-	public ScalableCheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, float scale, OnTooltip tooltip) {
-		this(x, y, width, height, text, checked, drawText, scale, EMTPY_PRESSABLE, tooltip);
-	}
-	
-	public ScalableCheckboxButton(int x, int y, int width, int height, Component text, boolean checked, boolean drawText, float scale, OnPress pessable, OnTooltip tooltip) {
-		super(x, y, width, height, text, checked, drawText, pessable, tooltip);
+		super(x, y, width, height, text, checked, drawText, pessable);
 		this.scale = scale;
 	}
 	
@@ -51,12 +43,12 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 				final float positionFactor = 1 / currentScale;
 				
 				final float xStart;
-				final float yStart = (y + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
+				final float yStart = (getY() + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
 				
 				if (leftSideText) {
-					xStart = (x - ((font.width(message) * currentScale) + 4)) * positionFactor;
+					xStart = (getX() - ((font.width(message) * currentScale) + 4)) * positionFactor;
 				} else {
-					xStart = (x + width + 4) * positionFactor;
+					xStart = (getX() + width + 4) * positionFactor;
 				}
 				
 				final int color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();

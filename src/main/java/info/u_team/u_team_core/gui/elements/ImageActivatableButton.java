@@ -16,15 +16,7 @@ public class ImageActivatableButton extends ImageButton {
 	}
 	
 	public ImageActivatableButton(int x, int y, int width, int height, ResourceLocation image, boolean activated, RGBA activatedColor, OnPress pessable) {
-		this(x, y, width, height, image, activated, activatedColor, pessable, EMPTY_TOOLTIP);
-	}
-	
-	public ImageActivatableButton(int x, int y, int width, int height, ResourceLocation image, boolean activated, RGBA activatedColor, OnTooltip tooltip) {
-		this(x, y, width, height, image, activated, activatedColor, EMTPY_PRESSABLE, tooltip);
-	}
-	
-	public ImageActivatableButton(int x, int y, int width, int height, ResourceLocation image, boolean activated, RGBA activatedColor, OnPress pessable, OnTooltip tooltip) {
-		super(x, y, width, height, image, pessable, tooltip);
+		super(x, y, width, height, image, pessable);
 		this.activated = activated;
 		this.activatedColor = activatedColor;
 	}

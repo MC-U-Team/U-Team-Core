@@ -16,15 +16,7 @@ public class ScalableActivatableButton extends ScalableButton {
 	}
 	
 	public ScalableActivatableButton(int x, int y, int width, int height, Component text, float scale, boolean activated, RGBA activatedColor, OnPress pessable) {
-		this(x, y, width, height, text, scale, activated, activatedColor, pessable, EMPTY_TOOLTIP);
-	}
-	
-	public ScalableActivatableButton(int x, int y, int width, int height, Component text, float scale, boolean activated, RGBA activatedColor, OnTooltip tooltip) {
-		this(x, y, width, height, text, scale, activated, activatedColor, EMTPY_PRESSABLE, tooltip);
-	}
-	
-	public ScalableActivatableButton(int x, int y, int width, int height, Component text, float scale, boolean activated, RGBA activatedColor, OnPress pessable, OnTooltip tooltip) {
-		super(x, y, width, height, text, scale, pessable, tooltip);
+		super(x, y, width, height, text, scale, pessable);
 		this.activated = activated;
 		this.activatedColor = activatedColor;
 	}

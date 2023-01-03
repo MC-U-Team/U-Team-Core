@@ -16,15 +16,7 @@ public class ScalableSlider extends USlider implements Scalable, ScaleProvider {
 	}
 	
 	public ScalableSlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, float scale, OnSliderChange slider) {
-		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, scale, slider, EMPTY_TOOLTIP);
-	}
-	
-	public ScalableSlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, float scale, OnTooltip tooltip) {
-		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, scale, EMPTY_SLIDER, tooltip);
-	}
-	
-	public ScalableSlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, float scale, OnSliderChange slider, OnTooltip tooltip) {
-		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, slider, tooltip);
+		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, slider);
 		this.scale = scale;
 	}
 	
