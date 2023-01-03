@@ -24,7 +24,7 @@ function replaceIndent(classNode) {
 		var ldc = ASMAPI.findFirstInstruction(methodNode, Opcodes.LDC)
 		if (ldc != null && ldc.cst.equals("\u0020\u0020")) {
 			ldc.cst = "\u0009";
-			ASMAPI.log("INFO", "Replaced json indent in {}#{}", classNode.name, methodNode.name)
+			ASMAPI.log("INFO", "Replaced json indent in {}#{}", "DataProvider", methodNode.name)
 		}
 	});
 }

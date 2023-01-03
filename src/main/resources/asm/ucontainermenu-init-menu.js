@@ -40,5 +40,5 @@ function injectUContainerMenuInitMenu(methodNode) {
 	// Insert our method call at the top of the method
 	methodNode.instructions.insert(insList)
 
-	ASMAPI.log("INFO", "Injected ASMUContainerMenuHook call into ServerPlayer#initMenu")
+	ASMAPI.log("INFO", "Injected ASMUContainerMenuHook call into {}#{}", "ServerPlayer", methodNode.name)
 }
