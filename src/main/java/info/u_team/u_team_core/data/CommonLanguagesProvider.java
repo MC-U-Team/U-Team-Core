@@ -1,18 +1,18 @@
 package info.u_team.u_team_core.data;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator.PathProvider;
-import net.minecraft.data.DataGenerator.Target;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput.PathProvider;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.resources.ResourceLocation;
@@ -40,7 +40,7 @@ public abstract class CommonLanguagesProvider implements DataProvider, CommonDat
 		this.generationData = generationData;
 		data = new HashMap<>();
 		
-		pathProvider = generationData.generator().createPathProvider(Target.RESOURCE_PACK, "lang");
+		pathProvider = generationData.output().createPathProvider(Target.RESOURCE_PACK, "lang");
 	}
 	
 	@Override
@@ -49,14 +49,14 @@ public abstract class CommonLanguagesProvider implements DataProvider, CommonDat
 	}
 	
 	@Override
-	public void run(CachedOutput cache) throws IOException {
+	public CompletableFuture<?> run(CachedOutput cache) {
 		register(null);
 		
-		data.forEach((locale, map) -> {
-			if (!map.isEmpty()) {
-				CommonDataProvider.saveData(cache, GSON.toJsonTree(map), pathProvider.json(new ResourceLocation(modid(), locale)), "Cannot write language file");
-			}
-		});
+		return CompletableFuture.allOf(data.entrySet().stream().filter(entry -> !entry.getValue().isEmpty()).map(entry -> {
+			final String locale = entry.getKey();
+			final Map<String, String> map = entry.getValue();
+			return CommonDataProvider.saveData(cache, GSON.toJsonTree(map), pathProvider.json(new ResourceLocation(modid(), locale)));
+		}).toArray(CompletableFuture[]::new));
 	}
 	
 	@Override
