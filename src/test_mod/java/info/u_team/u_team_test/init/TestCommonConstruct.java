@@ -11,6 +11,7 @@ public class TestCommonConstruct implements ModConstruct {
 	@Override
 	public void construct() {
 		BusRegister.registerMod(TestBlocks::registerMod);
+		BusRegister.registerMod(TestCreativeTabs::registerMod);
 		BusRegister.registerMod(TestMenuTypes::registerMod);
 		BusRegister.registerMod(TestMobEffects::registerMod);
 		BusRegister.registerMod(TestEnchantments::registerMod);
