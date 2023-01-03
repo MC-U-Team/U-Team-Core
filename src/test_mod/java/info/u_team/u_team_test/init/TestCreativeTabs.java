@@ -15,7 +15,7 @@ public class TestCreativeTabs {
 	private static void register(CreativeModeTabEvent.Register event) {
 		TAB = event.registerCreativeModeTab(new ResourceLocation(TestMod.MODID, "tab"), builder -> {
 			builder.icon(() -> new ItemStack(TestBlocks.BASIC.get()));
-			builder.title(Component.translatable("itemGroup.testmod.tab"));
+			builder.title(Component.translatable("creativetabs.uteamtest.tab"));
 			builder.displayItems((enabledFeatures, output, displayOperatorCreativeTab) -> {
 				TestBlocks.BLOCKS.getItemRegister().forEach(item -> {
 					output.accept(item.get());

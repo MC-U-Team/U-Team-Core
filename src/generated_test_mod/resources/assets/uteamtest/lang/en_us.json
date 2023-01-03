@@ -6,6 +6,7 @@
 	"block.uteamtest.basic_no_item": "No Item Block",
 	"block.uteamtest.basic_no_item_implicit": "No Item Implicit Block",
 	"block.uteamtest.basic_sync": "Sync Block",
+	"creativetabs.uteamtest.tab": "UTeamTest Tab",
 	"death.attack.radiation": "%1$s dies of radiation",
 	"effect.uteamtest.radiation": "Radiation",
 	"enchantment.uteamtest.auto_smelt": "Auto Smelt",
@@ -27,6 +28,5 @@
 	"item.uteamtest.basic_tool_shovel": "Basic Shovel",
 	"item.uteamtest.basic_tool_sword": "Basic Sword",
 	"item.uteamtest.better_enderpearl": "Better Enderpearl",
-	"item.uteamtest.test_living_spawn_egg": "Test Living Entity Spawn Egg",
-	"itemGroup.testmod.tab": "UTeamTest Tab"
+	"item.uteamtest.test_living_spawn_egg": "Test Living Entity Spawn Egg"
 }
