@@ -6,13 +6,13 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 import net.minecraft.data.CachedOutput;
-import net.minecraftforge.common.data.JsonCodecProvider;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 
-public abstract class CommonJsonCodecsProvider implements CommonDataProvider<Consumer<JsonCodecProvider<?>>> {
+public abstract class CommonDatapackBuiltinEntriesProvider implements CommonDataProvider<Consumer<DatapackBuiltinEntriesProvider>> {
 	
 	private final GenerationData generationData;
 	
-	public CommonJsonCodecsProvider(GenerationData generationData) {
+	public CommonDatapackBuiltinEntriesProvider(GenerationData generationData) {
 		this.generationData = generationData;
 	}
 	
@@ -21,6 +21,7 @@ public abstract class CommonJsonCodecsProvider implements CommonDataProvider<Con
 		return generationData;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public CompletableFuture<?> run(CachedOutput cachedOutput) {
 		final List<CompletableFuture<?>> futures = new ArrayList<>();
@@ -32,6 +33,6 @@ public abstract class CommonJsonCodecsProvider implements CommonDataProvider<Con
 	
 	@Override
 	public String getName() {
-		return "Json-Codecs-Provider";
+		return "Datapack-Builtin-Entries-Provider";
 	}
 }
