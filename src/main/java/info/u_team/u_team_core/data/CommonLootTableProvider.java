@@ -1,6 +1,8 @@
 package info.u_team.u_team_core.data;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
@@ -9,9 +11,9 @@ import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator.PathProvider;
-import net.minecraft.data.DataGenerator.Target;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput.PathProvider;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
@@ -37,7 +39,7 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 	public CommonLootTableProvider(GenerationData generationData) {
 		this.generationData = generationData;
 		
-		pathProvider = generationData.generator().createPathProvider(Target.DATA_PACK, "loot_tables");
+		pathProvider = generationData.output().createPathProvider(Target.DATA_PACK, "loot_tables");
 	}
 	
 	@Override
@@ -46,10 +48,12 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 	}
 	
 	@Override
-	public void run(CachedOutput cache) throws IOException {
+	public CompletableFuture<?> run(CachedOutput cache) {
+		final List<CompletableFuture<?>> list = new ArrayList<>();
 		register((location, lootTable) -> {
-			CommonDataProvider.saveData(cache, LootTables.serialize(lootTable), pathProvider.json(location), "Could not save loot table");
+			list.add(CommonDataProvider.saveData(cache, LootTables.serialize(lootTable), pathProvider.json(location)));
 		});
+		return CompletableFuture.allOf(list.toArray(CompletableFuture[]::new));
 	}
 	
 	@Override
