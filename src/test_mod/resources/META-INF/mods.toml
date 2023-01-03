@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[42,)"
+loaderVersion="[44,)"
 issueTrackerURL="https://github.com/MC-U-Team/U-Team-Core/issues"
 displayURL="https://u-team.info/mods/uteamcore"
 license="Apache-2.0 License"
@@ -8,7 +8,7 @@ authors="HyCraftHD"
     
 [[mods]]
 	modId="uteamtest"
-	version="1.0.0"
+	version="${file.jarVersion}"
 	displayName="U Team Test"
 	description="This is just a test mod to test uteamcore"
 	
@@ -21,7 +21,7 @@ authors="HyCraftHD"
 	    
 [[mods]]
 	modId="uteamtest2"
-	version="1.0.0"
+	version="${file.jarVersion}"
 	displayName="U Team Test 2"
 	description="This is just a test mod 2 for some other stuff"
 	
