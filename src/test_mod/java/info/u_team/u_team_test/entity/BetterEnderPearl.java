@@ -6,6 +6,7 @@ import info.u_team.u_team_test.init.TestEntityTypes;
 import info.u_team.u_team_test.init.TestItems;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
@@ -100,7 +101,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 	}
 	
 	@Override
-	public Packet<?> getAddEntityPacket() {
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
 		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }
