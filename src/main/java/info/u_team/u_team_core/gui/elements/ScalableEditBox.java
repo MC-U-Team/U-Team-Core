@@ -50,7 +50,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 		
 		final int xOffset = (int) ((bordered ? x + 4 : x) * positionFactor);
-		final int yOffset = (int) ((bordered ? getY() + (int) (height - 8 * scale) / 2 : getY()) * positionFactor);
+		final int yOffset = (int) ((bordered ? y + (int) (height - 8 * scale) / 2 : y) * positionFactor);
 		
 		int leftRenderedTextX = xOffset;
 		

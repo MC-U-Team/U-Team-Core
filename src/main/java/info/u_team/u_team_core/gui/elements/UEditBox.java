@@ -137,8 +137,8 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	@Override
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		if (bordered) {
-			fill(poseStack, x - 1, getY() - 1, x + width + 1, getY() + height + 1, getCurrentBackgroundFrameColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
-			fill(poseStack, x, getY(), x + width, getY() + height, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+			fill(poseStack, x - 1, y - 1, x + width + 1, y + height + 1, getCurrentBackgroundFrameColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+			fill(poseStack, x, y, x + width, y + height, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
 		}
 	}
 	
@@ -156,7 +156,7 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 		
 		final int xOffset = bordered ? x + 4 : x;
-		final int yOffset = bordered ? getY() + (height - 8) / 2 : getY();
+		final int yOffset = bordered ? y + (height - 8) / 2 : y;
 		
 		int leftRenderedTextX = xOffset;
 		

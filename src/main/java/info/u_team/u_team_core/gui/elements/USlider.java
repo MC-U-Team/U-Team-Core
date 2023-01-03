@@ -67,7 +67,7 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		renderBg(poseStack, Minecraft.getInstance(), mouseX, mouseY);
 		if (visible) {
-			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (value * (width - 8)), getY(), sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderBackgroundTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, getBlitOffset(), sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
+			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (value * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderBackgroundTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, getBlitOffset(), sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
 		}
 	}
 	

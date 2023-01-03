@@ -43,7 +43,7 @@ public class ScalableCheckboxButton extends CheckboxButton implements Scalable, 
 				final float positionFactor = 1 / currentScale;
 				
 				final float xStart;
-				final float yStart = (getY() + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
+				final float yStart = (y + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
 				
 				if (leftSideText) {
 					xStart = (x - ((font.width(message) * currentScale) + 4)) * positionFactor;
