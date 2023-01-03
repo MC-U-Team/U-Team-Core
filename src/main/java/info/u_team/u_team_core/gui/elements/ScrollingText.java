@@ -2,12 +2,13 @@ package info.u_team.u_team_core.gui.elements;
 
 import java.util.function.Supplier;
 
+import org.joml.Matrix4f;
+import org.joml.Vector4f;
+
 import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.math.Vector4f;
 
-import info.u_team.u_team_core.util.RenderUtil.Matrix4fExtended;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.util.Mth;
@@ -83,14 +84,14 @@ public class ScrollingText extends ScalableText {
 		final Minecraft minecraft = Minecraft.getInstance();
 		final Window window = minecraft.getWindow();
 		
-		final Matrix4fExtended matrix = new Matrix4fExtended(poseStack.last().pose());
+		final Matrix4f matrix = poseStack.last().pose();
 		final double scaleFactor = window.getGuiScale();
 		
 		final Vector4f vectorXY = new Vector4f(x, y, 0, 1);
-		vectorXY.transform(matrix);
+		vectorXY.mul(matrix);
 		
 		// Cannot use transform here, because we only care about the scaling. M00 and M11 should have the right scaling
-		final Vector4f vectorWH = new Vector4f(width * matrix.getM00(), (font.lineHeight + 1) * scale * matrix.getM11(), 0, 1);
+		final Vector4f vectorWH = new Vector4f(width * matrix.m00(), (font.lineHeight + 1) * scale * matrix.m11(), 0, 1);
 		
 		final int nativeX = Mth.ceil(vectorXY.x() * scaleFactor);
 		final int nativeY = Mth.ceil(vectorXY.y() * scaleFactor);

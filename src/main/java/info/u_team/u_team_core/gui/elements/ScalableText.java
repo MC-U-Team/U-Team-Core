@@ -9,9 +9,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.api.gui.Scalable;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.components.Widget;
+import net.minecraft.client.gui.components.Renderable;
 
-public class ScalableText implements Widget, Scalable {
+public class ScalableText implements Renderable, Scalable {
 	
 	protected static final Consumer<ScalableText> EMPTY_TEXT_CHANGED = renderer -> {
 	};
