@@ -1,7 +1,9 @@
 package info.u_team.u_team_core.data;
 
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 import com.google.common.collect.Sets;
@@ -13,9 +15,9 @@ import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator.PathProvider;
-import net.minecraft.data.DataGenerator.Target;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput.PathProvider;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
@@ -33,8 +35,8 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	public CommonRecipeProvider(GenerationData generationData) {
 		this.generationData = generationData;
 		
-		recipePathProvider = generationData.generator().createPathProvider(Target.DATA_PACK, "recipes");
-		advancementPathProvider = generationData.generator().createPathProvider(Target.DATA_PACK, "advancements");
+		recipePathProvider = generationData.output().createPathProvider(Target.DATA_PACK, "recipes");
+		advancementPathProvider = generationData.output().createPathProvider(Target.DATA_PACK, "advancements");
 	}
 	
 	@Override
@@ -43,10 +45,12 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	}
 	
 	@Override
-	public void run(CachedOutput cache) throws IOException {
+	public CompletableFuture<?> run(CachedOutput cache) {
 		final Set<ResourceLocation> duplicates = Sets.newHashSet();
-		register(recipe -> generateRecipe(cache, recipe, duplicates, false));
-		registerVanilla(recipe -> generateRecipe(cache, recipe, duplicates, true));
+		final List<CompletableFuture<?>> futures = new ArrayList<>();
+		register(recipe -> generateRecipe(cache, recipe, duplicates, false, futures));
+		registerVanilla(recipe -> generateRecipe(cache, recipe, duplicates, true, futures));
+		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 	}
 	
 	@Override
@@ -57,19 +61,19 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	public void registerVanilla(Consumer<FinishedRecipe> consumer) {
 	}
 	
-	private void generateRecipe(CachedOutput cache, FinishedRecipe recipe, Set<ResourceLocation> duplicates, boolean vanillaAdvancements) {
+	private void generateRecipe(CachedOutput cache, FinishedRecipe recipe, Set<ResourceLocation> duplicates, boolean vanillaAdvancements, List<CompletableFuture<?>> futures) {
 		final ResourceLocation recipeLocation = recipe.getId();
 		
 		if (!duplicates.add(recipeLocation)) {
 			throw new IllegalStateException("Duplicate recipe " + recipeLocation);
 		}
 		
-		CommonDataProvider.saveData(cache, recipe.serializeRecipe(), recipePathProvider.json(recipeLocation), "Could not save recipe");
+		futures.add(CommonDataProvider.saveData(cache, recipe.serializeRecipe(), recipePathProvider.json(recipeLocation)));
 		
 		final JsonObject advancementJson = recipe.serializeAdvancement();
 		if (advancementJson != null) {
 			final ResourceLocation advancementLocation = vanillaAdvancements ? recipe.getAdvancementId() : new ResourceLocation(recipeLocation.getNamespace(), "recipes/" + recipeLocation.getPath());
-			CommonDataProvider.saveData(cache, advancementJson, advancementPathProvider.json(advancementLocation), "Could not save advancement");
+			futures.add(CommonDataProvider.saveData(cache, advancementJson, advancementPathProvider.json(advancementLocation)));
 		}
 	}
 	

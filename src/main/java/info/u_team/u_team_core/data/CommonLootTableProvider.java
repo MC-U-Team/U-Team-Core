@@ -49,11 +49,11 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 	
 	@Override
 	public CompletableFuture<?> run(CachedOutput cache) {
-		final List<CompletableFuture<?>> list = new ArrayList<>();
+		final List<CompletableFuture<?>> futures = new ArrayList<>();
 		register((location, lootTable) -> {
-			list.add(CommonDataProvider.saveData(cache, LootTables.serialize(lootTable), pathProvider.json(location)));
+			futures.add(CommonDataProvider.saveData(cache, LootTables.serialize(lootTable), pathProvider.json(location)));
 		});
-		return CompletableFuture.allOf(list.toArray(CompletableFuture[]::new));
+		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 	}
 	
 	@Override
