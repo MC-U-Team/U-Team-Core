@@ -1,9 +1,10 @@
 package info.u_team.u_team_core.data;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
@@ -14,9 +15,9 @@ import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
 
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataGenerator.PathProvider;
-import net.minecraft.data.DataGenerator.Target;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.PackOutput.PathProvider;
+import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.loot.IGlobalLootModifier;
 
@@ -33,7 +34,7 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 	public CommonGlobalLootModifierProvider(GenerationData generationData) {
 		this.generationData = generationData;
 		
-		pathProvider = generationData.generator().createPathProvider(Target.DATA_PACK, "loot_modifiers");
+		pathProvider = generationData.output().createPathProvider(Target.DATA_PACK, "loot_modifiers");
 	}
 	
 	@Override
@@ -42,7 +43,7 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 	}
 	
 	@Override
-	public void run(CachedOutput cache) throws IOException {
+	public CompletableFuture<?> run(CachedOutput cache) {
 		final Map<String, JsonElement> serializers = new TreeMap<>();
 		
 		register((modifier, instance) -> {
@@ -51,13 +52,14 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 			serializers.put(modifier, json);
 		});
 		
+		final List<CompletableFuture<?>> futures = new ArrayList<>();
 		final List<String> entries = serializers.entrySet().stream().map(entry -> {
 			final String name = entry.getKey();
 			final JsonElement json = entry.getValue();
 			
 			final ResourceLocation location = new ResourceLocation(modid(), name);
 			
-			CommonDataProvider.saveData(cache, json, pathProvider.json(location), "Cannot save global loot modifier");
+			futures.add(CommonDataProvider.saveData(cache, json, pathProvider.json(location)));
 			
 			return location;
 		}).map(ResourceLocation::toString).collect(Collectors.toList());
@@ -66,7 +68,9 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 		json.addProperty("replace", replace);
 		json.add("entries", GSON.toJsonTree(entries));
 		
-		CommonDataProvider.saveData(cache, json, pathProvider.json(new ResourceLocation("forge", "global_loot_modifiers")), "Cannot save global loot modifiers list");
+		futures.add(CommonDataProvider.saveData(cache, json, pathProvider.json(new ResourceLocation("forge", "global_loot_modifiers"))));
+		
+		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 	}
 	
 	protected void replacing() {
