@@ -1,6 +1,8 @@
 {
-    "pack": {
-        "description": "U Team Test",
-        "pack_format": 10
-    }
+	"pack": {
+		"description": "U Team Test",
+		"pack_format": 12,
+		"forge:resource_pack_format": 12,
+		"forge:data_pack_format": 10
+	}
 }
