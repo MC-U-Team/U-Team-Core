@@ -5,8 +5,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonBlockTagsProvider extends CommonTagsProvider<Block> {
 	
+	@SuppressWarnings("deprecation")
 	public CommonBlockTagsProvider(GenerationData generationData) {
-		super(generationData, ForgeRegistries.Keys.BLOCKS);
+		super(generationData, ForgeRegistries.Keys.BLOCKS, block -> block.builtInRegistryHolder().key());
 	}
 	
 	@Override

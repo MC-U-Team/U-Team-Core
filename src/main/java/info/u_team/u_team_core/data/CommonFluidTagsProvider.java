@@ -5,8 +5,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public abstract class CommonFluidTagsProvider extends CommonTagsProvider<Fluid> {
 	
+	@SuppressWarnings("deprecation")
 	public CommonFluidTagsProvider(GenerationData generationData) {
-		super(generationData, ForgeRegistries.Keys.FLUIDS);
+		super(generationData, ForgeRegistries.Keys.FLUIDS, fluid -> fluid.builtInRegistryHolder().key());
 	}
 	
 	@Override

@@ -12,8 +12,9 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	
 	private final Function<TagKey<Block>, TagBuilder> blockTagFunction;
 	
+	@SuppressWarnings("deprecation")
 	public CommonItemTagsProvider(GenerationData generationData, CommonBlockTagsProvider blockTagsProvider) {
-		super(generationData, ForgeRegistries.Keys.ITEMS);
+		super(generationData, ForgeRegistries.Keys.ITEMS, item -> item.builtInRegistryHolder().key());
 		blockTagFunction = blockTagsProvider::getOrCreateRawBuilder;
 	}
 	
