@@ -32,7 +32,7 @@ public class ItemStackInfoSubCommand {
 		
 		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, ForgeRegistries.ITEMS)), false);
 		
-		if (item instanceof BlockItem blockItem) {
+		if (item instanceof final BlockItem blockItem) {
 			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), ForgeRegistries.BLOCKS)), false);
 		}
 		
