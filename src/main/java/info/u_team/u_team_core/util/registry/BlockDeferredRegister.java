@@ -78,8 +78,8 @@ public class BlockDeferredRegister implements Iterable<RegistryObject<Block>> {
 		return blocks.iterator();
 	}
 	
-	public Iterator<Item> itemIterator() {
-		return blocks.getEntries().stream().map(block -> {
+	public Iterable<Item> itemIterable() {
+		return () -> blocks.getEntries().stream().map(block -> {
 			final Item item = block.get().asItem();
 			if (item != null && item != Items.AIR) {
 				return Optional.of(item);
