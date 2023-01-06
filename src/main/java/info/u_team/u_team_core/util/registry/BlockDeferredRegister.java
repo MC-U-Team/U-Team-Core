@@ -1,20 +1,23 @@
 package info.u_team.u_team_core.util.registry;
 
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.block.BlockItemProvider;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryObject;
 
-public class BlockDeferredRegister {
+public class BlockDeferredRegister implements Iterable<RegistryObject<Block>> {
 	
 	public static BlockDeferredRegister create(String modid) {
 		return new BlockDeferredRegister(modid);
@@ -68,6 +71,21 @@ public class BlockDeferredRegister {
 				}
 			});
 		}
+	}
+	
+	@Override
+	public Iterator<RegistryObject<Block>> iterator() {
+		return blocks.iterator();
+	}
+	
+	public Iterator<Item> itemIterator() {
+		return blocks.getEntries().stream().map(block -> {
+			final Item item = block.get().asItem();
+			if (item != null && item != Items.AIR) {
+				return Optional.of(item);
+			}
+			return Optional.<Item> empty();
+		}).flatMap(Optional::stream).iterator();
 	}
 	
 	public CommonDeferredRegister<Block> getBlockRegister() {
