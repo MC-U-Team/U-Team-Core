@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import com.google.common.collect.Streams;
+
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -60,6 +62,10 @@ public class CommonDeferredRegister<R> implements Iterable<RegistryObject<R>> {
 	@Override
 	public Iterator<RegistryObject<R>> iterator() {
 		return getEntries().iterator();
+	}
+	
+	public Iterable<R> entryIterable() {
+		return () -> Streams.stream(this).map(RegistryObject::get).iterator();
 	}
 	
 	public DeferredRegister<R> getRegister() {
