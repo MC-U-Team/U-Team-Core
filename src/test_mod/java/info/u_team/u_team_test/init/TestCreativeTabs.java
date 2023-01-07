@@ -20,8 +20,8 @@ public class TestCreativeTabs {
 				TestBlocks.BLOCKS.itemIterable().forEach(item -> {
 					output.accept(item);
 				});
-				TestItems.ITEMS.forEach(item -> {
-					output.accept(item.get());
+				TestItems.ITEMS.entryIterable().forEach(item -> {
+					output.accept(item);
 				});
 			});
 		});
