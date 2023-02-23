@@ -1,7 +1,5 @@
 package info.u_team.u_team_test2.init;
 
-import org.apache.logging.log4j.LogManager;
-
 import info.u_team.u_team_core.api.construct.Construct;
 import info.u_team.u_team_core.api.construct.ModConstruct;
 import info.u_team.u_team_core.util.registry.BusRegister;
@@ -19,7 +17,7 @@ public class Test2CommonBusRegister implements ModConstruct {
 	
 	private void registerCall(RegisterEvent event) {
 		if (event.getRegistryKey() == ForgeRegistries.Keys.BLOCKS) {
-			LogManager.getLogger().info("Hello from the register event for test mod 2");
+			TestMod2.LOGGER.info("Hello from the register event for test mod 2");
 		}
 	}
 	

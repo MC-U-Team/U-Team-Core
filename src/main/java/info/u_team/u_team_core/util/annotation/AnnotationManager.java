@@ -2,11 +2,12 @@ package info.u_team.u_team_core.util.annotation;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.Marker;
-import org.apache.logging.log4j.MarkerManager;
 import org.objectweb.asm.Type;
+import org.slf4j.Logger;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
+
+import com.mojang.logging.LogUtils;
 
 import info.u_team.u_team_core.api.construct.Construct;
 import info.u_team.u_team_core.api.construct.ModConstruct;
@@ -24,9 +25,9 @@ import net.minecraftforge.forgespi.language.ModFileScanData.AnnotationData;
  */
 public class AnnotationManager {
 	
-	private static final Logger LOGGER = LogManager.getLogger("AnnotationManager");
-	private static final Marker CONSTRUCT_MARKER = MarkerManager.getMarker("Construct");
-	private static final Marker INTEGRATION_MARKER = MarkerManager.getMarker("Integration");
+	private static final Logger LOGGER = LogUtils.getLogger();
+	private static final Marker CONSTRUCT_MARKER = MarkerFactory.getMarker("Construct");
+	private static final Marker INTEGRATION_MARKER = MarkerFactory.getMarker("Integration");
 	
 	/**
 	 * Tries to invoke {@link ModConstruct#construct()} and {@link ModIntegration#construct()} methods of classes that are

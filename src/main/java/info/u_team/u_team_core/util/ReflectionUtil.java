@@ -2,8 +2,9 @@ package info.u_team.u_team_core.util;
 
 import java.lang.reflect.Field;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+
+import com.mojang.logging.LogUtils;
 
 import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
 
@@ -14,7 +15,7 @@ import net.minecraftforge.fml.util.ObfuscationReflectionHelper;
  */
 public class ReflectionUtil {
 	
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogUtils.getLogger();
 	
 	/**
 	 * Method to find a field in a give class. The name will be mapped to the right mappings. Will return the field with

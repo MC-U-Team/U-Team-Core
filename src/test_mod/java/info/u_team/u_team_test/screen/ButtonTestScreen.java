@@ -1,9 +1,9 @@
 package info.u_team.u_team_test.screen;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.logging.LogUtils;
 
 import info.u_team.u_team_core.gui.elements.CheckboxButton;
 import info.u_team.u_team_core.gui.elements.ImageActivatableButton;
@@ -28,7 +28,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class ButtonTestScreen extends UScreen {
 	
-	private static final Logger LOGGER = LogManager.getLogger();
+	private static final Logger LOGGER = LogUtils.getLogger();
 	
 	private static final ResourceLocation TEXTURE1 = new ResourceLocation(TestMod.MODID, "textures/item/better_enderpearl.png");
 	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMod.MODID, "textures/item/basic_item.png");

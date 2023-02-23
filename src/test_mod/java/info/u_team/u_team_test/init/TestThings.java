@@ -1,7 +1,8 @@
 package info.u_team.u_team_test.init;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+
+import com.mojang.logging.LogUtils;
 
 import info.u_team.u_team_core.api.construct.Construct;
 import info.u_team.u_team_core.api.construct.ModConstruct;
@@ -16,7 +17,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 @Construct(modid = TestMod.MODID)
 public class TestThings implements ModConstruct {
 	
-	private static Logger LOGGER = LogManager.getLogger();
+	private static Logger LOGGER = LogUtils.getLogger();
 	
 	@Override
 	public void construct() {
