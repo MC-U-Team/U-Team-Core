@@ -30,6 +30,10 @@ public class BlockRegistryObject<B extends Block, I extends BlockItem> implement
 		return block.getId();
 	}
 	
+	public RegistryObject<B> getBlockRegistryObject() {
+		return block;
+	}
+	
 	public boolean hasItem() {
 		return item.isPresent();
 	}
@@ -40,6 +44,10 @@ public class BlockRegistryObject<B extends Block, I extends BlockItem> implement
 	
 	public ResourceLocation getItemId() {
 		return item.getId();
+	}
+	
+	public RegistryObject<I> getItemRegistryObject() {
+		return item;
 	}
 	
 }
