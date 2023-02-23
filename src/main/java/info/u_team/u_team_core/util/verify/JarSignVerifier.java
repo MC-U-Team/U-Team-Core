@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.util.verify;
 
-import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
@@ -17,7 +16,7 @@ import com.google.common.base.Stopwatch;
 import com.mojang.logging.LogUtils;
 
 import cpw.mods.jarhandling.SecureJar;
-import cpw.mods.jarhandling.SecureJar.ModuleDataProvider;
+import cpw.mods.jarhandling.SecureJar.Status;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.util.CertificateHelper;
@@ -45,24 +44,22 @@ public class JarSignVerifier {
 	}
 	
 	public static VerifyStatus verify(String modid) {
-		final IModFileInfo info = ModList.get().getModFileById(modid);
-		
 		// We don't need to check sign in dev environment
 		if (!FMLEnvironment.production) {
 			return VerifyStatus.DEV;
 		}
 		
+		final IModFileInfo info = ModList.get().getModFileById(modid);
 		final SecureJar jar = info.getFile().getSecureJar();
-		final ModuleDataProvider moduleData = jar.moduleDataProvider();
 		
-		final Optional<String> fingerPrintOptional = getFingerPrint(Optional.ofNullable(moduleData.getManifest()));
+		final Optional<String> fingerPrintOptional = getFingerPrint(Optional.ofNullable(jar.moduleDataProvider().getManifest()));
 		if (fingerPrintOptional.isEmpty()) {
 			return VerifyStatus.UNSIGNED;
 		}
 		final String fingerprint = fingerPrintOptional.get();
 		
 		try (final Stream<Path> paths = Files.find(jar.getRootPath(), Integer.MAX_VALUE, JarSignVerifier::validPath)) {
-			if ((jar.getManifestSigners() == null) || paths.parallel().map(path -> pathSigned(moduleData, path, fingerprint)).anyMatch(signed -> !signed)) {
+			if ((jar.getManifestSigners() == null) || paths.parallel().map(path -> pathSigned(jar, path, fingerprint)).anyMatch(signed -> !signed)) {
 				return VerifyStatus.UNSIGNED;
 			}
 			
@@ -84,17 +81,14 @@ public class JarSignVerifier {
 		return manifest.map(Manifest::getMainAttributes).map(attributes -> attributes.getValue("Fingerprint")).map(fingerPrint -> fingerPrint.replace(":", "").toLowerCase(Locale.ROOT));
 	}
 	
-	private static boolean pathSigned(ModuleDataProvider moduleData, Path path, String fingerprint) {
+	private static boolean pathSigned(SecureJar jar, Path path, String fingerprint) {
 		LOGGER.trace("Check {} for valid signature.", path);
 		
-		final byte[] bytes;
-		try {
-			bytes = Files.readAllBytes(path);
-		} catch (final IOException ex) {
+		if (jar.verifyPath(path) != Status.VERIFIED) {
 			return false;
 		}
 		
-		final CodeSigner[] codeSigners = moduleData.verifyAndGetSigners(path.toString(), bytes);
+		final CodeSigner[] codeSigners = jar.moduleDataProvider().verifyAndGetSigners(path.toString(), new byte[0]);
 		
 		return CertificateHelper.getFingerprints(Stream.of(codeSigners) //
 				.flatMap(signers -> signers.getSignerCertPath().getCertificates().stream()) //
