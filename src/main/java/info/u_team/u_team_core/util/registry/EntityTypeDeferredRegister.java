@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.util.registry;
 
+import java.util.Iterator;
 import java.util.function.Supplier;
 
 import net.minecraft.world.entity.Entity;
@@ -9,7 +10,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
-public class EntityTypeDeferredRegister {
+public class EntityTypeDeferredRegister implements Iterable<RegistryObject<EntityType<?>>> {
 	
 	public static EntityTypeDeferredRegister create(String modid) {
 		return new EntityTypeDeferredRegister(modid);
@@ -27,6 +28,15 @@ public class EntityTypeDeferredRegister {
 	
 	public void register(IEventBus bus) {
 		register.register(bus);
+	}
+	
+	@Override
+	public Iterator<RegistryObject<EntityType<?>>> iterator() {
+		return register.iterator();
+	}
+	
+	public Iterable<EntityType<?>> entityTypeIterable() {
+		return register.entryIterable();
 	}
 	
 	public CommonDeferredRegister<EntityType<?>> getRegister() {
