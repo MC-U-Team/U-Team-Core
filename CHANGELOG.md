@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.3-4.5.3.240] - 2023-02-24
+### Added
+ - Added rgb color class
+ - Added conversion methods between rgba and rgb
+ - Add closest dye color matcher
+
 ## [1.19.3-4.5.2.239] - 2023-02-23
 ### Changed
  - Add jei integration again
