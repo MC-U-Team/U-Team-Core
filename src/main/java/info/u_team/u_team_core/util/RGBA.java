@@ -251,4 +251,25 @@ public class RGBA {
 		final int alpha = (color >> 24 & 255);
 		return new RGBA(red, green, blue, alpha);
 	}
+	
+	/**
+	 * Returns an {@link RGBA} object from an {@link RGB} object with 255 alpha value
+	 * 
+	 * @param rgb RGB object
+	 * @return RGBA object
+	 */
+	public static RGBA fromRGB(RGB rgb) {
+		return fromRGB(rgb, 255);
+	}
+	
+	/**
+	 * Returns an {@link RGBA} object from an {@link RGB} object with a specific alpha value
+	 * 
+	 * @param rgb RGB object
+	 * @param alpha Alpha value between 0 and 255
+	 * @return RGBA object
+	 */
+	public static RGBA fromRGB(RGB rgb, int alpha) {
+		return new RGBA(rgb.getRed(), rgb.getGreen(), rgb.getBlue(), alpha);
+	}
 }

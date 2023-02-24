@@ -182,4 +182,14 @@ public class RGB {
 		return "RGB [red=" + red + ", green=" + green + ", blue=" + blue + "]";
 	}
 	
+	/**
+	 * Returns an {@link RGB} object from an {@link RGBA} object. Alpha value is lost in that conversion.
+	 * 
+	 * @param rgba RGBA object
+	 * @return RGB object
+	 */
+	public static RGB fromRGBA(RGBA rgba) {
+		return new RGB(rgba.getRed(), rgba.getGreen(), rgba.getBlue());
+	}
+	
 }
