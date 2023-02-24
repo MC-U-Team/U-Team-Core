@@ -45,4 +45,18 @@ public class ColorUtil {
 	public static DyeColor getColorFromWool(Block block) {
 		return WOOL_DYE_COLORS.get(block);
 	}
+	
+	public static DyeColor findClosestDyeColor(RGB rgb) {
+		DyeColor match = DyeColor.WHITE;
+		double clostestMatch = Double.MAX_VALUE;
+		for (final DyeColor color : DyeColor.values()) {
+			final float[] textureColor = color.getTextureDiffuseColors();
+			double difference = Math.pow(textureColor[0] - rgb.getRedComponent(), 2) + Math.pow(textureColor[1] - rgb.getGreenComponent(), 2) + Math.pow(textureColor[2] - rgb.getBlueComponent(), 2);
+			if (difference < clostestMatch) {
+				clostestMatch = difference;
+				match = color;
+			}
+		}
+		return match;
+	}
 }

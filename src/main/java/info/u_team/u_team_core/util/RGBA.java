@@ -8,7 +8,7 @@ package info.u_team.u_team_core.util;
 public class RGBA {
 	
 	public static final RGBA BLACK = new RGBA(0x000000FF);
-	public static final RGBA WHITE = new RGBA(0xFFFFFFFF);
+	public static final RGBA WHITE = new RGBA(ColorUtil.WHITE_RGBA);
 	
 	private final int red, green, blue, alpha;
 	

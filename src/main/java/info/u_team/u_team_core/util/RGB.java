@@ -8,7 +8,7 @@ package info.u_team.u_team_core.util;
 public class RGB {
 	
 	public static final RGB BLACK = new RGB(0x000000);
-	public static final RGB WHITE = new RGB(0xFFFFFF);
+	public static final RGB WHITE = new RGB(ColorUtil.WHITE_RGB);
 	
 	private final int red, green, blue;
 	
