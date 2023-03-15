@@ -38,7 +38,7 @@ public class BlockProperties extends Properties {
 		emissiveRendering = properties.emissiveRendering;
 		dynamicShape = properties.dynamicShape;
 		requiredFeatures = properties.requiredFeatures;
-		offsetType = properties.offsetType;
+		offsetFunction = properties.offsetFunction;
 		
 		ReflectionUtil.copyValue(LOOT_TABLE_SUPPLIER_FIELD, properties, this);
 	}
