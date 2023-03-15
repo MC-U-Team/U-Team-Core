@@ -11,8 +11,8 @@ public class UArmorItem extends ArmorItem {
 	
 	protected final String textureName;
 	
-	public UArmorItem(String textureName, Properties properties, ArmorMaterial material, EquipmentSlot slot) {
-		super(material, slot, properties);
+	public UArmorItem(String textureName, Properties properties, ArmorMaterial material, ArmorItem.Type type) {
+		super(material, type, properties);
 		this.textureName = textureName;
 	}
 	
@@ -22,15 +22,5 @@ public class UArmorItem extends ArmorItem {
 			return null;
 		}
 		return String.format("%s:textures/models/armor/%s_layer_%d%s.png", ForgeRegistries.ITEMS.getKey(this).getNamespace(), textureName, (slot == EquipmentSlot.LEGS ? 2 : 1), type == null ? "" : String.format("_%s", type));
-	}
-	
-	protected String getTypeString(EquipmentSlot slot) {
-		return switch (slot) {
-		case HEAD -> "helmet";
-		case CHEST -> "chestplate";
-		case LEGS -> "leggings";
-		case FEET -> "boots";
-		default -> "invalid";
-		};
 	}
 }

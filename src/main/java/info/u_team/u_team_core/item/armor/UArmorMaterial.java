@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import com.google.common.base.Suppliers;
 
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.crafting.Ingredient;
 
@@ -19,6 +19,7 @@ public class UArmorMaterial implements ArmorMaterial {
 	private final float knockbackResistance;
 	private final Supplier<Ingredient> repair;
 	
+	// TODO change contructor to use armor item types instead of arrays
 	public UArmorMaterial(int[] durability, int[] armorPoints, int enchantability, Supplier<SoundEvent> soundEvent, float toughness, float knockbackResistance, Supplier<Ingredient> ingredient) {
 		this.durability = durability;
 		this.armorPoints = armorPoints;
@@ -30,13 +31,13 @@ public class UArmorMaterial implements ArmorMaterial {
 	}
 	
 	@Override
-	public int getDurabilityForSlot(EquipmentSlot slot) {
-		return durability[slot.getIndex()];
+	public int getDurabilityForType(ArmorItem.Type type) {
+		return durability[type.getSlot().getIndex()];
 	}
 	
 	@Override
-	public int getDefenseForSlot(EquipmentSlot slot) {
-		return armorPoints[slot.getIndex()];
+	public int getDefenseForType(ArmorItem.Type type) {
+		return armorPoints[type.getSlot().getIndex()];
 	}
 	
 	@Override
