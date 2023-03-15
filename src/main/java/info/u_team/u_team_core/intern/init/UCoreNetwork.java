@@ -16,14 +16,11 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public class UCoreNetwork {
 	
-	public static final String PROTOCOL = "1.17.1-1";
+	public static final String PROTOCOL = "1.19.4-1";
 	
 	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMod.MODID, "network"), () -> PROTOCOL, version -> {
 		// Allow clients to join / view servers without errors when uteamcore is not present there
-		if (version.equals(NetworkRegistry.ABSENT) || version.equals(NetworkRegistry.ACCEPTVANILLA)) {
-			return true;
-		}
-		return PROTOCOL.equals(version);
+		return NetworkRegistry.acceptMissingOr(PROTOCOL).test(version);
 	}, PROTOCOL::equals);
 	
 	public static void setup(FMLCommonSetupEvent event) {
