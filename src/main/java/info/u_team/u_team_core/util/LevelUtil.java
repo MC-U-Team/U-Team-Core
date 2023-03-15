@@ -215,7 +215,7 @@ public class LevelUtil {
 		final float wrapedYaw = Mth.wrapDegrees(yaw);
 		final float wrapedPitch = Mth.wrapDegrees(pitch);
 		if (entity instanceof final ServerPlayer player) {
-			level.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(new BlockPos(x, y, z)), 1, entity.getId());
+			level.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(BlockPos.containing(x, y, z)), 1, entity.getId());
 			if (detach) {
 				player.stopRiding();
 			}
