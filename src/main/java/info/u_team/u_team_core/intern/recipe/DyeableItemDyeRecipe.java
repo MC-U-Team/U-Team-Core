@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 
 import info.u_team.u_team_core.api.dye.DyeableItem;
 import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.DyeItem;
@@ -49,7 +50,7 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 	}
 	
 	@Override
-	public ItemStack assemble(CraftingContainer container) {
+	public ItemStack assemble(CraftingContainer container, RegistryAccess registry) {
 		ItemStack dyeableItem = ItemStack.EMPTY;
 		final List<DyeItem> dyeItemList = Lists.newArrayList();
 		
@@ -87,4 +88,5 @@ public class DyeableItemDyeRecipe extends CustomRecipe {
 	public RecipeSerializer<?> getSerializer() {
 		return UCoreRecipeSerializers.CRAFTING_SPECIAL_ITEMDYE.get();
 	}
+	
 }

@@ -18,8 +18,8 @@ import net.minecraft.world.level.Level;
 
 public class NoMirrorShapedRecipe extends ShapedRecipe {
 	
-	public NoMirrorShapedRecipe(ResourceLocation location, String group, CraftingBookCategory category, int recipeWidth, int recipeHeigt, NonNullList<Ingredient> ingredients, ItemStack output) {
-		super(location, group, category, recipeWidth, recipeHeigt, ingredients, output);
+	public NoMirrorShapedRecipe(ResourceLocation location, String group, CraftingBookCategory category, int recipeWidth, int recipeHeigt, NonNullList<Ingredient> ingredients, ItemStack output, boolean showNotification) {
+		super(location, group, category, recipeWidth, recipeHeigt, ingredients, output, showNotification);
 	}
 	
 	@Override
@@ -51,7 +51,8 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 			final CraftingBookCategory category = CraftingBookCategory.CODEC.byName(GsonHelper.getAsString(json, "category", null), CraftingBookCategory.MISC);
 			final NonNullList<Ingredient> ingredients = deserializeIngredients(pattern, deserializeKey(GsonHelper.getAsJsonObject(json, "key")), recipeWidth, recipeHeight);
 			final ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-			return new NoMirrorShapedRecipe(location, group, category, recipeWidth, recipeHeight, ingredients, output);
+			final boolean showNotification = GsonHelper.getAsBoolean(json, "show_notification", true);
+			return new NoMirrorShapedRecipe(location, group, category, recipeWidth, recipeHeight, ingredients, output, showNotification);
 		}
 		
 		@Override
@@ -65,19 +66,20 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 				ingredients.set(k, Ingredient.fromNetwork(buffer));
 			}
 			final ItemStack output = buffer.readItem();
-			return new NoMirrorShapedRecipe(location, group, category, recipeWidth, recipeHeight, ingredients, output);
+			final boolean showNotification = buffer.readBoolean();
+			return new NoMirrorShapedRecipe(location, group, category, recipeWidth, recipeHeight, ingredients, output, showNotification);
 		}
 		
 		@Override
 		public void toNetwork(FriendlyByteBuf buffer, NoMirrorShapedRecipe recipe) {
-			buffer.writeVarInt(recipe.getRecipeWidth());
-			buffer.writeVarInt(recipe.getRecipeHeight());
-			buffer.writeUtf(recipe.getGroup());
-			buffer.writeEnum(recipe.category());
-			for (final Ingredient ingredient : recipe.getIngredients()) {
+			buffer.writeVarInt(recipe.width);
+			buffer.writeVarInt(recipe.height);
+			buffer.writeUtf(recipe.group);
+			buffer.writeEnum(recipe.category);
+			for (final Ingredient ingredient : recipe.recipeItems) {
 				ingredient.toNetwork(buffer);
 			}
-			buffer.writeItem(recipe.getResultItem());
+			buffer.writeItem(recipe.result);
 		}
 	}
 }
