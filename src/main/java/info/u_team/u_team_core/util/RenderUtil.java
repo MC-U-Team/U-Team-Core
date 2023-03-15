@@ -44,7 +44,6 @@ public class RenderUtil {
 		
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		RenderSystem.disableTexture();
 		
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 		
@@ -60,7 +59,6 @@ public class RenderUtil {
 		tessellator.end();
 		
 		RenderSystem.disableBlend();
-		RenderSystem.enableTexture();
 	}
 	
 	/**
