@@ -50,7 +50,7 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 					if (isHovering(fluidSlot, mouseX, mouseY)) {
 						hoveredFluidSlot = fluidSlot;
 						RenderUtil.setShaderColor(RGBA.WHITE);
-						renderSlotHighlight(poseStack, fluidSlot.getX(), fluidSlot.getY(), getBlitOffset(), getFluidSlotColor(slot));
+						renderSlotHighlight(poseStack, fluidSlot.getX(), fluidSlot.getY(), 0, getFluidSlotColor(slot));
 					}
 				}
 			}
@@ -58,8 +58,8 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	}
 	
 	protected void renderFluidSlot(PoseStack poseStack, FluidSlot fluidSlot) {
-		final int blitOffset = 100;
-		setBlitOffset(blitOffset);
+		poseStack.pushPose();
+		poseStack.translate(0.0F, 0.0F, 100.0F);
 		
 		final int x = fluidSlot.getX();
 		final int y = fluidSlot.getY();
@@ -69,13 +69,13 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 			if (pair != null) {
 				final TextureAtlasSprite sprite = minecraft.getTextureAtlas(pair.getFirst()).apply(pair.getSecond());
 				
-				RenderUtil.drawTexturedQuad(poseStack, x, y, 16, 16, blitOffset, sprite, RGBA.WHITE);
+				RenderUtil.drawTexturedQuad(poseStack, x, y, 16, 16, 0, sprite, RGBA.WHITE);
 			}
 		}
 		
-		fluidRenderer.drawFluidInSlot(poseStack, x, y, blitOffset, fluidSlot.getFluid());
+		fluidRenderer.drawFluidInSlot(poseStack, x, y, 0, fluidSlot.getFluid());
 		
-		setBlitOffset(0);
+		poseStack.popPose();
 	}
 	
 	@Override
