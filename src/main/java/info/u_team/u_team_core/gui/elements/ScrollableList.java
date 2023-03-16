@@ -13,6 +13,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.util.Mth;
@@ -106,7 +107,8 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			final int nativeWidth = Mth.ceil((x1 - x0) * scaleFactor);
 			final int nativeHeight = Mth.ceil((y1 - y0) * scaleFactor);
 			
-			RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
+			// RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
+			// Gui.enableScissor(x0, y0, width, height);
 			
 			// Uncomment to test scissor
 			// poseStack.pushPose();
@@ -116,7 +118,8 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			
 			super.renderList(poseStack, mouseX, mouseY, partialTicks);
 			
-			RenderSystem.disableScissor();
+			// Gui.disableScissor();
+			// RenderSystem.disableScissor();
 		} else {
 			super.renderList(poseStack, mouseX, mouseY, partialTicks);
 		}
