@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.gui.elements;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
@@ -7,6 +8,7 @@ import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.RGBA;
+import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
@@ -81,7 +83,9 @@ public class UButton extends Button implements PerspectiveRenderable, Background
 	
 	@Override
 	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		RenderSystem.setShaderColor(1, 1, 1, alpha);
 		WidgetUtil.renderButtonLikeWidget(this, buttonTextureProvider, poseStack, mouseX, mouseY, partialTicks);
+		RenderUtil.setShaderColor(WHITE);
 	}
 	
 	@Override

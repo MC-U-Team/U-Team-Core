@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.gui.elements;
 
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
@@ -36,9 +37,9 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnSliderChange slider) {
 		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, slider);
 		this.isInContainer = isInContainer;
-		sliderBackgroundTextureProvider = new WidgetTextureProvider(this, () -> 0);
+		sliderBackgroundTextureProvider = new WidgetTextureProvider(this, () -> 46);
 		sliderBackgroundColor = WHITE;
-		sliderTextureProvider = new WidgetTextureProvider(this, () -> isHoveredOrFocused() ? 2 : 1);
+		sliderTextureProvider = new WidgetTextureProvider(this, () -> 46 + (isHoveredOrFocused() ? 2 : 1) * 20);
 		sliderColor = WHITE;
 	}
 	
@@ -60,7 +61,9 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	
 	@Override
 	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		RenderSystem.setShaderColor(1, 1, 1, alpha);
 		WidgetUtil.renderButtonLikeWidget(this, sliderBackgroundTextureProvider, poseStack, mouseX, mouseY, partialTicks);
+		RenderUtil.setShaderColor(WHITE);
 	}
 	
 	@Override
