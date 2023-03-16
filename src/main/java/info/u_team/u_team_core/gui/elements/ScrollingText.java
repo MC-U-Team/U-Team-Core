@@ -11,6 +11,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.model.HeadedModel;
 import net.minecraft.util.Mth;
 
 public class ScrollingText extends ScalableText {
@@ -99,18 +102,20 @@ public class ScrollingText extends ScalableText {
 		final int nativeWidth = Mth.ceil(vectorWH.x() * scaleFactor);
 		final int nativeHeight = Mth.ceil(vectorWH.y() * scaleFactor);
 		
-		RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
+		// RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
+		Gui.enableScissor((int) x, (int) y, (int) x + width, (int) y + (int) ((font.lineHeight + 0) * scaleFactor));
 		
 		// Uncomment to test scissor
-		// poseStack.pushPose();
-		// poseStack.last().pose().setIdentity();
-		// GuiComponent.fill(poseStack, 0, 0, window.getGuiScaledWidth(), window.getGuiScaledHeight(), 0x8F00FF00);
-		// poseStack.popPose();
+		poseStack.pushPose();
+		poseStack.last().pose().identity();
+		GuiComponent.fill(poseStack, 0, 0, window.getGuiScaledWidth(), window.getGuiScaledHeight(), 0x8F00FF00);
+		poseStack.popPose();
 		
 		setText(textSupplier.get());
 		renderFont(poseStack, font, getMovingX(x), y + 2 * scale);
 		
-		RenderSystem.disableScissor();
+		// RenderSystem.disableScissor();
+		Gui.disableScissor();
 	}
 	
 	protected float getMovingX(float x) {
