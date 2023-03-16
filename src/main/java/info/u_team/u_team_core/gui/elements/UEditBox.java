@@ -129,7 +129,7 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	}
 	
 	@Override
-	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		renderBackground(poseStack, mouseX, mouseY, partialTicks);
 		renderForeground(poseStack, mouseX, mouseY, partialTicks);
 	}
@@ -192,7 +192,7 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 		
 		if (selectionOffset != cursorOffset) {
 			final int selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
-			renderHighlight(rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
+			renderHighlight(poseStack, rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
 		}
 	}
 	

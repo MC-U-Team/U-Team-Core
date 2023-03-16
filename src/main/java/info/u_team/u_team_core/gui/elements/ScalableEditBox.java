@@ -86,7 +86,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		
 		if (selectionOffset != cursorOffset) {
 			final int selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
-			renderHighlight((int) (rightRenderedTextX * currentScale), (int) ((yOffset - 1) * currentScale), (int) ((selectedX - 1) * currentScale), (int) ((yOffset + 1 + 9) * currentScale));
+			renderHighlight(poseStack, (int) (rightRenderedTextX * currentScale), (int) ((yOffset - 1) * currentScale), (int) ((selectedX - 1) * currentScale), (int) ((yOffset + 1 + 9) * currentScale));
 		}
 		
 		poseStack.popPose();
@@ -109,7 +109,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 			final boolean clicked = clicked(mouseX, mouseY);
 			
 			if (canLoseFocus) {
-				setFocus(clicked);
+				setFocused(clicked);
 			}
 			
 			if (isFocused() && clicked && button == 0) {

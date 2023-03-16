@@ -31,6 +31,7 @@ public class ProgressBar implements GuiEventListener, Renderable {
 	protected boolean visible = true;
 	
 	protected boolean hovered;
+	protected boolean focused;
 	
 	public ProgressBar(int x, int y, int width, int height, RGBA backgroundColor, RGBA progressColor, Supplier<Double> progress, Consumer<Double> click) {
 		this.x = x;
@@ -157,6 +158,16 @@ public class ProgressBar implements GuiEventListener, Renderable {
 	
 	public void setClick(Consumer<Double> click) {
 		this.click = click;
+	}
+	
+	@Override
+	public void setFocused(boolean focused) {
+		this.focused = focused;
+	}
+	
+	@Override
+	public boolean isFocused() {
+		return focused;
 	}
 	
 }

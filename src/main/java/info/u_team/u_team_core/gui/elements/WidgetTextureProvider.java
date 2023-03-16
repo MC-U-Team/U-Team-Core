@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.gui.elements;
 
-import java.util.function.Function;
+import java.util.function.IntSupplier;
 
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -9,9 +9,9 @@ import net.minecraft.resources.ResourceLocation;
 public class WidgetTextureProvider implements TextureProvider {
 	
 	protected AbstractWidget widget;
-	protected Function<Boolean, Integer> yImage;
+	protected IntSupplier yImage;
 	
-	public WidgetTextureProvider(AbstractWidget widget, Function<Boolean, Integer> yImage) {
+	public WidgetTextureProvider(AbstractWidget widget, IntSupplier yImage) {
 		this.widget = widget;
 		this.yImage = yImage;
 	}
@@ -28,7 +28,7 @@ public class WidgetTextureProvider implements TextureProvider {
 	
 	@Override
 	public int getV() {
-		return 46 + yImage.apply(widget.isHoveredOrFocused()) * 20;
+		return 46 + yImage.getAsInt() * 20;
 	}
 	
 	@Override

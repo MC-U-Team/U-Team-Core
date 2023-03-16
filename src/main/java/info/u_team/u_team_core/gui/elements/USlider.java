@@ -36,9 +36,9 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnSliderChange slider) {
 		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, slider);
 		this.isInContainer = isInContainer;
-		sliderBackgroundTextureProvider = new WidgetTextureProvider(this, hovered -> 0);
+		sliderBackgroundTextureProvider = new WidgetTextureProvider(this, () -> 0);
 		sliderBackgroundColor = WHITE;
-		sliderTextureProvider = new WidgetTextureProvider(this, hovered -> hovered ? 2 : 1);
+		sliderTextureProvider = new WidgetTextureProvider(this, () -> isHoveredOrFocused() ? 2 : 1);
 		sliderColor = WHITE;
 	}
 	
@@ -59,7 +59,7 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	}
 	
 	@Override
-	public void renderButton(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderButtonLikeWidget(this, sliderBackgroundTextureProvider, poseStack, mouseX, mouseY, partialTicks);
 	}
 	
@@ -67,7 +67,7 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		renderBg(poseStack, Minecraft.getInstance(), mouseX, mouseY);
 		if (visible) {
-			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (value * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderBackgroundTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, getBlitOffset(), sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
+			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (value * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderBackgroundTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, 0, sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
 		}
 	}
 	
@@ -120,7 +120,6 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 		}
 	}
 	
-	@Override
 	protected void renderBg(PoseStack poseStack, Minecraft minecraft, int mouseX, int mouseY) {
 		if (isInContainer && visible && dragging) {
 			changeSliderValue(mouseX);

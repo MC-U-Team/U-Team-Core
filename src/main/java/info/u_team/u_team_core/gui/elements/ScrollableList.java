@@ -130,7 +130,6 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			
 			RenderSystem.enableBlend();
 			RenderSystem.blendFuncSeparate(SourceFactor.SRC_ALPHA, DestFactor.ONE_MINUS_SRC_ALPHA, SourceFactor.ZERO, DestFactor.ONE);
-			RenderSystem.disableTexture();
 			
 			buffer.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 			buffer.vertex(x0, y0 + transparentBorderSize, 0).color(0, 0, 0, 0).endVertex();
@@ -144,7 +143,6 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 			
 			tessellator.end();
 			
-			RenderSystem.enableTexture();
 			RenderSystem.disableBlend();
 			
 			RenderUtil.setShaderColor(RGBA.WHITE);
