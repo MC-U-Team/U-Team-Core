@@ -16,7 +16,7 @@ public class TestCreativeTabs {
 		TAB = event.registerCreativeModeTab(new ResourceLocation(TestMod.MODID, "tab"), builder -> {
 			builder.icon(() -> new ItemStack(TestBlocks.BASIC.get()));
 			builder.title(Component.translatable("creativetabs.uteamtest.tab"));
-			builder.displayItems((enabledFeatures, output, displayOperatorCreativeTab) -> {
+			builder.displayItems((parameters, output) -> {
 				TestBlocks.BLOCKS.itemIterable().forEach(item -> {
 					output.accept(item);
 				});

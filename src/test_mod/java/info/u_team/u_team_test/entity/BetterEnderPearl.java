@@ -9,7 +9,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -44,7 +43,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 	@Override
 	protected void onHitEntity(EntityHitResult result) {
 		super.onHitEntity(result);
-		result.getEntity().hurt(DamageSource.thrown(this, getOwner()), 0);
+		result.getEntity().hurt(this.damageSources().thrown(this, getOwner()), 0);
 	}
 	
 	@Override
@@ -58,7 +57,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 		if (!level.isClientSide && !isRemoved()) {
 			final Entity entity = getOwner();
 			if (entity instanceof final ServerPlayer player) {
-				if (player.connection.getConnection().isConnected() && player.level == level && !player.isSleeping()) {
+				if (player.connection.isAcceptingMessages() && player.level == level && !player.isSleeping()) {
 					
 					if (entity.isPassenger()) {
 						player.dismountTo(getX(), getY(), getZ());
@@ -67,7 +66,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 					}
 					
 					entity.fallDistance = 0;
-					entity.hurt(DamageSource.FALL, 2);
+					entity.hurt(this.damageSources().fall(), 2);
 				}
 			} else if (entity != null) {
 				entity.teleportTo(getX(), getY(), getZ());

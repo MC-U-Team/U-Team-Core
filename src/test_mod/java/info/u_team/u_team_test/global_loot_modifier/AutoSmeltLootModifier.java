@@ -31,7 +31,7 @@ public class AutoSmeltLootModifier extends LootModifier {
 		return context.getLevel() //
 				.getRecipeManager() //
 				.getRecipeFor(RecipeType.SMELTING, container, context.getLevel()) //
-				.map(recipe -> recipe.assemble(container)) //
+				.map(recipe -> recipe.assemble(container, context.getLevel().registryAccess())) //
 				.filter(itemStack -> !itemStack.isEmpty()) //
 				.map(itemStack -> {
 					itemStack.setCount(stack.getCount() * itemStack.getCount());
