@@ -22,5 +22,6 @@
 	],
 	"result": {
 		"item": "uteamtest:basic_item"
-	}
+	},
+	"show_notification": true
 }
