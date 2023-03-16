@@ -28,7 +28,7 @@ public class WidgetTextureProvider implements TextureProvider {
 	
 	@Override
 	public int getV() {
-		return 46 + yImage.getAsInt() * 20;
+		return yImage.getAsInt();
 	}
 	
 	@Override
