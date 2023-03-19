@@ -102,7 +102,7 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 		final BlockPos pos = byteBuf.readBlockPos();
 		final BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
 		if (blockEntity == null) {
-			throw new IllegalStateException("The client block entity at (" + pos.toShortString() + ") does not exists.");
+			throw new IllegalStateException("The client block entity at (" + pos.toShortString() + ") does not exist.");
 		}
 		return CastUtil.uncheckedCast(blockEntity);
 	}
