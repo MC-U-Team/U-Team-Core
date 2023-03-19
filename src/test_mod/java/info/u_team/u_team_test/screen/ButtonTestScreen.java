@@ -49,9 +49,16 @@ public class ButtonTestScreen extends UScreen {
 	@Override
 	protected void init() {
 		// U Button Test
-		final UButton uButton = addRenderableWidget(new UButton(10, 10, 200, 15, Component.literal("U Button")));
+		final UButton uButton = addRenderableWidget(new UButton(10, 10, 200, 15, Component.literal("U Button sfdjhsdf AAS VVV :DD djhds ROFL XXX ABC DO OFLLLL")) {
+			
+			@Override
+			public TextRenderType getCurrentTextRenderType() {
+				return TextRenderType.SCROLLING;
+			}
+		});
 		uButton.setPressable(() -> LOGGER.info("Pressed U Button"));
 		uButton.setTooltip(Tooltip.create(Component.literal("U Button Tooltip")));
+		uButton.setScale(1f);
 		
 		// Scalable Button Test
 		final ScalableButton scalableButton = addRenderableWidget(new ScalableButton(10, 30, 200, 15, Component.literal("Scalable Button"), 0.75F));

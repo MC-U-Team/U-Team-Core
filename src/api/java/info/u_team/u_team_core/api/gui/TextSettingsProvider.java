@@ -12,6 +12,15 @@ public interface TextSettingsProvider {
 		return Minecraft.getInstance().font;
 	}
 	
+	default TextRenderType getCurrentTextRenderType() {
+		return TextRenderType.ELLIPSIS;
+	}
+	
 	RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
+	
+	static enum TextRenderType {
+		SCROLLING,
+		ELLIPSIS;
+	}
 	
 }

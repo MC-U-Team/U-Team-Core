@@ -4,6 +4,8 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
+import info.u_team.u_team_core.api.gui.Scalable;
+import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.RGBA;
@@ -11,7 +13,7 @@ import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
-public class UButton extends Button implements PerspectiveRenderable, BackgroundColorProvider, TextProvider {
+public class UButton extends Button implements PerspectiveRenderable, BackgroundColorProvider, TextProvider, Scalable, ScaleProvider {
 	
 	protected static final OnPress EMTPY_PRESSABLE = button -> {
 	};
@@ -26,6 +28,8 @@ public class UButton extends Button implements PerspectiveRenderable, Background
 	
 	protected RGBA textColor;
 	protected RGBA disabledTextColor;
+	
+	protected float scale = 1;
 	
 	public UButton(int x, int y, int width, int height, Component text) {
 		this(x, y, width, height, text, EMTPY_PRESSABLE);
@@ -80,6 +84,16 @@ public class UButton extends Button implements PerspectiveRenderable, Background
 	}
 	
 	@Override
+	public float getScale() {
+		return scale;
+	}
+	
+	@Override
+	public void setScale(float scale) {
+		this.scale = scale;
+	}
+	
+	@Override
 	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderButtonLikeWidget(this, buttonTextureProvider, poseStack, mouseX, mouseY, partialTicks);
 	}
@@ -106,6 +120,11 @@ public class UButton extends Button implements PerspectiveRenderable, Background
 	@Override
 	public RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return active ? textColor : disabledTextColor;
+	}
+	
+	@Override
+	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		return scale;
 	}
 	
 }

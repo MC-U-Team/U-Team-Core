@@ -32,7 +32,7 @@ public class ScalableButton extends UButton implements Scalable, ScaleProvider {
 	
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderScaledText(this, poseStack, mouseX, mouseY, partialTicks);
+		WidgetUtil.renderText(this, poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override

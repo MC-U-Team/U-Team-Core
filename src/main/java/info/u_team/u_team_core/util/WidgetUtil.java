@@ -7,14 +7,18 @@ import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.TextProvider;
+import info.u_team.u_team_core.api.gui.TextSettingsProvider.TextRenderType;
 import info.u_team.u_team_core.api.gui.TextureProvider;
+import net.minecraft.Util;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
 public class WidgetUtil {
+	
+	private static final String ELLIPSIS = "...";
 	
 	public static <T extends AbstractWidget & PerspectiveRenderable & BackgroundColorProvider> void renderButtonLikeWidget(T widget, TextureProvider textureProvider, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		RenderSystem.enableDepthTest();
@@ -28,47 +32,75 @@ public class WidgetUtil {
 	
 	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		final Font font = widget.getCurrentTextFont();
+		final TextRenderType renderType = widget.getCurrentTextRenderType();
 		final Component message = widget.getCurrentText();
 		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks));
+		final float scale;
+		if (widget instanceof ScaleProvider scaleProvider) {
+			scale = scaleProvider.getCurrentScale(poseStack, mouseY, mouseY, partialTicks);
+		} else {
+			scale = 1;
+		}
 		
-		final int border = 2;
-		final int x = widget.getX() + border;
-		final int width = widget.getX() + widget.getWidth() - border;
+		poseStack.pushPose();
+		poseStack.scale(scale, scale, 0);
 		
-		AbstractWidget.renderScrollingString(poseStack, font, message, x, widget.getY(), width, widget.getY() + widget.getHeight(), color.getColorARGB());
+		if (renderType == TextRenderType.ELLIPSIS) {
+			renderTextWithCutoff(widget, font, message, color, scale, poseStack, mouseX, mouseY, partialTicks);
+		} else if (renderType == TextRenderType.SCROLLING) {
+			renderTextWithScrolling(widget, font, message, color, scale, poseStack, mouseX, mouseY, partialTicks);
+		}
+		
+		poseStack.popPose();
 	}
 	
-	public static <T extends AbstractWidget & TextProvider & ScaleProvider> void renderScaledText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final float scale = widget.getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
+	private static void renderTextWithScrolling(AbstractWidget widget, Font font, Component message, RGBA color, float scale, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		final float positionFactor = 1 / scale;
 		
-		if (scale == 1) {
-			renderText(widget, poseStack, mouseX, mouseY, partialTicks);
-		} else {
-			final Font font = widget.getCurrentTextFont();
+		final int maxWidth = widget.getWidth() - 6;
+		final int messageWidth = Mth.ceil(scale * font.width(message));
+		
+		final float yStart = (widget.getY() + (Mth.ceil(widget.getHeight() - 9 * scale)) / 2 + 1) * positionFactor;
+		
+		if (messageWidth > maxWidth) {
+			final int difference = messageWidth - maxWidth;
 			
-			Component message = widget.getCurrentText();
-			if (message != CommonComponents.EMPTY) {
-				final int messageWidth = Mth.ceil(scale * font.width(message));
-				final int ellipsisWidth = Mth.ceil(scale * font.width("..."));
-				
-				if (messageWidth > widget.getWidth() - 6 && messageWidth > ellipsisWidth) {
-					message = Component.literal(font.substrByWidth(message, widget.getWidth() - 6 - ellipsisWidth).getString() + "...");
-				}
-				
-				final float positionFactor = 1 / scale;
-				
-				final float xStart = (widget.getX() + (widget.getWidth() / 2) - messageWidth / 2) * positionFactor;
-				final float yStart = (widget.getY() + ((int) (widget.getHeight() - 8 * scale)) / 2) * positionFactor;
-				
-				poseStack.pushPose();
-				poseStack.scale(scale, scale, 0);
-				font.drawShadow(poseStack, message, xStart, yStart, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
-				poseStack.popPose();
-			}
+			// Copied from vanilla
+			final double d0 = Util.getMillis() / 1000D;
+			final double d1 = Math.max((double) difference * 0.5D, 3.0D);
+			final double d2 = Math.sin((Math.PI / 2D) * Math.cos((Math.PI * 2D) * d0 / d1)) / 2.0D + 0.5D;
+			final double d3 = Mth.lerp(d2, 0.0D, (double) difference);
+			
+			final float xStart = Mth.floor(widget.getX() - d3);
+			
+			GuiComponent.enableScissor(widget.getX() + 3, widget.getY(), widget.getX() + widget.getWidth() - 3, widget.getY() + widget.getHeight());
+			font.drawShadow(poseStack, message, xStart, yStart, color.getColorARGB());
+			GuiComponent.disableScissor();
+		} else {
+			final float xStart = (widget.getX() + (widget.getWidth() / 2) - messageWidth / 2) * positionFactor;
+			font.drawShadow(poseStack, message, xStart, yStart, color.getColorARGB());
 		}
 	}
 	
-	public static <T extends AbstractWidget> RGBA respectWidgetAlpha(T widget, RGBA color) {
+	private static void renderTextWithCutoff(AbstractWidget widget, Font font, Component message, RGBA color, float scale, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		final float positionFactor = 1 / scale;
+		
+		final int maxWidth = widget.getWidth() - 6;
+		int messageWidth = Mth.ceil(scale * font.width(message));
+		final int ellipsisWidth = Mth.ceil(scale * font.width(ELLIPSIS));
+		
+		if (messageWidth > maxWidth && messageWidth > ellipsisWidth) {
+			message = Component.literal(font.substrByWidth(message, Mth.floor(maxWidth * positionFactor) - ellipsisWidth).getString() + ELLIPSIS);
+			messageWidth = maxWidth;
+		}
+		
+		final float xStart = (widget.getX() + (widget.getWidth() / 2) - messageWidth / 2) * positionFactor;
+		final float yStart = (widget.getY() + (Mth.ceil(widget.getHeight() - 9 * scale)) / 2 + 1) * positionFactor;
+		
+		font.drawShadow(poseStack, message, xStart, yStart, color.getColorARGB());
+	}
+	
+	public static RGBA respectWidgetAlpha(AbstractWidget widget, RGBA color) {
 		return color.setAlphaComponent(color.getAlphaComponent() * Mth.clamp(widget.alpha, 0, 1));
 	}
 }
