@@ -37,9 +37,9 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnSliderChange slider) {
 		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, slider);
 		this.isInContainer = isInContainer;
-		sliderBackgroundTextureProvider = new WidgetTextureProvider(this, () -> 46);
+		sliderBackgroundTextureProvider = new WidgetTextureProvider(() -> 46);
 		sliderBackgroundColor = WHITE;
-		sliderTextureProvider = new WidgetTextureProvider(this, () -> 46 + (isHoveredOrFocused() ? 2 : 1) * 20);
+		sliderTextureProvider = new WidgetTextureProvider(() -> 46 + (isHoveredOrFocused() ? 2 : 1) * 20);
 		sliderColor = WHITE;
 	}
 	

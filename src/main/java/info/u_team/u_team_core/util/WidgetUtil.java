@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.util;
 
-import java.util.List;
-
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
@@ -9,44 +8,38 @@ import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.TextureProvider;
-import info.u_team.u_team_core.api.gui.TooltipRenderable;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.components.AbstractWidget;
-import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
 public class WidgetUtil {
 	
-	public static boolean isHovered(AbstractWidget widget) {
-		return widget.isHovered;
-	}
-	
 	public static <T extends AbstractWidget & PerspectiveRenderable & BackgroundColorProvider> void renderButtonLikeWidget(T widget, TextureProvider textureProvider, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderUtil.drawContinuousTexturedBox(poseStack, widget.getX(), widget.getY(), textureProvider.getU(), textureProvider.getV(), widget.getWidth(), widget.getHeight(), textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, 0, textureProvider.getTexture(), widget.getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTicks));
+		RenderSystem.enableDepthTest();
+		
+		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTicks));
+		RenderUtil.drawContinuousTexturedBox(poseStack, widget.getX(), widget.getY(), textureProvider.getU(), textureProvider.getV(), widget.getWidth(), widget.getHeight(), textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, 0, textureProvider.getTexture(), color);
 		
 		widget.renderBackground(poseStack, mouseX, mouseY, partialTicks);
 		widget.renderForeground(poseStack, mouseX, mouseY, partialTicks);
 	}
 	
+	public static <T extends AbstractWidget> RGBA respectWidgetAlpha(T widget, RGBA color) {
+		return color.setAlphaComponent(color.getAlphaComponent() * Mth.clamp(widget.alpha, 0, 1));
+	}
+	
 	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		final Font font = widget.getCurrentTextFont();
+		final Component message = widget.getCurrentText();
+		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks));
 		
-		Component message = widget.getCurrentText();
-		if (message != CommonComponents.EMPTY) {
-			final int messageWidth = font.width(message);
-			final int ellipsisWidth = font.width("...");
-			
-			if (messageWidth > widget.getWidth() - 6 && messageWidth > ellipsisWidth) {
-				message = Component.literal(font.substrByWidth(message, widget.getWidth() - 6 - ellipsisWidth).getString() + "...");
-			}
-			
-			final float xStart = (widget.getX() + (widget.getWidth() / 2) - messageWidth / 2);
-			final float yStart = (widget.getY() + (widget.getHeight() - 8) / 2);
-			
-			font.drawShadow(poseStack, message, xStart, yStart, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
-		}
+		final int border = 2;
+		final int x = widget.getX() + border;
+		final int width = widget.getX() + widget.getWidth() - border;
+		
+		AbstractWidget.renderScrollingString(poseStack, font, message, x, widget.getY(), width, widget.getY() + widget.getHeight(), color.getColorARGB());
 	}
 	
 	public static <T extends AbstractWidget & TextProvider & ScaleProvider> void renderScaledText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
@@ -77,13 +70,5 @@ public class WidgetUtil {
 				poseStack.popPose();
 			}
 		}
-	}
-	
-	public static void renderTooltips(List<Renderable> renderables, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		renderables.forEach(renderable -> {
-			if (renderable instanceof final TooltipRenderable tooltipRenderable) {
-				tooltipRenderable.renderToolTip(poseStack, mouseX, mouseY, partialTicks);
-			}
-		});
 	}
 }

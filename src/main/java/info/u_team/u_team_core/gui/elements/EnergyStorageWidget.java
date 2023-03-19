@@ -98,25 +98,26 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		RenderUtil.drawContainerBorder(poseStack, x, y, width, height, 0, RGBA.WHITE);
 	}
 	
-	@Override
-	public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		if (isHovered) {
-			final Minecraft minecraft = Minecraft.getInstance();
-			
-			final String storageString, capacityString;
-			
-			if (!Screen.hasShiftDown()) {
-				storageString = SiUtil.readableSi(storage.getAsLong());
-				capacityString = SiUtil.readableSi(capacity.getAsLong());
-			} else {
-				storageString = Long.toString(storage.getAsLong()) + " ";
-				capacityString = Long.toString(capacity.getAsLong()) + " ";
-			}
-			
-			final List<Component> list = List.of(Component.translatable("gui.widget.uteamcore.energy.fe_tooltip", storageString, capacityString));
-			minecraft.screen.renderTooltip(poseStack, list, Optional.empty(), mouseX, mouseY, minecraft.font);
-		}
-	}
+	// TODO cleanup
+//	@Override
+//	public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+//		if (isHovered) {
+//			final Minecraft minecraft = Minecraft.getInstance();
+//			
+//			final String storageString, capacityString;
+//			
+//			if (!Screen.hasShiftDown()) {
+//				storageString = SiUtil.readableSi(storage.getAsLong());
+//				capacityString = SiUtil.readableSi(capacity.getAsLong());
+//			} else {
+//				storageString = Long.toString(storage.getAsLong()) + " ";
+//				capacityString = Long.toString(capacity.getAsLong()) + " ";
+//			}
+//			
+//			final List<Component> list = List.of(Component.translatable("gui.widget.uteamcore.energy.fe_tooltip", storageString, capacityString));
+//			minecraft.screen.renderTooltip(poseStack, list, Optional.empty(), mouseX, mouseY, minecraft.font);
+//		}
+//	}
 	
 	@Override
 	public void playDownSound(SoundManager handler) {

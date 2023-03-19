@@ -29,7 +29,7 @@ public class FluidInventoryRenderer {
 		
 		RenderUtil.drawTexturedQuad(poseStack, x, y, 16, 16, blitOffset, sprite, rgba);
 		
-		RenderUtil.setShaderColor(RGBA.WHITE);
+		RenderUtil.resetShaderColor();
 	}
 	
 }

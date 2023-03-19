@@ -8,12 +8,10 @@ import net.minecraft.resources.ResourceLocation;
 
 public class WidgetTextureProvider implements TextureProvider {
 	
-	protected AbstractWidget widget;
-	protected IntSupplier yImage;
+	protected IntSupplier textureY;
 	
-	public WidgetTextureProvider(AbstractWidget widget, IntSupplier yImage) {
-		this.widget = widget;
-		this.yImage = yImage;
+	public WidgetTextureProvider(IntSupplier textureY) {
+		this.textureY = textureY;
 	}
 	
 	@Override
@@ -28,7 +26,7 @@ public class WidgetTextureProvider implements TextureProvider {
 	
 	@Override
 	public int getV() {
-		return yImage.getAsInt();
+		return textureY.getAsInt();
 	}
 	
 	@Override

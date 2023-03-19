@@ -59,6 +59,8 @@ public class RenderUtil {
 		tessellator.end();
 		
 		RenderSystem.disableBlend();
+		
+		resetShaderColor();
 	}
 	
 	/**
@@ -140,6 +142,8 @@ public class RenderUtil {
 		tessellator.end();
 		
 		RenderSystem.disableBlend();
+		
+		resetShaderColor();
 	}
 	
 	/**
@@ -316,6 +320,13 @@ public class RenderUtil {
 	 */
 	public static void setShaderColor(RGBA rgba) {
 		RenderSystem.setShaderColor(rgba.getRedComponent(), rgba.getGreenComponent(), rgba.getBlueComponent(), rgba.getAlphaComponent());
+	}
+	
+	/**
+	 * Sets the shader color to {@link RGBA#WHITE}
+	 */
+	public static void resetShaderColor() {
+		setShaderColor(RGBA.WHITE);
 	}
 	
 }

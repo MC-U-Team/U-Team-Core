@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
@@ -8,7 +7,6 @@ import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.RGBA;
-import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
@@ -39,7 +37,7 @@ public class UButton extends Button implements PerspectiveRenderable, Background
 	
 	public UButton(int x, int y, int width, int height, Component text, OnPress pressable, CreateNarration narration) {
 		super(x, y, width, height, text, pressable, narration);
-		buttonTextureProvider = new WidgetTextureProvider(this, this::getTextureY);
+		buttonTextureProvider = new WidgetTextureProvider(this::getTextureY);
 		buttonColor = WHITE;
 		textColor = WHITE;
 		disabledTextColor = LIGHT_GRAY;
@@ -83,14 +81,11 @@ public class UButton extends Button implements PerspectiveRenderable, Background
 	
 	@Override
 	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderSystem.setShaderColor(1, 1, 1, alpha);
 		WidgetUtil.renderButtonLikeWidget(this, buttonTextureProvider, poseStack, mouseX, mouseY, partialTicks);
-		RenderUtil.setShaderColor(WHITE);
 	}
 	
 	@Override
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		// renderBg(poseStack, Minecraft.getInstance(), mouseX, mouseY); // TODO rework
 	}
 	
 	@Override
