@@ -26,10 +26,6 @@ public class WidgetUtil {
 		widget.renderForeground(poseStack, mouseX, mouseY, partialTicks);
 	}
 	
-	public static <T extends AbstractWidget> RGBA respectWidgetAlpha(T widget, RGBA color) {
-		return color.setAlphaComponent(color.getAlphaComponent() * Mth.clamp(widget.alpha, 0, 1));
-	}
-	
 	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		final Font font = widget.getCurrentTextFont();
 		final Component message = widget.getCurrentText();
@@ -70,5 +66,9 @@ public class WidgetUtil {
 				poseStack.popPose();
 			}
 		}
+	}
+	
+	public static <T extends AbstractWidget> RGBA respectWidgetAlpha(T widget, RGBA color) {
+		return color.setAlphaComponent(color.getAlphaComponent() * Mth.clamp(widget.alpha, 0, 1));
 	}
 }
