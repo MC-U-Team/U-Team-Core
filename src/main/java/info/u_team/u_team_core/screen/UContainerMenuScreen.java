@@ -4,17 +4,17 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.RenderTickable;
+import info.u_team.u_team_core.api.gui.TooltipRenderable;
 import info.u_team.u_team_core.menu.UContainerMenu;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
-import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
-public class UContainerMenuScreen<T extends AbstractContainerMenu> extends FluidContainerMenuScreen<T> implements PerspectiveRenderable {
+public class UContainerMenuScreen<T extends AbstractContainerMenu> extends FluidContainerMenuScreen<T> implements PerspectiveRenderable, TooltipRenderable {
 	
 	protected static final RGBA DEFAULT_TEXT_COLOR = new RGBA(0x404040FF);
 	
@@ -82,7 +82,7 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 		renderBackground(poseStack, mouseX, mouseY, partialTicks);
 		super.render(poseStack, mouseX, mouseY, partialTicks);
 		renderForeground(poseStack, mouseX, mouseY, partialTicks);
-		renderToolTip(poseStack, mouseX, mouseY, partialTicks);
+		renderTooltip(poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
@@ -95,8 +95,7 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	}
 	
 	@Override
-	public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderTooltips(renderables, poseStack, mouseX, mouseY, partialTicks);
+	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		renderTooltip(poseStack, mouseX, mouseY);
 	}
 	

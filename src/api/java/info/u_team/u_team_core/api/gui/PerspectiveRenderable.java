@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.components.Renderable;
 
-public interface PerspectiveRenderable extends TooltipRenderable, Renderable {
+public interface PerspectiveRenderable extends Renderable {
 	
 	@Override
 	void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);

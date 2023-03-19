@@ -4,12 +4,12 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.RenderTickable;
-import info.u_team.u_team_core.util.WidgetUtil;
+import info.u_team.u_team_core.api.gui.TooltipRenderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 
-public class UScreen extends Screen implements PerspectiveRenderable {
+public class UScreen extends Screen implements PerspectiveRenderable, TooltipRenderable {
 	
 	public UScreen(Component title) {
 		super(title);
@@ -20,7 +20,7 @@ public class UScreen extends Screen implements PerspectiveRenderable {
 		renderBackground(poseStack, mouseX, mouseY, partialTicks);
 		super.render(poseStack, mouseX, mouseY, partialTicks);
 		renderForeground(poseStack, mouseX, mouseY, partialTicks);
-		renderToolTip(poseStack, mouseX, mouseY, partialTicks);
+		renderTooltip(poseStack, mouseX, mouseX, mouseY);
 	}
 	
 	@Override
@@ -33,8 +33,7 @@ public class UScreen extends Screen implements PerspectiveRenderable {
 	}
 	
 	@Override
-	public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderTooltips(renderables, poseStack, mouseX, mouseY, partialTicks);
+	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 	}
 	
 	@Override
