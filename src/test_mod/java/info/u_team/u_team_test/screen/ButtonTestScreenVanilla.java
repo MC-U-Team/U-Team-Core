@@ -5,6 +5,7 @@ import org.slf4j.Logger;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 
+import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
@@ -14,10 +15,13 @@ import net.minecraft.client.gui.components.TextAndImageButton;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.util.Mth;
 
 public class ButtonTestScreenVanilla extends Screen {
 	
 	private static final Logger LOGGER = LogUtils.getLogger();
+	
+	private int sliderValue = 0;
 	
 	public ButtonTestScreenVanilla() {
 		super(Component.literal("test"));
@@ -44,6 +48,24 @@ public class ButtonTestScreenVanilla extends Screen {
 		
 		final AbstractWidget multiEditBox = addRenderableWidget(new MultiLineEditBox(font, 50, 170, 200, 20, Component.empty(), Component.literal("Test box")));
 		multiEditBox.setTooltip(Tooltip.create(Component.literal("Test multi line text box")));
+		
+		addRenderableWidget(new AbstractSliderButton(50, 200, 200, 20, Component.empty(), 0) {
+			
+			{
+				updateMessage();
+			}
+			
+			@Override
+			protected void updateMessage() {
+				setMessage(Component.literal("Slider Test " + sliderValue));
+			}
+			
+			@Override
+			protected void applyValue() {
+				sliderValue = Mth.floor(Mth.clampedLerp(0, 50, value));
+				LOGGER.info("Update slider value to {}", sliderValue);
+			}
+		});
 	}
 	
 	@Override
