@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
@@ -17,15 +16,7 @@ import net.minecraft.util.Mth;
 
 public non-sealed class USlider extends AbstractSliderLogic implements PerspectiveRenderable, BackgroundColorProvider, TextProvider {
 	
-	protected static final OnSliderChange EMPTY_SLIDER = AbstractSliderLogic.EMPTY_SLIDER;
-	
-	protected static final RGBA WHITE = UButton.WHITE;
-	protected static final RGBA LIGHT_GRAY = UButton.LIGHT_GRAY;
-	
 	protected final boolean isInContainer;
-	
-	protected TextureProvider sliderBackgroundTextureProvider;
-	protected RGBA sliderBackgroundColor;
 	
 	protected TextureProvider sliderTextureProvider;
 	protected RGBA sliderColor;
@@ -37,18 +28,17 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnSliderChange slider) {
 		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, slider);
 		this.isInContainer = isInContainer;
-		sliderBackgroundTextureProvider = new WidgetTextureProvider(() -> 46);
-		sliderBackgroundColor = WHITE;
+		buttonTextureProvider = new WidgetTextureProvider(() -> 46);
 		sliderTextureProvider = new WidgetTextureProvider(() -> 46 + (isHoveredOrFocused() ? 2 : 1) * 20);
 		sliderColor = WHITE;
 	}
 	
 	public RGBA getSliderBackgroundColor() {
-		return sliderBackgroundColor;
+		return buttonColor;
 	}
 	
 	public void setSliderBackgroundColor(RGBA sliderBackgroundColor) {
-		this.sliderBackgroundColor = sliderBackgroundColor;
+		this.buttonColor = sliderBackgroundColor;
 	}
 	
 	public RGBA getSliderColor() {
@@ -60,28 +50,16 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	}
 	
 	@Override
-	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderSystem.setShaderColor(1, 1, 1, alpha);
-		WidgetUtil.renderButtonLikeWidget(this, sliderBackgroundTextureProvider, poseStack, mouseX, mouseY, partialTicks);
-		RenderUtil.setShaderColor(WHITE);
-	}
-	
-	@Override
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		renderBg(poseStack, Minecraft.getInstance(), mouseX, mouseY);
+		updateDraggingValue(mouseX, mouseY);
 		if (visible) {
-			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (value * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderBackgroundTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, 0, sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
+			RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (value * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, 0, sliderTextureProvider.getTexture(), getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
 		}
 	}
 	
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		WidgetUtil.renderText(this, poseStack, mouseX, mouseY, partialTicks);
-	}
-	
-	@Override
-	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		return sliderBackgroundColor;
 	}
 	
 	public RGBA getCurrentSliderColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
@@ -123,7 +101,7 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 		}
 	}
 	
-	protected void renderBg(PoseStack poseStack, Minecraft minecraft, int mouseX, int mouseY) {
+	protected void updateDraggingValue(int mouseX, int mouseY) {
 		if (isInContainer && visible && dragging) {
 			changeSliderValue(mouseX);
 		}

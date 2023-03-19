@@ -13,6 +13,7 @@ import net.minecraft.Util;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
@@ -40,6 +41,10 @@ public class WidgetUtil {
 			scale = scaleProvider.getCurrentScale(poseStack, mouseY, mouseY, partialTicks);
 		} else {
 			scale = 1;
+		}
+		
+		if (message == CommonComponents.EMPTY) {
+			return;
 		}
 		
 		poseStack.pushPose();

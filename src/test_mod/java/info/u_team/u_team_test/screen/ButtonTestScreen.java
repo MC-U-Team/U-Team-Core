@@ -5,15 +5,13 @@ import org.slf4j.Logger;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 
+import info.u_team.u_team_core.gui.elements.ActivatableButton;
 import info.u_team.u_team_core.gui.elements.CheckboxButton;
 import info.u_team.u_team_core.gui.elements.ImageActivatableButton;
 import info.u_team.u_team_core.gui.elements.ImageButton;
 import info.u_team.u_team_core.gui.elements.ImageToggleButton;
-import info.u_team.u_team_core.gui.elements.ScalableActivatableButton;
-import info.u_team.u_team_core.gui.elements.ScalableButton;
 import info.u_team.u_team_core.gui.elements.ScalableCheckboxButton;
 import info.u_team.u_team_core.gui.elements.ScalableEditBox;
-import info.u_team.u_team_core.gui.elements.ScalableSlider;
 import info.u_team.u_team_core.gui.elements.ScalableText;
 import info.u_team.u_team_core.gui.elements.ScrollingText;
 import info.u_team.u_team_core.gui.elements.UButton;
@@ -49,25 +47,21 @@ public class ButtonTestScreen extends UScreen {
 	@Override
 	protected void init() {
 		// U Button Test
-		final UButton uButton = addRenderableWidget(new UButton(10, 10, 200, 15, Component.literal("U Button sfdjhsdf AAS VVV :DD djhds ROFL XXX ABC DO OFLLLL")) {
-			
-			@Override
-			public TextRenderType getCurrentTextRenderType() {
-				return TextRenderType.SCROLLING;
-			}
-		});
+		final UButton uButton = addRenderableWidget(new UButton(10, 10, 200, 15, Component.literal("U Button")));
 		uButton.setPressable(() -> LOGGER.info("Pressed U Button"));
 		uButton.setTooltip(Tooltip.create(Component.literal("U Button Tooltip")));
-		uButton.setScale(1f);
 		
 		// Scalable Button Test
-		final ScalableButton scalableButton = addRenderableWidget(new ScalableButton(10, 30, 200, 15, Component.literal("Scalable Button"), 0.75F));
+		final UButton scalableButton = addRenderableWidget(new UButton(10, 30, 200, 15, Component.literal("Scalable Button")));
+		scalableButton.setScale(0.75F);
 		scalableButton.setTextColor(new RGBA(0x00FFFF80));
+		scalableButton.setAlpha(0.5F);
 		scalableButton.setPressable(button -> LOGGER.info("Pressed Scalable Button"));
 		scalableButton.setTooltip(Tooltip.create(Component.literal("Scalable Button Tooltip")));
 		
 		// Scalable Activatable Button Test
-		final ScalableActivatableButton scalableActivatableButton = addRenderableWidget(new ScalableActivatableButton(10, 50, 200, 15, Component.literal("Scalable Activatable Button"), 0.75F, false, new RGBA(0x006442FF)));
+		final ActivatableButton scalableActivatableButton = addRenderableWidget(new ActivatableButton(10, 50, 200, 15, Component.literal("Scalable Activatable Button"), false, new RGBA(0x006442FF)));
+		scalableActivatableButton.setScale(0.75F);
 		scalableActivatableButton.setPressable(() -> {
 			LOGGER.info("Pressed Scalable Activatable Button");
 			scalableActivatableButton.setActivated(!scalableActivatableButton.isActivated());
@@ -76,6 +70,7 @@ public class ButtonTestScreen extends UScreen {
 		
 		// Image Button Test
 		final ImageButton imageButton = addRenderableWidget(new ImageButton(10, 70, 15, 15, TEXTURE1));
+		imageButton.setAlpha(0.75F);
 		imageButton.setPressable(() -> {
 			LOGGER.info("Pressed Image Button");
 		});
@@ -101,6 +96,7 @@ public class ButtonTestScreen extends UScreen {
 		final ImageToggleButton imageToggleButton = addRenderableWidget(new ImageToggleButton(10, 110, 15, 15, TEXTURE1, TEXTURE2, false));
 		imageToggleButton.setPressable(() -> {
 			LOGGER.info("Pressed Image Toggle Button");
+			imageToggleButton.setAlpha(imageToggleButton.isToggled() ? 0.5F : 1);
 		});
 		imageToggleButton.setTooltip(Tooltip.create(Component.literal("Image Toggle Button Tooltip")));
 		
@@ -120,13 +116,15 @@ public class ButtonTestScreen extends UScreen {
 		uSlider.setTooltip(Tooltip.create(Component.literal("U Slider Tooltip")));
 		
 		// Scalable Slider Test
-		final ScalableSlider scalableSlider = addRenderableWidget(new ScalableSlider(10, 155, 200, 15, Component.literal("Scalable Slider: "), Component.literal("%"), 0, 100, 20, false, true, false, 0.5F));
+		final USlider scalableSlider = addRenderableWidget(new USlider(10, 155, 200, 15, Component.literal("Scalable Slider: "), Component.literal("%"), 0, 100, 20, false, true, false));
+		scalableSlider.setScale(0.5F);
 		scalableSlider.setSlider(() -> {
 			LOGGER.info("Updated Scalable Slider: " + scalableSlider.getValueInt());
 		});
 		scalableSlider.setTooltip(Tooltip.create(Component.literal("Scalable Slider Tooltip")));
 		
-		final ScalableSlider scalableSlider2 = addRenderableWidget(new ScalableSlider(10, 175, 200, 30, Component.literal("Scalable Slider 2: "), Component.literal("%"), 0, 100, 20, false, true, false, 1.5F));
+		final USlider scalableSlider2 = addRenderableWidget(new USlider(10, 175, 200, 30, Component.literal("Scalable Slider 2: "), Component.literal("%"), 0, 100, 20, false, true, false));
+		scalableSlider2.setScale(1.5F);
 		scalableSlider2.setSliderBackgroundColor(new RGBA(0x0000FFFF));
 		scalableSlider2.setSliderColor(new RGBA(0x00FF00FF));
 		scalableSlider2.setTextColor(new RGBA(0xFF0000FF));

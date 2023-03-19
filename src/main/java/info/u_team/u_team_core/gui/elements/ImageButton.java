@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
+import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
@@ -41,7 +42,10 @@ public class ImageButton extends UButton {
 	
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderUtil.drawTexturedQuad(poseStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, getCurrentImage(poseStack, mouseX, mouseY, partialTicks), getCurrentImageColor(poseStack, mouseX, mouseY, partialTicks));
+		final ResourceLocation image = getCurrentImage(poseStack, mouseX, mouseY, partialTicks);
+		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentImageColor(poseStack, mouseX, mouseY, partialTicks));
+		
+		RenderUtil.drawTexturedQuad(poseStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, image, color);
 	}
 	
 	public ResourceLocation getCurrentImage(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
