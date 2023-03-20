@@ -1,4 +1,5 @@
 {
 	"UContainerMenu Init Menu Hook": "asm/ucontainermenu-init-menu.js",
+	"AbstractContainerScreen Muse Dragged Super Call": "asm/abstractcontainerscreen-mouse-dragged-super-call.js",
 	"Dataprovider Change Indent to Tab": "asm/dataprovider-set-indent.js"
 }
