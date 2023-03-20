@@ -14,9 +14,11 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 
 import info.u_team.u_team_core.UCoreMod;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
+import info.u_team.u_team_core.api.gui.TooltipRenderable;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.SiUtil;
+import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -27,7 +29,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.energy.IEnergyStorage;
 
-public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRenderable {
+public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRenderable, TooltipRenderable {
 	
 	public static final ResourceLocation ENERGY_TEXTURE = new ResourceLocation(UCoreMod.MODID, "textures/gui/energy.png");
 	
@@ -53,6 +55,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		renderBackground(poseStack, mouseX, mouseY, partialTicks);
 		renderForeground(poseStack, mouseX, mouseY, partialTicks);
+		WidgetUtil.renderCustomTooltipForWidget(this, poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
@@ -98,26 +101,25 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		RenderUtil.drawContainerBorder(poseStack, x, y, width, height, 0, RGBA.WHITE);
 	}
 	
-	// TODO cleanup
-//	@Override
-//	public void renderToolTip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-//		if (isHovered) {
-//			final Minecraft minecraft = Minecraft.getInstance();
-//			
-//			final String storageString, capacityString;
-//			
-//			if (!Screen.hasShiftDown()) {
-//				storageString = SiUtil.readableSi(storage.getAsLong());
-//				capacityString = SiUtil.readableSi(capacity.getAsLong());
-//			} else {
-//				storageString = Long.toString(storage.getAsLong()) + " ";
-//				capacityString = Long.toString(capacity.getAsLong()) + " ";
-//			}
-//			
-//			final List<Component> list = List.of(Component.translatable("gui.widget.uteamcore.energy.fe_tooltip", storageString, capacityString));
-//			minecraft.screen.renderTooltip(poseStack, list, Optional.empty(), mouseX, mouseY, minecraft.font);
-//		}
-//	}
+	@Override
+	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		if (isHovered) {
+			final Minecraft minecraft = Minecraft.getInstance();
+			
+			final String storageString, capacityString;
+			
+			if (!Screen.hasShiftDown()) {
+				storageString = SiUtil.readableSi(storage.getAsLong());
+				capacityString = SiUtil.readableSi(capacity.getAsLong());
+			} else {
+				storageString = Long.toString(storage.getAsLong()) + " ";
+				capacityString = Long.toString(capacity.getAsLong()) + " ";
+			}
+			
+			final List<Component> list = List.of(Component.translatable("gui.widget.uteamcore.energy.fe_tooltip", storageString, capacityString));
+			minecraft.screen.renderTooltip(poseStack, list, Optional.empty(), mouseX, mouseY, minecraft.font);
+		}
+	}
 	
 	@Override
 	public void playDownSound(SoundManager handler) {

@@ -9,6 +9,7 @@ import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.TextSettingsProvider.TextRenderType;
 import info.u_team.u_team_core.api.gui.TextureProvider;
+import info.u_team.u_team_core.api.gui.TooltipRenderable;
 import net.minecraft.Util;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
@@ -29,6 +30,9 @@ public class WidgetUtil {
 		
 		widget.renderBackground(poseStack, mouseX, mouseY, partialTicks);
 		widget.renderForeground(poseStack, mouseX, mouseY, partialTicks);
+		if (widget instanceof TooltipRenderable tooltipRenderable) {
+			renderCustomTooltipForWidget(tooltipRenderable, poseStack, mouseX, mouseY, partialTicks);
+		}
 	}
 	
 	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
@@ -107,5 +111,12 @@ public class WidgetUtil {
 	
 	public static RGBA respectWidgetAlpha(AbstractWidget widget, RGBA color) {
 		return color.setAlphaComponent(color.getAlphaComponent() * Mth.clamp(widget.alpha, 0, 1));
+	}
+	
+	public static void renderCustomTooltipForWidget(TooltipRenderable renderable, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		poseStack.pushPose();
+		poseStack.translate(0, 0, 400);
+		renderable.renderTooltip(poseStack, mouseX, mouseY, partialTicks);
+		poseStack.popPose();
 	}
 }
