@@ -68,6 +68,13 @@ public abstract sealed class AbstractSliderLogic extends AbstractSliderButton pe
 		slider.onChange(this);
 	}
 	
+	@Override
+	protected void onDrag(double mouseX, double mouseY, double dragX, double dragY) {
+		if (active && visible) {
+			super.onDrag(mouseX, mouseY, dragX, dragY);
+		}
+	}
+	
 	public void updateSliderText() {
 		String displayValue;
 		

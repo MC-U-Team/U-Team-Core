@@ -38,7 +38,9 @@ public class BasicBlockEntityScreen extends UContainerMenuScreen<BasicBlockEntit
 	@Override
 	public void containerTick() {
 		super.containerTick();
-		slider.setValue(menu.getBlockEntity().getCooldown());
+		if ((!isDragging() || !slider.isHoveredOrFocused()) && minecraft.level.getGameTime() % 20 == 0) {
+			slider.setValue(menu.getBlockEntity().getCooldown());
+		}
 	}
 	
 	@Override
@@ -47,9 +49,4 @@ public class BasicBlockEntityScreen extends UContainerMenuScreen<BasicBlockEntit
 		font.draw(poseStack, Component.nullToEmpty("" + menu.getBlockEntity().getValue()), imageWidth / 2 + 32, 6, 0x404040);
 	}
 	
-	@Override
-	public boolean mouseReleased(double mouseX, double mouseY, int button) {
-		slider.mouseReleased(mouseX, mouseY, button);
-		return super.mouseReleased(mouseX, mouseY, button);
-	}
 }
