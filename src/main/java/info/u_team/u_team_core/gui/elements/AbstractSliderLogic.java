@@ -1,9 +1,10 @@
 package info.u_team.u_team_core.gui.elements;
 
+import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
-public abstract sealed class AbstractSliderLogic extends UButton permits USlider {
+public abstract sealed class AbstractSliderLogic extends AbstractSliderButton permits USlider {
 	
 	protected static final OnSliderChange EMPTY_SLIDER = slider -> {
 	};
@@ -13,7 +14,6 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 	
 	protected final double minValue;
 	protected final double maxValue;
-	protected double value;
 	
 	protected final boolean decimalPrecision;
 	protected int precision = 1;
@@ -21,15 +21,13 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 	
 	protected OnSliderChange slider;
 	
-	public boolean dragging = false;
-	
 	protected AbstractSliderLogic(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double currentValue, boolean decimalPrecision, boolean drawDescription, OnSliderChange slider) {
-		super(x, y, width, height, prefix, EMTPY_PRESSABLE);
+		super(x, y, width, height, Component.empty(), 0);
 		this.prefix = prefix;
 		this.suffix = suffix;
 		this.minValue = minValue;
 		this.maxValue = maxValue;
-		value = (currentValue - minValue) / (maxValue - minValue);
+		value = clampValues((currentValue - minValue) / (maxValue - minValue));
 		this.decimalPrecision = decimalPrecision;
 		this.drawDescription = drawDescription;
 		
@@ -60,15 +58,17 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 		slider = slider -> runnable.run();
 	}
 	
-	public void updateSlider() {
+	@Override
+	protected void updateMessage() {
 		updateSliderText();
-		
+	}
+	
+	@Override
+	protected void applyValue() {
 		slider.onChange(this);
 	}
 	
 	public void updateSliderText() {
-		value = Mth.clamp(value, 0, 1);
-		
 		String displayValue;
 		
 		if (decimalPrecision) {
@@ -95,16 +95,24 @@ public abstract sealed class AbstractSliderLogic extends UButton permits USlider
 	}
 	
 	public int getValueInt() {
-		return (int) Math.round(value * (maxValue - minValue) + minValue);
+		return (int) getValueLong();
+	}
+	
+	public long getValueLong() {
+		return Math.round(getValue());
 	}
 	
 	public double getValue() {
 		return value * (maxValue - minValue) + minValue;
 	}
 	
-	public void setValue(double value) {
-		this.value = (value - minValue) / (maxValue - minValue);
+	public void setValue(double newValue) {
+		this.value = clampValues((newValue - minValue) / (maxValue - minValue));
 		updateSliderText();
+	}
+	
+	private double clampValues(double value) {
+		return Mth.clamp(value, 0, 1);
 	}
 	
 	public static interface OnSliderChange {

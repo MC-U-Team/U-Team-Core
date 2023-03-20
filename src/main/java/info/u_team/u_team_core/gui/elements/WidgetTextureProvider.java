@@ -8,15 +8,21 @@ import net.minecraft.resources.ResourceLocation;
 
 public class WidgetTextureProvider implements TextureProvider {
 	
-	protected IntSupplier textureY;
+	protected final ResourceLocation texture;
+	protected final IntSupplier vSupplier;
 	
-	public WidgetTextureProvider(IntSupplier textureY) {
-		this.textureY = textureY;
+	public WidgetTextureProvider(IntSupplier vSupplier) {
+		this(AbstractWidget.WIDGETS_LOCATION, vSupplier);
+	}
+	
+	public WidgetTextureProvider(ResourceLocation texture, IntSupplier vSupplier) {
+		this.texture = texture;
+		this.vSupplier = vSupplier;
 	}
 	
 	@Override
 	public ResourceLocation getTexture() {
-		return AbstractWidget.WIDGETS_LOCATION;
+		return texture;
 	}
 	
 	@Override
@@ -26,7 +32,7 @@ public class WidgetTextureProvider implements TextureProvider {
 	
 	@Override
 	public int getV() {
-		return textureY.getAsInt();
+		return vSupplier.getAsInt();
 	}
 	
 	@Override
