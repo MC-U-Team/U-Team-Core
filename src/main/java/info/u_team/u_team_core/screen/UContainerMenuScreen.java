@@ -126,4 +126,13 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 			uMenu.broadcastChangesToServer();
 		}
 	}
+	
+	@Override
+	public boolean mouseDragged(double mouseX, double mouseY, int button, double dragX, double dragY) {
+		final GuiEventListener focused = getFocused();
+		if (focused != null && isDragging() && button == 0) {
+			focused.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+		}
+		return super.mouseDragged(mouseX, mouseY, button, dragX, dragY);
+	}
 }
