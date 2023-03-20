@@ -217,11 +217,4 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	public RGBA getCurrentCursorColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return cursorColor;
 	}
-	
-	@FunctionalInterface
-	public interface OnTooltip {
-		
-		void onTooltip(UEditBox editBox, PoseStack poseStack, int mouseX, int mouseY);
-	}
-	
 }
