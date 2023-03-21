@@ -171,6 +171,7 @@ public class ButtonTestScreen extends UScreen {
 		
 		// U Text Field Test
 		textFieldWidget = addRenderableWidget(new UEditBox(font, 220, 110, 200, 20, textFieldWidget, Component.literal("U Text Field")));
+		textFieldWidget.setAlpha(0.75F);
 		textFieldWidget.setMaxLength(500);
 		textFieldWidget.setTooltip(Tooltip.create(Component.literal("U Text Field Tooltip")));
 		

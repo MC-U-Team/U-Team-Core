@@ -7,6 +7,7 @@ import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.RenderTickable;
 import info.u_team.u_team_core.api.gui.TextSettingsProvider;
 import info.u_team.u_team_core.util.RGBA;
+import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.client.gui.components.EditBox;
@@ -137,14 +138,14 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	@Override
 	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		if (bordered) {
-			fill(poseStack, x - 1, y - 1, x + width + 1, y + height + 1, getCurrentBackgroundFrameColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
-			fill(poseStack, x, y, x + width, y + height, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+			fill(poseStack, x - 1, y - 1, x + width + 1, y + height + 1, WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundFrameColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
+			fill(poseStack, x, y, x + width, y + height, WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
 		}
 	}
 	
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final RGBA currentTextColor = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks);
+		final RGBA currentTextColor = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks));
 		
 		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
 		
@@ -179,12 +180,12 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 		}
 		
 		if (!isCursorInTheMiddle && suggestion != null) {
-			font.drawShadow(poseStack, suggestion, rightRenderedTextX - 1, yOffset, getCurrentSuggestionTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+			font.drawShadow(poseStack, suggestion, rightRenderedTextX - 1, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentSuggestionTextColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
 		}
 		
 		if (shouldCursorBlink) {
 			if (isCursorInTheMiddle) {
-				GuiComponent.fill(poseStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, getCurrentCursorColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+				GuiComponent.fill(poseStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, WidgetUtil.respectWidgetAlpha(this, getCurrentCursorColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
 			} else {
 				font.drawShadow(poseStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
 			}
