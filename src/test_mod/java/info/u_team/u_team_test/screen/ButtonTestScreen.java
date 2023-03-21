@@ -10,7 +10,6 @@ import info.u_team.u_team_core.gui.elements.CheckboxButton;
 import info.u_team.u_team_core.gui.elements.ImageActivatableButton;
 import info.u_team.u_team_core.gui.elements.ImageButton;
 import info.u_team.u_team_core.gui.elements.ImageToggleButton;
-import info.u_team.u_team_core.gui.elements.ScalableCheckboxButton;
 import info.u_team.u_team_core.gui.elements.ScalableEditBox;
 import info.u_team.u_team_core.gui.elements.ScalableText;
 import info.u_team.u_team_core.gui.elements.ScrollingText;
@@ -145,6 +144,7 @@ public class ButtonTestScreen extends UScreen {
 		checkboxButton.setTooltip(Tooltip.create(Component.literal("Checkbox Button Tooltip")));
 		
 		final CheckboxButton checkboxButton2 = addRenderableWidget(new CheckboxButton(110, 230, 15, 15, Component.literal("Checkbox Button 2"), false, true));
+		checkboxButton2.setAlpha(0.75F);
 		checkboxButton2.setLeftSideText(true);
 		checkboxButton2.setPressable(() -> {
 			LOGGER.info("Pressed Checkbox Button 2");
@@ -152,13 +152,15 @@ public class ButtonTestScreen extends UScreen {
 		checkboxButton2.setTooltip(Tooltip.create(Component.literal("Checkbox Button 2 Tooltip")));
 		
 		// Scalable Checkbox Button Test
-		final ScalableCheckboxButton scalableCheckboxButton = addRenderableWidget(new ScalableCheckboxButton(10, 250, 15, 15, Component.literal("Scalable Checkbox Button"), false, true, 0.75F));
+		final CheckboxButton scalableCheckboxButton = addRenderableWidget(new CheckboxButton(10, 250, 15, 15, Component.literal("Scalable Checkbox Button"), false, true));
+		scalableCheckboxButton.setScale(0.75F);
 		scalableCheckboxButton.setPressable(() -> {
 			LOGGER.info("Pressed Scalable Checkbox Button");
 		});
 		scalableCheckboxButton.setTooltip(Tooltip.create(Component.literal("Scalable Checkbox Button Tooltip")));
 		
-		final ScalableCheckboxButton scalableCheckboxButton2 = addRenderableWidget(new ScalableCheckboxButton(110, 270, 15, 15, Component.literal("Scalable Checkbox Button 2"), false, true, 0.65F));
+		final CheckboxButton scalableCheckboxButton2 = addRenderableWidget(new CheckboxButton(110, 270, 20, 20, Component.literal("Scalable Checkbox Button 2"), false, true));
+		scalableCheckboxButton2.setScale(0.65F);
 		scalableCheckboxButton2.setLeftSideText(true);
 		scalableCheckboxButton2.setButtonColor(new RGBA(0x0000F0FF));
 		scalableCheckboxButton2.setTextColor(new RGBA(0xA0A0A0FF));

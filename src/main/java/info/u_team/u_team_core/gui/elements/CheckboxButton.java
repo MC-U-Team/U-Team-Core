@@ -2,10 +2,12 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.CommonComponents;
@@ -14,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class CheckboxButton extends UButton {
 	
-	protected static final ResourceLocation TEXTURE = new ResourceLocation("textures/gui/checkbox.png");
+	protected static final ResourceLocation TEXTURE = Checkbox.TEXTURE;
 	
 	protected boolean checked;
 	
@@ -30,8 +32,33 @@ public class CheckboxButton extends UButton {
 		super(x, y, width, height, text, pessable);
 		this.checked = checked;
 		this.drawText = drawText;
-		leftSideText = false;
-		dropShadow = false;
+		buttonTextureProvider = new TextureProvider() {
+			
+			@Override
+			public ResourceLocation getTexture() {
+				return TEXTURE;
+			}
+			
+			@Override
+			public int getU() {
+				return isHoveredOrFocused() ? 20 : 0;
+			}
+			
+			@Override
+			public int getV() {
+				return CheckboxButton.this.checked ? 20 : 0;
+			}
+			
+			@Override
+			public int getWidth() {
+				return 20;
+			}
+			
+			@Override
+			public int getHeight() {
+				return 20;
+			}
+		};
 	}
 	
 	public boolean isChecked() {
@@ -71,7 +98,7 @@ public class CheckboxButton extends UButton {
 	@Override
 	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTicks));
-		RenderUtil.drawTexturedQuad(poseStack, x, y, width, height, 20, 20, isHoveredOrFocused() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, TEXTURE, color);
+		RenderUtil.drawTexturedQuad(poseStack, x, y, width, height, buttonTextureProvider.getWidth(), buttonTextureProvider.getHeight(), buttonTextureProvider.getU(), buttonTextureProvider.getV(), 64, 64, 0, buttonTextureProvider.getTexture(), color);
 	}
 	
 	@Override
@@ -81,22 +108,31 @@ public class CheckboxButton extends UButton {
 			
 			final Component message = getCurrentText();
 			if (message != CommonComponents.EMPTY) {
+				final float currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
+				
+				final float positionFactor = 1 / currentScale;
+				
 				final float xStart;
-				final float yStart = y + (height - 8) / 2;
+				final float yStart = (y + ((int) (height - 8 * currentScale)) / 2) * positionFactor;
 				
 				if (leftSideText) {
-					xStart = x - (font.width(message) + 4);
+					xStart = (x - ((font.width(message) * currentScale) + 4)) * positionFactor;
 				} else {
-					xStart = x + width + 4;
+					xStart = (x + width + 4) * positionFactor;
 				}
 				
-				final int color = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB();
+				final int color = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(poseStack, mouseY, mouseY, partialTicks)).getColorARGB();
+				
+				poseStack.pushPose();
+				poseStack.scale(currentScale, currentScale, 0);
 				
 				if (dropShadow) {
 					font.drawShadow(poseStack, getCurrentText(), xStart, yStart, color);
 				} else {
 					font.draw(poseStack, getCurrentText(), xStart, yStart, color);
 				}
+				
+				poseStack.popPose();
 			}
 		}
 	}
