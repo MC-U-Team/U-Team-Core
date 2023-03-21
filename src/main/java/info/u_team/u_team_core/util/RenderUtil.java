@@ -218,6 +218,8 @@ public class RenderUtil {
 		tessellator.end();
 		
 		RenderSystem.disableBlend();
+		
+		resetShaderColor();
 	}
 	
 	/**

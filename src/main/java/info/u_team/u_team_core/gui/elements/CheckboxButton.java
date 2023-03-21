@@ -1,10 +1,13 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
+import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
+import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.narration.NarratedElementType;
+import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -66,13 +69,9 @@ public class CheckboxButton extends UButton {
 	}
 	
 	@Override
-	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		RenderSystem.setShaderColor(1, 1, 1, alpha);
-		RenderUtil.drawTexturedQuad(poseStack, x, y, width, height, 20, 20, isHoveredOrFocused() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, TEXTURE, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks));
-		
-		renderBackground(poseStack, mouseX, mouseY, partialTicks);
-		renderForeground(poseStack, mouseX, mouseY, partialTicks);
-		RenderUtil.setShaderColor(WHITE);
+	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTicks));
+		RenderUtil.drawTexturedQuad(poseStack, x, y, width, height, 20, 20, isHoveredOrFocused() ? 20 : 0, checked ? 20 : 0, 64, 64, 0, TEXTURE, color);
 	}
 	
 	@Override
@@ -98,6 +97,18 @@ public class CheckboxButton extends UButton {
 				} else {
 					font.draw(poseStack, getCurrentText(), xStart, yStart, color);
 				}
+			}
+		}
+	}
+	
+	@Override
+	public void updateWidgetNarration(NarrationElementOutput output) {
+		output.add(NarratedElementType.TITLE, createNarrationMessage());
+		if (active) {
+			if (isFocused()) {
+				output.add(NarratedElementType.USAGE, Component.translatable("narration.checkbox.usage.focused"));
+			} else {
+				output.add(NarratedElementType.USAGE, Component.translatable("narration.checkbox.usage.hovered"));
 			}
 		}
 	}

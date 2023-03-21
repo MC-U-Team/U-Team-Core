@@ -3,17 +3,17 @@ package info.u_team.u_team_core.gui.elements;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
-import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.Scalable;
 import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.api.gui.TextProvider;
 import info.u_team.u_team_core.api.gui.TextureProvider;
+import info.u_team.u_team_core.api.gui.WidgetRenderable;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.network.chat.Component;
 
-public non-sealed class USlider extends AbstractSliderLogic implements PerspectiveRenderable, BackgroundColorProvider, TextProvider, Scalable, ScaleProvider {
+public non-sealed class USlider extends AbstractSliderLogic implements WidgetRenderable, BackgroundColorProvider, TextProvider, Scalable, ScaleProvider {
 	
 	protected static final OnSliderChange EMPTY_SLIDER = AbstractSliderLogic.EMPTY_SLIDER;
 	
@@ -92,7 +92,12 @@ public non-sealed class USlider extends AbstractSliderLogic implements Perspecti
 	
 	@Override
 	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderButtonLikeWidget(this, sliderBackgroundTextureProvider, poseStack, mouseX, mouseY, partialTicks);
+		WidgetUtil.renderWidget(this, poseStack, mouseX, mouseY, partialTicks);
+	}
+	
+	@Override
+	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		WidgetUtil.renderButtonLikeTexture(this, sliderBackgroundTextureProvider, poseStack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
