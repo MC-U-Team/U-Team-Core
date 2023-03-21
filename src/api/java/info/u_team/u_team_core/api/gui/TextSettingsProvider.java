@@ -13,7 +13,7 @@ public interface TextSettingsProvider {
 	}
 	
 	default TextRenderType getCurrentTextRenderType() {
-		return TextRenderType.ELLIPSIS;
+		return TextRenderType.SCROLLING;
 	}
 	
 	RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);

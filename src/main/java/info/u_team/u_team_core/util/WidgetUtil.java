@@ -83,7 +83,7 @@ public class WidgetUtil {
 			final double d2 = Math.sin((Math.PI / 2D) * Math.cos((Math.PI * 2D) * d0 / d1)) / 2.0D + 0.5D;
 			final double d3 = Mth.lerp(d2, 0.0D, (double) difference);
 			
-			final float xStart = Mth.floor(widget.getX() - d3);
+			final float xStart = (widget.getX() + 3 - (int) d3) * positionFactor;
 			
 			GuiComponent.enableScissor(widget.getX() + 3, widget.getY(), widget.getX() + widget.getWidth() - 3, widget.getY() + widget.getHeight());
 			font.drawShadow(poseStack, message, xStart, yStart, color.getColorARGB());
