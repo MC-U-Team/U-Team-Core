@@ -2,18 +2,10 @@ package info.u_team.u_team_core.gui.elements;
 
 import java.util.function.Supplier;
 
-import org.joml.Matrix4f;
-import org.joml.Vector4f;
-
-import com.mojang.blaze3d.platform.Window;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.Gui;
-import net.minecraft.client.gui.GuiComponent;
-import net.minecraft.client.model.HeadedModel;
 import net.minecraft.util.Mth;
 
 public class ScrollingText extends ScalableText {
@@ -84,25 +76,6 @@ public class ScrollingText extends ScalableText {
 	
 	@Override
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final Minecraft minecraft = Minecraft.getInstance();
-		final Window window = minecraft.getWindow();
-		
-		final Matrix4f matrix = poseStack.last().pose();
-		final double scaleFactor = window.getGuiScale();
-		
-		final Vector4f vectorXY = new Vector4f(x, y, 0, 1);
-		vectorXY.mul(matrix);
-		
-		// Cannot use transform here, because we only care about the scaling. M00 and M11 should have the right scaling
-		final Vector4f vectorWH = new Vector4f(width * matrix.m00(), (font.lineHeight + 1) * scale * matrix.m11(), 0, 1);
-		
-		final int nativeX = Mth.ceil(vectorXY.x() * scaleFactor);
-		final int nativeY = Mth.ceil(vectorXY.y() * scaleFactor);
-		
-		final int nativeWidth = Mth.ceil(vectorWH.x() * scaleFactor);
-		final int nativeHeight = Mth.ceil(vectorWH.y() * scaleFactor);
-		
-		// RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
 		Gui.enableScissor(Mth.ceil(x), Mth.ceil(y), Mth.ceil(x + width), Mth.ceil(y + ((font.lineHeight + 1) * scale)));
 		
 		// Uncomment to test scissor
@@ -114,7 +87,6 @@ public class ScrollingText extends ScalableText {
 		setText(textSupplier.get());
 		renderFont(poseStack, font, getMovingX(x), y + 2 * scale);
 		
-		// RenderSystem.disableScissor();
 		Gui.disableScissor();
 	}
 	

@@ -144,7 +144,7 @@ public class ButtonTestScreen extends UScreen {
 		checkboxButton.setTooltip(Tooltip.create(Component.literal("Checkbox Button Tooltip")));
 		
 		final CheckboxButton checkboxButton2 = addRenderableWidget(new CheckboxButton(110, 230, 15, 15, Component.literal("Checkbox Button 2"), false, true));
-		checkboxButton2.setAlpha(0.75F);
+		checkboxButton2.setAlpha(0.5F);
 		checkboxButton2.setLeftSideText(true);
 		checkboxButton2.setPressable(() -> {
 			LOGGER.info("Pressed Checkbox Button 2");

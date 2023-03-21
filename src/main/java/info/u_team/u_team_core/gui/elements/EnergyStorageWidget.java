@@ -127,7 +127,8 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	}
 	
 	@Override
-	protected void updateWidgetNarration(NarrationElementOutput narrationElementOutput) {
+	protected void updateWidgetNarration(NarrationElementOutput output) {
+		// TODO add narration message
 	}
 	
 }
