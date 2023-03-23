@@ -184,15 +184,18 @@ public class ButtonTestScreen extends UScreen {
 		textFieldWidget = addRenderableWidget(new UEditBox(font, 220, 110, 200, 20, textFieldWidget, Component.literal("U Text Field")));
 		textFieldWidget.setAlpha(0.75F);
 		textFieldWidget.setMaxLength(500);
+		textFieldWidget.setHint(Component.literal("Hint to box"));
 		textFieldWidget.setTooltip(Tooltip.create(Component.literal("U Text Field Tooltip")));
 		
 		// Scalable Text Field Test
 		scalableTextFieldWidget = addRenderableWidget(new ScalableEditBox(font, 220, 140, 200, 30, scalableTextFieldWidget, Component.literal("Scalable Text Field"), 1.5F));
 		scalableTextFieldWidget.setMaxLength(500);
+		scalableTextFieldWidget.setHint(Component.literal("Custom hint"));
 		scalableTextFieldWidget.setTooltip(Tooltip.create(Component.literal("Scalable Text Field Tooltip")));
 		
 		scalableTextFieldWidget2 = addRenderableWidget(new ScalableEditBox(font, 220, 180, 200, 15, scalableTextFieldWidget, Component.literal("Scalable Text Field 2"), 0.5F));
 		scalableTextFieldWidget2.setMaxLength(500);
+		scalableTextFieldWidget2.setHint(Component.literal("Hint"));
 		scalableTextFieldWidget2.setTooltip(Tooltip.create(Component.literal("Scalable Text Field 2 Tooltip")));
 		
 		// Scaling Renderer Test
