@@ -2,7 +2,6 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.platform.GlStateManager.DestFactor;
 import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
-import com.mojang.blaze3d.platform.Window;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -13,16 +12,13 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.renderer.GameRenderer;
-import net.minecraft.util.Mth;
 
 public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> extends ObjectSelectionList<T> {
 	
 	protected int sideDistance;
 	
-	protected boolean useScissor;
 	protected boolean renderTransparentBorder;
 	protected float transparentBorderSize;
 	
@@ -61,14 +57,6 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 		this.sideDistance = sideDistance;
 	}
 	
-	public boolean isUseScissor() {
-		return useScissor;
-	}
-	
-	public void setUseScissor(boolean useScissor) {
-		this.useScissor = useScissor;
-	}
-	
 	public boolean isRenderTransparentBorder() {
 		return renderTransparentBorder;
 	}
@@ -97,32 +85,7 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	
 	@Override
 	protected void renderList(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		if (useScissor) {
-			final Window window = minecraft.getWindow();
-			final double scaleFactor = window.getGuiScale();
-			
-			final int nativeX = Mth.ceil(x0 * scaleFactor);
-			final int nativeY = Mth.ceil(y0 * scaleFactor);
-			
-			final int nativeWidth = Mth.ceil((x1 - x0) * scaleFactor);
-			final int nativeHeight = Mth.ceil((y1 - y0) * scaleFactor);
-			
-			// RenderSystem.enableScissor(nativeX, window.getScreenHeight() - (nativeY + nativeHeight), nativeWidth, nativeHeight);
-			// Gui.enableScissor(x0, y0, width, height);
-			
-			// Uncomment to test scissor
-			// poseStack.pushPose();
-			// poseStack.last().pose().setIdentity();
-			// GuiComponent.fill(poseStack, 0, 0, window.getGuiScaledWidth(), window.getGuiScaledHeight(), 0x8F00FF00);
-			// poseStack.popPose();
-			
-			super.renderList(poseStack, mouseX, mouseY, partialTicks);
-			
-			// Gui.disableScissor();
-			// RenderSystem.disableScissor();
-		} else {
-			super.renderList(poseStack, mouseX, mouseY, partialTicks);
-		}
+		super.renderList(poseStack, mouseX, mouseY, partialTicks);
 		
 		if (renderTransparentBorder) {
 			final Tesselator tessellator = Tesselator.getInstance();

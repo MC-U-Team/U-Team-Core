@@ -8,7 +8,6 @@ public class BasicTestList extends ScrollableList<BasicTestListEntry> {
 		super(x, y, width, height, 20, 15);
 		setRenderTopAndBottom(false);
 		setRenderBackground(false);
-		setUseScissor(true);
 		setRenderTransparentBorder(true);
 		setTransparentBorderSize(10);
 		
