@@ -4,7 +4,6 @@ import java.text.DecimalFormat;
 
 import org.slf4j.Logger;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 
 import info.u_team.u_team_core.gui.elements.ActivatableButton;
@@ -38,11 +37,6 @@ public class ButtonTestScreen extends UScreen {
 	private UEditBox textFieldWidget;
 	private ScalableEditBox scalableTextFieldWidget;
 	private ScalableEditBox scalableTextFieldWidget2;
-	
-	private ScalableText scalingRenderer;
-	private ScrollingText scrollingRenderer;
-	
-	private BasicTestList scrollingList;
 	
 	public ButtonTestScreen() {
 		super(Component.literal("test"));
@@ -193,36 +187,24 @@ public class ButtonTestScreen extends UScreen {
 		scalableTextFieldWidget.setHint(Component.literal("Custom hint"));
 		scalableTextFieldWidget.setTooltip(Tooltip.create(Component.literal("Scalable Text Field Tooltip")));
 		
-		scalableTextFieldWidget2 = addRenderableWidget(new ScalableEditBox(font, 220, 180, 200, 15, scalableTextFieldWidget, Component.literal("Scalable Text Field 2"), 0.5F));
+		scalableTextFieldWidget2 = addRenderableWidget(new ScalableEditBox(font, 220, 180, 200, 15, scalableTextFieldWidget2, Component.literal("Scalable Text Field 2"), 0.5F));
 		scalableTextFieldWidget2.setMaxLength(500);
 		scalableTextFieldWidget2.setHint(Component.literal("Hint"));
 		scalableTextFieldWidget2.setTooltip(Tooltip.create(Component.literal("Scalable Text Field 2 Tooltip")));
 		
 		// Scaling Renderer Test
-		scalingRenderer = new ScalableText(font, () -> "This is a test for the scaling text renderer", 220, 10);
+		final ScalableText scalingRenderer = addRenderableOnly(new ScalableText(font, () -> "This is a test for the scaling text renderer", 220, 10));
 		scalingRenderer.setColor(new RGBA(0xFF00FF40));
 		scalingRenderer.setScale(1.5F);
 		
 		// Scrolling Renderer Test
-		scrollingRenderer = new ScrollingText(font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling", 220, 25);
+		final ScrollingText scrollingRenderer = addRenderableOnly(new ScrollingText(font, () -> "This is a test for the scrolling text renderer that should be really long to test the scrolling", 220, 25));
 		scrollingRenderer.setColor(new RGBA(0x00FFFFFF));
 		scrollingRenderer.setWidth(200);
 		scrollingRenderer.setScale(2F);
 		
 		// Scrolling List Test
-		scrollingList = addWidget(new BasicTestList(220, 210, 200, 90));
-	}
-	
-	@Override
-	public void onClose() {
-		super.onClose();
-	}
-	
-	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		scalingRenderer.render(poseStack, mouseX, mouseY, partialTicks);
-		scrollingRenderer.render(poseStack, mouseX, mouseY, partialTicks);
-		scrollingList.render(poseStack, mouseX, mouseY, partialTicks);
+		addRenderableWidget(new BasicTestList(220, 210, 200, 90));
 	}
 	
 	@Override
