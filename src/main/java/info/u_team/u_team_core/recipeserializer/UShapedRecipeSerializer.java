@@ -84,7 +84,7 @@ public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> implements
 		buffer.writeItem(recipe.result);
 	}
 	
-	protected abstract T createRecipe(ResourceLocation location, String group, CraftingBookCategory category, int recipeWidth, int recipeHeigt, NonNullList<Ingredient> ingredients, ItemStack output, boolean showNotification);
+	protected abstract T createRecipe(ResourceLocation location, String group, CraftingBookCategory category, int recipeWidth, int recipeHeight, NonNullList<Ingredient> ingredients, ItemStack output, boolean showNotification);
 	
 	protected record ShapedRecipeValues(int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result, ResourceLocation id, String group, CraftingBookCategory category, boolean showNotification) {
 		
