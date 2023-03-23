@@ -40,7 +40,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		
 		final RGBA currentTextColor = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks);
 		
-		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
+		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), Mth.floor(getInnerWidth() * positionFactor));
 		
 		final int cursorOffset = cursorPos - displayPos;
 		final int selectionOffset = Math.min(highlightPos - displayPos, currentText.length());
@@ -57,6 +57,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		if (!currentText.isEmpty()) {
 			final String firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
 			leftRenderedTextX = font.drawShadow(poseStack, formatter.apply(firstTextPart, displayPos), xOffset, yOffset, currentTextColor.getColorARGB());
+			System.out.println(xOffset + " -> " + leftRenderedTextX + " -> " + currentText);
 		}
 		
 		int rightRenderedTextX = leftRenderedTextX;
@@ -84,9 +85,15 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 			}
 		}
 		
+		// if (selectionOffset != cursorOffset) {
+		// final int selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
+		// renderHighlight(poseStack, (int) (rightRenderedTextX * scale), (int) ((yOffset - 1) * 1), (int) ((selectedX - 1) *
+		// 2), (int) ((yOffset + 1 + 9) * 1));
+		// }
+		
 		if (selectionOffset != cursorOffset) {
-			final int selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
-			renderHighlight(poseStack, (int) (rightRenderedTextX * currentScale), (int) ((yOffset - 1) * currentScale), (int) ((selectedX - 1) * currentScale), (int) ((yOffset + 1 + 9) * currentScale));
+			final int selectedX = xOffset + (font.width(currentText.substring(0, selectionOffset)));
+			renderHighlight(poseStack, rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
 		}
 		
 		poseStack.popPose();
@@ -103,30 +110,29 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 	
 	@Override
 	public boolean mouseClicked(double mouseX, double mouseY, int button) {
-		if (!visible) {
-			return false;
-		} else {
-			final boolean clicked = clicked(mouseX, mouseY);
-			
-			if (canLoseFocus) {
-				setFocused(clicked);
-			}
-			
-			if (isFocused() && clicked && button == 0) {
-				int clickOffset = Mth.floor(mouseX) - x;
-				if (bordered) {
-					clickOffset -= 4;
+		if (active && visible) {
+			if (isValidClickButton(button)) {
+				final boolean clicked = clicked(mouseX, mouseY);
+				
+				if (canLoseFocus) {
+					setFocused(clicked);
 				}
 				
-				clickOffset /= getCurrentScale(mouseX, mouseY);
-				
-				final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
-				moveCursorTo(font.plainSubstrByWidth(currentText, clickOffset).length() + displayPos);
-				return true;
-			} else {
-				return false;
+				if (isFocused() && clicked) {
+					int clickOffset = Mth.floor(mouseX) - x;
+					if (bordered) {
+						clickOffset -= 4;
+					}
+					
+					clickOffset /= getCurrentScale(mouseX, mouseY);
+					
+					final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
+					moveCursorTo(font.plainSubstrByWidth(currentText, clickOffset).length() + displayPos);
+					return true;
+				}
 			}
 		}
+		return false;
 	}
 	
 }
