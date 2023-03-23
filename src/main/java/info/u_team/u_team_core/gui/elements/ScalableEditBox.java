@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.api.gui.Scalable;
 import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.util.RGBA;
+import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.network.chat.Component;
@@ -32,15 +33,14 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 	@Override
 	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		final float currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
-		
 		final float positionFactor = 1 / scale;
 		
 		poseStack.pushPose();
 		poseStack.scale(currentScale, currentScale, 0);
 		
-		final RGBA currentTextColor = getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks);
+		final RGBA currentTextColor = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks));
 		
-		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), Mth.floor(getInnerWidth() * positionFactor));
+		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), (int) (getInnerWidth() * positionFactor));
 		
 		final int cursorOffset = cursorPos - displayPos;
 		final int selectionOffset = Math.min(highlightPos - displayPos, currentText.length());
@@ -50,14 +50,13 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 		
 		final int xOffset = (int) ((bordered ? x + 4 : x) * positionFactor);
-		final int yOffset = (int) ((bordered ? y + (int) (height - 8 * scale) / 2 : y) * positionFactor);
+		final int yOffset = (int) ((bordered ? y + (height - 8 * currentScale) / 2 : y) * positionFactor);
 		
 		int leftRenderedTextX = xOffset;
 		
 		if (!currentText.isEmpty()) {
 			final String firstTextPart = isCursorInText ? currentText.substring(0, cursorOffset) : currentText;
 			leftRenderedTextX = font.drawShadow(poseStack, formatter.apply(firstTextPart, displayPos), xOffset, yOffset, currentTextColor.getColorARGB());
-			System.out.println(xOffset + " -> " + leftRenderedTextX + " -> " + currentText);
 		}
 		
 		int rightRenderedTextX = leftRenderedTextX;
@@ -74,12 +73,12 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		}
 		
 		if (!isCursorInTheMiddle && suggestion != null) {
-			font.drawShadow(poseStack, suggestion, rightRenderedTextX - 1, yOffset, getCurrentSuggestionTextColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+			font.drawShadow(poseStack, suggestion, rightRenderedTextX - 1, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentSuggestionTextColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
 		}
 		
 		if (shouldCursorBlink) {
 			if (isCursorInTheMiddle) {
-				GuiComponent.fill(poseStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, getCurrentCursorColor(poseStack, mouseX, mouseY, partialTicks).getColorARGB());
+				GuiComponent.fill(poseStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, WidgetUtil.respectWidgetAlpha(this, getCurrentCursorColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
 			} else {
 				font.drawShadow(poseStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
 			}
@@ -87,24 +86,19 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		
 		// if (selectionOffset != cursorOffset) {
 		// final int selectedX = xOffset + font.width(currentText.substring(0, selectionOffset));
-		// renderHighlight(poseStack, (int) (rightRenderedTextX * scale), (int) ((yOffset - 1) * 1), (int) ((selectedX - 1) *
-		// 2), (int) ((yOffset + 1 + 9) * 1));
+		// renderHighlight(poseStack, rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
 		// }
 		
-		if (selectionOffset != cursorOffset) {
-			final int selectedX = xOffset + (font.width(currentText.substring(0, selectionOffset)));
-			renderHighlight(poseStack, rightRenderedTextX, yOffset - 1, selectedX - 1, yOffset + 1 + 9);
-		}
-		
 		poseStack.popPose();
+		
 	}
 	
 	@Override
 	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		return getCurrentScale(mouseX, mouseY);
+		return getCurrentScale();
 	}
 	
-	public float getCurrentScale(double mouseX, double mouseY) {
+	public float getCurrentScale() {
 		return scale;
 	}
 	
@@ -124,9 +118,9 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 						clickOffset -= 4;
 					}
 					
-					clickOffset /= getCurrentScale(mouseX, mouseY);
+					clickOffset /= getCurrentScale();
 					
-					final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
+					final String currentText = font.plainSubstrByWidth(value.substring(displayPos), (int) (getInnerWidth() * 1 / getCurrentScale()));
 					moveCursorTo(font.plainSubstrByWidth(currentText, clickOffset).length() + displayPos);
 					return true;
 				}
@@ -135,4 +129,32 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		return false;
 	}
 	
+	@Override
+	public void setHighlightPos(int position) {
+		final int valueLength = value.length();
+		
+		highlightPos = Mth.clamp(position, 0, valueLength);
+		
+		if (font != null) {
+			if (displayPos > valueLength) {
+				displayPos = valueLength;
+			}
+			
+			final int scaledInnerWidth = (int) (getInnerWidth() * 1 / getCurrentScale());
+			
+			final String currentText = font.plainSubstrByWidth(value.substring(displayPos), scaledInnerWidth);
+			final int offset = currentText.length() + displayPos;
+			if (highlightPos == displayPos) {
+				displayPos -= font.plainSubstrByWidth(value, scaledInnerWidth, true).length();
+			}
+			
+			if (highlightPos > offset) {
+				displayPos += highlightPos - offset;
+			} else if (highlightPos <= displayPos) {
+				displayPos -= displayPos - highlightPos;
+			}
+			
+			displayPos = Mth.clamp(displayPos, 0, valueLength);
+		}
+	}
 }
