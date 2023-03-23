@@ -30,6 +30,7 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	
 	protected RGBA textColor;
 	protected RGBA disabledTextColor;
+	protected RGBA hintTextColor;
 	protected RGBA suggestionTextColor;
 	
 	protected RGBA cursorColor;
@@ -42,6 +43,7 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 		backgroundColor = BLACK;
 		textColor = LIGHT_GRAY;
 		disabledTextColor = DARK_GRAY;
+		hintTextColor = LIGHT_GRAY;
 		suggestionTextColor = DARKER_GRAY;
 		cursorColor = LIGHTER_GRAY;
 	}
@@ -84,6 +86,14 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	
 	public void setDisabledTextColor(RGBA disabledTextColor) {
 		this.disabledTextColor = disabledTextColor;
+	}
+	
+	public RGBA getHintTextColor() {
+		return hintTextColor;
+	}
+	
+	public void setHintTextColor(RGBA hintTextColor) {
+		this.hintTextColor = hintTextColor;
 	}
 	
 	public RGBA getSuggestionTextColor() {
@@ -179,6 +189,10 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 			font.drawShadow(poseStack, formatter.apply(currentText.substring(cursorOffset), cursorPos), leftRenderedTextX, yOffset, currentTextColor.getColorARGB());
 		}
 		
+		if (hint != null && currentText.isEmpty() && !isFocused()) {
+			font.drawShadow(poseStack, hint, leftRenderedTextX, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentHintTextColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
+		}
+		
 		if (!isCursorInTheMiddle && suggestion != null) {
 			font.drawShadow(poseStack, suggestion, rightRenderedTextX - 1, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentSuggestionTextColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
 		}
@@ -209,6 +223,10 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	@Override
 	public RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
 		return isEditable ? textColor : disabledTextColor;
+	}
+	
+	public RGBA getCurrentHintTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+		return hintTextColor;
 	}
 	
 	public RGBA getCurrentSuggestionTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
