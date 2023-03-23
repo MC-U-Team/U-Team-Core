@@ -1,5 +1,7 @@
 package info.u_team.u_team_test.screen;
 
+import java.text.DecimalFormat;
+
 import org.slf4j.Logger;
 
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -30,6 +32,9 @@ public class ButtonTestScreen extends UScreen {
 	private static final ResourceLocation TEXTURE1 = new ResourceLocation(TestMod.MODID, "textures/item/better_enderpearl.png");
 	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMod.MODID, "textures/item/basic_item.png");
 	
+	private double mouseX;
+	private double mouseY;
+	
 	private UEditBox textFieldWidget;
 	private ScalableEditBox scalableTextFieldWidget;
 	private ScalableEditBox scalableTextFieldWidget2;
@@ -45,6 +50,12 @@ public class ButtonTestScreen extends UScreen {
 	
 	@Override
 	protected void init() {
+		final DecimalFormat format = new DecimalFormat("#,###.00");
+		// Mouse coord overlay
+		final ScalableText mouseCoords = addRenderableOnly(new ScalableText(font, () -> "Mouse X: " + format.format(mouseX) + " Y: " + format.format(mouseY), 2, 2));
+		mouseCoords.setColor(new RGBA(0xFFFF00FF));
+		mouseCoords.setScale(0.5F);
+		
 		// U Button Test
 		final UButton uButton = addRenderableWidget(new UButton(10, 10, 200, 15, Component.literal("U Button")));
 		uButton.setPressable(() -> LOGGER.info("Pressed U Button"));
@@ -209,5 +220,12 @@ public class ButtonTestScreen extends UScreen {
 		scalingRenderer.render(poseStack, mouseX, mouseY, partialTicks);
 		scrollingRenderer.render(poseStack, mouseX, mouseY, partialTicks);
 		scrollingList.render(poseStack, mouseX, mouseY, partialTicks);
+	}
+	
+	@Override
+	public void mouseMoved(double mouseX, double mouseY) {
+		super.mouseMoved(mouseX, mouseY);
+		this.mouseX = mouseX;
+		this.mouseY = mouseY;
 	}
 }
