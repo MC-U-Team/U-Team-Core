@@ -22,30 +22,30 @@ public class WidgetUtil {
 	
 	private static final String ELLIPSIS = "...";
 	
-	public static <T extends AbstractWidget & WidgetRenderable & BackgroundColorProvider> void renderWidget(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends AbstractWidget & WidgetRenderable & BackgroundColorProvider> void renderWidget(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		RenderSystem.enableDepthTest();
 		
-		widget.renderWidgetTexture(poseStack, mouseX, mouseY, partialTicks);
-		widget.renderBackground(poseStack, mouseX, mouseY, partialTicks);
-		widget.renderForeground(poseStack, mouseX, mouseY, partialTicks);
-		if (widget instanceof TooltipRenderable tooltipRenderable) {
-			renderCustomTooltipForWidget(tooltipRenderable, poseStack, mouseX, mouseY, partialTicks);
+		widget.renderWidgetTexture(poseStack, mouseX, mouseY, partialTick);
+		widget.renderBackground(poseStack, mouseX, mouseY, partialTick);
+		widget.renderForeground(poseStack, mouseX, mouseY, partialTick);
+		if (widget instanceof final TooltipRenderable tooltipRenderable) {
+			renderCustomTooltipForWidget(tooltipRenderable, poseStack, mouseX, mouseY, partialTick);
 		}
 	}
 	
-	public static <T extends AbstractWidget & BackgroundColorProvider> void renderButtonLikeTexture(T widget, TextureProvider textureProvider, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTicks));
+	public static <T extends AbstractWidget & BackgroundColorProvider> void renderButtonLikeTexture(T widget, TextureProvider textureProvider, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTick));
 		RenderUtil.drawContinuousTexturedBox(poseStack, widget.getX(), widget.getY(), textureProvider.getU(), textureProvider.getV(), widget.getWidth(), widget.getHeight(), textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, 0, textureProvider.getTexture(), color);
 	}
 	
-	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		final Font font = widget.getCurrentTextFont();
 		final TextRenderType renderType = widget.getCurrentTextRenderType();
 		final Component message = widget.getCurrentText();
-		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks));
+		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTick));
 		final float scale;
-		if (widget instanceof ScaleProvider scaleProvider) {
-			scale = scaleProvider.getCurrentScale(poseStack, mouseY, mouseY, partialTicks);
+		if (widget instanceof final ScaleProvider scaleProvider) {
+			scale = scaleProvider.getCurrentScale(poseStack, mouseY, mouseY, partialTick);
 		} else {
 			scale = 1;
 		}
@@ -58,15 +58,15 @@ public class WidgetUtil {
 		poseStack.scale(scale, scale, 0);
 		
 		if (renderType == TextRenderType.ELLIPSIS) {
-			renderTextWithCutoff(widget, font, message, color, scale, poseStack, mouseX, mouseY, partialTicks);
+			renderTextWithCutoff(widget, font, message, color, scale, poseStack, mouseX, mouseY, partialTick);
 		} else if (renderType == TextRenderType.SCROLLING) {
-			renderTextWithScrolling(widget, font, message, color, scale, poseStack, mouseX, mouseY, partialTicks);
+			renderTextWithScrolling(widget, font, message, color, scale, poseStack, mouseX, mouseY, partialTick);
 		}
 		
 		poseStack.popPose();
 	}
 	
-	private static void renderTextWithScrolling(AbstractWidget widget, Font font, Component message, RGBA color, float scale, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	private static void renderTextWithScrolling(AbstractWidget widget, Font font, Component message, RGBA color, float scale, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		final float positionFactor = 1 / scale;
 		
 		final int maxWidth = widget.getWidth() - 6;
@@ -79,9 +79,9 @@ public class WidgetUtil {
 			
 			// Copied from vanilla
 			final double d0 = Util.getMillis() / 1000D;
-			final double d1 = Math.max((double) difference * 0.5D, 3.0D);
+			final double d1 = Math.max(difference * 0.5D, 3.0D);
 			final double d2 = Math.sin((Math.PI / 2D) * Math.cos((Math.PI * 2D) * d0 / d1)) / 2.0D + 0.5D;
-			final double d3 = Mth.lerp(d2, 0.0D, (double) difference);
+			final double d3 = Mth.lerp(d2, 0.0D, difference);
 			
 			final float xStart = (widget.getX() + 3 - (int) d3) * positionFactor;
 			
@@ -94,7 +94,7 @@ public class WidgetUtil {
 		}
 	}
 	
-	private static void renderTextWithCutoff(AbstractWidget widget, Font font, Component message, RGBA color, float scale, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	private static void renderTextWithCutoff(AbstractWidget widget, Font font, Component message, RGBA color, float scale, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		final float positionFactor = 1 / scale;
 		
 		final int maxWidth = widget.getWidth() - 6;
@@ -116,10 +116,10 @@ public class WidgetUtil {
 		return color.setAlphaComponent(color.getAlphaComponent() * Mth.clamp(widget.alpha, 0, 1));
 	}
 	
-	public static void renderCustomTooltipForWidget(TooltipRenderable renderable, PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public static void renderCustomTooltipForWidget(TooltipRenderable renderable, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		poseStack.pushPose();
 		poseStack.translate(0, 0, 400);
-		renderable.renderTooltip(poseStack, mouseX, mouseY, partialTicks);
+		renderable.renderTooltip(poseStack, mouseX, mouseY, partialTick);
 		poseStack.popPose();
 	}
 }

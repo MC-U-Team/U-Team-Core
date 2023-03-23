@@ -41,18 +41,18 @@ public class ImageButton extends UButton {
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final ResourceLocation image = getCurrentImage(poseStack, mouseX, mouseY, partialTicks);
-		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentImageColor(poseStack, mouseX, mouseY, partialTicks));
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		final ResourceLocation image = getCurrentImage(poseStack, mouseX, mouseY, partialTick);
+		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentImageColor(poseStack, mouseX, mouseY, partialTick));
 		
 		RenderUtil.drawTexturedQuad(poseStack, x + 2, x + width - 2, y + 2, y + height - 2, 0, 1, 0, 1, 0, image, color);
 	}
 	
-	public ResourceLocation getCurrentImage(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public ResourceLocation getCurrentImage(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return image;
 	}
 	
-	public RGBA getCurrentImageColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentImageColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return imageColor;
 	}
 }

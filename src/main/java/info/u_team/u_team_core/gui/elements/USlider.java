@@ -91,32 +91,32 @@ public non-sealed class USlider extends AbstractSliderLogic implements WidgetRen
 	}
 	
 	@Override
-	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderWidget(this, poseStack, mouseX, mouseY, partialTicks);
+	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		WidgetUtil.renderWidget(this, poseStack, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderButtonLikeTexture(this, sliderBackgroundTextureProvider, poseStack, mouseX, mouseY, partialTicks);
+	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		WidgetUtil.renderButtonLikeTexture(this, sliderBackgroundTextureProvider, poseStack, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentSliderColor(poseStack, mouseX, mouseY, partialTicks));
+	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentSliderColor(poseStack, mouseX, mouseY, partialTick));
 		RenderUtil.drawContinuousTexturedBox(poseStack, x + (int) (value * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, 0, sliderTextureProvider.getTexture(), color);
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderText(this, poseStack, mouseX, mouseY, partialTicks);
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		WidgetUtil.renderText(this, poseStack, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return sliderBackgroundColor;
 	}
 	
-	public RGBA getCurrentSliderColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentSliderColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return sliderColor;
 	}
 	
@@ -126,12 +126,12 @@ public non-sealed class USlider extends AbstractSliderLogic implements WidgetRen
 	}
 	
 	@Override
-	public RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return active ? textColor : disabledTextColor;
 	}
 	
 	@Override
-	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return scale;
 	}
 }

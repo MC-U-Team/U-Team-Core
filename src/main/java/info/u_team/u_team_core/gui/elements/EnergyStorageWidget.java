@@ -52,14 +52,14 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	}
 	
 	@Override
-	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		renderBackground(poseStack, mouseX, mouseY, partialTicks);
-		renderForeground(poseStack, mouseX, mouseY, partialTicks);
-		WidgetUtil.renderCustomTooltipForWidget(this, poseStack, mouseX, mouseY, partialTicks);
+	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		renderBackground(poseStack, mouseX, mouseY, partialTick);
+		renderForeground(poseStack, mouseX, mouseY, partialTick);
+		WidgetUtil.renderCustomTooltipForWidget(this, poseStack, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		double ratio = (double) storage.getAsLong() / capacity.getAsLong();
 		if (ratio > 1) {
 			ratio = 1;
@@ -97,12 +97,12 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		RenderUtil.drawContainerBorder(poseStack, x, y, width, height, 0, RGBA.WHITE);
 	}
 	
 	@Override
-	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		if (isHovered) {
 			final Minecraft minecraft = Minecraft.getInstance();
 			

@@ -53,7 +53,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	}
 	
 	@Override
-	public abstract void render(PoseStack poseStack, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovered, float partialTicks);
+	public abstract void render(PoseStack poseStack, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovered, float partialTick);
 	
 	@SuppressWarnings("deprecation")
 	protected AbstractSelectionList<T> getList() {

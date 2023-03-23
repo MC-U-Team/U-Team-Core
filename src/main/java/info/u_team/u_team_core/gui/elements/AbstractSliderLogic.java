@@ -114,7 +114,7 @@ public abstract sealed class AbstractSliderLogic extends AbstractSliderButton pe
 	}
 	
 	public void setValue(double newValue) {
-		this.value = clampValues((newValue - minValue) / (maxValue - minValue));
+		value = clampValues((newValue - minValue) / (maxValue - minValue));
 		updateSliderText();
 	}
 	

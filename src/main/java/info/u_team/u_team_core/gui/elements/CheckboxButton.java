@@ -96,19 +96,19 @@ public class CheckboxButton extends UButton {
 	}
 	
 	@Override
-	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTicks));
+	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTick));
 		RenderUtil.drawTexturedQuad(poseStack, x, y, width, height, buttonTextureProvider.getWidth(), buttonTextureProvider.getHeight(), buttonTextureProvider.getU(), buttonTextureProvider.getV(), 64, 64, 0, buttonTextureProvider.getTexture(), color);
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		if (drawText) {
 			final Font font = getCurrentTextFont();
 			
 			final Component message = getCurrentText();
 			if (message != CommonComponents.EMPTY) {
-				final float currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
+				final float currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTick);
 				
 				final float positionFactor = 1 / currentScale;
 				
@@ -121,7 +121,7 @@ public class CheckboxButton extends UButton {
 					xStart = (x + width + 4) * positionFactor;
 				}
 				
-				final int color = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(poseStack, mouseY, mouseY, partialTicks)).getColorARGB();
+				final int color = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(poseStack, mouseY, mouseY, partialTick)).getColorARGB();
 				
 				poseStack.pushPose();
 				poseStack.scale(currentScale, currentScale, 0);

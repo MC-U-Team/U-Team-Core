@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.Gui;
+import net.minecraft.client.gui.GuiComponent;
 import net.minecraft.util.Mth;
 
 public class ScrollingText extends ScalableText {
@@ -75,8 +75,8 @@ public class ScrollingText extends ScalableText {
 	}
 	
 	@Override
-	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		Gui.enableScissor(Mth.ceil(x), Mth.ceil(y), Mth.ceil(x + width), Mth.ceil(y + ((font.lineHeight + 1) * scale)));
+	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		GuiComponent.enableScissor(Mth.ceil(x), Mth.ceil(y), Mth.ceil(x + width), Mth.ceil(y + ((font.lineHeight + 1) * scale)));
 		
 		// Uncomment to test scissor
 		// poseStack.pushPose();
@@ -87,7 +87,7 @@ public class ScrollingText extends ScalableText {
 		setText(textSupplier.get());
 		renderFont(poseStack, font, getMovingX(x), y + 2 * scale);
 		
-		Gui.disableScissor();
+		GuiComponent.disableScissor();
 	}
 	
 	protected float getMovingX(float x) {

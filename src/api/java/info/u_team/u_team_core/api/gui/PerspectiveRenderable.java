@@ -7,10 +7,10 @@ import net.minecraft.client.gui.components.Renderable;
 public interface PerspectiveRenderable extends Renderable {
 	
 	@Override
-	void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
+	void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick);
 	
-	void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
+	void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTick);
 	
-	void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
+	void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick);
 	
 }

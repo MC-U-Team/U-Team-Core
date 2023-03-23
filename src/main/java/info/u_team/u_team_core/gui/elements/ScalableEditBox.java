@@ -31,14 +31,14 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final float currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTicks);
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		final float currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTick);
 		final float positionFactor = 1 / scale;
 		
 		poseStack.pushPose();
 		poseStack.scale(currentScale, currentScale, 0);
 		
-		final RGBA currentTextColor = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks));
+		final RGBA currentTextColor = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(poseStack, mouseX, mouseY, partialTick));
 		
 		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), (int) (getInnerWidth() * positionFactor));
 		
@@ -73,16 +73,16 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		}
 		
 		if (hint != null && currentText.isEmpty() && !isFocused()) {
-			font.drawShadow(poseStack, hint, leftRenderedTextX, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentHintTextColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
+			font.drawShadow(poseStack, hint, leftRenderedTextX, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentHintTextColor(poseStack, mouseX, mouseY, partialTick)).getColorARGB());
 		}
 		
 		if (!isCursorInTheMiddle && suggestion != null) {
-			font.drawShadow(poseStack, suggestion, rightRenderedTextX - 1, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentSuggestionTextColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
+			font.drawShadow(poseStack, suggestion, rightRenderedTextX - 1, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentSuggestionTextColor(poseStack, mouseX, mouseY, partialTick)).getColorARGB());
 		}
 		
 		if (shouldCursorBlink) {
 			if (isCursorInTheMiddle) {
-				GuiComponent.fill(poseStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, WidgetUtil.respectWidgetAlpha(this, getCurrentCursorColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
+				GuiComponent.fill(poseStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, WidgetUtil.respectWidgetAlpha(this, getCurrentCursorColor(poseStack, mouseX, mouseY, partialTick)).getColorARGB());
 			} else {
 				font.drawShadow(poseStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
 			}
@@ -153,7 +153,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 	}
 	
 	@Override
-	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return getCurrentScale();
 	}
 	

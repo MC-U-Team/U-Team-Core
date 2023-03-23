@@ -43,7 +43,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 	@Override
 	protected void onHitEntity(EntityHitResult result) {
 		super.onHitEntity(result);
-		result.getEntity().hurt(this.damageSources().thrown(this, getOwner()), 0);
+		result.getEntity().hurt(damageSources().thrown(this, getOwner()), 0);
 	}
 	
 	@Override
@@ -66,7 +66,7 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 					}
 					
 					entity.fallDistance = 0;
-					entity.hurt(this.damageSources().fall(), 2);
+					entity.hurt(damageSources().fall(), 2);
 				}
 			} else if (entity != null) {
 				entity.teleportTo(getX(), getY(), getZ());

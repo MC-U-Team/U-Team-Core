@@ -16,7 +16,7 @@ public interface TextSettingsProvider {
 		return TextRenderType.SCROLLING;
 	}
 	
-	RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
+	RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick);
 	
 	static enum TextRenderType {
 		SCROLLING,

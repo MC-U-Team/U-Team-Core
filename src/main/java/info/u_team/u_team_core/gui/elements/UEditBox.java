@@ -140,22 +140,22 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	}
 	
 	@Override
-	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		renderBackground(poseStack, mouseX, mouseY, partialTicks);
-		renderForeground(poseStack, mouseX, mouseY, partialTicks);
+	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		renderBackground(poseStack, mouseX, mouseY, partialTick);
+		renderForeground(poseStack, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		if (bordered) {
-			fill(poseStack, x - 1, y - 1, x + width + 1, y + height + 1, WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundFrameColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
-			fill(poseStack, x, y, x + width, y + height, WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
+			fill(poseStack, x - 1, y - 1, x + width + 1, y + height + 1, WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundFrameColor(poseStack, mouseX, mouseY, partialTick)).getColorARGB());
+			fill(poseStack, x, y, x + width, y + height, WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(poseStack, mouseX, mouseY, partialTick)).getColorARGB());
 		}
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		final RGBA currentTextColor = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(poseStack, mouseX, mouseY, partialTicks));
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		final RGBA currentTextColor = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(poseStack, mouseX, mouseY, partialTick));
 		
 		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
 		
@@ -190,16 +190,16 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 		}
 		
 		if (hint != null && currentText.isEmpty() && !isFocused()) {
-			font.drawShadow(poseStack, hint, leftRenderedTextX, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentHintTextColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
+			font.drawShadow(poseStack, hint, leftRenderedTextX, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentHintTextColor(poseStack, mouseX, mouseY, partialTick)).getColorARGB());
 		}
 		
 		if (!isCursorInTheMiddle && suggestion != null) {
-			font.drawShadow(poseStack, suggestion, rightRenderedTextX - 1, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentSuggestionTextColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
+			font.drawShadow(poseStack, suggestion, rightRenderedTextX - 1, yOffset, WidgetUtil.respectWidgetAlpha(this, getCurrentSuggestionTextColor(poseStack, mouseX, mouseY, partialTick)).getColorARGB());
 		}
 		
 		if (shouldCursorBlink) {
 			if (isCursorInTheMiddle) {
-				GuiComponent.fill(poseStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, WidgetUtil.respectWidgetAlpha(this, getCurrentCursorColor(poseStack, mouseX, mouseY, partialTicks)).getColorARGB());
+				GuiComponent.fill(poseStack, rightRenderedTextX, yOffset - 1, rightRenderedTextX + 1, yOffset + 1 + 9, WidgetUtil.respectWidgetAlpha(this, getCurrentCursorColor(poseStack, mouseX, mouseY, partialTick)).getColorARGB());
 			} else {
 				font.drawShadow(poseStack, "_", rightRenderedTextX, yOffset, currentTextColor.getColorARGB());
 			}
@@ -212,28 +212,28 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return backgroundColor;
 	}
 	
-	public RGBA getCurrentBackgroundFrameColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundFrameColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return isFocused() ? backgroundFrameColor : unfocusedBackgroundFrameColor;
 	}
 	
 	@Override
-	public RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return isEditable ? textColor : disabledTextColor;
 	}
 	
-	public RGBA getCurrentHintTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentHintTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return hintTextColor;
 	}
 	
-	public RGBA getCurrentSuggestionTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentSuggestionTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return suggestionTextColor;
 	}
 	
-	public RGBA getCurrentCursorColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentCursorColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return cursorColor;
 	}
 }

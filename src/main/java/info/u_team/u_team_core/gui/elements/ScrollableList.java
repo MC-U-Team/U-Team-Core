@@ -84,8 +84,8 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	}
 	
 	@Override
-	protected void renderList(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		super.renderList(poseStack, mouseX, mouseY, partialTicks);
+	protected void renderList(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		super.renderList(poseStack, mouseX, mouseY, partialTick);
 		
 		if (renderTransparentBorder) {
 			final Tesselator tessellator = Tesselator.getInstance();

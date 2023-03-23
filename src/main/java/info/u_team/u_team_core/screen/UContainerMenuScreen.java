@@ -78,24 +78,24 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	}
 	
 	@Override
-	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		renderBackground(poseStack, mouseX, mouseY, partialTicks);
-		super.render(poseStack, mouseX, mouseY, partialTicks);
-		renderForeground(poseStack, mouseX, mouseY, partialTicks);
-		renderTooltip(poseStack, mouseX, mouseY, partialTicks);
+	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		renderBackground(poseStack, mouseX, mouseY, partialTick);
+		super.render(poseStack, mouseX, mouseY, partialTick);
+		renderForeground(poseStack, mouseX, mouseY, partialTick);
+		renderTooltip(poseStack, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		renderBackground(poseStack);
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 	}
 	
 	@Override
-	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		renderTooltip(poseStack, mouseX, mouseY);
 	}
 	
@@ -111,7 +111,7 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	}
 	
 	@Override
-	protected void renderBg(PoseStack poseStack, float partialTicks, int mouseX, int mouseY) {
+	protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
 		RenderUtil.drawTexturedQuad(poseStack, leftPos, topPos, imageWidth, imageHeight, imageWidth, imageHeight, 0, 0, backgroundWidth, backgroundHeight, 0, background, backgroundColor);
 	}
 	

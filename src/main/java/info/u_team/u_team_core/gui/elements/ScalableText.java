@@ -121,7 +121,7 @@ public class ScalableText implements Renderable, Scalable {
 	}
 	
 	@Override
-	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		// Get new text and set if has changed
 		setText(textSupplier.get());
 		renderFont(poseStack, font, x, y);

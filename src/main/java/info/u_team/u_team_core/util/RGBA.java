@@ -254,7 +254,7 @@ public class RGBA {
 	
 	/**
 	 * Returns an {@link RGBA} object from an {@link RGB} object with 255 alpha value
-	 * 
+	 *
 	 * @param rgb RGB object
 	 * @return RGBA object
 	 */
@@ -264,7 +264,7 @@ public class RGBA {
 	
 	/**
 	 * Returns an {@link RGBA} object from an {@link RGB} object with a specific alpha value
-	 * 
+	 *
 	 * @param rgb RGB object
 	 * @param alpha Alpha value between 0 and 255
 	 * @return RGBA object

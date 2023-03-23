@@ -184,7 +184,7 @@ public class RGB {
 	
 	/**
 	 * Returns an {@link RGB} object from an {@link RGBA} object. Alpha value is lost in that conversion.
-	 * 
+	 *
 	 * @param rgba RGBA object
 	 * @return RGB object
 	 */

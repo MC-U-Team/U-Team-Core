@@ -94,26 +94,26 @@ public class UButton extends Button implements WidgetRenderable, BackgroundColor
 	}
 	
 	@Override
-	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderWidget(this, poseStack, mouseX, mouseY, partialTicks);
+	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		WidgetUtil.renderWidget(this, poseStack, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderButtonLikeTexture(this, buttonTextureProvider, poseStack, mouseX, mouseY, partialTicks);
+	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		WidgetUtil.renderButtonLikeTexture(this, buttonTextureProvider, poseStack, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-		WidgetUtil.renderText(this, poseStack, mouseX, mouseY, partialTicks);
+	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+		WidgetUtil.renderText(this, poseStack, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return buttonColor;
 	}
 	
@@ -123,12 +123,12 @@ public class UButton extends Button implements WidgetRenderable, BackgroundColor
 	}
 	
 	@Override
-	public RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return active ? textColor : disabledTextColor;
 	}
 	
 	@Override
-	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return scale;
 	}
 	

@@ -4,6 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 public interface TooltipRenderable {
 	
-	void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTicks);
+	void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTick);
 	
 }

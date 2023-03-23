@@ -9,7 +9,7 @@ import net.minecraft.network.chat.Component;
 public class BasicTestListEntry extends ScrollableListEntry<BasicTestListEntry> {
 	
 	@Override
-	public void render(PoseStack poseStack, int slotIndex, int entryY, int entryX, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float partialTicks) {
+	public void render(PoseStack poseStack, int slotIndex, int entryY, int entryX, int entryWidth, int entryHeight, int mouseX, int mouseY, boolean hovered, float partialTick) {
 		minecraft.font.draw(poseStack, "Test, Entry!", entryX + 10, entryY + 5, 0xFFFFFF);
 	}
 	

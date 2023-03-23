@@ -38,7 +38,7 @@ public class ActivatableButton extends UButton {
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
 		return activated ? activatedColor : buttonColor;
 	}
 }
