@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.4-4.6.1.243] - 2023-03-23
+### Changed
+ - Remove unused parameter in USlider
+ - Fix broken scissor for scolling text renderer when translating the pose stack
+ 
 ## [1.19.4-4.6.0.242] - 2023-03-23
 ### Changed
  - Rework ugui elements
