@@ -2,6 +2,9 @@ package info.u_team.u_team_core.gui.elements;
 
 import java.util.function.Supplier;
 
+import org.joml.Matrix4f;
+import org.joml.Vector4f;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.gui.Font;
@@ -76,12 +79,20 @@ public class ScrollingText extends ScalableText {
 	
 	@Override
 	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		GuiComponent.enableScissor(Mth.ceil(x), Mth.ceil(y), Mth.ceil(x + width), Mth.ceil(y + ((font.lineHeight + 1) * scale)));
+		final Matrix4f matrix = poseStack.last().pose();
+		
+		final Vector4f vectorXY = new Vector4f(x, y, 0, 1);
+		final Vector4f vectorWH = new Vector4f(x + width, y + ((font.lineHeight + 1) * scale), 0, 1);
+		vectorXY.mul(matrix);
+		vectorWH.mul(matrix);
+		
+		GuiComponent.enableScissor(Mth.ceil(vectorXY.x), Mth.ceil(vectorXY.y), Mth.ceil(vectorWH.x), Mth.ceil(vectorWH.y));
 		
 		// Uncomment to test scissor
 		// poseStack.pushPose();
 		// poseStack.last().pose().identity();
-		// GuiComponent.fill(poseStack, 0, 0, window.getGuiScaledWidth(), window.getGuiScaledHeight(), 0x8F00FF00);
+		// GuiComponent.fill(poseStack, 0, 0, Minecraft.getInstance().getWindow().getGuiScaledWidth(),
+		// Minecraft.getInstance().getWindow().getGuiScaledHeight(), 0x8F00FF00);
 		// poseStack.popPose();
 		
 		setText(textSupplier.get());
