@@ -30,7 +30,7 @@ public class BasicBlockEntityScreen extends UContainerMenuScreen<BasicBlockEntit
 			menu.getValueMessage().triggerMessage();
 		}));
 		
-		slider = addRenderableWidget(new USlider(leftPos + 7, topPos + 19, 162, 20, Component.nullToEmpty("Cooldown: "), Component.nullToEmpty(" Ticks"), 0, 100, menu.getBlockEntity().getCooldown(), false, true, true, slider -> {
+		slider = addRenderableWidget(new USlider(leftPos + 7, topPos + 19, 162, 20, Component.nullToEmpty("Cooldown: "), Component.nullToEmpty(" Ticks"), 0, 100, menu.getBlockEntity().getCooldown(), false, true, slider -> {
 			menu.getCooldownMessage().triggerMessage(() -> new FriendlyByteBuf(Unpooled.copyShort(slider.getValueInt())));
 		}));
 	}

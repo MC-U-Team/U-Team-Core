@@ -113,21 +113,21 @@ public class ButtonTestScreen extends UScreen {
 		imageToggleButton2.setTooltip(Tooltip.create(Component.literal("Image Toggle Button 2 Tooltip")));
 		
 		// U Slider Test
-		final USlider uSlider = addRenderableWidget(new USlider(10, 130, 200, 20, Component.literal("U Slider: "), Component.literal("%"), 0, 100, 20, false, true, false));
+		final USlider uSlider = addRenderableWidget(new USlider(10, 130, 200, 20, Component.literal("U Slider: "), Component.literal("%"), 0, 100, 20, false, true));
 		uSlider.setSlider(() -> {
 			LOGGER.info("Updated U Slider: " + uSlider.getValueInt());
 		});
 		uSlider.setTooltip(Tooltip.create(Component.literal("U Slider Tooltip")));
 		
 		// Scalable Slider Test
-		final USlider scalableSlider = addRenderableWidget(new USlider(10, 155, 200, 15, Component.literal("Scalable Slider: "), Component.literal("%"), 0, 100, 20, false, true, false));
+		final USlider scalableSlider = addRenderableWidget(new USlider(10, 155, 200, 15, Component.literal("Scalable Slider: "), Component.literal("%"), 0, 100, 20, false, true));
 		scalableSlider.setScale(0.5F);
 		scalableSlider.setSlider(() -> {
 			LOGGER.info("Updated Scalable Slider: " + scalableSlider.getValueInt());
 		});
 		scalableSlider.setTooltip(Tooltip.create(Component.literal("Scalable Slider Tooltip")));
 		
-		final USlider scalableSlider2 = addRenderableWidget(new USlider(10, 175, 200, 30, Component.literal("Scalable Slider 2: "), Component.literal("%"), 0, 100, 20, false, true, false));
+		final USlider scalableSlider2 = addRenderableWidget(new USlider(10, 175, 200, 30, Component.literal("Scalable Slider 2: "), Component.literal("%"), 0, 100, 20, false, true));
 		scalableSlider2.setScale(1.5F);
 		scalableSlider2.setSliderBackgroundColor(new RGBA(0x0000FFFF));
 		scalableSlider2.setSliderColor(new RGBA(0x00FF00FF));
