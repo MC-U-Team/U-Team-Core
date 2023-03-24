@@ -213,7 +213,7 @@ curseforge {
 		}
 		
 		mainArtifact(tasks.getByName("jar")) {
-			displayName = "${config.curse.display}-${config.minecraft.version}-${project.version}"
+			displayName = "${config.curse.display}-Forge-${config.minecraft.version}-${project.version}"
 			changelogType = "html"
 			changelog = "<a href=\"${gradlefiles.changelogUrl()}\">Changelog of ${project.version}</a>"
 		}
