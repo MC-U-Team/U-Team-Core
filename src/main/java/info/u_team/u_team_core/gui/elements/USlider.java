@@ -20,8 +20,6 @@ public non-sealed class USlider extends AbstractSliderLogic implements WidgetRen
 	protected static final RGBA WHITE = UButton.WHITE;
 	protected static final RGBA LIGHT_GRAY = UButton.LIGHT_GRAY;
 	
-	protected final boolean isInContainer;
-	
 	protected TextureProvider sliderBackgroundTextureProvider;
 	protected RGBA sliderBackgroundColor;
 	
@@ -33,13 +31,12 @@ public non-sealed class USlider extends AbstractSliderLogic implements WidgetRen
 	
 	protected float scale = 1;
 	
-	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer) {
-		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, isInContainer, EMPTY_SLIDER);
+	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription) {
+		this(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, EMPTY_SLIDER);
 	}
 	
-	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, boolean isInContainer, OnSliderChange slider) {
+	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, OnSliderChange slider) {
 		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, slider);
-		this.isInContainer = isInContainer;
 		sliderBackgroundTextureProvider = new WidgetTextureProvider(SLIDER_LOCATION, this::getTextureY);
 		sliderBackgroundColor = WHITE;
 		sliderTextureProvider = new WidgetTextureProvider(SLIDER_LOCATION, this::getHandleTextureY);
