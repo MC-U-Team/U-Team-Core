@@ -1,0 +1,33 @@
+{
+	"schemaVersion": 1,
+	"id": "uteamcore",
+	"version": "${version}",
+	"name": "U Team Core",
+	"description": "Join our discord server here: https://discord.u-team.info\n\nThis library contains many useful modding stuff!",
+	"authors": [
+		"HyCraftHD",
+		"MrTroble"
+	],
+	"contact": {
+		"homepage": "https://u-team.info/mods/uteamcore",
+		"sources": "https://github.com/MC-U-Team/U-Team-Core"
+	},
+	"license": "Apache-2.0 License",
+	"icon": "logo.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"info.u_team.u_team_core.UCoreMod"
+		]
+	},
+	"accessWidener": "uteamcore.accesswidener",
+	"mixins": [],
+	"depends": {
+		"fabricloader": ">=0.14.12",
+		"minecraft": "1.19.3",
+		"java": ">=17"
+	},
+	"custom": {
+		"uteamcore:update_url": "https://api.u-team.info/update/uteamcore_fabric.json"
+	}
+}

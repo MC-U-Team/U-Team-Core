@@ -1,0 +1,272 @@
+buildscript {
+	repositories {
+		maven {
+			url = "https://maven.minecraftforge.net"
+		}
+		maven {
+			url = "https://maven.parchmentmc.org"
+		}
+		maven {
+			url = "https://repo.u-team.info"
+		}
+		mavenCentral()
+	}
+	dependencies {
+		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
+		classpath group: "org.parchmentmc", name: "librarian", version: "1.+", changing: true
+		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "2.0.0"
+		classpath group: "info.u-team.curse_gradle_uploader", name: "curse_gradle_uploader", version: "1.5.1"
+	}
+}
+
+apply plugin: "net.minecraftforge.gradle"
+apply plugin: "org.parchmentmc.librarian.forgegradle"
+apply plugin: "info.u_team.gradle_files"
+apply plugin: "info.u_team.curse_gradle_uploader"
+apply plugin: "maven-publish"
+
+gradlefiles.loaderSuffix = "forge"
+
+group = rootProject.group
+archivesBaseName = gradlefiles.archivesBaseName()
+version = gradlefiles.version()
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+	withSourcesJar()
+	withJavadocJar()
+}
+
+sourceSets {
+	test_mod
+}
+
+minecraft {
+	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
+	
+	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+	
+	runs {
+		client = {
+			workingDirectory file("run/client")
+			
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+				
+				uteamtest {
+					source sourceSets.test_mod
+				}
+			}
+		}
+		server = {
+			workingDirectory file("run/server")
+			
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+				
+				uteamtest {
+					source sourceSets.test_mod
+				}
+			}
+		}
+		data = {
+			workingDirectory file("run/data")
+			
+			args "--mod", config.mod.modid
+			args "--all"
+			args "--output", file("src/generated/resources")
+			args "--validate"
+			args "--existing", file("src/main/resources")
+			
+			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
+			
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+			}
+		}
+		data_test = {
+			workingDirectory file("run/data")
+			
+			setParents(data.getParents())
+			
+			args "--mod", "uteamtest"
+			args "--all"
+			args "--output", file("src/generated_test_mod/resources")
+			args "--validate"
+			args "--existing", file("src/test_mod/resources")
+			args "--existing-mod", "uteamcore"
+			
+			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
+			
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+				
+				uteamtest {
+					source sourceSets.test_mod
+				}
+			}
+		}
+	}
+}
+
+def testJarTask = tasks.create("testJar", Jar) {
+	archiveClassifier = "test"
+	
+	from sourceSets.test_mod.output
+}
+
+gradlefiles.createReobfJar(tasks.getByName("testJar"))
+
+def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
+	archiveClassifier = "testsources"
+	
+	from sourceSets.test_mod.allJava
+}
+
+gradlefiles.assembleDependOn(testJarTask, testSourcesJarTask)
+
+tasks.withType(Jar) { task ->
+	gradlefiles.defaultJar(task)
+}
+
+tasks.withType(Javadoc) { task ->
+	task.options.addStringOption("Xdoclint:none", "-quiet")
+}
+
+gradlefiles.signDefaultForgeJar()
+gradlefiles.signJar("reobfTestJar")
+
+processResources {
+	doLast {
+		fileTree(dir: outputs.files.asPath, include: "**/*.json").each { File file ->
+			file.text = groovy.json.JsonOutput.toJson(new groovy.json.JsonSlurper().parse(file))
+		}
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			srcDirs += "src/data/java"
+			srcDirs += "src/api/java"
+			srcDirs += "src/integration/java"
+			srcDirs += project(":common").file("src/common/java")
+		}
+		resources {
+			srcDirs += "src/generated/resources"
+			srcDirs += project(":common").file("src/common/resources")
+		}
+	}
+	test_mod {
+		java {
+			srcDirs += "src/data_test_mod/java"
+			srcDirs += "src/integration_test_mod/java"
+		}
+		resources {
+			srcDirs += "src/generated_test_mod/resources"
+		}
+		compileClasspath += main.runtimeClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
+}
+
+repositories {
+	maven {
+		url = "https://maven.blamejared.com"
+	}
+}
+
+dependencies {
+	minecraft gradlefiles.forgeDependency()
+	
+	//compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
+	//compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
+	//runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
+}
+
+curseforge {
+	apiKey = defaultPropertyValue("curseforge.token")
+	
+	project {
+		id = config.curse.id
+		releaseType = config.curse.type
+		
+		addGameVersion config.minecraft.version
+		addGameVersion "Forge"
+		addGameVersion "Java 17"
+		
+		relations {
+			optionalDependency "basic-discord-rich-presence"
+			optionalDependency "jei"
+		}
+		
+		mainArtifact(tasks.getByName("jar")) {
+			displayName = "${config.curse.display}-${config.minecraft.version}-${project.version}"
+			changelogType = "html"
+			changelog = "<a href=\"${gradlefiles.changelogUrl()}\">Changelog of ${project.version}</a>"
+		}
+	}
+}
+
+publishing {
+	repositories {
+		maven {
+			url "https://repo.u-team.info"
+			credentials {
+				username = "maven"
+				password = defaultPropertyValue("maven.password")
+			}
+		}
+	}
+	publications {
+		mavenJava(MavenPublication) {
+			artifactId archivesBaseName
+			
+			from components.java
+			artifact tasks.getByName("testJar")
+			artifact tasks.getByName("testSourcesJar")
+			
+			pom {
+				name = project.archivesBaseName
+				description = "${config.github.name}"
+				url = "https://github.com/MC-U-Team/${config.github.name}"
+				scm {
+					url = "https://github.com/MC-U-Team/${config.github.name}"
+					connection = "scm:git:git://github.com/MC-U-Team/${config.github.name}.git"
+					developerConnection = "scm:git:git@github.com:MC-U-Team/${config.github.name}.git"
+				}
+				issueManagement {
+					system = "github"
+					url = "https://github.com/MC-U-Team/${config.github.name}/issues"
+				}
+				licenses {
+					license {
+						name = "Apache License 2.0"
+						url = "https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/LICENSE"
+						distribution = "repo"
+					}
+				}
+				developers {
+					developer {
+						name = "HyCraftHD"
+					}
+					developer {
+						name = "MrTroble"
+					}
+				}
+			}
+		}
+	}
+}
