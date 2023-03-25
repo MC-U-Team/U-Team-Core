@@ -13,6 +13,18 @@ buildscript {
 apply plugin: "java"
 apply plugin: "org.spongepowered.gradle.vanilla"
 
+group = rootProject.group
+archivesBaseName = rootProject.archivesBaseName
+version = rootProject.version
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+	withSourcesJar()
+	withJavadocJar()
+}
+
 minecraft {
 	version(rootProject.config.minecraft.version)
 	accessWideners(project(":fabric").file("src/main/resources/uteamcore.accesswidener"))
