@@ -43,8 +43,20 @@ java {
 loom {
 	accessWidenerPath = file("src/main/resources/uteamcore.accesswidener")
 	
-	runConfigs.configureEach {
-		ideConfigGenerated = true
+	runs {
+		"${config.mod.modid}_client" {
+			inherit client
+			
+			runDir = "run/client"
+			ideConfigGenerated = true
+		}
+		
+		"${config.mod.modid}_server" {
+			inherit server
+			
+			runDir = "run/server"
+			ideConfigGenerated = true
+		}
 	}
 }
 
