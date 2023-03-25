@@ -1,28 +1,3 @@
 accessWidener v1 named
 
-accessible field net/minecraft/client/gui/components/AbstractWidget isHovered Z
-accessible field net/minecraft/client/gui/components/AbstractWidget width I
-accessible field net/minecraft/client/gui/components/AbstractWidget height I
-accessible field net/minecraft/client/gui/components/AbstractWidget x I
-accessible field net/minecraft/client/gui/components/AbstractWidget y I
-
-mutable field net/minecraft/client/gui/components/Button onPress Lnet/minecraft/client/gui/components/Button$OnPress;
-mutable field net/minecraft/client/gui/components/Button createNarration Lnet/minecraft/client/gui/components/Button$CreateNarration;
-
-accessible field net/minecraft/client/gui/components/EditBox font Lnet/minecraft/client/gui/Font;
-accessible field net/minecraft/client/gui/components/EditBox value Ljava/lang/String;
-accessible field net/minecraft/client/gui/components/EditBox maxLength I
-accessible field net/minecraft/client/gui/components/EditBox frame I
-accessible field net/minecraft/client/gui/components/EditBox bordered Z
-accessible field net/minecraft/client/gui/components/EditBox canLoseFocus Z
-accessible field net/minecraft/client/gui/components/EditBox isEditable Z
-accessible field net/minecraft/client/gui/components/EditBox frame I
-accessible field net/minecraft/client/gui/components/EditBox displayPos I
-accessible field net/minecraft/client/gui/components/EditBox cursorPos I
-accessible field net/minecraft/client/gui/components/EditBox highlightPos I
-accessible field net/minecraft/client/gui/components/EditBox suggestion Ljava/lang/String;
-accessible field net/minecraft/client/gui/components/EditBox formatter Ljava/util/function/BiFunction;
-
-accessible method net/minecraft/client/gui/Font drawInternal (Ljava/lang/String;FFILorg/joml/Matrix4f;ZZ)I
-
-accessible field net/minecraft/client/gui/components/AbstractSelectionList$Entry list Lnet/minecraft/client/gui/components/AbstractSelectionList;
+accessible field net/minecraft/client/gui/components/AbstractWidget alpha F
