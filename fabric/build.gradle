@@ -93,11 +93,10 @@ processResources {
 sourceSets {
 	main {
 		java {
-			srcDirs += "src/api/java"
-			srcDirs += project(":common").file("src/common/java")
+			srcDirs += project(":common").sourceSets.common.allJava.srcDirs
 		}
 		resources {
-			srcDirs += project(":common").file("src/common/resources")
+			srcDirs += project(":common").sourceSets.common.allSource.srcDirs
 		}
 	}
 }

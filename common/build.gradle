@@ -20,7 +20,9 @@ minecraft {
 
 sourceSets {
 	common {
-		java
+		java {
+			srcDirs += "src/common-api/java"
+		}
 		resources
 	}
 }
