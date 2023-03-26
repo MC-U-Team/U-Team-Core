@@ -155,7 +155,7 @@ curseforge {
 		addGameVersion "Fabric"
 		addGameVersion "Java 17"
 		
-		mainArtifact(tasks.getByName("jar")) {
+		mainArtifact(tasks.getByName("remapJar")) {
 			displayName = "${config.curse.display}-Fabric-${config.minecraft.version}-${project.version}"
 			changelogType = "html"
 			changelog = "<a href=\"${gradlefiles.changelogUrl()}\">Changelog of ${project.version}</a>"
