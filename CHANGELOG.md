@@ -1,10 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.19.4-4.6.1.243] - 2023-03-23
+## [1.19.4-5.0.0.244-SNAPSHOT] - 2023-03-26
 ### Changed
- - Remove unused parameter in USlider
- - Fix broken scissor for scolling text renderer when translating the pose stack
+ - Use multi loader project now
+ - Forge and fabric version are now built at the same time and using the same version number
+ - Fabric version only includes the gui and render stuff that it used to include as in 1.19.3
  
 ## [1.19.4-4.6.0.242] - 2023-03-23
 ### Changed

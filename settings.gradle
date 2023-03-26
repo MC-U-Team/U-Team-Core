@@ -1,1 +1,7 @@
 rootProject.name = "U-Team-Core"
+
+include("common", "forge", "fabric")
+
+gradle.allprojects {
+	extensions.extraProperties.multiLoaderMainProject = gradle.rootProject.path
+}
