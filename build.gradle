@@ -35,6 +35,8 @@ gradle.taskGraph.whenReady { TaskExecutionGraph graph ->
 		task.project == project(":fabric")
 	}
 	forgeTasks.each { task ->
-		task.dependsOn(fabricTasks)
+		fabricTasks.each { fabricTask ->
+			task.dependsOn(fabricTask)
+		}
 	}
 }
