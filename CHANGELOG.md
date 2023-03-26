@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.4-5.0.0.246-SNAPSHOT] - 2023-03-27
+### Changed
+ - Fix curseforge task order
+
 ## [1.19.4-5.0.0.245-SNAPSHOT] - 2023-03-27
 ### Changed
  - Fix fabric module publishing wrong artifact to curseforge
