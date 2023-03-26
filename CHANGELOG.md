@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.4-5.0.0.245-SNAPSHOT] - 2023-03-27
+### Changed
+ - Fix fabric module publishing wrong artifact to curseforge
+ - Fix curseforge upload order
+
 ## [1.19.4-5.0.0.244-SNAPSHOT] - 2023-03-26
 ### Changed
  - Use multi loader project now
