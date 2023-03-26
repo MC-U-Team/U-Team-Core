@@ -22,3 +22,19 @@ version = gradlefiles.version()
 gradlefiles {
 	vendor "Team UTeam"
 }
+
+// TODO move to gradle files
+gradle.taskGraph.whenReady { TaskExecutionGraph graph ->
+	def curseforgeTasks = graph.allTasks.findAll { task ->
+		task.name.startsWith("curseforge")
+	}
+	def forgeTasks = curseforgeTasks.findAll { task ->
+		task.project == project(":forge")
+	}
+	def fabricTasks = curseforgeTasks.findAll { task ->
+		task.project == project(":fabric")
+	}
+	forgeTasks.each { task ->
+		task.dependsOn(fabricTasks)
+	}
+}
