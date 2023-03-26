@@ -3,19 +3,29 @@ buildscript {
 		maven {
 			url = "https://repo.spongepowered.org/repository/maven-public"
 		}
+		maven {
+			url = "https://maven.minecraftforge.net"
+		}
+		maven {
+			url = "https://repo.u-team.info"
+		}
 		mavenCentral()
 	}
 	dependencies {
 		classpath group: "org.spongepowered", name: "vanillagradle", version: "0.2.1-SNAPSHOT", changing: true
+		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "2.0.1"
 	}
 }
 
-apply plugin: "java"
 apply plugin: "org.spongepowered.gradle.vanilla"
+apply plugin: "info.u_team.gradle_files"
+apply plugin: "maven-publish"
+
+gradlefiles.loaderSuffix = "common"
 
 group = rootProject.group
-archivesBaseName = rootProject.archivesBaseName
-version = rootProject.version
+archivesBaseName = gradlefiles.archivesBaseName()
+version = gradlefiles.version()
 
 java {
 	toolchain {
@@ -26,9 +36,19 @@ java {
 }
 
 minecraft {
-	version(rootProject.config.minecraft.version)
+	version(config.minecraft.version)
 	accessWideners(project(":fabric").file("src/main/resources/uteamcore.accesswidener"))
 }
+
+tasks.withType(Jar) { task ->
+	gradlefiles.defaultJar(task)
+}
+
+tasks.withType(Javadoc) { task ->
+	task.options.addStringOption("Xdoclint:none", "-quiet")
+}
+
+gradlefiles.signJar("jar")
 
 sourceSets {
 	common {
@@ -36,5 +56,62 @@ sourceSets {
 			srcDirs += "src/common-api/java"
 		}
 		resources
+	}
+	main {
+		java {
+			srcDirs += sourceSets.common.java.srcDirs
+		}
+		resources {
+			srcDirs += sourceSets.common.resources.srcDirs
+		}
+	}
+}
+
+publishing {
+	repositories {
+		maven {
+			url "https://repo.u-team.info"
+			credentials {
+				username = "maven"
+				password = defaultPropertyValue("maven.password")
+			}
+		}
+	}
+	publications {
+		mavenJava(MavenPublication) {
+			artifactId archivesBaseName
+			
+			from components.java
+			
+			pom {
+				name = project.archivesBaseName
+				description = "${config.github.name}"
+				url = "https://github.com/MC-U-Team/${config.github.name}"
+				scm {
+					url = "https://github.com/MC-U-Team/${config.github.name}"
+					connection = "scm:git:git://github.com/MC-U-Team/${config.github.name}.git"
+					developerConnection = "scm:git:git@github.com:MC-U-Team/${config.github.name}.git"
+				}
+				issueManagement {
+					system = "github"
+					url = "https://github.com/MC-U-Team/${config.github.name}/issues"
+				}
+				licenses {
+					license {
+						name = "Apache License 2.0"
+						url = "https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/LICENSE"
+						distribution = "repo"
+					}
+				}
+				developers {
+					developer {
+						name = "HyCraftHD"
+					}
+					developer {
+						name = "MrTroble"
+					}
+				}
+			}
+		}
 	}
 }
