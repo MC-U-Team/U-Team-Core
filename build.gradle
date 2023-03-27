@@ -23,20 +23,16 @@ gradlefiles {
 	vendor "Team UTeam"
 }
 
-// TODO move to gradle files
-gradle.taskGraph.whenReady { TaskExecutionGraph graph ->
-	def curseforgeTasks = graph.allTasks.findAll { task ->
+gradle.projectsEvaluated {
+	def forgeTasks = project(":forge").tasks.findAll { task ->
 		task.name.startsWith("curseforge")
 	}
-	def forgeTasks = curseforgeTasks.findAll { task ->
-		task.project == project(":forge")
-	}
-	def fabricTasks = curseforgeTasks.findAll { task ->
-		task.project == project(":fabric")
+	def fabricTasks = project(":fabric").tasks.findAll { task ->
+		task.name.startsWith("curseforge")
 	}
 	forgeTasks.each { task ->
 		fabricTasks.each { fabricTask ->
-			task.dependsOn(fabricTask)
+			task.mustRunAfter(fabricTask)
 		}
 	}
 }
