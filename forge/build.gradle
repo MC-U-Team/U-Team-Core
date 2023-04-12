@@ -50,7 +50,6 @@ minecraft {
 	
 	runs {
 		client {
-			taskName = "${config.mod.modid}_client"
 			workingDirectory file("run/client")
 			
 			mods {
@@ -64,7 +63,6 @@ minecraft {
 			}
 		}
 		server {
-			taskName = "${config.mod.modid}_server"
 			workingDirectory file("run/server")
 			
 			mods {
@@ -78,7 +76,6 @@ minecraft {
 			}
 		}
 		data {
-			taskName = "${config.mod.modid}_data"
 			workingDirectory file("run/data")
 			
 			args "--mod", config.mod.modid
@@ -97,7 +94,6 @@ minecraft {
 			}
 		}
 		data_test {
-			taskName = "${config.mod.modid}_data_test"
 			workingDirectory file("run/data")
 			
 			setParents(data.getParents())
@@ -195,9 +191,9 @@ repositories {
 dependencies {
 	minecraft gradlefiles.forgeDependency()
 	
-	//compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
-	//compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
-	//runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
+	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
+	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
+	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
 }
 
 curseforge {

@@ -44,16 +44,12 @@ loom {
 	accessWidenerPath = file("src/main/resources/uteamcore.accesswidener")
 	
 	runs {
-		"${config.mod.modid}_client" {
-			inherit client
-			
+		client {
 			runDir = "run/client"
 			ideConfigGenerated = true
 		}
 		
-		"${config.mod.modid}_server" {
-			inherit server
-			
+		server {
 			runDir = "run/server"
 			ideConfigGenerated = true
 		}
@@ -120,6 +116,9 @@ repositories {
 	maven {
 		url = "https://repo.u-team.info"
 	}
+	maven {
+		url = "https://maven.blamejared.com"
+	}
 }
 
 dependencies {
@@ -134,6 +133,10 @@ dependencies {
 	shade ("net.hycrafthd.update_checker:update_checker:1.0.0") {
 		transitive=false
 	}
+	
+	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}"
+	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
+	modRuntimeOnly "mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}"
 }
 
 processResources {
