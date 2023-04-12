@@ -140,6 +140,10 @@ dependencies {
 	modRuntimeOnly "mezz.jei:jei-${config.minecraft.version}-fabric:${config.jei.version}"
 }
 
+gradlefiles.removePublishingDependency { dependency ->
+	"update_checker".equals(dependency.name) || "mezz.jei".equals(dependency.group)
+}
+
 processResources {
 	inputs.property "version", project.version
 	
