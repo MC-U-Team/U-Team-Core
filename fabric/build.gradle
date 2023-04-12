@@ -158,6 +158,10 @@ curseforge {
 		addGameVersion "Fabric"
 		addGameVersion "Java 17"
 		
+		relations {
+			optionalDependency "jei"
+		}
+		
 		mainArtifact(tasks.getByName("remapJar")) {
 			displayName = "${config.curse.display}-Fabric-${config.minecraft.version}-${project.version}"
 			changelogType = "html"
