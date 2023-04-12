@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.4-5.0.0.248] - 2023-04-12
+### Changed
+ - Add jei again and readd jei plugin
+ - Cleanup buildscript and dependencies in poms
+
 ## [1.19.4-5.0.0.247-SNAPSHOT] - 2023-03-27
 ### Changed
  - Finally fix curseforge upload order
