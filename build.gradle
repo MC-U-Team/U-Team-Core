@@ -21,18 +21,5 @@ version = gradlefiles.version()
 
 gradlefiles {
 	vendor "Team UTeam"
-}
-
-gradle.projectsEvaluated {
-	def forgeTasks = project(":forge").tasks.findAll { task ->
-		task.name.startsWith("curseforge")
-	}
-	def fabricTasks = project(":fabric").tasks.findAll { task ->
-		task.name.startsWith("curseforge")
-	}
-	forgeTasks.each { task ->
-		fabricTasks.each { fabricTask ->
-			task.mustRunAfter(fabricTask)
-		}
-	}
+	orderCurseforgeTasks(project(":forge"), project(":fabric"))
 }
