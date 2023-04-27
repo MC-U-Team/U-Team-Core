@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.4-5.0.2.250] - 2023-04-27
+### Changed
+ - Fixed [crash](https://github.com/MC-U-Team/U-Team-Core/pull/256) in UShapedRecipeSerializer because of wrong serialization. Thanks DJtheRedstoner
+
 ## [1.19.4-5.0.1.249] - 2023-04-26
 ### Changed
  - Move UScreen to common module (and include it in fabric jar as well)
