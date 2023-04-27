@@ -80,8 +80,8 @@ public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> implements
 		for (final Ingredient ingredient : recipe.recipeItems) {
 			ingredient.toNetwork(buffer);
 		}
-		buffer.writeBoolean(recipe.showNotification);
 		buffer.writeItem(recipe.result);
+		buffer.writeBoolean(recipe.showNotification);
 	}
 	
 	protected abstract T createRecipe(ResourceLocation location, String group, CraftingBookCategory category, int recipeWidth, int recipeHeight, NonNullList<Ingredient> ingredients, ItemStack output, boolean showNotification);
