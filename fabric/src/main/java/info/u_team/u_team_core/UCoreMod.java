@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
 
-import info.u_team.u_team_core.internal.UpdateResolver;
+import info.u_team.u_team_core.intern.UpdateResolver;
 import net.fabricmc.api.ModInitializer;
 
 public class UCoreMod implements ModInitializer {
