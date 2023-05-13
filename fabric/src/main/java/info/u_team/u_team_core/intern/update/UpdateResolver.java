@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.intern;
+package info.u_team.u_team_core.intern.update;
 
 import java.util.List;
 import java.util.Optional;
