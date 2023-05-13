@@ -6,6 +6,8 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -15,8 +17,6 @@ import net.minecraft.network.chat.Style;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
 
 public class ItemStackInfoSubCommand {
 	
@@ -30,10 +30,10 @@ public class ItemStackInfoSubCommand {
 		final ItemStack stack = source.getPlayerOrException().getMainHandItem();
 		final Item item = stack.getItem();
 		
-		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, ForgeRegistries.ITEMS)), false);
+		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, BuiltInRegistries.ITEM)), false);
 		
 		if (item instanceof final BlockItem blockItem) {
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), ForgeRegistries.BLOCKS)), false);
+			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), BuiltInRegistries.BLOCK)), false);
 		}
 		
 		if (stack.hasTag()) {
@@ -47,7 +47,7 @@ public class ItemStackInfoSubCommand {
 		return 0;
 	}
 	
-	private static <T> Component createRegistryInfo(T entry, IForgeRegistry<T> registry) {
+	private static <T> Component createRegistryInfo(T entry, Registry<T> registry) {
 		final MutableComponent component = Component.literal(registry.getKey(entry).toString());
 		final String className = getClassString(entry);
 		final Style style = component.getStyle() //
