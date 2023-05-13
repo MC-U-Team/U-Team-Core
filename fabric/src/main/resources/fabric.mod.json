@@ -21,13 +21,17 @@
 		]
 	},
 	"accessWidener": "uteamcore.accesswidener",
-	"mixins": [],
 	"depends": {
 		"fabricloader": ">=0.14.19",
 		"minecraft": "1.19.4",
 		"java": ">=17"
 	},
 	"custom": {
-		"uteamcore:update_url": "https://api.u-team.info/update/uteamcore_fabric.json"
+		"uteamcore:update_url": "https://api.u-team.info/update/uteamcore_fabric.json",
+		"modmenu": {
+			"links": {
+				"modmenu.discord": "https://discord.hycrafthd.net"
+			}
+		}
 	}
 }
