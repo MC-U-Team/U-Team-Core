@@ -82,7 +82,7 @@ public class AnnotationUtil {
 		
 		@Override
 		public AnnotationVisitor visitAnnotation(String annotationDescriptor, boolean visible) {
-			return new OurAnnotationVisitor(new AnnotationData(Type.getType(annotationDescriptor), ElementType.TYPE, type, type.getClassName(), new HashMap<>()));
+			return new OurAnnotationVisitor(annotationDescriptor, ElementType.TYPE, type, type.getClassName());
 		}
 		
 		@Override
@@ -91,7 +91,7 @@ public class AnnotationUtil {
 				
 				@Override
 				public AnnotationVisitor visitAnnotation(String annotationDescriptor, boolean visible) {
-					return new OurAnnotationVisitor(new AnnotationData(Type.getType(annotationDescriptor), ElementType.FIELD, type, name, new HashMap<>()));
+					return new OurAnnotationVisitor(annotationDescriptor, ElementType.FIELD, type, name);
 				}
 			};
 		}
@@ -102,7 +102,7 @@ public class AnnotationUtil {
 				
 				@Override
 				public AnnotationVisitor visitAnnotation(String annotationDescriptor, boolean visible) {
-					return new OurAnnotationVisitor(new AnnotationData(Type.getType(annotationDescriptor), ElementType.METHOD, type, name + descriptor, new HashMap<>()));
+					return new OurAnnotationVisitor(annotationDescriptor, ElementType.METHOD, type, name + descriptor);
 				}
 			};
 		}
@@ -111,8 +111,9 @@ public class AnnotationUtil {
 			
 			private final DataHolder data;
 			
-			private OurAnnotationVisitor(AnnotationData annotationData) {
+			private OurAnnotationVisitor(String annotationDescriptor, ElementType targetType, Type type, String memberName) {
 				super(Opcodes.ASM9);
+				final AnnotationData annotationData = new AnnotationData(Type.getType(annotationDescriptor), targetType, type, memberName, new HashMap<>());
 				data = new DataHolder(annotationData.annotationData);
 				annotations.add(annotationData);
 			}
