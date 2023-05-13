@@ -31,6 +31,8 @@ import net.fabricmc.loader.impl.util.ExceptionUtil;
  */
 public class AnnotationUtil {
 	
+	private static final Map<String, List<AnnotationData>> data = new HashMap<>();
+	
 	/**
 	 * Returns a list of found {@link AnnotationData} for the give annotation {@link Type} and modid.
 	 *
@@ -39,6 +41,14 @@ public class AnnotationUtil {
 	 * @return List of found annotation data
 	 */
 	public static List<AnnotationData> getAnnotations(String modid, Type type) {
+		final List<AnnotationData> annotations = data.computeIfAbsent(modid, AnnotationUtil::scanMod);
+		
+		return annotations.stream() //
+				.filter(data -> type.equals(data.annotationType())) //
+				.collect(Collectors.toList());
+	}
+	
+	private static List<AnnotationData> scanMod(String modid) {
 		final Set<Path> paths = ClassUtil.findModClasses(modid);
 		
 		final List<AnnotationData> annotations = new ArrayList<>();
@@ -54,9 +64,7 @@ public class AnnotationUtil {
 			}
 		}
 		
-		return annotations.stream() //
-				.filter(data -> type.equals(data.annotationType())) //
-				.collect(Collectors.toList());
+		return annotations;
 	}
 	
 	public record AnnotationData(Type annotationType, ElementType targetType, Type clazz, String memberName, Map<String, Object> annotationData) {
