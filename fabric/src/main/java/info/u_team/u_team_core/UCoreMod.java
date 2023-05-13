@@ -2,7 +2,7 @@ package info.u_team.u_team_core;
 
 import org.slf4j.Logger;
 
-import info.u_team.u_team_core.intern.UpdateResolver;
+import info.u_team.u_team_core.intern.update.UpdateResolver;
 import net.fabricmc.api.ModInitializer;
 
 public class UCoreMod implements ModInitializer {
@@ -14,4 +14,5 @@ public class UCoreMod implements ModInitializer {
 	public void onInitialize() {
 		UpdateResolver.load();
 	}
+	
 }
