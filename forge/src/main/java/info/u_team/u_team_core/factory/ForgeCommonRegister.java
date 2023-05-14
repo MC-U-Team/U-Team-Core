@@ -6,7 +6,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
-import info.u_team.u_team_core.api.construct.Construct;
 import info.u_team.u_team_core.api.registry.CommonRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
 import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
@@ -45,7 +44,7 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 	
 	@Override
 	public Collection<RegistryEntry<C>> getEntries() {
-		return register.getEntries().stream().map(ForgeRegistryEntry::new).collect(Collectors.toUnmodifiableSet());
+		return register.getEntries().stream().map(object -> new ForgeRegistryEntry<>(object)).collect(Collectors.toUnmodifiableSet());
 	}
 	
 	public class ForgeRegistryEntry<E> implements RegistryEntry<E> {
@@ -83,8 +82,7 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 		
 	}
 	
-	@Construct(modid = "")
-	private static class Factory implements CommonRegister.Factory {
+	public static class Factory implements CommonRegister.Factory {
 		
 		@Override
 		public <C> CommonRegister<C> create(ResourceKey<? extends Registry<C>> key, String modid) {
