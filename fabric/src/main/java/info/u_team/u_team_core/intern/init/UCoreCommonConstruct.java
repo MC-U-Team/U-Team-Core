@@ -11,6 +11,8 @@ public class UCoreCommonConstruct implements ModConstruct {
 	@Override
 	public void construct() {
 		UpdateResolver.load();
+		
+		UCoreCommands.register();
 	}
 	
 }
