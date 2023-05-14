@@ -8,12 +8,15 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -30,10 +33,12 @@ public class ItemStackInfoSubCommand {
 		final ItemStack stack = source.getPlayerOrException().getMainHandItem();
 		final Item item = stack.getItem();
 		
-		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, BuiltInRegistries.ITEM)), false);
+		VanillaRegistries.createLookup();
+		
+		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, Registries.ITEM)), false);
 		
 		if (item instanceof final BlockItem blockItem) {
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), BuiltInRegistries.BLOCK)), false);
+			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), Registries.BLOCK)), false);
 		}
 		
 		if (stack.hasTag()) {
@@ -47,8 +52,11 @@ public class ItemStackInfoSubCommand {
 		return 0;
 	}
 	
-	private static <T> Component createRegistryInfo(T entry, Registry<T> registry) {
-		final MutableComponent component = Component.literal(registry.getKey(entry).toString());
+	private static <T> Component createRegistryInfo(T entry, ResourceKey<Registry<T>> key) {
+		@SuppressWarnings("unchecked")
+		final Registry<T> vanillaRegistry = (Registry<T>) BuiltInRegistries.REGISTRY.get(key);
+		
+		final MutableComponent component = Component.literal(vanillaRegistry.getKey(entry).toString());
 		final String className = getClassString(entry);
 		final Style style = component.getStyle() //
 				.withColor(ChatFormatting.AQUA) //
