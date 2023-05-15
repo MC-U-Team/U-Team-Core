@@ -9,28 +9,26 @@ import java.util.stream.Collectors;
 import info.u_team.u_team_core.api.registry.CommonRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
 import info.u_team.u_team_core.util.registry.BusRegister;
-import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.RegistryObject;
 
 public class ForgeCommonRegister<C> implements CommonRegister<C> {
 	
-	private final CommonDeferredRegister<C> register;
+	private final DeferredRegister<C> register;
+	private final String modid;
 	
 	ForgeCommonRegister(ResourceKey<? extends Registry<C>> key, String modid) {
-		register = CommonDeferredRegister.create(key, modid);
-	}
-	
-	ForgeCommonRegister(CommonDeferredRegister<C> register) {
-		this.register = register;
+		register = DeferredRegister.create(key, modid);
+		this.modid = modid;
 	}
 	
 	@Override
 	public <E extends C> ForgeRegistryEntry<E> register(String name, Function<ResourceLocation, ? extends E> function) {
-		return new ForgeRegistryEntry<>(register.register(name, function));
+		return register(name, () -> function.apply(new ResourceLocation(modid, name)));
 	}
 	
 	@Override
@@ -45,12 +43,12 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 	
 	@Override
 	public String getModid() {
-		return register.getModid();
+		return modid;
 	}
 	
 	@Override
 	public ResourceKey<? extends Registry<C>> getRegistryKey() {
-		return register.getRegister().getRegistryKey();
+		return register.getRegistryKey();
 	}
 	
 	@Override
@@ -58,7 +56,7 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 		return register.getEntries().stream().map(object -> new ForgeRegistryEntry<>(object)).collect(Collectors.toUnmodifiableSet());
 	}
 	
-	public CommonDeferredRegister<C> getDeferredRegister() {
+	public DeferredRegister<C> getDeferredRegister() {
 		return register;
 	}
 	
