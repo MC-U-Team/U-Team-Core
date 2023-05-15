@@ -129,7 +129,7 @@ dependencies {
 	}
 	
 	modImplementation gradlefiles.fabricLoaderDependency()
-	modRuntimeOnly gradlefiles.fabricApiDependency()
+	modImplementation gradlefiles.fabricApiDependency()
 	
 	shade ("net.hycrafthd.update_checker:update_checker:1.0.0") {
 		transitive=false
@@ -164,6 +164,7 @@ curseforge {
 		addGameVersion "Java 17"
 		
 		relations {
+			requiredDependency "fabric-api"
 			optionalDependency "jei"
 		}
 		
