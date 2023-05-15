@@ -49,6 +49,10 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 		return register.getEntries().stream().map(object -> new ForgeRegistryEntry<>(object)).collect(Collectors.toUnmodifiableSet());
 	}
 	
+	public CommonDeferredRegister<C> getDeferredRegister() {
+		return register;
+	}
+	
 	public class ForgeRegistryEntry<E> implements RegistryEntry<E> {
 		
 		private final RegistryObject<E> object;
@@ -80,6 +84,10 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 		@Override
 		public boolean isPresent() {
 			return object.isPresent();
+		}
+		
+		public RegistryObject<E> getRegistryObject() {
+			return object;
 		}
 		
 	}
