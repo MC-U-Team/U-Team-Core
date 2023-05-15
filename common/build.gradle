@@ -75,10 +75,12 @@ sourceSets {
 			srcDirs += sourceSets.common.resources.srcDirs
 		}
 	}
-	"common-test_mod" {
+	"common-multiloader_test_mod" {
 		java
-		resources
-		compileClasspath += main.compileClasspath
+		resources {
+			srcDirs += "src/common-generated_multiloader_test_mod/resources"
+		}
+		compileClasspath += main.runtimeClasspath
 		runtimeClasspath += main.runtimeClasspath
 	}
 }

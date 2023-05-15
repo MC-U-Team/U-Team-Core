@@ -107,14 +107,14 @@ sourceSets {
 			srcDirs += project(":common").sourceSets.common.resources.srcDirs
 		}
 	}
-	test_mod {
+	multiloader_test_mod {
 		java {
-			srcDirs += project(":common").sourceSets."common-test_mod".java.srcDirs
+			srcDirs += project(":common").sourceSets."common-multiloader_test_mod".java.srcDirs
 		}
 		resources {
-			srcDirs += project(":common").sourceSets."common-test_mod".resources.srcDirs
+			srcDirs += project(":common").sourceSets."common-multiloader_test_mod".resources.srcDirs
 		}
-		compileClasspath += main.compileClasspath
+		compileClasspath += main.runtimeClasspath
 		runtimeClasspath += main.runtimeClasspath
 	}
 }

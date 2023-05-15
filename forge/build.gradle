@@ -41,6 +41,7 @@ java {
 
 sourceSets {
 	test_mod
+	multiloader_test_mod
 }
 
 minecraft {
@@ -59,6 +60,7 @@ minecraft {
 				
 				uteamtest {
 					source sourceSets.test_mod
+					source sourceSets.multiloader_test_mod
 				}
 			}
 		}
@@ -72,6 +74,7 @@ minecraft {
 				
 				uteamtest {
 					source sourceSets.test_mod
+					source sourceSets.multiloader_test_mod
 				}
 			}
 		}
@@ -115,6 +118,31 @@ minecraft {
 				
 				uteamtest {
 					source sourceSets.test_mod
+				}
+			}
+		}
+		data_multiloader_test {
+			workingDirectory file("run/data")
+			
+			setParents(data.getParents())
+			
+			args "--mod", "uteamtest_multiloader"
+			args "--all"
+			args "--output", project(":common").file("src/common-generated_multiloader_test_mod/resources")
+			args "--validate"
+			args "--existing", project(":common").file("src/common-multiloader_test_mod/resources")
+			args "--existing-mod", "uteamcore"
+			
+			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
+			
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+				
+				uteamtest {
+					source sourceSets.multiloader_test_mod
 				}
 			}
 		}
@@ -172,11 +200,20 @@ sourceSets {
 		java {
 			srcDirs += "src/data_test_mod/java"
 			srcDirs += "src/integration_test_mod/java"
-			srcDirs += project(":common").sourceSets."common-test_mod".java.srcDirs
 		}
 		resources {
 			srcDirs += "src/generated_test_mod/resources"
-			srcDirs += project(":common").sourceSets."common-test_mod".resources.srcDirs
+		}
+		compileClasspath += main.runtimeClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
+	multiloader_test_mod {
+		java {
+			srcDirs += project(":common").sourceSets."common-multiloader_test_mod".java.srcDirs
+			srcDirs += "src/data_multiloader_test_mod/java"
+		}
+		resources {
+			srcDirs += project(":common").sourceSets."common-multiloader_test_mod".resources.srcDirs
 		}
 		compileClasspath += main.runtimeClasspath
 		runtimeClasspath += main.runtimeClasspath
