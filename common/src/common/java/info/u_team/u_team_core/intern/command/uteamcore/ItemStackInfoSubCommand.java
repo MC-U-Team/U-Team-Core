@@ -54,11 +54,9 @@ public class ItemStackInfoSubCommand {
 		final Registry<T> vanillaRegistry = CastUtil.uncheckedCast(BuiltInRegistries.REGISTRY.get(key.location()));
 		final MutableComponent component = Component.literal(vanillaRegistry.getKey(entry).toString());
 		final String className = getClassString(entry);
-		final Style style = component.getStyle() //
-				.withColor(ChatFormatting.AQUA) //
+		component.withStyle(style -> style.withColor(ChatFormatting.AQUA) //
 				.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal(className).withStyle(ChatFormatting.YELLOW))) //
-				.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className));
-		component.setStyle(style);
+				.withClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, className)));
 		return component;
 	}
 	
