@@ -75,6 +75,12 @@ sourceSets {
 			srcDirs += sourceSets.common.resources.srcDirs
 		}
 	}
+	"common-test_mod" {
+		java
+		resources
+		compileClasspath += main.compileClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
 }
 
 publishing {

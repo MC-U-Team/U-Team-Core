@@ -172,11 +172,13 @@ sourceSets {
 		java {
 			srcDirs += "src/data_test_mod/java"
 			srcDirs += "src/integration_test_mod/java"
+			srcDirs += project(":common").sourceSets."common-test_mod".java.srcDirs
 		}
 		resources {
 			srcDirs += "src/generated_test_mod/resources"
+			srcDirs += project(":common").sourceSets."common-test_mod".resources.srcDirs
 		}
-		compileClasspath += main.runtimeClasspath
+		compileClasspath += main.compileClasspath
 		runtimeClasspath += main.runtimeClasspath
 	}
 }

@@ -107,6 +107,16 @@ sourceSets {
 			srcDirs += project(":common").sourceSets.common.resources.srcDirs
 		}
 	}
+	test_mod {
+		java {
+			srcDirs += project(":common").sourceSets."common-test_mod".java.srcDirs
+		}
+		resources {
+			srcDirs += project(":common").sourceSets."common-test_mod".resources.srcDirs
+		}
+		compileClasspath += main.compileClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
 }
 
 repositories {
