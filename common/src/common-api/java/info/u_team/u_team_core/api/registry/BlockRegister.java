@@ -5,7 +5,6 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.block.BlockItemProvider;
 import info.u_team.u_team_core.util.ServiceUtil;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -15,11 +14,11 @@ public interface BlockRegister extends Iterable<RegistryEntry<Block>> {
 		return Factory.INSTANCE.create(modid);
 	}
 	
-	<B extends Block & BlockItemProvider, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier);
+	<B extends Block & BlockItemProvider, I extends Item> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier);
 	
-	<B extends Block, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction);
+	<B extends Block, I extends Item> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction);
 	
-	<B extends Block, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier);
+	<B extends Block, I extends Item> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier);
 	
 	<B extends Block> RegistryEntry<B> registerBlock(String name, Supplier<? extends B> supplier);
 	

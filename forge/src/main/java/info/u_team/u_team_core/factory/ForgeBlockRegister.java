@@ -19,7 +19,6 @@ import info.u_team.u_team_core.util.registry.BusRegister;
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
@@ -32,17 +31,17 @@ public class ForgeBlockRegister implements BlockRegister {
 	}
 	
 	@Override
-	public <B extends Block & BlockItemProvider, I extends BlockItem> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
+	public <B extends Block & BlockItemProvider, I extends Item> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
 		return new ForgeBlockRegistryEntry<>(register.register(name, supplier));
 	}
 	
 	@Override
-	public <B extends Block, I extends BlockItem> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
+	public <B extends Block, I extends Item> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
 		return new ForgeBlockRegistryEntry<>(register.register(name, blockSupplier, itemFunction));
 	}
 	
 	@Override
-	public <B extends Block, I extends BlockItem> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
+	public <B extends Block, I extends Item> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
 		return new ForgeBlockRegistryEntry<>(register.register(name, blockSupplier, itemSupplier));
 	}
 	
@@ -86,7 +85,7 @@ public class ForgeBlockRegister implements BlockRegister {
 		return new ForgeCommonRegister<>(register.getItemRegister());
 	}
 	
-	public static class ForgeBlockRegistryEntry<B extends Block, I extends BlockItem> implements BlockRegistryEntry<B, I> {
+	public static class ForgeBlockRegistryEntry<B extends Block, I extends Item> implements BlockRegistryEntry<B, I> {
 		
 		private final BlockRegistryObject<B, I> object;
 		

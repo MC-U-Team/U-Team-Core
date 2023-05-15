@@ -9,7 +9,6 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.block.BlockItemProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -35,7 +34,7 @@ public class BlockDeferredRegister implements Iterable<RegistryObject<Block>> {
 		blockToItemsMap = new LinkedHashMap<>();
 	}
 	
-	public <B extends Block & BlockItemProvider, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
+	public <B extends Block & BlockItemProvider, I extends Item> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> supplier) {
 		final RegistryObject<B> block = blocks.register(name, supplier);
 		final RegistryObject<I> item = RegistryObject.create(new ResourceLocation(blocks.getModid(), name), ForgeRegistries.ITEMS);
 		
@@ -44,11 +43,11 @@ public class BlockDeferredRegister implements Iterable<RegistryObject<Block>> {
 		return new BlockRegistryObject<>(block, item);
 	}
 	
-	public <B extends Block, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
+	public <B extends Block, I extends Item> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
 		return register(name, blockSupplier, () -> itemFunction.apply(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(blocks.getModid(), name))));
 	}
 	
-	public <B extends Block, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
+	public <B extends Block, I extends Item> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
 		final RegistryObject<B> block = blocks.register(name, blockSupplier);
 		final RegistryObject<I> item = items.register(name, itemSupplier);
 		return new BlockRegistryObject<>(block, item);

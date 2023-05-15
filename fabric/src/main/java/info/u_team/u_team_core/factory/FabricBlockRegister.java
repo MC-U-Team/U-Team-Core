@@ -20,7 +20,6 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -39,7 +38,7 @@ public class FabricBlockRegister implements BlockRegister {
 	}
 	
 	@Override
-	public <B extends Block & BlockItemProvider, I extends BlockItem> FabricBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
+	public <B extends Block & BlockItemProvider, I extends Item> FabricBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
 		final FabricRegistryEntry<B> block = blocks.register(name, supplier);
 		
 		final ResourceLocation id = new ResourceLocation(items.getModid(), name);
@@ -52,12 +51,12 @@ public class FabricBlockRegister implements BlockRegister {
 	}
 	
 	@Override
-	public <B extends Block, I extends BlockItem> FabricBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
+	public <B extends Block, I extends Item> FabricBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
 		return register(name, blockSupplier, () -> itemFunction.apply(BuiltInRegistries.BLOCK.get(new ResourceLocation(blocks.getModid(), name))));
 	}
 	
 	@Override
-	public <B extends Block, I extends BlockItem> FabricBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
+	public <B extends Block, I extends Item> FabricBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
 		final FabricRegistryEntry<B> block = blocks.register(name, blockSupplier);
 		final FabricRegistryEntry<I> item = items.register(name, itemSupplier);
 		return new FabricBlockRegistryEntry<>(block, item);
@@ -120,7 +119,7 @@ public class FabricBlockRegister implements BlockRegister {
 		return items;
 	}
 	
-	public static class FabricBlockRegistryEntry<B extends Block, I extends BlockItem> implements BlockRegistryEntry<B, I> {
+	public static class FabricBlockRegistryEntry<B extends Block, I extends Item> implements BlockRegistryEntry<B, I> {
 		
 		private final RegistryEntry<B> block;
 		private final RegistryEntry<I> item;
