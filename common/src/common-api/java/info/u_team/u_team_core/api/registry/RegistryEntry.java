@@ -9,11 +9,11 @@ import net.minecraft.resources.ResourceLocation;
 
 public interface RegistryEntry<R> extends Supplier<R> {
 	
-	public ResourceLocation getId();
+	ResourceLocation getId();
 	
-	public ResourceKey<R> getKey();
+	ResourceKey<R> getKey();
 	
-	public Optional<Holder<R>> getHolder();
+	Optional<Holder<R>> getHolder();
 	
 	boolean isPresent();
 	

@@ -14,26 +14,26 @@ import net.minecraft.resources.ResourceLocation;
 
 public interface CommonRegister<R> extends Iterable<RegistryEntry<R>> {
 	
-	public static <C> CommonRegister<C> create(ResourceKey<? extends Registry<C>> key, String modid) {
+	static <C> CommonRegister<C> create(ResourceKey<? extends Registry<C>> key, String modid) {
 		return Factory.INSTANCE.create(key, modid);
 	}
 	
-	public <E extends R> RegistryEntry<E> register(String name, Function<ResourceLocation, ? extends E> function);
+	<E extends R> RegistryEntry<E> register(String name, Function<ResourceLocation, ? extends E> function);
 	
-	public <E extends R> RegistryEntry<E> register(String name, Supplier<? extends E> supplier);
+	<E extends R> RegistryEntry<E> register(String name, Supplier<? extends E> supplier);
 	
-	public void register();
+	void register();
 	
-	public String getModid();
+	String getModid();
 	
-	public Collection<RegistryEntry<R>> getEntries();
+	Collection<RegistryEntry<R>> getEntries();
 	
 	@Override
-	public default Iterator<RegistryEntry<R>> iterator() {
+	default Iterator<RegistryEntry<R>> iterator() {
 		return getEntries().iterator();
 	}
 	
-	public default Iterable<R> entryIterable() {
+	default Iterable<R> entryIterable() {
 		return () -> Streams.stream(this).map(RegistryEntry::get).iterator();
 	}
 	
@@ -42,7 +42,6 @@ public interface CommonRegister<R> extends Iterable<RegistryEntry<R>> {
 		Factory INSTANCE = ServiceUtil.load(Factory.class);
 		
 		<C> CommonRegister<C> create(ResourceKey<? extends Registry<C>> key, String modid);
-		
 	}
 	
 }

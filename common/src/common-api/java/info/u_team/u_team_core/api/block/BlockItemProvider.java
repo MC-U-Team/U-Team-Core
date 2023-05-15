@@ -1,10 +1,10 @@
 package info.u_team.u_team_core.api.block;
 
-import info.u_team.u_team_core.util.registry.BlockDeferredRegister;
+import info.u_team.u_team_core.api.registry.BlockRegister;
 import net.minecraft.world.item.Item;
 
 /**
- * Implement this in a block to get the block item automatically registered with {@link BlockDeferredRegister}
+ * Implement this in a block to get the block item automatically registered with {@link BlockRegister}
  *
  * @author HyCraftHD
  */
