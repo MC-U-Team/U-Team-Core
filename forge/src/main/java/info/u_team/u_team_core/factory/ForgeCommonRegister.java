@@ -20,8 +20,12 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 	
 	private final CommonDeferredRegister<C> register;
 	
-	private ForgeCommonRegister(ResourceKey<? extends Registry<C>> key, String modid) {
+	ForgeCommonRegister(ResourceKey<? extends Registry<C>> key, String modid) {
 		register = CommonDeferredRegister.create(key, modid);
+	}
+	
+	ForgeCommonRegister(CommonDeferredRegister<C> register) {
+		this.register = register;
 	}
 	
 	@Override
@@ -53,11 +57,11 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 		return register;
 	}
 	
-	public class ForgeRegistryEntry<E> implements RegistryEntry<E> {
+	public static class ForgeRegistryEntry<E> implements RegistryEntry<E> {
 		
 		private final RegistryObject<E> object;
 		
-		private ForgeRegistryEntry(RegistryObject<E> object) {
+		ForgeRegistryEntry(RegistryObject<E> object) {
 			this.object = object;
 		}
 		
@@ -89,7 +93,6 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 		public RegistryObject<E> getRegistryObject() {
 			return object;
 		}
-		
 	}
 	
 	public static class Factory implements CommonRegister.Factory {
@@ -98,7 +101,5 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 		public <C> CommonRegister<C> create(ResourceKey<? extends Registry<C>> key, String modid) {
 			return new ForgeCommonRegister<>(key, modid);
 		}
-		
 	}
-	
 }

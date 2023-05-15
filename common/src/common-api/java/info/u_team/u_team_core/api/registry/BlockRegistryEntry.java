@@ -10,6 +10,8 @@ import net.minecraft.world.level.block.Block;
 
 public interface BlockRegistryEntry<B extends Block, I extends BlockItem> extends RegistryEntry<B> {
 	
+	I getItem();
+	
 	ResourceLocation getItemId();
 	
 	ResourceKey<I> getItemKey();
@@ -17,8 +19,6 @@ public interface BlockRegistryEntry<B extends Block, I extends BlockItem> extend
 	Optional<Holder<I>> getItemHolder();
 	
 	boolean isItemPresent();
-	
-	I getItem();
 	
 	RegistryEntry<I> getItemRegistryEntry();
 	
