@@ -34,12 +34,12 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 	}
 	
 	@Override
-	public <E extends C> RegistryEntry<E> register(String name, Function<ResourceLocation, ? extends E> function) {
+	public <E extends C> FabricRegistryEntry<E> register(String name, Function<ResourceLocation, ? extends E> function) {
 		return register(name, () -> function.apply(new ResourceLocation(modid, name)));
 	}
 	
 	@Override
-	public <E extends C> RegistryEntry<E> register(String name, Supplier<? extends E> supplier) {
+	public <E extends C> FabricRegistryEntry<E> register(String name, Supplier<? extends E> supplier) {
 		final ResourceLocation id = new ResourceLocation(modid, name);
 		final ResourceKey<C> key = ResourceKey.create(registry.key(), id);
 		
@@ -63,6 +63,11 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 	@Override
 	public String getModid() {
 		return modid;
+	}
+	
+	@Override
+	public ResourceKey<? extends Registry<C>> getRegistryKey() {
+		return registry.key();
 	}
 	
 	@Override
