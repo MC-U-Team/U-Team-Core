@@ -15,6 +15,7 @@ import info.u_team.u_team_core.api.registry.RegistryEntry;
 import info.u_team.u_team_core.factory.FabricCommonRegister.FabricRegistryEntry;
 import info.u_team.u_team_core.util.CastUtil;
 import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -71,6 +72,16 @@ public class FabricBlockRegister implements BlockRegister {
 	public void register() {
 		blocks.register();
 		items.register();
+		blockToItemsMap.forEach((blockEntry, itemEntry) -> {
+			final Block block = blockEntry.get();
+			if (block instanceof final BlockItemProvider blockItemProvider) {
+				final Item blockItem = blockItemProvider.blockItem();
+				if (blockItem != null) {
+					Registry.register(BuiltInRegistries.ITEM, itemEntry.getId(), blockItem);
+					itemEntry.updateReference(CastUtil.uncheckedCast(BuiltInRegistries.ITEM));
+				}
+			}
+		});
 	}
 	
 	@Override

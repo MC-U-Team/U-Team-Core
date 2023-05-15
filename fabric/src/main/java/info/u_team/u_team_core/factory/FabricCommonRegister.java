@@ -88,7 +88,7 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 			this.key = key;
 		}
 		
-		private void updateReference(Registry<E> registry) {
+		void updateReference(Registry<E> registry) {
 			value = registry.get(id);
 			holder = registry.getHolder(key).orElse(null);
 		}
