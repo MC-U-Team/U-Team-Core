@@ -1,6 +1,6 @@
 {
 	"schemaVersion": 1,
-	"id": "uteamtest",
+	"id": "uteamtest_multiloader",
 	"version": "${version}",
 	"name": "U Team Test",
 	"description": "This is just a test mod to test uteamcore",
@@ -15,7 +15,7 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"info.u_team.u_team_test.TestMod"
+			"info.u_team.u_team_test.test_multiloader.TestMultiLoaderMod"
 		]
 	},
 	"depends": {
