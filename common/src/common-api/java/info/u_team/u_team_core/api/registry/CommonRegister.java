@@ -26,6 +26,8 @@ public interface CommonRegister<R> extends Iterable<RegistryEntry<R>> {
 	
 	String getModid();
 	
+	ResourceKey<? extends Registry<R>> getRegistryKey();
+	
 	Collection<RegistryEntry<R>> getEntries();
 	
 	@Override
