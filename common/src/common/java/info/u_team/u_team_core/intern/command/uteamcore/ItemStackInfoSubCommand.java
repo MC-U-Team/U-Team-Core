@@ -3,13 +3,13 @@ package info.u_team.u_team_core.intern.command.uteamcore;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
+import info.u_team.u_team_core.util.CastUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.registries.VanillaRegistries;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -33,8 +33,6 @@ public class ItemStackInfoSubCommand {
 		final ItemStack stack = source.getPlayerOrException().getMainHandItem();
 		final Item item = stack.getItem();
 		
-		VanillaRegistries.createLookup();
-		
 		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, Registries.ITEM)), false);
 		
 		if (item instanceof final BlockItem blockItem) {
@@ -53,9 +51,7 @@ public class ItemStackInfoSubCommand {
 	}
 	
 	private static <T> Component createRegistryInfo(T entry, ResourceKey<Registry<T>> key) {
-		@SuppressWarnings("unchecked")
-		final Registry<T> vanillaRegistry = (Registry<T>) BuiltInRegistries.REGISTRY.get(key);
-		
+		final Registry<T> vanillaRegistry = CastUtil.uncheckedCast(BuiltInRegistries.REGISTRY.get(key));
 		final MutableComponent component = Component.literal(vanillaRegistry.getKey(entry).toString());
 		final String className = getClassString(entry);
 		final Style style = component.getStyle() //
