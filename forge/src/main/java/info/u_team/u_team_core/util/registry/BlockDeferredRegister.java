@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.block.BlockItemProvider;
@@ -41,6 +42,10 @@ public class BlockDeferredRegister implements Iterable<RegistryObject<Block>> {
 		blockToItemsMap.put(block, item);
 		
 		return new BlockRegistryObject<>(block, item);
+	}
+	
+	public <B extends Block, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
+		return register(name, blockSupplier, () -> itemFunction.apply(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(blocks.getModid(), name))));
 	}
 	
 	public <B extends Block, I extends BlockItem> BlockRegistryObject<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {

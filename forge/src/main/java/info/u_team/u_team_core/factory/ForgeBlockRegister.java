@@ -2,6 +2,7 @@ package info.u_team.u_team_core.factory;
 
 import java.util.Iterator;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import com.google.common.collect.Streams;
@@ -33,6 +34,11 @@ public class ForgeBlockRegister implements BlockRegister {
 	@Override
 	public <B extends Block & BlockItemProvider, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
 		return new ForgeBlockRegistryEntry<>(register.register(name, supplier));
+	}
+	
+	@Override
+	public <B extends Block, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
+		return new ForgeBlockRegistryEntry<>(register.register(name, blockSupplier, itemFunction));
 	}
 	
 	@Override

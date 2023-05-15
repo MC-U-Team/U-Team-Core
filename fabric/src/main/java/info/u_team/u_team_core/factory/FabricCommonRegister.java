@@ -28,8 +28,8 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 	private final Map<FabricRegistryEntry<C>, Supplier<? extends C>> entries = new LinkedHashMap<>();
 	private final Set<RegistryEntry<C>> entriesView = Collections.unmodifiableSet(entries.keySet());
 	
-	private FabricCommonRegister(ResourceKey<? extends Registry<C>> key, String modid) {
-		this.registry = CastUtil.uncheckedCast(BuiltInRegistries.REGISTRY.get(key.location()));
+	FabricCommonRegister(ResourceKey<? extends Registry<C>> key, String modid) {
+		registry = CastUtil.uncheckedCast(BuiltInRegistries.REGISTRY.get(key.location()));
 		this.modid = modid;
 	}
 	
@@ -70,7 +70,7 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 		return entriesView;
 	}
 	
-	public class FabricRegistryEntry<E> implements RegistryEntry<E> {
+	public static class FabricRegistryEntry<E> implements RegistryEntry<E> {
 		
 		private final ResourceLocation id;
 		private final ResourceKey<E> key;
@@ -78,7 +78,7 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 		private E value;
 		private Holder<E> holder;
 		
-		private FabricRegistryEntry(ResourceLocation id, ResourceKey<E> key) {
+		FabricRegistryEntry(ResourceLocation id, ResourceKey<E> key) {
 			this.id = id;
 			this.key = key;
 		}

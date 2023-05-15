@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.api.registry;
 
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.block.BlockItemProvider;
@@ -15,6 +16,8 @@ public interface BlockRegister extends Iterable<RegistryEntry<Block>> {
 	}
 	
 	<B extends Block & BlockItemProvider, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier);
+	
+	<B extends Block, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction);
 	
 	<B extends Block, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier);
 	
