@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import info.u_team.u_team_core.api.registry.CommonRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
+import info.u_team.u_team_core.util.registry.BusRegister;
 import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -35,6 +36,7 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 	
 	@Override
 	public void register() {
+		BusRegister.registerMod(register::register);
 	}
 	
 	@Override
