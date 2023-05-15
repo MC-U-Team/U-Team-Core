@@ -1,5 +1,5 @@
 {
-	"parent": "minecraft:item/generated",
+	"parent": "uteamtest_multiloader:block/test",
 	"textures": {
 		"layer0": "uteamtest_multiloader:item/test"
 	}
