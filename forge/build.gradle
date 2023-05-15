@@ -178,7 +178,7 @@ sourceSets {
 			srcDirs += "src/generated_test_mod/resources"
 			srcDirs += project(":common").sourceSets."common-test_mod".resources.srcDirs
 		}
-		compileClasspath += main.compileClasspath
+		compileClasspath += main.runtimeClasspath
 		runtimeClasspath += main.runtimeClasspath
 	}
 }
