@@ -60,6 +60,9 @@ minecraft {
 				
 				uteamtest {
 					source sourceSets.test_mod
+				}
+				
+				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
 				}
 			}
@@ -74,6 +77,9 @@ minecraft {
 				
 				uteamtest {
 					source sourceSets.test_mod
+				}
+				
+				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
 				}
 			}
@@ -141,7 +147,7 @@ minecraft {
 					source sourceSets.main
 				}
 				
-				uteamtest {
+				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
 				}
 			}
