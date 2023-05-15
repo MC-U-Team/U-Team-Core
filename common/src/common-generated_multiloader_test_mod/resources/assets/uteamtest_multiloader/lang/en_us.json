@@ -1,4 +1,4 @@
 {
-	"block.uteamtest_multiloader.test": "Test Block",
-	"item.uteamtest_multiloader.test": "Test Item"
+	"block.uteamtest_multiloader.test_block": "Test Block",
+	"item.uteamtest_multiloader.test_item": "Test Item"
 }

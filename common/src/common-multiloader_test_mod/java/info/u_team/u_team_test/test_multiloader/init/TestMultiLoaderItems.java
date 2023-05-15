@@ -11,7 +11,7 @@ public class TestMultiLoaderItems {
 	
 	public static final CommonRegister<Item> ITEMS = CommonRegister.create(Registries.ITEM, TestMultiLoaderReference.MODID);
 	
-	public static final RegistryEntry<Item> TEST = ITEMS.register("test", () -> new Item(new Properties()));
+	public static final RegistryEntry<Item> TEST = ITEMS.register("test_item", () -> new Item(new Properties()));
 	
 	public static void register() {
 		ITEMS.register();
