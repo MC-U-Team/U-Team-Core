@@ -32,22 +32,22 @@ public class ForgeBlockRegister implements BlockRegister {
 	}
 	
 	@Override
-	public <B extends Block & BlockItemProvider, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
+	public <B extends Block & BlockItemProvider, I extends BlockItem> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
 		return new ForgeBlockRegistryEntry<>(register.register(name, supplier));
 	}
 	
 	@Override
-	public <B extends Block, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
+	public <B extends Block, I extends BlockItem> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
 		return new ForgeBlockRegistryEntry<>(register.register(name, blockSupplier, itemFunction));
 	}
 	
 	@Override
-	public <B extends Block, I extends BlockItem> BlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
+	public <B extends Block, I extends BlockItem> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
 		return new ForgeBlockRegistryEntry<>(register.register(name, blockSupplier, itemSupplier));
 	}
 	
 	@Override
-	public <B extends Block> RegistryEntry<B> registerBlock(String name, Supplier<? extends B> supplier) {
+	public <B extends Block> ForgeRegistryEntry<B> registerBlock(String name, Supplier<? extends B> supplier) {
 		return new ForgeRegistryEntry<>(register.registerBlock(name, supplier));
 	}
 	

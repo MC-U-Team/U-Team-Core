@@ -29,12 +29,12 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 	}
 	
 	@Override
-	public <E extends C> RegistryEntry<E> register(String name, Function<ResourceLocation, ? extends E> function) {
+	public <E extends C> ForgeRegistryEntry<E> register(String name, Function<ResourceLocation, ? extends E> function) {
 		return new ForgeRegistryEntry<>(register.register(name, function));
 	}
 	
 	@Override
-	public <E extends C> RegistryEntry<E> register(String name, Supplier<? extends E> supplier) {
+	public <E extends C> ForgeRegistryEntry<E> register(String name, Supplier<? extends E> supplier) {
 		return new ForgeRegistryEntry<>(register.register(name, supplier));
 	}
 	
@@ -46,6 +46,11 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 	@Override
 	public String getModid() {
 		return register.getModid();
+	}
+	
+	@Override
+	public ResourceKey<? extends Registry<C>> getRegistryKey() {
+		return register.getRegister().getRegistryKey();
 	}
 	
 	@Override
