@@ -51,7 +51,7 @@ public class ItemStackInfoSubCommand {
 	}
 	
 	private static <T> Component createRegistryInfo(T entry, ResourceKey<Registry<T>> key) {
-		final Registry<T> vanillaRegistry = CastUtil.uncheckedCast(BuiltInRegistries.REGISTRY.get(key));
+		final Registry<T> vanillaRegistry = CastUtil.uncheckedCast(BuiltInRegistries.REGISTRY.get(key.location()));
 		final MutableComponent component = Component.literal(vanillaRegistry.getKey(entry).toString());
 		final String className = getClassString(entry);
 		final Style style = component.getStyle() //
