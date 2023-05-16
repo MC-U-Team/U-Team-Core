@@ -36,7 +36,7 @@ public interface BlockRegister extends Iterable<RegistryEntry<Block>> {
 	
 	interface Factory {
 		
-		Factory INSTANCE = ServiceUtil.load(Factory.class);
+		Factory INSTANCE = ServiceUtil.loadOne(Factory.class);
 		
 		BlockRegister create(String modid);
 	}
