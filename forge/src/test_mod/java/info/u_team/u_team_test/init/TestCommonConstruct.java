@@ -10,22 +10,21 @@ public class TestCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		BusRegister.registerMod(TestBlocks::registerMod);
-		BusRegister.registerMod(TestCreativeTabs::registerMod);
-		BusRegister.registerMod(TestMenuTypes::registerMod);
-		BusRegister.registerMod(TestMobEffects::registerMod);
-		BusRegister.registerMod(TestEnchantments::registerMod);
-		BusRegister.registerMod(TestSpawnPlacementRegistries::registerMod);
-		BusRegister.registerMod(TestEntityTypes::registerMod);
-		BusRegister.registerMod(TestGlobalEntityAttributes::registerMod);
-		BusRegister.registerMod(TestGlobalLootModifierSerializers::registerMod);
-		BusRegister.registerMod(TestItems::registerMod);
-		BusRegister.registerMod(TestPotions::registerMod);
-		BusRegister.registerMod(TestSoundEvents::registerMod);
-		BusRegister.registerMod(TestBlockEntityTypes::registerMod);
-		BusRegister.registerMod(TestTiers::registerMod);
+		TestBlocks.register();
+		TestMenuTypes.register();
+		TestMobEffects.register();
+		TestEnchantments.register();
+		TestEntityTypes.register();
+		TestGlobalLootModifierSerializers.register();
+		TestItems.register();
+		TestPotions.register();
+		TestSoundEvents.register();
+		TestBlockEntityTypes.register();
 		
-		// BusRegister.registerForge(TestBiomeLoadingAdditions::registerForge);
+		BusRegister.registerMod(TestCreativeTabs::registerMod);
+		BusRegister.registerMod(TestSpawnPlacementRegistries::registerMod);
+		BusRegister.registerMod(TestGlobalEntityAttributes::registerMod);
+		BusRegister.registerMod(TestTiers::registerMod);
 	}
 	
 }

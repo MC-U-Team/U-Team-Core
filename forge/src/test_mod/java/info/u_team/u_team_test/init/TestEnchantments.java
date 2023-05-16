@@ -1,21 +1,20 @@
 package info.u_team.u_team_test.init;
 
-import info.u_team.u_team_core.util.registry.CommonDeferredRegister;
+import info.u_team.u_team_core.api.registry.CommonRegister;
+import info.u_team.u_team_core.api.registry.RegistryEntry;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.enchantment.AutoSmeltEnchantment;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
 
 public class TestEnchantments {
 	
-	public static final CommonDeferredRegister<Enchantment> ENCHANTMENTS = CommonDeferredRegister.create(ForgeRegistries.ENCHANTMENTS, TestMod.MODID);
+	public static final CommonRegister<Enchantment> ENCHANTMENTS = CommonRegister.create(Registries.ENCHANTMENT, TestMod.MODID);
 	
-	public static final RegistryObject<Enchantment> AUTO_SMELT = ENCHANTMENTS.register("auto_smelt", AutoSmeltEnchantment::new);
+	public static final RegistryEntry<Enchantment> AUTO_SMELT = ENCHANTMENTS.register("auto_smelt", AutoSmeltEnchantment::new);
 	
-	public static void registerMod(IEventBus bus) {
-		ENCHANTMENTS.register(bus);
+	public static void register() {
+		ENCHANTMENTS.register();
 	}
 	
 }

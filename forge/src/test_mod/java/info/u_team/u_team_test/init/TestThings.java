@@ -6,7 +6,7 @@ import com.mojang.logging.LogUtils;
 
 import info.u_team.u_team_core.api.construct.Construct;
 import info.u_team.u_team_core.api.construct.ModConstruct;
-import info.u_team.u_team_core.util.registry.BlockRegistryObject;
+import info.u_team.u_team_core.api.registry.BlockRegistryEntry;
 import info.u_team.u_team_core.util.registry.BusRegister;
 import info.u_team.u_team_test.TestMod;
 import info.u_team.u_team_test.block.BasicBlock;
@@ -35,7 +35,7 @@ public class TestThings implements ModConstruct {
 	}
 	
 	private static void setup(FMLCommonSetupEvent event) {
-		final BlockRegistryObject<BasicBlock, BlockItem> registryObject = TestBlocks.BASIC;
+		final BlockRegistryEntry<BasicBlock, BlockItem> registryObject = TestBlocks.BASIC;
 		
 		if (!ForgeRegistries.ITEMS.getKey(registryObject.getItem()).equals(registryObject.getItemId())) {
 			throw new IllegalStateException("Registry name of item must be set and match the expected one");
