@@ -8,6 +8,8 @@ accessible field net/minecraft/world/item/Item$Properties foodProperties Lnet/mi
 accessible field net/minecraft/world/item/Item$Properties isFireResistant Z
 accessible field net/minecraft/world/item/Item$Properties requiredFeatures Lnet/minecraft/world/flag/FeatureFlagSet;
 
+extendable method net/minecraft/world/level/block/state/BlockBehaviour$Properties <init> (Lnet/minecraft/world/level/material/Material;Ljava/util/function/Function;)V
+extendable method net/minecraft/world/level/block/state/BlockBehaviour$Properties <init> (Lnet/minecraft/world/level/material/Material;Lnet/minecraft/world/level/material/MaterialColor;)V
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties material Lnet/minecraft/world/level/material/Material;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties materialColor Ljava/util/function/Function;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties hasCollision Z
