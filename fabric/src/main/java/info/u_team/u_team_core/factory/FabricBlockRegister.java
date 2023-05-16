@@ -9,12 +9,10 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.block.BlockItemProvider;
 import info.u_team.u_team_core.api.registry.BlockRegister;
-import info.u_team.u_team_core.api.registry.BlockRegistryEntry;
-import info.u_team.u_team_core.api.registry.CommonRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
 import info.u_team.u_team_core.factory.FabricCommonRegister.FabricRegistryEntry;
+import info.u_team.u_team_core.factory.common.CommonBlockRegistryEntry;
 import info.u_team.u_team_core.util.CastUtil;
-import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -110,78 +108,19 @@ public class FabricBlockRegister implements BlockRegister {
 	}
 	
 	@Override
-	public CommonRegister<Block> getBlockRegister() {
+	public FabricCommonRegister<Block> getBlockRegister() {
 		return blocks;
 	}
 	
 	@Override
-	public CommonRegister<Item> getItemRegister() {
+	public FabricCommonRegister<Item> getItemRegister() {
 		return items;
 	}
 	
-	public static class FabricBlockRegistryEntry<B extends Block, I extends Item> implements BlockRegistryEntry<B, I> {
+	public static class FabricBlockRegistryEntry<B extends Block, I extends Item> extends CommonBlockRegistryEntry<B, I, FabricRegistryEntry<B>, FabricRegistryEntry<I>> {
 		
-		private final RegistryEntry<B> block;
-		private final RegistryEntry<I> item;
-		
-		FabricBlockRegistryEntry(RegistryEntry<B> block, RegistryEntry<I> item) {
-			this.block = block;
-			this.item = item;
-		}
-		
-		@Override
-		public B get() {
-			return block.get();
-		}
-		
-		@Override
-		public ResourceLocation getId() {
-			return block.getId();
-		}
-		
-		@Override
-		public ResourceKey<B> getKey() {
-			return block.getKey();
-		}
-		
-		@Override
-		public Optional<Holder<B>> getHolder() {
-			return block.getHolder();
-		}
-		
-		@Override
-		public boolean isPresent() {
-			return block.isPresent();
-		}
-		
-		@Override
-		public I getItem() {
-			return item.get();
-		}
-		
-		@Override
-		public ResourceLocation getItemId() {
-			return item.getId();
-		}
-		
-		@Override
-		public ResourceKey<I> getItemKey() {
-			return item.getKey();
-		}
-		
-		@Override
-		public Optional<Holder<I>> getItemHolder() {
-			return item.getHolder();
-		}
-		
-		@Override
-		public boolean isItemPresent() {
-			return item.isPresent();
-		}
-		
-		@Override
-		public RegistryEntry<I> getItemRegistryEntry() {
-			return item;
+		FabricBlockRegistryEntry(FabricRegistryEntry<B> block, FabricRegistryEntry<I> item) {
+			super(block, item);
 		}
 	}
 	

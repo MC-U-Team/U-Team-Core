@@ -95,7 +95,7 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 		
 		@Override
 		public E get() {
-			Objects.requireNonNull(value, () -> "Registry Object not present: " + id);
+			Objects.requireNonNull(value, () -> "Registry entry not present: " + id);
 			return value;
 		}
 		
