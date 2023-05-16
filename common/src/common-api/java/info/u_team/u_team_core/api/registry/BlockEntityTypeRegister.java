@@ -11,7 +11,6 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraft.world.level.block.entity.BlockEntityType.Builder;
 
 public interface BlockEntityTypeRegister extends Iterable<RegistryEntry<BlockEntityType<?>>> {
 	
@@ -21,12 +20,12 @@ public interface BlockEntityTypeRegister extends Iterable<RegistryEntry<BlockEnt
 			private final CommonRegister<BlockEntityType<?>> register = CommonRegister.create(Registries.BLOCK_ENTITY_TYPE, modid);
 			
 			@Override
-			public <T extends BlockEntity> RegistryEntry<BlockEntityType<T>> register(String name, Function<ResourceLocation, Builder<T>> function) {
+			public <T extends BlockEntity> RegistryEntry<BlockEntityType<T>> register(String name, Function<ResourceLocation, BlockEntityType.Builder<T>> function) {
 				return register.register(name, location -> function.apply(location).build(null));
 			}
 			
 			@Override
-			public <T extends BlockEntity> RegistryEntry<BlockEntityType<T>> register(String name, Supplier<Builder<T>> supplier) {
+			public <T extends BlockEntity> RegistryEntry<BlockEntityType<T>> register(String name, Supplier<BlockEntityType.Builder<T>> supplier) {
 				return register.register(name, () -> supplier.get().build(null));
 			}
 			
