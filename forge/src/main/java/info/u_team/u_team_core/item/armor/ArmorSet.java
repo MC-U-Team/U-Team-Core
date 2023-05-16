@@ -4,12 +4,12 @@ import java.util.Iterator;
 
 import com.google.common.collect.Iterators;
 
-import net.minecraftforge.registries.RegistryObject;
+import info.u_team.u_team_core.api.registry.RegistryEntry;
 
-public record ArmorSet(RegistryObject<UHelmetItem> helmet, RegistryObject<UChestplateItem> chestplate, RegistryObject<ULeggingsItem> leggings, RegistryObject<UBootsItem> boots) implements Iterable<RegistryObject<? extends UArmorItem>> {
+public record ArmorSet(RegistryEntry<UHelmetItem> helmet, RegistryEntry<UChestplateItem> chestplate, RegistryEntry<ULeggingsItem> leggings, RegistryEntry<UBootsItem> boots) implements Iterable<RegistryEntry<? extends UArmorItem>> {
 	
 	@Override
-	public Iterator<RegistryObject<? extends UArmorItem>> iterator() {
+	public Iterator<RegistryEntry<? extends UArmorItem>> iterator() {
 		return Iterators.forArray(helmet, chestplate, leggings, boots);
 	}
 }
