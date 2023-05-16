@@ -1,14 +1,12 @@
 package info.u_team.u_team_core.util;
 
-import java.lang.reflect.Field;
+import java.util.List;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
 
 public class BlockProperties extends Properties {
-	
-	private static final Field LOOT_TABLE_SUPPLIER_FIELD = ReflectionUtil.findField(Properties.class, "lootTableSupplier");
 	
 	public BlockProperties(Material material, MaterialColor color) {
 		super(material, color);
@@ -40,6 +38,13 @@ public class BlockProperties extends Properties {
 		requiredFeatures = properties.requiredFeatures;
 		offsetFunction = properties.offsetFunction;
 		
-		ReflectionUtil.copyValue(LOOT_TABLE_SUPPLIER_FIELD, properties, this);
+		Extension.INSTANCES.forEach(extension -> extension.copy(this, properties));
+	}
+	
+	public interface Extension {
+		
+		List<Extension> INSTANCES = ServiceUtil.loadAll(Extension.class);
+		
+		void copy(BlockProperties ourProperties, Properties properties);
 	}
 }

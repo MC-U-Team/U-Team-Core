@@ -21,7 +21,9 @@ public class ServiceUtil {
 	
 	public static <I> List<I> loadAll(Class<I> serviceClass) {
 		final List<I> services = find(serviceClass);
-		UCoreReference.LOGGER.debug("Loaded services {} for class {}", services, serviceClass);
+		if (!services.isEmpty()) {
+			UCoreReference.LOGGER.debug("Loaded services {} for class {}", services, serviceClass);
+		}
 		return services;
 	}
 	

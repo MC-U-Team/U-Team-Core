@@ -1,12 +1,10 @@
 package info.u_team.u_team_core.util;
 
-import java.lang.reflect.Field;
+import java.util.List;
 
 import net.minecraft.world.item.Item.Properties;
 
 public class ItemProperties extends Properties {
-	
-	private static final Field CAN_REPAIR_FIELD = ReflectionUtil.findField(Properties.class, "canRepair");
 	
 	public ItemProperties() {
 	}
@@ -20,6 +18,13 @@ public class ItemProperties extends Properties {
 		isFireResistant = properties.isFireResistant;
 		requiredFeatures = properties.requiredFeatures;
 		
-		ReflectionUtil.copyValue(CAN_REPAIR_FIELD, properties, this);
+		Extension.INSTANCES.forEach(extension -> extension.copy(this, properties));
+	}
+	
+	public interface Extension {
+		
+		List<Extension> INSTANCES = ServiceUtil.loadAll(Extension.class);
+		
+		void copy(ItemProperties ourProperties, Properties properties);
 	}
 }

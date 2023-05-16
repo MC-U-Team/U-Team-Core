@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.factory;
+package info.u_team.u_team_core.impl;
 
 import java.util.Collection;
 import java.util.Collections;
