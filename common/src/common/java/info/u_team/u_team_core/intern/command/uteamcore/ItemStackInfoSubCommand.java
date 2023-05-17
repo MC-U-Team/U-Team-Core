@@ -3,12 +3,11 @@ package info.u_team.u_team_core.intern.command.uteamcore;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
-import info.u_team.u_team_core.util.CastUtil;
+import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.ClickEvent;
@@ -51,7 +50,7 @@ public class ItemStackInfoSubCommand {
 	}
 	
 	private static <T> Component createRegistryInfo(T entry, ResourceKey<Registry<T>> key) {
-		final Registry<T> vanillaRegistry = CastUtil.uncheckedCast(BuiltInRegistries.REGISTRY.get(key.location()));
+		final Registry<T> vanillaRegistry = RegistryUtil.getBuiltInRegistry(key);
 		final MutableComponent component = Component.literal(vanillaRegistry.getKey(entry).toString());
 		final String className = getClassString(entry);
 		component.withStyle(style -> style.withColor(ChatFormatting.AQUA) //
