@@ -1,0 +1,6 @@
+{
+	"parent": "minecraft:item/handheld",
+	"textures": {
+		"layer0": "uteamtest_multiloader:item/test_helmet"
+	}
+}

@@ -15,6 +15,17 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 	public void register() {
 		addItem(TestMultiLoaderItems.TEST, "Test Item");
 		
+		addItem(TestMultiLoaderItems.ARMOR.helmet(), "Basic Helmet");
+		addItem(TestMultiLoaderItems.ARMOR.chestplate(), "Basic Chestplate");
+		addItem(TestMultiLoaderItems.ARMOR.leggings(), "Basic Leggings");
+		addItem(TestMultiLoaderItems.ARMOR.boots(), "Basic Boots");
+		
+		addItem(TestMultiLoaderItems.TIER.axe(), "Basic Axe");
+		addItem(TestMultiLoaderItems.TIER.hoe(), "Basic Hoe");
+		addItem(TestMultiLoaderItems.TIER.pickaxe(), "Basic Pickaxe");
+		addItem(TestMultiLoaderItems.TIER.shovel(), "Basic Shovel");
+		addItem(TestMultiLoaderItems.TIER.sword(), "Basic Sword");
+		
 		addBlock(TestMultiLoaderBlocks.TEST, "Test Block");
 	}
 	
