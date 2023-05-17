@@ -47,7 +47,6 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 		if (entries.putIfAbsent(CastUtil.uncheckedCast(entry), supplier) != null) {
 			throw new IllegalArgumentException("Duplicate registration " + name);
 		}
-		
 		return entry;
 	}
 	
