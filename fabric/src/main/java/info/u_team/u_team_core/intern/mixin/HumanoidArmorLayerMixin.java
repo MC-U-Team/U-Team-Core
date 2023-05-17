@@ -43,7 +43,7 @@ abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends Humanoi
 	abstract ResourceLocation getArmorLocation(ArmorItem armorItem, boolean layer2, String suffix);
 	
 	@Inject(method = "renderArmorPiece", locals = LocalCapture.CAPTURE_FAILEXCEPTION, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderModel(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/ArmorItem;ZLnet/minecraft/client/model/HumanoidModel;ZFFFLjava/lang/String;)V"))
-	private void renderArmorPiece(PoseStack poseStack, MultiBufferSource buffer, T entity, EquipmentSlot slot, int packedLight, M model, CallbackInfo callbackInfo, ItemStack stack, ArmorItem item, boolean layer2, boolean withGlint) {
+	private void uteamcore$renderArmorPiece(PoseStack poseStack, MultiBufferSource buffer, T entity, EquipmentSlot slot, int packedLight, M model, CallbackInfo callbackInfo, ItemStack stack, ArmorItem item, boolean layer2, boolean withGlint) {
 		if (item instanceof UArmorItem armorItem) {
 			final ResourceLocation resource;
 			String texture = armorItem.resolveArmorTexture(stack, entity, slot, null);
@@ -58,7 +58,7 @@ abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends Humanoi
 	}
 	
 	@Inject(method = "renderModel", at = @At("HEAD"), cancellable = true)
-	private void renderArmorPiece(PoseStack poseStack, MultiBufferSource buffer, int packedLight, ArmorItem item, boolean withGlint, A model, boolean layer2, float red, float green, float blue, String armorSuffix, CallbackInfo callbackInfo) {
+	private void uteamcore$renderArmorPiece(PoseStack poseStack, MultiBufferSource buffer, int packedLight, ArmorItem item, boolean withGlint, A model, boolean layer2, float red, float green, float blue, String armorSuffix, CallbackInfo callbackInfo) {
 		if (item instanceof UArmorItem armorItem) {
 			callbackInfo.cancel();
 		}
