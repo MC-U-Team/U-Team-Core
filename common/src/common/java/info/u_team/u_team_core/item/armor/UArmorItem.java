@@ -8,7 +8,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
-public class UArmorItem extends ArmorItem implements UArmorItemExtension {
+public class UArmorItem extends ArmorItem {
 	
 	protected final String textureName;
 	
@@ -17,7 +17,6 @@ public class UArmorItem extends ArmorItem implements UArmorItemExtension {
 		this.textureName = textureName;
 	}
 	
-	@Override
 	public String resolveArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		if (!material.getName().equals("invalid")) {
 			return null;
