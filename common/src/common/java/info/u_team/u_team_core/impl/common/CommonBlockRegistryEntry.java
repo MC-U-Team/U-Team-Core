@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.factory.common;
+package info.u_team.u_team_core.impl.common;
 
 import java.util.Optional;
 
