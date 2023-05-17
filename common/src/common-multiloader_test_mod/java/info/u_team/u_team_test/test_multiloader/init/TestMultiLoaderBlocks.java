@@ -12,7 +12,7 @@ public class TestMultiLoaderBlocks {
 	
 	public static final BlockRegister BLOCKS = BlockRegister.create(TestMultiLoaderReference.MODID);
 	
-	public static final BlockRegistryEntry<UBlock, BlockItem> TEST = BLOCKS.register("test_block", () -> new UBlock(Properties.of(Material.STONE)));
+	public static final BlockRegistryEntry<UBlock, BlockItem> TEST = BLOCKS.register("test_block", () -> new UBlock(Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3)));
 	
 	public static void register() {
 		BLOCKS.register();

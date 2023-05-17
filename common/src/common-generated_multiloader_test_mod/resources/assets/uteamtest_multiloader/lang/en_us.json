@@ -1,13 +1,13 @@
 {
 	"block.uteamtest_multiloader.test_block": "Test Block",
-	"item.uteamtest_multiloader.test_axe": "Basic Axe",
-	"item.uteamtest_multiloader.test_boots": "Basic Boots",
-	"item.uteamtest_multiloader.test_chestplate": "Basic Chestplate",
-	"item.uteamtest_multiloader.test_helmet": "Basic Helmet",
-	"item.uteamtest_multiloader.test_hoe": "Basic Hoe",
+	"item.uteamtest_multiloader.test_axe": "Test Axe",
+	"item.uteamtest_multiloader.test_boots": "Test Boots",
+	"item.uteamtest_multiloader.test_chestplate": "Test Chestplate",
+	"item.uteamtest_multiloader.test_helmet": "Test Helmet",
+	"item.uteamtest_multiloader.test_hoe": "Test Hoe",
 	"item.uteamtest_multiloader.test_item": "Test Item",
-	"item.uteamtest_multiloader.test_leggings": "Basic Leggings",
-	"item.uteamtest_multiloader.test_pickaxe": "Basic Pickaxe",
-	"item.uteamtest_multiloader.test_shovel": "Basic Shovel",
-	"item.uteamtest_multiloader.test_sword": "Basic Sword"
+	"item.uteamtest_multiloader.test_leggings": "Test Leggings",
+	"item.uteamtest_multiloader.test_pickaxe": "Test Pickaxe",
+	"item.uteamtest_multiloader.test_shovel": "Test Shovel",
+	"item.uteamtest_multiloader.test_sword": "Test Sword"
 }

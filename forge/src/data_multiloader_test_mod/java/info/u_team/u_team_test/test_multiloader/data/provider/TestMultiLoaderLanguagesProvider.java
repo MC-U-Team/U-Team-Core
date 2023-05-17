@@ -15,16 +15,16 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 	public void register() {
 		addItem(TestMultiLoaderItems.TEST, "Test Item");
 		
-		addItem(TestMultiLoaderItems.ARMOR.helmet(), "Basic Helmet");
-		addItem(TestMultiLoaderItems.ARMOR.chestplate(), "Basic Chestplate");
-		addItem(TestMultiLoaderItems.ARMOR.leggings(), "Basic Leggings");
-		addItem(TestMultiLoaderItems.ARMOR.boots(), "Basic Boots");
+		addItem(TestMultiLoaderItems.ARMOR.helmet(), "Test Helmet");
+		addItem(TestMultiLoaderItems.ARMOR.chestplate(), "Test Chestplate");
+		addItem(TestMultiLoaderItems.ARMOR.leggings(), "Test Leggings");
+		addItem(TestMultiLoaderItems.ARMOR.boots(), "Test Boots");
 		
-		addItem(TestMultiLoaderItems.TIER.axe(), "Basic Axe");
-		addItem(TestMultiLoaderItems.TIER.hoe(), "Basic Hoe");
-		addItem(TestMultiLoaderItems.TIER.pickaxe(), "Basic Pickaxe");
-		addItem(TestMultiLoaderItems.TIER.shovel(), "Basic Shovel");
-		addItem(TestMultiLoaderItems.TIER.sword(), "Basic Sword");
+		addItem(TestMultiLoaderItems.TIER.axe(), "Test Axe");
+		addItem(TestMultiLoaderItems.TIER.hoe(), "Test Hoe");
+		addItem(TestMultiLoaderItems.TIER.pickaxe(), "Test Pickaxe");
+		addItem(TestMultiLoaderItems.TIER.shovel(), "Test Shovel");
+		addItem(TestMultiLoaderItems.TIER.sword(), "Test Sword");
 		
 		addBlock(TestMultiLoaderBlocks.TEST, "Test Block");
 	}
