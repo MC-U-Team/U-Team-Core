@@ -4,7 +4,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.ItemStack;
 
-public interface UArmorItemMixinExtension {
+public interface UArmorItemExtension {
 	
 	String resolveArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type);
 }

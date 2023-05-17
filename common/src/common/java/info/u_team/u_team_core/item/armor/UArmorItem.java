@@ -8,7 +8,7 @@ import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 
-public class UArmorItem extends ArmorItem implements UArmorItemMixinExtension {
+public class UArmorItem extends ArmorItem implements UArmorItemExtension {
 	
 	protected final String textureName;
 	
