@@ -8,6 +8,7 @@ import info.u_team.u_team_core.item.armor.ArmorSetCreator;
 import info.u_team.u_team_core.item.armor.UArmorMaterialVanilla;
 import info.u_team.u_team_core.item.tier.TierSet;
 import info.u_team.u_team_core.item.tier.TierSetCreator;
+import info.u_team.u_team_core.item.tier.UExtendedTier;
 import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
@@ -22,48 +23,8 @@ public class TestMultiLoaderItems {
 	
 	public static final RegistryEntry<Item> TEST = ITEMS.register("test_item", () -> new Item(new Properties()));
 	
-	public static final TierSet TIER = TierSetCreator.create(ITEMS, "test", new Properties().fireResistant(), new ExtendedTier() {
-		
-		@Override
-		public int getUses() {
-			return 0;
-		}
-		
-		@Override
-		public float getSpeed() {
-			return 0;
-		}
-		
-		@Override
-		public Ingredient getRepairIngredient() {
-			return null;
-		}
-		
-		@Override
-		public int getLevel() {
-			return 0;
-		}
-		
-		@Override
-		public int getEnchantmentValue() {
-			return 0;
-		}
-		
-		@Override
-		public float getAttackDamageBonus() {
-			return 0;
-		}
-		
-		@Override
-		public float getAttackSpeed(Tools tools) {
-			return 0;
-		}
-		
-		@Override
-		public float getAttackDamage(Tools tools) {
-			return 0;
-		}
-	});
+	public static final ExtendedTier EXTENDED_TIER = new UExtendedTier(new float[] { 8, 0, 4, 2, 6 }, new float[] { -3.1F, -1, -2, -2, 0 }, 2, 500, 10F, 8, 30, () -> Ingredient.of(TEST.get()));
+	public static final TierSet TIER = TierSetCreator.create(ITEMS, "test", new Properties().fireResistant(), EXTENDED_TIER);
 	
 	public static final ArmorMaterial ARMOR_MATERIAL = new UArmorMaterialVanilla(20, new int[] { 5, 6, 8, 2 }, 20, () -> SoundEvents.BEACON_ACTIVATE, 1, 1, () -> Ingredient.of(TEST.get()));
 	public static final ArmorSet ARMOR = ArmorSetCreator.create(ITEMS, "test", new Properties().fireResistant(), ARMOR_MATERIAL);
