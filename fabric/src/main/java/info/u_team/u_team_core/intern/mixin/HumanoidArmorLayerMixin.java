@@ -42,7 +42,7 @@ abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends Humanoi
 	@Shadow
 	abstract ResourceLocation getArmorLocation(ArmorItem armorItem, boolean layer2, String suffix);
 	
-	@Inject(method = "renderArmorPiece", locals = LocalCapture.CAPTURE_FAILEXCEPTION, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderModel(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/ArmorItem;ZLnet/minecraft/client/model/HumanoidModel;ZFFFLjava/lang/String;)V"))
+	@Inject(method = "renderArmorPiece", locals = LocalCapture.CAPTURE_FAILEXCEPTION, at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/entity/layers/HumanoidArmorLayer;renderModel(Lcom/mojang/blaze3d/vertex/PoseStack;Lnet/minecraft/client/renderer/MultiBufferSource;ILnet/minecraft/world/item/ArmorItem;ZLnet/minecraft/client/model/HumanoidModel;ZFFFLjava/lang/String;)V", ordinal = 2))
 	private void uteamcore$renderArmorPiece(PoseStack poseStack, MultiBufferSource buffer, T entity, EquipmentSlot slot, int packedLight, M model, CallbackInfo callbackInfo, ItemStack stack, ArmorItem item, boolean layer2, boolean withGlint) {
 		if (item instanceof UArmorItem armorItem) {
 			final ResourceLocation resource;
