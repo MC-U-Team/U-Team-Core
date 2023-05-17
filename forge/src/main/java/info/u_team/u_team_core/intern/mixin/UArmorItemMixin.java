@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.intern.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 
 import info.u_team.u_team_core.item.armor.UArmorItem;
 import net.minecraft.world.entity.Entity;
@@ -17,11 +16,9 @@ abstract class UArmorItemMixin extends ArmorItem {
 		super(material, type, properties);
 	}
 	
-	@Shadow
-	abstract String resolveArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type);
-	
 	@Override
 	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-		return resolveArmorTexture(stack, entity, slot, type);
+		return ((UArmorItem) (Object) (this)).resolveArmorTexture(stack, entity, slot, type);
 	}
+	
 }
