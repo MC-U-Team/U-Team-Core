@@ -21,6 +21,9 @@
 		]
 	},
 	"accessWidener": "uteamcore.accesswidener",
+	"mixins": [
+		"uteamcore.mixins.json"
+	],
 	"depends": {
 		"fabricloader": ">=0.14.19",
 		"fabric": ">=0.78.0+1.19.4",

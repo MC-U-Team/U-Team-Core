@@ -45,14 +45,22 @@ loom {
 	
 	runs {
 		client {
-			runDir = "run/client"
-			ideConfigGenerated = true
+			runDir "run/client"
+			vmArgs "-Dmixin.debug.verbose=true"
+			vmArgs "-Dmixin.debug.export=true"
+			ideConfigGenerated true
 		}
 		
 		server {
-			runDir = "run/server"
-			ideConfigGenerated = true
+			runDir "run/server"
+			vmArgs "-Dmixin.debug.verbose=true"
+			vmArgs "-Dmixin.debug.export=true"
+			ideConfigGenerated true
 		}
+	}
+	
+	mixin {
+		defaultRefmapName = "gjeb.mixins.refmap.json"
 	}
 }
 
