@@ -12,19 +12,18 @@ import java.util.function.Consumer;
 
 import info.u_team.u_team_core.api.registry.CreativeModeTabRegister;
 import info.u_team.u_team_core.api.registry.ResourceEntry;
-import info.u_team.u_team_core.util.registry.BusRegister;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraftforge.event.CreativeModeTabEvent;
 
-public class ForgeCreativeModeTabRegister implements CreativeModeTabRegister {
+public class FabricCreativeModeTabRegister implements CreativeModeTabRegister {
 	
 	private final String modid;
 	
-	private final Map<ForgeCreativeModeTabEntry, Consumer<CreativeModeTab.Builder>> entries = new LinkedHashMap<>();
+	private final Map<FabricCreativeModeTabEntry, Consumer<CreativeModeTab.Builder>> entries = new LinkedHashMap<>();
 	private final Set<ResourceEntry<CreativeModeTab>> entriesView = Collections.unmodifiableSet(entries.keySet());
 	
-	ForgeCreativeModeTabRegister(String modid) {
+	FabricCreativeModeTabRegister(String modid) {
 		this.modid = modid;
 	}
 	
@@ -37,7 +36,7 @@ public class ForgeCreativeModeTabRegister implements CreativeModeTabRegister {
 	public ResourceEntry<CreativeModeTab> register(String name, Consumer<CreativeModeTab.Builder> consumer) {
 		final ResourceLocation id = new ResourceLocation(modid, name);
 		
-		final ForgeCreativeModeTabEntry entry = new ForgeCreativeModeTabEntry(id);
+		final FabricCreativeModeTabEntry entry = new FabricCreativeModeTabEntry(id);
 		if (entries.putIfAbsent(entry, consumer) != null) {
 			throw new IllegalArgumentException("Duplicate registration " + name);
 		}
@@ -46,13 +45,11 @@ public class ForgeCreativeModeTabRegister implements CreativeModeTabRegister {
 	
 	@Override
 	public void register() {
-		BusRegister.registerMod(bus -> bus.addListener(this::registerTab));
-	}
-	
-	private void registerTab(CreativeModeTabEvent.Register event) {
-		for (final Entry<ForgeCreativeModeTabEntry, Consumer<CreativeModeTab.Builder>> entry : entries.entrySet()) {
-			final ForgeCreativeModeTabEntry registryEntry = entry.getKey();
-			final CreativeModeTab tab = event.registerCreativeModeTab(registryEntry.getId(), entry.getValue());
+		for (final Entry<FabricCreativeModeTabEntry, Consumer<CreativeModeTab.Builder>> entry : entries.entrySet()) {
+			final FabricCreativeModeTabEntry registryEntry = entry.getKey();
+			final CreativeModeTab.Builder builder = FabricItemGroup.builder(registryEntry.getId());
+			entry.getValue().accept(builder);
+			final CreativeModeTab tab = builder.build();
 			registryEntry.updateReference(tab);
 		}
 	}
@@ -67,12 +64,12 @@ public class ForgeCreativeModeTabRegister implements CreativeModeTabRegister {
 		return entriesView;
 	}
 	
-	public static class ForgeCreativeModeTabEntry implements ResourceEntry<CreativeModeTab> {
+	public static class FabricCreativeModeTabEntry implements ResourceEntry<CreativeModeTab> {
 		
 		private final ResourceLocation id;
 		private CreativeModeTab value;
 		
-		ForgeCreativeModeTabEntry(ResourceLocation id) {
+		FabricCreativeModeTabEntry(ResourceLocation id) {
 			this.id = id;
 		}
 		
@@ -101,7 +98,7 @@ public class ForgeCreativeModeTabRegister implements CreativeModeTabRegister {
 		
 		@Override
 		public CreativeModeTabRegister create(String modid) {
-			return new ForgeCreativeModeTabRegister(modid);
+			return new FabricCreativeModeTabRegister(modid);
 		}
 	}
 }
