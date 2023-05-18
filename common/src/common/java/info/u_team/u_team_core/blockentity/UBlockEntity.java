@@ -57,8 +57,7 @@ public abstract class UBlockEntity extends BlockEntity implements SyncedBlockEnt
 		return tag;
 	}
 	
-	@Override
-	public void handleUpdateTag(CompoundTag tag) {
+	public void receiveUpdateTag(CompoundTag tag) {
 		handleChunkLoadData(tag);
 	}
 	
@@ -71,8 +70,7 @@ public abstract class UBlockEntity extends BlockEntity implements SyncedBlockEnt
 		return ClientboundBlockEntityDataPacket.create(this, blockEntity -> tag);
 	}
 	
-	@Override
-	public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+	public void receiveUpdatePacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
 		final CompoundTag tag = packet.getTag();
 		handleUpdateStateData(tag == null ? new CompoundTag() : tag);
 	}

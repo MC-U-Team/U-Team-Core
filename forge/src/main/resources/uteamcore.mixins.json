@@ -5,7 +5,8 @@
 	"refmap": "uteamcore.mixins.refmap.json",
 	"package": "info.u_team.u_team_core.intern.mixin",
 	"mixins": [
-		"UArmorItemMixin"
+		"UArmorItemMixin",
+		"UBlockEntityMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
