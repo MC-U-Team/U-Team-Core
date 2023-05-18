@@ -25,12 +25,14 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 	private final Registry<C> registry;
 	private final String modid;
 	
-	private final Map<FabricRegistryEntry<C>, Supplier<? extends C>> entries = new LinkedHashMap<>();
-	private final Set<RegistryEntry<C>> entriesView = Collections.unmodifiableSet(entries.keySet());
+	private final Map<FabricRegistryEntry<C>, Supplier<? extends C>> entries;
+	private final Set<RegistryEntry<C>> entriesView;
 	
 	FabricCommonRegister(ResourceKey<? extends Registry<C>> key, String modid) {
 		registry = CastUtil.uncheckedCast(BuiltInRegistries.REGISTRY.get(key.location()));
 		this.modid = modid;
+		entries = new LinkedHashMap<>();
+		entriesView = Collections.unmodifiableSet(entries.keySet());
 	}
 	
 	@Override
