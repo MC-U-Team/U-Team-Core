@@ -11,6 +11,7 @@ public class TestMultiLoaderCommonConstruct implements ModConstruct {
 	public void construct() {
 		TestMultiLoaderBlocks.register();
 		TestMultiLoaderItems.register();
+		TestMultiLoaderCreativeTabs.register();
 	}
 	
 }
