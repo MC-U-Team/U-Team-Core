@@ -4,12 +4,16 @@ buildscript {
 			url = "https://maven.minecraftforge.net"
 		}
 		maven {
+			url = "https://maven.fabricmc.net"
+		}
+		maven {
 			url = "https://repo.u-team.info"
 		}
 		mavenCentral()
 	}
 	dependencies {
 		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "2.0.5", changing: true
+		classpath group: "fabric-loom", name: "fabric-loom.gradle.plugin", version: "1.1.+", changing: true
 	}
 }
 
