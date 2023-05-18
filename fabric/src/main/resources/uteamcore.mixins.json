@@ -6,7 +6,8 @@
 	"package": "info.u_team.u_team_core.intern.mixin",
 	"mixins": [
 		"HumanoidArmorLayerMixin",
-		"LevelChunkMixin"
+		"LevelChunkMixin",
+		"ClientPacketListenerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
