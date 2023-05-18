@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 import info.u_team.u_team_core.api.registry.CreativeModeTabRegister;
 import info.u_team.u_team_core.api.registry.ResourceEntry;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 
@@ -48,6 +49,7 @@ public class FabricCreativeModeTabRegister implements CreativeModeTabRegister {
 		for (final Entry<FabricCreativeModeTabEntry, Consumer<CreativeModeTab.Builder>> entry : entries.entrySet()) {
 			final FabricCreativeModeTabEntry registryEntry = entry.getKey();
 			final CreativeModeTab.Builder builder = FabricItemGroup.builder(registryEntry.getId());
+			builder.title(Component.translatable("creativetabs.%s.%s".formatted(registryEntry.getId().getNamespace(), registryEntry.getId().getPath())));
 			entry.getValue().accept(builder);
 			final CreativeModeTab tab = builder.build();
 			registryEntry.updateReference(tab);

@@ -13,6 +13,7 @@ import java.util.function.Consumer;
 import info.u_team.u_team_core.api.registry.CreativeModeTabRegister;
 import info.u_team.u_team_core.api.registry.ResourceEntry;
 import info.u_team.u_team_core.util.registry.BusRegister;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraftforge.event.CreativeModeTabEvent;
@@ -52,7 +53,10 @@ public class ForgeCreativeModeTabRegister implements CreativeModeTabRegister {
 	private void registerTab(CreativeModeTabEvent.Register event) {
 		for (final Entry<ForgeCreativeModeTabEntry, Consumer<CreativeModeTab.Builder>> entry : entries.entrySet()) {
 			final ForgeCreativeModeTabEntry registryEntry = entry.getKey();
-			final CreativeModeTab tab = event.registerCreativeModeTab(registryEntry.getId(), entry.getValue());
+			final CreativeModeTab tab = event.registerCreativeModeTab(registryEntry.getId(), builder -> {
+				builder.title(Component.translatable("creativetabs.%s.%s".formatted(registryEntry.getId().getNamespace(), registryEntry.getId().getPath())));
+				entry.getValue().accept(builder);
+			});
 			registryEntry.updateReference(tab);
 		}
 	}
