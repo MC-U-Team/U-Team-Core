@@ -12,7 +12,6 @@ public class TestMultiLoaderCreativeTabs {
 	
 	public static final ResourceEntry<CreativeModeTab> TEST = CREATIVE_TABS.register("test_tab", builder -> {
 		builder.icon(() -> new ItemStack(TestMultiLoaderBlocks.TEST.get()));
-		// builder.title(Component.translatable("creativetabs.uteamtest.tab"));
 		builder.displayItems((parameters, output) -> {
 			TestMultiLoaderBlocks.BLOCKS.itemIterable().forEach(item -> {
 				output.accept(item);
