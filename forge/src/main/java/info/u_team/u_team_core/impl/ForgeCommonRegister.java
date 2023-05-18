@@ -1,6 +1,8 @@
 package info.u_team.u_team_core.impl;
 
 import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -53,7 +55,7 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 	
 	@Override
 	public Collection<RegistryEntry<C>> getEntries() {
-		return register.getEntries().stream().map(object -> new ForgeRegistryEntry<>(object)).collect(Collectors.toUnmodifiableSet());
+		return Collections.unmodifiableCollection(register.getEntries().stream().map(object -> new ForgeRegistryEntry<>(object)).collect(Collectors.toCollection(LinkedHashSet::new)));
 	}
 	
 	public DeferredRegister<C> getDeferredRegister() {
