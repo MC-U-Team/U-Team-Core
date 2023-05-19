@@ -21,7 +21,7 @@ public class TestMultiLoaderCommands implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		BusRegister.registerMod(TestMultiLoaderCommands::registerForge);
+		BusRegister.registerForge(TestMultiLoaderCommands::registerForge);
 	}
 	
 }
