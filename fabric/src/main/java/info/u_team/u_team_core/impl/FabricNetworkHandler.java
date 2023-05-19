@@ -130,4 +130,12 @@ public class FabricNetworkHandler implements NetworkHandler {
 			return player;
 		}
 	}
+	
+	public static class Factory implements NetworkHandler.Factory {
+		
+		@Override
+		public NetworkHandler create(ResourceLocation location) {
+			return new FabricNetworkHandler(location);
+		}
+	}
 }

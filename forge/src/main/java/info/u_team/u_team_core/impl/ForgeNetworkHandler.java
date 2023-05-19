@@ -87,4 +87,12 @@ public class ForgeNetworkHandler implements NetworkHandler {
 			return context.getSender();
 		}
 	}
+	
+	public static class Factory implements NetworkHandler.Factory {
+		
+		@Override
+		public NetworkHandler create(ResourceLocation location) {
+			return new ForgeNetworkHandler(location);
+		}
+	}
 }
