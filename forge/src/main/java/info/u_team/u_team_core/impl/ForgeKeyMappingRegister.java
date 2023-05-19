@@ -1,23 +1,35 @@
 package info.u_team.u_team_core.impl;
 
+import java.util.Map.Entry;
 import java.util.function.Supplier;
 
-import com.google.common.base.Suppliers;
-
 import info.u_team.u_team_core.api.registry.client.KeyMappingRegister;
+import info.u_team.u_team_core.impl.common.CommonKeyMappingRegister;
 import info.u_team.u_team_core.util.registry.BusRegister;
 import net.minecraft.client.KeyMapping;
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 
-public class ForgeKeyMappingRegister implements KeyMappingRegister {
+public class ForgeKeyMappingRegister extends CommonKeyMappingRegister {
 	
 	@Override
-	public Supplier<KeyMapping> registerKeyMapping(Supplier<KeyMapping> supplier) {
-		final Supplier<KeyMapping> memoized = Suppliers.memoize(supplier::get);
-		BusRegister.registerMod(bus -> bus.addListener(EventPriority.NORMAL, false, RegisterKeyMappingsEvent.class, event -> {
-			event.register(memoized.get());
-		}));
-		return memoized;
+	public void register() {
+		BusRegister.registerMod(bus -> bus.addListener(this::registerKeyMapping));
+	}
+	
+	private void registerKeyMapping(RegisterKeyMappingsEvent event) {
+		for (final Entry<ForgeKeyMappingSimpleEntry, Supplier<KeyMapping>> entry : entries.entrySet()) {
+			final ForgeKeyMappingSimpleEntry registryEntry = entry.getKey();
+			final KeyMapping keyMapping = entry.getValue().get();
+			event.register(keyMapping);
+			updateReference(registryEntry, keyMapping);
+		}
+	}
+	
+	public static class Factory implements KeyMappingRegister.Factory {
+		
+		@Override
+		public KeyMappingRegister create() {
+			return new ForgeKeyMappingRegister();
+		}
 	}
 }

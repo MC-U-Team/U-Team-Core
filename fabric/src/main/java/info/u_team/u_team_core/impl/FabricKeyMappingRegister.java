@@ -1,19 +1,30 @@
 package info.u_team.u_team_core.impl;
 
+import java.util.Map.Entry;
 import java.util.function.Supplier;
 
-import com.google.common.base.Suppliers;
-
 import info.u_team.u_team_core.api.registry.client.KeyMappingRegister;
+import info.u_team.u_team_core.impl.common.CommonKeyMappingRegister;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.KeyMapping;
 
-public class FabricKeyMappingRegister implements KeyMappingRegister {
+public class FabricKeyMappingRegister extends CommonKeyMappingRegister {
 	
 	@Override
-	public Supplier<KeyMapping> registerKeyMapping(Supplier<KeyMapping> supplier) {
-		final Supplier<KeyMapping> memoized = Suppliers.memoize(supplier::get);
-		KeyBindingHelper.registerKeyBinding(memoized.get());
-		return memoized;
+	public void register() {
+		for (final Entry<ForgeKeyMappingSimpleEntry, Supplier<KeyMapping>> entry : entries.entrySet()) {
+			final ForgeKeyMappingSimpleEntry registryEntry = entry.getKey();
+			final KeyMapping keyMapping = entry.getValue().get();
+			KeyBindingHelper.registerKeyBinding(keyMapping);
+			updateReference(registryEntry, keyMapping);
+		}
+	}
+	
+	public static class Factory implements KeyMappingRegister.Factory {
+		
+		@Override
+		public KeyMappingRegister create() {
+			return new FabricKeyMappingRegister();
+		}
 	}
 }
