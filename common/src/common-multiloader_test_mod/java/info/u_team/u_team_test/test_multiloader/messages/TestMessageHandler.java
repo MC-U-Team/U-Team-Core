@@ -8,12 +8,9 @@ import info.u_team.u_team_core.api.network.NetworkContext;
 
 public class TestMessageHandler {
 	
-	static interface CommonTestMessage {
-	}
-	
 	private static final Logger LOGGER = LogUtils.getLogger();
 	
-	public static void handle(CommonTestMessage message, NetworkContext context) {
+	public static void handle(TestMessage message, NetworkContext context) {
 		LOGGER.info("Received message {} to side {} from {} on thread {}", message, context.getEnvironment(), context.getPlayer(), Thread.currentThread().getName());
 	}
 	
