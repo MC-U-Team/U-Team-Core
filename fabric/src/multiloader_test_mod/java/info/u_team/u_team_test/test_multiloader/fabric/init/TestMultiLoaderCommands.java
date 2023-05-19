@@ -18,13 +18,9 @@ public class TestMultiLoaderCommands implements ModConstruct {
 		TestNetworkCommand.register(dispatcher);
 	}
 	
-	public static void register() {
-		CommandRegistrationCallback.EVENT.register(TestMultiLoaderCommands::onRegisterCommands);
-	}
-	
 	@Override
 	public void construct() {
-		register();
+		CommandRegistrationCallback.EVENT.register(TestMultiLoaderCommands::onRegisterCommands);
 	}
 	
 }
