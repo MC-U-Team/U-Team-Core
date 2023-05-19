@@ -11,7 +11,7 @@ public class TestMessageHandler {
 	private static final Logger LOGGER = LogUtils.getLogger();
 	
 	public static void handle(TestMessage message, NetworkContext context) {
-		LOGGER.info("Received message {} to side {} from {} on thread {}", message, context.getEnvironment(), context.getPlayer(), Thread.currentThread().getName());
+		LOGGER.info("Received message '{}' to side '{}' from '{}' on thread '{}'", message, context.getEnvironment(), context.getPlayer(), Thread.currentThread().getName());
 	}
 	
 }
