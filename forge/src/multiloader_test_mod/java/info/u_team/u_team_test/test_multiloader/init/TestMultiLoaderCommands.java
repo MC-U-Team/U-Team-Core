@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.test_multiloader.forge.init;
+package info.u_team.u_team_test.test_multiloader.init;
 
 import info.u_team.u_team_core.api.construct.Construct;
 import info.u_team.u_team_core.api.construct.ModConstruct;

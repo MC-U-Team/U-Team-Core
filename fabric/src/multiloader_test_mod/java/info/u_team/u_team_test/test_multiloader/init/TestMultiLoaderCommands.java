@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.test_multiloader.fabric.init;
+package info.u_team.u_team_test.test_multiloader.init;
 
 import com.mojang.brigadier.CommandDispatcher;
 
