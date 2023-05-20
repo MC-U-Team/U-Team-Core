@@ -86,6 +86,11 @@ public class ForgeNetworkHandler implements NetworkHandler {
 			}
 			return context.getSender();
 		}
+		
+		@Override
+		public void executeOnMainThread(Runnable runnable) {
+			context.enqueueWork(runnable);
+		}
 	}
 	
 	public static class Factory implements NetworkHandler.Factory {
