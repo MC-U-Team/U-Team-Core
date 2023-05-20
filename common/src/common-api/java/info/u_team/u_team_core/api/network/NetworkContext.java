@@ -8,4 +8,6 @@ public interface NetworkContext {
 	
 	Player getPlayer();
 	
+	void executeOnMainThread(Runnable runnable);
+	
 }
