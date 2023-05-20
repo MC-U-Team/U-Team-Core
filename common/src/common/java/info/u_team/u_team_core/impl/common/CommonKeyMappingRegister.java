@@ -18,7 +18,7 @@ public abstract class CommonKeyMappingRegister implements KeyMappingRegister {
 	}
 	
 	@Override
-	public Supplier<KeyMapping> register(Supplier<KeyMapping> supplier) {
+	public LazyEntry<KeyMapping> register(Supplier<KeyMapping> supplier) {
 		final ForgeKeyMappingSimpleEntry entry = new ForgeKeyMappingSimpleEntry();
 		entries.put(entry, supplier);
 		return entry;
