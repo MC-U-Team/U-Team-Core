@@ -20,6 +20,7 @@ import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.thread.BlockableEventLoop;
 import net.minecraft.world.entity.player.Player;
 
 public class FabricNetworkHandler implements NetworkHandler {
@@ -43,7 +44,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 		if (validNetworkEnvironment(NetworkEnvironment.SERVER, handlerEnvironment)) {
 			// Register client -> server handler
 			ServerPlayNetworking.registerGlobalReceiver(location, (server, player, packetListener, byteBuf, responseSender) -> {
-				messageConsumer.accept(decodeMessage(decoder, byteBuf), new FabricNetworkContext(NetworkEnvironment.SERVER, player));
+				messageConsumer.accept(decodeMessage(decoder, byteBuf), new FabricNetworkContext(NetworkEnvironment.SERVER, player, server));
 			});
 		}
 		
@@ -96,7 +97,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 		
 		public static <M> void registerReceiver(FabricNetworkHandler handler, ResourceLocation location, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer) {
 			ClientPlayNetworking.registerGlobalReceiver(location, (client, packetListener, byteBuf, responseSender) -> {
-				messageConsumer.accept(handler.decodeMessage(decoder, byteBuf), new FabricNetworkContext(NetworkEnvironment.CLIENT, client.player));
+				messageConsumer.accept(handler.decodeMessage(decoder, byteBuf), new FabricNetworkContext(NetworkEnvironment.CLIENT, client.player, client));
 			});
 		}
 	}
@@ -117,10 +118,12 @@ public class FabricNetworkHandler implements NetworkHandler {
 		
 		private final NetworkEnvironment environment;
 		private final Player player;
+		private final BlockableEventLoop<?> executor;
 		
-		FabricNetworkContext(NetworkEnvironment environment, Player player) {
+		FabricNetworkContext(NetworkEnvironment environment, Player player, BlockableEventLoop<?> executor) {
 			this.environment = environment;
 			this.player = player;
+			this.executor = executor;
 		}
 		
 		@Override
@@ -131,6 +134,15 @@ public class FabricNetworkHandler implements NetworkHandler {
 		@Override
 		public Player getPlayer() {
 			return player;
+		}
+		
+		@Override
+		public void executeOnMainThread(Runnable runnable) {
+			if (!executor.isSameThread()) {
+				executor.submitAsync(runnable);
+			} else {
+				runnable.run();
+			}
 		}
 	}
 	
