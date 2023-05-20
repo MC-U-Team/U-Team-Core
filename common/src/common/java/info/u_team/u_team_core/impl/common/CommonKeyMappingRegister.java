@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.api.registry.SimpleEntry;
+import info.u_team.u_team_core.api.registry.LazyEntry;
 import info.u_team.u_team_core.api.registry.client.KeyMappingRegister;
 import net.minecraft.client.KeyMapping;
 
@@ -28,7 +28,7 @@ public abstract class CommonKeyMappingRegister implements KeyMappingRegister {
 		entry.updateReference(key);
 	}
 	
-	public static class ForgeKeyMappingSimpleEntry implements SimpleEntry<KeyMapping> {
+	public static class ForgeKeyMappingSimpleEntry implements LazyEntry<KeyMapping> {
 		
 		private KeyMapping value;
 		
