@@ -74,3 +74,5 @@ accessible field net/minecraft/client/gui/components/AbstractSelectionList$Entry
 
 transitive-accessible class net/minecraft/world/item/CreativeModeTab$Output
 transitive-accessible class net/minecraft/world/item/CreativeModeTab$TabVisibility
+
+accessible method net/minecraft/util/thread/BlockableEventLoop submitAsync (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;
