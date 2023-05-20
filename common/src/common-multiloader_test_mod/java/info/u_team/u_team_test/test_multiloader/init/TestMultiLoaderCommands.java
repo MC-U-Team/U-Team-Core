@@ -10,7 +10,7 @@ public class TestMultiLoaderCommands {
 		commands.register(handler -> TestNetworkCommand.register(handler.dispatcher()));
 	});
 	
-	public static void register() {
+	static void register() {
 		COMMANDS.register();
 	}
 }

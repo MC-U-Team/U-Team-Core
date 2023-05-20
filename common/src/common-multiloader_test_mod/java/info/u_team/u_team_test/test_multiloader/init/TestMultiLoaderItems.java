@@ -29,7 +29,7 @@ public class TestMultiLoaderItems {
 	public static final ArmorMaterial ARMOR_MATERIAL = new UArmorMaterialVanilla(20, new int[] { 5, 6, 8, 2 }, 20, () -> SoundEvents.BEACON_ACTIVATE, 1, 1, () -> Ingredient.of(TEST.get()));
 	public static final ArmorSet ARMOR = ArmorSetCreator.create(ITEMS, "test", new Properties().fireResistant(), ARMOR_MATERIAL);
 	
-	public static void register() {
+	static void register() {
 		ITEMS.register();
 	}
 	

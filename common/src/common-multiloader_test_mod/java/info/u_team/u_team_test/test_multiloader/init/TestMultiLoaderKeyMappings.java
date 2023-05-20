@@ -12,7 +12,7 @@ public class TestMultiLoaderKeyMappings {
 	
 	public static final LazyEntry<KeyMapping> TEST_NETWORK_EXPLICIT_C2S = KEY_MAPPINGS.register(() -> new KeyMapping("Explicit C2S", GLFW.GLFW_KEY_KP_1, "Test Network"));
 	
-	public static void register() {
+	static void register() {
 		KEY_MAPPINGS.register();
 	}
 	

@@ -14,7 +14,7 @@ public class TestMultiLoaderNetwork {
 	
 	public static final NetworkHandler NETWORK = NetworkHandler.create(new ResourceLocation(TestMultiLoaderReference.MODID, "network"));
 	
-	public static void register() {
+	static void register() {
 		NETWORK.registerMessage(0, TestServerToClientMessage.class, TestServerToClientMessage::encode, TestServerToClientMessage::decode, TestMessageHandler::handle, Optional.of(NetworkEnvironment.CLIENT));
 		NETWORK.registerMessage(1, TestClientToServerMessage.class, TestClientToServerMessage::encode, TestClientToServerMessage::decode, TestMessageHandler::handle, Optional.of(NetworkEnvironment.SERVER));
 	}

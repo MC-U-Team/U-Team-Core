@@ -14,7 +14,7 @@ public class TestMultiLoaderBlocks {
 	
 	public static final BlockRegistryEntry<UBlock, BlockItem> TEST = BLOCKS.register("test_block", () -> new UBlock(Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3)));
 	
-	public static void register() {
+	static void register() {
 		BLOCKS.register();
 	}
 	

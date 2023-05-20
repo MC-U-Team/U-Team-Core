@@ -22,7 +22,7 @@ public class TestMultiLoaderCreativeTabs {
 		});
 	});
 	
-	public static void register() {
+	static void register() {
 		CREATIVE_TABS.register();
 	}
 	
