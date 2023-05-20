@@ -11,14 +11,21 @@ import net.minecraft.commands.Commands;
 
 public interface CommandRegister {
 	
-	CommandRegister INSTANCE = ServiceUtil.loadOne(CommandRegister.class);
-	
-	static void register(Consumer<CommandHandler> consumer) {
-		CommandRegister.INSTANCE.registerCommand(consumer);
+	static CommandRegister create() {
+		return Factory.INSTANCE.create();
 	}
 	
-	void registerCommand(Consumer<CommandHandler> consumer);
+	void register(Consumer<CommandHandler> consumer);
+	
+	void register();
 	
 	static record CommandHandler(CommandDispatcher<CommandSourceStack> dispatcher, CommandBuildContext registryAccess, Commands.CommandSelection environment) {
+	}
+	
+	interface Factory {
+		
+		Factory INSTANCE = ServiceUtil.loadOne(Factory.class);
+		
+		CommandRegister create();
 	}
 }

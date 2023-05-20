@@ -10,6 +10,9 @@ import net.minecraft.client.KeyMapping;
 
 public class FabricKeyMappingRegister extends CommonKeyMappingRegister {
 	
+	FabricKeyMappingRegister() {
+	}
+	
 	@Override
 	public void register() {
 		for (final Entry<ForgeKeyMappingSimpleEntry, Supplier<KeyMapping>> entry : entries.entrySet()) {

@@ -11,6 +11,9 @@ import net.minecraftforge.client.event.RegisterKeyMappingsEvent;
 
 public class ForgeKeyMappingRegister extends CommonKeyMappingRegister {
 	
+	ForgeKeyMappingRegister() {
+	}
+	
 	@Override
 	public void register() {
 		BusRegister.registerMod(bus -> bus.addListener(this::registerKeyMapping));
