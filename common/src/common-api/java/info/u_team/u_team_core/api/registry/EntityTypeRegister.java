@@ -80,8 +80,6 @@ public interface EntityTypeRegister extends Iterable<RegistryEntry<EntityType<?>
 	
 	Collection<RegistryEntry<EntityType<?>>> getEntries();
 	
-	Iterator<RegistryEntry<EntityType<?>>> iterator();
-	
 	Iterable<EntityType<?>> entryIterable();
 	
 	CommonRegister<EntityType<?>> getCommonRegister();

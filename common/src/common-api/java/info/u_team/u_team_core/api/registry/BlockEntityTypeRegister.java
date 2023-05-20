@@ -78,8 +78,6 @@ public interface BlockEntityTypeRegister extends Iterable<RegistryEntry<BlockEnt
 	
 	Collection<RegistryEntry<BlockEntityType<?>>> getEntries();
 	
-	Iterator<RegistryEntry<BlockEntityType<?>>> iterator();
-	
 	Iterable<BlockEntityType<?>> entryIterable();
 	
 	CommonRegister<BlockEntityType<?>> getCommonRegister();
