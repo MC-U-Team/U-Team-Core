@@ -12,6 +12,9 @@ public class TestMessageHandler {
 	
 	public static void handle(TestMessage message, NetworkContext context) {
 		LOGGER.info("Received message '{}' to side '{}' from '{}' on thread '{}'", message, context.getEnvironment(), context.getPlayer(), Thread.currentThread().getName());
+		context.executeOnMainThread(() -> {
+			LOGGER.info("Executed on main thread: {}", message);
+		});
 	}
 	
 }
