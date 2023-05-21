@@ -72,7 +72,10 @@ accessible method net/minecraft/client/gui/Font drawInternal (Ljava/lang/String;
 
 accessible field net/minecraft/client/gui/components/AbstractSelectionList$Entry list Lnet/minecraft/client/gui/components/AbstractSelectionList;
 
+accessible method net/minecraft/util/thread/BlockableEventLoop submitAsync (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;
+
 transitive-accessible class net/minecraft/world/item/CreativeModeTab$Output
 transitive-accessible class net/minecraft/world/item/CreativeModeTab$TabVisibility
 
-accessible method net/minecraft/util/thread/BlockableEventLoop submitAsync (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;
+transitive-accessible class net/minecraft/world/inventory/MenuType$MenuSupplier
+transitive-accessible method net/minecraft/world/inventory/MenuType <init> (Lnet/minecraft/world/inventory/MenuType$MenuSupplier;Lnet/minecraft/world/flag/FeatureFlagSet;)V
