@@ -10,7 +10,7 @@ public class UCoreCommands {
 		commands.register(handler -> UTeamCoreCommand.register(handler.dispatcher()));
 	});
 	
-	public static void register() {
+	static void register() {
 		COMMANDS.register();
 	}
 }
