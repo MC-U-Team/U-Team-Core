@@ -27,5 +27,6 @@ public class UCoreCommonConstruct implements ModConstruct {
 		UCoreLootFunctions.register();
 		
 		UCoreCommands.register();
+		UCoreNetwork.register();
 	}
 }
