@@ -2,8 +2,7 @@ package info.u_team.u_team_core.api.block;
 
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
+import info.u_team.u_team_core.api.menu.MenuOpener;
 import info.u_team.u_team_core.util.CastUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
@@ -19,7 +18,6 @@ import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.network.NetworkHooks;
 
 /**
  * Provides a convenience way to implement block entities for blocks.
@@ -36,7 +34,6 @@ public interface EntityBlockProvider extends EntityBlock {
 	 * @param pos Position of the block
 	 * @param state Block state
 	 */
-	@Nullable
 	BlockEntityType<?> blockEntityType(BlockPos pos, BlockState state);
 	
 	/**
@@ -48,7 +45,6 @@ public interface EntityBlockProvider extends EntityBlock {
 	 * @param pos Position of the block
 	 * @param state Block state
 	 */
-	@Nullable
 	@Override
 	default BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
 		final BlockEntityType<?> type = blockEntityType(pos, state);
@@ -109,7 +105,7 @@ public interface EntityBlockProvider extends EntityBlock {
 		
 		final BlockEntity blockEntity = blockEntityOptional.get();
 		
-		if (!(blockEntity instanceof MenuProvider)) {
+		if (!(blockEntity instanceof MenuProvider menuProvider)) {
 			return InteractionResult.PASS;
 		}
 		
@@ -122,7 +118,7 @@ public interface EntityBlockProvider extends EntityBlock {
 			syncedBlockEntity.sendInitialMenuDataToClient(data);
 		}
 		
-		NetworkHooks.openScreen(serverPlayer, (MenuProvider) blockEntity, byteBuf -> {
+		MenuOpener.openMenu(serverPlayer, menuProvider, byteBuf -> {
 			byteBuf.writeBlockPos(pos);
 			byteBuf.writeVarInt(data.readableBytes());
 			byteBuf.writeBytes(data);
