@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 
 import info.u_team.u_team_core.api.sync.DataHolder;
-import info.u_team.u_team_core.intern.init.UCoreNetwork;
+import info.u_team.u_team_core.intern.init.UCoreNetworkForge;
 import info.u_team.u_team_core.intern.network.DataHolderMenuMessage;
 import info.u_team.u_team_core.screen.UContainerMenuScreen;
 import net.minecraft.network.FriendlyByteBuf;
@@ -80,7 +80,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 		if (getSynchronizerPlayer() != null) {
 			for (int index = 0; index < dataHolderToClient.size(); index++) {
 				final DataHolder dataHolder = dataHolderToClient.get(index);
-				UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
+				UCoreNetworkForge.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
 			}
 		}
 	}
@@ -94,7 +94,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 		
 		if (getSynchronizerPlayer() != null) {
 			checkForChanges(dataHolderToClient, (index, dataHolder) -> {
-				UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
+				UCoreNetworkForge.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
 			});
 		}
 	}
@@ -108,7 +108,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	 */
 	public void broadcastChangesToServer() {
 		checkForChanges(dataHolderToServer, (index, dataHolder) -> {
-			UCoreNetwork.NETWORK.send(PacketDistributor.SERVER.noArg(), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
+			UCoreNetworkForge.NETWORK.send(PacketDistributor.SERVER.noArg(), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
 		});
 	}
 	

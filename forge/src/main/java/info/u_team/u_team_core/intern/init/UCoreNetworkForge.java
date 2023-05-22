@@ -14,7 +14,7 @@ import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-public class UCoreNetwork {
+public class UCoreNetworkForge {
 	
 	public static final String PROTOCOL = "1.19.4-1";
 	
@@ -31,7 +31,7 @@ public class UCoreNetwork {
 	}
 	
 	public static void registerMod(IEventBus bus) {
-		bus.addListener(UCoreNetwork::setup);
+		bus.addListener(UCoreNetworkForge::setup);
 	}
 	
 }

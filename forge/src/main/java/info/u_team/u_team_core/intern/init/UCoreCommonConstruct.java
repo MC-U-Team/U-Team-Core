@@ -22,7 +22,7 @@ public class UCoreCommonConstruct implements ModConstruct {
 			return Objects.equals(remoteVersion, version);
 		}));
 		
-		BusRegister.registerMod(UCoreNetwork::registerMod);
+		BusRegister.registerMod(UCoreNetworkForge::registerMod);
 		BusRegister.registerMod(UCoreRecipeSerializers::registerMod);
 		UCoreLootFunctions.register();
 		

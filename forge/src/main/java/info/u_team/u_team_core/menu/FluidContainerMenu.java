@@ -8,7 +8,7 @@ import com.google.common.base.Suppliers;
 
 import info.u_team.u_team_core.api.fluid.FluidHandlerModifiable;
 import info.u_team.u_team_core.api.menu.FluidContainerListener;
-import info.u_team.u_team_core.intern.init.UCoreNetwork;
+import info.u_team.u_team_core.intern.init.UCoreNetworkForge;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidContentMessage;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidSlotMessage;
 import net.minecraft.core.NonNullList;
@@ -228,7 +228,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 		}
 		
 		if (getSynchronizerPlayer() != null) {
-			UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new ContainerSetFluidContentMessage(containerId, incrementStateId(), remoteFluidSlots));
+			UCoreNetworkForge.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new ContainerSetFluidContentMessage(containerId, incrementStateId(), remoteFluidSlots));
 		}
 		
 		super.sendAllDataToRemote();
@@ -298,7 +298,7 @@ public abstract class FluidContainerMenu extends UAbstractContainerMenu {
 				remoteFluidSlots.set(slotId, copy);
 				
 				if (getSynchronizerPlayer() != null) {
-					UCoreNetwork.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new ContainerSetFluidSlotMessage(containerId, incrementStateId(), slotId, copy));
+					UCoreNetworkForge.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new ContainerSetFluidSlotMessage(containerId, incrementStateId(), slotId, copy));
 				}
 			}
 		}
