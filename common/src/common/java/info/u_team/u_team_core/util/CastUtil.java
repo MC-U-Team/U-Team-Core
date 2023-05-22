@@ -20,4 +20,11 @@ public class CastUtil {
 		return (T) object;
 	}
 	
+	public static <T> T assertCast(Object object, Class<T> clazz) {
+		if (!clazz.isInstance(object)) {
+			throw new AssertionError("Object " + object + " is not instanceof " + clazz);
+		}
+		return uncheckedCast(object);
+	}
+	
 }
