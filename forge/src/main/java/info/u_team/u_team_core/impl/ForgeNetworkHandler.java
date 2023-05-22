@@ -3,6 +3,8 @@ package info.u_team.u_team_core.impl;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
@@ -26,8 +28,12 @@ public class ForgeNetworkHandler implements NetworkHandler {
 	
 	private final SimpleChannel network;
 	
+	private Supplier<String> networkProtocolVersion = () -> "0";
+	private Predicate<String> clientAcceptedVersions = "0"::equals;
+	private Predicate<String> serverAcceptedVersions = "0"::equals;
+	
 	ForgeNetworkHandler(ResourceLocation channel) {
-		network = NetworkRegistry.newSimpleChannel(channel, () -> "0", "0"::equals, "0"::equals);
+		network = NetworkRegistry.newSimpleChannel(channel, () -> networkProtocolVersion.get(), version -> clientAcceptedVersions.test(version), version -> serverAcceptedVersions.test(version));
 	}
 	
 	@Override
@@ -52,6 +58,12 @@ public class ForgeNetworkHandler implements NetworkHandler {
 	@Override
 	public <M> void sendToServer(M message) {
 		network.send(PacketDistributor.SERVER.noArg(), message);
+	}
+	
+	public void setProtocolVersion(Supplier<String> networkProtocolVersion, Predicate<String> clientAcceptedVersions, Predicate<String> serverAcceptedVersions) {
+		this.networkProtocolVersion = networkProtocolVersion;
+		this.clientAcceptedVersions = clientAcceptedVersions;
+		this.serverAcceptedVersions = serverAcceptedVersions;
 	}
 	
 	@OnlyIn(Dist.CLIENT)
