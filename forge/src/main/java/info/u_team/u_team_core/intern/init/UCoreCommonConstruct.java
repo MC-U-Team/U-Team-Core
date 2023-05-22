@@ -26,6 +26,6 @@ public class UCoreCommonConstruct implements ModConstruct {
 		BusRegister.registerMod(UCoreRecipeSerializers::registerMod);
 		UCoreLootFunctions.register();
 		
-		BusRegister.registerForge(UCoreCommands::registerForge);
+		UCoreCommands.register();
 	}
 }
