@@ -25,12 +25,12 @@ public interface ColorProviderRegister {
 	
 	static interface BlockRegisterHandler {
 		
-		void registerColor(Supplier<BlockColors> colors, Register<BlockColor, Block> register);
+		void registerColor(Supplier<BlockColors> blockColors, Register<BlockColor, Block> register);
 	}
 	
 	static interface ItemRegisterHandler {
 		
-		void registerColor(Supplier<ItemColors> colors, Supplier<BlockColors> blockColors, Register<ItemColor, ItemLike> colorRegister);
+		void registerColor(Supplier<ItemColors> itemColors, Supplier<BlockColors> blockColors, Register<ItemColor, ItemLike> colorRegister);
 	}
 	
 	static interface Register<T, E> {
@@ -39,7 +39,7 @@ public interface ColorProviderRegister {
 			register(color, Stream.of(entry));
 		}
 		
-		void register(T color, Stream<E> entries);
+		void register(T color, Stream<? extends E> entries);
 	}
 	
 	interface Factory {

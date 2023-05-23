@@ -10,7 +10,7 @@ public class UCoreClientConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		BusRegister.registerMod(UCoreColors::registerMod);
+		UCoreColors.register();
 		BusRegister.registerMod(UCorePostMenuScreensEvent::registerMod);
 	}
 	
