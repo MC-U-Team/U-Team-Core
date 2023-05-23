@@ -1,6 +1,8 @@
 package info.u_team.u_team_core.util.annotation;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.objectweb.asm.Type;
 import org.slf4j.Logger;
@@ -45,15 +47,25 @@ public class AnnotationManager {
 	 * @param modid The modid that should be respected for calling
 	 */
 	public static void callConstructs(String modid) {
+		final List<AnnotationData> callable = new ArrayList<>();
+		
 		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Construct.class))) {
 			if (canBeCalled(modid, data)) {
-				LOGGER.debug(CONSTRUCT_MARKER, "Load construct (" + data.memberName() + ") for mod " + modid);
-				try {
-					Class.forName(data.memberName()).asSubclass(ModConstruct.class).getConstructor().newInstance().construct();
-				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
-					LOGGER.error(CONSTRUCT_MARKER, "Failed to load and call mod construct : {}", data.memberName(), ex);
-					throw new RuntimeException(ex);
-				}
+				callable.add(data);
+			}
+		}
+		
+		callable.sort((first, second) -> {
+			return ((Integer) first.annotationData().get("priorty")).compareTo((Integer) second.annotationData().get("priorty"));
+		});
+		
+		for (final AnnotationData data : callable) {
+			LOGGER.debug(CONSTRUCT_MARKER, "Load construct (" + data.memberName() + ") for mod " + modid);
+			try {
+				Class.forName(data.memberName()).asSubclass(ModConstruct.class).getConstructor().newInstance().construct();
+			} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
+				LOGGER.error(CONSTRUCT_MARKER, "Failed to load and call mod construct : {}", data.memberName(), ex);
+				throw new RuntimeException(ex);
 			}
 		}
 	}
@@ -65,16 +77,25 @@ public class AnnotationManager {
 	 * @param modid The modid that should be respected for calling
 	 */
 	public static void callIntegrations(String modid) {
+		final List<AnnotationData> callable = new ArrayList<>();
+		
 		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
-			final String integrationModid = (String) data.annotationData().get("integration");
-			if (canBeCalled(modid, data) && FabricLoader.getInstance().isModLoaded(integrationModid)) {
-				LOGGER.debug(INTEGRATION_MARKER, "Load " + integrationModid + " integration (" + data.memberName() + ") for mod " + modid);
-				try {
-					Class.forName(data.memberName()).asSubclass(ModIntegration.class).getConstructor().newInstance().construct();
-				} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
-					LOGGER.error(INTEGRATION_MARKER, "Failed to load and call integration : {}", data.memberName(), ex);
-					throw new RuntimeException(ex);
-				}
+			if (canBeCalled(modid, data) && FabricLoader.getInstance().isModLoaded((String) data.annotationData().get("integration"))) {
+				callable.add(data);
+			}
+		}
+		
+		callable.sort((first, second) -> {
+			return ((Integer) first.annotationData().get("priorty")).compareTo((Integer) second.annotationData().get("priorty"));
+		});
+		
+		for (final AnnotationData data : callable) {
+			LOGGER.debug(INTEGRATION_MARKER, "Load " + data.annotationData().get("integration") + " integration (" + data.memberName() + ") for mod " + modid);
+			try {
+				Class.forName(data.memberName()).asSubclass(ModIntegration.class).getConstructor().newInstance().construct();
+			} catch (LinkageError | ClassNotFoundException | InstantiationException | IllegalAccessException | ClassCastException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException ex) {
+				LOGGER.error(INTEGRATION_MARKER, "Failed to load and call integration : {}", data.memberName(), ex);
+				throw new RuntimeException(ex);
 			}
 		}
 	}
