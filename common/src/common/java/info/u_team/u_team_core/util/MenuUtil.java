@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.util;
 
+import java.util.List;
 import java.util.OptionalInt;
 import java.util.function.Consumer;
 
@@ -40,6 +41,16 @@ public class MenuUtil {
 		
 		player.initMenu(menu);
 		player.containerMenu = menu;
+		
+		Extension.INSTANCES.forEach(extension -> extension.menuOpened(player, menu));
+		
 		return OptionalInt.of(player.containerCounter);
+	}
+	
+	public interface Extension {
+		
+		List<Extension> INSTANCES = ServiceUtil.loadAll(Extension.class);
+		
+		void menuOpened(ServerPlayer player, AbstractContainerMenu menu);
 	}
 }
