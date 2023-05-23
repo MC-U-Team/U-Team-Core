@@ -16,10 +16,18 @@ public class UMenuType<T extends AbstractContainerMenu> extends MenuType<T> {
 		super(menuSupplier, FeatureFlags.DEFAULT_FLAGS);
 	}
 	
+	public T createWithExtraData(int containerId, Inventory playerInventory, FriendlyByteBuf buffer) {
+		if (constructor instanceof DataMenuSupplier<T> dataConstructor) {
+			return dataConstructor.create(containerId, playerInventory, buffer);
+		} else {
+			return create(containerId, playerInventory);
+		}
+	}
+	
 	@FunctionalInterface
 	public static interface DataMenuSupplier<T extends AbstractContainerMenu> extends MenuSupplier<T> {
 		
-		T create(int containerId, Inventory playerInventory, FriendlyByteBuf byteBuf);
+		T create(int containerId, Inventory playerInventory, FriendlyByteBuf buffer);
 		
 		@Override
 		default T create(int containerId, Inventory playerInventory) {

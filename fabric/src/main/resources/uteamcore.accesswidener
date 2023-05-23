@@ -81,9 +81,3 @@ accessible method net/minecraft/server/level/ServerPlayer initMenu (Lnet/minecra
 accessible field net/minecraft/world/inventory/MenuType constructor Lnet/minecraft/world/inventory/MenuType$MenuSupplier;
 accessible method net/minecraft/client/gui/screens/MenuScreens getConstructor (Lnet/minecraft/world/inventory/MenuType;)Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
 accessible field net/minecraft/client/gui/screens/MenuScreens LOGGER Lorg/slf4j/Logger;
-
-transitive-accessible class net/minecraft/world/item/CreativeModeTab$Output
-transitive-accessible class net/minecraft/world/item/CreativeModeTab$TabVisibility
-
-transitive-accessible class net/minecraft/world/inventory/MenuType$MenuSupplier
-transitive-accessible method net/minecraft/world/inventory/MenuType <init> (Lnet/minecraft/world/inventory/MenuType$MenuSupplier;Lnet/minecraft/world/flag/FeatureFlagSet;)V

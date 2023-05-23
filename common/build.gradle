@@ -96,6 +96,9 @@ dependencies {
 		officialMojangMappings()
 		parchment(config.fabric.mapping_layer)
 	}
+	
+	modImplementation gradlefiles.fabricLoaderDependency()
+	modRuntimeOnly gradlefiles.fabricApiDependency()
 }
 
 publishing {
