@@ -13,4 +13,6 @@ public @interface Construct {
 	
 	boolean client() default false;
 	
+	int priority() default 1000;
+	
 }
