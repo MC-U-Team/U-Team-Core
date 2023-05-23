@@ -18,7 +18,7 @@ public class UCoreNetworkForge {
 	
 	public static final String PROTOCOL = "1.19.4-1";
 	
-	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMod.MODID, "network"), () -> PROTOCOL, version -> {
+	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMod.MODID, "network_forge"), () -> PROTOCOL, version -> {
 		// Allow clients to join / view servers without errors when uteamcore is not present there
 		return NetworkRegistry.acceptMissingOr(PROTOCOL).test(version);
 	}, PROTOCOL::equals);
