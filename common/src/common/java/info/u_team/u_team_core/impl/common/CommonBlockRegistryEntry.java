@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 
-public class CommonBlockRegistryEntry<B extends Block, I extends Item, RB extends RegistryEntry<B>, RI extends RegistryEntry<I>> implements BlockRegistryEntry<B, I> {
+public abstract class CommonBlockRegistryEntry<B extends Block, I extends Item, RB extends RegistryEntry<B>, RI extends RegistryEntry<I>> implements BlockRegistryEntry<B, I> {
 	
 	private final RB block;
 	private final RI item;
