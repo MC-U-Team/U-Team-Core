@@ -2,6 +2,7 @@ package info.u_team.u_team_core.util.annotation;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import org.objectweb.asm.Type;
@@ -56,9 +57,7 @@ public class AnnotationManager {
 			}
 		}
 		
-		callable.sort((first, second) -> {
-			return ((Integer) first.annotationData().get("priorty")).compareTo((Integer) second.annotationData().get("priorty"));
-		});
+		callable.sort(sortByPriority());
 		
 		for (final AnnotationData data : callable) {
 			LOGGER.debug(CONSTRUCT_MARKER, "Load construct (" + data.memberName() + ") for mod " + modid);
@@ -86,9 +85,7 @@ public class AnnotationManager {
 			}
 		}
 		
-		callable.sort((first, second) -> {
-			return ((Integer) first.annotationData().get("priorty")).compareTo((Integer) second.annotationData().get("priorty"));
-		});
+		callable.sort(sortByPriority());
 		
 		for (final AnnotationData data : callable) {
 			LOGGER.debug(INTEGRATION_MARKER, "Load " + data.annotationData().get("integration") + " integration (" + data.memberName() + ") for mod " + modid);
@@ -113,6 +110,20 @@ public class AnnotationManager {
 		final String annotationModid = (String) data.annotationData().get("modid");
 		final Boolean client = (Boolean) data.annotationData().get("client");
 		return modid.equals(annotationModid) && (client == null || !client || client && FMLEnvironment.dist == Dist.CLIENT);
+	}
+	
+	private static Comparator<AnnotationData> sortByPriority() {
+		return (first, second) -> {
+			Integer firstPriority = (Integer) first.annotationData().get("priority");
+			Integer secondPriority = (Integer) second.annotationData().get("priority");
+			if (firstPriority == null) {
+				firstPriority = 1000;
+			}
+			if (secondPriority == null) {
+				secondPriority = 1000;
+			}
+			return firstPriority.compareTo(secondPriority);
+		};
 	}
 	
 }
