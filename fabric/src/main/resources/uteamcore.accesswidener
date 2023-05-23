@@ -86,3 +86,18 @@ accessible field net/minecraft/client/resources/model/ModelBakery STATIC_DEFINIT
 mutable field net/minecraft/client/resources/model/ModelBakery STATIC_DEFINITIONS Ljava/util/Map;
 
 accessible field net/minecraft/client/Minecraft itemColors Lnet/minecraft/client/color/item/ItemColors;
+
+accessible field net/minecraft/world/item/crafting/ShapedRecipe width I
+accessible field net/minecraft/world/item/crafting/ShapedRecipe height I
+accessible field net/minecraft/world/item/crafting/ShapedRecipe recipeItems Lnet/minecraft/core/NonNullList;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe result Lnet/minecraft/world/item/ItemStack;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe id Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe group Ljava/lang/String;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe category Lnet/minecraft/world/item/crafting/CraftingBookCategory;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe showNotification Z
+
+accessible method net/minecraft/world/item/crafting/ShapedRecipe keyFromJson (Lcom/google/gson/JsonObject;)Ljava/util/Map;
+accessible method net/minecraft/world/item/crafting/ShapedRecipe shrink ([Ljava/lang/String;)[Ljava/lang/String;
+accessible method net/minecraft/world/item/crafting/ShapedRecipe patternFromJson (Lcom/google/gson/JsonArray;)[Ljava/lang/String;
+accessible method net/minecraft/world/item/crafting/ShapedRecipe dissolvePattern ([Ljava/lang/String;Ljava/util/Map;II)Lnet/minecraft/core/NonNullList;
+accessible method net/minecraft/world/item/crafting/ShapedRecipe matches (Lnet/minecraft/world/inventory/CraftingContainer;IIZ)Z
