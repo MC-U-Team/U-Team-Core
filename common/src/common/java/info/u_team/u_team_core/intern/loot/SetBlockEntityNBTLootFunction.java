@@ -25,7 +25,7 @@ public class SetBlockEntityNBTLootFunction extends LootItemConditionalFunction {
 	@Override
 	public ItemStack run(ItemStack stack, LootContext context) {
 		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
-			final BlockEntity blockEntity = context.getParamOrNull(LootContextParams.BLOCK_ENTITY);
+			final BlockEntity blockEntity = context.getParam(LootContextParams.BLOCK_ENTITY);
 			blockEntity.saveToItem(stack);
 		}
 		return stack;

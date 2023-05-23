@@ -28,9 +28,7 @@ public class UCoreCommonConstruct implements ModConstruct {
 		BusRegister.registerMod(UCoreNetworkForge::registerMod);
 		BusRegister.registerMod(UCoreRecipeSerializers::registerMod);
 		UCoreLootFunctions.register();
-		
 		UCoreCommands.register();
-		
 		UCoreNetwork.register();
 		CastUtil.assertCast(UCoreNetwork.NETWORK, ForgeNetworkHandler.class).setProtocolVersion(() -> version, protocolVersion -> {
 			// Allow clients to join / view servers without errors when uteamcore is not present there

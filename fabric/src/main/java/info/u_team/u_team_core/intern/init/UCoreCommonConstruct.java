@@ -12,6 +12,7 @@ public class UCoreCommonConstruct implements ModConstruct {
 	public void construct() {
 		UpdateResolver.load();
 		
+		UCoreLootFunctions.register();
 		UCoreCommands.register();
 		UCoreNetwork.register();
 	}
