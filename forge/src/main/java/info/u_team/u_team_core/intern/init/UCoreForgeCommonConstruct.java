@@ -12,8 +12,8 @@ import net.minecraftforge.fml.IExtensionPoint.DisplayTest;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.network.NetworkRegistry;
 
-@Construct(modid = UCoreMod.MODID)
-public class UCoreCommonConstruct implements ModConstruct {
+@Construct(modid = UCoreMod.MODID, priority = 2000)
+public class UCoreForgeCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
@@ -27,9 +27,7 @@ public class UCoreCommonConstruct implements ModConstruct {
 		
 		BusRegister.registerMod(UCoreNetworkForge::registerMod);
 		BusRegister.registerMod(UCoreRecipeSerializers::registerMod);
-		UCoreLootFunctions.register();
-		UCoreCommands.register();
-		UCoreNetwork.register();
+		
 		CastUtil.assertCast(UCoreNetwork.NETWORK, ForgeNetworkHandler.class).setProtocolVersion(() -> version, protocolVersion -> {
 			// Allow clients to join / view servers without errors when uteamcore is not present there
 			return NetworkRegistry.acceptMissingOr(version).test(protocolVersion);
