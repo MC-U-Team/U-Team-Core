@@ -9,7 +9,6 @@ import java.util.function.Consumer;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 
-import info.u_team.u_team_core.util.TagUtil;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -90,7 +89,7 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	}
 	
 	public static Ingredient getIngredientOfTag(TagKey<Item> tag) {
-		return TagUtil.getSerializableIngredientOfTag(tag);
+		return Ingredient.of(tag);
 	}
 	
 }
