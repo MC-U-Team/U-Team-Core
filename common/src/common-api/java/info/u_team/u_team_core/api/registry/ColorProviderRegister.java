@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.api.registry;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 import info.u_team.u_team_core.util.ServiceUtil;
@@ -24,12 +25,12 @@ public interface ColorProviderRegister {
 	
 	static interface BlockRegisterHandler {
 		
-		void registerColor(BlockColors colors, Register<BlockColor, Block> register);
+		void registerColor(Supplier<BlockColors> colors, Register<BlockColor, Block> register);
 	}
 	
 	static interface ItemRegisterHandler {
 		
-		void registerColor(ItemColors colors, BlockColors blockColors, Register<ItemColor, ItemLike> colorRegister);
+		void registerColor(Supplier<ItemColors> colors, Supplier<BlockColors> blockColors, Register<ItemColor, ItemLike> colorRegister);
 	}
 	
 	static interface Register<T, E> {
