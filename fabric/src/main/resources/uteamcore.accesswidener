@@ -81,3 +81,6 @@ accessible method net/minecraft/server/level/ServerPlayer initMenu (Lnet/minecra
 accessible field net/minecraft/world/inventory/MenuType constructor Lnet/minecraft/world/inventory/MenuType$MenuSupplier;
 accessible method net/minecraft/client/gui/screens/MenuScreens getConstructor (Lnet/minecraft/world/inventory/MenuType;)Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
 accessible field net/minecraft/client/gui/screens/MenuScreens LOGGER Lorg/slf4j/Logger;
+
+accessible field net/minecraft/client/resources/model/ModelBakery STATIC_DEFINITIONS Ljava/util/Map;
+mutable field net/minecraft/client/resources/model/ModelBakery STATIC_DEFINITIONS Ljava/util/Map;
