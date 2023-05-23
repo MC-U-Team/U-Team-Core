@@ -2,8 +2,8 @@ package info.u_team.u_team_core.api.block;
 
 import java.util.Optional;
 
-import info.u_team.u_team_core.api.menu.MenuOpener;
 import info.u_team.u_team_core.util.CastUtil;
+import info.u_team.u_team_core.util.MenuUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.FriendlyByteBuf;
@@ -118,12 +118,12 @@ public interface EntityBlockProvider extends EntityBlock {
 			syncedBlockEntity.sendInitialMenuDataToClient(data);
 		}
 		
-		MenuOpener.openMenu(serverPlayer, menuProvider, byteBuf -> {
+		MenuUtil.openMenu(serverPlayer, menuProvider, byteBuf -> {
 			byteBuf.writeBlockPos(pos);
 			byteBuf.writeVarInt(data.readableBytes());
 			byteBuf.writeBytes(data);
 			data.release();
-		});
+		}, false);
 		
 		return InteractionResult.SUCCESS;
 	}
