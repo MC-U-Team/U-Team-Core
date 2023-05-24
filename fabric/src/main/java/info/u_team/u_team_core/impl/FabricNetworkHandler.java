@@ -81,11 +81,16 @@ public class FabricNetworkHandler implements NetworkHandler {
 			throw new IllegalArgumentException("Message " + message.getClass() + " cannot be used to send to " + expectedHandler);
 		}
 		final FriendlyByteBuf byteBuf = PacketByteBufs.create();
+		byteBuf.writeUtf(protocolVersion);
 		packet.encoder.accept(message, byteBuf);
 		return new EncodedMessage(packet.location, byteBuf);
 	}
 	
 	private <M> M decodeMessage(Function<FriendlyByteBuf, M> decoder, FriendlyByteBuf byteBuf) {
+		final String receivedProtocolVersion = byteBuf.readUtf();
+		if (!protocolVersion.equals(receivedProtocolVersion)) {
+			throw new RuntimeException("Protocol version does not match");
+		}
 		return decoder.apply(byteBuf);
 	}
 	
