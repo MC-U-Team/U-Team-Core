@@ -23,6 +23,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
+// Very unstable api, will be reworked
 public class ForgeFluidContainerMenuScreenDelegator<T extends AbstractContainerMenu> implements FluidContainerScreenDelegator {
 	
 	private final FluidContainerMenuScreen<T> screen;
