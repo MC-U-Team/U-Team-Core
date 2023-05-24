@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.impl.common;
 
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.Set;
 
 import info.u_team.u_team_core.api.registry.ColorProviderRegister;
@@ -11,8 +11,8 @@ public abstract class CommonColorProviderRegister implements ColorProviderRegist
 	protected final Set<ItemRegisterHandler> itemEntries;
 	
 	protected CommonColorProviderRegister() {
-		blockEntries = new LinkedHashSet<>();
-		itemEntries = new LinkedHashSet<>();
+		blockEntries = new HashSet<>();
+		itemEntries = new HashSet<>();
 	}
 	
 	@Override
