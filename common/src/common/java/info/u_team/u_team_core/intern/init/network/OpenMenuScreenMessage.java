@@ -26,7 +26,8 @@ public record OpenMenuScreenMessage(int containerId, MenuType<?> type, Component
 		buffer.writeVarInt(message.containerId);
 		buffer.writeId(REGISTRY, message.type);
 		buffer.writeComponent(message.title);
-		buffer.writeByteArray(message.extraData.readByteArray());
+		buffer.writeVarInt(message.extraData.readableBytes());
+		buffer.writeBytes(message.extraData);
 		message.extraData.release();
 	}
 	
