@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.menu.FluidContainerMenu;
+import info.u_team.u_team_core.menu.ForgeFluidContainerMenuDelegator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -45,7 +46,7 @@ public class ContainerSetFluidSlotMessage {
 		public static void handle(ContainerSetFluidSlotMessage message, Supplier<Context> contextSupplier) {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
-				testContainerMenu(Minecraft.getInstance().player.containerMenu, message.containerId).ifPresent(container -> container.setFluid(message.slot, message.stateId, message.stack));
+				testContainerMenu(Minecraft.getInstance().player.containerMenu, message.containerId).ifPresent(menu -> ((ForgeFluidContainerMenuDelegator) (menu.getDelegator())).setFluid(message.slot, message.stateId, message.stack));
 			});
 			context.setPacketHandled(true);
 		}
