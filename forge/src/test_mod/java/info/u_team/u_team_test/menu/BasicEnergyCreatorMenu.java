@@ -1,5 +1,6 @@
 package info.u_team.u_team_test.menu;
 
+import info.u_team.u_team_core.menu.ItemHandlerSlotCreator;
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
 import info.u_team.u_team_test.blockentity.BasicEnergyCreatorBlockEntity;
 import info.u_team.u_team_test.init.TestMenuTypes;
@@ -21,7 +22,7 @@ public class BasicEnergyCreatorMenu extends UBlockEntityContainerMenu<BasicEnerg
 	
 	@Override
 	protected void init(LogicalSide side) {
-		addSlots(blockEntity.getSlots(), 2, 3, 116, 41);
+		addSlots(ItemHandlerSlotCreator.of(blockEntity.getSlots()), 2, 3, 116, 41);
 		addPlayerInventory(playerInventory, 8, 91);
 		addDataHolderToClient(blockEntity.getEnergy().createSyncHandler());
 	}

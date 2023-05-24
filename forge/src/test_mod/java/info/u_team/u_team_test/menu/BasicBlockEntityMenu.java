@@ -3,6 +3,7 @@ package info.u_team.u_team_test.menu;
 import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
+import info.u_team.u_team_core.menu.ItemHandlerSlotCreator;
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
 import info.u_team.u_team_test.blockentity.BasicBlockEntityBlockEntity;
 import info.u_team.u_team_test.init.TestMenuTypes;
@@ -29,7 +30,7 @@ public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<BasicBlockEn
 	
 	@Override
 	protected void init(LogicalSide side) {
-		addSlots(blockEntity.getSlots(), 2, 9, 8, 41);
+		addSlots(ItemHandlerSlotCreator.of(blockEntity.getSlots()), 2, 9, 8, 41);
 		addPlayerInventory(playerInventory, 8, 91);
 		
 		addDataHolderToClient(DataHolder.createIntHolder(blockEntity::getValue, blockEntity::setValue));
