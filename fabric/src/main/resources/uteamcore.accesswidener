@@ -78,6 +78,8 @@ accessible field net/minecraft/server/level/ServerPlayer containerCounter I
 accessible method net/minecraft/server/level/ServerPlayer nextContainerCounter ()V
 accessible method net/minecraft/server/level/ServerPlayer initMenu (Lnet/minecraft/world/inventory/AbstractContainerMenu;)V
 
+accessible field net/minecraft/world/inventory/AbstractContainerMenu lastSlots Lnet/minecraft/core/NonNullList;
+
 accessible field net/minecraft/world/inventory/MenuType constructor Lnet/minecraft/world/inventory/MenuType$MenuSupplier;
 accessible method net/minecraft/client/gui/screens/MenuScreens getConstructor (Lnet/minecraft/world/inventory/MenuType;)Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
 accessible field net/minecraft/client/gui/screens/MenuScreens LOGGER Lorg/slf4j/Logger;
