@@ -26,12 +26,12 @@ import net.minecraftforge.items.wrapper.PlayerMainInvWrapper;
 import net.minecraftforge.network.PacketDistributor;
 
 // Very unstable api, will be reworked
-public class FluidContainerMenuDelegation implements FluidContainerDelegator {
+public class ForgeFluidContainerMenuDelegator implements FluidContainerDelegator {
 	
 	private final FluidContainerMenu menu;
 	
-	public FluidContainerMenuDelegation() {
-		menu = null;
+	ForgeFluidContainerMenuDelegator(FluidContainerMenu menu) {
+		this.menu = menu;
 	}
 	
 	private final NonNullList<FluidStack> lastFluidSlots = NonNullList.create();
@@ -431,4 +431,11 @@ public class FluidContainerMenuDelegation implements FluidContainerDelegator {
 		FluidSlot getSlot(FluidHandlerModifiable fluidHandler, int index, int xPosition, int yPosition);
 	}
 	
+	public static class Factory implements FluidContainerDelegator.Factory {
+		
+		@Override
+		public FluidContainerDelegator create(FluidContainerMenu menu) {
+			return new ForgeFluidContainerMenuDelegator(menu);
+		}
+	}
 }
