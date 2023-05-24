@@ -2,14 +2,13 @@ package info.u_team.u_team_core.menu;
 
 import java.util.List;
 
+import info.u_team.u_team_core.api.menu.ItemSlotCreator;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
 
 /**
  * Enhanced version of {@link AbstractContainerMenu} with the benefit that the player that opened the container is known
@@ -91,163 +90,33 @@ public abstract class UAbstractContainerMenu extends AbstractContainerMenu {
 	}
 	
 	/**
-	 * This methods can add any {@link Container} to this menu.
+	 * This methods can add any {@link ItemSlotCreator} to this menu.
 	 *
-	 * @param container Inventory container
+	 * @param slotCreator Slot creator
 	 * @param rows Slot rows
 	 * @param columns Slot columns
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void addSlots(Container container, int rows, int columns, int x, int y) {
-		addSlots(container, 0, rows, columns, x, y);
+	protected void addSlots(ItemSlotCreator slotCreator, int rows, int columns, int x, int y) {
+		addSlots(slotCreator, 0, rows, columns, x, y);
 	}
 	
 	/**
-	 * This methods can add any {@link Container} to this menu.
+	 * This methods can add any {@link ItemSlotCreator} to this menu.
 	 *
-	 * @param container Inventory container
-	 * @param function Function to create a slot
-	 * @param rows Slot rows
-	 * @param columns Slot columns
-	 * @param x Start x
-	 * @param y Start y
-	 */
-	protected void addSlots(Container container, SlotContainerFunction function, int rows, int columns, int x, int y) {
-		addSlots(container, function, 0, rows, columns, x, y);
-	}
-	
-	/**
-	 * This methods can add any {@link Container} to this menu.
-	 *
-	 * @param container Inventory container
+	 * @param slotCreator Slot creator
 	 * @param startIndex Start index of inventory
 	 * @param rows Slot rows
 	 * @param columns Slot columns
 	 * @param x Start x
 	 * @param y Start y
 	 */
-	protected void addSlots(Container container, int startIndex, int rows, int columns, int x, int y) {
-		addSlots(container, Slot::new, startIndex, rows, columns, x, y);
-	}
-	
-	/**
-	 * This methods can add any {@link Container} to this menu.
-	 *
-	 * @param container Inventory container
-	 * @param function Function to create a slot
-	 * @param startIndex Start index of inventory
-	 * @param rows Slot rows
-	 * @param columns Slot columns
-	 * @param x Start x
-	 * @param y Start y
-	 */
-	protected void addSlots(Container container, SlotContainerFunction function, int startIndex, int rows, int columns, int x, int y) {
+	protected void addSlots(ItemSlotCreator slotCreator, int startIndex, int rows, int columns, int x, int y) {
 		for (int height = 0; height < rows; height++) {
 			for (int width = 0; width < columns; width++) {
-				addSlot(function.getSlot(container, startIndex + (width + height * columns), width * 18 + x, height * 18 + y));
+				addSlot(slotCreator.createSlot(startIndex + (width + height * columns), width * 18 + x, height * 18 + y));
 			}
 		}
 	}
-	
-	/**
-	 * This methods can add any {@link IItemHandler} to this menu.
-	 *
-	 * @param handler Item inventory handler
-	 * @param rows Slot rows
-	 * @param columns Slot columns
-	 * @param x Start x
-	 * @param y Start y
-	 */
-	protected void addSlots(IItemHandler handler, int rows, int columns, int x, int y) {
-		addSlots(handler, 0, rows, columns, x, y);
-	}
-	
-	/**
-	 * This methods can add any {@link IItemHandler} to this menu.
-	 *
-	 * @param handler Item inventory handler
-	 * @param function Function to create a slot
-	 * @param rows Slot rows
-	 * @param columns Slot columns
-	 * @param x Start x
-	 * @param y Start y
-	 */
-	protected void addSlots(IItemHandler handler, SlotHandlerFunction function, int rows, int columns, int x, int y) {
-		addSlots(handler, function, 0, rows, columns, x, y);
-	}
-	
-	/**
-	 * This methods can add any {@link IItemHandler} to this menu.
-	 *
-	 * @param handler Item inventory handler
-	 * @param startIndex Start index of inventory
-	 * @param rows Slot rows
-	 * @param columns Slot columns
-	 * @param x Start x
-	 * @param y Start y
-	 */
-	protected void addSlots(IItemHandler handler, int startIndex, int rows, int columns, int x, int y) {
-		addSlots(handler, ItemSlot::new, startIndex, rows, columns, x, y);
-	}
-	
-	/**
-	 * This methods can add any {@link IItemHandler} to this menu.
-	 *
-	 * @param handler Item inventory handler
-	 * @param function Function to create a slot
-	 * @param startIndex Start index of inventory
-	 * @param rows Slot rows
-	 * @param columns Slot columns
-	 * @param x Start x
-	 * @param y Start y
-	 */
-	protected void addSlots(IItemHandler handler, SlotHandlerFunction function, int startIndex, int rows, int columns, int x, int y) {
-		for (int height = 0; height < rows; height++) {
-			for (int width = 0; width < columns; width++) {
-				addSlot(function.getSlot(handler, startIndex + (width + height * columns), width * 18 + x, height * 18 + y));
-			}
-		}
-	}
-	
-	/**
-	 * Used as a function to add slots
-	 *
-	 * @author HyCraftHD
-	 */
-	@FunctionalInterface
-	public static interface SlotContainerFunction {
-		
-		/**
-		 * Should return a slot with the applied parameters.
-		 *
-		 * @param container Inventory container
-		 * @param index Index for this inventory
-		 * @param x X coordinate
-		 * @param y Y coordinate
-		 * @return A new slot instance
-		 */
-		Slot getSlot(Container container, int index, int x, int y);
-	}
-	
-	/**
-	 * Used as a function to add slots
-	 *
-	 * @author HyCraftHD
-	 */
-	@FunctionalInterface
-	public static interface SlotHandlerFunction {
-		
-		/**
-		 * Should return a slot with the applied parameters.
-		 *
-		 * @param handler Item inventory handler
-		 * @param index Index for this handler
-		 * @param x X coordinate
-		 * @param y Y coordinate
-		 * @return A new slot instance
-		 */
-		Slot getSlot(IItemHandler handler, int index, int x, int y);
-	}
-	
 }
