@@ -11,6 +11,7 @@ import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.util.CastUtil;
+import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -80,18 +81,24 @@ public class FabricNetworkHandler implements NetworkHandler {
 		if (!validNetworkEnvironment(expectedHandler, packet.handlerEnvironment)) {
 			throw new IllegalArgumentException("Message " + message.getClass() + " cannot be used to send to " + expectedHandler);
 		}
-		final FriendlyByteBuf byteBuf = PacketByteBufs.create();
-		byteBuf.writeUtf(protocolVersion);
-		packet.encoder.accept(message, byteBuf);
-		return new EncodedMessage(packet.location, byteBuf);
+		final FriendlyByteBuf buffer = PacketByteBufs.create();
+		buffer.writeUtf(protocolVersion);
+		
+		final FriendlyByteBuf messageBuffer = PacketByteBufs.create();
+		packet.encoder.accept(message, messageBuffer);
+		messageBuffer.readerIndex(0);
+		buffer.writeVarInt(messageBuffer.readableBytes());
+		buffer.writeBytes(messageBuffer);
+		
+		return new EncodedMessage(packet.location, buffer);
 	}
 	
-	private <M> M decodeMessage(Function<FriendlyByteBuf, M> decoder, FriendlyByteBuf byteBuf) {
-		final String receivedProtocolVersion = byteBuf.readUtf();
+	private <M> M decodeMessage(Function<FriendlyByteBuf, M> decoder, FriendlyByteBuf buffer) {
+		final String receivedProtocolVersion = buffer.readUtf();
 		if (!protocolVersion.equals(receivedProtocolVersion)) {
-			throw new RuntimeException("Protocol version does not match");
+			throw new RuntimeException("Protocol version for channel " + channel + " does not match. Expected: " + protocolVersion + ", received: " + receivedProtocolVersion);
 		}
-		return decoder.apply(byteBuf);
+		return decoder.apply(new FriendlyByteBuf(Unpooled.wrappedBuffer(buffer.readByteArray())));
 	}
 	
 	private boolean validNetworkEnvironment(NetworkEnvironment expected, Optional<NetworkEnvironment> handlerEnvironment) {
