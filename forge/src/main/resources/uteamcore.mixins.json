@@ -6,7 +6,8 @@
 	"package": "info.u_team.u_team_core.intern.mixin",
 	"mixins": [
 		"UArmorItemMixin",
-		"UBlockEntityMixin"
+		"UBlockEntityMixin",
+		"ServerPlayerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
