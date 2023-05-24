@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.api.menu;
 
-import info.u_team.u_team_core.menu.FluidContainerMenu;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerListener;
 import net.minecraft.world.item.ItemStack;

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import info.u_team.u_team_core.api.menu.FluidContainerMenu;
 import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.intern.init.UCoreNetworkForge;
 import info.u_team.u_team_core.intern.network.DataHolderMenuMessage;

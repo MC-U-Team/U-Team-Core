@@ -8,10 +8,11 @@ import com.google.common.base.Suppliers;
 
 import info.u_team.u_team_core.api.fluid.FluidHandlerModifiable;
 import info.u_team.u_team_core.api.menu.FluidContainerListener;
+import info.u_team.u_team_core.api.menu.FluidContainerMenu;
+import info.u_team.u_team_core.api.menu.FluidContainerMenu.FluidContainerDelegator;
 import info.u_team.u_team_core.intern.init.UCoreNetworkForge;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidContentMessage;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidSlotMessage;
-import info.u_team.u_team_core.menu.FluidContainerMenu.FluidContainerDelegator;
 import net.minecraft.core.NonNullList;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.ContainerListener;

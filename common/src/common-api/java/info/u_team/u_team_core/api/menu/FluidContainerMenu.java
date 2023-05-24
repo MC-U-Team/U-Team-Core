@@ -1,5 +1,6 @@
-package info.u_team.u_team_core.menu;
+package info.u_team.u_team_core.api.menu;
 
+import info.u_team.u_team_core.menu.UAbstractContainerMenu;
 import info.u_team.u_team_core.util.ServiceUtil;
 import net.minecraft.world.inventory.MenuType;
 
