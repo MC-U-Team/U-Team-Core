@@ -4,15 +4,15 @@ import info.u_team.u_team_core.api.menu.ItemSlotCreator;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.Slot;
 
-public class ContainerItemSlotCreator implements ItemSlotCreator {
+public class ItemContainerSlotCreator implements ItemSlotCreator {
 	
-	public static ContainerItemSlotCreator of(Container container) {
-		return new ContainerItemSlotCreator(container);
+	public static ItemContainerSlotCreator of(Container container) {
+		return new ItemContainerSlotCreator(container);
 	}
 	
 	private final Container container;
 	
-	protected ContainerItemSlotCreator(Container container) {
+	protected ItemContainerSlotCreator(Container container) {
 		this.container = container;
 	}
 	
