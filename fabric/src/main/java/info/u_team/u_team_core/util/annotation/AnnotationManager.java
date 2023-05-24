@@ -4,7 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.objectweb.asm.Type;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
@@ -112,16 +114,22 @@ public class AnnotationManager {
 	}
 	
 	private static Comparator<AnnotationData> sortByPriority() {
+		final Function<AnnotationData, Pair<Boolean, Integer>> resolver = data -> {
+			Boolean client = (Boolean) data.annotationData().get("client");
+			if (client == null) {
+				client = false;
+			}
+			Integer priority = (Integer) data.annotationData().get("priority");
+			if (priority == null) {
+				priority = 1000;
+			}
+			return Pair.of(client, priority);
+		};
+		
 		return (first, second) -> {
-			Integer firstPriority = (Integer) first.annotationData().get("priority");
-			Integer secondPriority = (Integer) second.annotationData().get("priority");
-			if (firstPriority == null) {
-				firstPriority = 1000;
-			}
-			if (secondPriority == null) {
-				secondPriority = 1000;
-			}
-			return firstPriority.compareTo(secondPriority);
+			final Pair<Boolean, Integer> firstData = resolver.apply(first);
+			final Pair<Boolean, Integer> secondData = resolver.apply(second);
+			return firstData.compareTo(secondData);
 		};
 	}
 	
