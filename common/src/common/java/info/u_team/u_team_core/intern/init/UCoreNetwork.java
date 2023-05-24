@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class UCoreNetwork {
 	
-	public static final NetworkHandler NETWORK = NetworkHandler.create(new ResourceLocation(UCoreReference.MODID, "network"));
+	public static final NetworkHandler NETWORK = NetworkHandler.create("1.19.5-1", new ResourceLocation(UCoreReference.MODID, "network"));
 	
 	static void register() {
 		NETWORK.registerMessage(0, OpenMenuScreenMessage.class, OpenMenuScreenMessage::encode, OpenMenuScreenMessage::decode, OpenMenuScreenMessage.Handler::handle, Optional.of(NetworkEnvironment.CLIENT));

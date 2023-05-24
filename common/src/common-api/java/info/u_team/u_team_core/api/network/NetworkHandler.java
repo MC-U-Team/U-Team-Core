@@ -11,24 +11,26 @@ import net.minecraft.server.level.ServerPlayer;
 
 public interface NetworkHandler {
 	
-	static NetworkHandler create(ResourceLocation location) {
-		return Factory.INSTANCE.create(location);
+	static NetworkHandler create(String protocolVersion, ResourceLocation location) {
+		return Factory.INSTANCE.create(protocolVersion, location);
 	}
 	
-	public default <M> void registerMessage(int index, Class<M> clazz, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer) {
+	default <M> void registerMessage(int index, Class<M> clazz, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer) {
 		registerMessage(index, clazz, encoder, decoder, messageConsumer, Optional.empty());
 	}
 	
-	public <M> void registerMessage(int index, Class<M> clazz, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer, Optional<NetworkEnvironment> handlerEnvironment);
+	<M> void registerMessage(int index, Class<M> clazz, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer, Optional<NetworkEnvironment> handlerEnvironment);
 	
-	public <M> void sendToPlayer(ServerPlayer player, M message);
+	<M> void sendToPlayer(ServerPlayer player, M message);
 	
-	public <M> void sendToServer(M message);
+	<M> void sendToServer(M message);
+	
+	String getProtocolVersion();
 	
 	interface Factory {
 		
 		Factory INSTANCE = ServiceUtil.loadOne(Factory.class);
 		
-		NetworkHandler create(ResourceLocation location);
+		NetworkHandler create(String protocolVersion, ResourceLocation location);
 	}
 }

@@ -4,7 +4,6 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
@@ -26,14 +25,17 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public class ForgeNetworkHandler implements NetworkHandler {
 	
+	private final String protocolVersion;
 	private final SimpleChannel network;
 	
-	private Supplier<String> networkProtocolVersion = () -> "0";
-	private Predicate<String> clientAcceptedVersions = "0"::equals;
-	private Predicate<String> serverAcceptedVersions = "0"::equals;
+	private Predicate<String> clientAcceptedVersions;
+	private Predicate<String> serverAcceptedVersions;
 	
-	ForgeNetworkHandler(ResourceLocation channel) {
-		network = NetworkRegistry.newSimpleChannel(channel, () -> networkProtocolVersion.get(), version -> clientAcceptedVersions.test(version), version -> serverAcceptedVersions.test(version));
+	ForgeNetworkHandler(String protocolVersion, ResourceLocation channel) {
+		this.protocolVersion = protocolVersion;
+		network = NetworkRegistry.newSimpleChannel(channel, () -> protocolVersion, version -> clientAcceptedVersions.test(version), version -> serverAcceptedVersions.test(version));
+		clientAcceptedVersions = protocolVersion::equals;
+		serverAcceptedVersions = protocolVersion::equals;
 	}
 	
 	@Override
@@ -60,8 +62,12 @@ public class ForgeNetworkHandler implements NetworkHandler {
 		network.send(PacketDistributor.SERVER.noArg(), message);
 	}
 	
-	public void setProtocolVersion(Supplier<String> networkProtocolVersion, Predicate<String> clientAcceptedVersions, Predicate<String> serverAcceptedVersions) {
-		this.networkProtocolVersion = networkProtocolVersion;
+	@Override
+	public String getProtocolVersion() {
+		return protocolVersion;
+	}
+	
+	public void setProtocolAcceptor(Predicate<String> clientAcceptedVersions, Predicate<String> serverAcceptedVersions) {
 		this.clientAcceptedVersions = clientAcceptedVersions;
 		this.serverAcceptedVersions = serverAcceptedVersions;
 	}
@@ -108,8 +114,8 @@ public class ForgeNetworkHandler implements NetworkHandler {
 	public static class Factory implements NetworkHandler.Factory {
 		
 		@Override
-		public NetworkHandler create(ResourceLocation location) {
-			return new ForgeNetworkHandler(location);
+		public NetworkHandler create(String protocolVersion, ResourceLocation location) {
+			return new ForgeNetworkHandler(protocolVersion, location);
 		}
 	}
 }

@@ -25,10 +25,12 @@ import net.minecraft.world.entity.player.Player;
 
 public class FabricNetworkHandler implements NetworkHandler {
 	
+	private final String protocolVersion;
 	private final ResourceLocation channel;
 	private final Map<Class<?>, MessagePacket<?>> messages;
 	
-	FabricNetworkHandler(ResourceLocation channel) {
+	FabricNetworkHandler(String protocolVersion, ResourceLocation channel) {
+		this.protocolVersion = protocolVersion;
 		this.channel = channel;
 		messages = new HashMap<>();
 	}
@@ -63,6 +65,11 @@ public class FabricNetworkHandler implements NetworkHandler {
 	@Override
 	public <M> void sendToServer(M message) {
 		runWhen(EnvType.CLIENT, () -> () -> Client.send(this, message));
+	}
+	
+	@Override
+	public String getProtocolVersion() {
+		return protocolVersion;
 	}
 	
 	private <M> EncodedMessage encodeMessage(M message, NetworkEnvironment expectedHandler) {
@@ -149,8 +156,8 @@ public class FabricNetworkHandler implements NetworkHandler {
 	public static class Factory implements NetworkHandler.Factory {
 		
 		@Override
-		public NetworkHandler create(ResourceLocation location) {
-			return new FabricNetworkHandler(location);
+		public NetworkHandler create(String protocolVersion, ResourceLocation location) {
+			return new FabricNetworkHandler(protocolVersion, location);
 		}
 	}
 }

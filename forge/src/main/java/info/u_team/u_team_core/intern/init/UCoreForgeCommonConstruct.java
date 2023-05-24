@@ -32,10 +32,10 @@ public class UCoreForgeCommonConstruct implements ModConstruct {
 		
 		BusRegister.registerMod(UCoreNetworkForge::registerMod);
 		
-		CastUtil.assertCast(UCoreNetwork.NETWORK, ForgeNetworkHandler.class).setProtocolVersion(() -> version, protocolVersion -> {
+		CastUtil.assertCast(UCoreNetwork.NETWORK, ForgeNetworkHandler.class).setProtocolAcceptor(protocolVersion -> {
 			// Allow clients to join / view servers without errors when uteamcore is not present there
-			return NetworkRegistry.acceptMissingOr(version).test(protocolVersion);
-		}, version::equals);
+			return NetworkRegistry.acceptMissingOr(UCoreNetwork.NETWORK.getProtocolVersion()).test(protocolVersion);
+		}, UCoreNetwork.NETWORK.getProtocolVersion()::equals);
 		
 		BusRegister.registerMod(bus -> bus.addListener(UCoreForgeCommonConstruct::registerIngredient));
 	}
