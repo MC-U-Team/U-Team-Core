@@ -5,10 +5,10 @@ import java.util.List;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.api.menu.FluidContainerMenu;
 import info.u_team.u_team_core.gui.renderer.FluidInventoryRenderer;
 import info.u_team.u_team_core.intern.init.UCoreNetworkForge;
 import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
+import info.u_team.u_team_core.menu.FluidContainerMenu;
 import info.u_team.u_team_core.menu.FluidSlot;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
