@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.intern.mixin;
+package info.u_team.u_team_core.intern.mixin.common;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
