@@ -1,5 +1,6 @@
 package info.u_team.u_team_test.menu;
 
+import info.u_team.u_team_core.menu.ForgeFluidContainerMenuDelegator;
 import info.u_team.u_team_core.menu.ItemHandlerSlotCreator;
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
 import info.u_team.u_team_test.blockentity.BasicFluidInventoryBlockEntity;
@@ -25,11 +26,11 @@ public class BasicFluidInventoryMenu extends UBlockEntityContainerMenu<BasicFlui
 	
 	@Override
 	protected void init(LogicalSide side) {
-		addFluidSlots(blockEntity.getFluidTanks(), 1, 4, 8, 18);
+		((ForgeFluidContainerMenuDelegator) getDelegator()).addFluidSlots(blockEntity.getFluidTanks(), 1, 4, 8, 18);
 		addSlots(ItemHandlerSlotCreator.of(blockEntity.getItemSlots()), 1, 4, 8, 50);
 		addPlayerInventory(playerInventory, 8, 82);
 		
-		fluidSlots.get(0).setBackground(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD);
+		((ForgeFluidContainerMenuDelegator) getDelegator()).fluidSlots.get(0).setBackground(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD);
 		slots.get(0).setBackground(InventoryMenu.BLOCK_ATLAS, InventoryMenu.EMPTY_ARMOR_SLOT_SHIELD);
 	}
 	
