@@ -1,7 +1,10 @@
 package info.u_team.u_team_core.menu;
 
+import info.u_team.u_team_core.api.Platform.Environment;
 import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
+import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.util.CastUtil;
+import info.u_team.u_team_core.util.EnvironmentUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -9,10 +12,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.NetworkHooks;
 
 public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends UContainerMenu {
 	
@@ -45,7 +44,7 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 		this.playerInventory = playerInventory;
 		this.blockEntity = blockEntity;
 		if (callInit) {
-			init(LogicalSide.SERVER);
+			init(NetworkEnvironment.SERVER);
 		}
 	}
 	
@@ -57,11 +56,11 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	 * @param menuType Menu type
 	 * @param containerId Container id
 	 * @param playerInventory Player inventory
-	 * @param byteBuf Initial menu data (specified with
+	 * @param buffer Initial menu data (specified with
 	 *        {@link NetworkHooks#openScreen(net.minecraft.server.level.ServerPlayer, net.minecraft.world.MenuProvider, java.util.function.Consumer)})
 	 */
-	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf byteBuf) {
-		this(menuType, containerId, playerInventory, byteBuf, true);
+	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf buffer) {
+		this(menuType, containerId, playerInventory, buffer, true);
 	}
 	
 	/**
@@ -71,49 +70,31 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	 * @param menuType Menu type
 	 * @param containerId Container id
 	 * @param playerInventory Player inventory
-	 * @param byteBuf Initial menu data (specified with
+	 * @param buffer Initial menu data (specified with
 	 *        {@link NetworkHooks#openScreen(net.minecraft.server.level.ServerPlayer, net.minecraft.world.MenuProvider, java.util.function.Consumer)})
 	 * @param callInit If the constructor should call {@link #init(LogicalSide)}
 	 */
-	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf byteBuf, boolean callInit) {
+	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf buffer, boolean callInit) {
 		super(menuType, containerId);
 		this.playerInventory = playerInventory;
-		blockEntity = getClientBlockEntity(byteBuf);
+		blockEntity = EnvironmentUtil.callWhen(Environment.CLIENT, () -> () -> Client.getClientBlockEntity(buffer));
 		if (blockEntity instanceof final MenuSyncedBlockEntity syncedBlockEntity) {
-			final FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.wrappedBuffer(byteBuf.readByteArray(32592))); // 32600 bytes, but minus the block entity pos which takes 8 bytes
+			final FriendlyByteBuf data = new FriendlyByteBuf(Unpooled.wrappedBuffer(buffer.readByteArray(32592))); // 32600 bytes, but minus the block entity pos which takes 8 bytes
 			syncedBlockEntity.handleInitialMenuDataFromServer(data);
 			data.release();
 		}
 		if (callInit) {
-			init(LogicalSide.CLIENT);
+			init(NetworkEnvironment.CLIENT);
 		}
-	}
-	
-	/**
-	 * This methods reads the {@link BlockPos} from the {@link FriendlyByteBuf} and then tries to find a client block
-	 * entity. This method is only client sided. If the block entity does not exist an {@link IllegalStateException} is
-	 * thrown.
-	 *
-	 * @param byteBuf Buffer with the read index at the block entity {@link BlockPos}
-	 * @return The block entity on the clients side
-	 */
-	@OnlyIn(Dist.CLIENT)
-	private T getClientBlockEntity(FriendlyByteBuf byteBuf) {
-		final BlockPos pos = byteBuf.readBlockPos();
-		final BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
-		if (blockEntity == null) {
-			throw new IllegalStateException("The client block entity at (" + pos.toShortString() + ") does not exist.");
-		}
-		return CastUtil.uncheckedCast(blockEntity);
 	}
 	
 	/**
 	 * Is called after the server and client constructor. If you want to use your own fields in the init method, set the
 	 * last constructor boolean to false and then call this method in all constructors of the implementing class.
 	 *
-	 * @param side Logical side this method is called on
+	 * @param environment Logical side this method is called on
 	 */
-	protected abstract void init(LogicalSide side);
+	protected abstract void init(NetworkEnvironment environment);
 	
 	/**
 	 * Gets the block entity
@@ -124,4 +105,23 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 		return blockEntity;
 	}
 	
+	private static class Client {
+		
+		/**
+		 * This methods reads the {@link BlockPos} from the {@link FriendlyByteBuf} and then tries to find a client block
+		 * entity. This method is only client sided. If the block entity does not exist an {@link IllegalStateException} is
+		 * thrown.
+		 *
+		 * @param buffer Buffer with the read index at the block entity {@link BlockPos}
+		 * @return The block entity on the clients side
+		 */
+		private static <T extends BlockEntity> T getClientBlockEntity(FriendlyByteBuf buffer) {
+			final BlockPos pos = buffer.readBlockPos();
+			final BlockEntity blockEntity = Minecraft.getInstance().level.getBlockEntity(pos);
+			if (blockEntity == null) {
+				throw new IllegalStateException("The client block entity at (" + pos.toShortString() + ") does not exist.");
+			}
+			return CastUtil.uncheckedCast(blockEntity);
+		}
+	}
 }
