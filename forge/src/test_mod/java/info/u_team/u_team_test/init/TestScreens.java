@@ -1,6 +1,6 @@
 package info.u_team.u_team_test.init;
 
-import info.u_team.u_team_core.api.registry.MenuScreensRegister;
+import info.u_team.u_team_core.api.registry.client.MenuScreensRegister;
 import info.u_team.u_team_test.screen.BasicBlockEntityScreen;
 import info.u_team.u_team_test.screen.BasicEnergyCreatorScreen;
 import info.u_team.u_team_test.screen.BasicFluidInventoryScreen;
