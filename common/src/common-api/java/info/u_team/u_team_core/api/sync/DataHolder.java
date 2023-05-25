@@ -61,7 +61,7 @@ public abstract class DataHolder {
 			
 			@Override
 			public void set(FriendlyByteBuf buffer) {
-				consumer.accept(buffer);
+				consumer.accept(new FriendlyByteBuf(buffer.copy()));
 			}
 		};
 	}

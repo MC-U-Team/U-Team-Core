@@ -31,6 +31,7 @@ public record DataHolderMenuMessage(int containerId, int index, FriendlyByteBuf 
 		public static void handle(DataHolderMenuMessage message, NetworkContext context) {
 			context.executeOnMainThread(() -> {
 				updateDataHolder(context.getPlayer().containerMenu, context.getEnvironment(), message);
+				message.dataHolderBuffer.release();
 			});
 		}
 		
