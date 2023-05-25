@@ -81,7 +81,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 			throw new IllegalArgumentException("Message " + message.getClass() + " cannot be used to send to " + expectedHandler);
 		}
 		final FriendlyByteBuf buffer = PacketByteBufs.create();
-		buffer.writeUtf(protocolVersion);
+		buffer.writeUtf(protocolVersion); // TODO change to not send that every packet (should be done in login stage)
 		
 		final FriendlyByteBuf messageBuffer = PacketByteBufs.create();
 		packet.encoder.accept(message, messageBuffer);
