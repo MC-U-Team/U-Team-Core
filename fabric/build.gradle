@@ -60,7 +60,7 @@ loom {
 	}
 	
 	mixin {
-		defaultRefmapName = "gjeb.mixins.refmap.json"
+		defaultRefmapName = "uteamcore.mixins.refmap.json"
 	}
 }
 
