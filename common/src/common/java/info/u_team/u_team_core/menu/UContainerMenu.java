@@ -8,6 +8,7 @@ import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.init.network.DataHolderMenuMessage;
+import info.u_team.u_team_core.screen.UContainerMenuScreen;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;

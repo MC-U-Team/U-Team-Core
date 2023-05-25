@@ -5,6 +5,7 @@ import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.EnvironmentUtil;
+import info.u_team.u_team_core.util.MenuUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -57,7 +58,7 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	 * @param containerId Container id
 	 * @param playerInventory Player inventory
 	 * @param buffer Initial menu data (specified with
-	 *        {@link NetworkHooks#openScreen(net.minecraft.server.level.ServerPlayer, net.minecraft.world.MenuProvider, java.util.function.Consumer)})
+	 *        {@link MenuUtil#openMenu(net.minecraft.server.level.ServerPlayer, net.minecraft.world.MenuProvider, java.util.function.Consumer, boolean)})
 	 */
 	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf buffer) {
 		this(menuType, containerId, playerInventory, buffer, true);
@@ -71,7 +72,7 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	 * @param containerId Container id
 	 * @param playerInventory Player inventory
 	 * @param buffer Initial menu data (specified with
-	 *        {@link NetworkHooks#openScreen(net.minecraft.server.level.ServerPlayer, net.minecraft.world.MenuProvider, java.util.function.Consumer)})
+	 *        {@link MenuUtil#openMenu(net.minecraft.server.level.ServerPlayer, net.minecraft.world.MenuProvider, java.util.function.Consumer, boolean)})
 	 * @param callInit If the constructor should call {@link #init(LogicalSide)}
 	 */
 	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf buffer, boolean callInit) {

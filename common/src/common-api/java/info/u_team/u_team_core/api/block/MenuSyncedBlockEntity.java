@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.api.block;
 
+import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.MenuProvider;
 import net.minecraft.world.entity.player.Inventory;
