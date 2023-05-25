@@ -4,6 +4,7 @@ import info.u_team.u_team_core.util.ServiceUtil;
 import net.minecraft.world.inventory.MenuType;
 
 /**
+ * Unstable api! <br>
  * Adds a management system for fluids in menus like items.
  *
  * @author HyCraftHD
