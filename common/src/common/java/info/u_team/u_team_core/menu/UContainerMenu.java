@@ -4,21 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
 
+import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.sync.DataHolder;
-import info.u_team.u_team_core.intern.init.UCoreNetworkForge;
-import info.u_team.u_team_core.intern.network.DataHolderMenuMessage;
-import info.u_team.u_team_core.screen.UContainerMenuScreen;
+import info.u_team.u_team_core.intern.init.UCoreNetwork;
+import info.u_team.u_team_core.intern.init.network.DataHolderMenuMessage;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.PacketDistributor;
 
-/**
- * A basic menu with synchronization capabilities that implements the {@link FluidContainerMenu}.
- *
- * @author HyCraftHD
- */
 public abstract class UContainerMenu extends FluidContainerMenu {
 	
 	private final List<DataHolder> dataHolderToClient;
@@ -80,7 +73,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 		if (getSynchronizerPlayer() != null) {
 			for (int index = 0; index < dataHolderToClient.size(); index++) {
 				final DataHolder dataHolder = dataHolderToClient.get(index);
-				UCoreNetworkForge.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
+				UCoreNetwork.NETWORK.sendToPlayer(getSynchronizerPlayer(), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
 			}
 		}
 	}
@@ -94,7 +87,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 		
 		if (getSynchronizerPlayer() != null) {
 			checkForChanges(dataHolderToClient, (index, dataHolder) -> {
-				UCoreNetworkForge.NETWORK.send(PacketDistributor.PLAYER.with(this::getSynchronizerPlayer), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
+				UCoreNetwork.NETWORK.sendToPlayer(getSynchronizerPlayer(), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
 			});
 		}
 	}
@@ -108,21 +101,21 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	 */
 	public void broadcastChangesToServer() {
 		checkForChanges(dataHolderToServer, (index, dataHolder) -> {
-			UCoreNetworkForge.NETWORK.send(PacketDistributor.SERVER.noArg(), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
+			UCoreNetwork.NETWORK.sendToServer(new DataHolderMenuMessage(containerId, index, dataHolder.get()));
 		});
 	}
 	
 	/**
 	 * Called by the packet handler to update the values on the right side.
 	 *
-	 * @param side Side that should set the values
+	 * @param environment Side that should set the values
 	 * @param index Index of the data holder in the list
 	 * @param dataHolderBuffer The buffer that should be set
 	 */
-	public final void setDataHolder(LogicalSide side, int index, FriendlyByteBuf dataHolderBuffer) {
-		if (side == LogicalSide.CLIENT) {
+	public final void setDataHolder(NetworkEnvironment environment, int index, FriendlyByteBuf dataHolderBuffer) {
+		if (environment == NetworkEnvironment.CLIENT) {
 			dataHolderToClient.get(index).set(dataHolderBuffer);
-		} else if (side == LogicalSide.SERVER) {
+		} else if (environment == NetworkEnvironment.SERVER) {
 			dataHolderToServer.get(index).set(dataHolderBuffer);
 		}
 	}
