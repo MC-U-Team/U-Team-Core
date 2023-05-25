@@ -1,5 +1,6 @@
 package info.u_team.u_team_test.menu;
 
+import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
@@ -11,7 +12,6 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.LogicalSide;
 
 public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<BasicBlockEntityBlockEntity> {
 	
@@ -29,7 +29,7 @@ public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<BasicBlockEn
 	}
 	
 	@Override
-	protected void init(LogicalSide side) {
+	protected void init(NetworkEnvironment environment) {
 		addSlots(ItemHandlerSlotCreator.of(blockEntity.getSlots()), 2, 9, 8, 41);
 		addPlayerInventory(playerInventory, 8, 91);
 		
