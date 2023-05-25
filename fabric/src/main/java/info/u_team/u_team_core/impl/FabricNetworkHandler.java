@@ -5,19 +5,18 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.util.CastUtil;
+import info.u_team.u_team_core.util.EnvironmentUtil;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -53,7 +52,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 		
 		if (validNetworkEnvironment(NetworkEnvironment.CLIENT, handlerEnvironment)) {
 			// Register server -> client handler
-			runWhen(EnvType.CLIENT, () -> () -> Client.registerReceiver(this, location, decoder, messageConsumer));
+			EnvironmentUtil.runWhen(info.u_team.u_team_core.api.Platform.Environment.CLIENT, () -> () -> Client.registerReceiver(this, location, decoder, messageConsumer));
 		}
 	}
 	
@@ -65,7 +64,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 	
 	@Override
 	public <M> void sendToServer(M message) {
-		runWhen(EnvType.CLIENT, () -> () -> Client.send(this, message));
+		EnvironmentUtil.runWhen(info.u_team.u_team_core.api.Platform.Environment.CLIENT, () -> () -> Client.send(this, message));
 	}
 	
 	@Override
@@ -118,12 +117,6 @@ public class FabricNetworkHandler implements NetworkHandler {
 			ClientPlayNetworking.registerGlobalReceiver(location, (client, packetListener, byteBuf, responseSender) -> {
 				messageConsumer.accept(handler.decodeMessage(decoder, byteBuf), new FabricNetworkContext(NetworkEnvironment.CLIENT, client.player, client));
 			});
-		}
-	}
-	
-	private void runWhen(EnvType type, Supplier<Runnable> supplier) {
-		if (type == FabricLoader.getInstance().getEnvironmentType()) {
-			supplier.get().run();
 		}
 	}
 	
