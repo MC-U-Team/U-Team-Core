@@ -1,6 +1,6 @@
 package info.u_team.u_team_core.impl;
 
-import info.u_team.u_team_core.api.registry.ColorProviderRegister;
+import info.u_team.u_team_core.api.registry.client.ColorProviderRegister;
 import info.u_team.u_team_core.impl.common.CommonColorProviderRegister;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.Minecraft;
