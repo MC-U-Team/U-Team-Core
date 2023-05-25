@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.api.registry;
+package info.u_team.u_team_core.api.registry.client;
 
 import java.util.function.Supplier;
 import java.util.stream.Stream;

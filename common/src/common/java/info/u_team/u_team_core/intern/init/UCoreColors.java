@@ -2,7 +2,7 @@ package info.u_team.u_team_core.intern.init;
 
 import info.u_team.u_team_core.api.dye.DyeableItem;
 import info.u_team.u_team_core.api.dye.DyeableItemsRegistry;
-import info.u_team.u_team_core.api.registry.ColorProviderRegister;
+import info.u_team.u_team_core.api.registry.client.ColorProviderRegister;
 import net.minecraft.Util;
 
 public class UCoreColors {

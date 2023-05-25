@@ -3,7 +3,7 @@ package info.u_team.u_team_core.impl.common;
 import java.util.HashSet;
 import java.util.Set;
 
-import info.u_team.u_team_core.api.registry.ColorProviderRegister;
+import info.u_team.u_team_core.api.registry.client.ColorProviderRegister;
 
 public abstract class CommonColorProviderRegister implements ColorProviderRegister {
 	
