@@ -18,8 +18,8 @@ public class ForgeMenuScreenRegister extends CommonMenuScreenRegister {
 	}
 	
 	private void setup(FMLClientSetupEvent event) {
-		event.enqueueWork(() -> screens.forEach((menuTypeSupplier, screenConstructor) -> {
-			MenuScreens.register(CastUtil.uncheckedCast(menuTypeSupplier.get()), screenConstructor);
+		event.enqueueWork(() -> screens.forEach((supplier, constructor) -> {
+			MenuScreens.register(CastUtil.uncheckedCast(supplier.get()), constructor);
 		}));
 	}
 	

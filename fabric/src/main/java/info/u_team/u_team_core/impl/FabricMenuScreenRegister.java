@@ -12,8 +12,8 @@ public class FabricMenuScreenRegister extends CommonMenuScreenRegister {
 	
 	@Override
 	public void register() {
-		screens.forEach((menuTypeSupplier, screenConstructor) -> {
-			MenuScreens.register(CastUtil.uncheckedCast(menuTypeSupplier.get()), screenConstructor);
+		screens.forEach((supplier, constructor) -> {
+			MenuScreens.register(CastUtil.uncheckedCast(supplier.get()), constructor);
 		});
 	}
 	
