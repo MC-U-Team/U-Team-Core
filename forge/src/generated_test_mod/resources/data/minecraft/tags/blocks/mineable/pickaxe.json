@@ -2,7 +2,6 @@
 	"values": [
 		"uteamtest:basic_block_entity",
 		"uteamtest:basic_energy_creator",
-		"uteamtest:basic_fluid_inventory",
-		"uteamtest:basic_sync"
+		"uteamtest:basic_fluid_inventory"
 	]
 }

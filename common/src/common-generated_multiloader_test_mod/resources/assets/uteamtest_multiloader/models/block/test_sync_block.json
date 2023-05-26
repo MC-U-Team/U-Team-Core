@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:block/cube_all",
 	"textures": {
-		"all": "uteamtest:block/basic_sync"
+		"all": "uteamtest_multiloader:block/test_sync_block"
 	}
 }

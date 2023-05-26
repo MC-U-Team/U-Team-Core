@@ -1,10 +1,10 @@
-package info.u_team.u_team_test.block;
+package info.u_team.u_team_test.test_multiloader.block;
 
 import java.util.Optional;
 
 import info.u_team.u_team_core.block.UEntityBlock;
-import info.u_team.u_team_test.blockentity.BasicSyncBlockEntity;
-import info.u_team.u_team_test.init.TestBlockEntityTypes;
+import info.u_team.u_team_test.test_multiloader.blockentity.TestSyncBlockEntity;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -15,10 +15,10 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class BasicSyncBlock extends UEntityBlock {
+public class TestSyncBlock extends UEntityBlock {
 	
-	public BasicSyncBlock() {
-		super(Properties.of(Material.METAL).strength(2).requiresCorrectToolForDrops(), TestBlockEntityTypes.BASIC_SYNC);
+	public TestSyncBlock() {
+		super(Properties.of(Material.METAL).strength(2).requiresCorrectToolForDrops(), TestMultiLoaderBlockEntityTypes.TEST_SYNC);
 	}
 	
 	@Override
@@ -27,12 +27,12 @@ public class BasicSyncBlock extends UEntityBlock {
 			return InteractionResult.SUCCESS;
 		}
 		
-		final Optional<BasicSyncBlockEntity> blockEntityOptional = getBlockEntity(level, pos);
+		final Optional<TestSyncBlockEntity> blockEntityOptional = getBlockEntity(level, pos);
 		if (!blockEntityOptional.isPresent()) {
 			return InteractionResult.PASS;
 		}
 		
-		final BasicSyncBlockEntity blockEntity = blockEntityOptional.get();
+		final TestSyncBlockEntity blockEntity = blockEntityOptional.get();
 		blockEntity.triggerCounter();
 		return InteractionResult.SUCCESS;
 	}

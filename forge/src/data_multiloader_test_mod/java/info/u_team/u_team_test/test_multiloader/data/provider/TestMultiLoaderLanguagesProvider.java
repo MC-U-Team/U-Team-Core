@@ -30,6 +30,7 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		addItem(TestMultiLoaderItems.TIER.sword(), "Test Sword");
 		
 		addBlock(TestMultiLoaderBlocks.TEST, "Test Block");
+		addBlock(TestMultiLoaderBlocks.TEST_SYNC, "Test Sync Block");
 	}
 	
 }

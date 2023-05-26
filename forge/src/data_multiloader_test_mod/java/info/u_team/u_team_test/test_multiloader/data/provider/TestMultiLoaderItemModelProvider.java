@@ -19,6 +19,7 @@ public class TestMultiLoaderItemModelProvider extends CommonItemModelProvider {
 		iterateItems(TestMultiLoaderItems.TIER, this::simpleGenerated);
 		// Blocks
 		simpleBlock(TestMultiLoaderBlocks.TEST.get());
+		simpleBlock(TestMultiLoaderBlocks.TEST_SYNC.get());
 	}
 	
 }

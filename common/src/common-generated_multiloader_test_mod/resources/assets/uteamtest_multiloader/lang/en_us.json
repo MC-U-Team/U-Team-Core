@@ -1,5 +1,6 @@
 {
 	"block.uteamtest_multiloader.test_block": "Test Block",
+	"block.uteamtest_multiloader.test_sync_block": "Test Sync Block",
 	"creativetabs.uteamtest_multiloader.test_tab": "Multiloader Test Tab",
 	"item.uteamtest_multiloader.test_axe": "Test Axe",
 	"item.uteamtest_multiloader.test_boots": "Test Boots",

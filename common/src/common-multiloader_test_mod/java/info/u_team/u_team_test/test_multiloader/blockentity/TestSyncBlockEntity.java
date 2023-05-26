@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.blockentity;
+package info.u_team.u_team_test.test_multiloader.blockentity;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -6,19 +6,19 @@ import org.slf4j.Logger;
 import com.mojang.logging.LogUtils;
 
 import info.u_team.u_team_core.blockentity.UBlockEntity;
-import info.u_team.u_team_test.init.TestBlockEntityTypes;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class BasicSyncBlockEntity extends UBlockEntity {
+public class TestSyncBlockEntity extends UBlockEntity {
 	
 	private static final Logger LOGGER = LogUtils.getLogger();
 	
 	private int counter;
 	
-	public BasicSyncBlockEntity(BlockPos pos, BlockState state) {
-		super(TestBlockEntityTypes.BASIC_SYNC.get(), pos, state);
+	public TestSyncBlockEntity(BlockPos pos, BlockState state) {
+		super(TestMultiLoaderBlockEntityTypes.TEST_SYNC.get(), pos, state);
 	}
 	
 	public void triggerCounter() {

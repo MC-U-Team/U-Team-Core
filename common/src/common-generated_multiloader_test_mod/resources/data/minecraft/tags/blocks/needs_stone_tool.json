@@ -1,6 +1,5 @@
 {
 	"values": [
-		"uteamtest_multiloader:test_block",
 		"uteamtest_multiloader:test_sync_block"
 	]
 }

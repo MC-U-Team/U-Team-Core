@@ -6,6 +6,7 @@ import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderBlo
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderBlockTagsProvider;
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderItemModelProvider;
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderLanguagesProvider;
+import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderLootTableProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -19,6 +20,7 @@ public class TestMultiLoaderDataGenerator {
 		final GenerationData data = new GenerationData(TestMultiLoaderMod.MODID, event);
 		
 		data.addProvider(event.includeServer(), TestMultiLoaderBlockTagsProvider::new);
+		data.addProvider(event.includeServer(), TestMultiLoaderLootTableProvider::new);
 		
 		data.addProvider(event.includeClient(), TestMultiLoaderBlockStateProvider::new);
 		data.addProvider(event.includeClient(), TestMultiLoaderItemModelProvider::new);

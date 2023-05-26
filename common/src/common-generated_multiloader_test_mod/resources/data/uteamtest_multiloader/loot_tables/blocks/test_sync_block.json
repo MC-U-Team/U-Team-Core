@@ -11,7 +11,7 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "uteamtest:basic_sync"
+					"name": "uteamtest_multiloader:test_sync_block"
 				}
 			],
 			"functions": [

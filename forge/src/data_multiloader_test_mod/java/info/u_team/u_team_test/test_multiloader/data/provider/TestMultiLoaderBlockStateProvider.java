@@ -13,6 +13,7 @@ public class TestMultiLoaderBlockStateProvider extends CommonBlockStateProvider 
 	@Override
 	public void register() {
 		simpleBlock(TestMultiLoaderBlocks.TEST.get());
+		simpleBlock(TestMultiLoaderBlocks.TEST_SYNC.get());
 	}
 	
 }

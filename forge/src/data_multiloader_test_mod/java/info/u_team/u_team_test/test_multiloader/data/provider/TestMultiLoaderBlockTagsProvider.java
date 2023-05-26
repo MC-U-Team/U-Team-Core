@@ -17,6 +17,9 @@ public class TestMultiLoaderBlockTagsProvider extends CommonBlockTagsProvider {
 		// Add block tags for mining
 		tag(VanillaTierTags.MINEABLE_WITH_PICKAXE).add(TestMultiLoaderBlocks.TEST.get());
 		tag(VanillaTierTags.NEEDS_IRON_TOOL).add(TestMultiLoaderBlocks.TEST.get());
+		
+		tag(VanillaTierTags.MINEABLE_WITH_PICKAXE).add(TestMultiLoaderBlocks.TEST_SYNC.get());
+		tag(VanillaTierTags.NEEDS_STONE_TOOL).add(TestMultiLoaderBlocks.TEST_SYNC.get());
 	}
 	
 }

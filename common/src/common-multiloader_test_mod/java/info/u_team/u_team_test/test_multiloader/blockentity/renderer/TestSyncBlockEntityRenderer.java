@@ -1,26 +1,26 @@
-package info.u_team.u_team_test.blockentity.render;
+package info.u_team.u_team_test.test_multiloader.blockentity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_test.blockentity.BasicSyncBlockEntity;
+import info.u_team.u_team_test.test_multiloader.blockentity.TestSyncBlockEntity;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
 
-public class BasicSyncBlockEntityRenderer implements BlockEntityRenderer<BasicSyncBlockEntity> {
+public class TestSyncBlockEntityRenderer implements BlockEntityRenderer<TestSyncBlockEntity> {
 	
 	private final EntityRenderDispatcher entityRenderer;
 	private final Font font;
 	
-	public BasicSyncBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
+	public TestSyncBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
 		entityRenderer = context.getEntityRenderer();
 		font = context.getFont();
 	}
 	
 	@Override
-	public void render(BasicSyncBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
+	public void render(TestSyncBlockEntity blockEntity, float partialTick, PoseStack poseStack, MultiBufferSource bufferSource, int packedLight, int packedOverlay) {
 		final String displayString = "Counter: " + blockEntity.getCounter();
 		poseStack.pushPose();
 		
