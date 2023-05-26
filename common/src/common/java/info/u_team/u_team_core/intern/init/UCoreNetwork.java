@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class UCoreNetwork {
 	
-	public static final NetworkHandler NETWORK = NetworkHandler.create("1.19.5-1", new ResourceLocation(UCoreReference.MODID, "network"));
+	public static final NetworkHandler NETWORK = NetworkHandler.create("1.19.4-2", new ResourceLocation(UCoreReference.MODID, "network"));
 	
 	static void register() {
 		NETWORK.registerMessage(0, DataHolderMenuMessage.class, DataHolderMenuMessage::encode, DataHolderMenuMessage::decode, DataHolderMenuMessage.Handler::handle);
