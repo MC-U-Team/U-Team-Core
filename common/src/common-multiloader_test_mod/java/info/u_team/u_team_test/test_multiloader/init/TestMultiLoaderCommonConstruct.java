@@ -9,9 +9,10 @@ public class TestMultiLoaderCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		TestMultiLoaderBlockEntityTypes.register();
 		TestMultiLoaderBlocks.register();
 		TestMultiLoaderItems.register();
+		TestMultiLoaderBlockEntityTypes.register();
+		
 		TestMultiLoaderCreativeTabs.register();
 		TestMultiLoaderNetwork.register();
 		TestMultiLoaderCommands.register();
