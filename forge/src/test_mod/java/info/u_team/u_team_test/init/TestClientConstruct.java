@@ -12,7 +12,7 @@ public class TestClientConstruct implements ModConstruct {
 	public void construct() {
 		BusRegister.registerMod(TestColors::registerMod);
 		BusRegister.registerMod(TestKeys::registerMod);
-		BusRegister.registerMod(TestRenderers::registerMod);
+		TestRenderers.register();
 		TestScreens.register();
 		
 		BusRegister.registerForge(TestKeys::registerForge);
