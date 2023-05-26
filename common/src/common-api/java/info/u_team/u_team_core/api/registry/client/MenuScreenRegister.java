@@ -15,7 +15,7 @@ public interface MenuScreenRegister {
 		return Factory.INSTANCE.create();
 	}
 	
-	<M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void register(Supplier<? extends MenuType<? extends M>> menuTypeSupplier, ScreenConstructor<M, U> screenConstructor);
+	<M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void register(Supplier<? extends MenuType<? extends M>> supplier, ScreenConstructor<M, U> constructor);
 	
 	void register();
 	

@@ -20,8 +20,8 @@ public abstract class CommonMenuScreenRegister implements MenuScreenRegister {
 	}
 	
 	@Override
-	public <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void register(Supplier<? extends MenuType<? extends M>> menuTypeSupplier, ScreenConstructor<M, U> screenConstructor) {
-		screens.put(menuTypeSupplier, screenConstructor);
+	public <M extends AbstractContainerMenu, U extends Screen & MenuAccess<M>> void register(Supplier<? extends MenuType<? extends M>> supplier, ScreenConstructor<M, U> constructor) {
+		screens.put(supplier, constructor);
 	}
 	
 }
