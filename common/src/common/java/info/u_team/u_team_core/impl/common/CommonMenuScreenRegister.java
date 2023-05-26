@@ -4,18 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.api.registry.client.MenuScreensRegister;
+import info.u_team.u_team_core.api.registry.client.MenuScreenRegister;
 import net.minecraft.client.gui.screens.MenuScreens.ScreenConstructor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 
-public abstract class CommonMenuScreensRegister implements MenuScreensRegister {
+public abstract class CommonMenuScreenRegister implements MenuScreenRegister {
 	
 	protected final Map<Supplier<? extends MenuType<?>>, ScreenConstructor<?, ?>> screens;
 	
-	protected CommonMenuScreensRegister() {
+	protected CommonMenuScreenRegister() {
 		screens = new HashMap<>();
 	}
 	

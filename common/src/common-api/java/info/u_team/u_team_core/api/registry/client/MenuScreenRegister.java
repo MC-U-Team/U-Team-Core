@@ -9,9 +9,9 @@ import net.minecraft.client.gui.screens.inventory.MenuAccess;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.MenuType;
 
-public interface MenuScreensRegister {
+public interface MenuScreenRegister {
 	
-	static MenuScreensRegister create() {
+	static MenuScreenRegister create() {
 		return Factory.INSTANCE.create();
 	}
 	
@@ -23,7 +23,7 @@ public interface MenuScreensRegister {
 		
 		Factory INSTANCE = ServiceUtil.loadOne(Factory.class);
 		
-		MenuScreensRegister create();
+		MenuScreenRegister create();
 	}
 	
 }

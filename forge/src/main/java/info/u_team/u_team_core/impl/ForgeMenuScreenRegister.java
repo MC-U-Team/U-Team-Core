@@ -1,15 +1,15 @@
 package info.u_team.u_team_core.impl;
 
-import info.u_team.u_team_core.api.registry.client.MenuScreensRegister;
-import info.u_team.u_team_core.impl.common.CommonMenuScreensRegister;
+import info.u_team.u_team_core.api.registry.client.MenuScreenRegister;
+import info.u_team.u_team_core.impl.common.CommonMenuScreenRegister;
 import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.registry.BusRegister;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-public class ForgeMenuScreensRegister extends CommonMenuScreensRegister {
+public class ForgeMenuScreenRegister extends CommonMenuScreenRegister {
 	
-	ForgeMenuScreensRegister() {
+	ForgeMenuScreenRegister() {
 	}
 	
 	@Override
@@ -23,11 +23,11 @@ public class ForgeMenuScreensRegister extends CommonMenuScreensRegister {
 		}));
 	}
 	
-	public static class Factory implements MenuScreensRegister.Factory {
+	public static class Factory implements MenuScreenRegister.Factory {
 		
 		@Override
-		public MenuScreensRegister create() {
-			return new ForgeMenuScreensRegister();
+		public MenuScreenRegister create() {
+			return new ForgeMenuScreenRegister();
 		}
 	}
 	
