@@ -12,8 +12,8 @@ buildscript {
 		mavenCentral()
 	}
 	dependencies {
-		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "2.0.5", changing: true
-		classpath group: "fabric-loom", name: "fabric-loom.gradle.plugin", version: "1.1.+", changing: true
+		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "3.0.0", changing: true
+		classpath group: "fabric-loom", name: "fabric-loom.gradle.plugin", version: "1.2.+", changing: true
 	}
 }
 
