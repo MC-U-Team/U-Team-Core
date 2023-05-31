@@ -1,25 +1,8 @@
-buildscript {
-	repositories {
-		maven {
-			url = "https://maven.fabricmc.net"
-		}
-		maven {
-			url = "https://maven.minecraftforge.net"
-		}
-		maven {
-			url = "https://repo.u-team.info"
-		}
-		mavenCentral()
-	}
-	dependencies {
-		classpath group: "fabric-loom", name: "fabric-loom.gradle.plugin", version: "1.2.+", changing: true
-		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "3.0.0"
-	}
+plugins {
+	id "fabric-loom"
+	id "info.u_team.gradle_files"
+	id "maven-publish"
 }
-
-apply plugin: "fabric-loom"
-apply plugin: "info.u_team.gradle_files"
-apply plugin: "maven-publish"
 
 gradlefiles.loaderSuffix = "common"
 

@@ -1,31 +1,11 @@
-buildscript {
-	repositories {
-		maven {
-			url = "https://maven.minecraftforge.net"
-		}
-		maven {
-			url = "https://maven.parchmentmc.org"
-		}
-		maven {
-			url = "https://repo.u-team.info"
-		}
-		mavenCentral()
-	}
-	dependencies {
-		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "6.0.+", changing: true
-		classpath group: "org.parchmentmc", name: "librarian", version: "1.+", changing: true
-		classpath group: "org.spongepowered", name: "mixingradle", version: "0.7.+", changing: true
-		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "3.0.0"
-		classpath group: "info.u-team.curse_gradle_uploader", name: "curse_gradle_uploader", version: "1.5.1"
-	}
+plugins {
+	id "net.minecraftforge.gradle"
+	id "org.parchmentmc.librarian.forgegradle"
+	id "org.spongepowered.mixin"
+	id "info.u_team.gradle_files"
+	id "info.u_team.curse_gradle_uploader"
+	id "maven-publish"
 }
-
-apply plugin: "net.minecraftforge.gradle"
-apply plugin: "org.parchmentmc.librarian.forgegradle"
-apply plugin: "org.spongepowered.mixin"
-apply plugin: "info.u_team.gradle_files"
-apply plugin: "info.u_team.curse_gradle_uploader"
-apply plugin: "maven-publish"
 
 gradlefiles.loaderSuffix = "forge"
 
