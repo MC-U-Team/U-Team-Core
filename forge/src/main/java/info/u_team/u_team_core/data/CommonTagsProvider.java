@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.data;
 
+import java.lang.reflect.Field;
 import java.util.function.Function;
 
 import info.u_team.u_team_core.util.ReflectionUtil;
@@ -15,6 +16,8 @@ import net.minecraftforge.common.data.ExistingFileHelper.IResourceType;
 
 public abstract class CommonTagsProvider<T> extends IntrinsicHolderTagsProvider<T> implements CommonDataProvider<HolderLookup.Provider> {
 	
+	private static final Field RESOURCE_TYPE_FIELD = ReflectionUtil.findField(TagsProvider.class, "resourceType");
+	
 	private final GenerationData generationData;
 	
 	protected final IResourceType resourceType;
@@ -25,7 +28,7 @@ public abstract class CommonTagsProvider<T> extends IntrinsicHolderTagsProvider<
 		this.generationData = generationData;
 		
 		// Forge added field. Therefore use reflection instead of at
-		resourceType = ReflectionUtil.getValue(ReflectionUtil.findField(TagsProvider.class, "resourceType"), this);
+		resourceType = ReflectionUtil.getValue(RESOURCE_TYPE_FIELD, this);
 	}
 	
 	@Override
