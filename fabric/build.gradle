@@ -54,7 +54,7 @@ tasks.named("shadowJar") {
 	destinationDirectory = tasks.getByName("jar").destinationDirectory
 	configurations = [project.configurations.shade]
 	
-	dependsOn "jar"
+	dependsOn tasks.named("jar")
 	
 	relocate "net.minecraftforge.fml", "info.u_team.u_team_core.internal.shade.net.minecraftforge.fml"
 	relocate "net.hycrafthd.update_checker", "info.u_team.u_team_core.internal.shade.net.hycrafthd.update_checker"
@@ -68,11 +68,11 @@ tasks.named("remapJar") {
 	dependsOn "shadowJar"
 }
 
-tasks.withType(Jar) { task ->
+tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 }
 
-tasks.withType(Javadoc) { task ->
+tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
