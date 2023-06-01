@@ -10,6 +10,7 @@ import info.u_team.u_team_core.item.tier.TierSet;
 import info.u_team.u_team_core.item.tier.TierSetCreator;
 import info.u_team.u_team_core.item.tier.UExtendedTier;
 import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
+import info.u_team.u_team_test.test_multiloader.item.TestEnderPearlItem;
 import info.u_team.u_team_test.test_multiloader.item.TestFoodItem;
 import info.u_team.u_team_test.test_multiloader.item.TestUseItem;
 import net.minecraft.core.registries.Registries;
@@ -27,6 +28,8 @@ public class TestMultiLoaderItems {
 	
 	public static final RegistryEntry<TestUseItem> TEST_USE = ITEMS.register("test_use_item", TestUseItem::new);
 	public static final RegistryEntry<TestFoodItem> TEST_FOOD = ITEMS.register("test_food_item", TestFoodItem::new);
+	
+	public static final RegistryEntry<TestEnderPearlItem> TEST_ENDERPEARL = ITEMS.register("test_enderpearl_item", TestEnderPearlItem::new);
 	
 	public static final ExtendedTier EXTENDED_TIER = new UExtendedTier(new float[] { 8, 0, 4, 2, 6 }, new float[] { -3.1F, -1, -2, -2, 0 }, 2, 500, 10F, 8, 30, () -> Ingredient.of(TEST.get()));
 	public static final TierSet TIER = TierSetCreator.create(ITEMS, "test", new Properties().fireResistant(), EXTENDED_TIER);

@@ -17,6 +17,7 @@ public class TestMultiLoaderItemModelProvider extends CommonItemModelProvider {
 		simpleGenerated(TestMultiLoaderItems.TEST.get());
 		simpleGenerated(TestMultiLoaderItems.TEST_USE.get());
 		simpleGenerated(TestMultiLoaderItems.TEST_FOOD.get());
+		simpleGenerated(TestMultiLoaderItems.TEST_ENDERPEARL.get());
 		iterateItems(TestMultiLoaderItems.ARMOR, this::simpleHandheld);
 		iterateItems(TestMultiLoaderItems.TIER, this::simpleGenerated);
 		// Blocks
