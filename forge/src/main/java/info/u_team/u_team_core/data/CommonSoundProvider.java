@@ -12,7 +12,7 @@ public abstract class CommonSoundProvider extends SoundDefinitionsProvider imple
 	}
 	
 	@Override
-	public void registerSounds() {
+	public final void registerSounds() {
 		register(null);
 	}
 	
