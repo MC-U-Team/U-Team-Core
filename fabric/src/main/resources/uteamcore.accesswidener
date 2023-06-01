@@ -104,4 +104,12 @@ accessible method net/minecraft/world/item/crafting/ShapedRecipe patternFromJson
 accessible method net/minecraft/world/item/crafting/ShapedRecipe dissolvePattern ([Ljava/lang/String;Ljava/util/Map;II)Lnet/minecraft/core/NonNullList;
 accessible method net/minecraft/world/item/crafting/ShapedRecipe matches (Lnet/minecraft/world/inventory/CraftingContainer;IIZ)Z
 
+accessible method net/minecraft/world/food/FoodProperties <init> (IFZZZLjava/util/List;)V
+
+accessible field net/minecraft/world/food/FoodProperties$Builder nutrition I
+accessible field net/minecraft/world/food/FoodProperties$Builder saturationModifier F
+accessible field net/minecraft/world/food/FoodProperties$Builder isMeat Z
+accessible field net/minecraft/world/food/FoodProperties$Builder canAlwaysEat Z
+accessible field net/minecraft/world/food/FoodProperties$Builder fastFood Z
+
 transitive-accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
