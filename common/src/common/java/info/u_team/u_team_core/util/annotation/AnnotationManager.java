@@ -14,14 +14,13 @@ import org.slf4j.MarkerFactory;
 
 import com.mojang.logging.LogUtils;
 
+import info.u_team.u_team_core.api.Platform;
+import info.u_team.u_team_core.api.Platform.Environment;
 import info.u_team.u_team_core.api.construct.Construct;
 import info.u_team.u_team_core.api.construct.ModConstruct;
 import info.u_team.u_team_core.api.integration.Integration;
 import info.u_team.u_team_core.api.integration.ModIntegration;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.FMLEnvironment;
-import net.minecraftforge.forgespi.language.ModFileScanData.AnnotationData;
+import info.u_team.u_team_core.util.annotation.AnnotationUtil.AnnotationData;
 
 /**
  * Manager for calling the classes that are annotated with {@link Construct} or {@link Integration}
@@ -82,7 +81,7 @@ public class AnnotationManager {
 		final List<AnnotationData> callable = new ArrayList<>();
 		
 		for (final AnnotationData data : AnnotationUtil.getAnnotations(modid, Type.getType(Integration.class))) {
-			if (canBeCalled(modid, data) && ModList.get().isLoaded((String) data.annotationData().get("integration"))) {
+			if (canBeCalled(modid, data) && Platform.getInstance().isModLoaded((String) data.annotationData().get("integration"))) {
 				callable.add(data);
 			}
 		}
@@ -111,7 +110,7 @@ public class AnnotationManager {
 	private static boolean canBeCalled(String modid, AnnotationData data) {
 		final String annotationModid = (String) data.annotationData().get("modid");
 		final Boolean client = (Boolean) data.annotationData().get("client");
-		return modid.equals(annotationModid) && (client == null || !client || client && FMLEnvironment.dist == Dist.CLIENT);
+		return modid.equals(annotationModid) && (client == null || !client || client && Platform.getInstance().getEnvironment() == Environment.CLIENT);
 	}
 	
 	private static Comparator<AnnotationData> sortByPriority() {

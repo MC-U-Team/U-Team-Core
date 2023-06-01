@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.util.annotation;
+package info.u_team.u_team_core.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,7 +11,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.ClassReader;
@@ -22,33 +21,20 @@ import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
 import info.u_team.u_team_core.util.ClassUtil;
+import info.u_team.u_team_core.util.annotation.AnnotationUtil;
+import info.u_team.u_team_core.util.annotation.AnnotationUtil.AnnotationData;
 import net.fabricmc.loader.impl.util.ExceptionUtil;
 
-/**
- * Annotation utility methods
- *
- * @author HyCraftHD
- */
-public class AnnotationUtil {
+public class FabricAnnotationScanner implements AnnotationUtil.AnnotationScanner {
 	
-	private static final Map<String, List<AnnotationData>> data = new HashMap<>();
+	private final Map<String, List<AnnotationData>> data = new HashMap<>();
 	
-	/**
-	 * Returns a list of found {@link AnnotationData} for the give annotation {@link Type} and modid.
-	 *
-	 * @param modid The mod files to search for annotations
-	 * @param type Annotation type
-	 * @return List of found annotation data
-	 */
-	public static List<AnnotationData> getAnnotations(String modid, Type type) {
-		final List<AnnotationData> annotations = data.computeIfAbsent(modid, AnnotationUtil::scanMod);
-		
-		return annotations.stream() //
-				.filter(data -> type.equals(data.annotationType())) //
-				.collect(Collectors.toList());
+	@Override
+	public List<AnnotationData> findAnnotations(String modid) {
+		return data.computeIfAbsent(modid, this::scanMod);
 	}
 	
-	private static List<AnnotationData> scanMod(String modid) {
+	private List<AnnotationData> scanMod(String modid) {
 		final Set<Path> paths = ClassUtil.findModClasses(modid);
 		
 		final List<AnnotationData> annotations = new ArrayList<>();
@@ -65,9 +51,6 @@ public class AnnotationUtil {
 		}
 		
 		return annotations;
-	}
-	
-	public record AnnotationData(Type annotationType, ElementType targetType, Type clazz, String memberName, Map<String, Object> annotationData) {
 	}
 	
 	public record EnumValue(Type clazz, String value) {
@@ -122,7 +105,7 @@ public class AnnotationUtil {
 			private OurAnnotationVisitor(String annotationDescriptor, ElementType targetType, Type type, String memberName) {
 				super(Opcodes.ASM9);
 				final AnnotationData annotationData = new AnnotationData(Type.getType(annotationDescriptor), targetType, type, memberName, new HashMap<>());
-				data = new DataHolder(annotationData.annotationData);
+				data = new DataHolder(annotationData.annotationData());
 				annotations.add(annotationData);
 			}
 			
@@ -191,4 +174,5 @@ public class AnnotationUtil {
 			
 		}
 	}
+	
 }
