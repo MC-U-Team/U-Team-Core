@@ -12,12 +12,10 @@ public class TestCommonConstruct implements ModConstruct {
 	public void construct() {
 		TestBlocks.register();
 		TestMenuTypes.register();
-		TestMobEffects.register();
 		TestEnchantments.register();
 		TestEntityTypes.register();
 		TestGlobalLootModifierSerializers.register();
 		TestItems.register();
-		TestPotions.register();
 		TestSoundEvents.register();
 		TestBlockEntityTypes.register();
 		

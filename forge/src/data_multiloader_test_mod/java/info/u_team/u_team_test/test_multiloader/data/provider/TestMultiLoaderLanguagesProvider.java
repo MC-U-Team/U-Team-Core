@@ -5,6 +5,7 @@ import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlocks;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderCreativeTabs;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderItems;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderMobEffects;
 
 public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 	
@@ -33,6 +34,15 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		addBlock(TestMultiLoaderBlocks.TEST_SYNC, "Test Sync Block");
 		addBlock(TestMultiLoaderBlocks.TEST_NO_ITEM, "No Item Block");
 		addBlock(TestMultiLoaderBlocks.TEST_NO_ITEM_IMPLICIT, "No Item Implicit Block");
+		
+		addEffect(TestMultiLoaderMobEffects.TEST, "Test");
+		
+		add("death.attack.test", "%1$s dies of test effect");
+		
+		add("item.minecraft.potion.effect.test", "Potion of Test Effect");
+		add("item.minecraft.splash_potion.effect.test", "Splash Potion of Test Effect");
+		add("item.minecraft.lingering_potion.effect.test", "Lingering Potion of Test Effect");
+		add("item.minecraft.tipped_arrow.effect.test", "Arrow of Test Effect");
 	}
 	
 }

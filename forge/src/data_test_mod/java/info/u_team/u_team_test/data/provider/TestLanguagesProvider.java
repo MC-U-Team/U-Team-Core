@@ -7,7 +7,6 @@ import info.u_team.u_team_test.init.TestCreativeTabs;
 import info.u_team.u_team_test.init.TestEnchantments;
 import info.u_team.u_team_test.init.TestEntityTypes;
 import info.u_team.u_team_test.init.TestItems;
-import info.u_team.u_team_test.init.TestMobEffects;
 
 public class TestLanguagesProvider extends CommonLanguagesProvider {
 	
@@ -46,14 +45,6 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		addEntityType(TestEntityTypes.TEST_LIVING, "Test Living Entity");
 		
 		addEnchantment(TestEnchantments.AUTO_SMELT, "Auto Smelt");
-		
-		addEffect(TestMobEffects.RADIATION, "Radiation");
-		
-		add("death.attack.radiation", "%1$s dies of radiation");
-		
-		add("item.minecraft.potion.effect.radiation", "Potion of Radiation");
-		add("item.minecraft.splash_potion.effect.radiation", "Splash Potion of Radiation");
-		add("item.minecraft.lingering_potion.effect.radiation", "Lingering Potion of Radiation");
 		
 		// German test for umlaut
 		addBlock("de_de", TestBlocks.BASIC, "Ä");
