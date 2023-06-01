@@ -182,6 +182,14 @@ processResources {
 	}
 }
 
+tasks.named("processMultiloader_test_modResources") {
+	inputs.property "version", project.version
+	
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
+	}
+}
+
 curseforge {
 	apiKey = defaultPropertyValue("curseforge.token")
 	
