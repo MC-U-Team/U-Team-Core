@@ -12,6 +12,8 @@ public interface Platform {
 	
 	Environment getEnvironment();
 	
+	boolean isModLoaded(String modid);
+	
 	static enum Environment {
 		CLIENT,
 		SERVER

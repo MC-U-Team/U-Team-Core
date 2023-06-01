@@ -20,4 +20,9 @@ public class FabricPlatform implements Platform {
 	public Environment getEnvironment() {
 		return environment.get();
 	}
+	
+	@Override
+	public boolean isModLoaded(String modid) {
+		return FabricLoader.getInstance().isModLoaded(modid);
+	}
 }

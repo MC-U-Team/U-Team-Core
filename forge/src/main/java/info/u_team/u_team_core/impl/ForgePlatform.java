@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import com.google.common.base.Suppliers;
 
 import info.u_team.u_team_core.api.Platform;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 
 public class ForgePlatform implements Platform {
@@ -19,5 +20,10 @@ public class ForgePlatform implements Platform {
 	@Override
 	public Environment getEnvironment() {
 		return environment.get();
+	}
+	
+	@Override
+	public boolean isModLoaded(String modid) {
+		return ModList.get().isLoaded(modid);
 	}
 }
