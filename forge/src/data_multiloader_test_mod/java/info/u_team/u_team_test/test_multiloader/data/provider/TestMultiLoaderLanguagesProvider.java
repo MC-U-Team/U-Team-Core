@@ -4,6 +4,7 @@ import info.u_team.u_team_core.data.CommonLanguagesProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlocks;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderCreativeTabs;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderEntityTypes;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderItems;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderMobEffects;
 
@@ -40,6 +41,8 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		addBlock(TestMultiLoaderBlocks.TEST_NO_ITEM_IMPLICIT, "No Item Implicit Block");
 		
 		addEffect(TestMultiLoaderMobEffects.TEST, "Test");
+		
+		addEntityType(TestMultiLoaderEntityTypes.TEST_ENDERPEARL, "Test Enderpearl");
 		
 		add("death.attack.test", "%1$s dies of test effect");
 		

@@ -1,4 +1,4 @@
-// 1.19.4	2023-06-01T20:46:04.7781976	Item-Model
+// 1.19.4	2023-06-02T01:25:06.528972	Item-Model
 50cdfad87cf1b3c3fa765f76f82a8ea3358ae053 assets/uteamtest/models/item/basic_armor_boots.json
 171c8b0b7338978809b9825307b10ab91ae90de2 assets/uteamtest/models/item/basic_armor_chestplate.json
 7659d8ae34db46531dbec4fb606ac8919e2affa0 assets/uteamtest/models/item/basic_armor_helmet.json
@@ -12,5 +12,4 @@ aaa502f604ed2c9620d96b48f5ed1a728fc3bdca assets/uteamtest/models/item/basic_tool
 88cd8b65fb65514d0f58d1a0f3b1c4a4e8fe1014 assets/uteamtest/models/item/basic_tool_pickaxe.json
 42b9f0716828e2fbb1d85198e23835ba4248c9d6 assets/uteamtest/models/item/basic_tool_shovel.json
 6039bcecd54e632fad86335f2e85605826940e5b assets/uteamtest/models/item/basic_tool_sword.json
-b9a6dfc07b9511f93cb9c6e3db6d65a2d653e7d8 assets/uteamtest/models/item/better_enderpearl.json
 7c519a48bdd15e51c42200b2817f363c2b554a8b assets/uteamtest/models/item/test_living_spawn_egg.json

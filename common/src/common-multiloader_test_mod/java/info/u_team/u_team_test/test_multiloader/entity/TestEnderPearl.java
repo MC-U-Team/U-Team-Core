@@ -1,12 +1,8 @@
-package info.u_team.u_team_test.entity;
+package info.u_team.u_team_test.test_multiloader.entity;
 
-import javax.annotation.Nullable;
-
-import info.u_team.u_team_test.init.TestEntityTypes;
-import info.u_team.u_team_test.init.TestItems;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderEntityTypes;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderItems;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
@@ -18,21 +14,20 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.network.NetworkHooks;
 
-public class BetterEnderPearl extends ThrowableItemProjectile {
+public class TestEnderPearl extends ThrowableItemProjectile {
 	
-	public BetterEnderPearl(EntityType<? extends BetterEnderPearl> type, Level world) {
+	public TestEnderPearl(EntityType<? extends TestEnderPearl> type, Level world) {
 		super(type, world);
 	}
 	
-	public BetterEnderPearl(Level world, LivingEntity thrower) {
-		super(TestEntityTypes.BETTER_ENDERPEARL.get(), thrower, world);
+	public TestEnderPearl(Level world, LivingEntity thrower) {
+		super(TestMultiLoaderEntityTypes.TEST_ENDERPEARL.get(), thrower, world);
 	}
 	
 	@Override
 	protected Item getDefaultItem() {
-		return TestItems.BETTER_ENDERPEARL.get();
+		return TestMultiLoaderItems.TEST_ENDERPEARL.get();
 	}
 	
 	@Override
@@ -89,18 +84,18 @@ public class BetterEnderPearl extends ThrowableItemProjectile {
 	}
 	
 	@Override
-	@Nullable
-	public Entity changeDimension(ServerLevel level, net.minecraftforge.common.util.ITeleporter teleporter) {
+	public Entity changeDimension(ServerLevel level) {
 		final Entity entity = getOwner();
 		if (entity != null && entity.level.dimension() != level.dimension()) {
 			setOwner(null);
 		}
 		
-		return super.changeDimension(level, teleporter);
+		return super.changeDimension(level);
 	}
 	
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
-	}
+	// TODO remove
+	// @Override
+	// public Packet<ClientGamePacketListener> getAddEntityPacket() {
+	// return NetworkHooks.getEntitySpawningPacket(this);
+	// }
 }

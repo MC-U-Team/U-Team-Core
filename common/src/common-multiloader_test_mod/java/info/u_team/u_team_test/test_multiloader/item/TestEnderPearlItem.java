@@ -1,7 +1,7 @@
 package info.u_team.u_team_test.test_multiloader.item;
 
 import info.u_team.u_team_core.item.UItem;
-import info.u_team.u_team_test.entity.BetterEnderPearl;
+import info.u_team.u_team_test.test_multiloader.entity.TestEnderPearl;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderSoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -27,7 +27,7 @@ public class TestEnderPearlItem extends UItem {
 		player.getCooldowns().addCooldown(this, 10);
 		
 		if (!world.isClientSide()) {
-			final BetterEnderPearl pearl = new BetterEnderPearl(world, player);
+			final TestEnderPearl pearl = new TestEnderPearl(world, player);
 			pearl.setItem(stack);
 			pearl.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.2F);
 			world.addFreshEntity(pearl);
