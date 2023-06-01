@@ -10,6 +10,7 @@ public class TestMultiLoaderClientConstruct implements ModConstruct {
 	@Override
 	public void construct() {
 		TestMultiLoaderClientEvents.register();
+		TestMultiLoaderColors.register();
 		TestMultiLoaderEntityRenderers.register();
 		TestMultiLoaderKeyMappings.register();
 	}

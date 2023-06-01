@@ -6,7 +6,7 @@
 			"item": "minecraft:ender_chest"
 		},
 		"L": {
-			"item": "minecraft:acacia_button"
+			"item": "minecraft:acacia_fence"
 		},
 		"S": {
 			"item": "minecraft:allium"
@@ -21,7 +21,7 @@
 		"WLW"
 	],
 	"result": {
-		"item": "uteamtest:basic_item"
+		"item": "uteamtest_multiloader:test_item"
 	},
 	"show_notification": true
 }

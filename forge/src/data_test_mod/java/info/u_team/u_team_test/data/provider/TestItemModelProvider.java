@@ -14,8 +14,6 @@ public class TestItemModelProvider extends CommonItemModelProvider {
 	@Override
 	public void register() {
 		// Items
-		simpleGenerated(TestItems.BASIC.get());
-		simpleGenerated(TestItems.BASIC_FOOD.get());
 		simpleGenerated(TestItems.BETTER_ENDERPEARL.get());
 		iterateItems(TestItems.BASIC_TOOL, this::simpleHandheld);
 		iterateItems(TestItems.BASIC_ARMOR, this::simpleGenerated);

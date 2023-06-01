@@ -10,6 +10,8 @@ import info.u_team.u_team_core.item.tier.TierSet;
 import info.u_team.u_team_core.item.tier.TierSetCreator;
 import info.u_team.u_team_core.item.tier.UExtendedTier;
 import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
+import info.u_team.u_team_test.test_multiloader.item.TestFoodItem;
+import info.u_team.u_team_test.test_multiloader.item.TestUseItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorMaterial;
@@ -22,6 +24,9 @@ public class TestMultiLoaderItems {
 	public static final CommonRegister<Item> ITEMS = CommonRegister.create(Registries.ITEM, TestMultiLoaderReference.MODID);
 	
 	public static final RegistryEntry<Item> TEST = ITEMS.register("test_item", () -> new Item(new Properties()));
+	
+	public static final RegistryEntry<TestUseItem> TEST_USE = ITEMS.register("test_use_item", TestUseItem::new);
+	public static final RegistryEntry<TestFoodItem> TEST_FOOD = ITEMS.register("test_food_item", TestFoodItem::new);
 	
 	public static final ExtendedTier EXTENDED_TIER = new UExtendedTier(new float[] { 8, 0, 4, 2, 6 }, new float[] { -3.1F, -1, -2, -2, 0 }, 2, 500, 10F, 8, 30, () -> Ingredient.of(TEST.get()));
 	public static final TierSet TIER = TierSetCreator.create(ITEMS, "test", new Properties().fireResistant(), EXTENDED_TIER);

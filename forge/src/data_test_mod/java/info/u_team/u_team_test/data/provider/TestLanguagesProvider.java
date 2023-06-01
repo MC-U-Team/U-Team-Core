@@ -18,10 +18,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 	public void register() {
 		add(TestCreativeTabs.TAB, "UTeamTest Tab");
 		
-		addItem(TestItems.BASIC, "Basic Item");
-		add(TestItems.BASIC.get().getDescriptionId() + ".outofrange", "\u00A74Out of range");
 		addItem(TestItems.BETTER_ENDERPEARL, "Better Enderpearl");
-		addItem(TestItems.BASIC_FOOD, "Basic Food");
 		
 		addItem(TestItems.BASIC_ARMOR.helmet(), "Basic Helmet");
 		addItem(TestItems.BASIC_ARMOR.chestplate(), "Basic Chestplate");

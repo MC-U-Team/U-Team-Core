@@ -10,7 +10,6 @@ public class TestClientConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		BusRegister.registerMod(TestColors::registerMod);
 		BusRegister.registerMod(TestKeys::registerMod);
 		TestRenderers.register();
 		TestScreens.register();

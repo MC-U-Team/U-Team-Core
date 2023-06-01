@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "uteamtest:item/basic_item"
+		"layer0": "uteamtest_multiloader:item/test_food_item"
 	}
 }

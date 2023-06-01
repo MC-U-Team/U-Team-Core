@@ -18,6 +18,9 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		add(TestMultiLoaderCreativeTabs.TEST.get(), "Multiloader Test Tab");
 		
 		addItem(TestMultiLoaderItems.TEST, "Test Item");
+		addItem(TestMultiLoaderItems.TEST_USE, "Basic Item");
+		add(TestMultiLoaderItems.TEST_USE.get().getDescriptionId() + ".outofrange", "Out of range");
+		addItem(TestMultiLoaderItems.TEST_FOOD, "Basic Food");
 		
 		addItem(TestMultiLoaderItems.ARMOR.helmet(), "Test Helmet");
 		addItem(TestMultiLoaderItems.ARMOR.chestplate(), "Test Chestplate");

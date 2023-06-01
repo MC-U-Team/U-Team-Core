@@ -15,7 +15,7 @@
 		},
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "uteamtest:basic_item"
+				"recipe": "uteamtest_multiloader:test_item_vanilla"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -28,7 +28,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"uteamtest:basic_item"
+			"uteamtest_multiloader:test_item_vanilla"
 		]
 	}
 }

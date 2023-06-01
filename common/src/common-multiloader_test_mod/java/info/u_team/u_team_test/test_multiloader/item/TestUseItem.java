@@ -1,7 +1,8 @@
-package info.u_team.u_team_test.item;
+package info.u_team.u_team_test.test_multiloader.item;
 
 import info.u_team.u_team_core.item.UItem;
 import info.u_team.u_team_core.util.LevelUtil;
+import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -14,21 +15,21 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.HitResult.Type;
 import net.minecraft.world.phys.Vec3;
 
-public class BasicItem extends UItem {
+public class TestUseItem extends UItem {
 	
-	public BasicItem() {
+	public TestUseItem() {
 		super(new Properties().rarity(Rarity.EPIC).defaultDurability(10));
 	}
 	
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		final ItemStack stack = player.getItemInHand(hand);
 		
-		if (!world.isClientSide()) {
+		if (!level.isClientSide()) {
 			final HitResult rayTrace = LevelUtil.rayTraceServerSide(player, 50);
 			
 			if (rayTrace.getType() == Type.MISS) {
-				player.displayClientMessage(Component.translatable("item.uteamtest.basic_item.outofrange"), true);
+				player.displayClientMessage(Component.translatable(getDescriptionId() + ".outofrange").withStyle(ChatFormatting.DARK_RED), true);
 				return InteractionResultHolder.fail(stack);
 			}
 			
