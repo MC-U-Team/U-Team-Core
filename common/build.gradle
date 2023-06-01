@@ -22,11 +22,11 @@ loom {
 	accessWidenerPath = project(":fabric").file("src/main/resources/uteamcore.accesswidener")
 }
 
-tasks.withType(Jar) { task ->
+tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 }
 
-tasks.withType(Javadoc) { task ->
+tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
