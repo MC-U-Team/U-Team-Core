@@ -20,6 +20,10 @@ java {
 	withJavadocJar()
 }
 
+sourceSets {
+	multiloader_test_mod
+}
+
 loom {
 	accessWidenerPath = file("src/main/resources/uteamcore.accesswidener")
 	
@@ -65,8 +69,38 @@ components.java.withVariantsFromConfiguration(configurations.getByName("shadowRu
 }
 
 tasks.named("remapJar") {
-	dependsOn "shadowJar"
+	dependsOn tasks.named("shadowJar")
 }
+
+tasks.register("multiLoaderTestJar", Jar) {
+	archiveClassifier = "multiloader_test-dev"
+	destinationDirectory = new File(project.buildDir, "devlibs")
+	
+	from sourceSets.multiloader_test_mod.output
+}
+
+tasks.register("multiLoaderTestSourcesJar", Jar) {
+	archiveClassifier = "multiloader_testsources-dev"
+	destinationDirectory = new File(project.buildDir, "devlibs")
+	
+	from sourceSets.multiloader_test_mod.allJava
+}
+
+tasks.register("remapMultiLoaderTestJar", net.fabricmc.loom.task.RemapJarTask) {
+	archiveClassifier = "multiloader_test"
+	
+	dependsOn tasks.named("multiLoaderTestJar")
+	input = tasks.getByName("multiLoaderTestJar").archiveFile
+}
+
+tasks.register("remapMultiLoaderTestSourcesJar", net.fabricmc.loom.task.RemapSourcesJarTask) {
+	archiveClassifier = "multiloader_testsources"
+	
+	dependsOn tasks.named("multiLoaderTestSourcesJar")
+	input = tasks.getByName("multiLoaderTestSourcesJar").archiveFile
+}
+
+gradlefiles.assembleDependOn(tasks.getByName("remapMultiLoaderTestJar"), tasks.getByName("remapMultiLoaderTestSourcesJar"))
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
@@ -77,6 +111,7 @@ tasks.withType(Javadoc).configureEach { task ->
 }
 
 gradlefiles.signDefaultFabricJar()
+gradlefiles.signJar("remapMultiLoaderTestJar")
 
 processResources {
 	doLast {
@@ -186,6 +221,8 @@ publishing {
 			artifactId archivesBaseName
 			
 			from components.java
+			artifact tasks.getByName("remapMultiLoaderTestJar")
+			artifact tasks.getByName("remapMultiLoaderTestSourcesJar")
 			
 			pom {
 				name = project.archivesBaseName
