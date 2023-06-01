@@ -1,6 +1,0 @@
-{
-	"parent": "minecraft:block/cube_all",
-	"textures": {
-		"all": "uteamtest:block/basic_no_item_implicit"
-	}
-}

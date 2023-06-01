@@ -31,6 +31,8 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		
 		addBlock(TestMultiLoaderBlocks.TEST, "Test Block");
 		addBlock(TestMultiLoaderBlocks.TEST_SYNC, "Test Sync Block");
+		addBlock(TestMultiLoaderBlocks.TEST_NO_ITEM, "No Item Block");
+		addBlock(TestMultiLoaderBlocks.TEST_NO_ITEM_IMPLICIT, "No Item Implicit Block");
 	}
 	
 }

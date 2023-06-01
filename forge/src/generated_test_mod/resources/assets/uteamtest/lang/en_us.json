@@ -3,8 +3,6 @@
 	"block.uteamtest.basic_block_entity": "Block Entity Block",
 	"block.uteamtest.basic_energy_creator": "Energy Creator",
 	"block.uteamtest.basic_fluid_inventory": "Fluid Inventory",
-	"block.uteamtest.basic_no_item": "No Item Block",
-	"block.uteamtest.basic_no_item_implicit": "No Item Implicit Block",
 	"creativetabs.uteamtest.tab": "UTeamTest Tab",
 	"death.attack.radiation": "%1$s dies of radiation",
 	"effect.uteamtest.radiation": "Radiation",

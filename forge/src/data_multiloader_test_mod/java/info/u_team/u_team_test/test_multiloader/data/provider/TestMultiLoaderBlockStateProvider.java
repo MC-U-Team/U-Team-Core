@@ -14,6 +14,8 @@ public class TestMultiLoaderBlockStateProvider extends CommonBlockStateProvider 
 	public void register() {
 		simpleBlock(TestMultiLoaderBlocks.TEST.get());
 		simpleBlock(TestMultiLoaderBlocks.TEST_SYNC.get());
+		simpleBlock(TestMultiLoaderBlocks.TEST_NO_ITEM.get());
+		simpleBlock(TestMultiLoaderBlocks.TEST_NO_ITEM_IMPLICIT.get());
 	}
 	
 }
