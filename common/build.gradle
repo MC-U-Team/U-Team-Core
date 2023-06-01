@@ -30,7 +30,7 @@ tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
-gradlefiles.signJar("jar")
+gradlefiles.signJar("remapJar")
 
 processResources {
 	doLast {
