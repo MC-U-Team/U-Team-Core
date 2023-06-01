@@ -145,21 +145,47 @@ mixin {
 	debug.export = true
 }
 
-def testJarTask = tasks.create("testJar", Jar) {
+tasks.create("testJar", Jar) {
 	archiveClassifier = "test"
 	
 	from sourceSets.test_mod.output
 }
 
-gradlefiles.createReobfJar(tasks.getByName("testJar"))
-
-def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
+tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
 	
 	from sourceSets.test_mod.allJava
 }
 
-gradlefiles.assembleDependOn(testJarTask, testSourcesJarTask)
+gradlefiles.createReobfJar(tasks.getByName("testJar"))
+gradlefiles.assembleDependOn(tasks.getByName("testJar"), tasks.getByName("testSourcesJar"))
+
+tasks.create("multiLoaderTestJar", Jar) {
+	archiveClassifier = "multiloader_test"
+	
+	from sourceSets.multiloader_test_mod.output
+}
+
+tasks.create("multiLoaderTestSourcesJar", Jar) {
+	archiveClassifier = "multiloader_testsources"
+	
+	from sourceSets.multiloader_test_mod.allJava
+}
+
+gradlefiles.createReobfJar(tasks.getByName("multiLoaderTestJar"))
+gradlefiles.assembleDependOn(tasks.getByName("multiLoaderTestJar"), tasks.getByName("multiLoaderTestSourcesJar"))
+
+tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$AddMixinsToJarTask).configureEach { task ->
+	if(task.name.endsWith("TestJar") || task.name.endsWith("TestSourcesJar")) {
+		task.enabled = false
+	}
+}
+
+tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$ConfigureReobfTask).configureEach { task ->
+	if(task.name.endsWith("TestJar")) {
+		task.enabled = false
+	}
+}
 
 tasks.withType(Jar) { task ->
 	gradlefiles.defaultJar(task)
@@ -171,6 +197,7 @@ tasks.withType(Javadoc) { task ->
 
 gradlefiles.signDefaultForgeJar()
 gradlefiles.signJar("reobfTestJar")
+gradlefiles.signJar("reobfMultiLoaderTestJar")
 
 processResources {
 	doLast {
@@ -273,6 +300,8 @@ publishing {
 			from components.java
 			artifact tasks.getByName("testJar")
 			artifact tasks.getByName("testSourcesJar")
+			artifact tasks.getByName("multiLoaderTestJar")
+			artifact tasks.getByName("multiLoaderTestSourcesJar")
 			
 			pom {
 				name = project.archivesBaseName
