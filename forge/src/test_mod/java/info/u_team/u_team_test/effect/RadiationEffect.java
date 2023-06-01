@@ -2,6 +2,7 @@ package info.u_team.u_team_test.effect;
 
 import java.util.Random;
 
+import info.u_team.u_team_core.util.RegistryUtil;
 import info.u_team.u_team_test.init.TestDamageSources;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
@@ -22,7 +23,7 @@ public class RadiationEffect extends MobEffect {
 	@Override
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
 		amplifier += 2;
-		entity.hurt(new DamageSource(entity.level.registryAccess().registryOrThrow(Registries.DAMAGE_TYPE).getHolderOrThrow(TestDamageSources.RADIATION)), random.nextInt(amplifier));
+		entity.hurt(new DamageSource(RegistryUtil.getRegistry(entity.level, Registries.DAMAGE_TYPE).getHolderOrThrow(TestDamageSources.RADIATION)), random.nextInt(amplifier));
 		if (entity instanceof final Player player) {
 			player.causeFoodExhaustion(0.005F * amplifier);
 		}
