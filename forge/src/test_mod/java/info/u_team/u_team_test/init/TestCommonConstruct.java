@@ -16,7 +16,6 @@ public class TestCommonConstruct implements ModConstruct {
 		TestEntityTypes.register();
 		TestGlobalLootModifierSerializers.register();
 		TestItems.register();
-		TestSoundEvents.register();
 		TestBlockEntityTypes.register();
 		
 		BusRegister.registerMod(TestCreativeTabs::registerMod);
