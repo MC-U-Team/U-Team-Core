@@ -8,8 +8,8 @@ import net.minecraftforge.common.ForgeSpawnEggItem;
 
 public class UForgeSpawnEggItem extends ForgeSpawnEggItem {
 	
-	public UForgeSpawnEggItem(Properties properties, Supplier<? extends EntityType<? extends Mob>> entityType, int primaryColor, int secondaryColor) {
-		super(entityType, primaryColor, secondaryColor, properties);
+	public UForgeSpawnEggItem(Properties properties, Supplier<? extends EntityType<? extends Mob>> entityType, int backgroundColor, int highlightColor) {
+		super(entityType, backgroundColor, highlightColor, properties);
 	}
 	
 }
