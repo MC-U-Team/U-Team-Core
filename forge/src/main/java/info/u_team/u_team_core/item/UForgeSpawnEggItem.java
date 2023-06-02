@@ -6,9 +6,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 
-public class USpawnEggItem extends ForgeSpawnEggItem {
+public class UForgeSpawnEggItem extends ForgeSpawnEggItem {
 	
-	public USpawnEggItem(Properties properties, Supplier<? extends EntityType<? extends Mob>> entityType, int primaryColor, int secondaryColor) {
+	public UForgeSpawnEggItem(Properties properties, Supplier<? extends EntityType<? extends Mob>> entityType, int primaryColor, int secondaryColor) {
 		super(entityType, primaryColor, secondaryColor, properties);
 	}
 	

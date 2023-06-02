@@ -2,7 +2,7 @@ package info.u_team.u_team_test.init;
 
 import info.u_team.u_team_core.api.registry.CommonRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
-import info.u_team.u_team_core.item.USpawnEggItem;
+import info.u_team.u_team_core.item.UForgeSpawnEggItem;
 import info.u_team.u_team_core.item.armor.ArmorSet;
 import info.u_team.u_team_core.item.armor.ArmorSetCreator;
 import info.u_team.u_team_core.item.tier.TierSet;
@@ -20,7 +20,7 @@ public class TestItems {
 	public static final TierSet BASIC_TOOL = TierSetCreator.create(ITEMS, "basic_tool", new Properties().rarity(Rarity.UNCOMMON), TestTiers.BASIC);
 	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create(ITEMS, "basic_armor", new Properties().rarity(Rarity.RARE).fireResistant(), TestArmorMaterials.BASIC);
 	
-	public static final RegistryEntry<USpawnEggItem> TEST_LIVING_SPAWN_EGG = ITEMS.register("test_living_spawn_egg", () -> new USpawnEggItem(new Properties(), TestEntityTypes.TEST_LIVING, 0xFF0000, 0x00FF00));
+	public static final RegistryEntry<UForgeSpawnEggItem> TEST_LIVING_SPAWN_EGG = ITEMS.register("test_living_spawn_egg", () -> new UForgeSpawnEggItem(new Properties(), TestEntityTypes.TEST_LIVING, 0xFF0000, 0x00FF00));
 	
 	public static void register() {
 		ITEMS.register();
