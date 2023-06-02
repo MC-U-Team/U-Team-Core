@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 import info.u_team.u_team_core.api.block.BlockItemProvider;
 import info.u_team.u_team_core.api.registry.BlockRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
+import info.u_team.u_team_core.event.SetupEvents;
 import info.u_team.u_team_core.impl.FabricCommonRegister.FabricRegistryEntry;
 import info.u_team.u_team_core.impl.common.CommonBlockRegistryEntry;
 import info.u_team.u_team_core.util.CastUtil;
@@ -69,16 +70,22 @@ public class FabricBlockRegister implements BlockRegister {
 	public void register() {
 		blocks.register();
 		items.register();
-		blockToItemsMap.forEach((blockEntry, itemEntry) -> {
-			final Block block = blockEntry.get();
-			if (block instanceof final BlockItemProvider blockItemProvider) {
-				final Item blockItem = blockItemProvider.blockItem();
-				if (blockItem != null) {
-					Registry.register(BuiltInRegistries.ITEM, itemEntry.getId(), blockItem);
-					itemEntry.updateReference(CastUtil.uncheckedCast(BuiltInRegistries.ITEM));
+		SetupEvents.REGISTER.register(this::registerItems);
+	}
+	
+	private void registerItems(ResourceKey<? extends Registry<?>> eventKey) {
+		if (eventKey.equals(Registries.ITEM)) {
+			blockToItemsMap.forEach((blockEntry, itemEntry) -> {
+				final Block block = blockEntry.get();
+				if (block instanceof final BlockItemProvider blockItemProvider) {
+					final Item blockItem = blockItemProvider.blockItem();
+					if (blockItem != null) {
+						Registry.register(BuiltInRegistries.ITEM, itemEntry.getId(), blockItem);
+						itemEntry.updateReference(CastUtil.uncheckedCast(BuiltInRegistries.ITEM));
+					}
 				}
-			}
-		});
+			});
+		}
 	}
 	
 	@Override

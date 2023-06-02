@@ -13,6 +13,7 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.api.registry.CommonRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
+import info.u_team.u_team_core.event.SetupEvents;
 import info.u_team.u_team_core.util.CastUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
@@ -28,6 +29,8 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 	private final Map<FabricRegistryEntry<C>, Supplier<? extends C>> entries;
 	private final Set<RegistryEntry<C>> entriesView;
 	
+	private boolean registryFrozen;
+	
 	FabricCommonRegister(ResourceKey<? extends Registry<C>> key, String modid) {
 		registry = CastUtil.uncheckedCast(BuiltInRegistries.REGISTRY.get(key.location()));
 		this.modid = modid;
@@ -42,6 +45,10 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 	
 	@Override
 	public <E extends C> FabricRegistryEntry<E> register(String name, Supplier<? extends E> supplier) {
+		if (registryFrozen) {
+			throw new IllegalArgumentException("Registry is already frozen");
+		}
+		
 		final ResourceLocation id = new ResourceLocation(modid, name);
 		final ResourceKey<C> key = ResourceKey.create(registry.key(), id);
 		
@@ -54,10 +61,17 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 	
 	@Override
 	public void register() {
-		for (final Entry<FabricRegistryEntry<C>, Supplier<? extends C>> entry : entries.entrySet()) {
-			final FabricRegistryEntry<C> registryEntry = entry.getKey();
-			Registry.register(registry, registryEntry.getKey(), entry.getValue().get());
-			registryEntry.updateReference(registry);
+		SetupEvents.REGISTER.register(this::registerEntries);
+	}
+	
+	private void registerEntries(ResourceKey<? extends Registry<?>> eventKey) {
+		if (eventKey.equals(registry.key())) {
+			registryFrozen = true;
+			for (final Entry<FabricRegistryEntry<C>, Supplier<? extends C>> entry : entries.entrySet()) {
+				final FabricRegistryEntry<C> registryEntry = entry.getKey();
+				Registry.register(registry, registryEntry.getKey(), entry.getValue().get());
+				registryEntry.updateReference(registry);
+			}
 		}
 	}
 	
