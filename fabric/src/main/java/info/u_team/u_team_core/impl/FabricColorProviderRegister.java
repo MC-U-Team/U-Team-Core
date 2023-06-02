@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.impl;
 
 import info.u_team.u_team_core.api.registry.client.ColorProviderRegister;
+import info.u_team.u_team_core.event.SetupEvents;
 import info.u_team.u_team_core.impl.common.CommonColorProviderRegister;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.client.Minecraft;
@@ -14,6 +15,10 @@ public class FabricColorProviderRegister extends CommonColorProviderRegister {
 	
 	@Override
 	public void register() {
+		SetupEvents.COMMON_SETUP.register(this::setup);
+	}
+	
+	private void setup() {
 		blockEntries.forEach(handler -> {
 			handler.registerColor(() -> Minecraft.getInstance().getBlockColors(), (color, entries) -> {
 				ColorProviderRegistry.BLOCK.register(color, entries.toArray(Block[]::new));

@@ -4,6 +4,7 @@ import java.util.Map.Entry;
 import java.util.function.Consumer;
 
 import info.u_team.u_team_core.api.registry.CreativeModeTabRegister;
+import info.u_team.u_team_core.event.SetupEvents;
 import info.u_team.u_team_core.impl.common.CommonCreativeModeTabRegister;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,6 +17,10 @@ public class FabricCreativeModeTabRegister extends CommonCreativeModeTabRegister
 	
 	@Override
 	public void register() {
+		SetupEvents.COMMON_SETUP.register(this::setup);
+	}
+	
+	private void setup() {
 		for (final Entry<CreativeModeTabEntry, Consumer<CreativeModeTab.Builder>> entry : entries.entrySet()) {
 			final CreativeModeTabEntry registryEntry = entry.getKey();
 			
