@@ -8,6 +8,8 @@
 		"HumanoidArmorLayerMixin",
 		"LevelChunkMixin",
 		"ClientPacketListenerMixin",
+		"MinecraftMixin",
+		"MinecraftServerMixin",
 		"common.ServerPlayerMixin"
 	],
 	"injectors": {
