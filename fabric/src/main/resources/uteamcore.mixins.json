@@ -8,8 +8,10 @@
 		"HumanoidArmorLayerMixin",
 		"LevelChunkMixin",
 		"ClientPacketListenerMixin",
-		"MinecraftMixin",
-		"MinecraftServerMixin",
+		"MinecraftRegistryMixin",
+		"MinecraftServerRegistryMixin",
+		"MinecraftSetupMixin",
+		"MinecraftServerSetupMixin",
 		"SpawnEggItemMixin",
 		"common.ServerPlayerMixin"
 	],

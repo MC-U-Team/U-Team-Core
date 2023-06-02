@@ -11,10 +11,10 @@ import info.u_team.u_team_core.event.SetupEvents;
 import net.minecraft.server.MinecraftServer;
 
 @Mixin(value = MinecraftServer.class, priority = 1500)
-abstract class MinecraftServerMixin {
+abstract class MinecraftServerSetupMixin {
 	
 	@Inject(method = "runServer", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;initServer()Z"))
-	private void uteamcore$runServer(CallbackInfo info) {
+	private void uteamcore$runServer$callCommonSetupEvent(CallbackInfo info) {
 		if (Platform.getInstance().getEnvironment() == Environment.SERVER) {
 			SetupEvents.COMMON_SETUP.invoker().onSetup();
 		}
