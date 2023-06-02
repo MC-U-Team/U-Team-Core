@@ -10,6 +10,7 @@
 		"ClientPacketListenerMixin",
 		"MinecraftMixin",
 		"MinecraftServerMixin",
+		"SpawnEggItemMixin",
 		"common.ServerPlayerMixin"
 	],
 	"injectors": {

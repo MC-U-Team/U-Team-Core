@@ -112,4 +112,6 @@ accessible field net/minecraft/world/food/FoodProperties$Builder isMeat Z
 accessible field net/minecraft/world/food/FoodProperties$Builder canAlwaysEat Z
 accessible field net/minecraft/world/food/FoodProperties$Builder fastFood Z
 
+accessible field net/minecraft/world/item/SpawnEggItem BY_ID Ljava/util/Map;
+
 transitive-accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
