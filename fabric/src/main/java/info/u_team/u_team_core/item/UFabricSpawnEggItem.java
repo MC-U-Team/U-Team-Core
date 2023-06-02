@@ -108,4 +108,12 @@ public class UFabricSpawnEggItem extends SpawnEggItem {
 			}
 		}
 	}
+	
+	public static class Creator implements SpawnEggCreator.Creator {
+		
+		@Override
+		public SpawnEggItem create(Properties properties, Supplier<? extends EntityType<? extends Mob>> entityType, int backgroundColor, int highlightColor) {
+			return new UFabricSpawnEggItem(properties, entityType, backgroundColor, highlightColor);
+		}
+	}
 }
