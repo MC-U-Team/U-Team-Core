@@ -4,7 +4,6 @@ import info.u_team.u_team_core.data.CommonLanguagesProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestBlocks;
 import info.u_team.u_team_test.init.TestCreativeTabs;
-import info.u_team.u_team_test.init.TestEnchantments;
 import info.u_team.u_team_test.init.TestItems;
 
 public class TestLanguagesProvider extends CommonLanguagesProvider {
@@ -32,8 +31,6 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		addBlock(TestBlocks.BASIC_BLOCKENTITY, "Block Entity Block");
 		addBlock(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
 		addBlock(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
-		
-		addEnchantment(TestEnchantments.AUTO_SMELT, "Auto Smelt");
 		
 		// German test for umlaut
 		addBlock("de_de", TestBlocks.BASIC, "Ä");

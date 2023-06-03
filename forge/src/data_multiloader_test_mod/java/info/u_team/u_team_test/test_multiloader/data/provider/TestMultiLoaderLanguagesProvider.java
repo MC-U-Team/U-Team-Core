@@ -4,6 +4,7 @@ import info.u_team.u_team_core.data.CommonLanguagesProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlocks;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderCreativeTabs;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderEnchantments;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderEntityTypes;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderItems;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderMobEffects;
@@ -38,13 +39,15 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		
 		addBlock(TestMultiLoaderBlocks.TEST, "Test Block");
 		addBlock(TestMultiLoaderBlocks.TEST_SYNC, "Test Sync Block");
-		addBlock(TestMultiLoaderBlocks.TEST_NO_ITEM, "No Item Block");
-		addBlock(TestMultiLoaderBlocks.TEST_NO_ITEM_IMPLICIT, "No Item Implicit Block");
+		addBlock(TestMultiLoaderBlocks.TEST_NO_ITEM, "Test No Item Block");
+		addBlock(TestMultiLoaderBlocks.TEST_NO_ITEM_IMPLICIT, "Test No Item Implicit Block");
 		
-		addEffect(TestMultiLoaderMobEffects.TEST, "Test");
+		addEffect(TestMultiLoaderMobEffects.TEST, "Test Effect");
 		
 		addEntityType(TestMultiLoaderEntityTypes.TEST_ENDERPEARL, "Test Enderpearl");
 		addEntityType(TestMultiLoaderEntityTypes.TEST_LIVING, "Test Living Entity");
+		
+		addEnchantment(TestMultiLoaderEnchantments.TEST, "Test Enchantment");
 		
 		add("death.attack.test", "%1$s dies of test effect");
 		
