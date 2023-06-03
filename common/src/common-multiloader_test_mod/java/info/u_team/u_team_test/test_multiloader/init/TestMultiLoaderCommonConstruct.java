@@ -19,7 +19,9 @@ public class TestMultiLoaderCommonConstruct implements ModConstruct {
 		
 		TestMultiLoaderCommands.register();
 		TestMultiLoaderCreativeTabs.register();
+		TestMultiLoaderEntityAttributes.register();
 		TestMultiLoaderNetwork.register();
+		TestMultiLoaderSpawnPlacements.register();
 	}
 	
 }

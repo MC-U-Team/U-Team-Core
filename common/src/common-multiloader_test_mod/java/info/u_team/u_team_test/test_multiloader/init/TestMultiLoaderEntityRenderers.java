@@ -2,6 +2,7 @@ package info.u_team.u_team_test.test_multiloader.init;
 
 import info.u_team.u_team_core.api.registry.client.EntityRendererRegister;
 import info.u_team.u_team_test.test_multiloader.blockentity.renderer.TestSyncBlockEntityRenderer;
+import info.u_team.u_team_test.test_multiloader.entity.render.TestLivingEntityRenderer;
 import net.minecraft.Util;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 
@@ -11,6 +12,7 @@ public class TestMultiLoaderEntityRenderers {
 		entityRenderers.register(TestMultiLoaderBlockEntityTypes.TEST_SYNC, TestSyncBlockEntityRenderer::new);
 		
 		entityRenderers.register(TestMultiLoaderEntityTypes.TEST_ENDERPEARL, ThrownItemRenderer::new);
+		entityRenderers.register(TestMultiLoaderEntityTypes.TEST_LIVING, TestLivingEntityRenderer::new);
 	});
 	
 	static void register() {

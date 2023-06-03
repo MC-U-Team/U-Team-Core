@@ -16,7 +16,6 @@ public class TestItemModelProvider extends CommonItemModelProvider {
 		// Items
 		iterateItems(TestItems.BASIC_TOOL, this::simpleHandheld);
 		iterateItems(TestItems.BASIC_ARMOR, this::simpleGenerated);
-		spawnEgg(TestItems.TEST_LIVING_SPAWN_EGG.get());
 		// Blocks
 		simpleBlock(TestBlocks.BASIC.get());
 		simpleBlock(TestBlocks.BASIC_BLOCKENTITY.get());

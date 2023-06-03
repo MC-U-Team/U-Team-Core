@@ -23,6 +23,7 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		add(TestMultiLoaderItems.TEST_USE.get().getDescriptionId() + ".outofrange", "Out of range");
 		addItem(TestMultiLoaderItems.TEST_FOOD, "Basic Food");
 		addItem(TestMultiLoaderItems.TEST_ENDERPEARL, "Test Enderpearl");
+		addItem(TestMultiLoaderItems.TEST_LIVING_SPAWN_EGG, "Test Living Entity Spawn Egg");
 		
 		addItem(TestMultiLoaderItems.ARMOR.helmet(), "Test Helmet");
 		addItem(TestMultiLoaderItems.ARMOR.chestplate(), "Test Chestplate");
@@ -43,6 +44,7 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		addEffect(TestMultiLoaderMobEffects.TEST, "Test");
 		
 		addEntityType(TestMultiLoaderEntityTypes.TEST_ENDERPEARL, "Test Enderpearl");
+		addEntityType(TestMultiLoaderEntityTypes.TEST_LIVING, "Test Living Entity");
 		
 		add("death.attack.test", "%1$s dies of test effect");
 		

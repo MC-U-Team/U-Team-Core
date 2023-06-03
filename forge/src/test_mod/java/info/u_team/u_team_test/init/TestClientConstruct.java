@@ -11,7 +11,6 @@ public class TestClientConstruct implements ModConstruct {
 	@Override
 	public void construct() {
 		BusRegister.registerMod(TestKeys::registerMod);
-		TestRenderers.register();
 		TestScreens.register();
 		
 		BusRegister.registerForge(TestKeys::registerForge);

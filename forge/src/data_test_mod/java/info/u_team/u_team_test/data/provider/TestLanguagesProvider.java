@@ -5,7 +5,6 @@ import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestBlocks;
 import info.u_team.u_team_test.init.TestCreativeTabs;
 import info.u_team.u_team_test.init.TestEnchantments;
-import info.u_team.u_team_test.init.TestEntityTypes;
 import info.u_team.u_team_test.init.TestItems;
 
 public class TestLanguagesProvider extends CommonLanguagesProvider {
@@ -29,14 +28,10 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		addItem(TestItems.BASIC_TOOL.shovel(), "Basic Shovel");
 		addItem(TestItems.BASIC_TOOL.sword(), "Basic Sword");
 		
-		addItem(TestItems.TEST_LIVING_SPAWN_EGG, "Test Living Entity Spawn Egg");
-		
 		addBlock(TestBlocks.BASIC, "Basic Block");
 		addBlock(TestBlocks.BASIC_BLOCKENTITY, "Block Entity Block");
 		addBlock(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
 		addBlock(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
-		
-		addEntityType(TestEntityTypes.TEST_LIVING, "Test Living Entity");
 		
 		addEnchantment(TestEnchantments.AUTO_SMELT, "Auto Smelt");
 		

@@ -3,6 +3,7 @@ package info.u_team.u_team_test.test_multiloader.init;
 import info.u_team.u_team_core.api.item.ExtendedTier;
 import info.u_team.u_team_core.api.registry.CommonRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
+import info.u_team.u_team_core.item.SpawnEggCreator;
 import info.u_team.u_team_core.item.armor.ArmorSet;
 import info.u_team.u_team_core.item.armor.ArmorSetCreator;
 import info.u_team.u_team_core.item.armor.UArmorMaterialVanilla;
@@ -18,6 +19,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Item.Properties;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.crafting.Ingredient;
 
 public class TestMultiLoaderItems {
@@ -30,6 +32,8 @@ public class TestMultiLoaderItems {
 	public static final RegistryEntry<TestFoodItem> TEST_FOOD = ITEMS.register("test_food_item", TestFoodItem::new);
 	
 	public static final RegistryEntry<TestEnderPearlItem> TEST_ENDERPEARL = ITEMS.register("test_enderpearl_item", TestEnderPearlItem::new);
+	
+	public static final RegistryEntry<SpawnEggItem> TEST_LIVING_SPAWN_EGG = ITEMS.register("test_living_spawn_egg", () -> SpawnEggCreator.create(new Properties(), TestMultiLoaderEntityTypes.TEST_LIVING, 0xFF0000, 0x00FF00));
 	
 	public static final ExtendedTier EXTENDED_TIER = new UExtendedTier(new float[] { 8, 0, 4, 2, 6 }, new float[] { -3.1F, -1, -2, -2, 0 }, 2, 500, 10F, 8, 30, () -> Ingredient.of(TEST.get()));
 	public static final TierSet TIER = TierSetCreator.create(ITEMS, "test", new Properties().fireResistant(), EXTENDED_TIER);

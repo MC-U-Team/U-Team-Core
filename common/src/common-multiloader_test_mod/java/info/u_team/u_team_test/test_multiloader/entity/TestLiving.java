@@ -1,9 +1,7 @@
-package info.u_team.u_team_test.entity;
+package info.u_team.u_team_test.test_multiloader.entity;
 
-import info.u_team.u_team_test.init.TestEntityTypes;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderEntityTypes;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
@@ -21,12 +19,11 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraftforge.network.NetworkHooks;
 
 public class TestLiving extends Zombie {
 	
 	public TestLiving(Level world) {
-		this(TestEntityTypes.TEST_LIVING.get(), world);
+		this(TestMultiLoaderEntityTypes.TEST_LIVING.get(), world);
 	}
 	
 	public TestLiving(EntityType<? extends Zombie> type, Level world) {
@@ -85,10 +82,5 @@ public class TestLiving extends Zombie {
 	@Override
 	protected ItemStack getSkull() {
 		return new ItemStack(Items.GHAST_TEAR);
-	}
-	
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
 	}
 }
