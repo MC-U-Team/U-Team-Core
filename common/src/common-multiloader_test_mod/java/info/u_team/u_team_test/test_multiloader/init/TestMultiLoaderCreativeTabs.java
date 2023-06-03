@@ -7,9 +7,11 @@ import info.u_team.u_team_core.api.registry.ResourceEntry;
 import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
+import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 public class TestMultiLoaderCreativeTabs {
 	
@@ -29,6 +31,7 @@ public class TestMultiLoaderCreativeTabs {
 					output.accept(PotionUtils.setPotion(new ItemStack(item), potion), TabVisibility.PARENT_TAB_ONLY);
 				});
 			});
+			output.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(TestMultiLoaderEnchantments.TEST.get(), 1)), TabVisibility.PARENT_TAB_ONLY);
 		});
 	});
 	
