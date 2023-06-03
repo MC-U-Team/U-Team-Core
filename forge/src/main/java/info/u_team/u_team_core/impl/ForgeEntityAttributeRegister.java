@@ -17,7 +17,7 @@ public class ForgeEntityAttributeRegister extends CommonEntityAttributeRegister 
 	
 	private void entityAttributionCreation(EntityAttributeCreationEvent event) {
 		attributes.forEach((supplier, map) -> {
-			event.put(supplier.get(), map);
+			event.put(supplier.get(), map.get());
 		});
 	}
 	

@@ -7,7 +7,7 @@ import net.minecraft.Util;
 public class TestMultiLoaderEntityAttributes {
 	
 	public static final EntityAttributeRegister ENTITY_ATTRIBUTES = Util.make(EntityAttributeRegister.create(), entityAttributes -> {
-		entityAttributes.register(TestMultiLoaderEntityTypes.TEST_LIVING, TestLiving.createAttributes());
+		entityAttributes.registerBuilder(TestMultiLoaderEntityTypes.TEST_LIVING, TestLiving::createAttributes);
 	});
 	
 	static void register() {

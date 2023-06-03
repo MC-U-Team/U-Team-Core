@@ -13,11 +13,11 @@ public interface EntityAttributeRegister {
 		return Factory.INSTANCE.create();
 	}
 	
-	default void register(Supplier<? extends EntityType<? extends LivingEntity>> supplier, AttributeSupplier.Builder builder) {
-		register(supplier, builder.build());
+	default void registerBuilder(Supplier<? extends EntityType<? extends LivingEntity>> supplier, Supplier<? extends AttributeSupplier.Builder> builder) {
+		register(supplier, () -> builder.get().build());
 	}
 	
-	void register(Supplier<? extends EntityType<? extends LivingEntity>> supplier, AttributeSupplier map);
+	void register(Supplier<? extends EntityType<? extends LivingEntity>> supplier, Supplier<? extends AttributeSupplier> map);
 	
 	void register();
 	

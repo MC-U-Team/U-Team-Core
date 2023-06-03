@@ -11,14 +11,14 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 
 public abstract class CommonEntityAttributeRegister implements EntityAttributeRegister {
 	
-	protected final Map<Supplier<? extends EntityType<? extends LivingEntity>>, AttributeSupplier> attributes;
+	protected final Map<Supplier<? extends EntityType<? extends LivingEntity>>, Supplier<? extends AttributeSupplier>> attributes;
 	
 	protected CommonEntityAttributeRegister() {
 		attributes = new HashMap<>();
 	}
 	
 	@Override
-	public void register(Supplier<? extends EntityType<? extends LivingEntity>> supplier, AttributeSupplier map) {
+	public void register(Supplier<? extends EntityType<? extends LivingEntity>> supplier, Supplier<? extends AttributeSupplier> map) {
 		attributes.put(supplier, map);
 	}
 	

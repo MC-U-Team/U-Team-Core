@@ -17,7 +17,7 @@ public class FabricEntityAttributeRegister extends CommonEntityAttributeRegister
 	
 	private void setup() {
 		attributes.forEach((supplier, map) -> {
-			FabricDefaultAttributeRegistry.register(supplier.get(), map);
+			FabricDefaultAttributeRegistry.register(supplier.get(), map.get());
 		});
 	}
 	
