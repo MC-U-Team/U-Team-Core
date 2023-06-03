@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.screen;
+package info.u_team.u_team_test.test_multiloader.screen;
 
 import java.text.DecimalFormat;
 
@@ -19,7 +19,7 @@ import info.u_team.u_team_core.gui.elements.UEditBox;
 import info.u_team.u_team_core.gui.elements.USlider;
 import info.u_team.u_team_core.screen.UScreen;
 import info.u_team.u_team_core.util.RGBA;
-import info.u_team.u_team_test.TestMod;
+import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -28,8 +28,8 @@ public class ButtonTestScreen extends UScreen {
 	
 	private static final Logger LOGGER = LogUtils.getLogger();
 	
-	private static final ResourceLocation TEXTURE1 = new ResourceLocation(TestMod.MODID, "textures/item/better_enderpearl.png");
-	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMod.MODID, "textures/item/basic_item.png");
+	private static final ResourceLocation TEXTURE1 = new ResourceLocation(TestMultiLoaderReference.MODID, "textures/item/test_enderpearl_item.png");
+	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMultiLoaderReference.MODID, "textures/item/test_item.png");
 	
 	private double mouseX;
 	private double mouseY;
