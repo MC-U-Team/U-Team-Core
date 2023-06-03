@@ -11,7 +11,7 @@ public class SetupEvents {
 	 * Will be fired for each registry
 	 */
 	public static final Event<RegisterEvent> REGISTER = EventFactory.createArrayBacked(RegisterEvent.class, callbacks -> key -> {
-		for (RegisterEvent callback : callbacks) {
+		for (final RegisterEvent callback : callbacks) {
 			callback.onRegister(key);
 		}
 	});
@@ -20,7 +20,7 @@ public class SetupEvents {
 	 * Will be fired after builtIn registries are frozen
 	 */
 	public static final Event<CommonSetupEvent> COMMON_SETUP = EventFactory.createArrayBacked(CommonSetupEvent.class, callbacks -> () -> {
-		for (CommonSetupEvent callback : callbacks) {
+		for (final CommonSetupEvent callback : callbacks) {
 			callback.onSetup();
 		}
 	});

@@ -33,7 +33,7 @@ public class AnnotationUtil {
 	
 	/**
 	 * Returns a list of found {@link AnnotationData} for a modid
-	 * 
+	 *
 	 * @param modid The mod files to search for annotations
 	 * @return List of found annotation data
 	 */

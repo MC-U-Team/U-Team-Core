@@ -20,7 +20,7 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	protected final T blockEntity;
 	
 	/**
-	 * This is the server constructor. The method {@link #init(LogicalSide)} is called.
+	 * This is the server constructor. The method {@link #init(NetworkEnvironment)} is called.
 	 *
 	 * @param menuType Menu type
 	 * @param containerId Container id
@@ -38,7 +38,7 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	 * @param containerId Container id
 	 * @param playerInventory Player inventory
 	 * @param blockEntity Block entity
-	 * @param callInit If the constructor should call {@link #init(LogicalSide)}
+	 * @param callInit If the constructor should call {@link #init(NetworkEnvironment)}
 	 */
 	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, T blockEntity, boolean callInit) {
 		super(menuType, containerId);
@@ -52,7 +52,7 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	/**
 	 * This is the client constructor. This methods reads the block entity pos from the supplied {@link FriendlyByteBuf} and
 	 * tries to get the block entity at the client side. The block pos must be the first entry in the buffer! The method
-	 * {@link #init(LogicalSide)} is called.
+	 * {@link #init(NetworkEnvironment)} is called.
 	 *
 	 * @param menuType Menu type
 	 * @param containerId Container id
@@ -73,7 +73,7 @@ public abstract class UBlockEntityContainerMenu<T extends BlockEntity> extends U
 	 * @param playerInventory Player inventory
 	 * @param buffer Initial menu data (specified with
 	 *        {@link MenuUtil#openMenu(net.minecraft.server.level.ServerPlayer, net.minecraft.world.MenuProvider, java.util.function.Consumer, boolean)})
-	 * @param callInit If the constructor should call {@link #init(LogicalSide)}
+	 * @param callInit If the constructor should call {@link #init(NetworkEnvironment)}
 	 */
 	public UBlockEntityContainerMenu(MenuType<?> menuType, int containerId, Inventory playerInventory, FriendlyByteBuf buffer, boolean callInit) {
 		super(menuType, containerId);

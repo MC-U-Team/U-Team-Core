@@ -62,14 +62,14 @@ public record OpenMenuScreenMessage(int containerId, MenuType<?> type, Component
 					}
 					
 					final AbstractContainerMenu menu;
-					if (type instanceof UMenuType<?> uType) {
+					if (type instanceof final UMenuType<?> uType) {
 						menu = uType.createWithExtraData(containerId, playerInventory, extraData);
 					} else {
 						menu = type.create(containerId, playerInventory);
 					}
 					
 					final Screen screen = constructor.create(menu, playerInventory, title);
-					if (!(screen instanceof MenuAccess<?> menuAccess)) {
+					if (!(screen instanceof final MenuAccess<?> menuAccess)) {
 						MenuScreens.LOGGER.warn("Trying to open invalid screen that does not implement MenuAccess with name: {}", title.getString());
 						return;
 					}

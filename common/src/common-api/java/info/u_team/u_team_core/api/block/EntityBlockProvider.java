@@ -105,7 +105,7 @@ public interface EntityBlockProvider extends EntityBlock {
 		
 		final BlockEntity blockEntity = blockEntityOptional.get();
 		
-		if (!(blockEntity instanceof MenuProvider menuProvider)) {
+		if (!(blockEntity instanceof final MenuProvider menuProvider)) {
 			return InteractionResult.PASS;
 		}
 		

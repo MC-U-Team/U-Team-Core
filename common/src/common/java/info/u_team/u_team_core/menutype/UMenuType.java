@@ -17,7 +17,7 @@ public class UMenuType<T extends AbstractContainerMenu> extends MenuType<T> {
 	}
 	
 	public T createWithExtraData(int containerId, Inventory playerInventory, FriendlyByteBuf buffer) {
-		if (constructor instanceof DataMenuSupplier<T> dataConstructor) {
+		if (constructor instanceof final DataMenuSupplier<T> dataConstructor) {
 			return dataConstructor.create(containerId, playerInventory, buffer);
 		} else {
 			return create(containerId, playerInventory);

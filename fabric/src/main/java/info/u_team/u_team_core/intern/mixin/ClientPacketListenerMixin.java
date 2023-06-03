@@ -22,7 +22,7 @@ abstract class ClientPacketListenerMixin {
 	
 	@Inject(method = { "method_38542", "lambda$handleBlockEntityData$6" }, at = @At(value = "HEAD", remap = true), remap = false, cancellable = true)
 	private void uteamcore$lambda$handleBlockEntityData$6(ClientboundBlockEntityDataPacket packet, BlockEntity blockEntity, CallbackInfo info) {
-		if (blockEntity instanceof UBlockEntity uBlockEntity) {
+		if (blockEntity instanceof final UBlockEntity uBlockEntity) {
 			info.cancel();
 			uBlockEntity.receiveUpdatePacket(connection, packet);
 		}

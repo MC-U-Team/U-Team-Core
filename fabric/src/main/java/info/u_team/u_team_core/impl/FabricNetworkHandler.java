@@ -38,7 +38,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 	@Override
 	public <M> void registerMessage(int index, Class<M> clazz, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer, Optional<NetworkEnvironment> handlerEnvironment) {
 		final ResourceLocation location = channel.withSuffix("/" + index);
-		MessagePacket<?> oldPacket = messages.put(clazz, new MessagePacket<>(location, encoder, handlerEnvironment));
+		final MessagePacket<?> oldPacket = messages.put(clazz, new MessagePacket<>(location, encoder, handlerEnvironment));
 		if (oldPacket != null) {
 			throw new IllegalArgumentException("Packet class " + clazz + " was already registered");
 		}
