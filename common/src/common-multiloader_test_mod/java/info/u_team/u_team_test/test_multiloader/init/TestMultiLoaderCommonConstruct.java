@@ -11,6 +11,7 @@ public class TestMultiLoaderCommonConstruct implements ModConstruct {
 	public void construct() {
 		TestMultiLoaderBlockEntityTypes.register();
 		TestMultiLoaderBlocks.register();
+		TestMultiLoaderEnchantments.register();
 		TestMultiLoaderEntityTypes.register();
 		TestMultiLoaderItems.register();
 		TestMultiLoaderMobEffects.register();
