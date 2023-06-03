@@ -13,7 +13,7 @@ public class TestLootModifier extends LootItemFunctionLootModifier {
 	
 	public static final Codec<TestLootModifier> CODEC = RecordCodecBuilder.create(instance -> LootModifier.codecStart(instance).apply(instance, TestLootModifier::new));
 	
-	public TestLootModifier(LootItemCondition[] conditions) {
+	public TestLootModifier(LootItemCondition... conditions) {
 		super(conditions, TestLootItemFunction.builder().build());
 	}
 	
