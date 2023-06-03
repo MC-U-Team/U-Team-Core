@@ -2,6 +2,7 @@ package info.u_team.u_team_core.api.event;
 
 import info.u_team.u_team_core.util.ServiceUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screens.Screen;
 
 public interface ClientEvents {
 	
@@ -13,6 +14,10 @@ public interface ClientEvents {
 		Handler.INSTANCE.registerEndClientTick(event);
 	}
 	
+	static void registerScreenAfterKeyPressed(ScreenAfterKeyPressed event) {
+		Handler.INSTANCE.registerScreenAfterKeyPressed(event);
+	}
+	
 	interface Handler {
 		
 		Handler INSTANCE = ServiceUtil.loadOne(Handler.class);
@@ -20,6 +25,8 @@ public interface ClientEvents {
 		void registerStartClientTick(StartClientTick event);
 		
 		void registerEndClientTick(EndClientTick event);
+		
+		void registerScreenAfterKeyPressed(ScreenAfterKeyPressed event);
 	}
 	
 	@FunctionalInterface
@@ -33,4 +40,11 @@ public interface ClientEvents {
 		
 		void onEndTick(Minecraft minecraft);
 	}
+	
+	@FunctionalInterface
+	interface ScreenAfterKeyPressed {
+		
+		boolean onKeyPressed(Screen screen, int keyCode, int scanCode, int modifiers);
+	}
+	
 }

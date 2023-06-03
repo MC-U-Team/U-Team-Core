@@ -12,6 +12,7 @@
 		"MinecraftServerMixin",
 		"MainMixin",
 		"SpawnEggItemMixin",
+		"KeyboardHandlerMixin",
 		"common.ServerPlayerMixin"
 	],
 	"injectors": {
