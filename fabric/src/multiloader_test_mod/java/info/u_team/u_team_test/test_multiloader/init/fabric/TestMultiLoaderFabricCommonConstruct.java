@@ -9,7 +9,8 @@ public class TestMultiLoaderFabricCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		TestMultiLoaderFabricBiomeModification.register();
+		TestMultiLoaderFabricBiomeModifications.register();
+		TestMultiLoaderFabricLootTableModifications.register();
 	}
 	
 }
