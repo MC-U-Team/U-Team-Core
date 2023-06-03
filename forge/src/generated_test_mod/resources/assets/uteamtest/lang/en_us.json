@@ -5,7 +5,6 @@
 	"block.uteamtest.basic_fluid_inventory": "Fluid Inventory",
 	"creativetabs.uteamtest.tab": "UTeamTest Tab",
 	"enchantment.uteamtest.auto_smelt": "Auto Smelt",
-	"entity.uteamtest.test_living": "Test Living Entity",
 	"item.uteamtest.basic_armor_boots": "Basic Boots",
 	"item.uteamtest.basic_armor_chestplate": "Basic Chestplate",
 	"item.uteamtest.basic_armor_helmet": "Basic Helmet",
@@ -14,6 +13,5 @@
 	"item.uteamtest.basic_tool_hoe": "Basic Hoe",
 	"item.uteamtest.basic_tool_pickaxe": "Basic Pickaxe",
 	"item.uteamtest.basic_tool_shovel": "Basic Shovel",
-	"item.uteamtest.basic_tool_sword": "Basic Sword",
-	"item.uteamtest.test_living_spawn_egg": "Test Living Entity Spawn Egg"
+	"item.uteamtest.basic_tool_sword": "Basic Sword"
 }

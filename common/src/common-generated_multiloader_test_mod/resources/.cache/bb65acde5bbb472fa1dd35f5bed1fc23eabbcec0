@@ -1,4 +1,4 @@
-// 1.19.4	2023-06-02T01:25:18.2646954	Item-Model
+// 1.19.4	2023-06-03T13:23:36.5611993	Item-Model
 d84c55661d1e934ca8c6f86ad1bfc8f6e3a37956 assets/uteamtest_multiloader/models/item/test_axe.json
 6bd622e00a78dbb054e6e40ddc3476d81c9ccd3b assets/uteamtest_multiloader/models/item/test_block.json
 b3dd5c2f2096f36a1b37733add27202b6bba3f6b assets/uteamtest_multiloader/models/item/test_boots.json
@@ -9,6 +9,7 @@ cad3328b5c893e79ba2667869d9ba555c49cc524 assets/uteamtest_multiloader/models/ite
 591dcfc6ff7ef2609f8cac681f7a7a555b2318b0 assets/uteamtest_multiloader/models/item/test_hoe.json
 4534f94b1cfd514a52ed6546a7a905efc8ae1d1c assets/uteamtest_multiloader/models/item/test_item.json
 742a00157808e86501ff200906068126ce04cf61 assets/uteamtest_multiloader/models/item/test_leggings.json
+7c519a48bdd15e51c42200b2817f363c2b554a8b assets/uteamtest_multiloader/models/item/test_living_spawn_egg.json
 b998e0d926452264b5e20edf2cb64d3effaac06b assets/uteamtest_multiloader/models/item/test_pickaxe.json
 17d9c01b8a082c5757f77203e13d25c78768afd8 assets/uteamtest_multiloader/models/item/test_shovel.json
 a3506a05f558de163c897938cc568908e94980af assets/uteamtest_multiloader/models/item/test_sword.json
