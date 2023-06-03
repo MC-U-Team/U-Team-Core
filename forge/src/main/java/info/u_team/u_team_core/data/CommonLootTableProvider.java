@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.intern.loot.SetBlockEntityNBTLootFunction;
+import info.u_team.u_team_core.intern.loot_item_function.SetBlockEntityNBTLootFunction;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;

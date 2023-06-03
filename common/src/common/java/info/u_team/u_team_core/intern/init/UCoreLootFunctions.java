@@ -3,7 +3,7 @@ package info.u_team.u_team_core.intern.init;
 import info.u_team.u_team_core.UCoreReference;
 import info.u_team.u_team_core.api.registry.CommonRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
-import info.u_team.u_team_core.intern.loot.SetBlockEntityNBTLootFunction;
+import info.u_team.u_team_core.intern.loot_item_function.SetBlockEntityNBTLootFunction;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 

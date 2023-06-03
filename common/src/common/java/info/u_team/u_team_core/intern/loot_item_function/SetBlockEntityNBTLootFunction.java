@@ -1,4 +1,4 @@
-package info.u_team.u_team_core.intern.loot;
+package info.u_team.u_team_core.intern.loot_item_function;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
