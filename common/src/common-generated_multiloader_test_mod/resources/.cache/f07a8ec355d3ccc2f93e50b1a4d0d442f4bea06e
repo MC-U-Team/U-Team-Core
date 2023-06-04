@@ -1,4 +1,5 @@
-// 1.19.4	2023-05-26T16:42:48.514721	Block-Tags
+// 1.19.4	2023-06-05T00:17:12.4235189	Block-Tags
 0b343921ca4fdb85feb93369ce7e08574840eeaf data/minecraft/tags/blocks/mineable/pickaxe.json
-f78ad65f7aafe36d24d1c1273bca75fa2ea3eb6f data/minecraft/tags/blocks/needs_iron_tool.json
+4c2d281dfd562bd97ebd2f672076296508ee1cc0 data/minecraft/tags/blocks/mineable/shovel.json
+dac383d709bc77785671c32fa767be29e30566c9 data/minecraft/tags/blocks/needs_iron_tool.json
 23ca30e0790adc4fa8aa086867e826392a0aa9bd data/minecraft/tags/blocks/needs_stone_tool.json

@@ -1,5 +1,4 @@
-// 1.19.4	2023-06-01T20:46:04.7801914	Loot-Table
+// 1.19.4	2023-06-05T00:15:57.221127	Loot-Table
 0488b33c84c31dbcda44f157b5d6d4f0303f11a4 data/uteamtest/loot_tables/blocks/basic_block.json
-6ca8aa85b80295d2434614b04ca31f64e502bdfe data/uteamtest/loot_tables/blocks/basic_block_entity.json
 35f31f0e8be1023eabc3634862e6cf3543f279da data/uteamtest/loot_tables/blocks/basic_energy_creator.json
 525238d3d6b18ea2068bf337fd96df54d8562d7d data/uteamtest/loot_tables/blocks/basic_fluid_inventory.json

@@ -1,5 +1,6 @@
 {
 	"block.uteamtest_multiloader.test_block": "Test Block",
+	"block.uteamtest_multiloader.test_inventory_block": "Test Inventory Block",
 	"block.uteamtest_multiloader.test_no_item": "Test No Item Block",
 	"block.uteamtest_multiloader.test_no_item_implicit": "Test No Item Implicit Block",
 	"block.uteamtest_multiloader.test_sync_block": "Test Sync Block",

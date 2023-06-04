@@ -1,0 +1,27 @@
+{
+	"variants": {
+		"facing=down": {
+			"model": "uteamtest_multiloader:block/test_inventory_block",
+			"x": 90
+		},
+		"facing=east": {
+			"model": "uteamtest_multiloader:block/test_inventory_block",
+			"y": 90
+		},
+		"facing=north": {
+			"model": "uteamtest_multiloader:block/test_inventory_block"
+		},
+		"facing=south": {
+			"model": "uteamtest_multiloader:block/test_inventory_block",
+			"y": 180
+		},
+		"facing=up": {
+			"model": "uteamtest_multiloader:block/test_inventory_block",
+			"x": 270
+		},
+		"facing=west": {
+			"model": "uteamtest_multiloader:block/test_inventory_block",
+			"y": 270
+		}
+	}
+}
