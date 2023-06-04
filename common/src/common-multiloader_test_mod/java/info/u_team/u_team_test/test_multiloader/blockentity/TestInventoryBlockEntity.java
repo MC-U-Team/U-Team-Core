@@ -1,8 +1,10 @@
 package info.u_team.u_team_test.test_multiloader.blockentity;
 
 import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
+import info.u_team.u_team_core.api.menu.ItemSlotCreator;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.inventory.BlockEntityUItemStackHandler;
+import info.u_team.u_team_core.menu.ItemHandlerSlotCreator;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import info.u_team.u_team_test.test_multiloader.menu.TestInventoryMenu;
 import net.minecraft.core.BlockPos;
@@ -120,6 +122,10 @@ public class TestInventoryBlockEntity extends UBlockEntity implements MenuSynced
 	
 	@Override
 	public Component getDisplayName() {
-		return Component.literal("Tile Entity");
+		return getBlockState().getBlock().getName();
+	}
+	
+	public ItemSlotCreator getSlotCreator() {
+		return ItemHandlerSlotCreator.of(slots);
 	}
 }

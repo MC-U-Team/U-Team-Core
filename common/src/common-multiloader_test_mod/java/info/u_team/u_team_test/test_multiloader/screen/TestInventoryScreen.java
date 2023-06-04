@@ -5,7 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_core.gui.elements.USlider;
 import info.u_team.u_team_core.screen.UContainerMenuScreen;
-import info.u_team.u_team_test.TestMod;
+import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
 import info.u_team.u_team_test.test_multiloader.menu.TestInventoryMenu;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
@@ -15,7 +15,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class TestInventoryScreen extends UContainerMenuScreen<TestInventoryMenu> {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/test_inventory.png");
+	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMultiLoaderReference.MODID, "textures/gui/test_inventory.png");
 	
 	private USlider slider;
 	

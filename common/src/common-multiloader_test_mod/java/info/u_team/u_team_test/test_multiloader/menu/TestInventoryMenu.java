@@ -4,7 +4,6 @@ import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
-import info.u_team.u_team_core.menu.ItemHandlerSlotCreator;
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
 import info.u_team.u_team_test.test_multiloader.blockentity.TestInventoryBlockEntity;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderMenuTypes;
@@ -30,7 +29,7 @@ public class TestInventoryMenu extends UBlockEntityContainerMenu<TestInventoryBl
 	
 	@Override
 	protected void init(NetworkEnvironment environment) {
-		addSlots(ItemHandlerSlotCreator.of(blockEntity.getSlots()), 2, 9, 8, 41);
+		addSlots(blockEntity.getSlotCreator(), 2, 9, 8, 41);
 		addPlayerInventory(playerInventory, 8, 91);
 		
 		addDataHolderToClient(DataHolder.createIntHolder(blockEntity::getValue, blockEntity::setValue));
