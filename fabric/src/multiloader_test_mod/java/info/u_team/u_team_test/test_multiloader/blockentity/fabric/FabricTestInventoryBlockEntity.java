@@ -1,39 +1,36 @@
 package info.u_team.u_team_test.test_multiloader.blockentity.fabric;
 
 import info.u_team.u_team_core.api.menu.ItemSlotCreator;
+import info.u_team.u_team_core.inventory.BlockEntityUItemStackContainer;
 import info.u_team.u_team_core.menu.ItemContainerSlotCreator;
 import info.u_team.u_team_test.test_multiloader.blockentity.TestInventoryBlockEntity;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.ContainerHelper;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class FabricTestInventoryBlockEntity extends TestInventoryBlockEntity {
 	
-	private final SimpleContainer slots;
+	private final BlockEntityUItemStackContainer slots;
 	private final InventoryStorage slotWrapper;
 	
 	public FabricTestInventoryBlockEntity(BlockPos pos, BlockState state) {
 		super(pos, state);
-		slots = new SimpleContainer(18);
-		slots.addListener(container -> setChanged());
+		slots = new BlockEntityUItemStackContainer(18, this);
 		slotWrapper = InventoryStorage.of(slots, null);
 	}
 	
 	@Override
 	public void saveNBT(CompoundTag compound) {
 		super.saveNBT(compound);
-		final CompoundTag inventory = new CompoundTag();
-		ContainerHelper.saveAllItems(inventory, slots.items, false);
-		compound.put("inventory", inventory);
+		compound.put("inventory", slots.serializeNBT());
 	}
 	
 	@Override
 	public void loadNBT(CompoundTag compound) {
 		super.loadNBT(compound);
-		ContainerHelper.loadAllItems(compound.getCompound("inventory"), slots.items);
+		slots.deserializeNBT(compound.getCompound("inventory"));
 	}
 	
 	public SimpleContainer getSlots() {
@@ -61,5 +58,4 @@ public class FabricTestInventoryBlockEntity extends TestInventoryBlockEntity {
 			return new FabricTestInventoryBlockEntity(pos, state);
 		}
 	}
-	
 }
