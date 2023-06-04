@@ -3,12 +3,9 @@ package info.u_team.u_team_test.test_multiloader.blockentity;
 import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
 import info.u_team.u_team_core.api.menu.ItemSlotCreator;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
-import info.u_team.u_team_core.inventory.BlockEntityUItemStackHandler;
-import info.u_team.u_team_core.menu.ItemHandlerSlotCreator;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import info.u_team.u_team_test.test_multiloader.menu.TestInventoryMenu;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -17,21 +14,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ForgeCapabilities;
-import net.minecraftforge.common.util.LazyOptional;
 
-public class TestInventoryBlockEntity extends UBlockEntity implements MenuSyncedBlockEntity {
-	
-	private final BlockEntityUItemStackHandler slots;
-	private final LazyOptional<BlockEntityUItemStackHandler> slotsOptional;
+public abstract class TestInventoryBlockEntity extends UBlockEntity implements MenuSyncedBlockEntity {
 	
 	private int cooldown, timer, value;
 	
 	public TestInventoryBlockEntity(BlockPos pos, BlockState state) {
 		super(TestMultiLoaderBlockEntityTypes.TEST_INVENTORY.get(), pos, state);
-		slots = new BlockEntityUItemStackHandler(18, this);
-		slotsOptional = LazyOptional.of(() -> slots);
 	}
 	
 	@Override
@@ -60,18 +49,12 @@ public class TestInventoryBlockEntity extends UBlockEntity implements MenuSynced
 	public void saveNBT(CompoundTag compound) {
 		compound.putInt("value", value);
 		compound.putInt("cooldown", cooldown);
-		compound.put("inventory", slots.serializeNBT());
 	}
 	
 	@Override
 	public void loadNBT(CompoundTag compound) {
 		value = compound.getInt("value");
 		cooldown = compound.getInt("cooldown");
-		slots.deserializeNBT(compound.getCompound("inventory"));
-	}
-	
-	public BlockEntityUItemStackHandler getSlots() {
-		return slots;
 	}
 	
 	public int getCooldown() {
@@ -90,29 +73,6 @@ public class TestInventoryBlockEntity extends UBlockEntity implements MenuSynced
 		this.value = value;
 	}
 	
-	// Capability
-	
-	@Override
-	public <X> LazyOptional<X> getCapability(Capability<X> capability, Direction side) {
-		if (capability == ForgeCapabilities.ITEM_HANDLER) {
-			return slotsOptional.cast();
-		} else {
-			return super.getCapability(capability, side);
-		}
-	}
-	
-	@Override
-	public void setRemoved() {
-		super.setRemoved();
-		slotsOptional.invalidate();
-	}
-	
-	@Override
-	public void onChunkUnloaded() {
-		super.onChunkUnloaded();
-		slotsOptional.invalidate();
-	}
-	
 	// Container
 	
 	@Override
@@ -125,7 +85,5 @@ public class TestInventoryBlockEntity extends UBlockEntity implements MenuSynced
 		return getBlockState().getBlock().getName();
 	}
 	
-	public ItemSlotCreator getSlotCreator() {
-		return ItemHandlerSlotCreator.of(slots);
-	}
+	public abstract ItemSlotCreator getSlotCreator();
 }

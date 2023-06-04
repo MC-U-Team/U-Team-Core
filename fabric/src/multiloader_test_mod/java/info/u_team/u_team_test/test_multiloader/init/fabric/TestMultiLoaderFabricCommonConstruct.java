@@ -11,6 +11,7 @@ public class TestMultiLoaderFabricCommonConstruct implements ModConstruct {
 	public void construct() {
 		TestMultiLoaderFabricBiomeModifications.register();
 		TestMultiLoaderFabricLootTableModifications.register();
+		TestMultiLoaderFabricTransactionRegister.register();
 	}
 	
 }
