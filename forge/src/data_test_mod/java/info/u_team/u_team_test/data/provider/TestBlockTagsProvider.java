@@ -23,9 +23,6 @@ public class TestBlockTagsProvider extends CommonBlockTagsProvider {
 		tag(VanillaTierTags.MINEABLE_WITH_SHOVEL).add(TestBlocks.BASIC.get());
 		tag(VanillaTierTags.NEEDS_STONE_TOOL).add(TestBlocks.BASIC.get());
 		
-		tag(VanillaTierTags.MINEABLE_WITH_PICKAXE).add(TestBlocks.BASIC_BLOCKENTITY.get());
-		tag(VanillaTierTags.NEEDS_IRON_TOOL).add(TestBlocks.BASIC_BLOCKENTITY.get());
-		
 		tag(VanillaTierTags.MINEABLE_WITH_PICKAXE).add(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		tag(VanillaTierTags.NEEDS_IRON_TOOL).add(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		

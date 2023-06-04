@@ -1,10 +1,10 @@
-package info.u_team.u_team_test.blockentity;
+package info.u_team.u_team_test.test_multiloader.blockentity;
 
 import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_core.inventory.BlockEntityUItemStackHandler;
-import info.u_team.u_team_test.init.TestBlockEntityTypes;
 import info.u_team.u_team_test.menu.BasicBlockEntityMenu;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
@@ -19,15 +19,15 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ForgeCapabilities;
 import net.minecraftforge.common.util.LazyOptional;
 
-public class BasicBlockEntityBlockEntity extends UBlockEntity implements MenuSyncedBlockEntity {
+public class TestInventoryBlockEntity extends UBlockEntity implements MenuSyncedBlockEntity {
 	
 	private final BlockEntityUItemStackHandler slots;
 	private final LazyOptional<BlockEntityUItemStackHandler> slotsOptional;
 	
 	private int cooldown, timer, value;
 	
-	public BasicBlockEntityBlockEntity(BlockPos pos, BlockState state) {
-		super(TestBlockEntityTypes.BASIC.get(), pos, state);
+	public TestInventoryBlockEntity(BlockPos pos, BlockState state) {
+		super(TestMultiLoaderBlockEntityTypes.TEST_INVENTORY.get(), pos, state);
 		slots = new BlockEntityUItemStackHandler(18, this);
 		slotsOptional = LazyOptional.of(() -> slots);
 	}
@@ -44,7 +44,7 @@ public class BasicBlockEntityBlockEntity extends UBlockEntity implements MenuSyn
 		cooldown = buffer.readInt();
 	}
 	
-	public static void serverTick(Level level, BlockPos pos, BlockState state, BasicBlockEntityBlockEntity blockEntity) {
+	public static void serverTick(Level level, BlockPos pos, BlockState state, TestInventoryBlockEntity blockEntity) {
 		if (blockEntity.timer < blockEntity.cooldown) {
 			blockEntity.timer++;
 			return;

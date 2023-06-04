@@ -1,8 +1,8 @@
-package info.u_team.u_team_test.block;
+package info.u_team.u_team_test.test_multiloader.block;
 
 import info.u_team.u_team_core.block.UEntityBlock;
-import info.u_team.u_team_test.blockentity.BasicBlockEntityBlockEntity;
-import info.u_team.u_team_test.init.TestBlockEntityTypes;
+import info.u_team.u_team_test.test_multiloader.blockentity.TestInventoryBlockEntity;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.InteractionHand;
@@ -22,12 +22,12 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 
-public class BasicBlockEntityBlock extends UEntityBlock {
+public class TestInventoryBlock extends UEntityBlock {
 	
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	
-	public BasicBlockEntityBlock() {
-		super(Properties.of(Material.STONE).strength(2F).requiresCorrectToolForDrops().sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), TestBlockEntityTypes.BASIC);
+	public TestInventoryBlock() {
+		super(Properties.of(Material.STONE).strength(2F).requiresCorrectToolForDrops().sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), TestMultiLoaderBlockEntityTypes.TEST_INVENTORY);
 		registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH));
 	}
 	
@@ -51,7 +51,7 @@ public class BasicBlockEntityBlock extends UEntityBlock {
 		if ((type != blockEntityType.get()) || level.isClientSide()) {
 			return null;
 		}
-		return (level_, pos, state_, instance) -> BasicBlockEntityBlockEntity.serverTick(level_, pos, state_, (BasicBlockEntityBlockEntity) instance);
+		return (level_, pos, state_, instance) -> TestInventoryBlockEntity.serverTick(level_, pos, state_, (TestInventoryBlockEntity) instance);
 	}
 	
 }

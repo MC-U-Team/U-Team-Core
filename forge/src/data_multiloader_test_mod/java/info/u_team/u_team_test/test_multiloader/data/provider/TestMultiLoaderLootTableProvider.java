@@ -19,6 +19,7 @@ public class TestMultiLoaderLootTableProvider extends CommonLootTableProvider {
 	public void register(BiConsumer<ResourceLocation, LootTable> consumer) {
 		registerBlock(TestMultiLoaderBlocks.TEST, addFortuneBlockLootTable(TestMultiLoaderBlocks.TEST.get(), TestMultiLoaderItems.TEST.get()), consumer);
 		registerBlock(TestMultiLoaderBlocks.TEST_SYNC, addBlockEntityBlockLootTable(TestMultiLoaderBlocks.TEST_SYNC.get()), consumer);
+		registerBlock(TestMultiLoaderBlocks.TEST_INVENTORY, addBlockEntityBlockLootTable(TestMultiLoaderBlocks.TEST_INVENTORY.get()), consumer);
 	}
 	
 }

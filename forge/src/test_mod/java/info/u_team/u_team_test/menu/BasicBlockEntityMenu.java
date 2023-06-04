@@ -6,14 +6,14 @@ import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
 import info.u_team.u_team_core.menu.ItemHandlerSlotCreator;
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
-import info.u_team.u_team_test.blockentity.BasicBlockEntityBlockEntity;
 import info.u_team.u_team_test.init.TestMenuTypes;
+import info.u_team.u_team_test.test_multiloader.blockentity.TestInventoryBlockEntity;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<BasicBlockEntityBlockEntity> {
+public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<TestInventoryBlockEntity> {
 	
 	private EmptyMessageHolder valueMessage;
 	private MessageHolder cooldownMessage;
@@ -24,7 +24,7 @@ public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<BasicBlockEn
 	}
 	
 	// Server
-	public BasicBlockEntityMenu(int containerId, Inventory playerInventory, BasicBlockEntityBlockEntity blockEntity) {
+	public BasicBlockEntityMenu(int containerId, Inventory playerInventory, TestInventoryBlockEntity blockEntity) {
 		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), containerId, playerInventory, blockEntity);
 	}
 	

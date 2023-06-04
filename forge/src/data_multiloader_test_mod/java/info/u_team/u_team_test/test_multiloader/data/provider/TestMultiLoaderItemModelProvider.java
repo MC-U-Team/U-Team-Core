@@ -24,6 +24,7 @@ public class TestMultiLoaderItemModelProvider extends CommonItemModelProvider {
 		// Blocks
 		simpleBlock(TestMultiLoaderBlocks.TEST.get());
 		simpleBlock(TestMultiLoaderBlocks.TEST_SYNC.get());
+		simpleBlock(TestMultiLoaderBlocks.TEST_INVENTORY.get());
 	}
 	
 }

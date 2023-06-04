@@ -28,13 +28,11 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		addItem(TestItems.BASIC_TOOL.sword(), "Basic Sword");
 		
 		addBlock(TestBlocks.BASIC, "Basic Block");
-		addBlock(TestBlocks.BASIC_BLOCKENTITY, "Block Entity Block");
 		addBlock(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
 		addBlock(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
 		
 		// German test for umlaut
 		addBlock("de_de", TestBlocks.BASIC, "Ä");
-		addBlock("de_de", TestBlocks.BASIC_BLOCKENTITY, "Ö");
 		addBlock("de_de", TestBlocks.BASIC_ENERGY_CREATOR, "Üabc");
 		addBlock("de_de", TestBlocks.BASIC_FLUID_INVENTORY, "Großes");
 	}
