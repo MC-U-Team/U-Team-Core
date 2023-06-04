@@ -83,7 +83,7 @@ public abstract class TestInventoryBlockEntity extends UBlockEntity implements M
 	
 	@Override
 	public Component getDisplayName() {
-		return getBlockState().getBlock().getName();
+		return Component.literal("Test");
 	}
 	
 	public abstract ItemSlotCreator getSlotCreator();
