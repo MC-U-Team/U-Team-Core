@@ -9,7 +9,7 @@ public class UCoreCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		UCoreLootFunctions.register();
+		UCoreLootItemFunctions.register();
 		UCoreRecipeSerializers.register();
 		
 		UCoreCommands.register();
