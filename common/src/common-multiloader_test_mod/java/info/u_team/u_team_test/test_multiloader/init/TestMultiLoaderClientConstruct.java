@@ -13,6 +13,7 @@ public class TestMultiLoaderClientConstruct implements ModConstruct {
 		TestMultiLoaderColors.register();
 		TestMultiLoaderEntityRenderers.register();
 		TestMultiLoaderKeyMappings.register();
+		TestMultiLoaderScreens.register();
 	}
 	
 }

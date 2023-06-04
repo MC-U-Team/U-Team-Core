@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.screen;
+package info.u_team.u_team_test.test_multiloader.screen;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
@@ -6,31 +6,31 @@ import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_core.gui.elements.USlider;
 import info.u_team.u_team_core.screen.UContainerMenuScreen;
 import info.u_team.u_team_test.TestMod;
-import info.u_team.u_team_test.menu.BasicBlockEntityMenu;
+import info.u_team.u_team_test.test_multiloader.menu.TestInventoryMenu;
 import io.netty.buffer.Unpooled;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class BasicBlockEntityScreen extends UContainerMenuScreen<BasicBlockEntityMenu> {
+public class TestInventoryScreen extends UContainerMenuScreen<TestInventoryMenu> {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/block_entity.png");
+	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/test_inventory.png");
 	
 	private USlider slider;
 	
-	public BasicBlockEntityScreen(BasicBlockEntityMenu menu, Inventory playerInventory, Component title) {
+	public TestInventoryScreen(TestInventoryMenu menu, Inventory playerInventory, Component title) {
 		super(menu, playerInventory, title, BACKGROUND, 176, 173);
 	}
 	
 	@Override
 	protected void init() {
 		super.init();
-		addRenderableWidget(new UButton(leftPos + imageWidth / 2 - 25, topPos + 3, 50, 15, Component.nullToEmpty("Add 100"), button -> {
+		addRenderableWidget(new UButton(leftPos + imageWidth / 2 - 25, topPos + 3, 50, 15, Component.literal("Add 100"), button -> {
 			menu.getValueMessage().triggerMessage();
 		}));
 		
-		slider = addRenderableWidget(new USlider(leftPos + 7, topPos + 19, 162, 20, Component.nullToEmpty("Cooldown: "), Component.nullToEmpty(" Ticks"), 0, 100, menu.getBlockEntity().getCooldown(), false, true, slider -> {
+		slider = addRenderableWidget(new USlider(leftPos + 7, topPos + 19, 162, 20, Component.literal("Cooldown: "), Component.literal(" Ticks"), 0, 100, menu.getBlockEntity().getCooldown(), false, true, slider -> {
 			menu.getCooldownMessage().triggerMessage(() -> new FriendlyByteBuf(Unpooled.copyShort(slider.getValueInt())));
 		}));
 	}
@@ -46,7 +46,7 @@ public class BasicBlockEntityScreen extends UContainerMenuScreen<BasicBlockEntit
 	@Override
 	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
 		super.renderLabels(poseStack, mouseX, mouseY);
-		font.draw(poseStack, Component.nullToEmpty("" + menu.getBlockEntity().getValue()), imageWidth / 2 + 32, 6, 0x404040);
+		font.draw(poseStack, Component.literal("" + menu.getBlockEntity().getValue()), imageWidth / 2 + 32, 6, 0x404040);
 	}
 	
 }

@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.menu;
+package info.u_team.u_team_test.test_multiloader.menu;
 
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.sync.DataHolder;
@@ -6,26 +6,26 @@ import info.u_team.u_team_core.api.sync.MessageHolder;
 import info.u_team.u_team_core.api.sync.MessageHolder.EmptyMessageHolder;
 import info.u_team.u_team_core.menu.ItemHandlerSlotCreator;
 import info.u_team.u_team_core.menu.UBlockEntityContainerMenu;
-import info.u_team.u_team_test.init.TestMenuTypes;
 import info.u_team.u_team_test.test_multiloader.blockentity.TestInventoryBlockEntity;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderMenuTypes;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
-public class BasicBlockEntityMenu extends UBlockEntityContainerMenu<TestInventoryBlockEntity> {
+public class TestInventoryMenu extends UBlockEntityContainerMenu<TestInventoryBlockEntity> {
 	
 	private EmptyMessageHolder valueMessage;
 	private MessageHolder cooldownMessage;
 	
 	// Client
-	public BasicBlockEntityMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buffer) {
-		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), containerId, playerInventory, buffer);
+	public TestInventoryMenu(int containerId, Inventory playerInventory, FriendlyByteBuf buffer) {
+		super(TestMultiLoaderMenuTypes.TEST_INVENTORY.get(), containerId, playerInventory, buffer);
 	}
 	
 	// Server
-	public BasicBlockEntityMenu(int containerId, Inventory playerInventory, TestInventoryBlockEntity blockEntity) {
-		super(TestMenuTypes.BASIC_BLOCK_ENTITY.get(), containerId, playerInventory, blockEntity);
+	public TestInventoryMenu(int containerId, Inventory playerInventory, TestInventoryBlockEntity blockEntity) {
+		super(TestMultiLoaderMenuTypes.TEST_INVENTORY.get(), containerId, playerInventory, blockEntity);
 	}
 	
 	@Override
