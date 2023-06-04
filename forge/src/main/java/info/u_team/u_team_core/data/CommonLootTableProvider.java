@@ -6,7 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
-import info.u_team.u_team_core.intern.loot_item_function.SetBlockEntityNBTLootFunction;
+import info.u_team.u_team_core.intern.loot_item_function.SetBlockEntityNBTLootItemFunction;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds;
@@ -86,7 +86,7 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 				.withPool(LootPool.lootPool() //
 						.setRolls(ConstantValue.exactly(1)) //
 						.add(LootItem.lootTableItem(item)) //
-						.apply(SetBlockEntityNBTLootFunction.builder()) //
+						.apply(SetBlockEntityNBTLootItemFunction.builder()) //
 						.when(ExplosionCondition.survivesExplosion())) //
 				.build();
 	}
