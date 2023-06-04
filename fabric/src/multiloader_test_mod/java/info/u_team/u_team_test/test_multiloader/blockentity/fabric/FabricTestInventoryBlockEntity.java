@@ -52,4 +52,14 @@ public class FabricTestInventoryBlockEntity extends TestInventoryBlockEntity {
 		return ItemContainerSlotCreator.of(slots);
 	}
 	
+	// Factory
+	
+	public static class Factory implements TestInventoryBlockEntity.Factory {
+		
+		@Override
+		public TestInventoryBlockEntity create(BlockPos pos, BlockState state) {
+			return new FabricTestInventoryBlockEntity(pos, state);
+		}
+	}
+	
 }

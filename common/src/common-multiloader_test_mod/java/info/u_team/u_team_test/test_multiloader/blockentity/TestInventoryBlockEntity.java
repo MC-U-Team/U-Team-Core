@@ -3,6 +3,7 @@ package info.u_team.u_team_test.test_multiloader.blockentity;
 import info.u_team.u_team_core.api.block.MenuSyncedBlockEntity;
 import info.u_team.u_team_core.api.menu.ItemSlotCreator;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
+import info.u_team.u_team_core.util.ServiceUtil;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import info.u_team.u_team_test.test_multiloader.menu.TestInventoryMenu;
 import net.minecraft.core.BlockPos;
@@ -19,7 +20,7 @@ public abstract class TestInventoryBlockEntity extends UBlockEntity implements M
 	
 	private int cooldown, timer, value;
 	
-	public TestInventoryBlockEntity(BlockPos pos, BlockState state) {
+	protected TestInventoryBlockEntity(BlockPos pos, BlockState state) {
 		super(TestMultiLoaderBlockEntityTypes.TEST_INVENTORY.get(), pos, state);
 	}
 	
@@ -86,4 +87,13 @@ public abstract class TestInventoryBlockEntity extends UBlockEntity implements M
 	}
 	
 	public abstract ItemSlotCreator getSlotCreator();
+	
+	// Factory
+	
+	public interface Factory {
+		
+		Factory INSTANCE = ServiceUtil.loadOne(Factory.class);
+		
+		TestInventoryBlockEntity create(BlockPos pos, BlockState state);
+	}
 }
