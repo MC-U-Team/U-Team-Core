@@ -3,6 +3,7 @@ package info.u_team.u_team_core.api.network;
 import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import info.u_team.u_team_core.util.ServiceUtil;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,6 +27,8 @@ public interface NetworkHandler {
 	<M> void sendToServer(M message);
 	
 	String getProtocolVersion();
+	
+	void setProtocolAcceptor(Predicate<String> clientAcceptedVersions, Predicate<String> serverAcceptedVersions);
 	
 	interface Factory {
 		

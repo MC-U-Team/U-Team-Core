@@ -3,8 +3,11 @@ package info.u_team.u_team_core.impl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 
 import info.u_team.u_team_core.api.Platform.Environment;
 import info.u_team.u_team_core.api.network.NetworkContext;
@@ -12,11 +15,14 @@ import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.EnvironmentUtil;
-import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
+import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.thread.BlockableEventLoop;
@@ -24,14 +30,34 @@ import net.minecraft.world.entity.player.Player;
 
 public class FabricNetworkHandler implements NetworkHandler {
 	
+	public static final String NOT_ON_CLIENT = "\u1F640\u1F640MissingVersion";
+	
 	private final String protocolVersion;
+	
+	private Predicate<String> clientAcceptedVersions;
+	private Predicate<String> serverAcceptedVersions;
+	
 	private final ResourceLocation channel;
 	private final Map<Class<?>, MessagePacket<?>> messages;
 	
 	FabricNetworkHandler(String protocolVersion, ResourceLocation channel) {
 		this.protocolVersion = protocolVersion;
+		clientAcceptedVersions = protocolVersion::equals;
+		serverAcceptedVersions = protocolVersion::equals;
+		
 		this.channel = channel;
 		messages = new HashMap<>();
+		
+		EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.registerLoginReceiver(this, channel));
+		ServerLoginNetworking.registerGlobalReceiver(channel, (server, packetListener, understood, buffer, synchronizer, responseSender) -> {
+			if (!understood) {
+				buffer = PacketByteBufs.create().writeUtf(NOT_ON_CLIENT);
+			}
+			acceptProtocolVersion(buffer, serverAcceptedVersions, packetListener::disconnect);
+		});
+		ServerLoginConnectionEvents.QUERY_START.register((packetListener, server, sender, synchronizer) -> {
+			sender.sendPacket(channel, PacketByteBufs.create().writeUtf(protocolVersion));
+		});
 	}
 	
 	@Override
@@ -71,6 +97,12 @@ public class FabricNetworkHandler implements NetworkHandler {
 		return protocolVersion;
 	}
 	
+	@Override
+	public void setProtocolAcceptor(Predicate<String> clientAcceptedVersions, Predicate<String> serverAcceptedVersions) {
+		this.clientAcceptedVersions = clientAcceptedVersions;
+		this.serverAcceptedVersions = serverAcceptedVersions;
+	}
+	
 	private <M> EncodedMessage encodeMessage(M message, NetworkEnvironment expectedHandler) {
 		final MessagePacket<M> packet = CastUtil.uncheckedCast(messages.get(message.getClass()));
 		if (packet == null) {
@@ -80,23 +112,12 @@ public class FabricNetworkHandler implements NetworkHandler {
 			throw new IllegalArgumentException("Message " + message.getClass() + " cannot be used to send to " + expectedHandler);
 		}
 		final FriendlyByteBuf buffer = PacketByteBufs.create();
-		buffer.writeUtf(protocolVersion); // TODO change to not send that every packet (should be done in login stage)
-		
-		final FriendlyByteBuf messageBuffer = PacketByteBufs.create();
-		packet.encoder.accept(message, messageBuffer);
-		messageBuffer.readerIndex(0);
-		buffer.writeVarInt(messageBuffer.readableBytes());
-		buffer.writeBytes(messageBuffer);
-		
+		packet.encoder.accept(message, buffer);
 		return new EncodedMessage(packet.location, buffer);
 	}
 	
 	private <M> M decodeMessage(Function<FriendlyByteBuf, M> decoder, FriendlyByteBuf buffer) {
-		final String receivedProtocolVersion = buffer.readUtf();
-		if (!protocolVersion.equals(receivedProtocolVersion)) {
-			throw new RuntimeException("Protocol version for channel " + channel + " does not match. Expected: " + protocolVersion + ", received: " + receivedProtocolVersion);
-		}
-		return decoder.apply(new FriendlyByteBuf(Unpooled.wrappedBuffer(buffer.readByteArray())));
+		return decoder.apply(buffer);
 	}
 	
 	private boolean validNetworkEnvironment(NetworkEnvironment expected, Optional<NetworkEnvironment> handlerEnvironment) {
@@ -104,7 +125,26 @@ public class FabricNetworkHandler implements NetworkHandler {
 		return environment == null || environment == expected;
 	}
 	
+	private boolean acceptProtocolVersion(FriendlyByteBuf buffer, Predicate<String> predicate, Consumer<Component> disconnectMessage) {
+		final String receivedProtocolVersion = buffer.readUtf();
+		if (!predicate.test(receivedProtocolVersion)) {
+			disconnectMessage.accept(Component.literal("Protocol version for channel " + channel + " does not match. Expected: " + protocolVersion + ", received: " + receivedProtocolVersion));
+			return false;
+		}
+		return true;
+	}
+	
 	private static class Client {
+		
+		public static void registerLoginReceiver(FabricNetworkHandler handler, ResourceLocation location) {
+			ClientLoginNetworking.registerGlobalReceiver(location, (client, packetListener, buffer, listenerAdder) -> {
+				if (handler.acceptProtocolVersion(buffer, handler.clientAcceptedVersions, packetListener.connection::disconnect)) {
+					return CompletableFuture.completedFuture(PacketByteBufs.create().writeUtf(handler.protocolVersion));
+				} else {
+					return CompletableFuture.completedFuture(null);
+				}
+			});
+		}
 		
 		public static <M> void send(FabricNetworkHandler handler, M message) {
 			final EncodedMessage encodedMessage = handler.encodeMessage(message, NetworkEnvironment.SERVER);

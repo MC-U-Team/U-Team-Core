@@ -26,16 +26,18 @@ import net.minecraftforge.network.simple.SimpleChannel;
 public class ForgeNetworkHandler implements NetworkHandler {
 	
 	private final String protocolVersion;
-	private final SimpleChannel network;
 	
 	private Predicate<String> clientAcceptedVersions;
 	private Predicate<String> serverAcceptedVersions;
 	
+	private final SimpleChannel network;
+	
 	ForgeNetworkHandler(String protocolVersion, ResourceLocation channel) {
 		this.protocolVersion = protocolVersion;
-		network = NetworkRegistry.newSimpleChannel(channel, () -> protocolVersion, version -> clientAcceptedVersions.test(version), version -> serverAcceptedVersions.test(version));
 		clientAcceptedVersions = protocolVersion::equals;
 		serverAcceptedVersions = protocolVersion::equals;
+		
+		network = NetworkRegistry.newSimpleChannel(channel, () -> protocolVersion, version -> clientAcceptedVersions.test(version), version -> serverAcceptedVersions.test(version));
 	}
 	
 	@Override
@@ -67,6 +69,7 @@ public class ForgeNetworkHandler implements NetworkHandler {
 		return protocolVersion;
 	}
 	
+	@Override
 	public void setProtocolAcceptor(Predicate<String> clientAcceptedVersions, Predicate<String> serverAcceptedVersions) {
 		this.clientAcceptedVersions = clientAcceptedVersions;
 		this.serverAcceptedVersions = serverAcceptedVersions;

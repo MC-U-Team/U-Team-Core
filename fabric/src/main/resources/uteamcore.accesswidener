@@ -116,4 +116,6 @@ accessible field net/minecraft/world/item/SpawnEggItem BY_ID Ljava/util/Map;
 
 accessible field net/minecraft/world/SimpleContainer items Lnet/minecraft/core/NonNullList;
 
+accessible field net/minecraft/client/multiplayer/ClientHandshakePacketListenerImpl connection Lnet/minecraft/network/Connection;
+
 transitive-accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V
