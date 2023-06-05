@@ -91,9 +91,6 @@ tasks.register("remapMultiLoaderTestJar", net.fabricmc.loom.task.RemapJarTask) {
 	
 	dependsOn tasks.named("multiLoaderTestJar")
 	input = tasks.getByName("multiLoaderTestJar").archiveFile
-	
-	dependsOn tasks.named("shadowJar")
-	classpath.from(tasks.getByName("shadowJar").archiveFile)
 }
 
 tasks.register("remapMultiLoaderTestSourcesJar", net.fabricmc.loom.task.RemapSourcesJarTask) {
@@ -101,12 +98,20 @@ tasks.register("remapMultiLoaderTestSourcesJar", net.fabricmc.loom.task.RemapSou
 	
 	dependsOn tasks.named("multiLoaderTestSourcesJar")
 	input = tasks.getByName("multiLoaderTestSourcesJar").archiveFile
-	
-	dependsOn tasks.named("shadowJar")
-	classpath.from(tasks.getByName("shadowJar").archiveFile)
 }
 
 gradlefiles.assembleDependOn(tasks.getByName("remapMultiLoaderTestJar"), tasks.getByName("remapMultiLoaderTestSourcesJar"))
+
+afterEvaluate {
+	tasks.named("remapMultiLoaderTestJar") {
+		dependsOn tasks.named("shadowJar")
+		classpath.from(tasks.getByName("shadowJar").archiveFile)
+	}
+	tasks.named("remapMultiLoaderTestSourcesJar") {
+		dependsOn tasks.named("shadowJar")
+		classpath.from(tasks.getByName("shadowJar").archiveFile)
+	}
+}
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)

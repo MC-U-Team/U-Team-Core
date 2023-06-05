@@ -174,6 +174,17 @@ gradlefiles.assembleDependOn(tasks.getByName("testJar"), tasks.getByName("testSo
 gradlefiles.createReobfJar(tasks.getByName("multiLoaderTestJar"))
 gradlefiles.assembleDependOn(tasks.getByName("multiLoaderTestJar"), tasks.getByName("multiLoaderTestSourcesJar"))
 
+afterEvaluate {
+	tasks.named("reobfTestJar") {
+		dependsOn tasks.named("signReobfJar")
+		libraries.from(tasks.getByName("signReobfJar").outputFile)
+	}
+	tasks.named("reobfMultiLoaderTestJar") {
+		dependsOn tasks.named("signReobfJar")
+		libraries.from(tasks.getByName("signReobfJar").outputFile)
+	}
+}
+
 // Skip mixin gradle for our test jars
 tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$AddMixinsToJarTask).configureEach { task ->
 	if(task.name.endsWith("TestJar") || task.name.endsWith("TestSourcesJar")) {
@@ -198,20 +209,6 @@ tasks.withType(Javadoc).configureEach { task ->
 gradlefiles.signDefaultForgeJar()
 gradlefiles.signJar("reobfTestJar")
 gradlefiles.signJar("reobfMultiLoaderTestJar")
-
-tasks.getByName("reobfTestJar") {
-	afterEvaluate {
-		dependsOn tasks.named("signReobfJar")
-		libraries.from(tasks.getByName("signReobfJar").outputFile)
-	}
-}
-
-tasks.getByName("reobfMultiLoaderTestJar") {
-	afterEvaluate {
-		dependsOn tasks.named("signReobfJar")
-		libraries.from(tasks.getByName("signReobfJar").outputFile)
-	}
-}
 
 processResources {
 	doLast {
