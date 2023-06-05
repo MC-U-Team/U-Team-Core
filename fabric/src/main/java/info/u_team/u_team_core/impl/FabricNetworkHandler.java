@@ -6,14 +6,13 @@ import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+import info.u_team.u_team_core.api.Platform.Environment;
 import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.EnvironmentUtil;
 import io.netty.buffer.Unpooled;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -52,7 +51,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 		
 		if (validNetworkEnvironment(NetworkEnvironment.CLIENT, handlerEnvironment)) {
 			// Register server -> client handler
-			EnvironmentUtil.runWhen(info.u_team.u_team_core.api.Platform.Environment.CLIENT, () -> () -> Client.registerReceiver(this, location, decoder, messageConsumer));
+			EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.registerReceiver(this, location, decoder, messageConsumer));
 		}
 	}
 	
@@ -64,7 +63,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 	
 	@Override
 	public <M> void sendToServer(M message) {
-		EnvironmentUtil.runWhen(info.u_team.u_team_core.api.Platform.Environment.CLIENT, () -> () -> Client.send(this, message));
+		EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.send(this, message));
 	}
 	
 	@Override
@@ -105,8 +104,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 		return environment == null || environment == expected;
 	}
 	
-	@Environment(EnvType.CLIENT)
-	private class Client {
+	private static class Client {
 		
 		public static <M> void send(FabricNetworkHandler handler, M message) {
 			final EncodedMessage encodedMessage = handler.encodeMessage(message, NetworkEnvironment.SERVER);
