@@ -3,6 +3,7 @@ package info.u_team.u_team_core.intern.init;
 import java.util.Optional;
 
 import info.u_team.u_team_core.UCoreMod;
+import info.u_team.u_team_core.UCoreReference;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidContentMessage;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidSlotMessage;
 import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
@@ -15,7 +16,7 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 public class UCoreNetworkForge {
 	
-	public static final String PROTOCOL = "1.19.4-2";
+	public static final String PROTOCOL = UCoreReference.PROTOCOL_VERSION;
 	
 	public static final SimpleChannel NETWORK = NetworkRegistry.newSimpleChannel(new ResourceLocation(UCoreMod.MODID, "network_forge"), () -> PROTOCOL, version -> {
 		// Allow clients to join / view servers without errors when uteamcore is not present there
