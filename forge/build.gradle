@@ -199,6 +199,20 @@ gradlefiles.signDefaultForgeJar()
 gradlefiles.signJar("reobfTestJar")
 gradlefiles.signJar("reobfMultiLoaderTestJar")
 
+tasks.getByName("reobfTestJar") {
+	afterEvaluate {
+		dependsOn tasks.named("signReobfJar")
+		libraries.from(tasks.getByName("signReobfJar").outputFile)
+	}
+}
+
+tasks.getByName("reobfMultiLoaderTestJar") {
+	afterEvaluate {
+		dependsOn tasks.named("signReobfJar")
+		libraries.from(tasks.getByName("signReobfJar").outputFile)
+	}
+}
+
 processResources {
 	doLast {
 		fileTree(dir: outputs.files.asPath, include: "**/*.json").each { File file ->
