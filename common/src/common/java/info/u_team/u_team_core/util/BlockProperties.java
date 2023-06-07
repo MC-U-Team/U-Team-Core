@@ -3,17 +3,15 @@ package info.u_team.u_team_core.util;
 import java.util.List;
 
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.level.material.MaterialColor;
 
 public class BlockProperties extends Properties {
 	
-	public BlockProperties(Material material, MaterialColor color) {
-		super(material, color);
+	public BlockProperties() {
 	}
 	
+	@SuppressWarnings("deprecation")
 	public BlockProperties(Properties properties) {
-		super(properties.material, properties.materialColor);
+		mapColor = properties.mapColor;
 		hasCollision = properties.hasCollision;
 		soundType = properties.soundType;
 		lightEmission = properties.lightEmission;
@@ -27,7 +25,14 @@ public class BlockProperties extends Properties {
 		drops = properties.drops;
 		canOcclude = properties.canOcclude;
 		isAir = properties.isAir;
+		ignitedByLava = properties.ignitedByLava;
+		liquid = properties.liquid;
+		forceSolidOff = properties.forceSolidOff;
+		forceSolidOn = properties.forceSolidOn;
+		pushReaction = properties.pushReaction;
 		spawnParticlesOnBreak = properties.spawnParticlesOnBreak;
+		instrument = properties.instrument;
+		replaceable = properties.replaceable;
 		isValidSpawn = properties.isValidSpawn;
 		isRedstoneConductor = properties.isRedstoneConductor;
 		isSuffocating = properties.isSuffocating;
