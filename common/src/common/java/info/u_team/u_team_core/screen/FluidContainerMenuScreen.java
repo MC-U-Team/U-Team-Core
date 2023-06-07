@@ -1,8 +1,7 @@
 package info.u_team.u_team_core.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import info.u_team.u_team_core.util.ServiceUtil;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.player.Inventory;
@@ -17,14 +16,14 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	}
 	
 	@Override
-	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
-		delegator.renderLabels(poseStack, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		delegator.renderLabels(guiGraphics, mouseX, mouseY);
 	}
 	
 	@Override
-	protected void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
-		super.renderTooltip(poseStack, mouseX, mouseY);
-		delegator.renderTooltip(poseStack, mouseX, mouseY);
+	protected void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		super.renderTooltip(guiGraphics, mouseX, mouseY);
+		delegator.renderTooltip(guiGraphics, mouseX, mouseY);
 	}
 	
 	@Override
@@ -42,9 +41,9 @@ public abstract class FluidContainerMenuScreen<T extends AbstractContainerMenu> 
 	
 	public static interface FluidContainerScreenDelegator {
 		
-		void renderLabels(PoseStack poseStack, int mouseX, int mouseY);
+		void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY);
 		
-		void renderTooltip(PoseStack poseStack, int mouseX, int mouseY);
+		void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY);
 		
 		boolean mouseClicked(double mouseX, double mouseY, int button);
 		

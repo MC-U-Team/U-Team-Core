@@ -1,13 +1,12 @@
 package info.u_team.u_team_core.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
 import info.u_team.u_team_core.api.gui.RenderTickable;
 import info.u_team.u_team_core.api.gui.TooltipRenderable;
 import info.u_team.u_team_core.menu.UContainerMenu;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -78,41 +77,41 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	}
 	
 	@Override
-	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		renderBackground(poseStack, mouseX, mouseY, partialTick);
-		super.render(poseStack, mouseX, mouseY, partialTick);
-		renderForeground(poseStack, mouseX, mouseY, partialTick);
-		renderTooltip(poseStack, mouseX, mouseY, partialTick);
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+		super.render(guiGraphics, mouseX, mouseY, partialTick);
+		renderForeground(guiGraphics, mouseX, mouseY, partialTick);
+		renderTooltip(guiGraphics, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		renderBackground(poseStack);
+	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		renderBackground(guiGraphics);
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 	}
 	
 	@Override
-	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		renderTooltip(poseStack, mouseX, mouseY);
+	public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		renderTooltip(guiGraphics, mouseX, mouseY);
 	}
 	
 	@Override
-	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
-		super.renderLabels(poseStack, mouseX, mouseY);
+	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
+		super.renderLabels(guiGraphics, mouseX, mouseY);
 		if (drawTitleText) {
-			font.draw(poseStack, title, titleLabelX, titleLabelY, textColor.getColorARGB());
+			guiGraphics.drawString(font, title, titleLabelX, titleLabelY, textColor.getColorARGB());
 		}
 		if (drawInventoryText) {
-			font.draw(poseStack, playerInventoryTitle, inventoryLabelX, inventoryLabelY, textColor.getColorARGB());
+			guiGraphics.drawString(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, textColor.getColorARGB());
 		}
 	}
 	
 	@Override
-	protected void renderBg(PoseStack poseStack, float partialTick, int mouseX, int mouseY) {
-		RenderUtil.drawTexturedQuad(poseStack, leftPos, topPos, imageWidth, imageHeight, imageWidth, imageHeight, 0, 0, backgroundWidth, backgroundHeight, 0, background, backgroundColor);
+	protected void renderBg(GuiGraphics guiGraphics, float partialTick, int mouseX, int mouseY) {
+		RenderUtil.drawTexturedQuad(guiGraphics.pose(), leftPos, topPos, imageWidth, imageHeight, imageWidth, imageHeight, 0, 0, backgroundWidth, backgroundHeight, 0, background, backgroundColor);
 	}
 	
 	@Override
