@@ -1,8 +1,7 @@
 package info.u_team.u_team_core.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import info.u_team.u_team_core.screen.FluidContainerMenuScreen.FluidContainerScreenDelegator;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 
 // Unstable, Not implemented yet
@@ -12,11 +11,11 @@ public class FabricFluidContainerMenuScreenDelegator<T extends AbstractContainer
 	}
 	
 	@Override
-	public void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
+	public void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
 	}
 	
 	@Override
-	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
+	public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY) {
 	}
 	
 	@Override
