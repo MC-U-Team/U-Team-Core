@@ -2,9 +2,10 @@ package info.u_team.u_team_test.test_multiloader.init;
 
 import java.util.stream.Stream;
 
-import info.u_team.u_team_core.api.registry.CreativeModeTabRegister;
+import info.u_team.u_team_core.api.registry.CommonRegister;
 import info.u_team.u_team_core.api.registry.ResourceEntry;
 import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.EnchantedBookItem;
@@ -15,9 +16,10 @@ import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 public class TestMultiLoaderCreativeTabs {
 	
-	public static final CreativeModeTabRegister CREATIVE_TABS = CreativeModeTabRegister.create(TestMultiLoaderReference.MODID);
+	public static final CommonRegister<CreativeModeTab> CREATIVE_TABS = CommonRegister.create(Registries.CREATIVE_MODE_TAB, TestMultiLoaderReference.MODID);
 	
-	public static final ResourceEntry<CreativeModeTab> TEST = CREATIVE_TABS.register("test_tab", builder -> {
+	public static final ResourceEntry<CreativeModeTab> TEST = CREATIVE_TABS.register("test_tab", () -> {
+		final CreativeModeTab.Builder builder = CreativeModeTab.builder(null, -1);
 		builder.icon(() -> new ItemStack(TestMultiLoaderBlocks.TEST.get()));
 		builder.displayItems((parameters, output) -> {
 			TestMultiLoaderBlocks.BLOCKS.itemIterable().forEach(item -> {
@@ -33,6 +35,7 @@ public class TestMultiLoaderCreativeTabs {
 			});
 			output.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(TestMultiLoaderEnchantments.TEST.get(), 1)), TabVisibility.PARENT_TAB_ONLY);
 		});
+		return builder.build();
 	});
 	
 	static void register() {

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_test.test_multiloader.blockentity.TestSyncBlockEntity;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.Font.DisplayMode;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
@@ -29,7 +30,8 @@ public class TestSyncBlockEntityRenderer implements BlockEntityRenderer<TestSync
 		poseStack.mulPose(entityRenderer.cameraOrientation());
 		
 		final float x = -font.width(displayString) / 2;
-		font.draw(poseStack, displayString, x, 0, 0xFFFF00);
+		// TODO see DebugRenderer maybe
+		font.drawInBatch(displayString, x, 0, 0xFFFF00, true, poseStack.last().pose(), bufferSource, DisplayMode.NORMAL, 0, 0xF000F0);
 		
 		poseStack.popPose();
 	}
