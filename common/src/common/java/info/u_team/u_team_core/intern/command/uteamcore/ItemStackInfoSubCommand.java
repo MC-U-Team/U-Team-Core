@@ -32,10 +32,10 @@ public class ItemStackInfoSubCommand {
 		final ItemStack stack = source.getPlayerOrException().getMainHandItem();
 		final Item item = stack.getItem();
 		
-		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, Registries.ITEM)), false);
+		source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, Registries.ITEM)), false);
 		
 		if (item instanceof final BlockItem blockItem) {
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), Registries.BLOCK)), false);
+			source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), Registries.BLOCK)), false);
 		}
 		
 		if (stack.hasTag()) {
@@ -44,7 +44,7 @@ public class ItemStackInfoSubCommand {
 					.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(SUCCESS_TRANSLATION_STRING + "copy").withStyle(ChatFormatting.GREEN))) //
 					.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, component.getString()));
 			component.setStyle(style);
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "nbt", component), false);
+			source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "nbt", component), false);
 		}
 		return 0;
 	}
