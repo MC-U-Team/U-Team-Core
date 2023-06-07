@@ -7,6 +7,7 @@ import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Checkbox;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
@@ -96,19 +97,19 @@ public class CheckboxButton extends UButton {
 	}
 	
 	@Override
-	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTick));
-		RenderUtil.drawTexturedQuad(poseStack, x, y, width, height, buttonTextureProvider.getWidth(), buttonTextureProvider.getHeight(), buttonTextureProvider.getU(), buttonTextureProvider.getV(), 64, 64, 0, buttonTextureProvider.getTexture(), color);
+	public void renderWidgetTexture(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(guiGraphics, mouseY, mouseY, partialTick));
+		RenderUtil.drawTexturedQuad(guiGraphics.pose(), x, y, width, height, buttonTextureProvider.getWidth(), buttonTextureProvider.getHeight(), buttonTextureProvider.getU(), buttonTextureProvider.getV(), 64, 64, 0, buttonTextureProvider.getTexture(), color);
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		if (drawText) {
 			final Font font = getCurrentTextFont();
 			
 			final Component message = getCurrentText();
 			if (message != CommonComponents.EMPTY) {
-				final float currentScale = getCurrentScale(poseStack, mouseX, mouseY, partialTick);
+				final float currentScale = getCurrentScale(guiGraphics, mouseX, mouseY, partialTick);
 				
 				final float positionFactor = 1 / currentScale;
 				
@@ -121,16 +122,13 @@ public class CheckboxButton extends UButton {
 					xStart = (x + width + 4) * positionFactor;
 				}
 				
-				final int color = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(poseStack, mouseY, mouseY, partialTick)).getColorARGB();
+				final int color = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(guiGraphics, mouseY, mouseY, partialTick)).getColorARGB();
 				
+				final PoseStack poseStack = guiGraphics.pose();
 				poseStack.pushPose();
 				poseStack.scale(currentScale, currentScale, 0);
 				
-				if (dropShadow) {
-					font.drawShadow(poseStack, getCurrentText(), xStart, yStart, color);
-				} else {
-					font.draw(poseStack, getCurrentText(), xStart, yStart, color);
-				}
+				guiGraphics.drawString(font, getCurrentText(), (int) xStart, (int) yStart, color, dropShadow); // TODO check if casting to int is okay look wise
 				
 				poseStack.popPose();
 			}

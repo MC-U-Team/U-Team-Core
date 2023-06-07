@@ -1,9 +1,9 @@
 package info.u_team.u_team_core.api.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 
 public interface WidgetRenderable extends PerspectiveRenderable {
 	
-	void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTick);
+	void renderWidgetTexture(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
 	
 }

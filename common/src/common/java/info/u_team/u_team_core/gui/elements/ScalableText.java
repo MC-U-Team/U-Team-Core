@@ -9,6 +9,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import info.u_team.u_team_core.api.gui.Scalable;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 
 public class ScalableText implements Renderable, Scalable {
@@ -121,16 +122,19 @@ public class ScalableText implements Renderable, Scalable {
 	}
 	
 	@Override
-	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		// Get new text and set if has changed
 		setText(textSupplier.get());
-		renderFont(poseStack, font, x, y);
+		renderFont(guiGraphics, font, x, y);
 	}
 	
-	protected void renderFont(PoseStack poseStack, Font font, float x, float y) {
+	protected void renderFont(GuiGraphics guiGraphics, Font font, float x, float y) {
+		final PoseStack poseStack = guiGraphics.pose();
 		poseStack.pushPose();
 		poseStack.scale(scale, scale, 0);
-		font.drawInternal(text, x * positionFactor, y * positionFactor, color.getColorARGB(), poseStack.last().pose(), shadow, font.isBidirectional());
+		// font.drawInternal(text, x * positionFactor, y * positionFactor, color.getColorARGB(), poseStack.last().pose(),
+		// shadow, font.isBidirectional());
+		guiGraphics.drawString(font, text, (int) (x * positionFactor), (int) (y * positionFactor), color.getColorARGB(), shadow); // TODO check if int casting is good enough, else use internal font methods that accept floats
 		poseStack.popPose();
 	}
 }

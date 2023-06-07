@@ -3,9 +3,8 @@ package info.u_team.u_team_core.gui.elements;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSelectionList;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -53,7 +52,7 @@ public abstract class ScrollableListEntry<T extends ScrollableListEntry<T>> exte
 	}
 	
 	@Override
-	public abstract void render(PoseStack poseStack, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovered, float partialTick);
+	public abstract void render(GuiGraphics guiGraphics, int index, int top, int left, int width, int height, int mouseX, int mouseY, boolean hovered, float partialTick);
 	
 	@SuppressWarnings("deprecation")
 	protected AbstractSelectionList<T> getList() {

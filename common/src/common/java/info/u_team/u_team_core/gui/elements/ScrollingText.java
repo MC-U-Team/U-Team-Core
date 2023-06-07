@@ -5,10 +5,8 @@ import java.util.function.Supplier;
 import org.joml.Matrix4f;
 import org.joml.Vector4f;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.util.Mth;
 
 public class ScrollingText extends ScalableText {
@@ -78,15 +76,15 @@ public class ScrollingText extends ScalableText {
 	}
 	
 	@Override
-	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		final Matrix4f matrix = poseStack.last().pose();
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		final Matrix4f matrix = guiGraphics.pose().last().pose();
 		
 		final Vector4f vectorXY = new Vector4f(x, y, 0, 1);
 		final Vector4f vectorWH = new Vector4f(x + width, y + ((font.lineHeight + 1) * scale), 0, 1);
 		vectorXY.mul(matrix);
 		vectorWH.mul(matrix);
 		
-		GuiComponent.enableScissor(Mth.ceil(vectorXY.x), Mth.ceil(vectorXY.y), Mth.ceil(vectorWH.x), Mth.ceil(vectorWH.y));
+		guiGraphics.enableScissor(Mth.ceil(vectorXY.x), Mth.ceil(vectorXY.y), Mth.ceil(vectorWH.x), Mth.ceil(vectorWH.y));
 		
 		// Uncomment to test scissor
 		// poseStack.pushPose();
@@ -96,9 +94,9 @@ public class ScrollingText extends ScalableText {
 		// poseStack.popPose();
 		
 		setText(textSupplier.get());
-		renderFont(poseStack, font, getMovingX(x), y + 2 * scale);
+		renderFont(guiGraphics, font, getMovingX(x), y + 2 * scale);
 		
-		GuiComponent.disableScissor();
+		guiGraphics.disableScissor();
 	}
 	
 	protected float getMovingX(float x) {

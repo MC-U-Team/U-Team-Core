@@ -1,8 +1,7 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import info.u_team.u_team_core.util.RGBA;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 
 public class ImageToggleButton extends ImageButton {
@@ -59,12 +58,12 @@ public class ImageToggleButton extends ImageButton {
 	}
 	
 	@Override
-	public ResourceLocation getCurrentImage(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public ResourceLocation getCurrentImage(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		return toggled ? toggleImage : image;
 	}
 	
 	@Override
-	public RGBA getCurrentImageColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public RGBA getCurrentImageColor(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		return toggled ? toggleImageColor : imageColor;
 	}
 }

@@ -5,13 +5,13 @@ import com.mojang.blaze3d.platform.GlStateManager.SourceFactor;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.ObjectSelectionList;
 import net.minecraft.client.renderer.GameRenderer;
 
@@ -84,8 +84,8 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	}
 	
 	@Override
-	protected void renderList(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		super.renderList(poseStack, mouseX, mouseY, partialTick);
+	protected void renderList(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		super.renderList(guiGraphics, mouseX, mouseY, partialTick);
 		
 		if (renderTransparentBorder) {
 			final Tesselator tessellator = Tesselator.getInstance();

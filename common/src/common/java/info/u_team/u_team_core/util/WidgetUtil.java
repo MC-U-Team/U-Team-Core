@@ -12,7 +12,7 @@ import info.u_team.u_team_core.api.gui.TooltipRenderable;
 import info.u_team.u_team_core.api.gui.WidgetRenderable;
 import net.minecraft.Util;
 import net.minecraft.client.gui.Font;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -22,30 +22,30 @@ public class WidgetUtil {
 	
 	private static final String ELLIPSIS = "...";
 	
-	public static <T extends AbstractWidget & WidgetRenderable & BackgroundColorProvider> void renderWidget(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public static <T extends AbstractWidget & WidgetRenderable & BackgroundColorProvider> void renderWidget(T widget, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		RenderSystem.enableDepthTest();
 		
-		widget.renderWidgetTexture(poseStack, mouseX, mouseY, partialTick);
-		widget.renderBackground(poseStack, mouseX, mouseY, partialTick);
-		widget.renderForeground(poseStack, mouseX, mouseY, partialTick);
+		widget.renderWidgetTexture(guiGraphics, mouseX, mouseY, partialTick);
+		widget.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+		widget.renderForeground(guiGraphics, mouseX, mouseY, partialTick);
 		if (widget instanceof final TooltipRenderable tooltipRenderable) {
-			renderCustomTooltipForWidget(tooltipRenderable, poseStack, mouseX, mouseY, partialTick);
+			renderCustomTooltipForWidget(tooltipRenderable, guiGraphics, mouseX, mouseY, partialTick);
 		}
 	}
 	
-	public static <T extends AbstractWidget & BackgroundColorProvider> void renderButtonLikeTexture(T widget, TextureProvider textureProvider, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentBackgroundColor(poseStack, mouseY, mouseY, partialTick));
-		RenderUtil.drawContinuousTexturedBox(poseStack, widget.getX(), widget.getY(), textureProvider.getU(), textureProvider.getV(), widget.getWidth(), widget.getHeight(), textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, 0, textureProvider.getTexture(), color);
+	public static <T extends AbstractWidget & BackgroundColorProvider> void renderButtonLikeTexture(T widget, TextureProvider textureProvider, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentBackgroundColor(guiGraphics, mouseY, mouseY, partialTick));
+		RenderUtil.drawContinuousTexturedBox(guiGraphics.pose(), widget.getX(), widget.getY(), textureProvider.getU(), textureProvider.getV(), widget.getWidth(), widget.getHeight(), textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, 0, textureProvider.getTexture(), color);
 	}
 	
-	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		final Font font = widget.getCurrentTextFont();
 		final TextRenderType renderType = widget.getCurrentTextRenderType();
 		final Component message = widget.getCurrentText();
-		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentTextColor(poseStack, mouseX, mouseY, partialTick));
+		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentTextColor(guiGraphics, mouseX, mouseY, partialTick));
 		final float scale;
 		if (widget instanceof final ScaleProvider scaleProvider) {
-			scale = scaleProvider.getCurrentScale(poseStack, mouseY, mouseY, partialTick);
+			scale = scaleProvider.getCurrentScale(guiGraphics, mouseY, mouseY, partialTick);
 		} else {
 			scale = 1;
 		}
@@ -54,19 +54,20 @@ public class WidgetUtil {
 			return;
 		}
 		
+		final PoseStack poseStack = guiGraphics.pose();
 		poseStack.pushPose();
 		poseStack.scale(scale, scale, 0);
 		
 		if (renderType == TextRenderType.ELLIPSIS) {
-			renderTextWithCutoff(widget, font, message, color, scale, poseStack, mouseX, mouseY, partialTick);
+			renderTextWithCutoff(widget, font, message, color, scale, guiGraphics, mouseX, mouseY, partialTick);
 		} else if (renderType == TextRenderType.SCROLLING) {
-			renderTextWithScrolling(widget, font, message, color, scale, poseStack, mouseX, mouseY, partialTick);
+			renderTextWithScrolling(widget, font, message, color, scale, guiGraphics, mouseX, mouseY, partialTick);
 		}
 		
 		poseStack.popPose();
 	}
 	
-	private static void renderTextWithScrolling(AbstractWidget widget, Font font, Component message, RGBA color, float scale, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	private static void renderTextWithScrolling(AbstractWidget widget, Font font, Component message, RGBA color, float scale, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		final float positionFactor = 1 / scale;
 		
 		final int maxWidth = widget.getWidth() - 6;
@@ -85,16 +86,16 @@ public class WidgetUtil {
 			
 			final float xStart = (widget.getX() + 3 - (int) d3) * positionFactor;
 			
-			GuiComponent.enableScissor(widget.getX() + 3, widget.getY(), widget.getX() + widget.getWidth() - 3, widget.getY() + widget.getHeight());
-			font.drawShadow(poseStack, message, xStart, yStart, color.getColorARGB());
-			GuiComponent.disableScissor();
+			guiGraphics.enableScissor(widget.getX() + 3, widget.getY(), widget.getX() + widget.getWidth() - 3, widget.getY() + widget.getHeight());
+			guiGraphics.drawString(font, message, (int) xStart, (int) yStart, color.getColorARGB()); // TODO check if int casting is good enough, else use internal font methods that accept floats
+			guiGraphics.disableScissor();
 		} else {
 			final float xStart = (widget.getX() + (widget.getWidth() / 2) - messageWidth / 2) * positionFactor;
-			font.drawShadow(poseStack, message, xStart, yStart, color.getColorARGB());
+			guiGraphics.drawString(font, message, (int) xStart, (int) yStart, color.getColorARGB()); // TODO check if int casting is good enough, else use internal font methods that accept floats
 		}
 	}
 	
-	private static void renderTextWithCutoff(AbstractWidget widget, Font font, Component message, RGBA color, float scale, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	private static void renderTextWithCutoff(AbstractWidget widget, Font font, Component message, RGBA color, float scale, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		final float positionFactor = 1 / scale;
 		
 		final int maxWidth = widget.getWidth() - 6;
@@ -109,17 +110,18 @@ public class WidgetUtil {
 		final float xStart = (widget.getX() + (widget.getWidth() / 2) - messageWidth / 2) * positionFactor;
 		final float yStart = (widget.getY() + (Mth.ceil(widget.getHeight() - 9 * scale)) / 2 + 1) * positionFactor;
 		
-		font.drawShadow(poseStack, message, xStart, yStart, color.getColorARGB());
+		guiGraphics.drawString(font, message, (int) xStart, (int) yStart, color.getColorARGB()); // TODO check if int casting is good enough, else use internal font methods that accept floats
 	}
 	
 	public static RGBA respectWidgetAlpha(AbstractWidget widget, RGBA color) {
 		return color.setAlphaComponent(color.getAlphaComponent() * Mth.clamp(widget.alpha, 0, 1));
 	}
 	
-	public static void renderCustomTooltipForWidget(TooltipRenderable renderable, PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public static void renderCustomTooltipForWidget(TooltipRenderable renderable, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		final PoseStack poseStack = guiGraphics.pose();
 		poseStack.pushPose();
 		poseStack.translate(0, 0, 400);
-		renderable.renderTooltip(poseStack, mouseX, mouseY, partialTick);
+		renderable.renderTooltip(guiGraphics, mouseX, mouseY, partialTick);
 		poseStack.popPose();
 	}
 }

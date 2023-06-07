@@ -1,10 +1,9 @@
 package info.u_team.u_team_core.api.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
+import net.minecraft.client.gui.GuiGraphics;
 
 public interface TextSettingsProvider {
 	
@@ -16,7 +15,7 @@ public interface TextSettingsProvider {
 		return TextRenderType.SCROLLING;
 	}
 	
-	RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick);
+	RGBA getCurrentTextColor(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
 	
 	static enum TextRenderType {
 		SCROLLING,
