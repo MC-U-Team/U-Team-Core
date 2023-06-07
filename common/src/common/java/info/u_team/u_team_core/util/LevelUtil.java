@@ -56,7 +56,7 @@ public class LevelUtil {
 		final Vec3 playerVector = entity.position().add(0, entity.getEyeHeight(), 0);
 		final Vec3 lookVector = entity.getLookAngle();
 		final Vec3 locationVector = playerVector.add(lookVector.x * range, lookVector.y * range, lookVector.z * range);
-		return entity.level.clip(new ClipContext(playerVector, locationVector, blockMode, fluidMode, entity));
+		return entity.level().clip(new ClipContext(playerVector, locationVector, blockMode, fluidMode, entity));
 	}
 	
 	/**
@@ -212,6 +212,7 @@ public class LevelUtil {
 	 * @return The teleported entity
 	 */
 	public static Entity teleportEntity(Entity entity, ServerLevel level, double x, double y, double z, float yaw, float pitch, boolean detach) {
+		// TODO vanillas teleport method should work now? check with forge later
 		final float wrapedYaw = Mth.wrapDegrees(yaw);
 		final float wrapedPitch = Mth.wrapDegrees(pitch);
 		if (entity instanceof final ServerPlayer player) {
@@ -222,7 +223,7 @@ public class LevelUtil {
 			if (player.isSleeping()) {
 				player.stopSleepInBed(true, true);
 			}
-			if (level == entity.level) {
+			if (level == entity.level()) {
 				player.connection.teleport(x, y, z, wrapedYaw, wrapedPitch);
 			} else {
 				player.teleportTo(level, x, y, z, wrapedYaw, wrapedPitch);
@@ -230,7 +231,7 @@ public class LevelUtil {
 			entity.setYHeadRot(wrapedYaw);
 		} else {
 			final float clampedPitch = Mth.clamp(wrapedPitch, -90F, 90F);
-			if (level == entity.level) {
+			if (level == entity.level()) {
 				entity.moveTo(x, y, z, wrapedYaw, clampedPitch);
 				entity.setYHeadRot(wrapedYaw);
 			} else {
