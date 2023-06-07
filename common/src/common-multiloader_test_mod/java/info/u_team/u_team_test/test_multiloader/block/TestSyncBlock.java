@@ -11,14 +11,16 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class TestSyncBlock extends UEntityBlock {
 	
 	public TestSyncBlock() {
-		super(Properties.of(Material.METAL).strength(2).requiresCorrectToolForDrops(), TestMultiLoaderBlockEntityTypes.TEST_SYNC);
+		super(Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).sound(SoundType.METAL).strength(2).requiresCorrectToolForDrops(), TestMultiLoaderBlockEntityTypes.TEST_SYNC);
 	}
 	
 	@Override

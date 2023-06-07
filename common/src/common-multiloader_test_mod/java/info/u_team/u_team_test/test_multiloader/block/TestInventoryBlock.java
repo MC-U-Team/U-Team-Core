@@ -19,7 +19,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition.Builder;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class TestInventoryBlock extends UEntityBlock {
@@ -27,7 +28,7 @@ public class TestInventoryBlock extends UEntityBlock {
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
 	
 	public TestInventoryBlock() {
-		super(Properties.of(Material.STONE).strength(2F).requiresCorrectToolForDrops().sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), TestMultiLoaderBlockEntityTypes.TEST_INVENTORY);
+		super(Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).strength(2F).requiresCorrectToolForDrops().sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), TestMultiLoaderBlockEntityTypes.TEST_INVENTORY);
 		registerDefaultState(defaultBlockState().setValue(FACING, Direction.NORTH));
 	}
 	

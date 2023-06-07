@@ -14,13 +14,14 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 
 public class TestMultiLoaderBlocks {
 	
 	public static final BlockRegister BLOCKS = BlockRegister.create(TestMultiLoaderReference.MODID);
 	
-	public static final BlockRegistryEntry<UBlock, BlockItem> TEST = BLOCKS.register("test_block", () -> new UBlock(Properties.of(Material.STONE).requiresCorrectToolForDrops().strength(3).sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), new Item.Properties().rarity(Rarity.UNCOMMON)));
+	public static final BlockRegistryEntry<UBlock, BlockItem> TEST = BLOCKS.register("test_block", () -> new UBlock(Properties.of().mapColor(MapColor.STONE).instrument(NoteBlockInstrument.BASEDRUM).requiresCorrectToolForDrops().strength(3).sound(SoundType.GRAVEL).friction(0.8F).lightLevel(state -> 1), new Item.Properties().rarity(Rarity.UNCOMMON)));
 	public static final BlockRegistryEntry<TestSyncBlock, BlockItem> TEST_SYNC = BLOCKS.register("test_sync_block", TestSyncBlock::new);
 	public static final BlockRegistryEntry<TestInventoryBlock, BlockItem> TEST_INVENTORY = BLOCKS.register("test_inventory_block", TestInventoryBlock::new);
 	

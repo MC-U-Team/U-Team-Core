@@ -46,13 +46,13 @@ public class TestEnderPearl extends ThrowableItemProjectile {
 		super.onHit(result);
 		
 		for (int index = 0; index < 32; ++index) {
-			level.addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + random.nextDouble() * 2.0D, this.getZ(), random.nextGaussian(), 0.0D, random.nextGaussian());
+			level().addParticle(ParticleTypes.PORTAL, this.getX(), this.getY() + random.nextDouble() * 2.0D, this.getZ(), random.nextGaussian(), 0.0D, random.nextGaussian());
 		}
 		
-		if (!level.isClientSide && !isRemoved()) {
+		if (!level().isClientSide() && !isRemoved()) {
 			final Entity entity = getOwner();
 			if (entity instanceof final ServerPlayer player) {
-				if (player.connection.isAcceptingMessages() && player.level == level && !player.isSleeping()) {
+				if (player.connection.isAcceptingMessages() && player.level() == level() && !player.isSleeping()) {
 					
 					if (entity.isPassenger()) {
 						player.dismountTo(getX(), getY(), getZ());
@@ -86,16 +86,11 @@ public class TestEnderPearl extends ThrowableItemProjectile {
 	@Override
 	public Entity changeDimension(ServerLevel level) {
 		final Entity entity = getOwner();
-		if (entity != null && entity.level.dimension() != level.dimension()) {
+		if (entity != null && entity.level().dimension() != level.dimension()) {
 			setOwner(null);
 		}
 		
 		return super.changeDimension(level);
 	}
 	
-	// TODO remove
-	// @Override
-	// public Packet<ClientGamePacketListener> getAddEntityPacket() {
-	// return NetworkHooks.getEntitySpawningPacket(this);
-	// }
 }

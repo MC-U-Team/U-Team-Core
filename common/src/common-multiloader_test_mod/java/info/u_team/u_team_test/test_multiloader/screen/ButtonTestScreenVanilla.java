@@ -2,9 +2,9 @@ package info.u_team.u_team_test.test_multiloader.screen;
 
 import org.slf4j.Logger;
 
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.logging.LogUtils;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractSliderButton;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.Button;
@@ -69,9 +69,9 @@ public class ButtonTestScreenVanilla extends Screen {
 	}
 	
 	@Override
-	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		renderBackground(poseStack);
-		super.render(poseStack, mouseX, mouseY, partialTick);
+	public void render(GuiGraphics guiGrapics, int mouseX, int mouseY, float partialTick) {
+		renderBackground(guiGrapics);
+		super.render(guiGrapics, mouseX, mouseY, partialTick);
 	}
 	
 }

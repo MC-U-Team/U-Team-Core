@@ -1,13 +1,12 @@
 package info.u_team.u_team_test.test_multiloader.screen;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import info.u_team.u_team_core.gui.elements.UButton;
 import info.u_team.u_team_core.gui.elements.USlider;
 import info.u_team.u_team_core.screen.UContainerMenuScreen;
 import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
 import info.u_team.u_team_test.test_multiloader.menu.TestInventoryMenu;
 import io.netty.buffer.Unpooled;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -44,9 +43,9 @@ public class TestInventoryScreen extends UContainerMenuScreen<TestInventoryMenu>
 	}
 	
 	@Override
-	protected void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
-		super.renderLabels(poseStack, mouseX, mouseY);
-		font.draw(poseStack, Component.literal("" + menu.getBlockEntity().getValue()), imageWidth / 2 + 32, 6, 0x404040);
+	protected void renderLabels(GuiGraphics guiGrapics, int mouseX, int mouseY) {
+		super.renderLabels(guiGrapics, mouseX, mouseY);
+		guiGrapics.drawString(font, Integer.toString(menu.getBlockEntity().getValue()), imageWidth / 2 + 32, 6, 0x404040);
 	}
 	
 }
