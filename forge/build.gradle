@@ -261,11 +261,12 @@ repositories {
 }
 
 dependencies {
-	minecraft gradlefiles.forgeDependency()
+	//minecraft gradlefiles.forgeDependency() // TODO change back when forge 1.20 releases
+	minecraft "net.minecraftforge:forge:1.19.4-45.0.66" // Hardcode 1.19.4 for now
 	
-	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
-	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
-	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
+	//compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
+	//compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
+	//runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
 	
 	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }

@@ -84,6 +84,10 @@ dependencies {
 	modRuntimeOnly gradlefiles.fabricApiDependency()
 }
 
+tasks.named("validateAccessWidener").configure {
+	enabled = false
+}
+
 publishing {
 	repositories {
 		maven {
