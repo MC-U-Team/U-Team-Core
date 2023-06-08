@@ -61,37 +61,35 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 		return "Loot-Table";
 	}
 	
-	protected static void registerBlock(Supplier<? extends Block> supplier, LootTable lootTable, BiConsumer<ResourceLocation, LootTable> consumer) {
-		registerBlock(supplier.get(), lootTable, consumer);
+	protected static void registerBlock(Supplier<? extends Block> supplier, LootTable.Builder builder, BiConsumer<ResourceLocation, LootTable> consumer) {
+		registerBlock(supplier.get(), builder, consumer);
 	}
 	
-	protected static void registerBlock(Block block, LootTable lootTable, BiConsumer<ResourceLocation, LootTable> consumer) {
-		final ResourceLocation registryName = ForgeRegistries.BLOCKS.getKey(block);
-		consumer.accept(new ResourceLocation(registryName.getNamespace(), "blocks/" + registryName.getPath()), lootTable);
+	protected static void registerBlock(Block block, LootTable.Builder builder, BiConsumer<ResourceLocation, LootTable> consumer) {
+		final ResourceLocation location = ForgeRegistries.BLOCKS.getKey(block).withPrefix("blocks/");
+		consumer.accept(location, builder.setRandomSequence(location).build());
 	}
 	
-	protected static LootTable addBasicBlockLootTable(ItemLike item) {
+	protected static LootTable.Builder addBasicBlockLootTable(ItemLike item) {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
 						.setRolls(ConstantValue.exactly(1)) //
 						.add(LootItem.lootTableItem(item)) //
-						.when(ExplosionCondition.survivesExplosion())) //
-				.build();
+						.when(ExplosionCondition.survivesExplosion()));
 	}
 	
-	protected static LootTable addBlockEntityBlockLootTable(ItemLike item) {
+	protected static LootTable.Builder addBlockEntityBlockLootTable(ItemLike item) {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
 						.setRolls(ConstantValue.exactly(1)) //
 						.add(LootItem.lootTableItem(item)) //
 						.apply(SetBlockEntityNBTLootItemFunction.builder()) //
-						.when(ExplosionCondition.survivesExplosion())) //
-				.build();
+						.when(ExplosionCondition.survivesExplosion()));
 	}
 	
-	protected static LootTable addFortuneBlockLootTable(Block block, ItemLike item) {
+	protected static LootTable.Builder addFortuneBlockLootTable(Block block, ItemLike item) {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
@@ -101,8 +99,7 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 										.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))) //
 								).otherwise(LootItem.lootTableItem(item) //
 										.apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)) //
-										.apply(ApplyExplosionDecay.explosionDecay()))))
-				.build();
+										.apply(ApplyExplosionDecay.explosionDecay()))));
 	}
 	
 }
