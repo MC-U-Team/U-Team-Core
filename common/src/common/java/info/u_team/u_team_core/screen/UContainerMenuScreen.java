@@ -102,10 +102,10 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	protected void renderLabels(GuiGraphics guiGraphics, int mouseX, int mouseY) {
 		super.renderLabels(guiGraphics, mouseX, mouseY);
 		if (drawTitleText) {
-			guiGraphics.drawString(font, title, titleLabelX, titleLabelY, textColor.getColorARGB());
+			guiGraphics.drawString(font, title, titleLabelX, titleLabelY, textColor.getColorARGB(), false);
 		}
 		if (drawInventoryText) {
-			guiGraphics.drawString(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, textColor.getColorARGB());
+			guiGraphics.drawString(font, playerInventoryTitle, inventoryLabelX, inventoryLabelY, textColor.getColorARGB(), false);
 		}
 	}
 	

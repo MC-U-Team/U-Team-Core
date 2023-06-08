@@ -30,8 +30,7 @@ public class TestSyncBlockEntityRenderer implements BlockEntityRenderer<TestSync
 		poseStack.mulPose(entityRenderer.cameraOrientation());
 		
 		final float x = -font.width(displayString) / 2;
-		// TODO see DebugRenderer maybe
-		font.drawInBatch(displayString, x, 0, 0xFFFF00, true, poseStack.last().pose(), bufferSource, DisplayMode.NORMAL, 0, 0xF000F0);
+		font.drawInBatch(displayString, x, 0, 0xFFFF00, true, poseStack.last().pose(), bufferSource, DisplayMode.POLYGON_OFFSET, 0, 0xF000F0);
 		
 		poseStack.popPose();
 	}
