@@ -13,6 +13,7 @@
 		"MainMixin",
 		"SpawnEggItemMixin",
 		"KeyboardHandlerMixin",
+		"UContainerMenuScreenMixin",
 		"common.ServerPlayerMixin"
 	],
 	"injectors": {
