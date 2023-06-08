@@ -45,7 +45,7 @@ public class TestInventoryScreen extends UContainerMenuScreen<TestInventoryMenu>
 	@Override
 	protected void renderLabels(GuiGraphics guiGrapics, int mouseX, int mouseY) {
 		super.renderLabels(guiGrapics, mouseX, mouseY);
-		guiGrapics.drawString(font, Integer.toString(menu.getBlockEntity().getValue()), imageWidth / 2 + 32, 6, 0x404040);
+		guiGrapics.drawString(font, Integer.toString(menu.getBlockEntity().getValue()), imageWidth / 2 + 32, 6, 0x404040, false);
 	}
 	
 }
