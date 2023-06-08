@@ -2,10 +2,10 @@ package info.u_team.u_team_core.api.registry;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.function.BiFunction;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.function.UnaryOperator;
 
 import info.u_team.u_team_core.util.ServiceUtil;
 import net.minecraft.core.Registry;
@@ -22,22 +22,30 @@ public interface CreativeModeTabRegister extends Iterable<RegistryEntry<Creative
 			private final CommonRegister<CreativeModeTab> register = CommonRegister.create(Registries.CREATIVE_MODE_TAB, modid);
 			
 			@Override
-			public RegistryEntry<CreativeModeTab> register(String name, BiFunction<ResourceLocation, CreativeModeTab.Builder, CreativeModeTab.Builder> function) {
-				return registerBuilder(name, location -> function.apply(location, Builder.INSTANCE.create()));
+			public RegistryEntry<CreativeModeTab> register(String name, BiConsumer<ResourceLocation, CreativeModeTab.Builder> consumer) {
+				return register(name, location -> {
+					final CreativeModeTab.Builder builder = Builder.INSTANCE.create();
+					consumer.accept(location, builder);
+					return builder;
+				});
 			}
 			
 			@Override
-			public RegistryEntry<CreativeModeTab> register(String name, UnaryOperator<CreativeModeTab.Builder> function) {
-				return registerBuilder(name, () -> function.apply(Builder.INSTANCE.create()));
+			public RegistryEntry<CreativeModeTab> register(String name, Consumer<CreativeModeTab.Builder> consumer) {
+				return register(name, () -> {
+					final CreativeModeTab.Builder builder = Builder.INSTANCE.create();
+					consumer.accept(builder);
+					return builder;
+				});
 			}
 			
 			@Override
-			public RegistryEntry<CreativeModeTab> registerBuilder(String name, Function<ResourceLocation, CreativeModeTab.Builder> function) {
+			public RegistryEntry<CreativeModeTab> register(String name, Function<ResourceLocation, CreativeModeTab.Builder> function) {
 				return register.register(name, location -> function.apply(location).build());
 			}
 			
 			@Override
-			public RegistryEntry<CreativeModeTab> registerBuilder(String name, Supplier<CreativeModeTab.Builder> supplier) {
+			public RegistryEntry<CreativeModeTab> register(String name, Supplier<CreativeModeTab.Builder> supplier) {
 				return register.register(name, () -> supplier.get().build());
 			}
 			
@@ -78,13 +86,13 @@ public interface CreativeModeTabRegister extends Iterable<RegistryEntry<Creative
 		};
 	}
 	
-	RegistryEntry<CreativeModeTab> register(String name, BiFunction<ResourceLocation, CreativeModeTab.Builder, CreativeModeTab.Builder> function);
+	RegistryEntry<CreativeModeTab> register(String name, BiConsumer<ResourceLocation, CreativeModeTab.Builder> consumer);
 	
-	RegistryEntry<CreativeModeTab> register(String name, UnaryOperator<CreativeModeTab.Builder> function);
+	RegistryEntry<CreativeModeTab> register(String name, Consumer<CreativeModeTab.Builder> consumer);
 	
-	RegistryEntry<CreativeModeTab> registerBuilder(String name, Function<ResourceLocation, CreativeModeTab.Builder> function);
+	RegistryEntry<CreativeModeTab> register(String name, Function<ResourceLocation, CreativeModeTab.Builder> function);
 	
-	RegistryEntry<CreativeModeTab> registerBuilder(String name, Supplier<CreativeModeTab.Builder> supplier);
+	RegistryEntry<CreativeModeTab> register(String name, Supplier<CreativeModeTab.Builder> supplier);
 	
 	void register();
 	

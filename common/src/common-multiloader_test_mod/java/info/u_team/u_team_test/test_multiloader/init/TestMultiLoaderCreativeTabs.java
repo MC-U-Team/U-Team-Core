@@ -33,7 +33,6 @@ public class TestMultiLoaderCreativeTabs {
 			});
 			output.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(TestMultiLoaderEnchantments.TEST.get(), 1)), TabVisibility.PARENT_TAB_ONLY);
 		});
-		return builder;
 	});
 	
 	static void register() {

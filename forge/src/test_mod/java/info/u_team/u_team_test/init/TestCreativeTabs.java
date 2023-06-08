@@ -22,7 +22,6 @@ public class TestCreativeTabs {
 				output.accept(item);
 			});
 		});
-		return builder;
 	});
 	
 	public static void register() {
