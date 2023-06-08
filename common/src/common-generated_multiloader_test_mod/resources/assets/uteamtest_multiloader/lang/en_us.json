@@ -4,6 +4,7 @@
 	"block.uteamtest_multiloader.test_no_item": "Test No Item Block",
 	"block.uteamtest_multiloader.test_no_item_implicit": "Test No Item Implicit Block",
 	"block.uteamtest_multiloader.test_sync_block": "Test Sync Block",
+	"creativetabs.uteamtest_multiloader.test_tab": "Multiloader Test Tab",
 	"death.attack.test": "%1$s dies of test effect",
 	"effect.uteamtest_multiloader.test": "Test Effect",
 	"enchantment.uteamtest_multiloader.test": "Test Enchantment",

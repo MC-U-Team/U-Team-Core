@@ -10,6 +10,7 @@ import java.util.function.Supplier;
 import info.u_team.u_team_core.util.ServiceUtil;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -24,7 +25,7 @@ public interface CreativeModeTabRegister extends Iterable<RegistryEntry<Creative
 			@Override
 			public RegistryEntry<CreativeModeTab> register(String name, BiConsumer<ResourceLocation, CreativeModeTab.Builder> consumer) {
 				return register(name, location -> {
-					final CreativeModeTab.Builder builder = Builder.INSTANCE.create();
+					final CreativeModeTab.Builder builder = createDefaultBuilder(location);
 					consumer.accept(location, builder);
 					return builder;
 				});
@@ -32,11 +33,17 @@ public interface CreativeModeTabRegister extends Iterable<RegistryEntry<Creative
 			
 			@Override
 			public RegistryEntry<CreativeModeTab> register(String name, Consumer<CreativeModeTab.Builder> consumer) {
-				return register(name, () -> {
-					final CreativeModeTab.Builder builder = Builder.INSTANCE.create();
+				return register(name, location -> {
+					final CreativeModeTab.Builder builder = createDefaultBuilder(location);
 					consumer.accept(builder);
 					return builder;
 				});
+			}
+			
+			private static CreativeModeTab.Builder createDefaultBuilder(ResourceLocation location) {
+				final CreativeModeTab.Builder builder = Builder.INSTANCE.create();
+				builder.title(Component.translatable("creativetabs.%s.%s".formatted(location.getNamespace(), location.getPath())));
+				return builder;
 			}
 			
 			@Override

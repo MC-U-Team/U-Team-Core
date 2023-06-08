@@ -3,7 +3,7 @@ package info.u_team.u_team_test.test_multiloader.init;
 import java.util.stream.Stream;
 
 import info.u_team.u_team_core.api.registry.CreativeModeTabRegister;
-import info.u_team.u_team_core.api.registry.ResourceEntry;
+import info.u_team.u_team_core.api.registry.RegistryEntry;
 import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
@@ -17,7 +17,7 @@ public class TestMultiLoaderCreativeTabs {
 	
 	public static final CreativeModeTabRegister CREATIVE_TABS = CreativeModeTabRegister.create(TestMultiLoaderReference.MODID);
 	
-	public static final ResourceEntry<CreativeModeTab> TEST = CREATIVE_TABS.register("test_tab", builder -> {
+	public static final RegistryEntry<CreativeModeTab> TEST = CREATIVE_TABS.register("test_tab", builder -> {
 		builder.icon(() -> new ItemStack(TestMultiLoaderBlocks.TEST.get()));
 		builder.displayItems((parameters, output) -> {
 			TestMultiLoaderBlocks.BLOCKS.itemIterable().forEach(item -> {
