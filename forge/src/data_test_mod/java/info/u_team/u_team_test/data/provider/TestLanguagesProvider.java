@@ -14,7 +14,7 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 	
 	@Override
 	public void register() {
-		add(TestCreativeTabs.TAB, "UTeamTest Tab");
+		add(TestCreativeTabs.TAB.get(), "UTeamTest Tab");
 		
 		addItem(TestItems.BASIC_ARMOR.helmet(), "Basic Helmet");
 		addItem(TestItems.BASIC_ARMOR.chestplate(), "Basic Chestplate");
