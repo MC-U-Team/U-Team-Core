@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.util;
 
+import java.util.Collections;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -8,13 +9,10 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.server.level.TicketType;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.ClipContext.Block;
 import net.minecraft.world.level.ClipContext.Fluid;
@@ -191,64 +189,14 @@ public class LevelUtil {
 	 * @param z Z-Coordinate
 	 * @param yaw Yaw
 	 * @param pitch Pitch
-	 * @return The teleported entity
+	 * @return The teleported entity or if tele port fails the current one
 	 */
 	public static Entity teleportEntity(Entity entity, ServerLevel level, double x, double y, double z, float yaw, float pitch) {
-		return teleportEntity(entity, level, x, y, z, yaw, pitch, true);
-	}
-	
-	/**
-	 * Teleports any entity to a given location in a given {@link ServerLevel}.
-	 *
-	 * @param entity The entity to teleport
-	 * @param level The server level where the entity should be teleported. Can be the same as the current level or a
-	 *        different one
-	 * @param x X-Coordinate
-	 * @param y Y-Coordinate
-	 * @param z Z-Coordinate
-	 * @param yaw Yaw
-	 * @param pitch Pitch
-	 * @param detach Detach the entity
-	 * @return The teleported entity
-	 */
-	public static Entity teleportEntity(Entity entity, ServerLevel level, double x, double y, double z, float yaw, float pitch, boolean detach) {
-		// TODO vanillas teleport method should work now? check with forge later
 		final float wrapedYaw = Mth.wrapDegrees(yaw);
 		final float wrapedPitch = Mth.wrapDegrees(pitch);
-		if (entity instanceof final ServerPlayer player) {
-			level.getChunkSource().addRegionTicket(TicketType.POST_TELEPORT, new ChunkPos(BlockPos.containing(x, y, z)), 1, entity.getId());
-			if (detach) {
-				player.stopRiding();
-			}
-			if (player.isSleeping()) {
-				player.stopSleepInBed(true, true);
-			}
-			if (level == entity.level()) {
-				player.connection.teleport(x, y, z, wrapedYaw, wrapedPitch);
-			} else {
-				player.teleportTo(level, x, y, z, wrapedYaw, wrapedPitch);
-			}
-			entity.setYHeadRot(wrapedYaw);
-		} else {
-			final float clampedPitch = Mth.clamp(wrapedPitch, -90F, 90F);
-			if (level == entity.level()) {
-				entity.moveTo(x, y, z, wrapedYaw, clampedPitch);
-				entity.setYHeadRot(wrapedYaw);
-			} else {
-				if (detach) {
-					entity.unRide();
-				}
-				final Entity entityOld = entity;
-				entity = entity.getType().create(level);
-				if (entity == null) {
-					return null;
-				}
-				entity.restoreFrom(entityOld);
-				entity.moveTo(x, y, z, wrapedYaw, clampedPitch);
-				entity.setYHeadRot(wrapedYaw);
-				entityOld.setRemoved(Entity.RemovalReason.CHANGED_DIMENSION);
-				level.addDuringTeleport(entity);
-			}
+		
+		if (!entity.teleportTo(level, x, y, z, Collections.emptySet(), wrapedYaw, wrapedPitch)) {
+			return entity;
 		}
 		
 		if (!(entity instanceof final LivingEntity livingEntity) || !livingEntity.isFallFlying()) {
