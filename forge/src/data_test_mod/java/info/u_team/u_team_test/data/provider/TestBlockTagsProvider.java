@@ -23,17 +23,11 @@ public class TestBlockTagsProvider extends CommonBlockTagsProvider {
 		tag(VanillaTierTags.MINEABLE_WITH_SHOVEL).add(TestBlocks.BASIC.get());
 		tag(VanillaTierTags.NEEDS_STONE_TOOL).add(TestBlocks.BASIC.get());
 		
-		tag(VanillaTierTags.MINEABLE_WITH_PICKAXE).add(TestBlocks.BASIC_BLOCKENTITY.get());
-		tag(VanillaTierTags.NEEDS_IRON_TOOL).add(TestBlocks.BASIC_BLOCKENTITY.get());
-		
 		tag(VanillaTierTags.MINEABLE_WITH_PICKAXE).add(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		tag(VanillaTierTags.NEEDS_IRON_TOOL).add(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		
 		tag(VanillaTierTags.MINEABLE_WITH_PICKAXE).add(TestBlocks.BASIC_FLUID_INVENTORY.get());
 		tag(VanillaTierTags.NEEDS_IRON_TOOL).add(TestBlocks.BASIC_FLUID_INVENTORY.get());
-		
-		tag(VanillaTierTags.MINEABLE_WITH_PICKAXE).add(TestBlocks.BASIC_SYNC.get());
-		tag(VanillaTierTags.NEEDS_STONE_TOOL).add(TestBlocks.BASIC_SYNC.get());
 		
 		// Add normal tags
 		tag(TEST_TAG_1).add(Blocks.ACACIA_BUTTON, Blocks.ACACIA_DOOR);

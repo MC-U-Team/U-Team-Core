@@ -3,12 +3,11 @@ package info.u_team.u_team_core.intern.command.uteamcore;
 import com.mojang.brigadier.builder.ArgumentBuilder;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
-import info.u_team.u_team_core.util.CastUtil;
+import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.ClickEvent;
@@ -33,10 +32,10 @@ public class ItemStackInfoSubCommand {
 		final ItemStack stack = source.getPlayerOrException().getMainHandItem();
 		final Item item = stack.getItem();
 		
-		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, Registries.ITEM)), false);
+		source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "item", createRegistryInfo(item, Registries.ITEM)), false);
 		
 		if (item instanceof final BlockItem blockItem) {
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), Registries.BLOCK)), false);
+			source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), Registries.BLOCK)), false);
 		}
 		
 		if (stack.hasTag()) {
@@ -45,13 +44,13 @@ public class ItemStackInfoSubCommand {
 					.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(SUCCESS_TRANSLATION_STRING + "copy").withStyle(ChatFormatting.GREEN))) //
 					.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, component.getString()));
 			component.setStyle(style);
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "nbt", component), false);
+			source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "nbt", component), false);
 		}
 		return 0;
 	}
 	
 	private static <T> Component createRegistryInfo(T entry, ResourceKey<Registry<T>> key) {
-		final Registry<T> vanillaRegistry = CastUtil.uncheckedCast(BuiltInRegistries.REGISTRY.get(key.location()));
+		final Registry<T> vanillaRegistry = RegistryUtil.getBuiltInRegistry(key);
 		final MutableComponent component = Component.literal(vanillaRegistry.getKey(entry).toString());
 		final String className = getClassString(entry);
 		component.withStyle(style -> style.withColor(ChatFormatting.AQUA) //

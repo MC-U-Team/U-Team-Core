@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"": {
+			"model": "uteamtest_multiloader:block/test_no_item"
+		}
+	}
+}

@@ -15,4 +15,6 @@ public @interface Integration {
 	
 	String integration();
 	
+	int priority() default 1000;
+	
 }

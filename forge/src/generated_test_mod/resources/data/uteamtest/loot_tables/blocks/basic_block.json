@@ -38,12 +38,13 @@
 									"function": "minecraft:explosion_decay"
 								}
 							],
-							"name": "uteamtest:basic_item"
+							"name": "minecraft:acacia_log"
 						}
 					]
 				}
 			],
 			"rolls": 1.0
 		}
-	]
+	],
+	"random_sequence": "uteamtest:blocks/basic_block"
 }

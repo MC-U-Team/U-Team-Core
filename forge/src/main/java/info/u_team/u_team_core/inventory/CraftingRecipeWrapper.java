@@ -1,11 +1,11 @@
 package info.u_team.u_team_core.inventory;
 
 import net.minecraft.world.entity.player.StackedContents;
-import net.minecraft.world.inventory.CraftingContainer;
+import net.minecraft.world.inventory.TransientCraftingContainer;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.items.IItemHandlerModifiable;
 
-public class CraftingRecipeWrapper extends CraftingContainer {
+public class CraftingRecipeWrapper extends TransientCraftingContainer {
 	
 	protected final IItemHandlerModifiable inventory;
 	

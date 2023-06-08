@@ -1,0 +1,27 @@
+{
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"key": {
+		"E": {
+			"item": "minecraft:ender_chest"
+		},
+		"L": {
+			"item": "minecraft:acacia_fence"
+		},
+		"S": {
+			"item": "minecraft:allium"
+		},
+		"W": {
+			"tag": "minecraft:wool"
+		}
+	},
+	"pattern": [
+		"WLW",
+		"ESE",
+		"WLW"
+	],
+	"result": {
+		"item": "uteamtest_multiloader:test_item"
+	},
+	"show_notification": true
+}

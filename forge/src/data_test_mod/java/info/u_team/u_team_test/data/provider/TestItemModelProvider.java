@@ -14,18 +14,12 @@ public class TestItemModelProvider extends CommonItemModelProvider {
 	@Override
 	public void register() {
 		// Items
-		simpleGenerated(TestItems.BASIC.get());
-		simpleGenerated(TestItems.BASIC_FOOD.get());
-		simpleGenerated(TestItems.BETTER_ENDERPEARL.get());
 		iterateItems(TestItems.BASIC_TOOL, this::simpleHandheld);
 		iterateItems(TestItems.BASIC_ARMOR, this::simpleGenerated);
-		spawnEgg(TestItems.TEST_LIVING_SPAWN_EGG.get());
 		// Blocks
 		simpleBlock(TestBlocks.BASIC.get());
-		simpleBlock(TestBlocks.BASIC_BLOCKENTITY.get());
 		simpleBlock(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		simpleBlock(TestBlocks.BASIC_FLUID_INVENTORY.get());
-		simpleBlock(TestBlocks.BASIC_SYNC.get());
 	}
 	
 }

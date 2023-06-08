@@ -42,9 +42,9 @@ public class DimensionTeleportSubCommand {
 	private static int execute(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel level) {
 		targets.forEach(entity -> LevelUtil.teleportEntity(entity, level, entity.position()));
 		if (targets.size() == 1) {
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), level.dimension().location()), true);
+			source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "single", targets.iterator().next().getDisplayName(), level.dimension().location()), true);
 		} else {
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), level.dimension().location()), true);
+			source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "multiple", targets.size(), level.dimension().location()), true);
 		}
 		return 0;
 	}
@@ -63,9 +63,9 @@ public class DimensionTeleportSubCommand {
 	
 	private static void sendPositionInfo(CommandSourceStack source, Collection<? extends Entity> targets, ServerLevel level, Vec3 pos) {
 		if (targets.size() == 1) {
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), level.dimension().location(), pos.x, pos.y, pos.z), true);
+			source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "position.single", targets.iterator().next().getDisplayName(), level.dimension().location(), pos.x, pos.y, pos.z), true);
 		} else {
-			source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), level.dimension().location(), pos.x, pos.y, pos.z), true);
+			source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "position.multiple", targets.size(), level.dimension().location(), pos.x, pos.y, pos.z), true);
 		}
 	}
 }

@@ -1,0 +1,26 @@
+{
+	"type": "minecraft:block",
+	"pools": [
+		{
+			"bonus_rolls": 0.0,
+			"conditions": [
+				{
+					"condition": "minecraft:survives_explosion"
+				}
+			],
+			"entries": [
+				{
+					"type": "minecraft:item",
+					"name": "uteamtest_multiloader:test_inventory_block"
+				}
+			],
+			"functions": [
+				{
+					"function": "uteamcore:set_blockentity_nbt"
+				}
+			],
+			"rolls": 1.0
+		}
+	],
+	"random_sequence": "uteamtest_multiloader:blocks/test_inventory_block"
+}

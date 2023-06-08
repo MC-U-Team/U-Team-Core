@@ -1,4 +1,3 @@
 {
-	"UContainerMenu Init Menu Hook": "asm/ucontainermenu-init-menu.js",
 	"Dataprovider Change Indent to Tab": "asm/dataprovider-set-indent.js"
 }

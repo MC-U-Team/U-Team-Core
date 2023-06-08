@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.function.Supplier;
 
 import info.u_team.u_team_core.menu.FluidContainerMenu;
+import info.u_team.u_team_core.menu.ForgeFluidContainerMenuDelegator;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
@@ -46,7 +47,7 @@ public class FluidClickContainerMessage {
 			final Context context = contextSupplier.get();
 			context.enqueueWork(() -> {
 				final ServerPlayer player = context.getSender();
-				getFluidContainer(player.containerMenu, message.id).ifPresent(container -> container.fluidSlotClick(player, message.slot, message.shift, message.stack));
+				getFluidContainer(player.containerMenu, message.id).ifPresent(menu -> ((ForgeFluidContainerMenuDelegator) (menu.getDelegator())).fluidSlotClick(player, message.slot, message.shift, message.stack));
 			});
 			context.setPacketHandled(true);
 		}

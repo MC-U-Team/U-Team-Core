@@ -1,11 +1,10 @@
 package info.u_team.u_team_core.api.gui;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import info.u_team.u_team_core.util.RGBA;
+import net.minecraft.client.gui.GuiGraphics;
 
 public interface BackgroundColorProvider {
 	
-	RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick);
+	RGBA getCurrentBackgroundColor(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
 	
 }

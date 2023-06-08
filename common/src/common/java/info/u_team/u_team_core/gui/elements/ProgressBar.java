@@ -3,11 +3,9 @@ package info.u_team.u_team_core.gui.elements;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiComponent;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Renderable;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.resources.sounds.SimpleSoundInstance;
@@ -45,12 +43,12 @@ public class ProgressBar implements GuiEventListener, Renderable {
 	}
 	
 	@Override
-	public void render(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		if (visible) {
 			hovered = mouseX >= x && mouseY >= y && mouseX < x + width && mouseY < y + height;
 			
-			GuiComponent.fill(poseStack, x, y, x + width, y + height, backgroundColor.getColorARGB());
-			GuiComponent.fill(poseStack, x, y, (int) (x + (progress.get() * width)), y + height, progressColor.getColorARGB());
+			guiGraphics.fill(x, y, x + width, y + height, backgroundColor.getColorARGB());
+			guiGraphics.fill(x, y, (int) (x + (progress.get() * width)), y + height, progressColor.getColorARGB());
 		}
 	}
 	

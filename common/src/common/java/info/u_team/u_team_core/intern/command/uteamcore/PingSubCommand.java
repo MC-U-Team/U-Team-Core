@@ -23,12 +23,13 @@ public class PingSubCommand {
 	}
 	
 	private static int execute(CommandSourceStack source) throws CommandSyntaxException {
-		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "self", Component.literal(String.valueOf(source.getPlayerOrException().latency)).withStyle(ChatFormatting.GOLD)), false);
+		final ServerPlayer player = source.getPlayerOrException();
+		source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "self", Component.literal(String.valueOf(player.latency)).withStyle(ChatFormatting.GOLD)), false);
 		return 0;
 	}
 	
 	private static int execute(CommandSourceStack source, ServerPlayer player) {
-		source.sendSuccess(Component.translatable(SUCCESS_TRANSLATION_STRING + "other", player.getName(), Component.literal(String.valueOf(player.latency)).withStyle(ChatFormatting.GOLD)), false);
+		source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "other", player.getName(), Component.literal(String.valueOf(player.latency)).withStyle(ChatFormatting.GOLD)), false);
 		return 0;
 	}
 	

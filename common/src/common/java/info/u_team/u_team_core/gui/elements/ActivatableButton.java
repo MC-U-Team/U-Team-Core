@@ -1,8 +1,7 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import info.u_team.u_team_core.util.RGBA;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
 
 public class ActivatableButton extends UButton {
@@ -38,7 +37,7 @@ public class ActivatableButton extends UButton {
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public RGBA getCurrentBackgroundColor(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		return activated ? activatedColor : buttonColor;
 	}
 }

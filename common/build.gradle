@@ -1,25 +1,8 @@
-buildscript {
-	repositories {
-		maven {
-			url = "https://repo.spongepowered.org/repository/maven-public"
-		}
-		maven {
-			url = "https://maven.minecraftforge.net"
-		}
-		maven {
-			url = "https://repo.u-team.info"
-		}
-		mavenCentral()
-	}
-	dependencies {
-		classpath group: "org.spongepowered", name: "vanillagradle", version: "0.2.1-SNAPSHOT", changing: true
-		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "2.0.5"
-	}
+plugins {
+	id "fabric-loom"
+	id "info.u_team.gradle_files"
+	id "maven-publish"
 }
-
-apply plugin: "org.spongepowered.gradle.vanilla"
-apply plugin: "info.u_team.gradle_files"
-apply plugin: "maven-publish"
 
 gradlefiles.loaderSuffix = "common"
 
@@ -35,20 +18,19 @@ java {
 	withJavadocJar()
 }
 
-minecraft {
-	version(config.minecraft.version)
-	accessWideners(project(":fabric").file("src/main/resources/uteamcore.accesswidener"))
+loom {
+	accessWidenerPath = project(":fabric").file("src/main/resources/uteamcore.accesswidener")
 }
 
-tasks.withType(Jar) { task ->
+tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 }
 
-tasks.withType(Javadoc) { task ->
+tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
-gradlefiles.signJar("jar")
+gradlefiles.signJar("remapJar")
 
 processResources {
 	doLast {
@@ -83,6 +65,27 @@ sourceSets {
 		compileClasspath += main.runtimeClasspath
 		runtimeClasspath += main.runtimeClasspath
 	}
+}
+
+repositories {
+	maven {
+		url = "https://maven.parchmentmc.org"
+	}
+}
+
+dependencies {
+	minecraft gradlefiles.fabricMinecraftDependency()
+	mappings loom.layered() {
+		officialMojangMappings()
+		parchment(config.fabric.mapping_layer)
+	}
+	
+	modImplementation gradlefiles.fabricLoaderDependency()
+	modRuntimeOnly gradlefiles.fabricApiDependency()
+}
+
+tasks.named("validateAccessWidener").configure {
+	enabled = false
 }
 
 publishing {

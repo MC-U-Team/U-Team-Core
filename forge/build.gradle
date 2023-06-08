@@ -1,29 +1,11 @@
-buildscript {
-	repositories {
-		maven {
-			url = "https://maven.minecraftforge.net"
-		}
-		maven {
-			url = "https://maven.parchmentmc.org"
-		}
-		maven {
-			url = "https://repo.u-team.info"
-		}
-		mavenCentral()
-	}
-	dependencies {
-		classpath group: "net.minecraftforge.gradle", name: "ForgeGradle", version: "5.1.+", changing: true
-		classpath group: "org.parchmentmc", name: "librarian", version: "1.+", changing: true
-		classpath group: "info.u-team.gradle_files", name: "gradle_files", version: "2.0.5"
-		classpath group: "info.u-team.curse_gradle_uploader", name: "curse_gradle_uploader", version: "1.5.1"
-	}
+plugins {
+	id "net.minecraftforge.gradle"
+	id "org.parchmentmc.librarian.forgegradle"
+	id "org.spongepowered.mixin"
+	id "info.u_team.gradle_files"
+	id "info.u_team.curse_gradle_uploader"
+	id "maven-publish"
 }
-
-apply plugin: "net.minecraftforge.gradle"
-apply plugin: "org.parchmentmc.librarian.forgegradle"
-apply plugin: "info.u_team.gradle_files"
-apply plugin: "info.u_team.curse_gradle_uploader"
-apply plugin: "maven-publish"
 
 gradlefiles.loaderSuffix = "forge"
 
@@ -155,32 +137,78 @@ minecraft {
 	}
 }
 
-def testJarTask = tasks.create("testJar", Jar) {
+mixin {
+	add sourceSets.main, "uteamcore.mixins.refmap.json"
+	config "uteamcore.mixins.json"
+	
+	debug.verbose = true
+	debug.export = true
+}
+
+tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
 	
 	from sourceSets.test_mod.output
 }
 
-gradlefiles.createReobfJar(tasks.getByName("testJar"))
-
-def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
+tasks.register("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
 	
 	from sourceSets.test_mod.allJava
 }
 
-gradlefiles.assembleDependOn(testJarTask, testSourcesJarTask)
+tasks.register("multiLoaderTestJar", Jar) {
+	archiveClassifier = "multiloader_test"
+	
+	from sourceSets.multiloader_test_mod.output
+}
 
-tasks.withType(Jar) { task ->
+tasks.register("multiLoaderTestSourcesJar", Jar) {
+	archiveClassifier = "multiloader_testsources"
+	
+	from sourceSets.multiloader_test_mod.allJava
+}
+
+gradlefiles.createReobfJar(tasks.getByName("testJar"))
+gradlefiles.assembleDependOn(tasks.getByName("testJar"), tasks.getByName("testSourcesJar"))
+gradlefiles.createReobfJar(tasks.getByName("multiLoaderTestJar"))
+gradlefiles.assembleDependOn(tasks.getByName("multiLoaderTestJar"), tasks.getByName("multiLoaderTestSourcesJar"))
+
+afterEvaluate {
+	tasks.named("reobfTestJar") {
+		dependsOn tasks.named("signReobfJar")
+		libraries.from(tasks.getByName("signReobfJar").outputFile)
+	}
+	tasks.named("reobfMultiLoaderTestJar") {
+		dependsOn tasks.named("signReobfJar")
+		libraries.from(tasks.getByName("signReobfJar").outputFile)
+	}
+}
+
+// Skip mixin gradle for our test jars
+tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$AddMixinsToJarTask).configureEach { task ->
+	if(task.name.endsWith("TestJar") || task.name.endsWith("TestSourcesJar")) {
+		task.enabled = false
+	}
+}
+
+tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$ConfigureReobfTask).configureEach { task ->
+	if(task.name.endsWith("TestJar")) {
+		task.enabled = false
+	}
+}
+
+tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 }
 
-tasks.withType(Javadoc) { task ->
+tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
 gradlefiles.signDefaultForgeJar()
 gradlefiles.signJar("reobfTestJar")
+gradlefiles.signJar("reobfMultiLoaderTestJar")
 
 processResources {
 	doLast {
@@ -235,9 +263,11 @@ repositories {
 dependencies {
 	minecraft gradlefiles.forgeDependency()
 	
-	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
-	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
-	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
+	//compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
+	//compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
+	//runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
+	
+	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
 curseforge {
@@ -281,6 +311,8 @@ publishing {
 			from components.java
 			artifact tasks.getByName("testJar")
 			artifact tasks.getByName("testSourcesJar")
+			artifact tasks.getByName("multiLoaderTestJar")
+			artifact tasks.getByName("multiLoaderTestSourcesJar")
 			
 			pom {
 				name = project.archivesBaseName

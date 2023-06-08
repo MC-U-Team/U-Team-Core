@@ -1,0 +1,30 @@
+package info.u_team.u_team_test.test_multiloader.entity.render;
+
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.client.renderer.entity.ZombieRenderer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.monster.Zombie;
+
+public class TestLivingEntityRenderer extends ZombieRenderer {
+	
+	private static final ResourceLocation TEXTURE = new ResourceLocation(TestMultiLoaderReference.MODID, "textures/entity/test_living/test_living.png");
+	
+	public TestLivingEntityRenderer(EntityRendererProvider.Context renderManager) {
+		super(renderManager);
+	}
+	
+	@Override
+	protected void scale(Zombie zombie, PoseStack poseStack, float partialTickTime) {
+		poseStack.scale(1.8F, 1.8F, 1.8F);
+		super.scale(zombie, poseStack, partialTickTime);
+	}
+	
+	@Override
+	public ResourceLocation getTextureLocation(Zombie entity) {
+		return TEXTURE;
+	}
+	
+}

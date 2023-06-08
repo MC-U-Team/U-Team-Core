@@ -1,7 +1,5 @@
 package info.u_team.u_team_core.gui.elements;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.Scalable;
 import info.u_team.u_team_core.api.gui.ScaleProvider;
@@ -10,6 +8,7 @@ import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.api.gui.WidgetRenderable;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.network.chat.Component;
 
@@ -94,26 +93,26 @@ public class UButton extends Button implements WidgetRenderable, BackgroundColor
 	}
 	
 	@Override
-	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		WidgetUtil.renderWidget(this, poseStack, mouseX, mouseY, partialTick);
+	public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		WidgetUtil.renderWidget(this, guiGraphics, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderWidgetTexture(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		WidgetUtil.renderButtonLikeTexture(this, buttonTextureProvider, poseStack, mouseX, mouseY, partialTick);
+	public void renderWidgetTexture(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		WidgetUtil.renderButtonLikeTexture(this, buttonTextureProvider, guiGraphics, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		WidgetUtil.renderText(this, poseStack, mouseX, mouseY, partialTick);
+	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		WidgetUtil.renderText(this, guiGraphics, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public RGBA getCurrentBackgroundColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public RGBA getCurrentBackgroundColor(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		return buttonColor;
 	}
 	
@@ -123,12 +122,12 @@ public class UButton extends Button implements WidgetRenderable, BackgroundColor
 	}
 	
 	@Override
-	public RGBA getCurrentTextColor(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public RGBA getCurrentTextColor(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		return active ? textColor : disabledTextColor;
 	}
 	
 	@Override
-	public float getCurrentScale(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public float getCurrentScale(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		return scale;
 	}
 	

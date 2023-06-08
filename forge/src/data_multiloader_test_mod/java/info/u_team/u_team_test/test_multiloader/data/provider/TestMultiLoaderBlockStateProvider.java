@@ -13,6 +13,10 @@ public class TestMultiLoaderBlockStateProvider extends CommonBlockStateProvider 
 	@Override
 	public void register() {
 		simpleBlock(TestMultiLoaderBlocks.TEST.get());
+		simpleBlock(TestMultiLoaderBlocks.TEST_SYNC.get());
+		facingBlock(TestMultiLoaderBlocks.TEST_INVENTORY.get(), cubeFacing(getPath(TestMultiLoaderBlocks.TEST_INVENTORY.get()), modLoc("block/test_inventory_block_front"), modLoc("block/test_inventory_block")));
+		simpleBlock(TestMultiLoaderBlocks.TEST_NO_ITEM.get());
+		simpleBlock(TestMultiLoaderBlocks.TEST_NO_ITEM_IMPLICIT.get());
 	}
 	
 }

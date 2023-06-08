@@ -1,4 +1,45 @@
-accessWidener v1 named
+accessWidener v2 named
+
+accessible field net/minecraft/world/item/Item$Properties maxStackSize I
+accessible field net/minecraft/world/item/Item$Properties maxDamage I
+accessible field net/minecraft/world/item/Item$Properties craftingRemainingItem Lnet/minecraft/world/item/Item;
+accessible field net/minecraft/world/item/Item$Properties rarity Lnet/minecraft/world/item/Rarity;
+accessible field net/minecraft/world/item/Item$Properties foodProperties Lnet/minecraft/world/food/FoodProperties;
+accessible field net/minecraft/world/item/Item$Properties isFireResistant Z
+accessible field net/minecraft/world/item/Item$Properties requiredFeatures Lnet/minecraft/world/flag/FeatureFlagSet;
+
+extendable method net/minecraft/world/level/block/state/BlockBehaviour$Properties <init> ()V
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties mapColor Ljava/util/function/Function;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties hasCollision Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties soundType Lnet/minecraft/world/level/block/SoundType;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties lightEmission Ljava/util/function/ToIntFunction;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties explosionResistance F
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties destroyTime F
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties requiresCorrectToolForDrops Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties isRandomlyTicking Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties friction F
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties speedFactor F
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties jumpFactor F
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties drops Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties canOcclude Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties isAir Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties ignitedByLava Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties liquid Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties forceSolidOff Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties forceSolidOn Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties pushReaction Lnet/minecraft/world/level/material/PushReaction;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties spawnParticlesOnBreak Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties instrument Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties replaceable Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties isValidSpawn Lnet/minecraft/world/level/block/state/BlockBehaviour$StateArgumentPredicate;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties isRedstoneConductor Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties isSuffocating Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties isViewBlocking Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties hasPostProcess Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties emissiveRendering Lnet/minecraft/world/level/block/state/BlockBehaviour$StatePredicate;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties dynamicShape Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties requiredFeatures Lnet/minecraft/world/flag/FeatureFlagSet;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties offsetFunction Ljava/util/Optional;
 
 mutable field net/minecraft/client/gui/components/Button onPress Lnet/minecraft/client/gui/components/Button$OnPress;
 mutable field net/minecraft/client/gui/components/Button createNarration Lnet/minecraft/client/gui/components/Button$CreateNarration;
@@ -28,10 +69,60 @@ accessible field net/minecraft/client/gui/components/EditBox highlightPos I
 accessible field net/minecraft/client/gui/components/EditBox suggestion Ljava/lang/String;
 accessible field net/minecraft/client/gui/components/EditBox formatter Ljava/util/function/BiFunction;
 accessible field net/minecraft/client/gui/components/EditBox hint Lnet/minecraft/network/chat/Component;
-accessible method net/minecraft/client/gui/components/EditBox renderHighlight (Lcom/mojang/blaze3d/vertex/PoseStack;IIII)V
+accessible method net/minecraft/client/gui/components/EditBox renderHighlight (Lnet/minecraft/client/gui/GuiGraphics;IIII)V
 
 accessible field net/minecraft/client/gui/components/Checkbox TEXTURE Lnet/minecraft/resources/ResourceLocation;
 
 accessible method net/minecraft/client/gui/Font drawInternal (Ljava/lang/String;FFILorg/joml/Matrix4f;ZZ)I
 
 accessible field net/minecraft/client/gui/components/AbstractSelectionList$Entry list Lnet/minecraft/client/gui/components/AbstractSelectionList;
+
+accessible method net/minecraft/util/thread/BlockableEventLoop submitAsync (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;
+
+accessible field net/minecraft/server/level/ServerPlayer containerCounter I
+accessible method net/minecraft/server/level/ServerPlayer nextContainerCounter ()V
+accessible method net/minecraft/server/level/ServerPlayer initMenu (Lnet/minecraft/world/inventory/AbstractContainerMenu;)V
+
+accessible field net/minecraft/world/inventory/AbstractContainerMenu lastSlots Lnet/minecraft/core/NonNullList;
+
+accessible field net/minecraft/world/inventory/MenuType constructor Lnet/minecraft/world/inventory/MenuType$MenuSupplier;
+accessible method net/minecraft/client/gui/screens/MenuScreens getConstructor (Lnet/minecraft/world/inventory/MenuType;)Lnet/minecraft/client/gui/screens/MenuScreens$ScreenConstructor;
+accessible field net/minecraft/client/gui/screens/MenuScreens LOGGER Lorg/slf4j/Logger;
+
+accessible field net/minecraft/client/resources/model/ModelBakery STATIC_DEFINITIONS Ljava/util/Map;
+mutable field net/minecraft/client/resources/model/ModelBakery STATIC_DEFINITIONS Ljava/util/Map;
+
+accessible field net/minecraft/client/Minecraft itemColors Lnet/minecraft/client/color/item/ItemColors;
+
+accessible field net/minecraft/world/item/crafting/ShapedRecipe width I
+accessible field net/minecraft/world/item/crafting/ShapedRecipe height I
+accessible field net/minecraft/world/item/crafting/ShapedRecipe recipeItems Lnet/minecraft/core/NonNullList;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe result Lnet/minecraft/world/item/ItemStack;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe id Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe group Ljava/lang/String;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe category Lnet/minecraft/world/item/crafting/CraftingBookCategory;
+accessible field net/minecraft/world/item/crafting/ShapedRecipe showNotification Z
+
+accessible method net/minecraft/world/item/crafting/ShapedRecipe keyFromJson (Lcom/google/gson/JsonObject;)Ljava/util/Map;
+accessible method net/minecraft/world/item/crafting/ShapedRecipe shrink ([Ljava/lang/String;)[Ljava/lang/String;
+accessible method net/minecraft/world/item/crafting/ShapedRecipe patternFromJson (Lcom/google/gson/JsonArray;)[Ljava/lang/String;
+accessible method net/minecraft/world/item/crafting/ShapedRecipe dissolvePattern ([Ljava/lang/String;Ljava/util/Map;II)Lnet/minecraft/core/NonNullList;
+accessible method net/minecraft/world/item/crafting/ShapedRecipe matches (Lnet/minecraft/world/inventory/CraftingContainer;IIZ)Z
+
+accessible method net/minecraft/world/food/FoodProperties <init> (IFZZZLjava/util/List;)V
+
+accessible field net/minecraft/world/food/FoodProperties$Builder nutrition I
+accessible field net/minecraft/world/food/FoodProperties$Builder saturationModifier F
+accessible field net/minecraft/world/food/FoodProperties$Builder isMeat Z
+accessible field net/minecraft/world/food/FoodProperties$Builder canAlwaysEat Z
+accessible field net/minecraft/world/food/FoodProperties$Builder fastFood Z
+
+accessible field net/minecraft/world/item/SpawnEggItem BY_ID Ljava/util/Map;
+
+accessible field net/minecraft/world/SimpleContainer items Lnet/minecraft/core/NonNullList;
+
+accessible field net/minecraft/client/multiplayer/ClientHandshakePacketListenerImpl connection Lnet/minecraft/network/Connection;
+
+accessible method net/minecraft/client/gui/GuiGraphics flushIfUnmanaged ()V
+
+transitive-accessible method net/minecraft/client/renderer/entity/EntityRenderers register (Lnet/minecraft/world/entity/EntityType;Lnet/minecraft/client/renderer/entity/EntityRendererProvider;)V

@@ -41,7 +41,7 @@ public interface CommonRegister<R> extends Iterable<RegistryEntry<R>> {
 	
 	interface Factory {
 		
-		Factory INSTANCE = ServiceUtil.load(Factory.class);
+		Factory INSTANCE = ServiceUtil.loadOne(Factory.class);
 		
 		<C> CommonRegister<C> create(ResourceKey<? extends Registry<C>> key, String modid);
 	}

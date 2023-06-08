@@ -12,13 +12,14 @@ import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
+import net.minecraft.world.level.block.state.properties.NoteBlockInstrument;
+import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.BlockHitResult;
 
 public class BasicEnergyCreatorBlock extends UEntityBlock {
 	
 	public BasicEnergyCreatorBlock() {
-		super(Properties.of(Material.METAL).strength(2).requiresCorrectToolForDrops(), TestBlockEntityTypes.BASIC_ENERGY_CREATOR);
+		super(Properties.of().mapColor(MapColor.METAL).instrument(NoteBlockInstrument.IRON_XYLOPHONE).strength(2).requiresCorrectToolForDrops(), TestBlockEntityTypes.BASIC_ENERGY_CREATOR);
 	}
 	
 	@Override
