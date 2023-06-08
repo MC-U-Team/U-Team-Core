@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.Scalable;
+import info.u_team.u_team_core.util.FontUtil;
 import info.u_team.u_team_core.util.RGBA;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
@@ -132,9 +133,7 @@ public class ScalableText implements Renderable, Scalable {
 		final PoseStack poseStack = guiGraphics.pose();
 		poseStack.pushPose();
 		poseStack.scale(scale, scale, 0);
-		// font.drawInternal(text, x * positionFactor, y * positionFactor, color.getColorARGB(), poseStack.last().pose(),
-		// shadow, font.isBidirectional());
-		guiGraphics.drawString(font, text, (int) (x * positionFactor), (int) (y * positionFactor), color.getColorARGB(), shadow); // TODO check if int casting is good enough, else use internal font methods that accept floats
+		FontUtil.drawString(guiGraphics, font, text, x * positionFactor, y * positionFactor, color.getColorARGB(), shadow);
 		poseStack.popPose();
 	}
 }

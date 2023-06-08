@@ -3,6 +3,7 @@ package info.u_team.u_team_core.gui.elements;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.TextureProvider;
+import info.u_team.u_team_core.util.FontUtil;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
@@ -128,7 +129,7 @@ public class CheckboxButton extends UButton {
 				poseStack.pushPose();
 				poseStack.scale(currentScale, currentScale, 0);
 				
-				guiGraphics.drawString(font, getCurrentText(), (int) xStart, (int) yStart, color, dropShadow); // TODO check if casting to int is okay look wise
+				FontUtil.drawString(guiGraphics, font, getCurrentText(), xStart, yStart, color, dropShadow);
 				
 				poseStack.popPose();
 			}

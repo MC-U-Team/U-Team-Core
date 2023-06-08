@@ -87,11 +87,11 @@ public class WidgetUtil {
 			final float xStart = (widget.getX() + 3 - (int) d3) * positionFactor;
 			
 			guiGraphics.enableScissor(widget.getX() + 3, widget.getY(), widget.getX() + widget.getWidth() - 3, widget.getY() + widget.getHeight());
-			guiGraphics.drawString(font, message, (int) xStart, (int) yStart, color.getColorARGB()); // TODO check if int casting is good enough, else use internal font methods that accept floats
+			FontUtil.drawString(guiGraphics, font, message, xStart, yStart, color.getColorARGB(), true);
 			guiGraphics.disableScissor();
 		} else {
 			final float xStart = (widget.getX() + (widget.getWidth() / 2) - messageWidth / 2) * positionFactor;
-			guiGraphics.drawString(font, message, (int) xStart, (int) yStart, color.getColorARGB()); // TODO check if int casting is good enough, else use internal font methods that accept floats
+			FontUtil.drawString(guiGraphics, font, message, xStart, yStart, color.getColorARGB(), true);
 		}
 	}
 	
@@ -110,7 +110,7 @@ public class WidgetUtil {
 		final float xStart = (widget.getX() + (widget.getWidth() / 2) - messageWidth / 2) * positionFactor;
 		final float yStart = (widget.getY() + (Mth.ceil(widget.getHeight() - 9 * scale)) / 2 + 1) * positionFactor;
 		
-		guiGraphics.drawString(font, message, (int) xStart, (int) yStart, color.getColorARGB()); // TODO check if int casting is good enough, else use internal font methods that accept floats
+		FontUtil.drawString(guiGraphics, font, message, xStart, yStart, color.getColorARGB(), true);
 	}
 	
 	public static RGBA respectWidgetAlpha(AbstractWidget widget, RGBA color) {
