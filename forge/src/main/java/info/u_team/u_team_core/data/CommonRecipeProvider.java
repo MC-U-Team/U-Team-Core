@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ContextAwarePredicate;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
@@ -85,7 +85,7 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	}
 	
 	protected InventoryChangeTrigger.TriggerInstance has(ItemPredicate... predicates) {
-		return new InventoryChangeTrigger.TriggerInstance(EntityPredicate.Composite.ANY, Ints.ANY, Ints.ANY, Ints.ANY, predicates);
+		return new InventoryChangeTrigger.TriggerInstance(ContextAwarePredicate.ANY, Ints.ANY, Ints.ANY, Ints.ANY, predicates);
 	}
 	
 	public static Ingredient getIngredientOfTag(TagKey<Item> tag) {

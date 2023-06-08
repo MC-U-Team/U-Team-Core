@@ -15,6 +15,8 @@ import info.u_team.u_team_core.screen.FluidContainerMenuScreen.FluidContainerScr
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import net.minecraft.ChatFormatting;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -40,7 +42,7 @@ public class ForgeFluidContainerMenuScreenDelegator<T extends AbstractContainerM
 	}
 	
 	@Override
-	public void renderLabels(PoseStack poseStack, int mouseX, int mouseY) {
+	public void renderLabels(GuiGraphics guiGrapics, int mouseX, int mouseY) {
 		if (screen.getMenu() instanceof final FluidContainerMenu fluidMenu) {
 			hoveredFluidSlot = null;
 			
@@ -48,19 +50,20 @@ public class ForgeFluidContainerMenuScreenDelegator<T extends AbstractContainerM
 				final FluidSlot fluidSlot = ((ForgeFluidContainerMenuDelegator) fluidMenu.getDelegator()).fluidSlots.get(slot);
 				
 				if (fluidSlot.isActive()) {
-					renderFluidSlot(poseStack, fluidSlot);
+					renderFluidSlot(guiGrapics, fluidSlot);
 					
 					if (isHovering(fluidSlot, mouseX, mouseY)) {
 						hoveredFluidSlot = fluidSlot;
 						RenderUtil.setShaderColor(RGBA.WHITE);
-						AbstractContainerScreen.renderSlotHighlight(poseStack, fluidSlot.getX(), fluidSlot.getY(), 0, getFluidSlotColor(slot));
+						AbstractContainerScreen.renderSlotHighlight(guiGrapics, fluidSlot.getX(), fluidSlot.getY(), 0, getFluidSlotColor(slot));
 					}
 				}
 			}
 		}
 	}
 	
-	protected void renderFluidSlot(PoseStack poseStack, FluidSlot fluidSlot) {
+	protected void renderFluidSlot(GuiGraphics guiGrapics, FluidSlot fluidSlot) {
+		final PoseStack poseStack = guiGrapics.pose();
 		poseStack.pushPose();
 		poseStack.translate(0.0F, 0.0F, 100.0F);
 		
@@ -82,9 +85,9 @@ public class ForgeFluidContainerMenuScreenDelegator<T extends AbstractContainerM
 	}
 	
 	@Override
-	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY) {
+	public void renderTooltip(GuiGraphics guiGrapics, int mouseX, int mouseY) {
 		if (screen.getMenu().getCarried().isEmpty() && hoveredFluidSlot != null && hoveredFluidSlot.hasFluid()) {
-			screen.renderComponentTooltip(poseStack, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
+			guiGrapics.renderComponentTooltip(Minecraft.getInstance().font, getTooltipFromFluid(hoveredFluidSlot), mouseX, mouseY);
 		}
 	}
 	

@@ -8,7 +8,6 @@ import java.util.function.Supplier;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
-import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
 
@@ -20,6 +19,7 @@ import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.SiUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.client.gui.screens.Screen;
@@ -52,14 +52,14 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	}
 	
 	@Override
-	public void renderWidget(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		renderBackground(poseStack, mouseX, mouseY, partialTick);
-		renderForeground(poseStack, mouseX, mouseY, partialTick);
-		WidgetUtil.renderCustomTooltipForWidget(this, poseStack, mouseX, mouseY, partialTick);
+	public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		renderBackground(guiGraphics, mouseX, mouseY, partialTick);
+		renderForeground(guiGraphics, mouseX, mouseY, partialTick);
+		WidgetUtil.renderCustomTooltipForWidget(this, guiGraphics, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderBackground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		double ratio = (double) storage.getAsLong() / capacity.getAsLong();
 		if (ratio > 1) {
 			ratio = 1;
@@ -80,14 +80,14 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
 		for (int yComponent = 1; yComponent < height - 1; yComponent += 2) {
-			RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 2, 0, 12 / 16f, 0, 2 / 16f, 0); // Background
+			RenderUtil.addTexturedQuad(bufferBuilder, guiGraphics.pose(), x + 1, x + 1 + 12, y + yComponent, y + yComponent + 2, 0, 12 / 16f, 0, 2 / 16f, 0); // Background
 		}
 		
 		for (int yComponent = 1 + storageOffset; yComponent < height - 1; yComponent++) {
 			if (yComponent % 2 == 0) {
-				RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 1, 0, 12 / 16f, 3 / 16f, 4 / 16f, 0); // Background
+				RenderUtil.addTexturedQuad(bufferBuilder, guiGraphics.pose(), x + 1, x + 1 + 12, y + yComponent, y + yComponent + 1, 0, 12 / 16f, 3 / 16f, 4 / 16f, 0); // Background
 			} else {
-				RenderUtil.addTexturedQuad(bufferBuilder, poseStack, x + 1, x + 1 + 12, y + yComponent, y + yComponent + 1, 0, 12 / 16f, 2 / 16f, 3 / 16f, 0); // Background
+				RenderUtil.addTexturedQuad(bufferBuilder, guiGraphics.pose(), x + 1, x + 1 + 12, y + yComponent, y + yComponent + 1, 0, 12 / 16f, 2 / 16f, 3 / 16f, 0); // Background
 			}
 		}
 		
@@ -97,12 +97,12 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	}
 	
 	@Override
-	public void renderForeground(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
-		RenderUtil.drawContainerBorder(poseStack, x, y, width, height, 0, RGBA.WHITE);
+	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		RenderUtil.drawContainerBorder(guiGraphics.pose(), x, y, width, height, 0, RGBA.WHITE);
 	}
 	
 	@Override
-	public void renderTooltip(PoseStack poseStack, int mouseX, int mouseY, float partialTick) {
+	public void renderTooltip(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		if (isHovered) {
 			final Minecraft minecraft = Minecraft.getInstance();
 			
@@ -117,7 +117,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 			}
 			
 			final List<Component> list = List.of(Component.translatable("gui.widget.uteamcore.energy.fe_tooltip", storageString, capacityString));
-			minecraft.screen.renderTooltip(poseStack, list, Optional.empty(), mouseX, mouseY, minecraft.font);
+			guiGraphics.renderTooltip(minecraft.font, list, Optional.empty(), mouseX, mouseY);
 		}
 	}
 	
