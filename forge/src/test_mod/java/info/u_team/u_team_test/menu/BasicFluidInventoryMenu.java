@@ -35,8 +35,8 @@ public class BasicFluidInventoryMenu extends UBlockEntityContainerMenu<BasicFlui
 	}
 	
 	@Override
-	public ItemStack quickMoveStack(Player p_38941_, int p_38942_) {
-		return null;
+	public ItemStack quickMoveStack(Player player, int slot) {
+		return ItemStack.EMPTY;
 	}
 	
 }
