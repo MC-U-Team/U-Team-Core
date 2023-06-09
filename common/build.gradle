@@ -24,6 +24,10 @@ loom {
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
+	
+	manifest {
+		attributes ("Fabric-Loom-Remap": "true")
+	}
 }
 
 tasks.withType(Javadoc).configureEach { task ->
