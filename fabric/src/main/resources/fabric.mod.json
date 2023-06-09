@@ -18,6 +18,9 @@
 	"entrypoints": {
 		"main": [
 			"info.u_team.u_team_core.UCoreMod"
+		],
+		"jei_mod_plugin": [
+			"info.u_team.u_team_core.integration.jei.UTeamCoreJeiPlugin"
 		]
 	},
 	"accessWidener": "uteamcore.accesswidener",
