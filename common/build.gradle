@@ -48,6 +48,7 @@ sourceSets {
 	common {
 		java {
 			srcDirs += "src/common-api/java"
+			srcDirs += "src/common-integration/java"
 		}
 		resources {
 			srcDirs += "src/common-generated/resources"
