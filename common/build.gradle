@@ -75,6 +75,9 @@ repositories {
 	maven {
 		url = "https://maven.parchmentmc.org"
 	}
+	maven {
+		url = "https://maven.blamejared.com"
+	}
 }
 
 dependencies {
@@ -86,6 +89,8 @@ dependencies {
 	
 	modImplementation gradlefiles.fabricLoaderDependency()
 	modRuntimeOnly gradlefiles.fabricApiDependency()
+	
+	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
 }
 
 tasks.named("validateAccessWidener").configure {
