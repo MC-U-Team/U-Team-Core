@@ -73,8 +73,6 @@ accessible method net/minecraft/client/gui/components/EditBox renderHighlight (L
 
 accessible field net/minecraft/client/gui/components/Checkbox TEXTURE Lnet/minecraft/resources/ResourceLocation;
 
-accessible method net/minecraft/client/gui/Font drawInternal (Ljava/lang/String;FFILorg/joml/Matrix4f;ZZ)I
-
 accessible field net/minecraft/client/gui/components/AbstractSelectionList$Entry list Lnet/minecraft/client/gui/components/AbstractSelectionList;
 
 accessible method net/minecraft/util/thread/BlockableEventLoop submitAsync (Ljava/lang/Runnable;)Ljava/util/concurrent/CompletableFuture;

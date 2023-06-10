@@ -94,10 +94,6 @@ dependencies {
 	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
 }
 
-tasks.named("validateAccessWidener").configure {
-	enabled = false
-}
-
 publishing {
 	repositories {
 		maven {
