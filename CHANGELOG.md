@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.20-5.1.1.252] - 2023-06-10
+### Changed
+ - Fixed bug with UMenuType
+ - Reenable jei integration for forge and fabric
+
 ## [1.20-5.1.0.251] - 2023-06-08
 ### Changed
  - Port to 1.20
