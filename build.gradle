@@ -25,39 +25,39 @@ java {
 
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
-
+	
 	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
-
+	
 	runs {
-		client = {
+		client {
 			workingDirectory file("run/client")
 
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-
+				
 				uteamtest {
 					source sourceSets.test
 				}
 			}
 		}
-		server = {
+		server {
 			workingDirectory file("run/server")
-
+			
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-
+				
 				uteamtest {
 					source sourceSets.test
 				}
 			}
 		}
-		data = {
+		data {
 			workingDirectory file("run/data")
-
+			
 			args "--mod", config.mod.modid
 			args "--all"
 			args "--output", file("src/generated/resources")
@@ -70,10 +70,10 @@ minecraft {
 				}
 			}
 		}
-		data_test = {
+		data_test {
 			workingDirectory file("run/data")
-
-			parent data // Does not work as the other args are added too...
+			
+			setParents(data.getParents())
 
 			args "--mod", "uteamtest"
 			args "--all"
@@ -83,6 +83,10 @@ minecraft {
 			args "--existing-mod", "uteamcore"
 
 			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+
 				uteamtest {
 					source sourceSets.test
 				}
@@ -91,27 +95,27 @@ minecraft {
 	}
 }
 
-def testJarTask = tasks.create("testJar", Jar) {
+tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
-
+	
 	from sourceSets.test.output
 }
 
 gradlefiles.createReobfJar(tasks.getByName("testJar"))
 
-def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
+tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
-
-	from sourceSets.test.allJava
+	
+	from sourceSets.test_mod.allJava
 }
 
-gradlefiles.assembleDependOn(testJarTask, testSourcesJarTask)
+gradlefiles.assembleDependOn(tasks.getByName("testJar"), tasks.getByName("testSourcesJar"))
 
-tasks.withType(Jar) { task ->
+tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 }
 
-tasks.withType(Javadoc) { task ->
+tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
@@ -141,37 +145,39 @@ sourceSets {
 		resources {
 			srcDirs += "src/generated_test/resources"
 		}
+		compileClasspath += main.runtimeClasspath
+		runtimeClasspath += main.runtimeClasspath
 	}
 }
 
 repositories {
 	maven {
-		url = "https://dvs1.progwml6.com/files/maven"
+		url = "https://maven.blamejared.com"
 	}
 }
 
 dependencies {
 	minecraft gradlefiles.forgeDependency()
-
+	
 	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}:${config.jei.version}:api")
 	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}:${config.jei.version}")
 }
 
 curseforge {
 	apiKey = defaultPropertyValue("curseforge.token")
-
+	
 	project {
 		id = config.curse.id
 		releaseType = config.curse.type
-
+		
 		addGameVersion config.minecraft.version
 		addGameVersion "Forge"
 		addGameVersion "Java 8"
-
+		
 		relations {
 			optionalDependency "jei"
 		}
-
+		
 		mainArtifact(tasks.getByName("jar")) {
 			displayName = "${config.curse.display}-${config.minecraft.version}-${project.version}"
 			changelogType = "html"
@@ -193,11 +199,11 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifactId archivesBaseName
-
+			
 			from components.java
 			artifact tasks.getByName("testJar")
 			artifact tasks.getByName("testSourcesJar")
-
+			
 			pom {
 				name = project.archivesBaseName
 				description = "${config.github.name}"
