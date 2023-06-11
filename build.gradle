@@ -106,7 +106,7 @@ gradlefiles.createReobfJar(tasks.getByName("testJar"))
 tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
 	
-	from sourceSets.test_mod.allJava
+	from sourceSets.test.allJava
 }
 
 gradlefiles.assembleDependOn(tasks.getByName("testJar"), tasks.getByName("testSourcesJar"))
