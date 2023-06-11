@@ -105,7 +105,7 @@ minecraft {
 	}
 }
 
-def testJarTask = tasks.create("testJar", Jar) {
+tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
 	
 	from sourceSets.test_mod.output
@@ -113,19 +113,19 @@ def testJarTask = tasks.create("testJar", Jar) {
 
 gradlefiles.createReobfJar(tasks.getByName("testJar"))
 
-def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
+tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
 	
 	from sourceSets.test_mod.allJava
 }
 
-gradlefiles.assembleDependOn(testJarTask, testSourcesJarTask)
+gradlefiles.assembleDependOn(tasks.getByName("testJar"), tasks.getByName("testSourcesJar"))
 
-tasks.withType(Jar) { task ->
+tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 }
 
-tasks.withType(Javadoc) { task ->
+tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
