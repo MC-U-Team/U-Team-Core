@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.20-5.1.2.253] - 2023-06-11
+### Added
+ - Added UItemExtension interface that provides a check for update animation and player drops
+
 ## [1.20-5.1.1.252] - 2023-06-10
 ### Changed
  - Fixed bug with UMenuType
