@@ -29,7 +29,7 @@ minecraft {
 	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 
 	runs {
-		client = {
+		client {
 			workingDirectory file("run/client")
 
 			mods {
@@ -42,7 +42,7 @@ minecraft {
 				}
 			}
 		}
-		server = {
+		server {
 			workingDirectory file("run/server")
 
 			mods {
@@ -62,34 +62,34 @@ minecraft.getRuns().each { task ->
 	task.environment "MC_VERSION", "{mc_version}"
 }
 
-def testJarTask = tasks.create("testJar", Jar) {
+tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
-
+	
 	from sourceSets.test.output
 }
 
 gradlefiles.createReobfJar(tasks.getByName("testJar"))
 
-def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
+tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
-
-	from sourceSets.test.allJava
+	
+	from sourceSets.test_mod.allJava
 }
 
-gradlefiles.assembleDependOn(testJarTask, testSourcesJarTask)
+gradlefiles.assembleDependOn(tasks.getByName("testJar"), tasks.getByName("testSourcesJar"))
 
-tasks.withType(Jar) { task ->
+tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 	task.manifest {
 		attributes("FMLAT": "accesstransformer.cfg")
 	}
 }
 
-tasks.withType(Javadoc) { task ->
+tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
-tasks.create("prepareSources", Copy) {
+tasks.register("prepareSources", Copy) {
 	from sourceSets.main.java
 	into file("${buildDir}/prepareSources")
 	filter (org.apache.tools.ant.filters.ReplaceTokens, tokens: [
@@ -99,10 +99,10 @@ tasks.create("prepareSources", Copy) {
 	outputs.upToDateWhen { false }
 }
 
-tasks.getByName("compileJava") { task ->
-	final def prepareResources = tasks.getByName("prepareSources")
+tasks.named("compileJava").configure { task ->
+	final def prepareResources = tasks.named("prepareSources")
 	task.dependsOn prepareResources
-	task.source = prepareResources.destinationDir
+	task.source = prepareResources.get().destinationDir
 }
 
 processResources {
@@ -142,12 +142,14 @@ sourceSets {
 
 repositories {
 	maven {
-		url = "https://dvs1.progwml6.com/files/maven"
+		url = "https://maven.blamejared.com"
 	}
 }
 
 dependencies {
 	minecraft gradlefiles.forgeDependency()
+	
+	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}:${config.jei.version}")
 }
 
 curseforge {
