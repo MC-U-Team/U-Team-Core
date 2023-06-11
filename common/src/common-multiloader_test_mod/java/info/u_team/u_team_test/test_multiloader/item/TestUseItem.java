@@ -43,4 +43,14 @@ public class TestUseItem extends UItem {
 		}
 		return InteractionResultHolder.success(stack);
 	}
+	
+	@Override
+	public boolean shouldPlayUpdateAnimation(ItemStack oldStack, ItemStack newStack) {
+		return false;
+	}
+	
+	@Override
+	public boolean canBeDropped(ItemStack stack, Player player) {
+		return player.isCreative();
+	}
 }
