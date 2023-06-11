@@ -29,9 +29,9 @@ minecraft {
 	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 	
 	runs {
-		client = {
+		client {
 			workingDirectory file("run/client")
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -42,7 +42,7 @@ minecraft {
 				}
 			}
 		}
-		server = {
+		server {
 			workingDirectory file("run/server")
 			
 			mods {
@@ -55,7 +55,7 @@ minecraft {
 				}
 			}
 		}
-		data = {
+		data {
 			workingDirectory file("run/data")
 			
 			args "--mod", config.mod.modid
@@ -63,30 +63,30 @@ minecraft {
 			args "--output", file("src/generated/resources")
 			args "--validate"
 			args "--existing", file("src/main/resources")
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
 			}
 		}
-		data_test = {
+		data_test {
 			workingDirectory file("run/data")
 			
 			setParents(data.getParents())
-			
+
 			args "--mod", "uteamtest"
 			args "--all"
 			args "--output", file("src/generated_test/resources")
 			args "--validate"
 			args "--existing", file("src/test/resources")
 			args "--existing-mod", "uteamcore"
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest {
 					source sourceSets.test
 				}
@@ -95,7 +95,7 @@ minecraft {
 	}
 }
 
-def testJarTask = tasks.create("testJar", Jar) {
+tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
 	
 	from sourceSets.test.output
@@ -103,19 +103,19 @@ def testJarTask = tasks.create("testJar", Jar) {
 
 gradlefiles.createReobfJar(tasks.getByName("testJar"))
 
-def testSourcesJarTask = tasks.create("testSourcesJar", Jar) {
+tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
 	
-	from sourceSets.test.allJava
+	from sourceSets.test_mod.allJava
 }
 
-gradlefiles.assembleDependOn(testJarTask, testSourcesJarTask)
+gradlefiles.assembleDependOn(tasks.getByName("testJar"), tasks.getByName("testSourcesJar"))
 
-tasks.withType(Jar) { task ->
+tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 }
 
-tasks.withType(Javadoc) { task ->
+tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
@@ -149,12 +149,14 @@ sourceSets {
 		resources {
 			srcDirs += "src/generated_test/resources"
 		}
+		compileClasspath += main.runtimeClasspath
+		runtimeClasspath += main.runtimeClasspath
 	}
 }
 
 repositories {
 	maven {
-		url = "https://dvs1.progwml6.com/files/maven"
+		url = "https://maven.blamejared.com"
 	}
 }
 
