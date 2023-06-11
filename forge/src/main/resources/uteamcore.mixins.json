@@ -8,6 +8,7 @@
 		"UArmorItemMixin",
 		"UBlockEntityMixin",
 		"DataMenuSupplierMixin",
+		"ItemMixin",
 		"common.ServerPlayerMixin"
 	],
 	"injectors": {
