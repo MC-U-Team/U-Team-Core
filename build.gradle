@@ -33,7 +33,7 @@ minecraft {
 	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 	
 	runs {
-		client = {
+		client {
 			workingDirectory file("run/client")
 			
 			mods {
@@ -46,7 +46,7 @@ minecraft {
 				}
 			}
 		}
-		server = {
+		server {
 			workingDirectory file("run/server")
 			
 			mods {
@@ -59,7 +59,7 @@ minecraft {
 				}
 			}
 		}
-		data = {
+		data {
 			workingDirectory file("run/data")
 			
 			args "--mod", config.mod.modid
@@ -77,7 +77,7 @@ minecraft {
 				}
 			}
 		}
-		data_test = {
+		data_test {
 			workingDirectory file("run/data")
 			
 			setParents(data.getParents())
@@ -166,7 +166,7 @@ sourceSets {
 
 repositories {
 	maven {
-		url = "https://dvs1.progwml6.com/files/maven"
+		url = "https://maven.blamejared.com"
 	}
 }
 
