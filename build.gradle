@@ -138,6 +138,7 @@ sourceSets {
 			srcDirs += "src/integration/java"
 		}
 		resources {
+			srcDirs += "src/repack/resources"
 			srcDirs += "src/generated/resources"
 		}
 	}
