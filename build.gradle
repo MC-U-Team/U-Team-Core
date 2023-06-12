@@ -25,9 +25,9 @@ java {
 
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
-	
+
 	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
-	
+
 	runs {
 		client {
 			workingDirectory file("run/client")
@@ -36,7 +36,7 @@ minecraft {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest {
 					source sourceSets.test
 				}
@@ -44,12 +44,12 @@ minecraft {
 		}
 		server {
 			workingDirectory file("run/server")
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest {
 					source sourceSets.test
 				}
@@ -57,7 +57,7 @@ minecraft {
 		}
 		data {
 			workingDirectory file("run/data")
-			
+
 			args "--mod", config.mod.modid
 			args "--all"
 			args "--output", file("src/generated/resources")
@@ -72,7 +72,7 @@ minecraft {
 		}
 		data_test {
 			workingDirectory file("run/data")
-			
+
 			setParents(data.getParents())
 
 			args "--mod", "uteamtest"
@@ -97,7 +97,7 @@ minecraft {
 
 tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
-	
+
 	from sourceSets.test.output
 }
 
@@ -105,7 +105,7 @@ gradlefiles.createReobfJar(tasks.getByName("testJar"))
 
 tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
-	
+
 	from sourceSets.test.allJava
 }
 
@@ -162,27 +162,27 @@ repositories {
 
 dependencies {
 	minecraft gradlefiles.forgeDependency()
-	
+
 	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}:${config.jei.version}:api")
 	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}:${config.jei.version}")
 }
 
 curseforge {
 	apiKey = defaultPropertyValue("curseforge.token")
-	
+
 	project {
 		id = config.curse.id
 		releaseType = config.curse.type
-		
+
 		addGameVersion config.minecraft.version
 		addGameVersion "Forge"
 		addGameVersion "Java 8"
-		
+
 		relations {
 			optionalDependency "basic-discord-rich-presence"
 			optionalDependency "jei"
 		}
-		
+
 		mainArtifact(tasks.getByName("jar")) {
 			displayName = "${config.curse.display}-${config.minecraft.version}-${project.version}"
 			changelogType = "html"
@@ -204,11 +204,11 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifactId archivesBaseName
-			
+
 			from components.java
 			artifact tasks.getByName("testJar")
 			artifact tasks.getByName("testSourcesJar")
-			
+
 			pom {
 				name = project.archivesBaseName
 				description = "${config.github.name}"
