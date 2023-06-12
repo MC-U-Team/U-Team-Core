@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.2-4.4.3.260] - 2023-06-12
+### Changed
+ - Update build scripts
+
 ## [1.19.2-4.4.3.236] - 2022-12-09
 ### Changed
  - Update forge version to 43.2.0
