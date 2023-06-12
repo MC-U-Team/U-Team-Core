@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.4-5.0.2.261] - 2023-06-12
+### Changed
+ - Update build scripts
+
 ## [1.19.4-5.0.2.250] - 2023-04-27
 ### Changed
  - Fixed [crash](https://github.com/MC-U-Team/U-Team-Core/pull/256) in UShapedRecipeSerializer because of wrong serialization. Thanks DJtheRedstoner
