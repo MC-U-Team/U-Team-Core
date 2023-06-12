@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.12.2-2.2.5.255] - 2023-06-12
+### Changed
+ - Update build scripts
+
 ## [1.12.2-2.2.5.226] - 2022-09-14
 ### Changed
  - Update gradle files version
