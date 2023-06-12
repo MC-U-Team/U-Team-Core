@@ -64,7 +64,7 @@ minecraft.getRuns().each { task ->
 
 tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
-	
+
 	from sourceSets.test.output
 }
 
@@ -72,7 +72,7 @@ gradlefiles.createReobfJar(tasks.getByName("testJar"))
 
 tasks.create("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
-	
+
 	from sourceSets.test.allJava
 }
 
@@ -148,7 +148,7 @@ repositories {
 
 dependencies {
 	minecraft gradlefiles.forgeDependency()
-	
+
 	runtimeOnly fg.deobf("mezz.jei:jei_${config.minecraft.version}:${config.jei.version}")
 }
 
