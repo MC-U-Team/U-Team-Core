@@ -24,7 +24,7 @@ loom {
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
-	
+
 	manifest {
 		attributes ("Fabric-Loom-Remap": "true")
 	}
@@ -86,7 +86,7 @@ dependencies {
 		officialMojangMappings()
 		parchment(config.fabric.mapping_layer)
 	}
-	
+
 	modImplementation gradlefiles.fabricLoaderDependency()
 	modRuntimeOnly gradlefiles.fabricApiDependency()
 }
@@ -104,9 +104,9 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifactId archivesBaseName
-			
+
 			from components.java
-			
+
 			pom {
 				name = project.archivesBaseName
 				description = "${config.github.name}"

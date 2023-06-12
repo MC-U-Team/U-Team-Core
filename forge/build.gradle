@@ -28,22 +28,22 @@ sourceSets {
 
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
-	
+
 	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
-	
+
 	runs {
 		client {
 			workingDirectory file("run/client")
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest {
 					source sourceSets.test_mod
 				}
-				
+
 				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
 				}
@@ -51,16 +51,16 @@ minecraft {
 		}
 		server {
 			workingDirectory file("run/server")
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest {
 					source sourceSets.test_mod
 				}
-				
+
 				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
 				}
@@ -68,16 +68,16 @@ minecraft {
 		}
 		data {
 			workingDirectory file("run/data")
-			
+
 			args "--mod", config.mod.modid
 			args "--all"
 			args "--output", project(":common").file("src/common-generated/resources")
 			args "--validate"
 			args "--existing", project(":common").file("src/common/resources")
-			
+
 			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
@@ -86,24 +86,24 @@ minecraft {
 		}
 		data_test {
 			workingDirectory file("run/data")
-			
+
 			setParents(data.getParents())
-			
+
 			args "--mod", "uteamtest"
 			args "--all"
 			args "--output", file("src/generated_test_mod/resources")
 			args "--validate"
 			args "--existing", file("src/test_mod/resources")
 			args "--existing-mod", "uteamcore"
-			
+
 			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest {
 					source sourceSets.test_mod
 				}
@@ -111,24 +111,24 @@ minecraft {
 		}
 		data_multiloader_test {
 			workingDirectory file("run/data")
-			
+
 			setParents(data.getParents())
-			
+
 			args "--mod", "uteamtest_multiloader"
 			args "--all"
 			args "--output", project(":common").file("src/common-generated_multiloader_test_mod/resources")
 			args "--validate"
 			args "--existing", project(":common").file("src/common-multiloader_test_mod/resources")
 			args "--existing-mod", "uteamcore"
-			
+
 			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-			
+
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-				
+
 				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
 				}
@@ -139,7 +139,7 @@ minecraft {
 
 tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
-	
+
 	from sourceSets.test_mod.output
 }
 
@@ -147,7 +147,7 @@ gradlefiles.createReobfJar(tasks.getByName("testJar"))
 
 tasks.register("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
-	
+
 	from sourceSets.test_mod.allJava
 }
 
@@ -216,7 +216,7 @@ repositories {
 
 dependencies {
 	minecraft gradlefiles.forgeDependency()
-	
+
 	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
 	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
 	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
@@ -224,20 +224,20 @@ dependencies {
 
 curseforge {
 	apiKey = defaultPropertyValue("curseforge.token")
-	
+
 	project {
 		id = config.curse.id
 		releaseType = config.curse.type
-		
+
 		addGameVersion config.minecraft.version
 		addGameVersion "Forge"
 		addGameVersion "Java 17"
-		
+
 		relations {
 			optionalDependency "basic-discord-rich-presence"
 			optionalDependency "jei"
 		}
-		
+
 		mainArtifact(tasks.getByName("jar")) {
 			displayName = "${config.curse.display}-Forge-${config.minecraft.version}-${project.version}"
 			changelogType = "html"
@@ -259,11 +259,11 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifactId archivesBaseName
-			
+
 			from components.java
 			artifact tasks.getByName("testJar")
 			artifact tasks.getByName("testSourcesJar")
-			
+
 			pom {
 				name = project.archivesBaseName
 				description = "${config.github.name}"
