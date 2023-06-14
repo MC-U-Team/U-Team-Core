@@ -24,7 +24,7 @@ abstract class ServerPlayerMixin extends Player {
 	@Inject(method = "drop(Z)Z", at = @At(value = "HEAD"), cancellable = true)
 	private void uteamcore$drop(boolean dropStack, CallbackInfoReturnable<Boolean> info) {
 		final ItemStack selected = getInventory().getSelected();
-		if (selected.isEmpty() || (selected.getItem() instanceof UItemExtension extension && !extension.canBeDropped(selected, lastHurtByPlayer))) {
+		if (selected.isEmpty() || (selected.getItem() instanceof UItemExtension extension && !extension.canBeDropped(selected, this))) {
 			info.setReturnValue(false);
 		}
 	}
