@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.20-5.1.2.265] - 2023-06-13
+### Changed
+ - Fixed bug [#322](https://github.com/MC-U-Team/U-Team-Core/issues/322) that caused an npe and weird behavior when dropping items that restrict drops via uteamcore's api on fabric
+
 ## [1.20-5.1.2.262] - 2023-06-13
 ### Changed
  - Update forge version to 46.0.14
