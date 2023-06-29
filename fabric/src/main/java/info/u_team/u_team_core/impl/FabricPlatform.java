@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.impl;
 
+import java.nio.file.Path;
 import java.util.function.Supplier;
 
 import com.google.common.base.Suppliers;
@@ -24,5 +25,10 @@ public class FabricPlatform implements Platform {
 	@Override
 	public boolean isModLoaded(String modid) {
 		return FabricLoader.getInstance().isModLoaded(modid);
+	}
+	
+	@Override
+	public Path getConfigPath() {
+		return FabricLoader.getInstance().getConfigDir();
 	}
 }
