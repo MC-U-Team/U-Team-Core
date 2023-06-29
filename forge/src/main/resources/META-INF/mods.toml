@@ -17,7 +17,7 @@ license="Apache-2.0 License"
 	[[dependencies.uteamcore]]
 	    modId="forge"
 	    mandatory=true
-	    versionRange="[47.0.3,)"
+	    versionRange="[47.0.35,)"
 	    ordering="NONE"
 	    side="BOTH"
 	
