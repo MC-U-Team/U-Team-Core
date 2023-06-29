@@ -3,6 +3,8 @@ package info.u_team.u_team_core.api.event;
 import info.u_team.u_team_core.util.ServiceUtil;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.level.ServerLevel;
 
 public interface CommonEvents {
 	
@@ -14,6 +16,22 @@ public interface CommonEvents {
 		Handler.INSTANCE.registerRegister(event);
 	}
 	
+	static void registerStartServerTick(StartServerTick event) {
+		Handler.INSTANCE.registerStartServerTick(event);
+	}
+	
+	static void registerEndServerTick(EndServerTick event) {
+		Handler.INSTANCE.registerEndServerTick(event);
+	}
+	
+	static void registerStartLevelTick(StartLevelTick event) {
+		Handler.INSTANCE.registerStartLevelTick(event);
+	}
+	
+	static void registerEndLevelTick(EndLevelTick event) {
+		Handler.INSTANCE.registerEndLevelTick(event);
+	}
+	
 	interface Handler {
 		
 		Handler INSTANCE = ServiceUtil.loadOne(Handler.class);
@@ -21,6 +39,14 @@ public interface CommonEvents {
 		void registerSetup(SetupEvent event);
 		
 		void registerRegister(RegisterEvent event);
+		
+		void registerStartServerTick(StartServerTick event);
+		
+		void registerEndServerTick(EndServerTick event);
+		
+		void registerStartLevelTick(StartLevelTick event);
+		
+		void registerEndLevelTick(EndLevelTick event);
 	}
 	
 	@FunctionalInterface
@@ -35,4 +61,27 @@ public interface CommonEvents {
 		void onRegister(ResourceKey<? extends Registry<?>> key);
 	}
 	
+	@FunctionalInterface
+	interface StartServerTick {
+		
+		void onStartTick(MinecraftServer server);
+	}
+	
+	@FunctionalInterface
+	interface EndServerTick {
+		
+		void onEndTick(MinecraftServer server);
+	}
+	
+	@FunctionalInterface
+	interface StartLevelTick {
+		
+		void onStartTick(ServerLevel level);
+	}
+	
+	@FunctionalInterface
+	interface EndLevelTick {
+		
+		void onEndTick(ServerLevel level);
+	}
 }
