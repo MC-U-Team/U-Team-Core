@@ -32,6 +32,14 @@ public interface CommonEvents {
 		Handler.INSTANCE.registerEndLevelTick(event);
 	}
 	
+	static void registerLevelLoad(LevelLoad event) {
+		Handler.INSTANCE.registerLevelLoad(event);
+	}
+	
+	static void registerLevelUnload(LevelUnload event) {
+		Handler.INSTANCE.registerLevelUnload(event);
+	}
+	
 	interface Handler {
 		
 		Handler INSTANCE = ServiceUtil.loadOne(Handler.class);
@@ -47,6 +55,10 @@ public interface CommonEvents {
 		void registerStartLevelTick(StartLevelTick event);
 		
 		void registerEndLevelTick(EndLevelTick event);
+		
+		void registerLevelLoad(LevelLoad event);
+		
+		void registerLevelUnload(LevelUnload event);
 	}
 	
 	@FunctionalInterface
@@ -83,5 +95,17 @@ public interface CommonEvents {
 	interface EndLevelTick {
 		
 		void onEndTick(ServerLevel level);
+	}
+	
+	@FunctionalInterface
+	interface LevelLoad {
+		
+		void onLoad(ServerLevel level);
+	}
+	
+	@FunctionalInterface
+	interface LevelUnload {
+		
+		void onUnload(ServerLevel level);
 	}
 }

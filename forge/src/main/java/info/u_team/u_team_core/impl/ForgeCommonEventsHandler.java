@@ -5,6 +5,8 @@ import java.util.function.Consumer;
 import info.u_team.u_team_core.api.event.CommonEvents;
 import info.u_team.u_team_core.api.event.CommonEvents.EndLevelTick;
 import info.u_team.u_team_core.api.event.CommonEvents.EndServerTick;
+import info.u_team.u_team_core.api.event.CommonEvents.LevelLoad;
+import info.u_team.u_team_core.api.event.CommonEvents.LevelUnload;
 import info.u_team.u_team_core.api.event.CommonEvents.RegisterEvent;
 import info.u_team.u_team_core.api.event.CommonEvents.SetupEvent;
 import info.u_team.u_team_core.api.event.CommonEvents.StartLevelTick;
@@ -14,6 +16,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.TickEvent.LevelTickEvent;
 import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
+import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -66,6 +69,24 @@ public class ForgeCommonEventsHandler implements CommonEvents.Handler {
 		registerForgeEvent(LevelTickEvent.class, forgeEvent -> {
 			if (forgeEvent.phase == Phase.END && forgeEvent.level instanceof ServerLevel serverLevel) {
 				event.onEndTick(serverLevel);
+			}
+		});
+	}
+	
+	@Override
+	public void registerLevelLoad(LevelLoad event) {
+		registerForgeEvent(LevelEvent.Load.class, forgeEvent -> {
+			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
+				event.onLoad(serverLevel);
+			}
+		});
+	}
+	
+	@Override
+	public void registerLevelUnload(LevelUnload event) {
+		registerForgeEvent(LevelEvent.Unload.class, forgeEvent -> {
+			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
+				event.onUnload(serverLevel);
 			}
 		});
 	}
