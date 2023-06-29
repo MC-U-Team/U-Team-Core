@@ -10,7 +10,8 @@
 	],
 	"contact": {
 		"homepage": "https://u-team.info/mods/uteamcore",
-		"sources": "https://github.com/MC-U-Team/U-Team-Core"
+		"sources": "https://github.com/MC-U-Team/U-Team-Core",
+		"issues": "https://github.com/MC-U-Team/U-Team-Core/issues"
 	},
 	"license": "Apache-2.0 License",
 	"icon": "logo.png",
