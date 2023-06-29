@@ -19,18 +19,18 @@ public class TestEnderPearlItem extends UItem {
 	}
 	
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level world, Player player, InteractionHand hand) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
 		final ItemStack stack = player.getItemInHand(hand);
 		
-		world.playSound(null, player.getX(), player.getY(), player.getZ(), TestMultiLoaderSoundEvents.TEST_ENDERPEARL_USE.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (world.getRandom().nextFloat() * 0.4F + 1.5F));
+		level.playSound(null, player.getX(), player.getY(), player.getZ(), TestMultiLoaderSoundEvents.TEST_ENDERPEARL_USE.get(), SoundSource.NEUTRAL, 0.5F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 1.5F));
 		
 		player.getCooldowns().addCooldown(this, 10);
 		
-		if (!world.isClientSide()) {
-			final TestEnderPearl pearl = new TestEnderPearl(world, player);
+		if (!level.isClientSide()) {
+			final TestEnderPearl pearl = new TestEnderPearl(level, player);
 			pearl.setItem(stack);
 			pearl.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, 2.5F, 1.2F);
-			world.addFreshEntity(pearl);
+			level.addFreshEntity(pearl);
 		}
 		
 		player.awardStat(Stats.ITEM_USED.get(this));
@@ -38,6 +38,6 @@ public class TestEnderPearlItem extends UItem {
 			stack.shrink(1);
 		}
 		
-		return InteractionResultHolder.success(stack);
+		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}
 }

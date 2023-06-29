@@ -37,11 +37,9 @@ public class TestUseItem extends UItem {
 			if (player instanceof final ServerPlayer serverPlayer) {
 				serverPlayer.connection.teleport(pos.x(), pos.y() + 1, pos.z(), player.getYRot(), player.getXRot());
 			}
-			stack.hurtAndBreak(1, player, unused -> {
-			});
-			
+			stack.hurtAndBreak(1, player, breakPlayer -> breakPlayer.broadcastBreakEvent(hand));
 		}
-		return InteractionResultHolder.success(stack);
+		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}
 	
 	@Override
