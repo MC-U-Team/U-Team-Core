@@ -1,9 +1,14 @@
 package info.u_team.u_team_core.api.event;
 
+import java.util.List;
+
 import info.u_team.u_team_core.util.ServiceUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
 
 public interface ClientEvents {
 	
@@ -27,6 +32,10 @@ public interface ClientEvents {
 		Handler.INSTANCE.registerScreenAfterKeyPressed(event);
 	}
 	
+	static void registerItemTooltip(ItemTooltip event) {
+		Handler.INSTANCE.registerItemTooltip(event);
+	}
+	
 	interface Handler {
 		
 		Handler INSTANCE = ServiceUtil.loadOne(Handler.class);
@@ -40,6 +49,8 @@ public interface ClientEvents {
 		void registerEndClientLevelTick(EndClientLevelTick event);
 		
 		void registerScreenAfterKeyPressed(ScreenAfterKeyPressed event);
+		
+		void registerItemTooltip(ItemTooltip event);
 	}
 	
 	@FunctionalInterface
@@ -70,6 +81,12 @@ public interface ClientEvents {
 	interface ScreenAfterKeyPressed {
 		
 		boolean onKeyPressed(Screen screen, int keyCode, int scanCode, int modifiers);
+	}
+	
+	@FunctionalInterface
+	interface ItemTooltip {
+		
+		void onTooltip(ItemStack stack, TooltipFlag flag, List<Component> lines);
 	}
 	
 }
