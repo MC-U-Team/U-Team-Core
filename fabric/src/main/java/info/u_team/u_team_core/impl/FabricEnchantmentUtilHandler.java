@@ -3,12 +3,13 @@ package info.u_team.u_team_core.impl;
 import info.u_team.u_team_core.util.EnchantmentUtil;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
-public class ForgeEnchantmentUtil implements EnchantmentUtil.Handler {
+public class FabricEnchantmentUtilHandler implements EnchantmentUtil.Handler {
 	
 	@Override
 	public int getEnchantmentLevel(Enchantment enchantment, ItemStack stack) {
-		return stack.getEnchantmentLevel(enchantment);
+		return EnchantmentHelper.getItemEnchantmentLevel(enchantment, stack);
 	}
 	
 }
