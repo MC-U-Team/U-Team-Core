@@ -11,6 +11,7 @@ import info.u_team.u_team_core.item.tier.TierSet;
 import info.u_team.u_team_core.item.tier.TierSetCreator;
 import info.u_team.u_team_core.item.tier.UExtendedTier;
 import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
+import info.u_team.u_team_test.test_multiloader.item.TestDimensionTeleportItem;
 import info.u_team.u_team_test.test_multiloader.item.TestEnderPearlItem;
 import info.u_team.u_team_test.test_multiloader.item.TestFoodItem;
 import info.u_team.u_team_test.test_multiloader.item.TestUseItem;
@@ -30,6 +31,7 @@ public class TestMultiLoaderItems {
 	
 	public static final RegistryEntry<TestUseItem> TEST_USE = ITEMS.register("test_use_item", TestUseItem::new);
 	public static final RegistryEntry<TestFoodItem> TEST_FOOD = ITEMS.register("test_food_item", TestFoodItem::new);
+	public static final RegistryEntry<TestDimensionTeleportItem> TEST_DIMENSION_TELEPORT = ITEMS.register("test_dimension_teleport_item", TestDimensionTeleportItem::new);
 	
 	public static final RegistryEntry<TestEnderPearlItem> TEST_ENDERPEARL = ITEMS.register("test_enderpearl_item", TestEnderPearlItem::new);
 	
