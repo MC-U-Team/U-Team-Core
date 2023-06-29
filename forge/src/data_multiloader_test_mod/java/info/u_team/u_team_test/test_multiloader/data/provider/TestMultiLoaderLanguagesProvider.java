@@ -20,9 +20,10 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		add(TestMultiLoaderCreativeTabs.TEST.get(), "Multiloader Test Tab");
 		
 		addItem(TestMultiLoaderItems.TEST, "Test Item");
-		addItem(TestMultiLoaderItems.TEST_USE, "Basic Item");
+		addItem(TestMultiLoaderItems.TEST_USE, "Test Use Item");
 		add(TestMultiLoaderItems.TEST_USE.get().getDescriptionId() + ".outofrange", "Out of range");
-		addItem(TestMultiLoaderItems.TEST_FOOD, "Basic Food");
+		addItem(TestMultiLoaderItems.TEST_FOOD, "Test Food");
+		addItem(TestMultiLoaderItems.TEST_DIMENSION_TELEPORT, "Test Dimension Teleport");
 		addItem(TestMultiLoaderItems.TEST_ENDERPEARL, "Test Enderpearl");
 		addItem(TestMultiLoaderItems.TEST_LIVING_SPAWN_EGG, "Test Living Entity Spawn Egg");
 		

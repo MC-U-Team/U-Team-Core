@@ -17,8 +17,9 @@
 	"item.uteamtest_multiloader.test_axe": "Test Axe",
 	"item.uteamtest_multiloader.test_boots": "Test Boots",
 	"item.uteamtest_multiloader.test_chestplate": "Test Chestplate",
+	"item.uteamtest_multiloader.test_dimension_teleport_item": "Test Dimension Teleport",
 	"item.uteamtest_multiloader.test_enderpearl_item": "Test Enderpearl",
-	"item.uteamtest_multiloader.test_food_item": "Basic Food",
+	"item.uteamtest_multiloader.test_food_item": "Test Food",
 	"item.uteamtest_multiloader.test_helmet": "Test Helmet",
 	"item.uteamtest_multiloader.test_hoe": "Test Hoe",
 	"item.uteamtest_multiloader.test_item": "Test Item",
@@ -27,6 +28,6 @@
 	"item.uteamtest_multiloader.test_pickaxe": "Test Pickaxe",
 	"item.uteamtest_multiloader.test_shovel": "Test Shovel",
 	"item.uteamtest_multiloader.test_sword": "Test Sword",
-	"item.uteamtest_multiloader.test_use_item": "Basic Item",
+	"item.uteamtest_multiloader.test_use_item": "Test Use Item",
 	"item.uteamtest_multiloader.test_use_item.outofrange": "Out of range"
 }
