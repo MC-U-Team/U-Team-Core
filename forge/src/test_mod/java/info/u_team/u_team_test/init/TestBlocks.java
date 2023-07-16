@@ -16,7 +16,7 @@ public class TestBlocks {
 	public static final BlockRegistryEntry<BasicEnergyCreatorBlock, BlockItem> BASIC_ENERGY_CREATOR = BLOCKS.register("basic_energy_creator", BasicEnergyCreatorBlock::new);
 	public static final BlockRegistryEntry<BasicFluidInventoryBlock, BlockItem> BASIC_FLUID_INVENTORY = BLOCKS.register("basic_fluid_inventory", BasicFluidInventoryBlock::new);
 	
-	public static void register() {
+	static void register() {
 		BLOCKS.register();
 	}
 	

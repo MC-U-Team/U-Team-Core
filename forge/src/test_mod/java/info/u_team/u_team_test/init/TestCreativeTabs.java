@@ -13,16 +13,12 @@ public class TestCreativeTabs {
 	public static final ResourceEntry<CreativeModeTab> TAB = CREATIVE_TABS.register("tab", builder -> {
 		builder.icon(() -> new ItemStack(TestBlocks.BASIC.get()));
 		builder.displayItems((parameters, output) -> {
-			TestBlocks.BLOCKS.itemIterable().forEach(item -> {
-				output.accept(item);
-			});
-			TestItems.ITEMS.entryIterable().forEach(item -> {
-				output.accept(item);
-			});
+			TestBlocks.BLOCKS.itemIterable().forEach(output::accept);
+			TestItems.ITEMS.entryIterable().forEach(output::accept);
 		});
 	});
 	
-	public static void register() {
+	static void register() {
 		CREATIVE_TABS.register();
 	}
 	

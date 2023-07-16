@@ -12,7 +12,7 @@ public class TestScreens {
 		menuScreens.register(TestMenuTypes.BASIC_FLUID_INVENTORY, BasicFluidInventoryScreen::new);
 	});
 	
-	public static void register() {
+	static void register() {
 		MENU_SCREENS.register();
 	}
 }

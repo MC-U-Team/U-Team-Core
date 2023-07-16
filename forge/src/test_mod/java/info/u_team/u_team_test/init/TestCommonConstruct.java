@@ -10,11 +10,12 @@ public class TestCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		TestBlocks.register();
-		TestMenuTypes.register();
-		TestItems.register();
 		TestBlockEntityTypes.register();
+		TestBlocks.register();
 		TestCreativeTabs.register();
+		TestFluidTypes.register();
+		TestItems.register();
+		TestMenuTypes.register();
 		
 		BusRegister.registerMod(TestTiers::registerMod);
 	}

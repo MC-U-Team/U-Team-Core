@@ -14,7 +14,7 @@ public class TestBlockEntityTypes {
 	public static final RegistryEntry<BlockEntityType<BasicEnergyCreatorBlockEntity>> BASIC_ENERGY_CREATOR = BLOCK_ENTITY_TYPES.register("energy_creator", () -> BlockEntityType.Builder.of(BasicEnergyCreatorBlockEntity::new, TestBlocks.BASIC_ENERGY_CREATOR.get()));
 	public static final RegistryEntry<BlockEntityType<BasicFluidInventoryBlockEntity>> BASIC_FLUID_INVENTORY = BLOCK_ENTITY_TYPES.register("fluid_inventory", () -> BlockEntityType.Builder.of(BasicFluidInventoryBlockEntity::new, TestBlocks.BASIC_FLUID_INVENTORY.get()));
 	
-	public static void register() {
+	static void register() {
 		BLOCK_ENTITY_TYPES.register();
 	}
 	

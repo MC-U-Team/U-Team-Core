@@ -16,7 +16,7 @@ public class TestMenuTypes {
 	public static final RegistryEntry<MenuType<BasicEnergyCreatorMenu>> BASIC_ENERGY_CREATOR = MENU_TYPES.register("energy_creator", () -> new UMenuType<>(BasicEnergyCreatorMenu::new));
 	public static final RegistryEntry<MenuType<BasicFluidInventoryMenu>> BASIC_FLUID_INVENTORY = MENU_TYPES.register("fluid_inventory", () -> new UMenuType<>(BasicFluidInventoryMenu::new));
 	
-	public static void register() {
+	static void register() {
 		MENU_TYPES.register();
 	}
 }

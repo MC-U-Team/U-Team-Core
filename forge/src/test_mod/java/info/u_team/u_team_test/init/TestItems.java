@@ -18,7 +18,7 @@ public class TestItems {
 	public static final TierSet BASIC_TOOL = TierSetCreator.create(ITEMS, "basic_tool", new Properties().rarity(Rarity.UNCOMMON), TestTiers.BASIC);
 	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create(ITEMS, "basic_armor", new Properties().rarity(Rarity.RARE).fireResistant(), TestArmorMaterials.BASIC);
 	
-	public static void register() {
+	static void register() {
 		ITEMS.register();
 	}
 }
