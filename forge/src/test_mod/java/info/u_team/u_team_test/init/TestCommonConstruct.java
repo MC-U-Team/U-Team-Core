@@ -13,6 +13,7 @@ public class TestCommonConstruct implements ModConstruct {
 		TestBlockEntityTypes.register();
 		TestBlocks.register();
 		TestCreativeTabs.register();
+		TestFluids.register();
 		TestFluidTypes.register();
 		TestItems.register();
 		TestMenuTypes.register();

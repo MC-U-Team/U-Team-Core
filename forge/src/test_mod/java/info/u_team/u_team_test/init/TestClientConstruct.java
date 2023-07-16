@@ -9,6 +9,7 @@ public class TestClientConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
+		TestColors.register();
 		TestScreens.register();
 	}
 	

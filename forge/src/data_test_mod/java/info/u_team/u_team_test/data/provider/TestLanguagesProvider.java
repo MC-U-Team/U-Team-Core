@@ -31,6 +31,9 @@ public class TestLanguagesProvider extends CommonLanguagesProvider {
 		addBlock(TestBlocks.BASIC_ENERGY_CREATOR, "Energy Creator");
 		addBlock(TestBlocks.BASIC_FLUID_INVENTORY, "Fluid Inventory");
 		
+		addBlock(TestBlocks.TEST_FLUID, "Test Fluid");
+		addItem(TestItems.TEST_FLUID_BUCKET, "Test Fluid Bucket");
+		
 		// German test for umlaut
 		addBlock("de_de", TestBlocks.BASIC, "Ä");
 		addBlock("de_de", TestBlocks.BASIC_ENERGY_CREATOR, "Üabc");

@@ -15,5 +15,7 @@ public class TestBlockStateProvider extends CommonBlockStateProvider {
 		simpleBlock(TestBlocks.BASIC.get());
 		simpleBlock(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		simpleBlock(TestBlocks.BASIC_FLUID_INVENTORY.get());
+		
+		simpleBlock(TestBlocks.TEST_FLUID.get(), models().getBuilder(getPath(TestBlocks.TEST_FLUID.get())).texture("particle", mcLoc("block/water_still")));
 	}
 }

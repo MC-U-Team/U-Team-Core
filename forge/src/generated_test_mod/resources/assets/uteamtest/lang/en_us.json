@@ -2,6 +2,7 @@
 	"block.uteamtest.basic_block": "Basic Block",
 	"block.uteamtest.basic_energy_creator": "Energy Creator",
 	"block.uteamtest.basic_fluid_inventory": "Fluid Inventory",
+	"block.uteamtest.test_fluid": "Test Fluid",
 	"creativetabs.uteamtest.tab": "UTeamTest Tab",
 	"item.uteamtest.basic_armor_boots": "Basic Boots",
 	"item.uteamtest.basic_armor_chestplate": "Basic Chestplate",
@@ -11,5 +12,6 @@
 	"item.uteamtest.basic_tool_hoe": "Basic Hoe",
 	"item.uteamtest.basic_tool_pickaxe": "Basic Pickaxe",
 	"item.uteamtest.basic_tool_shovel": "Basic Shovel",
-	"item.uteamtest.basic_tool_sword": "Basic Sword"
+	"item.uteamtest.basic_tool_sword": "Basic Sword",
+	"item.uteamtest.test_fluid_bucket": "Test Fluid Bucket"
 }

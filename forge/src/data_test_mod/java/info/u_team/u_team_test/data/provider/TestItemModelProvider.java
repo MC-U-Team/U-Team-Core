@@ -1,9 +1,14 @@
 package info.u_team.u_team_test.data.provider;
 
+import com.google.gson.JsonObject;
+
 import info.u_team.u_team_core.data.CommonItemModelProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.init.TestBlocks;
+import info.u_team.u_team_test.init.TestFluids;
 import info.u_team.u_team_test.init.TestItems;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 
 public class TestItemModelProvider extends CommonItemModelProvider {
 	
@@ -20,6 +25,20 @@ public class TestItemModelProvider extends CommonItemModelProvider {
 		simpleBlock(TestBlocks.BASIC.get());
 		simpleBlock(TestBlocks.BASIC_ENERGY_CREATOR.get());
 		simpleBlock(TestBlocks.BASIC_FLUID_INVENTORY.get());
+		
+		final ResourceLocation bucketModel = modLoc("item/" + getPath(TestItems.TEST_FLUID_BUCKET.get()));
+		existingFileHelper.trackGenerated(bucketModel, MODEL);
+		generatedModels.computeIfAbsent(bucketModel, location -> new ItemModelBuilder(location, existingFileHelper) {
+			
+			@Override
+			public JsonObject toJson() {
+				final JsonObject root = new JsonObject();
+				root.addProperty("parent", "forge:item/bucket_drip");
+				root.addProperty("loader", "forge:fluid_container");
+				root.addProperty("fluid", TestFluids.TEST_FLUID.getId().toString());
+				return root;
+			};
+		});
 	}
 	
 }
