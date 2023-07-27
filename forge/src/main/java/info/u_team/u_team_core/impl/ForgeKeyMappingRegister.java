@@ -20,8 +20,8 @@ public class ForgeKeyMappingRegister extends CommonKeyMappingRegister {
 	}
 	
 	private void registerKeyMapping(RegisterKeyMappingsEvent event) {
-		for (final Entry<ForgeKeyMappingSimpleEntry, Supplier<KeyMapping>> entry : entries.entrySet()) {
-			final ForgeKeyMappingSimpleEntry registryEntry = entry.getKey();
+		for (final Entry<KeyMappingLazyEntry, Supplier<KeyMapping>> entry : entries.entrySet()) {
+			final KeyMappingLazyEntry registryEntry = entry.getKey();
 			final KeyMapping keyMapping = entry.getValue().get();
 			event.register(keyMapping);
 			updateReference(registryEntry, keyMapping);

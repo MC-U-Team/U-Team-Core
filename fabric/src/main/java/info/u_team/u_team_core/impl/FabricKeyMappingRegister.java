@@ -15,8 +15,8 @@ public class FabricKeyMappingRegister extends CommonKeyMappingRegister {
 	
 	@Override
 	public void register() {
-		for (final Entry<ForgeKeyMappingSimpleEntry, Supplier<KeyMapping>> entry : entries.entrySet()) {
-			final ForgeKeyMappingSimpleEntry registryEntry = entry.getKey();
+		for (final Entry<KeyMappingLazyEntry, Supplier<KeyMapping>> entry : entries.entrySet()) {
+			final KeyMappingLazyEntry registryEntry = entry.getKey();
 			final KeyMapping keyMapping = entry.getValue().get();
 			KeyBindingHelper.registerKeyBinding(keyMapping);
 			updateReference(registryEntry, keyMapping);

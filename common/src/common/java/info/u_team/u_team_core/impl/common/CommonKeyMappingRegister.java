@@ -11,7 +11,7 @@ import net.minecraft.client.KeyMapping;
 
 public abstract class CommonKeyMappingRegister implements KeyMappingRegister {
 	
-	protected final Map<ForgeKeyMappingSimpleEntry, Supplier<KeyMapping>> entries;
+	protected final Map<KeyMappingLazyEntry, Supplier<KeyMapping>> entries;
 	
 	protected CommonKeyMappingRegister() {
 		entries = new LinkedHashMap<>();
@@ -19,20 +19,20 @@ public abstract class CommonKeyMappingRegister implements KeyMappingRegister {
 	
 	@Override
 	public LazyEntry<KeyMapping> register(Supplier<KeyMapping> supplier) {
-		final ForgeKeyMappingSimpleEntry entry = new ForgeKeyMappingSimpleEntry();
+		final KeyMappingLazyEntry entry = new KeyMappingLazyEntry();
 		entries.put(entry, supplier);
 		return entry;
 	}
 	
-	protected void updateReference(ForgeKeyMappingSimpleEntry entry, KeyMapping key) {
+	protected void updateReference(KeyMappingLazyEntry entry, KeyMapping key) {
 		entry.updateReference(key);
 	}
 	
-	public static class ForgeKeyMappingSimpleEntry implements LazyEntry<KeyMapping> {
+	public static class KeyMappingLazyEntry implements LazyEntry<KeyMapping> {
 		
 		private KeyMapping value;
 		
-		ForgeKeyMappingSimpleEntry() {
+		KeyMappingLazyEntry() {
 		}
 		
 		void updateReference(KeyMapping key) {
