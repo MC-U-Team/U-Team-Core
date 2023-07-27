@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.20.1-5.1.3.268] - 2023-07-28
+### Changed
+ - Add issues url in fabric.mod.json
+ - Internal:
+   - Fix internal class name
+   - Add fluid test for forge test mod
+
 ## [1.20.1-5.1.3.267] - 2023-06-30
 ### Changed
  - Updated forge and fabric api
