@@ -12,6 +12,10 @@ public interface CommonEvents {
 		Handler.INSTANCE.registerSetup(event);
 	}
 	
+	static void registerSetup(SetupEvent event, boolean forceMainThread) {
+		Handler.INSTANCE.registerSetup(event, forceMainThread);
+	}
+	
 	static void registerRegister(RegisterEvent event) {
 		Handler.INSTANCE.registerRegister(event);
 	}
@@ -44,7 +48,11 @@ public interface CommonEvents {
 		
 		Handler INSTANCE = ServiceUtil.loadOne(Handler.class);
 		
-		void registerSetup(SetupEvent event);
+		default void registerSetup(SetupEvent event) {
+			registerSetup(event, false);
+		}
+		
+		void registerSetup(SetupEvent event, boolean forceMainThread);
 		
 		void registerRegister(RegisterEvent event);
 		

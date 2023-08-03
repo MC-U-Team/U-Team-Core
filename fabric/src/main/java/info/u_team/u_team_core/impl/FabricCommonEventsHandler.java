@@ -16,7 +16,8 @@ import net.fabricmc.fabric.api.event.lifecycle.v1.ServerWorldEvents;
 public class FabricCommonEventsHandler implements CommonEvents.Handler {
 	
 	@Override
-	public void registerSetup(SetupEvent event) {
+	public void registerSetup(SetupEvent event, boolean forceMainThread) {
+		// Ignore forceMainThread as we are always on the main thread
 		SetupEvents.COMMON_SETUP.register(event::onSetup);
 	}
 	

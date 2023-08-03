@@ -24,9 +24,13 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 public class ForgeCommonEventsHandler implements CommonEvents.Handler {
 	
 	@Override
-	public void registerSetup(SetupEvent event) {
+	public void registerSetup(SetupEvent event, boolean forceMainThread) {
 		registerModEvent(FMLCommonSetupEvent.class, modEvent -> {
-			event.onSetup();
+			if (forceMainThread) {
+				modEvent.enqueueWork(event::onSetup);
+			} else {
+				event.onSetup();
+			}
 		});
 	}
 	
