@@ -10,7 +10,7 @@ import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.ServiceUtil;
 import net.minecraft.world.level.GameRules;
 
-public interface GameRuleRegister extends Iterable<LazyEntry<GameRules.Key<? extends GameRules.Value<?>>>> {
+public interface GameRuleRegister extends Iterable<LazyEntry<GameRules.Key<?>>> {
 	
 	static GameRuleRegister create() {
 		return Factory.INSTANCE.create();
@@ -20,14 +20,14 @@ public interface GameRuleRegister extends Iterable<LazyEntry<GameRules.Key<? ext
 	
 	void register();
 	
-	Collection<LazyEntry<GameRules.Key<? extends GameRules.Value<?>>>> getEntries();
+	Collection<LazyEntry<GameRules.Key<?>>> getEntries();
 	
 	@Override
-	default Iterator<LazyEntry<GameRules.Key<? extends GameRules.Value<?>>>> iterator() {
+	default Iterator<LazyEntry<GameRules.Key<?>>> iterator() {
 		return getEntries().iterator();
 	}
 	
-	default Iterable<GameRules.Key<? extends GameRules.Value<?>>> entryIterable() {
+	default Iterable<GameRules.Key<?>> entryIterable() {
 		return () -> CastUtil.uncheckedCast(Streams.stream(this).map(LazyEntry::get).iterator());
 	}
 	

@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.impl.common;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -10,10 +11,6 @@ import info.u_team.u_team_core.api.registry.GameRuleRegister;
 import info.u_team.u_team_core.api.registry.LazyEntry;
 import info.u_team.u_team_core.util.CastUtil;
 import net.minecraft.world.level.GameRules;
-import net.minecraft.world.level.GameRules.Category;
-import net.minecraft.world.level.GameRules.Key;
-import net.minecraft.world.level.GameRules.Type;
-import net.minecraft.world.level.GameRules.Value;
 
 public abstract class CommonGameRuleRegister implements GameRuleRegister {
 	
@@ -24,10 +21,15 @@ public abstract class CommonGameRuleRegister implements GameRuleRegister {
 	}
 	
 	@Override
-	public <T extends Value<T>> LazyEntry<Key<T>> register(String name, Category category, Supplier<? extends Type<T>> type) {
+	public <T extends GameRules.Value<T>> LazyEntry<GameRules.Key<T>> register(String name, GameRules.Category category, Supplier<? extends GameRules.Type<T>> type) {
 		final GameRuleLazyEntry<T> entry = new GameRuleLazyEntry<>();
 		entries.put(entry, new GameRuleData<>(name, category, type));
 		return entry;
+	}
+	
+	@Override
+	public Collection<LazyEntry<GameRules.Key<?>>> getEntries() {
+		return CastUtil.uncheckedCast(entries.keySet());
 	}
 	
 	protected void registerEntries() {
@@ -41,7 +43,7 @@ public abstract class CommonGameRuleRegister implements GameRuleRegister {
 		}
 	}
 	
-	protected record GameRuleData<T extends Value<T>>(String name, Category category, Supplier<? extends Type<T>> type) {
+	protected record GameRuleData<T extends GameRules.Value<T>>(String name, GameRules.Category category, Supplier<? extends GameRules.Type<T>> type) {
 	}
 	
 	public static class GameRuleLazyEntry<T extends GameRules.Value<T>> implements LazyEntry<GameRules.Key<T>> {
