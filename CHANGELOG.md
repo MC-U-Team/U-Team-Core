@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.20.1-5.1.4.269] - 2023-08-04
+### Added
+ - Add option to force main thread for setup event
+ - Add game rule register
+ - Update forge and fabric versions
+
 ## [1.20.1-5.1.3.268] - 2023-07-28
 ### Changed
  - Add issues url in fabric.mod.json
