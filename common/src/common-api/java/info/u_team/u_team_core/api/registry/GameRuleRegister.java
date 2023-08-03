@@ -16,6 +16,10 @@ public interface GameRuleRegister extends Iterable<LazyEntry<GameRules.Key<?>>> 
 		return Factory.INSTANCE.create();
 	}
 	
+	default <T extends GameRules.Value<T>> LazyEntry<GameRules.Key<T>> register(String modid, String name, GameRules.Category category, Supplier<? extends GameRules.Type<T>> type) {
+		return register(new StringBuilder().append(modid).append(":").append(name).toString(), category, type);
+	}
+	
 	<T extends GameRules.Value<T>> LazyEntry<GameRules.Key<T>> register(String name, GameRules.Category category, Supplier<? extends GameRules.Type<T>> type);
 	
 	void register();
