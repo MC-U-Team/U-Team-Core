@@ -4,6 +4,7 @@ import java.util.Random;
 
 import info.u_team.u_team_core.util.RegistryUtil;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderDamageSources;
+import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderGameRules;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
@@ -23,9 +24,11 @@ public class TestEffect extends MobEffect {
 	@Override
 	public void applyEffectTick(LivingEntity entity, int amplifier) {
 		amplifier += 2;
-		entity.hurt(new DamageSource(RegistryUtil.getRegistry(entity.level(), Registries.DAMAGE_TYPE).getHolderOrThrow(TestMultiLoaderDamageSources.TEST)), random.nextInt(amplifier));
-		if (entity instanceof final Player player) {
-			player.causeFoodExhaustion(0.005F * amplifier);
+		if (entity.level().getGameRules().getBoolean(TestMultiLoaderGameRules.RULE_DO_RADIATION_DAMAGE.get())) {
+			entity.hurt(new DamageSource(RegistryUtil.getRegistry(entity.level(), Registries.DAMAGE_TYPE).getHolderOrThrow(TestMultiLoaderDamageSources.TEST)), random.nextInt(amplifier));
+			if (entity instanceof final Player player) {
+				player.causeFoodExhaustion(0.005F * amplifier);
+			}
 		}
 	}
 	

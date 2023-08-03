@@ -11,6 +11,7 @@ public class TestMultiLoaderCommonConstruct implements ModConstruct {
 	public void construct() {
 		TestMultiLoaderBlockEntityTypes.register();
 		TestMultiLoaderBlocks.register();
+		TestMultiLoaderCreativeTabs.register();
 		TestMultiLoaderEnchantments.register();
 		TestMultiLoaderEntityTypes.register();
 		TestMultiLoaderItems.register();
@@ -22,8 +23,8 @@ public class TestMultiLoaderCommonConstruct implements ModConstruct {
 		
 		TestMultiLoaderCommands.register();
 		TestMultiLoaderCommonEvents.register();
-		TestMultiLoaderCreativeTabs.register();
 		TestMultiLoaderEntityAttributes.register();
+		TestMultiLoaderGameRules.register();
 		TestMultiLoaderNetwork.register();
 		TestMultiLoaderSpawnPlacements.register();
 	}
