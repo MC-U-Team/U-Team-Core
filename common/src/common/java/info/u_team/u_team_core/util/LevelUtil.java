@@ -11,6 +11,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.level.TicketType;
 import net.minecraft.util.Mth;
+import net.minecraft.util.datafix.DataFixTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
@@ -21,6 +22,7 @@ import net.minecraft.world.level.ClipContext.Fluid;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.saveddata.SavedData;
+import net.minecraft.world.level.saveddata.SavedData.Factory;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
@@ -82,7 +84,7 @@ public class LevelUtil {
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
 	public static <T extends SavedData> T getSaveData(ServerLevel level, String name, Function<CompoundTag, T> load, Supplier<T> defaultData) {
-		return level.getDataStorage().computeIfAbsent(load, defaultData, name);
+		return level.getDataStorage().computeIfAbsent(new Factory<T>(defaultData, load, DataFixTypes.SAVED_DATA_COMMAND_STORAGE /* TODO fixup data fix types when a solution is ready */), name);
 	}
 	
 	/**
