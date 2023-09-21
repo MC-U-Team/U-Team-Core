@@ -28,7 +28,7 @@ accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties forceSolidOff Z
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties forceSolidOn Z
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties pushReaction Lnet/minecraft/world/level/material/PushReaction;
-accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties spawnParticlesOnBreak Z
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties spawnTerrainParticles Z
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties instrument Lnet/minecraft/world/level/block/state/properties/NoteBlockInstrument;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties replaceable Z
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties isValidSpawn Lnet/minecraft/world/level/block/state/BlockBehaviour$StateArgumentPredicate;

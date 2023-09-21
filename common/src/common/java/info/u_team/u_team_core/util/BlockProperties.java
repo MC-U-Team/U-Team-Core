@@ -30,7 +30,7 @@ public class BlockProperties extends Properties {
 		forceSolidOff = properties.forceSolidOff;
 		forceSolidOn = properties.forceSolidOn;
 		pushReaction = properties.pushReaction;
-		spawnParticlesOnBreak = properties.spawnParticlesOnBreak;
+		spawnTerrainParticles = properties.spawnTerrainParticles;
 		instrument = properties.instrument;
 		replaceable = properties.replaceable;
 		isValidSpawn = properties.isValidSpawn;
