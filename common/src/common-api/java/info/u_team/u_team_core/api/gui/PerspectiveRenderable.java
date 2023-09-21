@@ -8,8 +8,8 @@ public interface PerspectiveRenderable extends Renderable {
 	@Override
 	void render(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
 	
-	void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
+	void renderBehind(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
 	
-	void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
+	void renderBefore(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick);
 	
 }
