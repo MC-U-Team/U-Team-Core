@@ -4,6 +4,7 @@ import java.util.function.Supplier;
 
 import com.google.gson.JsonObject;
 
+import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -31,24 +32,20 @@ public class RecipeBuilderUtil {
 			}
 			
 			@Override
-			public RecipeSerializer<?> getType() {
+			public RecipeSerializer<?> type() {
 				return serializer.get();
 			}
 			
 			@Override
-			public ResourceLocation getId() {
-				return recipe.getId();
+			public ResourceLocation id() {
+				return recipe.id();
 			}
 			
 			@Override
-			public JsonObject serializeAdvancement() {
-				return recipe.serializeAdvancement();
+			public AdvancementHolder advancement() {
+				return recipe.advancement();
 			}
 			
-			@Override
-			public ResourceLocation getAdvancementId() {
-				return recipe.getAdvancementId();
-			}
 		};
 	}
 	
