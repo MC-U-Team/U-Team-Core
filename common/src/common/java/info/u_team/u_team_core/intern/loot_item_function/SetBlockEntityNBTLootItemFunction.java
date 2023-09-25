@@ -1,7 +1,9 @@
 package info.u_team.u_team_core.intern.loot_item_function;
 
-import com.google.gson.JsonDeserializationContext;
-import com.google.gson.JsonObject;
+import java.util.List;
+
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import info.u_team.u_team_core.intern.init.UCoreLootItemFunctions;
 import net.minecraft.world.item.ItemStack;
@@ -14,11 +16,15 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class SetBlockEntityNBTLootItemFunction extends LootItemConditionalFunction {
 	
+	public static final Codec<SetBlockEntityNBTLootItemFunction> CODEC = RecordCodecBuilder.create(instance -> {
+		return commonFields(instance).apply(instance, SetBlockEntityNBTLootItemFunction::new);
+	});
+	
 	public static LootItemConditionalFunction.Builder<?> builder() {
 		return simpleBuilder(SetBlockEntityNBTLootItemFunction::new);
 	}
 	
-	private SetBlockEntityNBTLootItemFunction(LootItemCondition[] conditions) {
+	private SetBlockEntityNBTLootItemFunction(List<LootItemCondition> conditions) {
 		super(conditions);
 	}
 	
@@ -34,13 +40,5 @@ public class SetBlockEntityNBTLootItemFunction extends LootItemConditionalFuncti
 	@Override
 	public LootItemFunctionType getType() {
 		return UCoreLootItemFunctions.SET_BLOCKENTITY_NBT.get();
-	}
-	
-	public static class Serializer extends LootItemConditionalFunction.Serializer<SetBlockEntityNBTLootItemFunction> {
-		
-		@Override
-		public SetBlockEntityNBTLootItemFunction deserialize(JsonObject object, JsonDeserializationContext deserializationContext, LootItemCondition[] conditions) {
-			return new SetBlockEntityNBTLootItemFunction(conditions);
-		}
 	}
 }
