@@ -45,9 +45,10 @@ mutable field net/minecraft/client/gui/components/Button onPress Lnet/minecraft/
 mutable field net/minecraft/client/gui/components/Button createNarration Lnet/minecraft/client/gui/components/Button$CreateNarration;
 accessible method net/minecraft/client/gui/components/AbstractButton getTextureY ()I
 
-accessible field net/minecraft/client/gui/components/AbstractSliderButton SLIDER_LOCATION Lnet/minecraft/resources/ResourceLocation;
-accessible method net/minecraft/client/gui/components/AbstractSliderButton getTextureY ()I
-accessible method net/minecraft/client/gui/components/AbstractSliderButton getHandleTextureY ()I
+accessible field net/minecraft/client/gui/components/AbstractButton SPRITES Lnet/minecraft/client/gui/components/WidgetSprites;
+
+accessible method net/minecraft/client/gui/components/AbstractSliderButton getSprite ()Lnet/minecraft/resources/ResourceLocation;
+accessible method net/minecraft/client/gui/components/AbstractSliderButton getHandleSprite ()Lnet/minecraft/resources/ResourceLocation;
 
 accessible field net/minecraft/client/gui/components/AbstractWidget width I
 accessible field net/minecraft/client/gui/components/AbstractWidget height I
