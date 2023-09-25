@@ -26,16 +26,17 @@ public class WidgetUtil {
 		RenderSystem.enableDepthTest();
 		
 		widget.renderWidgetTexture(guiGraphics, mouseX, mouseY, partialTick);
-		widget.renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-		widget.renderForeground(guiGraphics, mouseX, mouseY, partialTick);
+		widget.renderBehind(guiGraphics, mouseX, mouseY, partialTick);
+		widget.renderBefore(guiGraphics, mouseX, mouseY, partialTick);
 		if (widget instanceof final TooltipRenderable tooltipRenderable) {
 			renderCustomTooltipForWidget(tooltipRenderable, guiGraphics, mouseX, mouseY, partialTick);
 		}
 	}
 	
 	public static <T extends AbstractWidget & BackgroundColorProvider> void renderButtonLikeTexture(T widget, TextureProvider textureProvider, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		final RGBA color = respectWidgetAlpha(widget, widget.getCurrentBackgroundColor(guiGraphics, mouseY, mouseY, partialTick));
-		RenderUtil.drawContinuousTexturedBox(guiGraphics.pose(), widget.getX(), widget.getY(), textureProvider.getU(), textureProvider.getV(), widget.getWidth(), widget.getHeight(), textureProvider.getWidth(), textureProvider.getHeight(), 2, 3, 2, 2, 0, textureProvider.getTexture(), color);
+		RenderUtil.setShaderColor(respectWidgetAlpha(widget, widget.getCurrentBackgroundColor(guiGraphics, mouseY, mouseY, partialTick)));
+		guiGraphics.blitSprite(textureProvider.getTexture(), widget.getX(), widget.getY(), widget.getWidth(), widget.getHeight());
+		RenderUtil.resetShaderColor();
 	}
 	
 	public static <T extends AbstractWidget & TextProvider> void renderText(T widget, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {

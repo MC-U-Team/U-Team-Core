@@ -36,9 +36,9 @@ public non-sealed class USlider extends AbstractSliderLogic implements WidgetRen
 	
 	public USlider(int x, int y, int width, int height, Component prefix, Component suffix, double minValue, double maxValue, double value, boolean decimalPrecision, boolean drawDescription, OnSliderChange slider) {
 		super(x, y, width, height, prefix, suffix, minValue, maxValue, value, decimalPrecision, drawDescription, slider);
-		sliderBackgroundTextureProvider = new WidgetTextureProvider(SLIDER_LOCATION, this::getTextureY);
+		sliderBackgroundTextureProvider = this::getSprite;
 		sliderBackgroundColor = WHITE;
-		sliderTextureProvider = new WidgetTextureProvider(SLIDER_LOCATION, this::getHandleTextureY);
+		sliderTextureProvider = this::getHandleSprite;
 		sliderColor = WHITE;
 		textColor = WHITE;
 		disabledTextColor = LIGHT_GRAY;
@@ -97,13 +97,14 @@ public non-sealed class USlider extends AbstractSliderLogic implements WidgetRen
 	}
 	
 	@Override
-	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentSliderColor(guiGraphics, mouseX, mouseY, partialTick));
-		RenderUtil.drawContinuousTexturedBox(guiGraphics.pose(), x + (int) (value * (width - 8)), y, sliderTextureProvider.getU(), sliderTextureProvider.getV(), 8, height, sliderTextureProvider.getWidth(), sliderTextureProvider.getHeight(), 2, 3, 2, 2, 0, sliderTextureProvider.getTexture(), color);
+	public void renderBehind(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		RenderUtil.setShaderColor(WidgetUtil.respectWidgetAlpha(this, getCurrentSliderColor(guiGraphics, mouseX, mouseY, partialTick)));
+		guiGraphics.blitSprite(sliderTextureProvider.getTexture(), x + (int) (value * (width - 8)), y, 8, height);
+		RenderUtil.resetShaderColor();
 	}
 	
 	@Override
-	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBefore(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		WidgetUtil.renderText(this, guiGraphics, mouseX, mouseY, partialTick);
 	}
 	

@@ -55,6 +55,7 @@ accessible field net/minecraft/client/gui/components/AbstractWidget x I
 accessible field net/minecraft/client/gui/components/AbstractWidget y I
 accessible field net/minecraft/client/gui/components/AbstractWidget alpha F
 
+accessible field net/minecraft/client/gui/components/EditBox SPRITES Lnet/minecraft/client/gui/components/WidgetSprites;
 accessible field net/minecraft/client/gui/components/EditBox font Lnet/minecraft/client/gui/Font;
 accessible field net/minecraft/client/gui/components/EditBox value Ljava/lang/String;
 accessible field net/minecraft/client/gui/components/EditBox maxLength I
@@ -69,9 +70,13 @@ accessible field net/minecraft/client/gui/components/EditBox highlightPos I
 accessible field net/minecraft/client/gui/components/EditBox suggestion Ljava/lang/String;
 accessible field net/minecraft/client/gui/components/EditBox formatter Ljava/util/function/BiFunction;
 accessible field net/minecraft/client/gui/components/EditBox hint Lnet/minecraft/network/chat/Component;
+accessible field net/minecraft/client/gui/components/EditBox focusedTime J
 accessible method net/minecraft/client/gui/components/EditBox renderHighlight (Lnet/minecraft/client/gui/GuiGraphics;IIII)V
 
-accessible field net/minecraft/client/gui/components/Checkbox TEXTURE Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/gui/components/Checkbox CHECKBOX_SELECTED_HIGHLIGHTED_SPRITE Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/gui/components/Checkbox CHECKBOX_SELECTED_SPRITE Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/gui/components/Checkbox CHECKBOX_HIGHLIGHTED_SPRITE Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/client/gui/components/Checkbox CHECKBOX_SPRITE Lnet/minecraft/resources/ResourceLocation;
 
 accessible field net/minecraft/client/gui/components/AbstractSelectionList$Entry list Lnet/minecraft/client/gui/components/AbstractSelectionList;
 

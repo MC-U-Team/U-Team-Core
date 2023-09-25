@@ -40,7 +40,7 @@ public class ImageButton extends UButton {
 	}
 	
 	@Override
-	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBefore(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		final ResourceLocation image = getCurrentImage(guiGraphics, mouseX, mouseY, partialTick);
 		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentImageColor(guiGraphics, mouseX, mouseY, partialTick));
 		

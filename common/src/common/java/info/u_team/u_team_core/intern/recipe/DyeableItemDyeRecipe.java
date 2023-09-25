@@ -7,7 +7,6 @@ import com.google.common.collect.Lists;
 import info.u_team.u_team_core.api.dye.DyeableItem;
 import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
 import net.minecraft.core.RegistryAccess;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.CraftingContainer;
 import net.minecraft.world.item.DyeItem;
 import net.minecraft.world.item.Item;
@@ -19,8 +18,8 @@ import net.minecraft.world.level.Level;
 
 public class DyeableItemDyeRecipe extends CustomRecipe {
 	
-	public DyeableItemDyeRecipe(ResourceLocation location, CraftingBookCategory category) {
-		super(location, category);
+	public DyeableItemDyeRecipe(CraftingBookCategory category) {
+		super(category);
 	}
 	
 	@Override

@@ -2,16 +2,16 @@ package info.u_team.u_team_core.gui.elements;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
 import info.u_team.u_team_core.api.gui.PerspectiveRenderable;
-import info.u_team.u_team_core.api.gui.RenderTickable;
 import info.u_team.u_team_core.api.gui.TextSettingsProvider;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
+import net.minecraft.Util;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.network.chat.Component;
 
-public class UEditBox extends EditBox implements RenderTickable, PerspectiveRenderable, BackgroundColorProvider, TextSettingsProvider {
+public class UEditBox extends EditBox implements PerspectiveRenderable, BackgroundColorProvider, TextSettingsProvider {
 	
 	protected static final RGBA BLACK = RGBA.BLACK;
 	protected static final RGBA WHITE = RGBA.WHITE;
@@ -133,26 +133,22 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 	}
 	
 	@Override
-	public void renderTick() {
-		tick();
-	}
-	
-	@Override
 	public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-		renderForeground(guiGraphics, mouseX, mouseY, partialTick);
+		renderBehind(guiGraphics, mouseX, mouseY, partialTick);
+		renderBefore(guiGraphics, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBehind(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		if (bordered) {
+			// TODO render with background frame texture
 			guiGraphics.fill(x - 1, y - 1, x + width + 1, y + height + 1, WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundFrameColor(guiGraphics, mouseX, mouseY, partialTick)).getColorARGB());
 			guiGraphics.fill(x, y, x + width, y + height, WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(guiGraphics, mouseX, mouseY, partialTick)).getColorARGB());
 		}
 	}
 	
 	@Override
-	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBefore(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		final RGBA currentTextColor = WidgetUtil.respectWidgetAlpha(this, getCurrentTextColor(guiGraphics, mouseX, mouseY, partialTick));
 		
 		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), getInnerWidth());
@@ -161,7 +157,7 @@ public class UEditBox extends EditBox implements RenderTickable, PerspectiveRend
 		final int selectionOffset = Math.min(highlightPos - displayPos, currentText.length());
 		
 		final boolean isCursorInText = cursorOffset >= 0 && cursorOffset <= currentText.length();
-		final boolean shouldCursorBlink = isFocused() && frame / 6 % 2 == 0 && isCursorInText;
+		final boolean shouldCursorBlink = isFocused() && (Util.getMillis() - focusedTime) / 300 % 2 == 0 && isCursorInText;
 		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 		
 		final int xOffset = bordered ? x + 4 : x;

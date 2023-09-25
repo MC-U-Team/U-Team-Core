@@ -53,13 +53,13 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	
 	@Override
 	public void renderWidget(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		renderBackground(guiGraphics, mouseX, mouseY, partialTick);
-		renderForeground(guiGraphics, mouseX, mouseY, partialTick);
+		renderBehind(guiGraphics, mouseX, mouseY, partialTick);
+		renderBefore(guiGraphics, mouseX, mouseY, partialTick);
 		WidgetUtil.renderCustomTooltipForWidget(this, guiGraphics, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
-	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBehind(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		double ratio = (double) storage.getAsLong() / capacity.getAsLong();
 		if (ratio > 1) {
 			ratio = 1;
@@ -97,7 +97,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 	}
 	
 	@Override
-	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBefore(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		RenderUtil.drawContainerBorder(guiGraphics.pose(), x, y, width, height, 0, RGBA.WHITE);
 	}
 	

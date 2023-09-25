@@ -6,8 +6,10 @@ import info.u_team.u_team_core.api.gui.Scalable;
 import info.u_team.u_team_core.api.gui.ScaleProvider;
 import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.WidgetUtil;
+import net.minecraft.Util;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 
@@ -31,7 +33,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 	}
 	
 	@Override
-	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBefore(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		final float currentScale = getCurrentScale(guiGraphics, mouseX, mouseY, partialTick);
 		final float positionFactor = 1 / scale;
 		
@@ -47,7 +49,7 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 		final int selectionOffset = Math.min(highlightPos - displayPos, currentText.length());
 		
 		final boolean isCursorInText = cursorOffset >= 0 && cursorOffset <= currentText.length();
-		final boolean shouldCursorBlink = isFocused() && frame / 6 % 2 == 0 && isCursorInText;
+		final boolean shouldCursorBlink = isFocused() && (Util.getMillis() - focusedTime) / 300 % 2 == 0 && isCursorInText;
 		final boolean isCursorInTheMiddle = cursorPos < value.length() || value.length() >= maxLength;
 		
 		final int xOffset = (int) ((bordered ? x + 4 : x) * positionFactor);
@@ -98,32 +100,19 @@ public class ScalableEditBox extends UEditBox implements Scalable, ScaleProvider
 	}
 	
 	@Override
-	public boolean mouseClicked(double mouseX, double mouseY, int button) {
-		if (active && visible) {
-			if (isValidClickButton(button)) {
-				final boolean clicked = clicked(mouseX, mouseY);
-				
-				if (canLoseFocus) {
-					setFocused(clicked);
-				}
-				
-				if (isFocused() && clicked) {
-					int clickOffset = Mth.floor(mouseX) - x;
-					if (bordered) {
-						clickOffset -= 4;
-					}
-					
-					clickOffset /= getCurrentScale();
-					
-					final String currentText = font.plainSubstrByWidth(value.substring(displayPos), (int) (getInnerWidth() * 1 / getCurrentScale()));
-					moveCursorTo(font.plainSubstrByWidth(currentText, clickOffset).length() + displayPos);
-					return true;
-				}
-			}
+	public void onClick(double mouseX, double mouseY) {
+		int clickOffset = Mth.floor(mouseX) - x;
+		if (bordered) {
+			clickOffset -= 4;
 		}
-		return false;
+		
+		clickOffset /= getCurrentScale();
+		
+		final String currentText = font.plainSubstrByWidth(value.substring(displayPos), (int) (getInnerWidth() * 1 / getCurrentScale()));
+		moveCursorTo(font.plainSubstrByWidth(currentText, clickOffset).length() + displayPos, Screen.hasShiftDown());
 	}
 	
+	// TODO move to scrollTo method probably
 	@Override
 	public void setHighlightPos(int position) {
 		final int valueLength = value.length();

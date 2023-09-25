@@ -40,7 +40,7 @@ public class UButton extends Button implements WidgetRenderable, BackgroundColor
 	
 	public UButton(int x, int y, int width, int height, Component text, OnPress pressable, CreateNarration narration) {
 		super(x, y, width, height, text, pressable, narration);
-		buttonTextureProvider = new WidgetTextureProvider(this::getTextureY);
+		buttonTextureProvider = new WidgetTextureProvider(SPRITES, this::isActive, this::isHoveredOrFocused);
 		buttonColor = WHITE;
 		textColor = WHITE;
 		disabledTextColor = LIGHT_GRAY;
@@ -103,11 +103,11 @@ public class UButton extends Button implements WidgetRenderable, BackgroundColor
 	}
 	
 	@Override
-	public void renderBackground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBehind(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 	}
 	
 	@Override
-	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBefore(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		WidgetUtil.renderText(this, guiGraphics, mouseX, mouseY, partialTick);
 	}
 	

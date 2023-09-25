@@ -2,23 +2,20 @@ package info.u_team.u_team_core.gui.elements;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
-import info.u_team.u_team_core.api.gui.TextureProvider;
 import info.u_team.u_team_core.util.FontUtil;
-import info.u_team.u_team_core.util.RGBA;
-import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Checkbox;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.narration.NarratedElementType;
 import net.minecraft.client.gui.narration.NarrationElementOutput;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 
 public class CheckboxButton extends UButton {
 	
-	protected static final ResourceLocation TEXTURE = Checkbox.TEXTURE;
+	protected static final WidgetSprites CHECKBOX_SPRITES = new WidgetSprites(Checkbox.CHECKBOX_SELECTED_SPRITE, Checkbox.CHECKBOX_HIGHLIGHTED_SPRITE, Checkbox.CHECKBOX_SELECTED_HIGHLIGHTED_SPRITE, Checkbox.CHECKBOX_SPRITE);
 	
 	protected boolean checked;
 	
@@ -34,33 +31,7 @@ public class CheckboxButton extends UButton {
 		super(x, y, width, height, text, pessable);
 		this.checked = checked;
 		this.drawText = drawText;
-		buttonTextureProvider = new TextureProvider() {
-			
-			@Override
-			public ResourceLocation getTexture() {
-				return TEXTURE;
-			}
-			
-			@Override
-			public int getU() {
-				return isHoveredOrFocused() ? 20 : 0;
-			}
-			
-			@Override
-			public int getV() {
-				return CheckboxButton.this.checked ? 20 : 0;
-			}
-			
-			@Override
-			public int getWidth() {
-				return 20;
-			}
-			
-			@Override
-			public int getHeight() {
-				return 20;
-			}
-		};
+		buttonTextureProvider = new WidgetTextureProvider(CHECKBOX_SPRITES, this::isChecked, this::isHoveredOrFocused);
 	}
 	
 	public boolean isChecked() {
@@ -97,14 +68,17 @@ public class CheckboxButton extends UButton {
 		super.onPress();
 	}
 	
-	@Override
-	public void renderWidgetTexture(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(guiGraphics, mouseY, mouseY, partialTick));
-		RenderUtil.drawTexturedQuad(guiGraphics.pose(), x, y, width, height, buttonTextureProvider.getWidth(), buttonTextureProvider.getHeight(), buttonTextureProvider.getU(), buttonTextureProvider.getV(), 64, 64, 0, buttonTextureProvider.getTexture(), color);
-	}
+	// @Override // TODO removed, should not be nessessary any more
+	// public void renderWidgetTexture(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	// final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(guiGraphics, mouseY, mouseY,
+	// partialTick));
+	// RenderUtil.drawTexturedQuad(guiGraphics.pose(), x, y, width, height, buttonTextureProvider.getWidth(),
+	// buttonTextureProvider.getHeight(), buttonTextureProvider.getU(), buttonTextureProvider.getV(), 64, 64, 0,
+	// buttonTextureProvider.getTexture(), color);
+	// }
 	
 	@Override
-	public void renderForeground(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+	public void renderBefore(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		if (drawText) {
 			final Font font = getCurrentTextFont();
 			

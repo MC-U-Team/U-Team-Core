@@ -1,48 +1,25 @@
 package info.u_team.u_team_core.gui.elements;
 
-import java.util.function.IntSupplier;
+import java.util.function.BooleanSupplier;
 
 import info.u_team.u_team_core.api.gui.TextureProvider;
-import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.resources.ResourceLocation;
 
 public class WidgetTextureProvider implements TextureProvider {
 	
-	protected final ResourceLocation texture;
-	protected final IntSupplier vSupplier;
+	protected final WidgetSprites sprites;
+	protected final BooleanSupplier enabled, focused;
 	
-	public WidgetTextureProvider(IntSupplier vSupplier) {
-		this(AbstractWidget.WIDGETS_LOCATION, vSupplier);
-	}
-	
-	public WidgetTextureProvider(ResourceLocation texture, IntSupplier vSupplier) {
-		this.texture = texture;
-		this.vSupplier = vSupplier;
+	public WidgetTextureProvider(WidgetSprites sprites, BooleanSupplier enabled, BooleanSupplier focused) {
+		this.sprites = sprites;
+		this.enabled = enabled;
+		this.focused = focused;
 	}
 	
 	@Override
 	public ResourceLocation getTexture() {
-		return texture;
-	}
-	
-	@Override
-	public int getU() {
-		return 0;
-	}
-	
-	@Override
-	public int getV() {
-		return vSupplier.getAsInt();
-	}
-	
-	@Override
-	public int getWidth() {
-		return 200;
-	}
-	
-	@Override
-	public int getHeight() {
-		return 20;
+		return sprites.get(enabled.getAsBoolean(), focused.getAsBoolean());
 	}
 	
 }
