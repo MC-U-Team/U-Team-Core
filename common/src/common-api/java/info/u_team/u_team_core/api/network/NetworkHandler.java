@@ -12,7 +12,7 @@ import net.minecraft.server.level.ServerPlayer;
 
 public interface NetworkHandler {
 	
-	static NetworkHandler create(String protocolVersion, ResourceLocation location) {
+	static NetworkHandler create(int protocolVersion, ResourceLocation location) {
 		return Factory.INSTANCE.create(protocolVersion, location);
 	}
 	
@@ -26,14 +26,14 @@ public interface NetworkHandler {
 	
 	<M> void sendToServer(M message);
 	
-	String getProtocolVersion();
+	int getProtocolVersion();
 	
-	void setProtocolAcceptor(Predicate<String> clientAcceptedVersions, Predicate<String> serverAcceptedVersions);
+	void setProtocolAcceptor(Predicate<Integer> clientAcceptedVersions, Predicate<Integer> serverAcceptedVersions);
 	
 	interface Factory {
 		
 		Factory INSTANCE = ServiceUtil.loadOne(Factory.class);
 		
-		NetworkHandler create(String protocolVersion, ResourceLocation location);
+		NetworkHandler create(int protocolVersion, ResourceLocation location);
 	}
 }

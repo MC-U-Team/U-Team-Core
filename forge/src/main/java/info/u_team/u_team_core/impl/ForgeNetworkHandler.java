@@ -15,62 +15,61 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.LogicalSide;
+import net.minecraftforge.network.ChannelBuilder;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.simple.SimpleChannel;
+import net.minecraftforge.network.SimpleChannel;
 
 public class ForgeNetworkHandler implements NetworkHandler {
 	
-	private final String protocolVersion;
+	private final int protocolVersion;
 	
-	private Predicate<String> clientAcceptedVersions;
-	private Predicate<String> serverAcceptedVersions;
+	private Predicate<Integer> clientAcceptedVersions;
+	private Predicate<Integer> serverAcceptedVersions;
 	
 	private final SimpleChannel network;
 	
-	ForgeNetworkHandler(String protocolVersion, ResourceLocation channel) {
+	ForgeNetworkHandler(int protocolVersion, ResourceLocation channel) {
 		this.protocolVersion = protocolVersion;
-		clientAcceptedVersions = protocolVersion::equals;
-		serverAcceptedVersions = protocolVersion::equals;
+		clientAcceptedVersions = received -> received == protocolVersion;
+		serverAcceptedVersions = received -> received == protocolVersion;
 		
-		network = NetworkRegistry.newSimpleChannel(channel, () -> protocolVersion, version -> clientAcceptedVersions.test(version), version -> serverAcceptedVersions.test(version));
+		network = ChannelBuilder.named(channel).networkProtocolVersion(protocolVersion).clientAcceptedVersions((status, version) -> clientAcceptedVersions.test(version)).serverAcceptedVersions((status, version) -> serverAcceptedVersions.test(version)).simpleChannel();
 	}
 	
 	@Override
 	public <M> void registerMessage(int index, Class<M> clazz, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer, Optional<NetworkEnvironment> handlerEnvironment) {
-		network.registerMessage(index, clazz, encoder, decoder, (message, contextSupplier) -> {
-			final NetworkEvent.Context context = contextSupplier.get();
-			messageConsumer.accept(message, new ForgeNetworkContext(context));
-			context.setPacketHandled(true);
-		}, handlerEnvironment.map(environment -> {
+		network.messageBuilder(clazz, index, handlerEnvironment.map(environment -> {
 			return switch (environment) {
 			case CLIENT -> NetworkDirection.PLAY_TO_CLIENT;
 			case SERVER -> NetworkDirection.PLAY_TO_SERVER;
 			};
-		}));
+		}).orElse(null)).encoder(encoder).decoder(decoder).consumerNetworkThread((message, context) -> {
+			messageConsumer.accept(message, new ForgeNetworkContext(context));
+			context.setPacketHandled(true);
+		}).add();
 	}
 	
 	@Override
 	public <M> void sendToPlayer(ServerPlayer player, M message) {
-		network.send(PacketDistributor.PLAYER.with(() -> player), message);
+		network.send(message, PacketDistributor.PLAYER.with(player));
 	}
 	
 	@Override
 	public <M> void sendToServer(M message) {
-		network.send(PacketDistributor.SERVER.noArg(), message);
+		network.send(message, PacketDistributor.SERVER.noArg());
 	}
 	
 	@Override
-	public String getProtocolVersion() {
+	public int getProtocolVersion() {
 		return protocolVersion;
 	}
 	
 	@Override
-	public void setProtocolAcceptor(Predicate<String> clientAcceptedVersions, Predicate<String> serverAcceptedVersions) {
+	public void setProtocolAcceptor(Predicate<Integer> clientAcceptedVersions, Predicate<Integer> serverAcceptedVersions) {
 		this.clientAcceptedVersions = clientAcceptedVersions;
 		this.serverAcceptedVersions = serverAcceptedVersions;
 	}
@@ -86,9 +85,9 @@ public class ForgeNetworkHandler implements NetworkHandler {
 	
 	public static class ForgeNetworkContext implements NetworkContext {
 		
-		private final NetworkEvent.Context context;
+		private final CustomPayloadEvent.Context context;
 		
-		ForgeNetworkContext(NetworkEvent.Context context) {
+		ForgeNetworkContext(CustomPayloadEvent.Context context) {
 			this.context = context;
 		}
 		
@@ -117,7 +116,7 @@ public class ForgeNetworkHandler implements NetworkHandler {
 	public static class Factory implements NetworkHandler.Factory {
 		
 		@Override
-		public NetworkHandler create(String protocolVersion, ResourceLocation location) {
+		public NetworkHandler create(int protocolVersion, ResourceLocation location) {
 			return new ForgeNetworkHandler(protocolVersion, location);
 		}
 	}
