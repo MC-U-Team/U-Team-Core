@@ -12,7 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class TestMultiLoaderNetwork {
 	
-	public static final NetworkHandler NETWORK = NetworkHandler.create("0", new ResourceLocation(TestMultiLoaderReference.MODID, "network"));
+	public static final NetworkHandler NETWORK = NetworkHandler.create(0, new ResourceLocation(TestMultiLoaderReference.MODID, "network"));
 	
 	static void register() {
 		NETWORK.registerMessage(0, TestServerToClientMessage.class, TestServerToClientMessage::encode, TestServerToClientMessage::decode, TestMessageHandler::handle, Optional.of(NetworkEnvironment.CLIENT));
