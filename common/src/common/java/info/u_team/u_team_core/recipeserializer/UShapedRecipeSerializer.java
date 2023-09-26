@@ -1,15 +1,16 @@
 package info.u_team.u_team_core.recipeserializer;
 
-import java.util.Map;
+import java.util.List;
+import java.util.Set;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+import org.apache.commons.lang3.NotImplementedException;
+
+import com.google.common.collect.Sets;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.DataResult;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -18,46 +19,51 @@ import net.minecraft.world.item.crafting.ShapedRecipe;
 
 public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> implements RecipeSerializer<T> {
 	
-	public static NonNullList<Ingredient> dissolvePattern(String[] pattern, Map<String, Ingredient> keys, int width, int height) {
-		return ShapedRecipe.dissolvePattern(pattern, keys, width, height);
+	public static String[] shrink(List<String> list) {
+		return ShapedRecipe.shrink(list);
 	}
 	
-	public static String[] shrink(String... shrink) {
-		return ShapedRecipe.shrink(shrink);
-	}
+	private final Codec<T> codec = ShapedRecipe.Serializer.RawShapedRecipe.CODEC.flatXmap((rawRecipe) -> {
+		final String[] shrinked = ShapedRecipe.shrink(rawRecipe.pattern());
+		final int width = shrinked[0].length();
+		final int height = shrinked.length;
+		final NonNullList<Ingredient> ingredients = NonNullList.withSize(width * height, Ingredient.EMPTY);
+		final Set<String> keys = Sets.newHashSet(rawRecipe.key().keySet());
+		
+		for (int outer = 0; outer < shrinked.length; ++outer) {
+			final String outerKey = shrinked[outer];
+			for (int inner = 0; inner < outerKey.length(); ++inner) {
+				final String innterKey = outerKey.substring(inner, inner + 1);
+				
+				final Ingredient ingredient = innterKey.equals(" ") ? Ingredient.EMPTY : rawRecipe.key().get(innterKey);
+				if (ingredient == null) {
+					return DataResult.error(() -> {
+						return "Pattern references symbol '" + innterKey + "' but it's not defined in the key";
+					});
+				}
+				
+				keys.remove(innterKey);
+				ingredients.set(inner + width * outer, ingredient);
+			}
+		}
+		
+		if (!keys.isEmpty()) {
+			return DataResult.error(() -> {
+				return "Key defines symbols that aren't used in pattern: " + keys;
+			});
+		} else {
+			return DataResult.success(createRecipe(rawRecipe.group(), rawRecipe.category(), width, height, ingredients, rawRecipe.result(), rawRecipe.showNotification()));
+		}
+	}, recipe -> {
+		throw new NotImplementedException("Serializing ShapedRecipe is not implemented yet.");
+	});
 	
-	public static String[] patternFromJson(JsonArray json) {
-		return ShapedRecipe.patternFromJson(json);
-	}
-	
-	public static Map<String, Ingredient> keyFromJson(JsonObject json) {
-		return ShapedRecipe.keyFromJson(json);
-	}
-	
-	public static ItemStack itemStackFromJson(JsonObject json) {
-		return ShapedRecipe.itemStackFromJson(json);
-	}
-	
-	public static Item itemFromJson(JsonObject json) {
-		return ShapedRecipe.itemFromJson(json);
+	public Codec<T> codec() {
+		return codec;
 	}
 	
 	@Override
-	public T fromJson(ResourceLocation location, JsonObject json) {
-		final String[] pattern = patternFromJson(GsonHelper.getAsJsonArray(json, "pattern"));
-		final int recipeWidth = pattern[0].length();
-		final int recipeHeight = pattern.length;
-		final String group = GsonHelper.getAsString(json, "group", "");
-		@SuppressWarnings("deprecation")
-		final CraftingBookCategory category = CraftingBookCategory.CODEC.byName(GsonHelper.getAsString(json, "category", null), CraftingBookCategory.MISC);
-		final NonNullList<Ingredient> ingredients = dissolvePattern(pattern, keyFromJson(GsonHelper.getAsJsonObject(json, "key")), recipeWidth, recipeHeight);
-		final ItemStack output = ShapedRecipe.itemStackFromJson(GsonHelper.getAsJsonObject(json, "result"));
-		final boolean showNotification = GsonHelper.getAsBoolean(json, "show_notification", true);
-		return createRecipe(location, group, category, recipeWidth, recipeHeight, ingredients, output, showNotification);
-	}
-	
-	@Override
-	public T fromNetwork(ResourceLocation location, FriendlyByteBuf buffer) {
+	public T fromNetwork(FriendlyByteBuf buffer) {
 		final int recipeWidth = buffer.readVarInt();
 		final int recipeHeight = buffer.readVarInt();
 		final String group = buffer.readUtf();
@@ -68,7 +74,7 @@ public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> implements
 		}
 		final ItemStack output = buffer.readItem();
 		final boolean showNotification = buffer.readBoolean();
-		return createRecipe(location, group, category, recipeWidth, recipeHeight, ingredients, output, showNotification);
+		return createRecipe(group, category, recipeWidth, recipeHeight, ingredients, output, showNotification);
 	}
 	
 	@Override
@@ -84,12 +90,12 @@ public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> implements
 		buffer.writeBoolean(recipe.showNotification);
 	}
 	
-	protected abstract T createRecipe(ResourceLocation location, String group, CraftingBookCategory category, int recipeWidth, int recipeHeight, NonNullList<Ingredient> ingredients, ItemStack output, boolean showNotification);
+	protected abstract T createRecipe(String group, CraftingBookCategory category, int recipeWidth, int recipeHeight, NonNullList<Ingredient> ingredients, ItemStack output, boolean showNotification);
 	
-	protected record ShapedRecipeValues(int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result, ResourceLocation id, String group, CraftingBookCategory category, boolean showNotification) {
+	protected record ShapedRecipeValues(int width, int height, NonNullList<Ingredient> recipeItems, ItemStack result, String group, CraftingBookCategory category, boolean showNotification) {
 		
 		public ShapedRecipeValues(ShapedRecipe shapedRecipe) {
-			this(shapedRecipe.width, shapedRecipe.height, shapedRecipe.recipeItems, shapedRecipe.result, shapedRecipe.id, shapedRecipe.group, shapedRecipe.category, shapedRecipe.showNotification);
+			this(shapedRecipe.width, shapedRecipe.height, shapedRecipe.recipeItems, shapedRecipe.result, shapedRecipe.group, shapedRecipe.category, shapedRecipe.showNotification);
 		}
 	}
 	
