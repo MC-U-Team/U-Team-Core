@@ -2,7 +2,6 @@ package info.u_team.u_team_core.intern.network;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import info.u_team.u_team_core.menu.FluidContainerMenu;
 import info.u_team.u_team_core.menu.ForgeFluidContainerMenuDelegator;
@@ -10,8 +9,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraftforge.event.network.CustomPayloadEvent.Context;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.network.NetworkEvent.Context;
 
 public class ContainerSetFluidContentMessage {
 	
@@ -45,8 +44,7 @@ public class ContainerSetFluidContentMessage {
 	
 	public static class Handler {
 		
-		public static void handle(ContainerSetFluidContentMessage message, Supplier<Context> contextSupplier) {
-			final Context context = contextSupplier.get();
+		public static void handle(ContainerSetFluidContentMessage message, Context context) {
 			context.enqueueWork(() -> {
 				testContainerMenu(Minecraft.getInstance().player.containerMenu, message.containerId).ifPresent(menu -> ((ForgeFluidContainerMenuDelegator) (menu.getDelegator())).initializeFluidContents(message.stateId, message.fluids));
 			});

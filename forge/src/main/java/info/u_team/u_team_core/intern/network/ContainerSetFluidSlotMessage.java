@@ -1,15 +1,14 @@
 package info.u_team.u_team_core.intern.network;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import info.u_team.u_team_core.menu.FluidContainerMenu;
 import info.u_team.u_team_core.menu.ForgeFluidContainerMenuDelegator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
+import net.minecraftforge.event.network.CustomPayloadEvent.Context;
 import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.network.NetworkEvent.Context;
 
 public class ContainerSetFluidSlotMessage {
 	
@@ -43,8 +42,7 @@ public class ContainerSetFluidSlotMessage {
 	
 	public static class Handler {
 		
-		public static void handle(ContainerSetFluidSlotMessage message, Supplier<Context> contextSupplier) {
-			final Context context = contextSupplier.get();
+		public static void handle(ContainerSetFluidSlotMessage message, Context context) {
 			context.enqueueWork(() -> {
 				testContainerMenu(Minecraft.getInstance().player.containerMenu, message.containerId).ifPresent(menu -> ((ForgeFluidContainerMenuDelegator) (menu.getDelegator())).setFluid(message.slot, message.stateId, message.stack));
 			});

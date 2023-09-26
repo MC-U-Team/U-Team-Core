@@ -1,7 +1,6 @@
 package info.u_team.u_team_core.intern.network;
 
 import java.util.Optional;
-import java.util.function.Supplier;
 
 import info.u_team.u_team_core.menu.FluidContainerMenu;
 import info.u_team.u_team_core.menu.ForgeFluidContainerMenuDelegator;
@@ -9,7 +8,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.network.NetworkEvent.Context;
+import net.minecraftforge.event.network.CustomPayloadEvent.Context;
 
 public class FluidClickContainerMessage {
 	
@@ -43,8 +42,7 @@ public class FluidClickContainerMessage {
 	
 	public static class Handler {
 		
-		public static void handle(FluidClickContainerMessage message, Supplier<Context> contextSupplier) {
-			final Context context = contextSupplier.get();
+		public static void handle(FluidClickContainerMessage message, Context context) {
 			context.enqueueWork(() -> {
 				final ServerPlayer player = context.getSender();
 				getFluidContainer(player.containerMenu, message.id).ifPresent(menu -> ((ForgeFluidContainerMenuDelegator) (menu.getDelegator())).fluidSlotClick(player, message.slot, message.shift, message.stack));
