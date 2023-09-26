@@ -18,7 +18,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.storage.loot.LootDataType;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
@@ -51,7 +50,7 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 	public CompletableFuture<?> run(CachedOutput cache) {
 		final List<CompletableFuture<?>> futures = new ArrayList<>();
 		register((location, lootTable) -> {
-			futures.add(CommonDataProvider.saveData(cache, LootDataType.TABLE.parser().toJsonTree(lootTable), pathProvider.json(location)));
+			futures.add(CommonDataProvider.saveData(cache, LootTable.CODEC, lootTable, pathProvider.json(location)));
 		});
 		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 	}
