@@ -32,18 +32,18 @@ public class FabricNetworkHandler implements NetworkHandler {
 	
 	public static final String NOT_ON_CLIENT = "\u1F640\u1F640MissingVersion";
 	
-	private final String protocolVersion;
+	private final int protocolVersion;
 	
-	private Predicate<String> clientAcceptedVersions;
-	private Predicate<String> serverAcceptedVersions;
+	private Predicate<Integer> clientAcceptedVersions;
+	private Predicate<Integer> serverAcceptedVersions;
 	
 	private final ResourceLocation channel;
 	private final Map<Class<?>, MessagePacket<?>> messages;
 	
-	FabricNetworkHandler(String protocolVersion, ResourceLocation channel) {
+	FabricNetworkHandler(int protocolVersion, ResourceLocation channel) {
 		this.protocolVersion = protocolVersion;
-		clientAcceptedVersions = protocolVersion::equals;
-		serverAcceptedVersions = protocolVersion::equals;
+		clientAcceptedVersions = received -> received == protocolVersion;
+		serverAcceptedVersions = received -> received == protocolVersion;
 		
 		this.channel = channel;
 		messages = new HashMap<>();
@@ -56,7 +56,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 			acceptProtocolVersion(buffer, serverAcceptedVersions, packetListener::disconnect);
 		});
 		ServerLoginConnectionEvents.QUERY_START.register((packetListener, server, sender, synchronizer) -> {
-			sender.sendPacket(channel, PacketByteBufs.create().writeUtf(protocolVersion));
+			sender.sendPacket(channel, PacketByteBufs.create().writeVarInt(protocolVersion));
 		});
 	}
 	
@@ -93,12 +93,12 @@ public class FabricNetworkHandler implements NetworkHandler {
 	}
 	
 	@Override
-	public String getProtocolVersion() {
+	public int getProtocolVersion() {
 		return protocolVersion;
 	}
 	
 	@Override
-	public void setProtocolAcceptor(Predicate<String> clientAcceptedVersions, Predicate<String> serverAcceptedVersions) {
+	public void setProtocolAcceptor(Predicate<Integer> clientAcceptedVersions, Predicate<Integer> serverAcceptedVersions) {
 		this.clientAcceptedVersions = clientAcceptedVersions;
 		this.serverAcceptedVersions = serverAcceptedVersions;
 	}
@@ -125,8 +125,8 @@ public class FabricNetworkHandler implements NetworkHandler {
 		return environment == null || environment == expected;
 	}
 	
-	private boolean acceptProtocolVersion(FriendlyByteBuf buffer, Predicate<String> predicate, Consumer<Component> disconnectMessage) {
-		final String receivedProtocolVersion = buffer.readUtf();
+	private boolean acceptProtocolVersion(FriendlyByteBuf buffer, Predicate<Integer> predicate, Consumer<Component> disconnectMessage) {
+		final int receivedProtocolVersion = buffer.readVarInt();
 		if (!predicate.test(receivedProtocolVersion)) {
 			disconnectMessage.accept(Component.literal("Protocol version for channel " + channel + " does not match. Expected: " + protocolVersion + ", received: " + receivedProtocolVersion));
 			return false;
@@ -139,7 +139,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 		public static void registerLoginReceiver(FabricNetworkHandler handler, ResourceLocation location) {
 			ClientLoginNetworking.registerGlobalReceiver(location, (client, packetListener, buffer, listenerAdder) -> {
 				if (handler.acceptProtocolVersion(buffer, handler.clientAcceptedVersions, packetListener.connection::disconnect)) {
-					return CompletableFuture.completedFuture(PacketByteBufs.create().writeUtf(handler.protocolVersion));
+					return CompletableFuture.completedFuture(PacketByteBufs.create().writeVarInt(handler.protocolVersion));
 				} else {
 					return CompletableFuture.completedFuture(null);
 				}
@@ -158,7 +158,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 		}
 	}
 	
-	private record MessagePacket<M> (ResourceLocation location, BiConsumer<M, FriendlyByteBuf> encoder, Optional<NetworkEnvironment> handlerEnvironment) {
+	private record MessagePacket<M>(ResourceLocation location, BiConsumer<M, FriendlyByteBuf> encoder, Optional<NetworkEnvironment> handlerEnvironment) {
 	}
 	
 	private record EncodedMessage(ResourceLocation location, FriendlyByteBuf byteBuf) {
@@ -199,7 +199,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 	public static class Factory implements NetworkHandler.Factory {
 		
 		@Override
-		public NetworkHandler create(String protocolVersion, ResourceLocation location) {
+		public NetworkHandler create(int protocolVersion, ResourceLocation location) {
 			return new FabricNetworkHandler(protocolVersion, location);
 		}
 	}
