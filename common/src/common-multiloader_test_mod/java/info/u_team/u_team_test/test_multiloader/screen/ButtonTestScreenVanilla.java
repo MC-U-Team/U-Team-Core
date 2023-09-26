@@ -11,10 +11,12 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.MultiLineEditBox;
-import net.minecraft.client.gui.components.TextAndImageButton;
+import net.minecraft.client.gui.components.SpriteIconButton.TextAndIcon;
 import net.minecraft.client.gui.components.Tooltip;
+import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 
 public class ButtonTestScreenVanilla extends Screen {
@@ -33,13 +35,13 @@ public class ButtonTestScreenVanilla extends Screen {
 			LOGGER.info("Clicked Testbutton");
 		}).bounds(50, 50, 200, 20).tooltip(Tooltip.create(Component.literal("Tooltip for Test Button"))).build());
 		
-		addRenderableWidget(new ImageButton(50, 80, 50, 20, 0, 106, 20, AbstractWidget.WIDGETS_LOCATION, 256, 256, button -> {
+		addRenderableWidget(new ImageButton(50, 80, 50, 20, new WidgetSprites(new ResourceLocation("backup/changes"), new ResourceLocation("backup/changes_highlighted")), button -> {
 			LOGGER.info("Clicked Test ImageButton");
 		}, Component.literal("Test ImageButton")));
 		
-		final AbstractWidget textImageButton = addRenderableWidget(TextAndImageButton.builder(Component.literal("Test Button with Image"), AbstractWidget.WIDGETS_LOCATION, button -> {
+		final AbstractWidget textImageButton = addRenderableWidget(TextAndIcon.builder(Component.literal("Test Button with Image"), button -> {
 			LOGGER.info("Clicked Testbutton with Image");
-		}).texStart(3, 109).offset(65, 3).yDiffTex(20).usedTextureSize(14, 14).textureSize(256, 256).build());
+		}).build());
 		textImageButton.setPosition(50, 110);
 		textImageButton.setTooltip(Tooltip.create(Component.literal("Tooltip for Test Button with Image")));
 		
@@ -70,7 +72,7 @@ public class ButtonTestScreenVanilla extends Screen {
 	
 	@Override
 	public void render(GuiGraphics guiGrapics, int mouseX, int mouseY, float partialTick) {
-		renderBackground(guiGrapics);
+		renderBackground(guiGrapics, mouseY, mouseY, partialTick);
 		super.render(guiGrapics, mouseX, mouseY, partialTick);
 	}
 	

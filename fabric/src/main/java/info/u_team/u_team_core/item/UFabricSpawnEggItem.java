@@ -13,8 +13,8 @@ import info.u_team.u_team_core.api.Platform.Environment;
 import info.u_team.u_team_core.event.SetupEvents;
 import info.u_team.u_team_core.util.EnvironmentUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
-import net.minecraft.core.BlockSource;
 import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
 import net.minecraft.nbt.CompoundTag;
@@ -50,16 +50,16 @@ public class UFabricSpawnEggItem extends SpawnEggItem {
 			
 			@Override
 			public ItemStack execute(BlockSource source, ItemStack stack) {
-				final Direction direction = source.getBlockState().getValue(DispenserBlock.FACING);
+				final Direction direction = source.state().getValue(DispenserBlock.FACING);
 				final EntityType<?> entityType = ((UFabricSpawnEggItem) stack.getItem()).getType(stack.getTag());
 				try {
-					entityType.spawn(source.getLevel(), stack, null, source.getPos().relative(direction), MobSpawnType.DISPENSER, direction != Direction.UP, false);
+					entityType.spawn(source.level(), stack, null, source.pos().relative(direction), MobSpawnType.DISPENSER, direction != Direction.UP, false);
 				} catch (final Exception ex) {
-					LOGGER.error("Error while dispensing spawn egg from dispenser at {}", source.getPos(), ex);
+					LOGGER.error("Error while dispensing spawn egg from dispenser at {}", source.pos(), ex);
 					return ItemStack.EMPTY;
 				}
 				stack.shrink(1);
-				source.getLevel().gameEvent(null, GameEvent.ENTITY_PLACE, source.getPos());
+				source.level().gameEvent(null, GameEvent.ENTITY_PLACE, source.pos());
 				return stack;
 			}
 		};

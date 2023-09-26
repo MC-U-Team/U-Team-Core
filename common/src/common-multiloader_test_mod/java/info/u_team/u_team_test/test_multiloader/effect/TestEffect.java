@@ -33,7 +33,7 @@ public class TestEffect extends MobEffect {
 	}
 	
 	@Override
-	public boolean isDurationEffectTick(int duration, int amplifier) {
+	public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
 		return random.nextInt(Math.max(20 - (amplifier * 2), 2)) == 0;
 	}
 }

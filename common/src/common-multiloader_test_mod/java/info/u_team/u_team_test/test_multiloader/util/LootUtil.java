@@ -12,6 +12,7 @@ public class LootUtil {
 		
 		return level.getRecipeManager() //
 				.getRecipeFor(RecipeType.SMELTING, container, level) //
+				.map(holder -> holder.value())//
 				.map(recipe -> recipe.assemble(container, level.registryAccess())) //
 				.filter(itemStack -> !itemStack.isEmpty()) //
 				.map(itemStack -> {

@@ -6,7 +6,7 @@ public class BasicTestList extends ScrollableList<BasicTestListEntry> {
 	
 	public BasicTestList(int x, int y, int width, int height) {
 		super(x, y, width, height, 20, 15);
-		setRenderTopAndBottom(false);
+		setRenderHeader(false, 0);
 		setRenderBackground(false);
 		setRenderTransparentBorder(true);
 		setTransparentBorderSize(10);
