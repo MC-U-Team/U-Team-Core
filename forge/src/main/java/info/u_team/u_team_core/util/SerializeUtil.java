@@ -9,19 +9,19 @@ import info.u_team.u_team_core.ingredient.FluidIngredient;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class SerializeUtil {
 	
-	public static JsonElement serializeItemIngredient(Ingredient ingredient) {
-		return ingredient.toJson();
-	}
-	
-	public static Ingredient deserializeItemIngredient(JsonElement json) {
-		return Ingredient.fromJson(json);
-	}
+	// TODO needed? Must be reworked with codecs
+	// public static JsonElement serializeItemIngredient(Ingredient ingredient) {
+	// return ingredient.toJson(false);
+	// }
+	//
+	// public static Ingredient deserializeItemIngredient(JsonElement json) {
+	// return Ingredient.CODEC.boxed();
+	// }
 	
 	public static JsonElement serializeFluidIngredient(FluidIngredient ingredient) {
 		return ingredient.serialize();

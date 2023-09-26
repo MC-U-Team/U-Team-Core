@@ -220,7 +220,7 @@ public class ForgeFluidContainerMenuDelegator implements FluidContainerDelegator
 		}
 		
 		if (menu.getSynchronizerPlayer() != null) {
-			UCoreNetworkForge.NETWORK.send(PacketDistributor.PLAYER.with(menu::getSynchronizerPlayer), new ContainerSetFluidContentMessage(menu.containerId, menu.incrementStateId(), remoteFluidSlots));
+			UCoreNetworkForge.NETWORK.send(new ContainerSetFluidContentMessage(menu.containerId, menu.incrementStateId(), remoteFluidSlots), PacketDistributor.PLAYER.with(menu.getSynchronizerPlayer()));
 		}
 	}
 	
@@ -284,7 +284,7 @@ public class ForgeFluidContainerMenuDelegator implements FluidContainerDelegator
 				remoteFluidSlots.set(slotId, copy);
 				
 				if (menu.getSynchronizerPlayer() != null) {
-					UCoreNetworkForge.NETWORK.send(PacketDistributor.PLAYER.with(menu::getSynchronizerPlayer), new ContainerSetFluidSlotMessage(menu.containerId, menu.incrementStateId(), slotId, copy));
+					UCoreNetworkForge.NETWORK.send(new ContainerSetFluidSlotMessage(menu.containerId, menu.incrementStateId(), slotId, copy), PacketDistributor.PLAYER.with(menu.getSynchronizerPlayer()));
 				}
 			}
 		}

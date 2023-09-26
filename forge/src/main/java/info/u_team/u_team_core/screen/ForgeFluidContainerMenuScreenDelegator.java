@@ -23,6 +23,7 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.network.PacketDistributor;
 import net.minecraftforge.registries.ForgeRegistries;
 
 // Very unstable api, will be reworked
@@ -97,7 +98,7 @@ public class ForgeFluidContainerMenuScreenDelegator<T extends AbstractContainerM
 			final FluidSlot fluidSlot = findFluidSlot(mouseX, mouseY);
 			if (fluidSlot != null) {
 				if (!screen.getMenu().getCarried().isEmpty()) {
-					UCoreNetworkForge.NETWORK.sendToServer(new FluidClickContainerMessage(screen.getMenu().containerId, fluidSlot.index, Screen.hasShiftDown(), screen.getMenu().getCarried()));
+					UCoreNetworkForge.NETWORK.send(new FluidClickContainerMessage(screen.getMenu().containerId, fluidSlot.index, Screen.hasShiftDown(), screen.getMenu().getCarried()), PacketDistributor.SERVER.noArg());
 				}
 				return true;
 			}
