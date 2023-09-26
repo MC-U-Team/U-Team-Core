@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 import com.google.common.collect.Sets;
 
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.advancements.AdvancementHolder;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.advancements.Criterion;
@@ -20,13 +22,15 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput.PathProvider;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.data.recipes.RecipeBuilder;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.ItemLike;
 
-public abstract class CommonRecipeProvider implements DataProvider, CommonDataProvider<Consumer<FinishedRecipe>> {
+public abstract class CommonRecipeProvider implements DataProvider, CommonDataProvider<RecipeOutput> {
 	
 	private final GenerationData generationData;
 	
@@ -49,8 +53,21 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	public CompletableFuture<?> run(CachedOutput cache) {
 		final Set<ResourceLocation> duplicates = Sets.newHashSet();
 		final List<CompletableFuture<?>> futures = new ArrayList<>();
-		register(recipe -> generateRecipe(cache, recipe, duplicates, false, futures));
-		registerVanilla(recipe -> generateRecipe(cache, recipe, duplicates, true, futures));
+		final Function<Boolean, RecipeOutput> recipeOutputCreator = vanillaAdvancements -> new RecipeOutput() {
+			
+			@SuppressWarnings("removal")
+			@Override
+			public Builder advancement() {
+				return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
+			}
+			
+			@Override
+			public void accept(FinishedRecipe recipe) {
+				generateRecipe(cache, recipe, duplicates, vanillaAdvancements, futures);
+			}
+		};
+		register(recipeOutputCreator.apply(false));
+		registerVanilla(recipeOutputCreator.apply(true));
 		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 	}
 	
@@ -59,7 +76,7 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 		return "Recipe";
 	}
 	
-	public void registerVanilla(Consumer<FinishedRecipe> consumer) {
+	public void registerVanilla(RecipeOutput consumer) {
 	}
 	
 	private void generateRecipe(CachedOutput cache, FinishedRecipe recipe, Set<ResourceLocation> duplicates, boolean vanillaAdvancements, List<CompletableFuture<?>> futures) {
