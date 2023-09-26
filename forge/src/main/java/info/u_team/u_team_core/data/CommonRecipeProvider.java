@@ -2,17 +2,19 @@ package info.u_team.u_team_core.data;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 import com.google.common.collect.Sets;
-import com.google.gson.JsonObject;
 
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.AdvancementHolder;
+import net.minecraft.advancements.CriteriaTriggers;
+import net.minecraft.advancements.Criterion;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger.TriggerInstance;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.MinMaxBounds.Ints;
+import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput.PathProvider;
@@ -61,7 +63,7 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	}
 	
 	private void generateRecipe(CachedOutput cache, FinishedRecipe recipe, Set<ResourceLocation> duplicates, boolean vanillaAdvancements, List<CompletableFuture<?>> futures) {
-		final ResourceLocation recipeLocation = recipe.getId();
+		final ResourceLocation recipeLocation = recipe.id();
 		
 		if (!duplicates.add(recipeLocation)) {
 			throw new IllegalStateException("Duplicate recipe " + recipeLocation);
@@ -69,23 +71,23 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 		
 		futures.add(CommonDataProvider.saveData(cache, recipe.serializeRecipe(), recipePathProvider.json(recipeLocation)));
 		
-		final JsonObject advancementJson = recipe.serializeAdvancement();
-		if (advancementJson != null) {
-			final ResourceLocation advancementLocation = vanillaAdvancements ? recipe.getAdvancementId() : new ResourceLocation(recipeLocation.getNamespace(), "recipes/" + recipeLocation.getPath());
-			futures.add(CommonDataProvider.saveData(cache, advancementJson, advancementPathProvider.json(advancementLocation)));
+		final AdvancementHolder advancementHolder = recipe.advancement();
+		if (advancementHolder != null) {
+			final ResourceLocation advancementLocation = vanillaAdvancements ? advancementHolder.id() : new ResourceLocation(recipeLocation.getNamespace(), "recipes/" + recipeLocation.getPath());
+			futures.add(CommonDataProvider.saveData(cache, advancementHolder.value().serializeToJson(), advancementPathProvider.json(advancementLocation)));
 		}
 	}
 	
-	protected InventoryChangeTrigger.TriggerInstance has(TagKey<Item> tag) {
+	protected Criterion<TriggerInstance> has(TagKey<Item> tag) {
 		return has(ItemPredicate.Builder.item().of(tag).build());
 	}
 	
-	protected InventoryChangeTrigger.TriggerInstance has(ItemLike item) {
+	protected Criterion<TriggerInstance> has(ItemLike item) {
 		return has(ItemPredicate.Builder.item().of(item).build());
 	}
 	
-	protected InventoryChangeTrigger.TriggerInstance has(ItemPredicate... predicates) {
-		return new InventoryChangeTrigger.TriggerInstance(ContextAwarePredicate.ANY, Ints.ANY, Ints.ANY, Ints.ANY, predicates);
+	protected Criterion<TriggerInstance> has(ItemPredicate... predicates) {
+		return CriteriaTriggers.INVENTORY_CHANGED.createCriterion(new TriggerInstance(Optional.empty(), MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, MinMaxBounds.Ints.ANY, List.of(predicates)));
 	}
 	
 	public static Ingredient getIngredientOfTag(TagKey<Item> tag) {
