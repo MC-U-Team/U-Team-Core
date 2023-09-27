@@ -68,15 +68,6 @@ public class CheckboxButton extends UButton {
 		super.onPress();
 	}
 	
-	// @Override // TODO removed, should not be nessessary any more
-	// public void renderWidgetTexture(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-	// final RGBA color = WidgetUtil.respectWidgetAlpha(this, getCurrentBackgroundColor(guiGraphics, mouseY, mouseY,
-	// partialTick));
-	// RenderUtil.drawTexturedQuad(guiGraphics.pose(), x, y, width, height, buttonTextureProvider.getWidth(),
-	// buttonTextureProvider.getHeight(), buttonTextureProvider.getU(), buttonTextureProvider.getV(), 64, 64, 0,
-	// buttonTextureProvider.getTexture(), color);
-	// }
-	
 	@Override
 	public void renderBefore(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		if (drawText) {
