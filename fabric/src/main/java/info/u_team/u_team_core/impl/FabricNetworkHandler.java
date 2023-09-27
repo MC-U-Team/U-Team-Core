@@ -32,7 +32,7 @@ import net.minecraft.world.entity.player.Player;
 
 public class FabricNetworkHandler implements NetworkHandler {
 	
-	public static final String NOT_ON_CLIENT = "\u1F640\u1F640MissingVersion";
+	public static final int NOT_ON_CLIENT = Integer.MIN_VALUE;
 	
 	private final int protocolVersion;
 	
@@ -53,7 +53,7 @@ public class FabricNetworkHandler implements NetworkHandler {
 		EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.registerLoginReceiver(this, channel));
 		ServerLoginNetworking.registerGlobalReceiver(channel, (server, packetListener, understood, buffer, synchronizer, responseSender) -> {
 			if (!understood) {
-				buffer = PacketByteBufs.create().writeUtf(NOT_ON_CLIENT);
+				buffer = PacketByteBufs.create().writeVarInt(NOT_ON_CLIENT);
 			}
 			acceptProtocolVersion(buffer, serverAcceptedVersions, packetListener::disconnect);
 		});
