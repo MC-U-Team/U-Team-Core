@@ -22,8 +22,8 @@
 	},
 	"requirements": [
 		[
-			"has_anvil",
-			"has_the_recipe"
+			"has_the_recipe",
+			"has_anvil"
 		]
 	],
 	"rewards": {
