@@ -9,6 +9,8 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import com.mojang.logging.LogUtils;
+
 import info.u_team.u_team_core.api.Platform.Environment;
 import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
@@ -128,7 +130,9 @@ public class FabricNetworkHandler implements NetworkHandler {
 	private boolean acceptProtocolVersion(FriendlyByteBuf buffer, Predicate<Integer> predicate, Consumer<Component> disconnectMessage) {
 		final int receivedProtocolVersion = buffer.readVarInt();
 		if (!predicate.test(receivedProtocolVersion)) {
-			disconnectMessage.accept(Component.literal("Protocol version for channel " + channel + " does not match. Expected: " + protocolVersion + ", received: " + receivedProtocolVersion));
+			// TODO removed disconnect for now, as it should be rewritten with the new configuration phase. Should fix #330 for now
+			// disconnectMessage.accept()
+			LogUtils.getLogger().error(Component.literal("Protocol version for channel " + channel + " does not match. Expected: " + protocolVersion + ", received: " + receivedProtocolVersion).toString());
 			return false;
 		}
 		return true;
