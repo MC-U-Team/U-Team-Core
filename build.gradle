@@ -4,10 +4,10 @@ plugins {
 }
 
 group = "info.u-team"
-archivesBaseName = gradlefiles.archivesBaseName()
+base.archivesName = gradlefiles.archivesName()
 version = gradlefiles.version()
 
 gradlefiles {
 	vendor "Team UTeam"
-	orderCurseforgeTasks(project(":forge"), project(":fabric"))
+	orderCurseforgeTasks(gradlefiles.project("forge"), gradlefiles.project("fabric"))
 }
