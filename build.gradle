@@ -8,6 +8,6 @@ base.archivesName = gradlefiles.archivesName()
 version = gradlefiles.version()
 
 gradlefiles {
-	vendor "Team UTeam"
+	vendor = "Team UTeam"
 	orderCurseforgeTasks(gradlefiles.project("forge"), gradlefiles.project("fabric"))
 }

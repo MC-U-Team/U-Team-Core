@@ -199,14 +199,20 @@ tasks.register("multiLoaderTestSourcesJar", Jar) {
 	from sourceSets.multiloader_test_mod.allJava
 }
 
-reobf.register("testJar") {
+reobf.create("testJar") {
 	dependsOn tasks.named("reobfJar")
-	libraries.from(tasks.named("reobfJar").outputFile)
 }
 
-reobf.register("multiLoaderTestJar") {
+tasks.named("reobfTestJar").configure {
+	libraries.from(tasks.named("reobfJar").get().input)
+}
+
+reobf.create("multiLoaderTestJar") {
 	dependsOn tasks.named("reobfJar")
-	libraries.from(tasks.named("reobfJar").outputFile)
+}
+
+tasks.named("reobfMultiLoaderTestJar").configure {
+	libraries.from(tasks.named("reobfJar").get().input)
 }
 
 // Skip mixin gradle for our test jars
