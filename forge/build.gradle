@@ -10,8 +10,43 @@ plugins {
 gradlefiles.loaderSuffix = "forge"
 
 group = rootProject.group
-archivesBaseName = gradlefiles.archivesBaseName()
+base.archivesName = gradlefiles.archivesName()
 version = gradlefiles.version()
+
+sourceSets {
+	main {
+		java {
+			srcDirs += "src/data/java"
+			srcDirs += "src/api/java"
+			srcDirs += gradlefiles.project("common").sourceSets.common.java.srcDirs
+		}
+		resources {
+			srcDirs += gradlefiles.project("common").sourceSets.common.resources.srcDirs
+		}
+	}
+	test_mod {
+		java {
+			srcDirs += "src/data_test_mod/java"
+			srcDirs += "src/integration_test_mod/java"
+		}
+		resources {
+			srcDirs += "src/generated_test_mod/resources"
+		}
+		compileClasspath += main.runtimeClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
+	multiloader_test_mod {
+		java {
+			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".java.srcDirs
+			srcDirs += "src/data_multiloader_test_mod/java"
+		}
+		resources {
+			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".resources.srcDirs
+		}
+		compileClasspath += main.runtimeClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
+}
 
 java {
 	toolchain {
@@ -19,11 +54,6 @@ java {
 	}
 	withSourcesJar()
 	withJavadocJar()
-}
-
-sourceSets {
-	test_mod
-	multiloader_test_mod
 }
 
 minecraft {
@@ -71,9 +101,9 @@ minecraft {
 			
 			args "--mod", config.mod.modid
 			args "--all"
-			args "--output", project(":common").file("src/common-generated/resources")
+			args "--output", gradlefiles.project("common").file("src/common-generated/resources")
 			args "--validate"
-			args "--existing", project(":common").file("src/common/resources")
+			args "--existing", gradlefiles.project("common").file("src/common/resources")
 			
 			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
@@ -116,9 +146,9 @@ minecraft {
 			
 			args "--mod", "uteamtest_multiloader"
 			args "--all"
-			args "--output", project(":common").file("src/common-generated_multiloader_test_mod/resources")
+			args "--output", gradlefiles.project("common").file("src/common-generated_multiloader_test_mod/resources")
 			args "--validate"
-			args "--existing", project(":common").file("src/common-multiloader_test_mod/resources")
+			args "--existing", gradlefiles.project("common").file("src/common-multiloader_test_mod/resources")
 			args "--existing-mod", "uteamcore"
 			
 			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
@@ -169,20 +199,14 @@ tasks.register("multiLoaderTestSourcesJar", Jar) {
 	from sourceSets.multiloader_test_mod.allJava
 }
 
-gradlefiles.createReobfJar(tasks.getByName("testJar"))
-gradlefiles.assembleDependOn(tasks.getByName("testJar"), tasks.getByName("testSourcesJar"))
-gradlefiles.createReobfJar(tasks.getByName("multiLoaderTestJar"))
-gradlefiles.assembleDependOn(tasks.getByName("multiLoaderTestJar"), tasks.getByName("multiLoaderTestSourcesJar"))
+reobf.register("testJar") {
+	dependsOn tasks.named("reobfJar")
+	libraries.from(tasks.named("reobfJar").outputFile)
+}
 
-afterEvaluate {
-	tasks.named("reobfTestJar") {
-		dependsOn tasks.named("signReobfJar")
-		libraries.from(tasks.getByName("signReobfJar").outputFile)
-	}
-	tasks.named("reobfMultiLoaderTestJar") {
-		dependsOn tasks.named("signReobfJar")
-		libraries.from(tasks.getByName("signReobfJar").outputFile)
-	}
+reobf.register("multiLoaderTestJar") {
+	dependsOn tasks.named("reobfJar")
+	libraries.from(tasks.named("reobfJar").outputFile)
 }
 
 // Skip mixin gradle for our test jars
@@ -198,6 +222,11 @@ tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$ConfigureReob
 	}
 }
 
+gradlefiles.assembleDependOn(tasks.named("reobfTestJar"), tasks.named("testSourcesJar"))
+gradlefiles.allPublishingDependOn(tasks.named("reobfTestJar"), tasks.named("testSourcesJar"))
+gradlefiles.assembleDependOn(tasks.named("reobfMultiLoaderTestJar"), tasks.named("multiLoaderTestSourcesJar"))
+gradlefiles.allPublishingDependOn(tasks.named("reobfMultiLoaderTestJar"), tasks.named("multiLoaderTestSourcesJar"))
+
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 }
@@ -206,50 +235,15 @@ tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
-gradlefiles.signDefaultForgeJar()
-gradlefiles.signJar("reobfTestJar")
-gradlefiles.signJar("reobfMultiLoaderTestJar")
+signjar.sign(tasks.named("reobfJar"))
+signjar.sign(tasks.named("reobfTestJar"))
+signjar.sign(tasks.named("reobfMultiLoaderTestJar"))
 
 processResources {
 	doLast {
 		fileTree(dir: outputs.files.asPath, include: "**/*.json").each { File file ->
 			file.text = groovy.json.JsonOutput.toJson(new groovy.json.JsonSlurper().parse(file))
 		}
-	}
-}
-
-sourceSets {
-	main {
-		java {
-			srcDirs += "src/data/java"
-			srcDirs += "src/api/java"
-			srcDirs += project(":common").sourceSets.common.java.srcDirs
-		}
-		resources {
-			srcDirs += project(":common").sourceSets.common.resources.srcDirs
-		}
-	}
-	test_mod {
-		java {
-			srcDirs += "src/data_test_mod/java"
-			srcDirs += "src/integration_test_mod/java"
-		}
-		resources {
-			srcDirs += "src/generated_test_mod/resources"
-		}
-		compileClasspath += main.runtimeClasspath
-		runtimeClasspath += main.runtimeClasspath
-	}
-	multiloader_test_mod {
-		java {
-			srcDirs += project(":common").sourceSets."common-multiloader_test_mod".java.srcDirs
-			srcDirs += "src/data_multiloader_test_mod/java"
-		}
-		resources {
-			srcDirs += project(":common").sourceSets."common-multiloader_test_mod".resources.srcDirs
-		}
-		compileClasspath += main.runtimeClasspath
-		runtimeClasspath += main.runtimeClasspath
 	}
 }
 
@@ -262,9 +256,9 @@ repositories {
 dependencies {
 	minecraft gradlefiles.forgeDependency()
 	
-	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
-	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
-	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
+	//compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
+	//compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
+	//runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
 	
 	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
@@ -285,7 +279,7 @@ curseforge {
 			optionalDependency "jei"
 		}
 		
-		mainArtifact(tasks.getByName("jar")) {
+		mainArtifact(tasks.named("jar")) {
 			displayName = "${config.curse.display}-Forge-${config.minecraft.version}-${project.version}"
 			changelogType = "html"
 			changelog = "<a href=\"${gradlefiles.changelogUrl()}\">Changelog of ${project.version}</a>"
@@ -305,16 +299,16 @@ publishing {
 	}
 	publications {
 		mavenJava(MavenPublication) {
-			artifactId archivesBaseName
+			artifactId project.base.archivesName.get()
 			
-			from components.java
-			artifact tasks.getByName("testJar")
-			artifact tasks.getByName("testSourcesJar")
-			artifact tasks.getByName("multiLoaderTestJar")
-			artifact tasks.getByName("multiLoaderTestSourcesJar")
+			from gradlefiles.filteredJavaComponent()
+			artifact tasks.named("testJar")
+			artifact tasks.named("testSourcesJar")
+			artifact tasks.named("multiLoaderTestJar")
+			artifact tasks.named("multiLoaderTestSourcesJar")
 			
 			pom {
-				name = project.archivesBaseName
+				name = project.base.archivesName.get()
 				description = "${config.github.name}"
 				url = "https://github.com/MC-U-Team/${config.github.name}"
 				scm {

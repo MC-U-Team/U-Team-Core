@@ -9,8 +9,29 @@ plugins {
 gradlefiles.loaderSuffix = "fabric"
 
 group = rootProject.group
-archivesBaseName = gradlefiles.archivesBaseName()
+base.archivesName = gradlefiles.archivesName()
 version = gradlefiles.version()
+
+sourceSets {
+	main {
+		java {
+			srcDirs += gradlefiles.project("common").sourceSets.common.java.srcDirs
+		}
+		resources {
+			srcDirs += gradlefiles.project("common").sourceSets.common.resources.srcDirs
+		}
+	}
+	multiloader_test_mod {
+		java {
+			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".java.srcDirs
+		}
+		resources {
+			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".resources.srcDirs
+		}
+		compileClasspath += main.runtimeClasspath
+		runtimeClasspath += main.runtimeClasspath
+	}
+}
 
 java {
 	toolchain {
@@ -18,10 +39,6 @@ java {
 	}
 	withSourcesJar()
 	withJavadocJar()
-}
-
-sourceSets {
-	multiloader_test_mod
 }
 
 loom {
@@ -54,17 +71,19 @@ configurations {
 }
 
 tasks.named("shadowJar") {
-	archiveClassifier = tasks.getByName("jar").archiveClassifier
-	destinationDirectory = tasks.getByName("jar").destinationDirectory
+	def jarTask = tasks.named("jar")
+
+	archiveClassifier = jarTask.get().archiveClassifier
+	destinationDirectory = jarTask.get().destinationDirectory
 	configurations = [project.configurations.shade]
 	
-	dependsOn tasks.named("jar")
+	dependsOn jarTask
 	
 	relocate "net.minecraftforge.fml", "info.u_team.u_team_core.internal.shade.net.minecraftforge.fml"
 	relocate "net.hycrafthd.update_checker", "info.u_team.u_team_core.internal.shade.net.hycrafthd.update_checker"
 }
 
-components.java.withVariantsFromConfiguration(configurations.getByName("shadowRuntimeElements")) {
+components.java.withVariantsFromConfiguration(configurations.named("shadowRuntimeElements").get()) {
 	skip()
 }
 
@@ -74,14 +93,14 @@ tasks.named("remapJar") {
 
 tasks.register("multiLoaderTestJar", Jar) {
 	archiveClassifier = "multiloader_test-dev"
-	destinationDirectory = new File(project.buildDir, "devlibs")
+	destinationDirectory = project.layout.buildDirectory.dir("devlibs")
 	
 	from sourceSets.multiloader_test_mod.output
 }
 
 tasks.register("multiLoaderTestSourcesJar", Jar) {
 	archiveClassifier = "multiloader_testsources-dev"
-	destinationDirectory = new File(project.buildDir, "devlibs")
+	destinationDirectory = project.layout.buildDirectory.dir("devlibs")
 	
 	from sourceSets.multiloader_test_mod.allJava
 }
@@ -90,28 +109,24 @@ tasks.register("remapMultiLoaderTestJar", net.fabricmc.loom.task.RemapJarTask) {
 	archiveClassifier = "multiloader_test"
 	
 	dependsOn tasks.named("multiLoaderTestJar")
-	input = tasks.getByName("multiLoaderTestJar").archiveFile
+	input = tasks.named("multiLoaderTestJar").get().archiveFile
+
+	dependsOn tasks.named("shadowJar")
+	classpath.from(tasks.named("shadowJar").get().archiveFile)
 }
 
 tasks.register("remapMultiLoaderTestSourcesJar", net.fabricmc.loom.task.RemapSourcesJarTask) {
 	archiveClassifier = "multiloader_testsources"
 	
 	dependsOn tasks.named("multiLoaderTestSourcesJar")
-	input = tasks.getByName("multiLoaderTestSourcesJar").archiveFile
+	input = tasks.named("multiLoaderTestSourcesJar").get().archiveFile
+
+	dependsOn tasks.named("shadowJar")
+	classpath.from(tasks.named("shadowJar").get().archiveFile)
 }
 
-gradlefiles.assembleDependOn(tasks.getByName("remapMultiLoaderTestJar"), tasks.getByName("remapMultiLoaderTestSourcesJar"))
-
-afterEvaluate {
-	tasks.named("remapMultiLoaderTestJar") {
-		dependsOn tasks.named("shadowJar")
-		classpath.from(tasks.getByName("shadowJar").archiveFile)
-	}
-	tasks.named("remapMultiLoaderTestSourcesJar") {
-		dependsOn tasks.named("shadowJar")
-		classpath.from(tasks.getByName("shadowJar").archiveFile)
-	}
-}
+gradlefiles.assembleDependOn(tasks.named("remapMultiLoaderTestJar"), tasks.named("remapMultiLoaderTestSourcesJar"))
+gradlefiles.allPublishingDependOn(tasks.named("remapMultiLoaderTestJar"), tasks.named("remapMultiLoaderTestSourcesJar"))
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
@@ -121,8 +136,8 @@ tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
-gradlefiles.signDefaultFabricJar()
-gradlefiles.signJar("remapMultiLoaderTestJar")
+signjar.sign(tasks.named("remapJar"))
+signjar.sign(tasks.named("remapMultiLoaderTestJar"))
 
 processResources {
 	doLast {
@@ -132,24 +147,19 @@ processResources {
 	}
 }
 
-sourceSets {
-	main {
-		java {
-			srcDirs += project(":common").sourceSets.common.java.srcDirs
-		}
-		resources {
-			srcDirs += project(":common").sourceSets.common.resources.srcDirs
-		}
+processResources {
+	inputs.property "version", project.version
+	
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
 	}
-	multiloader_test_mod {
-		java {
-			srcDirs += project(":common").sourceSets."common-multiloader_test_mod".java.srcDirs
-		}
-		resources {
-			srcDirs += project(":common").sourceSets."common-multiloader_test_mod".resources.srcDirs
-		}
-		compileClasspath += main.runtimeClasspath
-		runtimeClasspath += main.runtimeClasspath
+}
+
+tasks.named("processMultiloader_test_modResources") {
+	inputs.property "version", project.version
+	
+	filesMatching("fabric.mod.json") {
+		expand "version": project.version
 	}
 }
 
@@ -179,31 +189,11 @@ dependencies {
 		transitive=false
 	}
 	
-	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-fabric-api:${config.jei.version}"
-	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
-	modRuntimeOnly "mezz.jei:jei-${config.minecraft.version}-fabric:${config.jei.version}"
+	//modCompileOnly "mezz.jei:jei-${config.minecraft.version}-fabric-api:${config.jei.version}"
+	//modCompileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
+	//modRuntimeOnly "mezz.jei:jei-${config.minecraft.version}-fabric:${config.jei.version}"
 	
 	modRuntimeOnly "com.terraformersmc:modmenu:${config.modmenu.fabric.version}"
-}
-
-gradlefiles.removePublishingDependency { dependency ->
-	"update_checker".equals(dependency.name) || "mezz.jei".equals(dependency.group)
-}
-
-processResources {
-	inputs.property "version", project.version
-	
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
-}
-
-tasks.named("processMultiloader_test_modResources") {
-	inputs.property "version", project.version
-	
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
 }
 
 curseforge {
@@ -223,7 +213,7 @@ curseforge {
 			optionalDependency "jei"
 		}
 		
-		mainArtifact(tasks.getByName("remapJar")) {
+		mainArtifact(tasks.named("remapJar")) {
 			displayName = "${config.curse.display}-Fabric-${config.minecraft.version}-${project.version}"
 			changelogType = "html"
 			changelog = "<a href=\"${gradlefiles.changelogUrl()}\">Changelog of ${project.version}</a>"
@@ -243,14 +233,14 @@ publishing {
 	}
 	publications {
 		mavenJava(MavenPublication) {
-			artifactId archivesBaseName
+			artifactId project.base.archivesName.get()
 			
-			from components.java
-			artifact tasks.getByName("remapMultiLoaderTestJar")
-			artifact tasks.getByName("remapMultiLoaderTestSourcesJar")
+			from gradlefiles.filteredJavaComponent()
+			artifact tasks.named("remapMultiLoaderTestJar")
+			artifact tasks.named("remapMultiLoaderTestSourcesJar")
 			
 			pom {
-				name = project.archivesBaseName
+				name = project.base.archivesName.get()
 				description = "${config.github.name}"
 				url = "https://github.com/MC-U-Team/${config.github.name}"
 				scm {

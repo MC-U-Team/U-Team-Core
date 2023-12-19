@@ -7,42 +7,8 @@ plugins {
 gradlefiles.loaderSuffix = "common"
 
 group = rootProject.group
-archivesBaseName = gradlefiles.archivesBaseName()
+base.archivesName = gradlefiles.archivesName()
 version = gradlefiles.version()
-
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
-	withSourcesJar()
-	withJavadocJar()
-}
-
-loom {
-	accessWidenerPath = project(":fabric").file("src/main/resources/uteamcore.accesswidener")
-}
-
-tasks.withType(Jar).configureEach { task ->
-	gradlefiles.defaultJar(task)
-	
-	manifest {
-		attributes ("Fabric-Loom-Remap": "true")
-	}
-}
-
-tasks.withType(Javadoc).configureEach { task ->
-	task.options.addStringOption("Xdoclint:none", "-quiet")
-}
-
-gradlefiles.signJar("remapJar")
-
-processResources {
-	doLast {
-		fileTree(dir: outputs.files.asPath, include: "**/*.json").each { File file ->
-			file.text = groovy.json.JsonOutput.toJson(new groovy.json.JsonSlurper().parse(file))
-		}
-	}
-}
 
 sourceSets {
 	common {
@@ -72,6 +38,40 @@ sourceSets {
 	}
 }
 
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+	withSourcesJar()
+	withJavadocJar()
+}
+
+loom {
+	accessWidenerPath = gradlefiles.project("fabric").file("src/main/resources/uteamcore.accesswidener")
+}
+
+tasks.withType(Jar).configureEach { task ->
+	gradlefiles.defaultJar(task)
+	
+	manifest {
+		attributes ("Fabric-Loom-Remap": "true")
+	}
+}
+
+tasks.withType(Javadoc).configureEach { task ->
+	task.options.addStringOption("Xdoclint:none", "-quiet")
+}
+
+signjar.sign(tasks.named("remapJar"))
+
+processResources {
+	doLast {
+		fileTree(dir: outputs.files.asPath, include: "**/*.json").each { File file ->
+			file.text = groovy.json.JsonOutput.toJson(new groovy.json.JsonSlurper().parse(file))
+		}
+	}
+}
+
 repositories {
 	maven {
 		url = "https://maven.parchmentmc.org"
@@ -91,7 +91,7 @@ dependencies {
 	modImplementation gradlefiles.fabricLoaderDependency()
 	modRuntimeOnly gradlefiles.fabricApiDependency()
 	
-	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
+	//modCompileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
 }
 
 publishing {
@@ -106,12 +106,12 @@ publishing {
 	}
 	publications {
 		mavenJava(MavenPublication) {
-			artifactId archivesBaseName
+			artifactId project.base.archivesName.get()
 			
-			from components.java
+			from gradlefiles.filteredJavaComponent()
 			
 			pom {
-				name = project.archivesBaseName
+				name = project.base.archivesName.get()
 				description = "${config.github.name}"
 				url = "https://github.com/MC-U-Team/${config.github.name}"
 				scm {
