@@ -39,7 +39,7 @@ public class TestMultiLoaderDatapackBuiltinEntriesProvider extends CommonDatapac
 					}).build(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY));
 		}), Set.of(modid())));
 		
-		// TODO check for neoforge
+		// TODO check for neoforge, DOES NOT WORK FOR BIOME TAGS RIGHT NOW
 		// consumer.accept(new RegistriesDatapackGenerator(getGenerationData().output(),
 		// getGenerationData().lookupProviderFuture(), new RegistrySetBuilder().add(Registries.DAMAGE_TYPE, context -> {
 		// context.register(TestMultiLoaderDamageSources.TEST, new DamageType("test", 0));
