@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[48,)"
+loaderVersion="[49,)"
 issueTrackerURL="https://github.com/MC-U-Team/U-Team-Core/issues"
 license="Apache-2.0 License"
 
@@ -17,13 +17,13 @@ license="Apache-2.0 License"
 	[[dependencies.uteamcore]]
 	    modId="forge"
 	    mandatory=true
-	    versionRange="[48.0.7,)"
+	    versionRange="[49.0.9,)"
 	    ordering="NONE"
 	    side="BOTH"
 	
 	[[dependencies.uteamcore]]
 	    modId="minecraft"
 	    mandatory=true
-	    versionRange="[1.20.2]"
+	    versionRange="[1.20.4]"
 	    ordering="NONE"
 	    side="BOTH"
