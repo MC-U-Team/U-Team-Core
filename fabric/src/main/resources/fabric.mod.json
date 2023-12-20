@@ -29,9 +29,9 @@
 		"uteamcore.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.14.22",
-		"fabric": ">=0.89.1+1.20.2",
-		"minecraft": "1.20.2",
+		"fabricloader": ">=0.15.2",
+		"fabric": ">=0.91.2+1.20.4",
+		"minecraft": "1.20.4",
 		"java": ">=17"
 	},
 	"custom": {
