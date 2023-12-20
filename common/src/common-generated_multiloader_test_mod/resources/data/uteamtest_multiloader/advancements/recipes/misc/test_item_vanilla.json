@@ -30,6 +30,5 @@
 		"recipes": [
 			"uteamtest_multiloader:test_item_vanilla"
 		]
-	},
-	"sends_telemetry_event": false
+	}
 }
