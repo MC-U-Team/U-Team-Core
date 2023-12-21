@@ -29,6 +29,7 @@ public class TestMultiLoaderDatapackBuiltinEntriesProvider extends CommonDatapac
 	
 	@Override
 	public void register(Consumer<RegistriesDatapackGenerator> consumer) {
+		// Does not generate tags for biomes
 		consumer.accept(new RegistriesDatapackGenerator(getGenerationData().output(), CompletableFuture.supplyAsync(() -> {
 			return new RegistrySetBuilder() //
 					.add(Registries.DAMAGE_TYPE, context -> {
@@ -38,6 +39,24 @@ public class TestMultiLoaderDatapackBuiltinEntriesProvider extends CommonDatapac
 						context.register(ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(modid(), "add_test_living_entity_to_all_biomes")), AddSpawnsBiomeModifier.singleSpawn(context.lookup(ForgeRegistries.Keys.BIOMES).getOrThrow(BiomeTags.IS_OVERWORLD), new SpawnerData(TestMultiLoaderEntityTypes.TEST_LIVING.get(), 80, 4, 4)));
 					}).build(RegistryAccess.fromRegistryOfRegistries(BuiltInRegistries.REGISTRY));
 		}), Set.of(modid())));
+		
+		// BROKEN IN FORGE
+		// final Supplier<RegistrySetBuilder> builderSupplier = () -> {
+		// return new RegistrySetBuilder() //
+		// .add(Registries.DAMAGE_TYPE, context -> {
+		// context.register(TestMultiLoaderDamageSources.TEST, new DamageType("test", 0));
+		// }) //
+		// .add(ForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
+		// context.register(ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(modid(),
+		// "add_test_living_entity_to_all_biomes")),
+		// AddSpawnsBiomeModifier.singleSpawn(context.lookup(ForgeRegistries.Keys.BIOMES).getOrThrow(BiomeTags.IS_OVERWORLD),
+		// new SpawnerData(TestMultiLoaderEntityTypes.TEST_LIVING.get(), 80, 4, 4)));
+		// });
+		// };
+		//
+		// consumer.accept(new RegistriesDatapackGenerator(getGenerationData().output(),
+		// RegistryPatchGenerator.createLookup(getGenerationData().lookupProviderFuture(),
+		// builderSupplier.get()).thenApply(RegistrySetBuilder.PatchedRegistries::patches), Set.of(modid())));
 		
 		// TODO check for neoforge, DOES NOT WORK FOR BIOME TAGS RIGHT NOW
 		// consumer.accept(new RegistriesDatapackGenerator(getGenerationData().output(),
