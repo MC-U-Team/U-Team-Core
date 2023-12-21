@@ -20,16 +20,16 @@ pluginManagement {
 	}
 	plugins {
 		id "org.gradle.toolchains.foojay-resolver-convention" version "0.7.0"
-
+		
 		id "net.neoforged.gradle.userdev" version "7.0.+"
 		id "net.neoforged.gradle.mixin" version "7.0.+"
-
+		
 		id "net.minecraftforge.gradle" version "6.0.+"
 		id "org.parchmentmc.librarian.forgegradle" version "1.+"
 		id "org.spongepowered.mixin" version "0.7.+"
-
+		
 		id "fabric-loom" version "1.4.+"
-
+		
 		id "info.u_team.gradle_files" version "4.0.0"
 		id "info.u_team.curse_gradle_uploader" version "1.7.0"
 	}
@@ -40,4 +40,4 @@ plugins {
 	id "info.u_team.gradle_files"
 }
 
-gradlefiles.setupProject("U-Team-Core", "common", "forge", "fabric")
+gradlefiles.setupProject("U-Team-Core", "common", "neoforge", "forge", "fabric")
