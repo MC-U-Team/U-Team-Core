@@ -72,7 +72,7 @@ configurations {
 
 tasks.named("shadowJar") {
 	def jarTask = tasks.named("jar")
-
+	
 	archiveClassifier = jarTask.get().archiveClassifier
 	destinationDirectory = jarTask.get().destinationDirectory
 	configurations = [project.configurations.shade]
@@ -110,7 +110,7 @@ tasks.register("remapMultiLoaderTestJar", net.fabricmc.loom.task.RemapJarTask) {
 	
 	dependsOn tasks.named("multiLoaderTestJar")
 	input = tasks.named("multiLoaderTestJar").get().archiveFile
-
+	
 	dependsOn tasks.named("shadowJar")
 	classpath.from(tasks.named("shadowJar").get().archiveFile)
 }
@@ -120,7 +120,7 @@ tasks.register("remapMultiLoaderTestSourcesJar", net.fabricmc.loom.task.RemapSou
 	
 	dependsOn tasks.named("multiLoaderTestSourcesJar")
 	input = tasks.named("multiLoaderTestSourcesJar").get().archiveFile
-
+	
 	dependsOn tasks.named("shadowJar")
 	classpath.from(tasks.named("shadowJar").get().archiveFile)
 }
