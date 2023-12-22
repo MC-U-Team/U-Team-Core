@@ -1,0 +1,29 @@
+modLoader="javafml"
+loaderVersion="[2,)"
+issueTrackerURL="https://github.com/MC-U-Team/U-Team-Core/issues"
+license="Apache-2.0 License"
+
+[[mods]]
+	modId="uteamcore"
+	version="${file.jarVersion}"
+	displayName="U Team Core"
+	displayURL="https://u-team.info/mods/uteamcore"
+	updateJSONURL="https://api.u-team.info/update/uteamcore.json"
+	logoFile="logo.png"
+	credits="Team U-Team"
+	authors="HyCraftHD, MrTroble"
+	description="Join our discord server here: https://discord.hycrafthd.net\n\nThis library contains many useful modding stuff!"
+	
+	[[dependencies.uteamcore]]
+	    modId="neoforge"
+	    type="required"
+	    versionRange="[20.4.48-beta,)"
+	    ordering="NONE"
+	    side="BOTH"
+	
+	[[dependencies.uteamcore]]
+	    modId="minecraft"
+	    type="required"
+	    versionRange="[1.20.4]"
+	    ordering="NONE"
+	    side="BOTH"

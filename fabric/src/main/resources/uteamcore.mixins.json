@@ -16,7 +16,8 @@
 		"UContainerMenuScreenMixin",
 		"ItemMixin",
 		"ServerPlayerMixin",
-		"common.ServerPlayerMixin"
+		"common.ServerPlayerMixin",
+		"common.accessor.BlockPropertiesAccessor"
 	],
 	"injectors": {
 		"defaultRequire": 1
