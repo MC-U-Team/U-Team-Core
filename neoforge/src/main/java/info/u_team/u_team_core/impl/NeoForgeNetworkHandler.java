@@ -10,6 +10,7 @@ import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.api.network.NetworkMessage;
 import info.u_team.u_team_core.api.network.NetworkPayload;
+import info.u_team.u_team_core.impl.common.CommonNetworkHandler;
 import info.u_team.u_team_core.util.registry.BusRegister;
 import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
@@ -23,26 +24,20 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
 
-public class NeoForgeNetworkHandler implements NetworkHandler {
-	
-	private final ResourceLocation channel;
-	private final int protocolVersion;
+public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 	
 	private final Map<ResourceLocation, NetworkPayload<?>> messages;
 	
 	NeoForgeNetworkHandler(ResourceLocation channel, int protocolVersion) {
-		this.channel = channel;
-		this.protocolVersion = protocolVersion;
+		super(channel, protocolVersion);
 		messages = new HashMap<>();
 	}
 	
 	@Override
-	public <M> NeoForgeNetworkMessage<M> register(int index, NetworkPayload<M> payload) {
+	public <M> NetworkMessage<M> register(int index, NetworkPayload<M> payload) {
 		final ResourceLocation messageId = channel.withSuffix("/" + index);
 		
-		if (payload.getHandlerEnvironment().isEmpty()) {
-			throw new IllegalArgumentException("Handler environment cannot be empty for message id " + messageId);
-		}
+		validateNetworkPayload(messageId, payload);
 		
 		if (messages.putIfAbsent(messageId, payload) != null) {
 			throw new IllegalArgumentException("Duplicate message id " + messageId);
@@ -74,16 +69,6 @@ public class NeoForgeNetworkHandler implements NetworkHandler {
 				}
 			});
 		}
-	}
-	
-	@Override
-	public ResourceLocation getChannel() {
-		return channel;
-	}
-	
-	@Override
-	public int getProtocolVersion() {
-		return protocolVersion;
 	}
 	
 	private static class PacketPayload<M> implements CustomPacketPayload {

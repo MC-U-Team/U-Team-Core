@@ -22,12 +22,6 @@ public class UCoreNeoForgeCommonConstruct implements ModConstruct {
 			return Objects.equals(remoteVersion, version);
 		}));
 		
-		UCoreNetwork.NETWORK.setProtocolAcceptor(protocolVersion -> {
-			// Allow clients to join / view servers without errors when uteamcore is not present there
-			// return NetworkRegistry.acceptMissingOr(UCoreNetwork.NETWORK.getProtocolVersion()).test(protocolVersion);
-			return true; // TODO fixup
-		}, received -> received == UCoreNetwork.NETWORK.getProtocolVersion());
-		
 		BusRegister.registerMod(UCoreNetworkNeoForge::registerMod);
 		BusRegister.registerMod(UCoreNeoForgeCapabilities::registerMod);
 	}
