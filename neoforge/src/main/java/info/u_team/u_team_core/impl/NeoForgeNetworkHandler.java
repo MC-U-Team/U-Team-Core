@@ -1,66 +1,84 @@
 package info.u_team.u_team_core.impl;
 
-import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
-import net.minecraft.client.Minecraft;
+import info.u_team.u_team_core.api.network.NetworkMessage;
+import info.u_team.u_team_core.api.network.NetworkPayload;
+import info.u_team.u_team_core.util.registry.BusRegister;
+import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.network.CustomPayloadEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.network.ChannelBuilder;
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.PacketDistributor;
-import net.minecraftforge.network.SimpleChannel;
+import net.neoforged.neoforge.network.PacketDistributor;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
 
 public class NeoForgeNetworkHandler implements NetworkHandler {
 	
+	private final ResourceLocation channel;
 	private final int protocolVersion;
 	
-	private Predicate<Integer> clientAcceptedVersions;
-	private Predicate<Integer> serverAcceptedVersions;
+	private final Map<ResourceLocation, NetworkPayload<?>> messages;
 	
-	private final SimpleChannel network;
-	
-	NeoForgeNetworkHandler(int protocolVersion, ResourceLocation channel) {
+	NeoForgeNetworkHandler(ResourceLocation channel, int protocolVersion) {
+		this.channel = channel;
 		this.protocolVersion = protocolVersion;
-		clientAcceptedVersions = received -> received == protocolVersion;
-		serverAcceptedVersions = received -> received == protocolVersion;
+		messages = new HashMap<>();
+	}
+	
+	@Override
+	public <M> NeoForgeNetworkMessage<M> register(int index, NetworkPayload<M> payload) {
+		final ResourceLocation messageId = channel.withSuffix("/" + index);
 		
-		network = ChannelBuilder.named(channel).networkProtocolVersion(protocolVersion).clientAcceptedVersions((status, version) -> clientAcceptedVersions.test(version)).serverAcceptedVersions((status, version) -> serverAcceptedVersions.test(version)).simpleChannel();
+		if (payload.getHandlerEnvironment().isEmpty()) {
+			throw new IllegalArgumentException("Handler environment cannot be empty for message id " + messageId);
+		}
+		
+		if (messages.putIfAbsent(messageId, payload) != null) {
+			throw new IllegalArgumentException("Duplicate message id " + messageId);
+		}
+		
+		return new NeoForgeNetworkMessage<>(messageId, payload);
 	}
 	
 	@Override
-	public <M> void registerMessage(int index, Class<M> clazz, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer, Optional<NetworkEnvironment> handlerEnvironment) {
-		network.messageBuilder(clazz, index, handlerEnvironment.map(environment -> {
-			return switch (environment) {
-			case CLIENT -> NetworkDirection.PLAY_TO_CLIENT;
-			case SERVER -> NetworkDirection.PLAY_TO_SERVER;
-			};
-		}).orElse(null)).encoder(encoder).decoder(decoder).consumerNetworkThread((message, context) -> {
-			messageConsumer.accept(message, new ForgeNetworkContext(context));
-			context.setPacketHandled(true);
-		}).add();
+	public void register() {
+		BusRegister.registerMod(bus -> bus.addListener(this::registerPayloadHandler));
+	}
+	
+	private void registerPayloadHandler(RegisterPayloadHandlerEvent event) {
+		final IPayloadRegistrar registrar = event.registrar(channel.getNamespace()).versioned(Integer.toString(protocolVersion));
+		
+		for (final Entry<ResourceLocation, NetworkPayload<?>> entry : messages.entrySet()) {
+			final ResourceLocation id = entry.getKey();
+			final NetworkPayload<?> payload = entry.getValue();
+			
+			registrar.play(entry.getKey(), buffer -> new PacketPayload<>(id, payload, buffer), handlers -> {
+				final Set<NetworkEnvironment> list = payload.getHandlerEnvironment();
+				
+				if (list.contains(NetworkEnvironment.CLIENT)) {
+					handlers.client(PacketPayload::handle);
+				}
+				if (list.contains(NetworkEnvironment.CLIENT)) {
+					handlers.server(PacketPayload::handle);
+				}
+			});
+		}
 	}
 	
 	@Override
-	public <M> void sendToPlayer(ServerPlayer player, M message) {
-		network.send(message, PacketDistributor.PLAYER.with(player));
-	}
-	
-	@Override
-	public <M> void sendToServer(M message) {
-		network.send(message, PacketDistributor.SERVER.noArg());
+	public ResourceLocation getChannel() {
+		return channel;
 	}
 	
 	@Override
@@ -68,32 +86,78 @@ public class NeoForgeNetworkHandler implements NetworkHandler {
 		return protocolVersion;
 	}
 	
-	@Override
-	public void setProtocolAcceptor(Predicate<Integer> clientAcceptedVersions, Predicate<Integer> serverAcceptedVersions) {
-		this.clientAcceptedVersions = clientAcceptedVersions;
-		this.serverAcceptedVersions = serverAcceptedVersions;
-	}
-	
-	@OnlyIn(Dist.CLIENT)
-	private class Client {
+	private static class PacketPayload<M> implements CustomPacketPayload {
 		
-		@OnlyIn(Dist.CLIENT)
-		private static Player getClientPlayer() {
-			return Minecraft.getInstance().player;
+		private final ResourceLocation id;
+		private final NetworkPayload<M> payload;
+		private final M message;
+		
+		private PacketPayload(ResourceLocation id, NetworkPayload<M> payload, FriendlyByteBuf buffer) {
+			this(id, payload, payload.read(buffer));
 		}
+		
+		private PacketPayload(ResourceLocation id, NetworkPayload<M> payload, M message) {
+			this.id = id;
+			this.payload = payload;
+			this.message = message;
+		}
+		
+		@Override
+		public void write(FriendlyByteBuf buffer) {
+			payload.write(message, buffer);
+		}
+		
+		@Override
+		public ResourceLocation id() {
+			return id;
+		}
+		
+		private void handle(IPayloadContext context) {
+			payload.handle(message, new NeoForgeNetworkContext(context));
+		}
+		
 	}
 	
-	public static class ForgeNetworkContext implements NetworkContext {
+	public static class NeoForgeNetworkMessage<M> implements NetworkMessage<M> {
 		
-		private final CustomPayloadEvent.Context context;
+		public static final PacketDistributor<Connection> CONNECTION = new PacketDistributor<>((distributor, connection) -> packet -> connection.send(packet), PacketFlow.CLIENTBOUND);
 		
-		ForgeNetworkContext(CustomPayloadEvent.Context context) {
+		private final ResourceLocation messageId;
+		private final NetworkPayload<M> payload;
+		
+		NeoForgeNetworkMessage(ResourceLocation messageId, NetworkPayload<M> payload) {
+			this.messageId = messageId;
+			this.payload = payload;
+		}
+		
+		@Override
+		public void sendToPlayer(ServerPlayer player, M message) {
+			PacketDistributor.PLAYER.with(player).send(new PacketPayload<>(messageId, payload, message));
+		}
+		
+		@Override
+		public void sendToConnection(Connection connection, M message) {
+			CONNECTION.with(connection).send(new PacketPayload<>(messageId, payload, message));
+		}
+		
+		@Override
+		public void sendToServer(M message) {
+			PacketDistributor.SERVER.noArg().send(new PacketPayload<>(messageId, payload, message));
+		}
+		
+	}
+	
+	public static class NeoForgeNetworkContext implements NetworkContext {
+		
+		private final IPayloadContext context;
+		
+		NeoForgeNetworkContext(IPayloadContext context) {
 			this.context = context;
 		}
 		
 		@Override
 		public NetworkEnvironment getEnvironment() {
-			return switch (context.getDirection().getReceptionSide()) {
+			return switch (context.flow().getReceptionSide()) {
 			case CLIENT -> NetworkEnvironment.CLIENT;
 			case SERVER -> NetworkEnvironment.SERVER;
 			};
@@ -101,23 +165,21 @@ public class NeoForgeNetworkHandler implements NetworkHandler {
 		
 		@Override
 		public Player getPlayer() {
-			if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-				return DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> Client.getClientPlayer());
-			}
-			return context.getSender();
+			return context.player().orElse(null);
 		}
 		
 		@Override
 		public void executeOnMainThread(Runnable runnable) {
-			context.enqueueWork(runnable);
+			context.workHandler().execute(runnable);
 		}
+		
 	}
 	
 	public static class Factory implements NetworkHandler.Factory {
 		
 		@Override
-		public NetworkHandler create(int protocolVersion, ResourceLocation location) {
-			return new NeoForgeNetworkHandler(protocolVersion, location);
+		public NetworkHandler create(ResourceLocation channel, int protocolVersion) {
+			return new NeoForgeNetworkHandler(channel, protocolVersion);
 		}
 	}
 }
