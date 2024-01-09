@@ -9,4 +9,6 @@ public class TestMultiLoaderReference {
 	public static final String MODID = "uteamtest_multiloader";
 	public static final Logger LOGGER = LogUtils.getLogger();
 	
+	public static final int PROTOCOL_VERSION = 0x0;
+	
 }

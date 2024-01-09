@@ -1,39 +1,26 @@
 package info.u_team.u_team_core.api.network;
 
-import java.util.Optional;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 import info.u_team.u_team_core.util.ServiceUtil;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 
 public interface NetworkHandler {
 	
-	static NetworkHandler create(int protocolVersion, ResourceLocation location) {
-		return Factory.INSTANCE.create(protocolVersion, location);
+	static NetworkHandler create(ResourceLocation channel, int protocolVersion) {
+		return Factory.INSTANCE.create(channel, protocolVersion);
 	}
 	
-	default <M> void registerMessage(int index, Class<M> clazz, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer) {
-		registerMessage(index, clazz, encoder, decoder, messageConsumer, Optional.empty());
-	}
+	<M> NetworkMessage<M> register(int index, NetworkPayload<M> payload);
 	
-	<M> void registerMessage(int index, Class<M> clazz, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer, Optional<NetworkEnvironment> handlerEnvironment);
+	void register();
 	
-	<M> void sendToPlayer(ServerPlayer player, M message);
-	
-	<M> void sendToServer(M message);
+	ResourceLocation getChannel();
 	
 	int getProtocolVersion();
-	
-	void setProtocolAcceptor(Predicate<Integer> clientAcceptedVersions, Predicate<Integer> serverAcceptedVersions);
 	
 	interface Factory {
 		
 		Factory INSTANCE = ServiceUtil.loadOne(Factory.class);
 		
-		NetworkHandler create(int protocolVersion, ResourceLocation location);
+		NetworkHandler create(ResourceLocation channel, int protocolVersion);
 	}
 }

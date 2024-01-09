@@ -4,7 +4,7 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderNetwork;
-import info.u_team.u_team_test.test_multiloader.messages.TestServerToClientMessage;
+import info.u_team.u_team_test.test_multiloader.network.TestPayload.TestMessage;
 import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.server.level.ServerPlayer;
@@ -18,7 +18,7 @@ public class TestNetworkCommand {
 	
 	private static int executeExplicitS2C(CommandSourceStack source) throws CommandSyntaxException {
 		final ServerPlayer player = source.getPlayerOrException();
-		TestMultiLoaderNetwork.NETWORK.sendToPlayer(player, new TestServerToClientMessage("Hello world from the server"));
+		TestMultiLoaderNetwork.TEST_SERVER_TO_CLIENT_MESSAGE.sendToPlayer(player, new TestMessage("Hello world from the server"));
 		return 0;
 	}
 	

@@ -5,7 +5,7 @@ import java.util.OptionalInt;
 import java.util.function.Consumer;
 
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
-import info.u_team.u_team_core.intern.init.network.OpenMenuScreenMessage;
+import info.u_team.u_team_core.intern.network.OpenMenuScreenPayload.OpenMenuScreenMessage;
 import io.netty.buffer.Unpooled;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
@@ -37,7 +37,7 @@ public class MenuUtil {
 		final FriendlyByteBuf extraData = new FriendlyByteBuf(Unpooled.buffer());
 		data.accept(extraData);
 		extraData.readerIndex(0);
-		UCoreNetwork.NETWORK.sendToPlayer(player, new OpenMenuScreenMessage(menu.containerId, menu.getType(), menuProvider.getDisplayName(), extraData));
+		UCoreNetwork.OPEN_MENU_SCREEN_MESSAGE.sendToPlayer(player, new OpenMenuScreenMessage(menu.containerId, menu.getType(), menuProvider.getDisplayName(), extraData));
 		
 		player.initMenu(menu);
 		player.containerMenu = menu;

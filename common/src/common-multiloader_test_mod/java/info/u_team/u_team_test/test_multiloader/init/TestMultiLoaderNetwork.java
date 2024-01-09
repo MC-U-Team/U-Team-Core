@@ -1,22 +1,21 @@
 package info.u_team.u_team_test.test_multiloader.init;
 
-import java.util.Optional;
-
-import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
+import info.u_team.u_team_core.api.network.NetworkMessage;
 import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
-import info.u_team.u_team_test.test_multiloader.messages.TestClientToServerMessage;
-import info.u_team.u_team_test.test_multiloader.messages.TestMessageHandler;
-import info.u_team.u_team_test.test_multiloader.messages.TestServerToClientMessage;
+import info.u_team.u_team_test.test_multiloader.network.TestPayload.TestMessage;
+import info.u_team.u_team_test.test_multiloader.network.TestServerToClientPayload;
 import net.minecraft.resources.ResourceLocation;
 
 public class TestMultiLoaderNetwork {
 	
-	public static final NetworkHandler NETWORK = NetworkHandler.create(0, new ResourceLocation(TestMultiLoaderReference.MODID, "network"));
+	private static final NetworkHandler NETWORK = NetworkHandler.create(new ResourceLocation(TestMultiLoaderReference.MODID, "network"), TestMultiLoaderReference.PROTOCOL_VERSION);
+	
+	public static final NetworkMessage<TestMessage> TEST_SERVER_TO_CLIENT_MESSAGE = NETWORK.register(0, new TestServerToClientPayload());
+	public static final NetworkMessage<TestMessage> TEST_CLIENT_TO_SERVER_MESSAGE = NETWORK.register(1, new TestServerToClientPayload());
 	
 	static void register() {
-		NETWORK.registerMessage(0, TestServerToClientMessage.class, TestServerToClientMessage::encode, TestServerToClientMessage::decode, TestMessageHandler::handle, Optional.of(NetworkEnvironment.CLIENT));
-		NETWORK.registerMessage(1, TestClientToServerMessage.class, TestClientToServerMessage::encode, TestClientToServerMessage::decode, TestMessageHandler::handle, Optional.of(NetworkEnvironment.SERVER));
+		NETWORK.register();
 	}
 	
 }

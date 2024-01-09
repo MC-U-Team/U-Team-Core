@@ -1,21 +1,23 @@
 package info.u_team.u_team_core.intern.init;
 
-import java.util.Optional;
-
 import info.u_team.u_team_core.UCoreReference;
-import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
-import info.u_team.u_team_core.intern.init.network.DataHolderMenuMessage;
-import info.u_team.u_team_core.intern.init.network.OpenMenuScreenMessage;
+import info.u_team.u_team_core.api.network.NetworkMessage;
+import info.u_team.u_team_core.intern.network.DataHolderMenuPayload;
+import info.u_team.u_team_core.intern.network.OpenMenuScreenPayload;
+import info.u_team.u_team_core.intern.network.DataHolderMenuPayload.DataHolderMenuMessage;
+import info.u_team.u_team_core.intern.network.OpenMenuScreenPayload.OpenMenuScreenMessage;
 import net.minecraft.resources.ResourceLocation;
 
 public class UCoreNetwork {
 	
-	public static final NetworkHandler NETWORK = NetworkHandler.create(UCoreReference.PROTOCOL_VERSION, new ResourceLocation(UCoreReference.MODID, "network"));
+	private static final NetworkHandler NETWORK = NetworkHandler.create(new ResourceLocation(UCoreReference.MODID, "network"), UCoreReference.PROTOCOL_VERSION);
+	
+	public static final NetworkMessage<DataHolderMenuMessage> DATA_HOLDER_MENU_MESSAGE = NETWORK.register(0, new DataHolderMenuPayload());
+	public static final NetworkMessage<OpenMenuScreenMessage> OPEN_MENU_SCREEN_MESSAGE = NETWORK.register(0, new OpenMenuScreenPayload());
 	
 	static void register() {
-		NETWORK.registerMessage(0, DataHolderMenuMessage.class, DataHolderMenuMessage::encode, DataHolderMenuMessage::decode, DataHolderMenuMessage.Handler::handle);
-		NETWORK.registerMessage(1, OpenMenuScreenMessage.class, OpenMenuScreenMessage::encode, OpenMenuScreenMessage::decode, OpenMenuScreenMessage.Handler::handle, Optional.of(NetworkEnvironment.CLIENT));
+		NETWORK.register();
 	}
 	
 }
