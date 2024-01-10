@@ -2,170 +2,116 @@ package info.u_team.u_team_core.impl;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
-
-import com.mojang.logging.LogUtils;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import info.u_team.u_team_core.api.Platform.Environment;
 import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
+import info.u_team.u_team_core.api.network.NetworkMessage;
+import info.u_team.u_team_core.api.network.NetworkPayload;
+import info.u_team.u_team_core.impl.common.CommonNetworkHandler;
 import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.EnvironmentUtil;
-import net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking;
+import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
-import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerLoginConnectionEvents;
-import net.fabricmc.fabric.api.networking.v1.ServerLoginNetworking;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.network.Connection;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.thread.BlockableEventLoop;
 import net.minecraft.world.entity.player.Player;
 
-public class FabricNetworkHandler implements NetworkHandler {
+public class FabricNetworkHandler extends CommonNetworkHandler {
 	
-	public static final int NOT_ON_CLIENT = Integer.MIN_VALUE;
+	private final Map<ResourceLocation, NetworkPayload<?>> messages;
 	
-	private final int protocolVersion;
-	
-	private Predicate<Integer> clientAcceptedVersions;
-	private Predicate<Integer> serverAcceptedVersions;
-	
-	private final ResourceLocation channel;
-	private final Map<Class<?>, MessagePacket<?>> messages;
-	
-	FabricNetworkHandler(int protocolVersion, ResourceLocation channel) {
-		this.protocolVersion = protocolVersion;
-		clientAcceptedVersions = received -> received == protocolVersion;
-		serverAcceptedVersions = received -> received == protocolVersion;
-		
-		this.channel = channel;
+	FabricNetworkHandler(ResourceLocation channel, int protocolVersion) {
+		super(channel, protocolVersion);
 		messages = new HashMap<>();
+	}
+	
+	@Override
+	public <M> NetworkMessage<M> register(int index, NetworkPayload<M> payload) {
+		final ResourceLocation messageId = channel.withSuffix("/" + index);
 		
-		EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.registerLoginReceiver(this, channel));
-		ServerLoginNetworking.registerGlobalReceiver(channel, (server, packetListener, understood, buffer, synchronizer, responseSender) -> {
-			if (!understood) {
-				buffer = PacketByteBufs.create().writeVarInt(NOT_ON_CLIENT);
+		validateNetworkPayload(messageId, payload);
+		
+		if (messages.putIfAbsent(messageId, payload) != null) {
+			throw new IllegalArgumentException("Duplicate message id " + messageId);
+		}
+		
+		return new FabricNetworkMessage<>(messageId, payload);
+	}
+	
+	@Override
+	public void register() {
+		for (final Entry<ResourceLocation, NetworkPayload<?>> entry : messages.entrySet()) {
+			final ResourceLocation id = entry.getKey();
+			final NetworkPayload<?> payload = entry.getValue();
+			final Set<NetworkEnvironment> list = payload.getHandlerEnvironment();
+			
+			if (list.contains(NetworkEnvironment.CLIENT)) {
+				EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.registerReceiver(id, payload));
 			}
-			acceptProtocolVersion(buffer, serverAcceptedVersions, packetListener::disconnect);
-		});
-		ServerLoginConnectionEvents.QUERY_START.register((packetListener, server, sender, synchronizer) -> {
-			sender.sendPacket(channel, PacketByteBufs.create().writeVarInt(protocolVersion));
-		});
-	}
-	
-	@Override
-	public <M> void registerMessage(int index, Class<M> clazz, BiConsumer<M, FriendlyByteBuf> encoder, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer, Optional<NetworkEnvironment> handlerEnvironment) {
-		final ResourceLocation location = channel.withSuffix("/" + index);
-		final MessagePacket<?> oldPacket = messages.put(clazz, new MessagePacket<>(location, encoder, handlerEnvironment));
-		if (oldPacket != null) {
-			throw new IllegalArgumentException("Packet class " + clazz + " was already registered");
+			if (list.contains(NetworkEnvironment.SERVER)) {
+				ServerPlayNetworking.registerGlobalReceiver(id, (server, player, handler, buffer, responseSender) -> {
+					final Object message = payload.read(buffer);
+					
+					payload.handle(CastUtil.uncheckedCast(message), new FabricNetworkContext(NetworkEnvironment.SERVER, player, server));
+				});
+			}
 		}
-		
-		if (validNetworkEnvironment(NetworkEnvironment.SERVER, handlerEnvironment)) {
-			// Register client -> server handler
-			ServerPlayNetworking.registerGlobalReceiver(location, (server, player, packetListener, byteBuf, responseSender) -> {
-				messageConsumer.accept(decodeMessage(decoder, byteBuf), new FabricNetworkContext(NetworkEnvironment.SERVER, player, server));
-			});
-		}
-		
-		if (validNetworkEnvironment(NetworkEnvironment.CLIENT, handlerEnvironment)) {
-			// Register server -> client handler
-			EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.registerReceiver(this, location, decoder, messageConsumer));
-		}
-	}
-	
-	@Override
-	public <M> void sendToPlayer(ServerPlayer player, M message) {
-		final EncodedMessage encodedMessage = encodeMessage(message, NetworkEnvironment.CLIENT);
-		ServerPlayNetworking.send(player, encodedMessage.location, encodedMessage.byteBuf);
-	}
-	
-	@Override
-	public <M> void sendToServer(M message) {
-		EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.send(this, message));
-	}
-	
-	@Override
-	public int getProtocolVersion() {
-		return protocolVersion;
-	}
-	
-	@Override
-	public void setProtocolAcceptor(Predicate<Integer> clientAcceptedVersions, Predicate<Integer> serverAcceptedVersions) {
-		this.clientAcceptedVersions = clientAcceptedVersions;
-		this.serverAcceptedVersions = serverAcceptedVersions;
-	}
-	
-	private <M> EncodedMessage encodeMessage(M message, NetworkEnvironment expectedHandler) {
-		final MessagePacket<M> packet = CastUtil.uncheckedCast(messages.get(message.getClass()));
-		if (packet == null) {
-			throw new IllegalArgumentException("Message " + message.getClass() + " was not registred");
-		}
-		if (!validNetworkEnvironment(expectedHandler, packet.handlerEnvironment)) {
-			throw new IllegalArgumentException("Message " + message.getClass() + " cannot be used to send to " + expectedHandler);
-		}
-		final FriendlyByteBuf buffer = PacketByteBufs.create();
-		packet.encoder.accept(message, buffer);
-		return new EncodedMessage(packet.location, buffer);
-	}
-	
-	private <M> M decodeMessage(Function<FriendlyByteBuf, M> decoder, FriendlyByteBuf buffer) {
-		return decoder.apply(buffer);
-	}
-	
-	private boolean validNetworkEnvironment(NetworkEnvironment expected, Optional<NetworkEnvironment> handlerEnvironment) {
-		final NetworkEnvironment environment = handlerEnvironment.orElse(null);
-		return environment == null || environment == expected;
-	}
-	
-	private boolean acceptProtocolVersion(FriendlyByteBuf buffer, Predicate<Integer> predicate, Consumer<Component> disconnectMessage) {
-		final int receivedProtocolVersion = buffer.readVarInt();
-		if (!predicate.test(receivedProtocolVersion)) {
-			// TODO removed disconnect for now, as it should be rewritten with the new configuration phase. Should fix #330 for now
-			// disconnectMessage.accept()
-			LogUtils.getLogger().error(Component.literal("Protocol version for channel " + channel + " does not match. Expected: " + protocolVersion + ", received: " + receivedProtocolVersion).toString());
-			return false;
-		}
-		return true;
 	}
 	
 	private static class Client {
 		
-		public static void registerLoginReceiver(FabricNetworkHandler handler, ResourceLocation location) {
-			ClientLoginNetworking.registerGlobalReceiver(location, (client, packetListener, buffer, listenerAdder) -> {
-				if (handler.acceptProtocolVersion(buffer, handler.clientAcceptedVersions, packetListener.connection::disconnect)) {
-					return CompletableFuture.completedFuture(PacketByteBufs.create().writeVarInt(handler.protocolVersion));
-				} else {
-					return CompletableFuture.completedFuture(null);
-				}
-			});
+		public static void send(ResourceLocation messageId, FriendlyByteBuf buffer) {
+			ClientPlayNetworking.send(messageId, buffer);
 		}
 		
-		public static <M> void send(FabricNetworkHandler handler, M message) {
-			final EncodedMessage encodedMessage = handler.encodeMessage(message, NetworkEnvironment.SERVER);
-			ClientPlayNetworking.send(encodedMessage.location, encodedMessage.byteBuf);
-		}
-		
-		public static <M> void registerReceiver(FabricNetworkHandler handler, ResourceLocation location, Function<FriendlyByteBuf, M> decoder, BiConsumer<M, NetworkContext> messageConsumer) {
-			ClientPlayNetworking.registerGlobalReceiver(location, (client, packetListener, byteBuf, responseSender) -> {
-				messageConsumer.accept(handler.decodeMessage(decoder, byteBuf), new FabricNetworkContext(NetworkEnvironment.CLIENT, client.player, client));
+		public static void registerReceiver(ResourceLocation id, NetworkPayload<?> payload) {
+			ClientPlayNetworking.registerGlobalReceiver(id, (client, packetListener, buffer, responseSender) -> {
+				final Object message = payload.read(buffer);
+				
+				payload.handle(CastUtil.uncheckedCast(message), new FabricNetworkContext(NetworkEnvironment.CLIENT, client.player, client));
 			});
 		}
 	}
 	
-	private record MessagePacket<M>(ResourceLocation location, BiConsumer<M, FriendlyByteBuf> encoder, Optional<NetworkEnvironment> handlerEnvironment) {
-	}
-	
-	private record EncodedMessage(ResourceLocation location, FriendlyByteBuf byteBuf) {
+	public static class FabricNetworkMessage<M> implements NetworkMessage<M> {
+		
+		private final ResourceLocation messageId;
+		private final NetworkPayload<M> payload;
+		
+		FabricNetworkMessage(ResourceLocation messageId, NetworkPayload<M> payload) {
+			this.messageId = messageId;
+			this.payload = payload;
+		}
+		
+		@Override
+		public void sendToPlayer(ServerPlayer player, M message) {
+			ServerPlayNetworking.send(player, messageId, writeMessage(message));
+		}
+		
+		@Override
+		public void sendToConnection(Connection connection, M message) {
+			connection.send(ServerPlayNetworking.createS2CPacket(messageId, writeMessage(message)));
+		}
+		
+		@Override
+		public void sendToServer(M message) {
+			EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.send(messageId, writeMessage(message)));
+		}
+		
+		private FriendlyByteBuf writeMessage(M message) {
+			final FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
+			payload.write(message, buffer);
+			return buffer;
+		}
+		
 	}
 	
 	public static class FabricNetworkContext implements NetworkContext {
@@ -203,8 +149,8 @@ public class FabricNetworkHandler implements NetworkHandler {
 	public static class Factory implements NetworkHandler.Factory {
 		
 		@Override
-		public NetworkHandler create(int protocolVersion, ResourceLocation location) {
-			return new FabricNetworkHandler(protocolVersion, location);
+		public NetworkHandler create(ResourceLocation location, int protocolVersion) {
+			return new FabricNetworkHandler(location, protocolVersion);
 		}
 	}
 }
