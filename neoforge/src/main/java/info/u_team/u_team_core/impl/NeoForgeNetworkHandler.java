@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.concurrent.CompletableFuture;
 
 import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
@@ -154,8 +155,8 @@ public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 		}
 		
 		@Override
-		public void executeOnMainThread(Runnable runnable) {
-			context.workHandler().execute(runnable);
+		public CompletableFuture<Void> executeOnMainThread(Runnable runnable) {
+			return context.workHandler().submitAsync(runnable);
 		}
 		
 	}

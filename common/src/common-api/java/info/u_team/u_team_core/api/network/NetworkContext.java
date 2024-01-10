@@ -1,5 +1,7 @@
 package info.u_team.u_team_core.api.network;
 
+import java.util.concurrent.CompletableFuture;
+
 import net.minecraft.world.entity.player.Player;
 
 public interface NetworkContext {
@@ -8,5 +10,5 @@ public interface NetworkContext {
 	
 	Player getPlayer();
 	
-	void executeOnMainThread(Runnable runnable);
+	CompletableFuture<Void> executeOnMainThread(Runnable runnable);
 }

@@ -3,6 +3,7 @@ package info.u_team.u_team_core.impl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 import com.google.common.base.Suppliers;
@@ -137,8 +138,8 @@ public class ForgeNetworkHandler extends CommonNetworkHandler {
 		}
 		
 		@Override
-		public void executeOnMainThread(Runnable runnable) {
-			context.enqueueWork(runnable);
+		public CompletableFuture<Void> executeOnMainThread(Runnable runnable) {
+			return context.enqueueWork(runnable);
 		}
 	}
 	

@@ -3,6 +3,7 @@ package info.u_team.u_team_core.impl;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.CompletableFuture;
 import java.util.Set;
 
 import info.u_team.u_team_core.api.Platform.Environment;
@@ -137,11 +138,12 @@ public class FabricNetworkHandler extends CommonNetworkHandler {
 		}
 		
 		@Override
-		public void executeOnMainThread(Runnable runnable) {
+		public CompletableFuture<Void> executeOnMainThread(Runnable runnable) {
 			if (!executor.isSameThread()) {
-				executor.submitAsync(runnable);
+				return executor.submitAsync(runnable);
 			} else {
 				runnable.run();
+				return CompletableFuture.completedFuture(null);
 			}
 		}
 	}
