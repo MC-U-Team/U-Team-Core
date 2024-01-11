@@ -86,7 +86,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		
 		public boolean canWrite(NetworkEnvironment handlerEnvironment) {
 			if (!payload.getHandlerEnvironment().contains(handlerEnvironment)) {
-				LOGGER.error("Failed to write message to channel {} because it cannot be sent to the {} environment. Expected {}", messageId, handlerEnvironment, payload.getHandlerEnvironment());
+				LOGGER.error("Failed to write message to channel {} because not handler is defined on the {} environment. Expected {} environment", messageId, handlerEnvironment, payload.getHandlerEnvironment());
 				return false;
 			}
 			return true;
@@ -110,9 +110,12 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		}
 		
 		public void handle(M message, NetworkContext context) {
+			if (message == null) {
+				return;
+			}
 			final NetworkEnvironment current = context.getEnvironment();
 			if (!payload.getHandlerEnvironment().contains(current)) {
-				LOGGER.error("Message {} in channel {} cannot be handled on the {} environment. Expected {}", message.getClass(), messageId, current, payload.getHandlerEnvironment());
+				LOGGER.error("Message {} in channel {} cannot be handled on the {} environment. Expected {} environment", message.getClass(), messageId, current, payload.getHandlerEnvironment());
 				return;
 			}
 			try {
