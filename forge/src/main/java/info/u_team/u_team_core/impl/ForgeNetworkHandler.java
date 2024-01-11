@@ -1,21 +1,18 @@
 package info.u_team.u_team_core.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Supplier;
 
 import com.google.common.base.Suppliers;
-import com.mojang.datafixers.util.Pair;
 
-import info.u_team.u_team_core.api.network.NetworkContext;
+import info.u_team.u_team_core.api.Platform.Environment;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.api.network.NetworkMessage;
 import info.u_team.u_team_core.api.network.NetworkPayload;
 import info.u_team.u_team_core.impl.common.CommonNetworkHandler;
 import info.u_team.u_team_core.util.CastUtil;
+import info.u_team.u_team_core.util.EnvironmentUtil;
 import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.Connection;
@@ -26,7 +23,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.event.network.CustomPayloadEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.network.ChannelBuilder;
 import net.minecraftforge.network.EventNetworkChannel;
@@ -34,90 +30,94 @@ import net.minecraftforge.network.PacketDistributor;
 
 public class ForgeNetworkHandler extends CommonNetworkHandler {
 	
-	private final Map<ResourceLocation, Pair<NetworkPayload<?>, Supplier<EventNetworkChannel>>> messages;
-	
 	ForgeNetworkHandler(ResourceLocation channel, int protocolVersion) {
 		super(channel, protocolVersion);
-		messages = new HashMap<>();
 	}
 	
 	@Override
-	public <M> NetworkMessage<M> register(int index, NetworkPayload<M> payload) {
-		final ResourceLocation messageId = channel.withSuffix("/" + index);
-		
-		validateNetworkPayload(messageId, payload);
-		
-		if (messages.containsKey(messageId)) {
-			throw new IllegalArgumentException("Duplicate message id " + messageId);
-		}
-		
-		final Supplier<EventNetworkChannel> network = Suppliers.memoize(() -> ChannelBuilder.named(messageId) //
-				.networkProtocolVersion(protocolVersion) //
-				.optionalServer() //
-				.eventNetworkChannel());
-		
-		messages.put(messageId, Pair.of(payload, network));
-		
-		return new ForgeNetworkMessage<>(network, payload);
+	protected <M> NetworkMessage<M> createMessage(MessageNetworkPayload<M> messagePayload) {
+		return new ForgeNetworkMessage<>(CastUtil.uncheckedCast(messagePayload));
+	}
+	
+	@Override
+	protected <M> MessageNetworkPayload<M> createMessageNetworkPayload(ResourceLocation messageId, NetworkPayload<M> payload) {
+		return new ForgeMessageNetworkPayload<>(messageId, payload);
 	}
 	
 	@Override
 	public void register() {
-		for (final Entry<ResourceLocation, Pair<NetworkPayload<?>, Supplier<EventNetworkChannel>>> entry : messages.entrySet()) {
-			final ResourceLocation id = entry.getKey();
-			final NetworkPayload<?> payload = entry.getValue().getFirst();
-			final EventNetworkChannel network = entry.getValue().getSecond().get();
+		for (final MessageNetworkPayload<?> messagePayload : messages) {
+			final ForgeMessageNetworkPayload<?> forgeMessagePayload = (ForgeMessageNetworkPayload<?>) messagePayload;
 			
-			network.addListener(event -> {
-				if (!event.getChannel().equals(id)) {
+			forgeMessagePayload.getNetwork().addListener(event -> {
+				if (!event.getChannel().equals(forgeMessagePayload.getMessageId())) {
 					return;
 				}
-				final Object message = payload.read(event.getPayload());
 				
-				payload.handle(CastUtil.uncheckedCast(message), new ForgeNetworkContext(event.getSource()));
+				final Object message = forgeMessagePayload.read(event.getPayload());
+				forgeMessagePayload.handle(CastUtil.uncheckedCast(message), new ForgeNetworkContext(forgeMessagePayload.getMessageId(), event.getSource()));
+				
 				event.getSource().setPacketHandled(true);
 			});
 		}
 	}
 	
-	public static class ForgeNetworkMessage<M> implements NetworkMessage<M> {
+	private class ForgeMessageNetworkPayload<M> extends MessageNetworkPayload<M> {
 		
 		private final Supplier<EventNetworkChannel> network;
-		private final NetworkPayload<M> payload;
 		
-		ForgeNetworkMessage(Supplier<EventNetworkChannel> network, NetworkPayload<M> payload) {
-			this.network = network;
-			this.payload = payload;
+		private ForgeMessageNetworkPayload(ResourceLocation messageId, NetworkPayload<M> payload) {
+			super(messageId, payload);
+			network = Suppliers.memoize(() -> ChannelBuilder.named(messageId) //
+					.networkProtocolVersion(protocolVersion) //
+					.optionalServer() //
+					.eventNetworkChannel());
+		}
+		
+		public EventNetworkChannel getNetwork() {
+			return network.get();
+		}
+		
+	}
+	
+	public static class ForgeNetworkMessage<M> extends CommonNetworkMessage<M> {
+		
+		private final ForgeMessageNetworkPayload<M> forgeMessagePayload;
+		
+		ForgeNetworkMessage(ForgeMessageNetworkPayload<M> messagePayload) {
+			super(messagePayload);
+			this.forgeMessagePayload = messagePayload;
 		}
 		
 		@Override
-		public void sendToPlayer(ServerPlayer player, M message) {
-			network.get().send(writeMessage(message), PacketDistributor.PLAYER.with(player));
+		public void sendPacketToPlayer(ServerPlayer player, M message) {
+			forgeMessagePayload.getNetwork().send(writeMessage(message), PacketDistributor.PLAYER.with(player));
 		}
 		
 		@Override
-		public void sendToConnection(Connection connection, M message) {
-			network.get().send(writeMessage(message), connection);
+		public void sendPacketToConnection(Connection connection, M message) {
+			forgeMessagePayload.getNetwork().send(writeMessage(message), connection);
 		}
 		
 		@Override
-		public void sendToServer(M message) {
-			network.get().send(writeMessage(message), PacketDistributor.SERVER.noArg());
+		public void sendPacketToServer(M message) {
+			forgeMessagePayload.getNetwork().send(writeMessage(message), PacketDistributor.SERVER.noArg());
 		}
 		
 		private FriendlyByteBuf writeMessage(M message) {
 			final FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-			payload.write(message, buffer);
+			forgeMessagePayload.write(message, buffer);
 			return buffer;
 		}
 		
 	}
 	
-	public static class ForgeNetworkContext implements NetworkContext {
+	public static class ForgeNetworkContext extends CommonNetworkContext {
 		
 		private final CustomPayloadEvent.Context context;
 		
-		ForgeNetworkContext(CustomPayloadEvent.Context context) {
+		ForgeNetworkContext(ResourceLocation messageId, CustomPayloadEvent.Context context) {
+			super(messageId);
 			this.context = context;
 		}
 		
@@ -132,13 +132,13 @@ public class ForgeNetworkHandler extends CommonNetworkHandler {
 		@Override
 		public Player getPlayer() {
 			if (context.getDirection().getReceptionSide() == LogicalSide.CLIENT) {
-				return DistExecutor.unsafeCallWhenOn(Dist.CLIENT, () -> () -> Client.getClientPlayer());
+				return EnvironmentUtil.callWhen(Environment.CLIENT, () -> () -> Client.getClientPlayer());
 			}
 			return context.getSender();
 		}
 		
 		@Override
-		public CompletableFuture<Void> executeOnMainThread(Runnable runnable) {
+		public CompletableFuture<Void> execute(Runnable runnable) {
 			return context.enqueueWork(runnable);
 		}
 	}
@@ -146,7 +146,6 @@ public class ForgeNetworkHandler extends CommonNetworkHandler {
 	@OnlyIn(Dist.CLIENT)
 	private class Client {
 		
-		@OnlyIn(Dist.CLIENT)
 		private static Player getClientPlayer() {
 			return Minecraft.getInstance().player;
 		}

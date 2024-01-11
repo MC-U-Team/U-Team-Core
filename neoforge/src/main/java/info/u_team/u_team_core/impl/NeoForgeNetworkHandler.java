@@ -1,16 +1,11 @@
 package info.u_team.u_team_core.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.api.network.NetworkMessage;
-import info.u_team.u_team_core.api.network.NetworkPayload;
 import info.u_team.u_team_core.impl.common.CommonNetworkHandler;
 import info.u_team.u_team_core.util.registry.BusRegister;
 import net.minecraft.network.Connection;
@@ -27,24 +22,13 @@ import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
 
 public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 	
-	private final Map<ResourceLocation, NetworkPayload<?>> messages;
-	
 	NeoForgeNetworkHandler(ResourceLocation channel, int protocolVersion) {
 		super(channel, protocolVersion);
-		messages = new HashMap<>();
 	}
 	
 	@Override
-	public <M> NetworkMessage<M> register(int index, NetworkPayload<M> payload) {
-		final ResourceLocation messageId = channel.withSuffix("/" + index);
-		
-		validateNetworkPayload(messageId, payload);
-		
-		if (messages.putIfAbsent(messageId, payload) != null) {
-			throw new IllegalArgumentException("Duplicate message id " + messageId);
-		}
-		
-		return new NeoForgeNetworkMessage<>(messageId, payload);
+	protected <M> NetworkMessage<M> createMessage(MessageNetworkPayload<M> messagePayload) {
+		return new NeoForgeNetworkMessage<>(messagePayload);
 	}
 	
 	@Override
@@ -55,12 +39,9 @@ public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 	private void registerPayloadHandler(RegisterPayloadHandlerEvent event) {
 		final IPayloadRegistrar registrar = event.registrar(channel.getNamespace()).versioned(Integer.toString(protocolVersion));
 		
-		for (final Entry<ResourceLocation, NetworkPayload<?>> entry : messages.entrySet()) {
-			final ResourceLocation id = entry.getKey();
-			final NetworkPayload<?> payload = entry.getValue();
-			
-			registrar.play(entry.getKey(), buffer -> new PacketPayload<>(id, payload, buffer), handlers -> {
-				final Set<NetworkEnvironment> list = payload.getHandlerEnvironment();
+		for (final MessageNetworkPayload<?> messagePayload : messages) {
+			registrar.play(messagePayload.getMessageId(), buffer -> new PacketPayload<>(messagePayload, buffer), handlers -> {
+				final Set<NetworkEnvironment> list = messagePayload.getPayload().getHandlerEnvironment();
 				
 				if (list.contains(NetworkEnvironment.CLIENT)) {
 					handlers.client(PacketPayload::handle);
@@ -74,70 +55,63 @@ public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 	
 	private static class PacketPayload<M> implements CustomPacketPayload {
 		
-		private final ResourceLocation id;
-		private final NetworkPayload<M> payload;
+		private final MessageNetworkPayload<M> messagePayload;
 		private final M message;
 		
-		private PacketPayload(ResourceLocation id, NetworkPayload<M> payload, FriendlyByteBuf buffer) {
-			this(id, payload, payload.read(buffer));
+		private PacketPayload(MessageNetworkPayload<M> messagePayload, FriendlyByteBuf buffer) {
+			this(messagePayload, messagePayload.read(buffer));
 		}
 		
-		private PacketPayload(ResourceLocation id, NetworkPayload<M> payload, M message) {
-			this.id = id;
-			this.payload = payload;
+		private PacketPayload(MessageNetworkPayload<M> messagePayload, M message) {
+			this.messagePayload = messagePayload;
 			this.message = message;
 		}
 		
 		@Override
 		public void write(FriendlyByteBuf buffer) {
-			payload.write(message, buffer);
+			messagePayload.write(message, buffer);
 		}
 		
 		@Override
 		public ResourceLocation id() {
-			return id;
+			return messagePayload.getMessageId();
 		}
 		
 		private void handle(IPayloadContext context) {
-			payload.handle(message, new NeoForgeNetworkContext(context));
+			messagePayload.handle(message, new NeoForgeNetworkContext(messagePayload.getMessageId(), context));
 		}
-		
 	}
 	
-	public static class NeoForgeNetworkMessage<M> implements NetworkMessage<M> {
+	public static class NeoForgeNetworkMessage<M> extends CommonNetworkMessage<M> {
 		
 		public static final PacketDistributor<Connection> CONNECTION = new PacketDistributor<>((distributor, connection) -> packet -> connection.send(packet), PacketFlow.CLIENTBOUND);
 		
-		private final ResourceLocation messageId;
-		private final NetworkPayload<M> payload;
-		
-		NeoForgeNetworkMessage(ResourceLocation messageId, NetworkPayload<M> payload) {
-			this.messageId = messageId;
-			this.payload = payload;
+		NeoForgeNetworkMessage(MessageNetworkPayload<M> messagePayload) {
+			super(messagePayload);
 		}
 		
 		@Override
-		public void sendToPlayer(ServerPlayer player, M message) {
-			PacketDistributor.PLAYER.with(player).send(new PacketPayload<>(messageId, payload, message));
+		public void sendPacketToPlayer(ServerPlayer player, M message) {
+			PacketDistributor.PLAYER.with(player).send(new PacketPayload<>(messagePayload, message));
 		}
 		
 		@Override
-		public void sendToConnection(Connection connection, M message) {
-			CONNECTION.with(connection).send(new PacketPayload<>(messageId, payload, message));
+		public void sendPacketToConnection(Connection connection, M message) {
+			CONNECTION.with(connection).send(new PacketPayload<>(messagePayload, message));
 		}
 		
 		@Override
-		public void sendToServer(M message) {
-			PacketDistributor.SERVER.noArg().send(new PacketPayload<>(messageId, payload, message));
+		public void sendPacketToServer(M message) {
+			PacketDistributor.SERVER.noArg().send(new PacketPayload<>(messagePayload, message));
 		}
-		
 	}
 	
-	public static class NeoForgeNetworkContext implements NetworkContext {
+	public static class NeoForgeNetworkContext extends CommonNetworkContext {
 		
 		private final IPayloadContext context;
 		
-		NeoForgeNetworkContext(IPayloadContext context) {
+		NeoForgeNetworkContext(ResourceLocation messageId, IPayloadContext context) {
+			super(messageId);
 			this.context = context;
 		}
 		
@@ -155,10 +129,9 @@ public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 		}
 		
 		@Override
-		public CompletableFuture<Void> executeOnMainThread(Runnable runnable) {
+		protected CompletableFuture<Void> execute(Runnable runnable) {
 			return context.workHandler().submitAsync(runnable);
 		}
-		
 	}
 	
 	public static class Factory implements NetworkHandler.Factory {

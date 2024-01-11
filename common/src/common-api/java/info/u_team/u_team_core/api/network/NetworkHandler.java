@@ -9,7 +9,11 @@ public interface NetworkHandler {
 		return Factory.INSTANCE.create(channel, protocolVersion);
 	}
 	
-	<M> NetworkMessage<M> register(int index, NetworkPayload<M> payload);
+	default <M> NetworkMessage<M> register(int index, NetworkPayload<M> payload) {
+		return register(Integer.toString(index), payload);
+	}
+	
+	<M> NetworkMessage<M> register(String id, NetworkPayload<M> payload);
 	
 	void register();
 	

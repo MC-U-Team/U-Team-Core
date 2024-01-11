@@ -8,4 +8,5 @@ public enum NetworkEnvironment {
 	SERVER;
 	
 	public static final Set<NetworkEnvironment> BOTH = Set.of(CLIENT, SERVER);
+	
 }
