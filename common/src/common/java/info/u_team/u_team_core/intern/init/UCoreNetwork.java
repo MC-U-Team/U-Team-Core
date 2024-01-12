@@ -13,8 +13,8 @@ public class UCoreNetwork {
 	
 	private static final NetworkHandler NETWORK = NetworkHandler.create(new ResourceLocation(UCoreReference.MODID, "network"), UCoreReference.PROTOCOL_VERSION);
 	
-	public static final NetworkMessage<DataHolderMenuMessage> DATA_HOLDER_MENU_MESSAGE = NETWORK.register(0, new DataHolderMenuPayload());
-	public static final NetworkMessage<OpenMenuScreenMessage> OPEN_MENU_SCREEN_MESSAGE = NETWORK.register(1, new OpenMenuScreenPayload());
+	public static final NetworkMessage<DataHolderMenuMessage> DATA_HOLDER_MENU_MESSAGE = NETWORK.register("data_holder_menu", new DataHolderMenuPayload());
+	public static final NetworkMessage<OpenMenuScreenMessage> OPEN_MENU_SCREEN_MESSAGE = NETWORK.register("open_menu", new OpenMenuScreenPayload());
 	
 	static void register() {
 		NETWORK.register();
