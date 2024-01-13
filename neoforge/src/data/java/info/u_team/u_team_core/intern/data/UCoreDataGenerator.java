@@ -5,10 +5,10 @@ import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_core.intern.data.provider.UCoreBlockStatesProvider;
 import info.u_team.u_team_core.intern.data.provider.UCoreLanguagesProvider;
 import info.u_team.u_team_core.intern.data.provider.UCoreRecipesProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod.EventBusSubscriber;
+import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 @EventBusSubscriber(modid = UCoreMod.MODID, bus = Bus.MOD)
 public class UCoreDataGenerator {
