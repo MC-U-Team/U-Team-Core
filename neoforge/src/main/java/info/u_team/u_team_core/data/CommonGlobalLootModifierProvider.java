@@ -20,6 +20,7 @@ import net.minecraft.data.PackOutput.PathProvider;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 
 public abstract class CommonGlobalLootModifierProvider implements DataProvider, CommonDataProvider<BiConsumer<String, ? super IGlobalLootModifier>> {
 	
@@ -68,7 +69,7 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 		json.addProperty("replace", replace);
 		json.add("entries", GSON.toJsonTree(entries));
 		
-		futures.add(CommonDataProvider.saveData(cache, json, pathProvider.json(new ResourceLocation("forge", "global_loot_modifiers"))));
+		futures.add(CommonDataProvider.saveData(cache, json, pathProvider.json(new ResourceLocation(NeoForgeVersion.MOD_ID, "global_loot_modifiers"))));
 		
 		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 	}
