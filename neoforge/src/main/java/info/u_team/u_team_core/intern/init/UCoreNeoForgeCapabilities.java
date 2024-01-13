@@ -11,7 +11,7 @@ import net.neoforged.neoforge.fluids.capability.wrappers.FluidBucketWrapper;
 
 public class UCoreNeoForgeCapabilities {
 	
-	public static void register(RegisterCapabilitiesEvent event) {
+	private static void register(RegisterCapabilitiesEvent event) {
 		for (final Item item : RegistryUtil.getBuiltInRegistry(Registries.ITEM)) {
 			if (item instanceof UBucketItem) {
 				event.registerItem(Capabilities.FluidHandler.ITEM, (stack, context) -> new FluidBucketWrapper(stack), item);
@@ -20,7 +20,7 @@ public class UCoreNeoForgeCapabilities {
 	}
 	
 	public static void registerMod(IEventBus bus) {
-		bus.addListener(UCoreNetworkNeoForge::register);
+		bus.addListener(UCoreNeoForgeCapabilities::register);
 	}
 	
 }

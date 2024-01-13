@@ -12,7 +12,7 @@ public class UCoreNetworkNeoForge {
 	
 	public static final String PROTOCOL = Integer.toString(UCoreReference.PROTOCOL_VERSION);
 	
-	public static void register(RegisterPayloadHandlerEvent event) {
+	private static void register(RegisterPayloadHandlerEvent event) {
 		event.registrar(UCoreMod.MODID) //
 				.versioned(PROTOCOL) //
 				.play(ContainerSetFluidContentMessage.ID, ContainerSetFluidContentMessage::read, ContainerSetFluidContentMessage.Handler::handle) //
