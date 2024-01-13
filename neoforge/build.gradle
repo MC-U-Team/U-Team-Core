@@ -62,11 +62,13 @@ runs {
 		workingDirectory file("run/client").with { mkdirs(); it }
 		
 		modSource sourceSets.main
+		modSource sourceSets.multiloader_test_mod
 	}
 	server {
 		workingDirectory file("run/server").with { mkdirs(); it }
 		
 		modSource sourceSets.main
+		modSource sourceSets.multiloader_test_mod
 	}
 }
 
