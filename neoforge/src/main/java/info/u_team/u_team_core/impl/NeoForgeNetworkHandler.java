@@ -46,7 +46,7 @@ public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 				if (list.contains(NetworkEnvironment.CLIENT)) {
 					handlers.client(PacketPayload::handle);
 				}
-				if (list.contains(NetworkEnvironment.CLIENT)) {
+				if (list.contains(NetworkEnvironment.SERVER)) {
 					handlers.server(PacketPayload::handle);
 				}
 			});
