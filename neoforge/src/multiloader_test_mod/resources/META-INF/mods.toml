@@ -14,7 +14,7 @@ license="Apache-2.0 License"
 	
 	[[dependencies.uteamtest_multiloader]]
 	    modId="uteamcore"
-	    mandatory=true
+	    type="required"
 	    versionRange="${file.jarVersion}"
 	    ordering="NONE"
 	    side="BOTH"
