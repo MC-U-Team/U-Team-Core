@@ -93,6 +93,25 @@ runs {
 		
 		modSources sourceSets.main
 	}
+	
+	data_multiloader_test {
+		configure("data")
+		
+		workingDirectory file("run/data").with { mkdirs(); it }
+		
+		programArguments "--mod", "uteamtest_multiloader"
+		programArguments "--all"
+		programArguments "--output", gradlefiles.project("common").file("src/common-generated_multiloader_test_mod/resources").absolutePath
+		programArguments "--validate"
+		programArguments "--existing", gradlefiles.project("common").file("src/common-multiloader_test_mod/resources").absolutePath
+		programArguments "--existing-mod", "uteamcore"
+		
+		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
+		
+		modSources sourceSets.main
+		modSources sourceSets.multiloader_test_mod
+	}
 }
 
 tasks.register("multiLoaderTestJar", Jar) {

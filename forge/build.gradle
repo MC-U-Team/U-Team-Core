@@ -37,7 +37,6 @@ sourceSets {
 	multiloader_test_mod {
 		java {
 			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".java.srcDirs
-			srcDirs += "src/data_multiloader_test_mod/java"
 		}
 		resources {
 			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".resources.srcDirs
