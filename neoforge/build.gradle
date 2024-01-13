@@ -60,23 +60,38 @@ runs {
 	sourceSets.main.runs.modIdentifier = config.mod.modid
 	sourceSets.multiloader_test_mod.runs.modIdentifier = "uteamtest_multiloader"
 	
-	client {
-		workingDirectory file("run/client").with { mkdirs(); it }
-		
+	configureEach {
 		jvmArguments "-Dmixin.debug.verbose=true"
 		jvmArguments "-Dmixin.debug.export=true"
+	}
+	
+	client {
+		workingDirectory file("run/client").with { mkdirs(); it }
 		
 		modSources sourceSets.main
 		modSources sourceSets.multiloader_test_mod
 	}
+	
 	server {
 		workingDirectory file("run/server").with { mkdirs(); it }
 		
-		jvmArguments "-Dmixin.debug.verbose=true"
-		jvmArguments "-Dmixin.debug.export=true"
-		
 		modSources sourceSets.main
 		modSources sourceSets.multiloader_test_mod
+	}
+	
+	data {
+		workingDirectory file("run/data").with { mkdirs(); it }
+		
+		programArguments "--mod", config.mod.modid
+		programArguments "--all"
+		programArguments "--output", gradlefiles.project("common").file("src/common-generated/resources").absolutePath
+		programArguments "--validate"
+		programArguments "--existing", gradlefiles.project("common").file("src/common/resources").absolutePath
+		
+		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
+		
+		modSources sourceSets.main
 	}
 }
 
