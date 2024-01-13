@@ -6,7 +6,7 @@ import info.u_team.u_team_core.data.CommonGlobalLootModifierProvider;
 import info.u_team.u_team_core.data.GenerationData;
 import info.u_team.u_team_test.test_multiloader.global_loot_modifier.TestLootModifier;
 import info.u_team.u_team_test.test_multiloader.loot_item_condition.TestEnchantmentLootItemCondition;
-import net.minecraftforge.common.loot.IGlobalLootModifier;
+import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 
 public class TestMultiLoaderGlobalLootModifierProvider extends CommonGlobalLootModifierProvider {
 	
