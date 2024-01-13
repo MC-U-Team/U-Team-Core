@@ -1,5 +1,5 @@
 function initializeCoreMod() {
-	ASMAPI = Java.type("net.minecraftforge.coremod.api.ASMAPI")
+	ASMAPI = Java.type("net.neoforged.coremod.api.ASMAPI")
 
 	Opcodes = Java.type("org.objectweb.asm.Opcodes")
 
