@@ -58,17 +58,20 @@ subsystems {
 }
 
 runs {
+	sourceSets.main.runs.modIdentifier = config.mod.modid
+	sourceSets.multiloader_test_mod.runs.modIdentifier = "uteamtest_multiloader"
+	
 	client {
 		workingDirectory file("run/client").with { mkdirs(); it }
 		
-		modSource sourceSets.main
-		modSource sourceSets.multiloader_test_mod
+		modSources sourceSets.main
+		modSources sourceSets.multiloader_test_mod
 	}
 	server {
 		workingDirectory file("run/server").with { mkdirs(); it }
 		
-		modSource sourceSets.main
-		modSource sourceSets.multiloader_test_mod
+		modSources sourceSets.main
+		modSources sourceSets.multiloader_test_mod
 	}
 }
 
