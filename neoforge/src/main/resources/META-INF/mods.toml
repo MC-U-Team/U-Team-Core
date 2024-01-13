@@ -27,3 +27,6 @@ license="Apache-2.0 License"
 	    versionRange="[1.20.4]"
 	    ordering="NONE"
 	    side="BOTH"
+	    
+[[mixins]]
+	config = "uteamcore.mixins.json"
