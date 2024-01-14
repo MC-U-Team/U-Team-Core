@@ -23,17 +23,6 @@ sourceSets {
 			srcDirs += gradlefiles.project("common").sourceSets.common.resources.srcDirs
 		}
 	}
-	test_mod {
-		java {
-			srcDirs += "src/data_test_mod/java"
-			srcDirs += "src/integration_test_mod/java"
-		}
-		resources {
-			srcDirs += "src/generated_test_mod/resources"
-		}
-		compileClasspath += main.runtimeClasspath
-		runtimeClasspath += main.runtimeClasspath
-	}
 	multiloader_test_mod {
 		java {
 			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".java.srcDirs
@@ -68,10 +57,6 @@ minecraft {
 					source sourceSets.main
 				}
 				
-				uteamtest {
-					source sourceSets.test_mod
-				}
-				
 				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
 				}
@@ -85,35 +70,8 @@ minecraft {
 					source sourceSets.main
 				}
 				
-				uteamtest {
-					source sourceSets.test_mod
-				}
-				
 				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
-				}
-			}
-		}
-		data {
-			workingDirectory file("run/data")
-			
-			args "--mod", "uteamtest"
-			args "--all"
-			args "--output", file("src/generated_test_mod/resources")
-			args "--validate"
-			args "--existing", file("src/test_mod/resources")
-			args "--existing-mod", "uteamcore"
-			
-			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-				
-				uteamtest {
-					source sourceSets.test_mod
 				}
 			}
 		}
@@ -128,18 +86,6 @@ mixin {
 	debug.export = true
 }
 
-tasks.register("testJar", Jar) {
-	archiveClassifier = "test"
-	
-	from sourceSets.test_mod.output
-}
-
-tasks.register("testSourcesJar", Jar) {
-	archiveClassifier = "testsources"
-	
-	from sourceSets.test_mod.allJava
-}
-
 tasks.register("multiLoaderTestJar", Jar) {
 	archiveClassifier = "multiloader_test"
 	
@@ -150,14 +96,6 @@ tasks.register("multiLoaderTestSourcesJar", Jar) {
 	archiveClassifier = "multiloader_testsources"
 	
 	from sourceSets.multiloader_test_mod.allJava
-}
-
-reobf.create("testJar") {
-	dependsOn tasks.named("reobfJar")
-}
-
-tasks.named("reobfTestJar").configure {
-	libraries.from(tasks.named("reobfJar").get().input)
 }
 
 reobf.create("multiLoaderTestJar") {
@@ -181,8 +119,6 @@ tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$ConfigureReob
 	}
 }
 
-gradlefiles.assembleDependOn(tasks.named("reobfTestJar"), tasks.named("testSourcesJar"))
-gradlefiles.allPublishingDependOn(tasks.named("reobfTestJar"), tasks.named("testSourcesJar"))
 gradlefiles.assembleDependOn(tasks.named("reobfMultiLoaderTestJar"), tasks.named("multiLoaderTestSourcesJar"))
 gradlefiles.allPublishingDependOn(tasks.named("reobfMultiLoaderTestJar"), tasks.named("multiLoaderTestSourcesJar"))
 
@@ -195,7 +131,6 @@ tasks.withType(Javadoc).configureEach { task ->
 }
 
 signjar.sign(tasks.named("reobfJar"))
-signjar.sign(tasks.named("reobfTestJar"))
 signjar.sign(tasks.named("reobfMultiLoaderTestJar"))
 
 processResources {
@@ -261,8 +196,6 @@ publishing {
 			artifactId project.base.archivesName.get()
 			
 			from gradlefiles.filteredJavaComponent()
-			artifact tasks.named("testJar")
-			artifact tasks.named("testSourcesJar")
 			artifact tasks.named("multiLoaderTestJar")
 			artifact tasks.named("multiLoaderTestSourcesJar")
 			
