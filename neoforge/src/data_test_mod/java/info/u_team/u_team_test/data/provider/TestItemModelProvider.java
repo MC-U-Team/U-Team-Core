@@ -33,8 +33,8 @@ public class TestItemModelProvider extends CommonItemModelProvider {
 			@Override
 			public JsonObject toJson() {
 				final JsonObject root = new JsonObject();
-				root.addProperty("parent", "forge:item/bucket_drip");
-				root.addProperty("loader", "forge:fluid_container");
+				root.addProperty("parent", "neoforge:item/bucket_drip");
+				root.addProperty("loader", "neoforge:fluid_container");
 				root.addProperty("fluid", TestFluids.TEST_FLUID.getId().toString());
 				return root;
 			};
