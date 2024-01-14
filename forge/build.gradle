@@ -97,26 +97,6 @@ minecraft {
 		data {
 			workingDirectory file("run/data")
 			
-			args "--mod", config.mod.modid
-			args "--all"
-			args "--output", gradlefiles.project("common").file("src/common-generated/resources")
-			args "--validate"
-			args "--existing", gradlefiles.project("common").file("src/common/resources")
-			
-			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-			}
-		}
-		data_test {
-			workingDirectory file("run/data")
-			
-			setParents(data.getParents())
-			
 			args "--mod", "uteamtest"
 			args "--all"
 			args "--output", file("src/generated_test_mod/resources")
@@ -134,31 +114,6 @@ minecraft {
 				
 				uteamtest {
 					source sourceSets.test_mod
-				}
-			}
-		}
-		data_multiloader_test {
-			workingDirectory file("run/data")
-			
-			setParents(data.getParents())
-			
-			args "--mod", "uteamtest_multiloader"
-			args "--all"
-			args "--output", gradlefiles.project("common").file("src/common-generated_multiloader_test_mod/resources")
-			args "--validate"
-			args "--existing", gradlefiles.project("common").file("src/common-multiloader_test_mod/resources")
-			args "--existing-mod", "uteamcore"
-			
-			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-				
-				uteamtest_multiloader {
-					source sourceSets.multiloader_test_mod
 				}
 			}
 		}
