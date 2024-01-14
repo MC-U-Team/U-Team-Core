@@ -125,7 +125,7 @@ runs {
 		modSources sourceSets.test_mod
 	}
 	
-	test_mod {
+	data_test_mod {
 		configure("data")
 		
 		workingDirectory file("run/data").with { mkdirs(); it }
