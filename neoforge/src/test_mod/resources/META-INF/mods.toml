@@ -1,20 +1,20 @@
 modLoader="javafml"
-loaderVersion="[44,)"
+loaderVersion="[2,)"
 issueTrackerURL="https://github.com/MC-U-Team/U-Team-Core/issues"
-displayURL="https://u-team.info/mods/uteamcore"
 license="Apache-2.0 License"
-credits="Team U-Team"
-authors="HyCraftHD"
     
 [[mods]]
 	modId="uteamtest"
 	version="${file.jarVersion}"
 	displayName="U Team Test"
+	displayURL="https://u-team.info/mods/uteamcore"
+	credits="Team U-Team"
+	authors="HyCraftHD"
 	description="This is just a test mod to test uteamcore"
 	
 	[[dependencies.uteamtest]]
 	    modId="uteamcore"
-	    mandatory=true
+	    type="required"
 	    versionRange="${file.jarVersion}"
 	    ordering="NONE"
 	    side="BOTH"
@@ -23,11 +23,14 @@ authors="HyCraftHD"
 	modId="uteamtest2"
 	version="${file.jarVersion}"
 	displayName="U Team Test 2"
+	displayURL="https://u-team.info/mods/uteamcore"
+	credits="Team U-Team"
+	authors="HyCraftHD"
 	description="This is just a test mod 2 for some other stuff"
 	
 	[[dependencies.uteamtest2]]
 	    modId="uteamcore"
-	    mandatory=true
+	    type="required"
 	    versionRange="${file.jarVersion}"
 	    ordering="NONE"
 	    side="BOTH"
