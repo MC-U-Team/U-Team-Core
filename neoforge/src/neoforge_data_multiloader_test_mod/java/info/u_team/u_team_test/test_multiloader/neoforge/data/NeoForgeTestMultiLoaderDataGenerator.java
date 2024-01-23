@@ -14,7 +14,7 @@ public class NeoForgeTestMultiLoaderDataGenerator {
 	
 	@SubscribeEvent
 	public static void data(GatherDataEvent event) {
-		final GenerationData data = new GenerationData(TestMultiLoaderMod.MODID, "forge", event);
+		final GenerationData data = new GenerationData(TestMultiLoaderMod.MODID, "neoforge", event);
 		
 		data.addProvider(event.includeServer(), NeoForgeTestMultiLoaderDatapackBuiltinEntriesProvider::new);
 		data.addProvider(event.includeServer(), NeoForgeTestMultiLoaderGlobalLootModifierProvider::new);
