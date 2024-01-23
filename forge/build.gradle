@@ -112,6 +112,14 @@ minecraft {
 					source sourceSets.multiloader_test_mod
 					source sourceSets.forge_data_multiloader_test_mod
 				}
+				
+				eclipse.classpath.file.whenMerged { classpath ->
+					classpath.entries.stream().filter { entry ->
+						entry.kind == "src" && entry.output == "bin/forge_data_multiloader_test_mod"
+					}.each { entry ->
+						entry.output = "bin/multiloader_test_mod"
+					}
+				}
 			}
 		}
 	}
