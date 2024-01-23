@@ -20,7 +20,7 @@ public class TestMultiLoaderDataGenerator {
 	
 	@SubscribeEvent
 	public static void data(GatherDataEvent event) {
-		final GenerationData data = new GenerationData(TestMultiLoaderMod.MODID, event);
+		final GenerationData data = new GenerationData(TestMultiLoaderMod.MODID, "common", event);
 		
 		data.addProvider(event.includeServer(), TestMultiLoaderBlockTagsProvider::new);
 		data.addProvider(event.includeServer(), TestMultiLoaderLootTableProvider::new);

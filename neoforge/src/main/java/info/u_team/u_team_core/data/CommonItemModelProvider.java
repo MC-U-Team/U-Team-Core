@@ -35,7 +35,7 @@ public abstract class CommonItemModelProvider extends ItemModelProvider implemen
 	
 	@Override
 	public String getName() {
-		return "Item-Model";
+		return "Item-Model: " + nameSuffix();
 	}
 	
 	// Item model methods

@@ -11,10 +11,14 @@ import net.minecraft.data.PackOutput;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
-public record GenerationData(String modid, DataGenerator generator, CompletableFuture<HolderLookup.Provider> lookupProviderFuture, ExistingFileHelper existingFileHelper) {
+public record GenerationData(String modid, String nameSuffix, DataGenerator generator, CompletableFuture<HolderLookup.Provider> lookupProviderFuture, ExistingFileHelper existingFileHelper) {
 	
 	public GenerationData(String modid, GatherDataEvent event) {
-		this(modid, event.getGenerator(), event.getLookupProvider(), event.getExistingFileHelper());
+		this(modid, "", event);
+	}
+	
+	public GenerationData(String modid, String nameSuffix, GatherDataEvent event) {
+		this(modid, nameSuffix, event.getGenerator(), event.getLookupProvider(), event.getExistingFileHelper());
 	}
 	
 	public PackOutput output() {

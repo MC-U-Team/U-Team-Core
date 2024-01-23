@@ -61,7 +61,7 @@ public abstract class CommonLanguagesProvider implements DataProvider, CommonDat
 	
 	@Override
 	public String getName() {
-		return "Languages";
+		return "Languages: " + nameSuffix();
 	}
 	
 	protected void add(CreativeModeTab key, String name) {

@@ -32,6 +32,6 @@ public abstract class CommonJsonCodecsProvider implements CommonDataProvider<Con
 	
 	@Override
 	public String getName() {
-		return "Json-Codecs-Provider";
+		return "Json-Codecs-Provider: " + nameSuffix();
 	}
 }

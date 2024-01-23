@@ -33,7 +33,7 @@ public abstract class CommonDatapackBuiltinEntriesProvider implements CommonData
 	
 	@Override
 	public String getName() {
-		return "Datapack-Builtin-Entries-Provider";
+		return "Datapack-Builtin-Entries-Provider: " + nameSuffix();
 	}
 	
 }

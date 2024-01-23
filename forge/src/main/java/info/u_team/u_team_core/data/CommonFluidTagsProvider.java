@@ -12,7 +12,7 @@ public abstract class CommonFluidTagsProvider extends CommonTagsProvider<Fluid> 
 	
 	@Override
 	public String getName() {
-		return "Fluid-Tags";
+		return "Fluid-Tags: " + nameSuffix();
 	}
 	
 }

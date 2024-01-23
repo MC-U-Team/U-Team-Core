@@ -14,7 +14,7 @@ public class ForgeTestMultiLoaderDataGenerator {
 	
 	@SubscribeEvent
 	public static void data(GatherDataEvent event) {
-		final GenerationData data = new GenerationData(TestMultiLoaderMod.MODID, event);
+		final GenerationData data = new GenerationData(TestMultiLoaderMod.MODID, "forge", event);
 		
 		data.addProvider(event.includeServer(), ForgeTestMultiLoaderDatapackBuiltinEntriesProvider::new);
 		data.addProvider(event.includeServer(), ForgeTestMultiLoaderGlobalLootModifierProvider::new);

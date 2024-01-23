@@ -12,7 +12,7 @@ public abstract class CommonBlockTagsProvider extends CommonTagsProvider<Block> 
 	
 	@Override
 	public String getName() {
-		return "Block-Tags";
+		return "Block-Tags: " + nameSuffix();
 	}
 	
 }

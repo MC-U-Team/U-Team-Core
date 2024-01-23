@@ -17,6 +17,16 @@ public interface CommonDataProvider<V> extends DataProvider {
 		return getGenerationData().modid();
 	}
 	
+	default String nameSuffix() {
+		final StringBuilder builder = new StringBuilder(modid());
+		if (!getGenerationData().nameSuffix().isEmpty()) {
+			builder.append(" (");
+			builder.append(getGenerationData().nameSuffix());
+			builder.append(")");
+		}
+		return builder.toString();
+	}
+	
 	void register(V param);
 	
 	static <T> CompletableFuture<?> saveData(CachedOutput cachedOutput, Codec<T> codec, T value, Path path) {

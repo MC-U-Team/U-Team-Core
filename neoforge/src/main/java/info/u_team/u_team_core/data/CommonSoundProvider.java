@@ -18,7 +18,7 @@ public abstract class CommonSoundProvider extends SoundDefinitionsProvider imple
 	
 	@Override
 	public String getName() {
-		return "Sounds";
+		return "Sounds: " + nameSuffix();
 	}
 	
 	@Override

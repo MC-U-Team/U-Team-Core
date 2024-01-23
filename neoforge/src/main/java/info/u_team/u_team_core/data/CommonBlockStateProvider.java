@@ -37,7 +37,7 @@ public abstract class CommonBlockStateProvider extends BlockStateProvider implem
 	
 	@Override
 	public String getName() {
-		return "Block-State";
+		return "Block-State: " + nameSuffix();
 	}
 	
 	// Block state methods

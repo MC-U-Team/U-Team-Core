@@ -74,7 +74,7 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	
 	@Override
 	public String getName() {
-		return "Recipe";
+		return "Recipe: " + nameSuffix();
 	}
 	
 	public void registerVanilla(RecipeOutput consumer) {

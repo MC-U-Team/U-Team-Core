@@ -20,7 +20,7 @@ public abstract class CommonItemTagsProvider extends CommonTagsProvider<Item> {
 	
 	@Override
 	public String getName() {
-		return "Item-Tags";
+		return "Item-Tags: " + nameSuffix();
 	}
 	
 	protected void copy(TagKey<Block> blockTag, TagKey<Item> itemTag) {
