@@ -1,0 +1,18 @@
+{
+	"type": "uteamtest_multiloader:test",
+	"conditions": [
+		{
+			"condition": "minecraft:match_tool",
+			"predicate": {
+				"enchantments": [
+					{
+						"enchantment": "uteamtest_multiloader:test",
+						"levels": {
+							"min": 1
+						}
+					}
+				]
+			}
+		}
+	]
+}

@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.registries.RegistriesDatapackGenerator;
 
-// TODO move in neoforge to use DatapackBuiltinEntriesProvider again
+// TODO wait for https://github.com/MinecraftForge/MinecraftForge/pull/9848 to use DatapackBuiltinEntriesProvider again
 public abstract class CommonDatapackBuiltinEntriesProvider implements CommonDataProvider<Consumer<RegistriesDatapackGenerator>> {
 	
 	private final GenerationData generationData;
@@ -35,4 +35,5 @@ public abstract class CommonDatapackBuiltinEntriesProvider implements CommonData
 	public String getName() {
 		return "Datapack-Builtin-Entries-Provider";
 	}
+	
 }

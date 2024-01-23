@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.test_multiloader.data.provider;
+package info.u_team.u_team_test.test_multiloader.data.provider.neoforge;
 
 import java.util.function.BiConsumer;
 
@@ -8,9 +8,9 @@ import info.u_team.u_team_test.test_multiloader.global_loot_modifier.TestLootMod
 import info.u_team.u_team_test.test_multiloader.loot_item_condition.TestEnchantmentLootItemCondition;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 
-public class TestMultiLoaderGlobalLootModifierProvider extends CommonGlobalLootModifierProvider {
+public class TestMultiLoaderNeoForgeGlobalLootModifierProvider extends CommonGlobalLootModifierProvider {
 	
-	public TestMultiLoaderGlobalLootModifierProvider(GenerationData data) {
+	public TestMultiLoaderNeoForgeGlobalLootModifierProvider(GenerationData data) {
 		super(data);
 	}
 	

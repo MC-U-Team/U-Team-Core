@@ -30,7 +30,6 @@ import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.level.ItemLike;
 import net.neoforged.neoforge.common.conditions.ICondition;
 import net.neoforged.neoforge.common.conditions.WithConditions;
-import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs;
 
 public abstract class CommonRecipeProvider implements DataProvider, CommonDataProvider<RecipeOutput> {
 	
@@ -86,11 +85,11 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 			throw new IllegalStateException("Duplicate recipe " + id);
 		}
 		
-		futures.add(CommonDataProvider.saveData(cache, NeoForgeExtraCodecs.CONDITIONAL_RECIPE_CODEC, Optional.of(new WithConditions<>(recipe, conditions)), recipePathProvider.json(id)));
+		futures.add(CommonDataProvider.saveData(cache, Recipe.CONDITIONAL_CODEC, Optional.of(new WithConditions<>(recipe, conditions)), recipePathProvider.json(id)));
 		
 		if (advancement != null) {
 			final ResourceLocation advancementLocation = vanillaAdvancements ? advancement.id() : new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath());
-			futures.add(CommonDataProvider.saveData(cache, NeoForgeExtraCodecs.CONDITIONAL_ADVANCEMENT_CODEC, Optional.of(new WithConditions<>(advancement.value(), conditions)), advancementPathProvider.json(advancementLocation)));
+			futures.add(CommonDataProvider.saveData(cache, Advancement.CONDITIONAL_CODEC, Optional.of(new WithConditions<>(advancement.value(), conditions)), advancementPathProvider.json(advancementLocation)));
 		}
 	}
 	
