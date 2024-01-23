@@ -23,12 +23,12 @@ sourceSets {
 	}
 	multiloader_test_mod {
 		java {
-			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".java.srcDirs
+			srcDirs += gradlefiles.project("common").sourceSets.common_multiloader_test_mod.java.srcDirs
 		}
 		resources {
-			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".resources.srcDirs
+			srcDirs += gradlefiles.project("common").sourceSets.common_multiloader_test_mod.resources.srcDirs
 		}
-		compileClasspath += main.runtimeClasspath
+		compileClasspath += main.compileClasspath + main.output
 		runtimeClasspath += main.runtimeClasspath
 	}
 }

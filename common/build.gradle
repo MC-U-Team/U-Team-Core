@@ -13,11 +13,11 @@ version = gradlefiles.version()
 sourceSets {
 	common {
 		java {
-			srcDirs += "src/common-api/java"
-			srcDirs += "src/common-integration/java"
+			srcDirs += "src/common_api/java"
+			srcDirs += "src/common_integration/java"
 		}
 		resources {
-			srcDirs += "src/common-generated/resources"
+			srcDirs += "src/common_generated/resources"
 		}
 	}
 	main {
@@ -28,13 +28,11 @@ sourceSets {
 			srcDirs += sourceSets.common.resources.srcDirs
 		}
 	}
-	"common-multiloader_test_mod" {
+	common_multiloader_test_mod {
 		java
 		resources {
-			srcDirs += "src/common-generated_multiloader_test_mod/resources"
+			srcDirs += "src/common_generated_multiloader_test_mod/resources"
 		}
-		compileClasspath += main.runtimeClasspath
-		runtimeClasspath += main.runtimeClasspath
 	}
 }
 
@@ -54,7 +52,7 @@ tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 	
 	manifest {
-		attributes ("Fabric-Loom-Remap": "true")
+		attributes("Fabric-Loom-Remap": "true")
 	}
 }
 

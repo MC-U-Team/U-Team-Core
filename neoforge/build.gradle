@@ -14,7 +14,6 @@ version = gradlefiles.version()
 sourceSets {
 	main {
 		java {
-			srcDirs += "src/data/java"
 			srcDirs += "src/api/java"
 			srcDirs += gradlefiles.project("common").sourceSets.common.java.srcDirs
 		}
@@ -22,16 +21,32 @@ sourceSets {
 			srcDirs += gradlefiles.project("common").sourceSets.common.resources.srcDirs
 		}
 	}
+	data {
+		java
+		compileClasspath += main.compileClasspath + main.output
+		runtimeClasspath += main.runtimeClasspath
+	}
 	multiloader_test_mod {
 		java {
-			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".java.srcDirs
-			srcDirs += "src/data_multiloader_test_mod/java"
+			srcDirs += gradlefiles.project("common").sourceSets.common_multiloader_test_mod.java.srcDirs
 		}
 		resources {
-			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".resources.srcDirs
+			srcDirs += gradlefiles.project("common").sourceSets.common_multiloader_test_mod.resources.srcDirs
+			srcDirs += "src/neoforge_data_multiloader_test_mod/resources"
 		}
-		compileClasspath += main.runtimeClasspath
+		compileClasspath += main.compileClasspath + main.output
 		runtimeClasspath += main.runtimeClasspath
+	}
+	data_multiloader_test_mod {
+		java
+		compileClasspath += multiloader_test_mod.compileClasspath + multiloader_test_mod.output
+		runtimeClasspath += multiloader_test_mod.runtimeClasspath
+	}
+	neoforge_data_multiloader_test_mod {
+		java
+		resources
+		compileClasspath += multiloader_test_mod.compileClasspath + multiloader_test_mod.output
+		runtimeClasspath += multiloader_test_mod.runtimeClasspath
 	}
 	test_mod {
 		java {
@@ -41,7 +56,7 @@ sourceSets {
 		resources {
 			srcDirs += "src/generated_test_mod/resources"
 		}
-		compileClasspath += main.runtimeClasspath
+		compileClasspath += main.compileClasspath + main.output
 		runtimeClasspath += main.runtimeClasspath
 	}
 }
@@ -69,7 +84,12 @@ subsystems {
 
 runs {
 	sourceSets.main.runs.modIdentifier = config.mod.modid
+	sourceSets.data.runs.modIdentifier = config.mod.modid
+	
 	sourceSets.multiloader_test_mod.runs.modIdentifier = "uteamtest_multiloader"
+	sourceSets.data_multiloader_test_mod.runs.modIdentifier = "uteamtest_multiloader"
+	sourceSets.neoforge_data_multiloader_test_mod.runs.modIdentifier = "uteamtest_multiloader"
+	
 	sourceSets.test_mod.runs.modIdentifier = "uteamtest"
 	
 	configureEach {
@@ -98,7 +118,7 @@ runs {
 		
 		programArguments "--mod", config.mod.modid
 		programArguments "--all"
-		programArguments "--output", gradlefiles.project("common").file("src/common-generated/resources").absolutePath
+		programArguments "--output", gradlefiles.project("common").file("src/common_generated/resources").absolutePath
 		programArguments "--validate"
 		programArguments "--existing", gradlefiles.project("common").file("src/common/resources").absolutePath
 		
@@ -106,6 +126,7 @@ runs {
 		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
 		
 		modSources sourceSets.main
+		modSources sourceSets.data
 	}
 	
 	data_multiloader_test {
@@ -115,9 +136,9 @@ runs {
 		
 		programArguments "--mod", "uteamtest_multiloader"
 		programArguments "--all"
-		programArguments "--output", gradlefiles.project("common").file("src/common-generated_multiloader_test_mod/resources").absolutePath
+		programArguments "--output", gradlefiles.project("common").file("src/common_generated_multiloader_test_mod/resources").absolutePath
 		programArguments "--validate"
-		programArguments "--existing", gradlefiles.project("common").file("src/common-multiloader_test_mod/resources").absolutePath
+		programArguments "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources").absolutePath
 		programArguments "--existing-mod", "uteamcore"
 		
 		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
@@ -125,6 +146,27 @@ runs {
 		
 		modSources sourceSets.main
 		modSources sourceSets.multiloader_test_mod
+		modSources sourceSets.data_multiloader_test_mod
+	}
+	
+	neoforge_data_multiloader_test {
+		configure("data")
+		
+		workingDirectory file("run/data").with { mkdirs(); it }
+		
+		programArguments "--mod", "uteamtest_multiloader"
+		programArguments "--all"
+		programArguments "--output", file("src/neoforge_data_multiloader_test_mod/resources").absolutePath
+		programArguments "--validate"
+		programArguments "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources").absolutePath
+		programArguments "--existing-mod", "uteamcore"
+		
+		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
+		
+		modSources sourceSets.main
+		modSources sourceSets.multiloader_test_mod
+		modSources sourceSets.neoforge_data_multiloader_test_mod
 	}
 	
 	data_test_mod {
@@ -271,4 +313,3 @@ publishing {
 		}
 	}
 }
-

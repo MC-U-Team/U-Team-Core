@@ -25,13 +25,20 @@ sourceSets {
 	}
 	multiloader_test_mod {
 		java {
-			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".java.srcDirs
+			srcDirs += gradlefiles.project("common").sourceSets.common_multiloader_test_mod.java.srcDirs
 		}
 		resources {
-			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".resources.srcDirs
+			srcDirs += gradlefiles.project("common").sourceSets.common_multiloader_test_mod.resources.srcDirs
+			srcDirs += "src/forge_data_multiloader_test_mod/resources"
 		}
-		compileClasspath += main.runtimeClasspath
+		compileClasspath += main.compileClasspath + main.output
 		runtimeClasspath += main.runtimeClasspath
+	}
+	forge_data_multiloader_test_mod {
+		java
+		resources
+		compileClasspath += multiloader_test_mod.compileClasspath + multiloader_test_mod.output
+		runtimeClasspath += multiloader_test_mod.runtimeClasspath
 	}
 }
 
@@ -62,6 +69,7 @@ minecraft {
 				}
 			}
 		}
+		
 		server {
 			workingDirectory file("run/server")
 			
@@ -72,6 +80,37 @@ minecraft {
 				
 				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
+				}
+			}
+		}
+		
+		forge_data_multiloader_test {
+			workingDirectory file("run/data")
+			
+			def data = runs.create("data")
+			parents(data)
+			afterEvaluate {
+				runs.remove(data)
+			}
+			
+			args "--mod", "uteamtest_multiloader"
+			args "--all"
+			args "--output", file("src/forge_data_multiloader_test_mod/resources").absolutePath
+			args "--validate"
+			args "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources")
+			args "--existing-mod", "uteamcore"
+			
+			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
+			
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+				
+				uteamtest_multiloader {
+					source sourceSets.multiloader_test_mod
+					source sourceSets.forge_data_multiloader_test_mod
 				}
 			}
 		}
