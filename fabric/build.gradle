@@ -233,7 +233,17 @@ publishing {
 		mavenJava(MavenPublication) {
 			artifactId project.base.archivesName.get()
 			
-			from gradlefiles.filteredJavaComponent()
+			from gradlefiles.filteredJavaComponent {
+				filterDependency { holder ->
+					"update_checker" == holder.dependency.name
+				}
+				filterDependency { holder ->
+					"mezz.jei" == holder.dependency.group
+				}
+				filterDependency { holder ->
+					"modmenu" == holder.dependency.name
+				}
+			}
 			artifact tasks.named("remapMultiLoaderTestJar")
 			artifact tasks.named("remapMultiLoaderTestSourcesJar")
 			
