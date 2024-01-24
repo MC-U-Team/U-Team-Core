@@ -196,9 +196,7 @@ repositories {
 dependencies {
 	minecraft gradlefiles.forgeDependency()
 	
-	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
-	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
-	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
+	implementation fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
 	
 	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }

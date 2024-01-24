@@ -189,9 +189,7 @@ dependencies {
 		transitive=false
 	}
 	
-	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-fabric-api:${config.jei.version}"
-	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
-	modRuntimeOnly "mezz.jei:jei-${config.minecraft.version}-fabric:${config.jei.version}"
+	modImplementation "mezz.jei:jei-${config.minecraft.version}-fabric:${config.jei.version}"
 	
 	modRuntimeOnly "com.terraformersmc:modmenu:${config.modmenu.fabric.version}"
 }
