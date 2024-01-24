@@ -33,6 +33,8 @@ sourceSets {
 		resources {
 			srcDirs += "src/common_generated_multiloader_test_mod/resources"
 		}
+		compileClasspath += main.compileClasspath + main.output
+		runtimeClasspath += main.runtimeClasspath
 	}
 }
 
