@@ -282,7 +282,11 @@ publishing {
 		mavenJava(MavenPublication) {
 			artifactId project.base.archivesName.get()
 			
-			from gradlefiles.filteredJavaComponent()
+			from gradlefiles.filteredJavaComponent {
+				filterDependency { holder ->
+					"mezz.jei" == holder.dependency.group
+				}
+			}
 			artifact tasks.named("multiLoaderTestJar")
 			artifact tasks.named("multiLoaderTestSourcesJar")
 			artifact tasks.named("testJar")
