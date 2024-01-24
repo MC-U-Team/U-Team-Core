@@ -29,14 +29,13 @@ sourceSets {
 		}
 		resources {
 			srcDirs += gradlefiles.project("common").sourceSets.common_multiloader_test_mod.resources.srcDirs
-			srcDirs += "src/forge_data_multiloader_test_mod/resources"
+			srcDirs += "src/forge_generated_multiloader_test_mod/resources"
 		}
 		compileClasspath += main.compileClasspath + main.output
 		runtimeClasspath += main.runtimeClasspath
 	}
 	forge_data_multiloader_test_mod {
 		java
-		resources
 		compileClasspath += multiloader_test_mod.compileClasspath + multiloader_test_mod.output
 		runtimeClasspath += multiloader_test_mod.runtimeClasspath
 	}
@@ -95,7 +94,7 @@ minecraft {
 			
 			args "--mod", "uteamtest_multiloader"
 			args "--all"
-			args "--output", file("src/forge_data_multiloader_test_mod/resources").absolutePath
+			args "--output", file("src/forge_generated_multiloader_test_mod/resources").absolutePath
 			args "--validate"
 			args "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources")
 			args "--existing-mod", "uteamcore"
