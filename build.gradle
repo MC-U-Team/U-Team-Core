@@ -12,7 +12,7 @@ gradlefiles {
 	orderModPublishTasks(gradlefiles.project("neoforge"), gradlefiles.project("forge"), gradlefiles.project("fabric"))
 }
 
-ext.commonPom = { MavenPom pom ->
+ext.commonPom = { pom ->
 	pom.description = "${config.github.name}"
 	pom.url = "https://github.com/MC-U-Team/${config.github.name}"
 	pom.scm {
