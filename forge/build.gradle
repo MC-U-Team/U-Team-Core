@@ -165,8 +165,7 @@ tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$ConfigureReob
 	}
 }
 
-gradlefiles.assembleDependOn(tasks.named("reobfMultiLoaderTestJar"), tasks.named("multiLoaderTestSourcesJar"))
-gradlefiles.allPublishingDependOn(tasks.named("reobfMultiLoaderTestJar"), tasks.named("multiLoaderTestSourcesJar"))
+gradlefiles.allBuildingDependOn(tasks.named("reobfMultiLoaderTestJar"), tasks.named("multiLoaderTestSourcesJar"))
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)

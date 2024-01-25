@@ -125,8 +125,7 @@ tasks.register("remapMultiLoaderTestSourcesJar", net.fabricmc.loom.task.RemapSou
 	classpath.from(tasks.named("shadowJar").get().archiveFile)
 }
 
-gradlefiles.assembleDependOn(tasks.named("remapMultiLoaderTestJar"), tasks.named("remapMultiLoaderTestSourcesJar"))
-gradlefiles.allPublishingDependOn(tasks.named("remapMultiLoaderTestJar"), tasks.named("remapMultiLoaderTestSourcesJar"))
+gradlefiles.allBuildingDependOn(tasks.named("remapMultiLoaderTestJar"), tasks.named("remapMultiLoaderTestSourcesJar"))
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
