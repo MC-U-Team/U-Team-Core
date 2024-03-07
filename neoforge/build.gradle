@@ -247,7 +247,7 @@ dependencies {
 publishMods {
 	file = tasks.named("jar").flatMap { jar -> jar.archiveFile }
 	displayName = "${config.publish.display}-NeoForge-${config.minecraft.version}-${project.version}"
-	changelog = "[Changelog of ${project.version}](${gradlefiles.changelogUrl()})"
+	changelog = "[Changelog for version ${project.version}](${gradlefiles.changelogUrl()})"
 	type = me.modmuss50.mpp.ReleaseType.of(config.publish.type)
 	modLoaders.add("neoforge")
 	
@@ -259,12 +259,8 @@ publishMods {
 		minecraftVersions.add(config.minecraft.version)
 		minecraftVersions.add("Java 17")
 		
-		optional {
-			slug = "basic-discord-rich-presence"
-		}
-		optional {
-			slug = "jei"
-		}
+		optional("basic-discord-rich-presence")
+		optional("jei")
 	}
 	
 	modrinth {
@@ -273,14 +269,16 @@ publishMods {
 		projectId = config.modrinth.id
 		minecraftVersions.add(config.minecraft.version)
 		
-		optional {
-			slug = "jei"
-		}
+		optional("jei")
 	}
 	
 	discord {
 		webhookUrl = defaultPropertyValue("discord.update_webhook")
-		username = config.publish.display
+		
+		username = "Mod Update"
+		avatarUrl = "https://raw.githubusercontent.com/MC-U-Team/U-Team-Core/${config.github.branch}/logo.png"
+		
+		content = changelog.map { log -> "# ${config.publish.display} (NeoForge)\n" + log}
 	}
 }
 
