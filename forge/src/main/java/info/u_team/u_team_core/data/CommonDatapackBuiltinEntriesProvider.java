@@ -6,10 +6,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.registries.RegistriesDatapackGenerator;
+import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
 
-// TODO wait for https://github.com/MinecraftForge/MinecraftForge/pull/9848 to use DatapackBuiltinEntriesProvider again
-public abstract class CommonDatapackBuiltinEntriesProvider implements CommonDataProvider<Consumer<RegistriesDatapackGenerator>> {
+public abstract class CommonDatapackBuiltinEntriesProvider implements CommonDataProvider<Consumer<DatapackBuiltinEntriesProvider>> {
 	
 	private final GenerationData generationData;
 	
