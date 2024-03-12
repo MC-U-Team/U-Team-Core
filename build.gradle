@@ -8,7 +8,7 @@ plugins {
 
 gradlefiles.loaderSuffix = "forge"
 
-group = rootProject.group
+group = "info.u-team"
 base.archivesName = gradlefiles.archivesName()
 version = gradlefiles.version()
 
