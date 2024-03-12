@@ -33,7 +33,7 @@ sourceSets {
 		resources {
 			srcDirs += "src/common-generated_multiloader_test_mod/resources"
 		}
-		compileClasspath += main.runtimeClasspath
+		compileClasspath += main.compileClasspath + main.output
 		runtimeClasspath += main.runtimeClasspath
 	}
 }
@@ -111,7 +111,7 @@ publishing {
 			from gradlefiles.filteredJavaComponent()
 			
 			pom {
-				pom.name = project.base.archivesName.get()
+				name = project.base.archivesName.get()
 				rootProject.commonPom(it)
 			}
 		}
