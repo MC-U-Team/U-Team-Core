@@ -173,7 +173,7 @@ repositories {
 dependencies {
 	minecraft gradlefiles.forgeDependency()
 	
-	implementation fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
+	implementation fg.deobf("mezz.jei:jei-${config.minecraft.version}:${config.jei.version}")
 }
 
 publishMods {
