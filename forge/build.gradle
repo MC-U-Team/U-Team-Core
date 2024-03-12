@@ -33,7 +33,7 @@ sourceSets {
 		resources {
 			srcDirs += "src/generated_test_mod/resources"
 		}
-		compileClasspath += main.runtimeClasspath
+		compileClasspath += main.compileClasspath + main.output
 		runtimeClasspath += main.runtimeClasspath
 	}
 	multiloader_test_mod {
@@ -44,7 +44,7 @@ sourceSets {
 		resources {
 			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".resources.srcDirs
 		}
-		compileClasspath += main.runtimeClasspath
+		compileClasspath += main.compileClasspath + main.output
 		runtimeClasspath += main.runtimeClasspath
 	}
 }
@@ -324,9 +324,11 @@ publishing {
 			from gradlefiles.filteredJavaComponent()
 			artifact tasks.named("multiLoaderTestJar")
 			artifact tasks.named("multiLoaderTestSourcesJar")
+			artifact tasks.named("testJar")
+			artifact tasks.named("testSourcesJar")
 			
 			pom {
-				pom.name = project.base.archivesName.get()
+				name = project.base.archivesName.get()
 				rootProject.commonPom(it)
 			}
 		}

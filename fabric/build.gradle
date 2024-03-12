@@ -28,7 +28,7 @@ sourceSets {
 		resources {
 			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".resources.srcDirs
 		}
-		compileClasspath += main.runtimeClasspath
+		compileClasspath += main.compileClasspath + main.output
 		runtimeClasspath += main.runtimeClasspath
 	}
 }
@@ -262,7 +262,7 @@ publishing {
 			artifact tasks.named("remapMultiLoaderTestSourcesJar")
 			
 			pom {
-				pom.name = project.base.archivesName.get()
+				name = project.base.archivesName.get()
 				rootProject.commonPom(it)
 			}
 		}
