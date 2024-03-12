@@ -3,230 +3,25 @@ plugins {
 	id "org.parchmentmc.librarian.forgegradle"
 	id "org.spongepowered.mixin"
 	id "info.u_team.gradle_files"
-	id "info.u_team.curse_gradle_uploader"
+	id "me.modmuss50.mod-publish-plugin"
 	id "maven-publish"
 }
 
 gradlefiles.loaderSuffix = "forge"
 
 group = rootProject.group
-archivesBaseName = gradlefiles.archivesBaseName()
+base.archivesName = gradlefiles.archivesName()
 version = gradlefiles.version()
-
-java {
-	toolchain {
-		languageVersion = JavaLanguageVersion.of(17)
-	}
-	withSourcesJar()
-	withJavadocJar()
-}
-
-sourceSets {
-	test_mod
-	multiloader_test_mod
-}
-
-minecraft {
-	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
-	
-	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
-	
-	runs {
-		client {
-			workingDirectory file("run/client")
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-				
-				uteamtest {
-					source sourceSets.test_mod
-				}
-				
-				uteamtest_multiloader {
-					source sourceSets.multiloader_test_mod
-				}
-			}
-		}
-		server {
-			workingDirectory file("run/server")
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-				
-				uteamtest {
-					source sourceSets.test_mod
-				}
-				
-				uteamtest_multiloader {
-					source sourceSets.multiloader_test_mod
-				}
-			}
-		}
-		data {
-			workingDirectory file("run/data")
-			
-			args "--mod", config.mod.modid
-			args "--all"
-			args "--output", project(":common").file("src/common-generated/resources")
-			args "--validate"
-			args "--existing", project(":common").file("src/common/resources")
-			
-			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-			}
-		}
-		data_test {
-			workingDirectory file("run/data")
-			
-			setParents(data.getParents())
-			
-			args "--mod", "uteamtest"
-			args "--all"
-			args "--output", file("src/generated_test_mod/resources")
-			args "--validate"
-			args "--existing", file("src/test_mod/resources")
-			args "--existing-mod", "uteamcore"
-			
-			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-				
-				uteamtest {
-					source sourceSets.test_mod
-				}
-			}
-		}
-		data_multiloader_test {
-			workingDirectory file("run/data")
-			
-			setParents(data.getParents())
-			
-			args "--mod", "uteamtest_multiloader"
-			args "--all"
-			args "--output", project(":common").file("src/common-generated_multiloader_test_mod/resources")
-			args "--validate"
-			args "--existing", project(":common").file("src/common-multiloader_test_mod/resources")
-			args "--existing-mod", "uteamcore"
-			
-			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-			
-			mods {
-				"${config.mod.modid}" {
-					source sourceSets.main
-				}
-				
-				uteamtest_multiloader {
-					source sourceSets.multiloader_test_mod
-				}
-			}
-		}
-	}
-}
-
-mixin {
-	add sourceSets.main, "uteamcore.mixins.refmap.json"
-	config "uteamcore.mixins.json"
-	
-	debug.verbose = true
-	debug.export = true
-}
-
-tasks.register("testJar", Jar) {
-	archiveClassifier = "test"
-	
-	from sourceSets.test_mod.output
-}
-
-tasks.register("testSourcesJar", Jar) {
-	archiveClassifier = "testsources"
-	
-	from sourceSets.test_mod.allJava
-}
-
-tasks.register("multiLoaderTestJar", Jar) {
-	archiveClassifier = "multiloader_test"
-	
-	from sourceSets.multiloader_test_mod.output
-}
-
-tasks.register("multiLoaderTestSourcesJar", Jar) {
-	archiveClassifier = "multiloader_testsources"
-	
-	from sourceSets.multiloader_test_mod.allJava
-}
-
-gradlefiles.createReobfJar(tasks.getByName("testJar"))
-gradlefiles.assembleDependOn(tasks.getByName("testJar"), tasks.getByName("testSourcesJar"))
-gradlefiles.createReobfJar(tasks.getByName("multiLoaderTestJar"))
-gradlefiles.assembleDependOn(tasks.getByName("multiLoaderTestJar"), tasks.getByName("multiLoaderTestSourcesJar"))
-
-afterEvaluate {
-	tasks.named("reobfTestJar") {
-		dependsOn tasks.named("signReobfJar")
-		libraries.from(tasks.getByName("signReobfJar").outputFile)
-	}
-	tasks.named("reobfMultiLoaderTestJar") {
-		dependsOn tasks.named("signReobfJar")
-		libraries.from(tasks.getByName("signReobfJar").outputFile)
-	}
-}
-
-// Skip mixin gradle for our test jars
-tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$AddMixinsToJarTask).configureEach { task ->
-	if(task.name.endsWith("TestJar") || task.name.endsWith("TestSourcesJar")) {
-		task.enabled = false
-	}
-}
-
-tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$ConfigureReobfTask).configureEach { task ->
-	if(task.name.endsWith("TestJar")) {
-		task.enabled = false
-	}
-}
-
-tasks.withType(Jar).configureEach { task ->
-	gradlefiles.defaultJar(task)
-}
-
-tasks.withType(Javadoc).configureEach { task ->
-	task.options.addStringOption("Xdoclint:none", "-quiet")
-}
-
-gradlefiles.signDefaultForgeJar()
-gradlefiles.signJar("reobfTestJar")
-gradlefiles.signJar("reobfMultiLoaderTestJar")
-
-processResources {
-	doLast {
-		fileTree(dir: outputs.files.asPath, include: "**/*.json").each { File file ->
-			file.text = groovy.json.JsonOutput.toJson(new groovy.json.JsonSlurper().parse(file))
-		}
-	}
-}
 
 sourceSets {
 	main {
 		java {
 			srcDirs += "src/data/java"
 			srcDirs += "src/api/java"
-			srcDirs += project(":common").sourceSets.common.java.srcDirs
+			srcDirs += gradlefiles.project("common").sourceSets.common.java.srcDirs
 		}
 		resources {
-			srcDirs += project(":common").sourceSets.common.resources.srcDirs
+			srcDirs += gradlefiles.project("common").sourceSets.common.resources.srcDirs
 		}
 	}
 	test_mod {
@@ -242,14 +37,220 @@ sourceSets {
 	}
 	multiloader_test_mod {
 		java {
-			srcDirs += project(":common").sourceSets."common-multiloader_test_mod".java.srcDirs
+			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".java.srcDirs
 			srcDirs += "src/data_multiloader_test_mod/java"
 		}
 		resources {
-			srcDirs += project(":common").sourceSets."common-multiloader_test_mod".resources.srcDirs
+			srcDirs += gradlefiles.project("common").sourceSets."common-multiloader_test_mod".resources.srcDirs
 		}
 		compileClasspath += main.runtimeClasspath
 		runtimeClasspath += main.runtimeClasspath
+	}
+}
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+	withSourcesJar()
+	withJavadocJar()
+}
+
+minecraft {
+	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
+
+	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+
+	runs {
+		client {
+			workingDirectory file("run/client")
+
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+
+				uteamtest {
+					source sourceSets.test_mod
+				}
+
+				uteamtest_multiloader {
+					source sourceSets.multiloader_test_mod
+				}
+			}
+		}
+
+		server {
+			workingDirectory file("run/server")
+
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+
+				uteamtest {
+					source sourceSets.test_mod
+				}
+
+				uteamtest_multiloader {
+					source sourceSets.multiloader_test_mod
+				}
+			}
+		}
+		data {
+			workingDirectory file("run/data")
+
+			args "--mod", config.mod.modid
+			args "--all"
+			args "--output", gradlefiles.project("common").file("src/common-generated/resources")
+			args "--validate"
+			args "--existing", gradlefiles.project("common").file("src/common/resources")
+
+			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
+
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+			}
+		}
+
+		data_test {
+			workingDirectory file("run/data")
+
+			setParents(data.getParents())
+
+			args "--mod", "uteamtest"
+			args "--all"
+			args "--output", file("src/generated_test_mod/resources")
+			args "--validate"
+			args "--existing", file("src/test_mod/resources")
+			args "--existing-mod", "uteamcore"
+
+			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
+
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+
+				uteamtest {
+					source sourceSets.test_mod
+				}
+			}
+		}
+
+		data_multiloader_test {
+			workingDirectory file("run/data")
+
+			setParents(data.getParents())
+
+			args "--mod", "uteamtest_multiloader"
+			args "--all"
+			args "--output", gradlefiles.project("common").file("src/common-generated_multiloader_test_mod/resources")
+			args "--validate"
+			args "--existing", gradlefiles.project("common").file("src/common-multiloader_test_mod/resources")
+			args "--existing-mod", "uteamcore"
+
+			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
+			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
+
+			mods {
+				"${config.mod.modid}" {
+					source sourceSets.main
+				}
+
+				uteamtest_multiloader {
+					source sourceSets.multiloader_test_mod
+				}
+			}
+		}
+	}
+}
+
+mixin {
+	add sourceSets.main, "uteamcore.mixins.refmap.json"
+	config "uteamcore.mixins.json"
+
+	debug.verbose = true
+	debug.export = true
+}
+
+tasks.register("testJar", Jar) {
+	archiveClassifier = "test"
+
+	from sourceSets.test_mod.output
+}
+
+tasks.register("testSourcesJar", Jar) {
+	archiveClassifier = "testsources"
+
+	from sourceSets.test_mod.allJava
+}
+
+tasks.register("multiLoaderTestJar", Jar) {
+	archiveClassifier = "multiloader_test"
+
+	from sourceSets.multiloader_test_mod.output
+}
+
+tasks.register("multiLoaderTestSourcesJar", Jar) {
+	archiveClassifier = "multiloader_testsources"
+
+	from sourceSets.multiloader_test_mod.allJava
+}
+
+reobf.create("testJar") {
+	dependsOn tasks.named("reobfJar")
+}
+
+reobf.create("multiLoaderTestJar") {
+	dependsOn tasks.named("reobfJar")
+}
+
+tasks.named("reobfTestJar").configure {
+	libraries.from(tasks.named("reobfJar").get().input)
+}
+
+tasks.named("reobfMultiLoaderTestJar").configure {
+	libraries.from(tasks.named("reobfJar").get().input)
+}
+
+// Skip mixin gradle for our test jars
+tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$AddMixinsToJarTask).configureEach { task ->
+	if(task.name.endsWith("TestJar") || task.name.endsWith("TestSourcesJar")) {
+		task.enabled = false
+	}
+}
+
+tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$ConfigureReobfTask).configureEach { task ->
+	if(task.name.endsWith("TestJar")) {
+		task.enabled = false
+	}
+}
+
+gradlefiles.allBuildingDependOn(tasks.named("reobfTestJar"), tasks.named("testSourcesJar"))
+gradlefiles.allBuildingDependOn(tasks.named("reobfMultiLoaderTestJar"), tasks.named("multiLoaderTestSourcesJar"))
+
+tasks.withType(Jar).configureEach { task ->
+	gradlefiles.defaultJar(task)
+}
+
+tasks.withType(Javadoc).configureEach { task ->
+	task.options.addStringOption("Xdoclint:none", "-quiet")
+}
+
+signjar.sign(tasks.named("reobfJar"))
+signjar.sign(tasks.named("reobfTestJar"))
+signjar.sign(tasks.named("reobfMultiLoaderTestJar"))
+
+processResources {
+	doLast {
+		fileTree(dir: outputs.files.asPath, include: "**/*.json").each { File file ->
+			file.text = groovy.json.JsonOutput.toJson(new groovy.json.JsonSlurper().parse(file))
+		}
 	}
 }
 
@@ -261,36 +262,47 @@ repositories {
 
 dependencies {
 	minecraft gradlefiles.forgeDependency()
-	
-	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge-api:${config.jei.version}")
-	compileOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}")
-	runtimeOnly fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
-	
+
+	implementation fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
+
 	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
-curseforge {
-	apiKey = defaultPropertyValue("curseforge.token")
-	
-	project {
-		id = config.curse.id
-		releaseType = config.curse.type
-		
-		addGameVersion config.minecraft.version
-		addGameVersion "NeoForge"
-		addGameVersion "Forge"
-		addGameVersion "Java 17"
-		
-		relations {
-			optionalDependency "basic-discord-rich-presence"
-			optionalDependency "jei"
-		}
-		
-		mainArtifact(tasks.getByName("jar")) {
-			displayName = "${config.curse.display}-Forge-${config.minecraft.version}-${project.version}"
-			changelogType = "html"
-			changelog = "<a href=\"${gradlefiles.changelogUrl()}\">Changelog of ${project.version}</a>"
-		}
+publishMods {
+	file = tasks.named("jar").flatMap { jar -> jar.archiveFile }
+	displayName = "${config.publish.display}-Forge-${config.minecraft.version}-${project.version}"
+	changelog = "[Changelog for version ${project.version}](${gradlefiles.changelogUrl()})"
+	type = me.modmuss50.mpp.ReleaseType.of(config.publish.type)
+	modLoaders.add("forge")
+
+	curseforge {
+		accessToken = defaultPropertyValue("curseforge.token")
+
+		projectId = config.curse.id
+		projectSlug = config.curse.slug
+		minecraftVersions.add(config.minecraft.version)
+		javaVersions.add(JavaVersion.VERSION_17)
+
+		optional("basic-discord-rich-presence")
+		optional("jei")
+	}
+
+	modrinth {
+		accessToken = defaultPropertyValue("modrinth.token")
+
+		projectId = config.modrinth.id
+		minecraftVersions.add(config.minecraft.version)
+
+		optional("jei")
+	}
+
+	discord {
+		webhookUrl = defaultPropertyValue("discord.update_webhook")
+
+		username = "Mod Update"
+		avatarUrl = "https://raw.githubusercontent.com/MC-U-Team/U-Team-Core/${config.github.branch}/logo.png"
+
+		content = changelog.map { log -> "# ${config.publish.display} (Forge)\n" + log}
 	}
 }
 
@@ -306,42 +318,15 @@ publishing {
 	}
 	publications {
 		mavenJava(MavenPublication) {
-			artifactId archivesBaseName
-			
-			from components.java
-			artifact tasks.getByName("testJar")
-			artifact tasks.getByName("testSourcesJar")
-			artifact tasks.getByName("multiLoaderTestJar")
-			artifact tasks.getByName("multiLoaderTestSourcesJar")
-			
+			artifactId project.base.archivesName.get()
+
+			from gradlefiles.filteredJavaComponent()
+			artifact tasks.named("multiLoaderTestJar")
+			artifact tasks.named("multiLoaderTestSourcesJar")
+
 			pom {
-				name = project.archivesBaseName
-				description = "${config.github.name}"
-				url = "https://github.com/MC-U-Team/${config.github.name}"
-				scm {
-					url = "https://github.com/MC-U-Team/${config.github.name}"
-					connection = "scm:git:git://github.com/MC-U-Team/${config.github.name}.git"
-					developerConnection = "scm:git:git@github.com:MC-U-Team/${config.github.name}.git"
-				}
-				issueManagement {
-					system = "github"
-					url = "https://github.com/MC-U-Team/${config.github.name}/issues"
-				}
-				licenses {
-					license {
-						name = "Apache License 2.0"
-						url = "https://github.com/MC-U-Team/${config.github.name}/blob/${config.github.branch}/LICENSE"
-						distribution = "repo"
-					}
-				}
-				developers {
-					developer {
-						name = "HyCraftHD"
-					}
-					developer {
-						name = "MrTroble"
-					}
-				}
+				pom.name = project.base.archivesName.get()
+				rootProject.commonPom(it)
 			}
 		}
 	}
