@@ -43,7 +43,7 @@ java {
 
 loom {
 	accessWidenerPath = file("src/main/resources/uteamcore.accesswidener")
-
+	
 	runs {
 		client {
 			runDir "run/client"
@@ -51,7 +51,7 @@ loom {
 			vmArgs "-Dmixin.debug.export=true"
 			ideConfigGenerated true
 		}
-
+		
 		server {
 			runDir "run/server"
 			vmArgs "-Dmixin.debug.verbose=true"
@@ -59,7 +59,7 @@ loom {
 			ideConfigGenerated true
 		}
 	}
-
+	
 	mixin {
 		defaultRefmapName = "uteamcore.mixins.refmap.json"
 	}
@@ -72,13 +72,13 @@ configurations {
 
 tasks.named("shadowJar") {
 	def jarTask = tasks.named("jar")
-
+	
 	archiveClassifier = jarTask.get().archiveClassifier
 	destinationDirectory = jarTask.get().destinationDirectory
 	configurations = [project.configurations.shade]
-
+	
 	dependsOn jarTask
-
+	
 	relocate "net.minecraftforge.fml", "info.u_team.u_team_core.internal.shade.net.minecraftforge.fml"
 	relocate "net.hycrafthd.update_checker", "info.u_team.u_team_core.internal.shade.net.hycrafthd.update_checker"
 }
@@ -94,33 +94,33 @@ tasks.named("remapJar") {
 tasks.register("multiLoaderTestJar", Jar) {
 	archiveClassifier = "multiloader_test-dev"
 	destinationDirectory = project.layout.buildDirectory.dir("devlibs")
-
+	
 	from sourceSets.multiloader_test_mod.output
 }
 
 tasks.register("multiLoaderTestSourcesJar", Jar) {
 	archiveClassifier = "multiloader_testsources-dev"
 	destinationDirectory = project.layout.buildDirectory.dir("devlibs")
-
+	
 	from sourceSets.multiloader_test_mod.allJava
 }
 
 tasks.register("remapMultiLoaderTestJar", net.fabricmc.loom.task.RemapJarTask) {
 	archiveClassifier = "multiloader_test"
-
+	
 	dependsOn tasks.named("multiLoaderTestJar")
 	input = tasks.named("multiLoaderTestJar").get().archiveFile
-
+	
 	dependsOn tasks.named("shadowJar")
 	classpath.from(tasks.named("shadowJar").get().archiveFile)
 }
 
 tasks.register("remapMultiLoaderTestSourcesJar", net.fabricmc.loom.task.RemapSourcesJarTask) {
 	archiveClassifier = "multiloader_testsources"
-
+	
 	dependsOn tasks.named("multiLoaderTestSourcesJar")
 	input = tasks.named("multiLoaderTestSourcesJar").get().archiveFile
-
+	
 	dependsOn tasks.named("shadowJar")
 	classpath.from(tasks.named("shadowJar").get().archiveFile)
 }
@@ -148,7 +148,7 @@ processResources {
 
 processResources {
 	inputs.property "version", project.version
-
+	
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version
 	}
@@ -156,7 +156,7 @@ processResources {
 
 tasks.named("processMultiloader_test_modResources") {
 	inputs.property "version", project.version
-
+	
 	filesMatching("fabric.mod.json") {
 		expand "version": project.version
 	}
@@ -180,16 +180,16 @@ dependencies {
 		officialMojangMappings()
 		parchment(config.fabric.mapping_layer)
 	}
-
+	
 	modImplementation gradlefiles.fabricLoaderDependency()
 	modImplementation gradlefiles.fabricApiDependency()
-
+	
 	shade ("net.hycrafthd.update_checker:update_checker:1.0.0") {
 		transitive=false
 	}
-
+	
 	modImplementation "mezz.jei:jei-${config.minecraft.version}-fabric:${config.jei.version}"
-
+	
 	modRuntimeOnly "com.terraformersmc:modmenu:${config.modmenu.fabric.version}"
 }
 
@@ -199,36 +199,36 @@ publishMods {
 	changelog = "[Changelog for version ${project.version}](${gradlefiles.changelogUrl()})"
 	type = me.modmuss50.mpp.ReleaseType.of(config.publish.type)
 	modLoaders.add("fabric")
-
+	
 	curseforge {
 		accessToken = defaultPropertyValue("curseforge.token")
-
+		
 		projectId = config.curse.id
 		projectSlug = config.curse.slug
 		minecraftVersions.add(config.minecraft.version)
 		javaVersions.add(JavaVersion.VERSION_17)
-
+		
 		requires("fabric-api")
 		optional("basic-discord-rich-presence")
 		optional("jei")
 	}
-
+	
 	modrinth {
 		accessToken = defaultPropertyValue("modrinth.token")
-
+		
 		projectId = config.modrinth.id
 		minecraftVersions.add(config.minecraft.version)
-
+		
 		requires("fabric-api")
 		optional("jei")
 	}
-
+	
 	discord {
 		webhookUrl = defaultPropertyValue("discord.update_webhook")
-
+		
 		username = "Mod Update"
 		avatarUrl = "https://raw.githubusercontent.com/MC-U-Team/U-Team-Core/${config.github.branch}/logo.png"
-
+		
 		content = changelog.map { log -> "# ${config.publish.display} (Fabric)\n" + log}
 	}
 }
@@ -246,7 +246,7 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifactId project.base.archivesName.get()
-
+			
 			from gradlefiles.filteredJavaComponent {
 				filterDependency { holder ->
 					"update_checker" == holder.dependency.name
@@ -260,7 +260,7 @@ publishing {
 			}
 			artifact tasks.named("remapMultiLoaderTestJar")
 			artifact tasks.named("remapMultiLoaderTestSourcesJar")
-
+			
 			pom {
 				pom.name = project.base.archivesName.get()
 				rootProject.commonPom(it)
