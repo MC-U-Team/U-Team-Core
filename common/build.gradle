@@ -52,7 +52,7 @@ loom {
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
-
+	
 	manifest {
 		attributes("Fabric-Loom-Remap": "true")
 	}
@@ -87,10 +87,10 @@ dependencies {
 		officialMojangMappings()
 		parchment(config.fabric.mapping_layer)
 	}
-
+	
 	modImplementation gradlefiles.fabricLoaderDependency()
 	modRuntimeOnly gradlefiles.fabricApiDependency()
-
+	
 	modCompileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
 }
 
@@ -107,9 +107,9 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifactId project.base.archivesName.get()
-
+			
 			from gradlefiles.filteredJavaComponent()
-
+			
 			pom {
 				pom.name = project.base.archivesName.get()
 				rootProject.commonPom(it)

@@ -58,40 +58,40 @@ java {
 
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
-
+	
 	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
-
+	
 	runs {
 		client {
 			workingDirectory file("run/client")
-
+			
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-
+				
 				uteamtest {
 					source sourceSets.test_mod
 				}
-
+				
 				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
 				}
 			}
 		}
-
+		
 		server {
 			workingDirectory file("run/server")
-
+			
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-
+				
 				uteamtest {
 					source sourceSets.test_mod
 				}
-
+				
 				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
 				}
@@ -99,69 +99,69 @@ minecraft {
 		}
 		data {
 			workingDirectory file("run/data")
-
+			
 			args "--mod", config.mod.modid
 			args "--all"
 			args "--output", gradlefiles.project("common").file("src/common-generated/resources")
 			args "--validate"
 			args "--existing", gradlefiles.project("common").file("src/common/resources")
-
+			
 			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-
+			
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
 			}
 		}
-
+		
 		data_test {
 			workingDirectory file("run/data")
-
+			
 			setParents(data.getParents())
-
+			
 			args "--mod", "uteamtest"
 			args "--all"
 			args "--output", file("src/generated_test_mod/resources")
 			args "--validate"
 			args "--existing", file("src/test_mod/resources")
 			args "--existing-mod", "uteamcore"
-
+			
 			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-
+			
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-
+				
 				uteamtest {
 					source sourceSets.test_mod
 				}
 			}
 		}
-
+		
 		data_multiloader_test {
 			workingDirectory file("run/data")
-
+			
 			setParents(data.getParents())
-
+			
 			args "--mod", "uteamtest_multiloader"
 			args "--all"
 			args "--output", gradlefiles.project("common").file("src/common-generated_multiloader_test_mod/resources")
 			args "--validate"
 			args "--existing", gradlefiles.project("common").file("src/common-multiloader_test_mod/resources")
 			args "--existing-mod", "uteamcore"
-
+			
 			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
-
+			
 			mods {
 				"${config.mod.modid}" {
 					source sourceSets.main
 				}
-
+				
 				uteamtest_multiloader {
 					source sourceSets.multiloader_test_mod
 				}
@@ -173,32 +173,32 @@ minecraft {
 mixin {
 	add sourceSets.main, "uteamcore.mixins.refmap.json"
 	config "uteamcore.mixins.json"
-
+	
 	debug.verbose = true
 	debug.export = true
 }
 
 tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
-
+	
 	from sourceSets.test_mod.output
 }
 
 tasks.register("testSourcesJar", Jar) {
 	archiveClassifier = "testsources"
-
+	
 	from sourceSets.test_mod.allJava
 }
 
 tasks.register("multiLoaderTestJar", Jar) {
 	archiveClassifier = "multiloader_test"
-
+	
 	from sourceSets.multiloader_test_mod.output
 }
 
 tasks.register("multiLoaderTestSourcesJar", Jar) {
 	archiveClassifier = "multiloader_testsources"
-
+	
 	from sourceSets.multiloader_test_mod.allJava
 }
 
@@ -262,9 +262,9 @@ repositories {
 
 dependencies {
 	minecraft gradlefiles.forgeDependency()
-
+	
 	implementation fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
-
+	
 	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
@@ -274,34 +274,34 @@ publishMods {
 	changelog = "[Changelog for version ${project.version}](${gradlefiles.changelogUrl()})"
 	type = me.modmuss50.mpp.ReleaseType.of(config.publish.type)
 	modLoaders.add("forge")
-
+	
 	curseforge {
 		accessToken = defaultPropertyValue("curseforge.token")
-
+		
 		projectId = config.curse.id
 		projectSlug = config.curse.slug
 		minecraftVersions.add(config.minecraft.version)
 		javaVersions.add(JavaVersion.VERSION_17)
-
+		
 		optional("basic-discord-rich-presence")
 		optional("jei")
 	}
-
+	
 	modrinth {
 		accessToken = defaultPropertyValue("modrinth.token")
-
+		
 		projectId = config.modrinth.id
 		minecraftVersions.add(config.minecraft.version)
-
+		
 		optional("jei")
 	}
-
+	
 	discord {
 		webhookUrl = defaultPropertyValue("discord.update_webhook")
-
+		
 		username = "Mod Update"
 		avatarUrl = "https://raw.githubusercontent.com/MC-U-Team/U-Team-Core/${config.github.branch}/logo.png"
-
+		
 		content = changelog.map { log -> "# ${config.publish.display} (Forge)\n" + log}
 	}
 }
@@ -319,11 +319,11 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			artifactId project.base.archivesName.get()
-
+			
 			from gradlefiles.filteredJavaComponent()
 			artifact tasks.named("multiLoaderTestJar")
 			artifact tasks.named("multiLoaderTestSourcesJar")
-
+			
 			pom {
 				pom.name = project.base.archivesName.get()
 				rootProject.commonPom(it)
