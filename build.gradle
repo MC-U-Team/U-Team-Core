@@ -187,7 +187,6 @@ publishMods {
 		minecraftVersions.add(config.minecraft.version)
 		javaVersions.add(JavaVersion.VERSION_1_8)
 		
-		optional("basic-discord-rich-presence")
 		optional("jei")
 	}
 	
