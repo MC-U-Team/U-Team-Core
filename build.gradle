@@ -77,6 +77,10 @@ minecraft {
 	}
 }
 
+minecraft.getRuns().each { task ->
+	task.environment "MC_VERSION", "{mc_version}"
+}
+
 tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
 	
@@ -118,6 +122,31 @@ processResources {
 		fileTree(dir: outputs.files.asPath, include: "**/*.json").each { File file ->
 			file.text = groovy.json.JsonOutput.toJson(new groovy.json.JsonSlurper().parse(file))
 		}
+	}
+}
+
+tasks.register("prepareSources", Copy) {
+	from sourceSets.main.java
+	into file("${buildDir}/prepareSources")
+	filter (org.apache.tools.ant.filters.ReplaceTokens, tokens: [
+		"VERSION": project.version.toString(),
+		"MCVERSION": config.minecraft.version.toString()
+	])
+	outputs.upToDateWhen { false }
+}
+
+tasks.named("compileJava").configure { task ->
+	final def prepareResources = tasks.named("prepareSources")
+	task.dependsOn prepareResources
+	task.source = prepareResources.get().destinationDir
+}
+
+processResources {
+	inputs.property "version", project.version
+	inputs.property "mcversion", config.minecraft.version
+	
+	filesMatching("mcmod.info") {
+		expand "version": project.version, "mcversion": config.minecraft.version
 	}
 }
 
