@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.16.5-3.2.1.285] - 2024-03-29
+### Changed
+ - Fix publishing
+ - Artifact id has changed to reflect modloader
+
 ## [1.16.5-3.2.1.276] - 2024-03-29
 ### Changed
  - Update to latest gradle & gradle files version
