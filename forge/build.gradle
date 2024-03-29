@@ -234,7 +234,7 @@ publishMods {
 		username = "Mod Update"
 		avatarUrl = "https://raw.githubusercontent.com/MC-U-Team/U-Team-Core/${config.github.branch}/logo.png"
 		
-		content = changelog.map { log -> "# ${config.publish.display} (Forge)\n" + log}
+		content = changelog.map { log -> "# ${config.minecraft.version}: ${config.publish.display} (Forge)\n" + log}
 	}
 }
 
