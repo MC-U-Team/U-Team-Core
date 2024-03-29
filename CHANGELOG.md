@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.20.1-5.1.4.289] - 2024-03-29
+### Changed
+ - Fix publishing
+ - Artifact id has changed to reflect modloader
+ - Fix neoforge not working
+
 ## [1.20.1-5.1.4.280] - 2024-03-29
 ### Changed
  - Update to latest gradle & gradle files version
