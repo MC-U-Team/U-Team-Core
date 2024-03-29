@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.4-5.0.2.288] - 2024-03-29
+### Changed
+ - Fix publishing
+ - Artifact id has changed to reflect modloader
+
 ## [1.19.4-5.0.2.279] - 2024-03-29
 ### Changed
  - Update to latest gradle & gradle files version
