@@ -171,14 +171,6 @@ minecraft {
 	}
 }
 
-mixin {
-	add sourceSets.main, "uteamcore.mixins.refmap.json"
-	config "uteamcore.mixins.json"
-	
-	debug.verbose = true
-	debug.export = true
-}
-
 tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
 	
