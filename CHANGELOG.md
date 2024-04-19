@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.4-5.0.2.291] - 2024-04-19
+### Changed
+ - Fixed crash because of invalid mixin config
+
 ## [1.19.4-5.0.2.288] - 2024-03-29
 ### Changed
  - Fix publishing
