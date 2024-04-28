@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [1.20.4-5.3.0.300] - 2024-04-28
 ### Changed
  - Update to latest gradle changes
+ - Update neoforge, fabric and forge versions
 
 ## [1.20.4-5.3.0.290] - 2024-03-29
 ### Changed
