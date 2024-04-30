@@ -1,9 +1,11 @@
 package info.u_team.u_team_core.util;
 
+import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.MinecraftServer;
@@ -70,7 +72,7 @@ public class LevelUtil {
 	 * @param defaultData Function for creating an instance and for the default instance
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
-	public static <T extends SavedData> T getSaveData(ServerLevel level, Function<CompoundTag, T> load, String name, Function<String, T> defaultData) {
+	public static <T extends SavedData> T getSaveData(ServerLevel level, BiFunction<CompoundTag, HolderLookup.Provider, T> load, String name, Function<String, T> defaultData) {
 		return getSaveData(level, name, load, () -> defaultData.apply(name));
 	}
 	
@@ -83,7 +85,7 @@ public class LevelUtil {
 	 * @param defaultData Supplier for creating an instance and for the default instance
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
-	public static <T extends SavedData> T getSaveData(ServerLevel level, String name, Function<CompoundTag, T> load, Supplier<T> defaultData) {
+	public static <T extends SavedData> T getSaveData(ServerLevel level, String name, BiFunction<CompoundTag, HolderLookup.Provider, T> load, Supplier<T> defaultData) {
 		return level.getDataStorage().computeIfAbsent(new Factory<T>(defaultData, load, DataFixTypes.SAVED_DATA_COMMAND_STORAGE /* TODO fixup data fix types when a solution is ready */), name);
 	}
 	
