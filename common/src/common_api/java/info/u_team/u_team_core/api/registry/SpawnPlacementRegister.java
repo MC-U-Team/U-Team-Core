@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 import info.u_team.u_team_core.util.ServiceUtil;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.SpawnPlacementType;
 import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.level.levelgen.Heightmap;
 
@@ -14,7 +15,7 @@ public interface SpawnPlacementRegister {
 		return Factory.INSTANCE.create();
 	}
 	
-	<T extends Mob> void register(Supplier<? extends EntityType<T>> supplier, SpawnPlacements.Type placementType, Heightmap.Types heightmap, SpawnPlacements.SpawnPredicate<T> predicate);
+	<T extends Mob> void register(Supplier<? extends EntityType<T>> supplier, SpawnPlacementType placementType, Heightmap.Types heightmap, SpawnPlacements.SpawnPredicate<T> predicate);
 	
 	void register();
 	
