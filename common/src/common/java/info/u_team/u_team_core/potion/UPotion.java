@@ -31,7 +31,7 @@ public class UPotion extends Potion {
 		final List<MobEffectInstance> effects = effectsSupplier.get();
 		if (!effects.isEmpty()) {
 			for (final MobEffectInstance effect : effects) {
-				if (effect.getEffect().isInstantenous()) {
+				if (effect.getEffect().value().isInstantenous()) {
 					return true;
 				}
 			}
