@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.blockentity;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -21,15 +22,13 @@ public abstract class UBlockEntity extends BlockEntity implements SyncedBlockEnt
 	}
 	
 	@Override
-	public void saveAdditional(CompoundTag tag) {
-		super.saveAdditional(tag);
-		saveNBT(tag);
+	public void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		saveNBT(tag, registries);
 	}
 	
 	@Override
-	public void load(CompoundTag tag) {
-		super.load(tag);
-		loadNBT(tag);
+	public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
+		loadNBT(tag, registries);
 	}
 	
 	/**
@@ -37,7 +36,7 @@ public abstract class UBlockEntity extends BlockEntity implements SyncedBlockEnt
 	 *
 	 * @param tag
 	 */
-	public void saveNBT(CompoundTag tag) {
+	public void saveNBT(CompoundTag tag, HolderLookup.Provider registries) {
 	}
 	
 	/**
@@ -45,13 +44,13 @@ public abstract class UBlockEntity extends BlockEntity implements SyncedBlockEnt
 	 *
 	 * @param tag
 	 */
-	public void loadNBT(CompoundTag tag) {
+	public void loadNBT(CompoundTag tag, HolderLookup.Provider registries) {
 	}
 	
 	// synchronization on chunk load
 	
 	@Override
-	public CompoundTag getUpdateTag() {
+	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		final CompoundTag tag = new CompoundTag();
 		sendChunkLoadData(tag);
 		return tag;
@@ -67,7 +66,7 @@ public abstract class UBlockEntity extends BlockEntity implements SyncedBlockEnt
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		final CompoundTag tag = new CompoundTag();
 		sendUpdateStateData(tag);
-		return ClientboundBlockEntityDataPacket.create(this, blockEntity -> tag);
+		return ClientboundBlockEntityDataPacket.create(this, (blockEntity, provider) -> tag);
 	}
 	
 	public void receiveUpdatePacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
@@ -106,7 +105,7 @@ interface SyncedBlockEntity {
 	 *
 	 * @param tag
 	 */
-	default void sendChunkLoadData(CompoundTag tag) {
+	default void sendChunkLoadData(CompoundTag tag) { // TODO add registry provider
 	}
 	
 	/**
