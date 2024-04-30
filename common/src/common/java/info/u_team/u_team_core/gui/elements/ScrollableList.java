@@ -54,8 +54,8 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 	}
 	
 	@Override
-	protected void renderList(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		super.renderList(guiGraphics, mouseX, mouseY, partialTick);
+	protected void renderListItems(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
+		super.renderListItems(guiGraphics, mouseX, mouseY, partialTick);
 		
 		if (renderTransparentBorder) {
 			guiGraphics.fillGradient(RenderType.guiOverlay(), getX(), getY(), getRight(), getY() + transparentBorderSize, 0xFF000000, 0, 0);
