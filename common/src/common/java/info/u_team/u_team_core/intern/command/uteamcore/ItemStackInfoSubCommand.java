@@ -9,12 +9,10 @@ import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.commands.Commands;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.NbtUtils;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.HoverEvent;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Style;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -38,14 +36,16 @@ public class ItemStackInfoSubCommand {
 			source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "block", createRegistryInfo(blockItem.getBlock(), Registries.BLOCK)), false);
 		}
 		
-		if (stack.hasTag()) {
-			final MutableComponent component = NbtUtils.toPrettyComponent(stack.getTag()).copy();
-			final Style style = component.getStyle() //
-					.withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(SUCCESS_TRANSLATION_STRING + "copy").withStyle(ChatFormatting.GREEN))) //
-					.withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, component.getString()));
-			component.setStyle(style);
-			source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "nbt", component), false);
-		}
+		// TODO evaluate how and what to show with components
+		// if (stack.hasTag()) {
+		// final MutableComponent component = NbtUtils.toPrettyComponent(stack.getTag()).copy();
+		// final Style style = component.getStyle() //
+		// .withHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.translatable(SUCCESS_TRANSLATION_STRING +
+		// "copy").withStyle(ChatFormatting.GREEN))) //
+		// .withClickEvent(new ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, component.getString()));
+		// component.setStyle(style);
+		// source.sendSuccess(() -> Component.translatable(SUCCESS_TRANSLATION_STRING + "nbt", component), false);
+		// }
 		return 0;
 	}
 	
