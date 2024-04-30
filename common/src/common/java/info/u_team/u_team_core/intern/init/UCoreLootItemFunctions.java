@@ -9,9 +9,9 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
 public class UCoreLootItemFunctions {
 	
-	public static final CommonRegister<LootItemFunctionType> LOOT_FUNCTIONS = CommonRegister.create(Registries.LOOT_FUNCTION_TYPE, UCoreReference.MODID);
+	public static final CommonRegister<LootItemFunctionType<?>> LOOT_FUNCTIONS = CommonRegister.create(Registries.LOOT_FUNCTION_TYPE, UCoreReference.MODID);
 	
-	public static final RegistryEntry<LootItemFunctionType> SET_BLOCKENTITY_NBT = LOOT_FUNCTIONS.register("set_blockentity_nbt", () -> new LootItemFunctionType(SetBlockEntityNBTLootItemFunction.CODEC));
+	public static final RegistryEntry<LootItemFunctionType<SetBlockEntityNBTLootItemFunction>> SET_BLOCKENTITY_NBT = LOOT_FUNCTIONS.register("set_blockentity_nbt", () -> new LootItemFunctionType<>(SetBlockEntityNBTLootItemFunction.CODEC));
 	
 	static void register() {
 		LOOT_FUNCTIONS.register();
