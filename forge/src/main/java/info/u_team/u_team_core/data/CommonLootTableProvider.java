@@ -8,7 +8,9 @@ import java.util.function.Supplier;
 
 import info.u_team.u_team_core.intern.loot_item_function.SetBlockEntityNBTLootItemFunction;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
+import net.minecraft.advancements.critereon.ItemEnchantmentsPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.advancements.critereon.ItemSubPredicates;
 import net.minecraft.advancements.critereon.MinMaxBounds;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -50,7 +52,7 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 	public CompletableFuture<?> run(CachedOutput cache) {
 		final List<CompletableFuture<?>> futures = new ArrayList<>();
 		register((location, lootTable) -> {
-			futures.add(CommonDataProvider.saveData(cache, LootTable.CODEC, lootTable, pathProvider.json(location)));
+			futures.add(saveData(cache, LootTable.DIRECT_CODEC, lootTable, pathProvider.json(location)));
 		});
 		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 	}
@@ -95,9 +97,9 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 						.setRolls(ConstantValue.exactly(1)) //
 						.add(LootItem.lootTableItem(block) //
 								.when(MatchTool.toolMatches(ItemPredicate.Builder.item() //
-										.hasEnchantment(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))) //
+										.withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))))) //
 								).otherwise(LootItem.lootTableItem(item) //
-										.apply(ApplyBonusCount.addOreBonusCount(Enchantments.BLOCK_FORTUNE)) //
+										.apply(ApplyBonusCount.addOreBonusCount(Enchantments.FORTUNE)) //
 										.apply(ApplyExplosionDecay.explosionDecay()))));
 	}
 	

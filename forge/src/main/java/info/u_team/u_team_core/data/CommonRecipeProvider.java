@@ -17,6 +17,7 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger.TriggerInstance;
 import net.minecraft.advancements.critereon.ItemPredicate;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput.PathProvider;
@@ -50,24 +51,31 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	
 	@Override
 	public CompletableFuture<?> run(CachedOutput cache) {
-		final Set<ResourceLocation> duplicates = Sets.newHashSet();
-		final List<CompletableFuture<?>> futures = new ArrayList<>();
-		final Function<Boolean, RecipeOutput> recipeOutputCreator = vanillaAdvancements -> new RecipeOutput() {
-			
-			@SuppressWarnings("removal")
-			@Override
-			public Builder advancement() {
-				return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
-			}
-			
-			@Override
-			public void accept(ResourceLocation id, Recipe<?> recipe, ResourceLocation advancementId, JsonElement advancement) {
-				generateRecipe(cache, id, recipe, advancementId, advancement, duplicates, vanillaAdvancements, futures);
-			}
-		};
-		register(recipeOutputCreator.apply(false));
-		registerVanilla(recipeOutputCreator.apply(true));
-		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+		return getGenerationData().lookupProviderFuture().thenCompose(lookupProvider -> {
+			final Set<ResourceLocation> duplicates = Sets.newHashSet();
+			final List<CompletableFuture<?>> futures = new ArrayList<>();
+			final Function<Boolean, RecipeOutput> recipeOutputCreator = vanillaAdvancements -> new RecipeOutput() {
+				
+				@SuppressWarnings("removal")
+				@Override
+				public Builder advancement() {
+					return Advancement.Builder.recipeAdvancement().parent(RecipeBuilder.ROOT_RECIPE_ADVANCEMENT);
+				}
+				
+				@Override
+				public void accept(ResourceLocation id, Recipe<?> recipe, ResourceLocation advancementId, JsonElement advancement) {
+					generateRecipe(cache, id, recipe, advancementId, advancement, duplicates, vanillaAdvancements, futures);
+				}
+				
+				@Override
+				public Provider registry() {
+					return lookupProvider;
+				}
+			};
+			register(recipeOutputCreator.apply(false));
+			registerVanilla(recipeOutputCreator.apply(true));
+			return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
+		});
 	}
 	
 	@Override
@@ -83,11 +91,11 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 			throw new IllegalStateException("Duplicate recipe " + id);
 		}
 		
-		futures.add(CommonDataProvider.saveData(cache, Recipe.CODEC, recipe, recipePathProvider.json(id)));
+		futures.add(saveData(cache, Recipe.CODEC, recipe, recipePathProvider.json(id)));
 		
 		if (advancement != null) {
 			final ResourceLocation advancementLocation = vanillaAdvancements ? advancementId : new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath());
-			futures.add(CommonDataProvider.saveData(cache, advancement, advancementPathProvider.json(advancementLocation)));
+			futures.add(saveData(cache, advancement, advancementPathProvider.json(advancementLocation)));
 		}
 	}
 	

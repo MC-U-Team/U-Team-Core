@@ -10,9 +10,7 @@ import java.util.stream.Collectors;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.mojang.serialization.JsonOps;
 
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
@@ -44,22 +42,18 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 	
 	@Override
 	public CompletableFuture<?> run(CachedOutput cache) {
-		final Map<String, JsonElement> serializers = new TreeMap<>();
+		final Map<String, IGlobalLootModifier> serializers = new TreeMap<>();
 		
 		register((modifier, instance) -> {
-			final JsonElement json = IGlobalLootModifier.DIRECT_CODEC.encodeStart(JsonOps.INSTANCE, instance).getOrThrow(false, error -> {
-			});
-			serializers.put(modifier, json);
+			serializers.put(modifier, instance);
 		});
 		
 		final List<CompletableFuture<?>> futures = new ArrayList<>();
 		final List<String> entries = serializers.entrySet().stream().map(entry -> {
 			final String name = entry.getKey();
-			final JsonElement json = entry.getValue();
-			
 			final ResourceLocation location = new ResourceLocation(modid(), name);
 			
-			futures.add(CommonDataProvider.saveData(cache, json, pathProvider.json(location)));
+			futures.add(saveData(cache, IGlobalLootModifier.DIRECT_CODEC, entry.getValue(), pathProvider.json(location)));
 			
 			return location;
 		}).map(ResourceLocation::toString).collect(Collectors.toList());
@@ -68,7 +62,7 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 		json.addProperty("replace", replace);
 		json.add("entries", GSON.toJsonTree(entries));
 		
-		futures.add(CommonDataProvider.saveData(cache, json, pathProvider.json(new ResourceLocation("forge", "global_loot_modifiers"))));
+		futures.add(saveData(cache, json, pathProvider.json(new ResourceLocation("forge", "global_loot_modifiers"))));
 		
 		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 	}
