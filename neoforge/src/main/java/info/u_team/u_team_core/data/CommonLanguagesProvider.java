@@ -55,7 +55,7 @@ public abstract class CommonLanguagesProvider implements DataProvider, CommonDat
 		return CompletableFuture.allOf(data.entrySet().stream().filter(entry -> !entry.getValue().isEmpty()).map(entry -> {
 			final String locale = entry.getKey();
 			final Map<String, String> map = entry.getValue();
-			return CommonDataProvider.saveData(cache, GSON.toJsonTree(map), pathProvider.json(new ResourceLocation(modid(), locale)));
+			return saveData(cache, GSON.toJsonTree(map), pathProvider.json(new ResourceLocation(modid(), locale)));
 		}).toArray(CompletableFuture[]::new));
 	}
 	
