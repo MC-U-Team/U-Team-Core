@@ -6,6 +6,7 @@ import java.util.concurrent.CompletableFuture;
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 
@@ -29,8 +30,8 @@ public interface CommonDataProvider<V> extends DataProvider {
 	
 	void register(V param);
 	
-	static <T> CompletableFuture<?> saveData(CachedOutput cachedOutput, Codec<T> codec, T value, Path path) {
-		return DataProvider.saveStable(cachedOutput, codec, value, path);
+	static <T> CompletableFuture<?> saveData(CachedOutput cachedOutput, HolderLookup.Provider registries, Codec<T> codec, T value, Path path) {
+		return DataProvider.saveStable(cachedOutput, registries, codec, value, path);
 	}
 	
 	static CompletableFuture<?> saveData(CachedOutput cachedOutput, JsonElement json, Path path) {
