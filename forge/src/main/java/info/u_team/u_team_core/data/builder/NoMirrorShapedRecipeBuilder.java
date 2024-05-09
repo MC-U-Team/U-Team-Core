@@ -4,7 +4,8 @@ import com.google.gson.JsonElement;
 
 import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
 import net.minecraft.advancements.Advancement.Builder;
-import net.minecraft.core.RegistryAccess;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
@@ -51,7 +52,7 @@ public class NoMirrorShapedRecipeBuilder extends ShapedRecipeBuilder {
 					}
 					
 					@Override
-					public ItemStack assemble(Container pContainer, RegistryAccess pRegistryAccess) {
+					public ItemStack assemble(Container pContainer, HolderLookup.Provider lookupProvider) {
 						return null;
 					}
 					
@@ -61,7 +62,7 @@ public class NoMirrorShapedRecipeBuilder extends ShapedRecipeBuilder {
 					}
 					
 					@Override
-					public ItemStack getResultItem(RegistryAccess pRegistryAccess) {
+					public ItemStack getResultItem(HolderLookup.Provider lookupProvider) {
 						return null;
 					}
 					
@@ -76,6 +77,11 @@ public class NoMirrorShapedRecipeBuilder extends ShapedRecipeBuilder {
 					}
 					
 				}, advancementId, advancement);
+			}
+			
+			@Override
+			public Provider registry() {
+				return output.registry();
 			}
 		}, location);
 	}
