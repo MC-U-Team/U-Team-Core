@@ -132,6 +132,8 @@ mixin {
 	debug.export = true
 }
 
+reobf.create("jar")
+
 tasks.register("multiLoaderTestJar", Jar) {
 	archiveClassifier = "multiloader_test"
 	
