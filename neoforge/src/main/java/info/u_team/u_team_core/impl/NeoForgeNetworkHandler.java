@@ -1,117 +1,81 @@
 package info.u_team.u_team_core.impl;
 
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.api.network.NetworkMessage;
 import info.u_team.u_team_core.impl.common.CommonNetworkHandler;
+import info.u_team.u_team_core.impl.common.CommonNetworkHandler.MessagePacketPayload.CustomPacketPayloadImpl;
 import info.u_team.u_team_core.util.registry.BusRegister;
 import net.minecraft.network.Connection;
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.protocol.PacketFlow;
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
-import net.neoforged.neoforge.network.registration.IPayloadRegistrar;
+import net.neoforged.neoforge.network.registration.HandlerThread;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
 public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 	
-	NeoForgeNetworkHandler(ResourceLocation channel, int protocolVersion) {
-		super(channel, protocolVersion);
+	NeoForgeNetworkHandler(ResourceLocation networkId, int protocolVersion) {
+		super(networkId, protocolVersion);
 	}
 	
 	@Override
-	protected <M> NetworkMessage<M> createMessage(MessageNetworkPayload<M> messagePayload) {
+	protected <M> NetworkMessage<M> createMessage(MessagePacketPayload<M> messagePayload) {
 		return new NeoForgeNetworkMessage<>(messagePayload);
 	}
 	
 	@Override
 	public void register() {
-		BusRegister.registerMod(bus -> bus.addListener(this::registerPayloadHandler));
+		BusRegister.registerMod(bus -> bus.addListener(this::registerPayloadHandlers));
 	}
 	
-	private void registerPayloadHandler(RegisterPayloadHandlerEvent event) {
-		final IPayloadRegistrar registrar = event.registrar(channel.getNamespace()).versioned(Integer.toString(protocolVersion));
+	private void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
+		final PayloadRegistrar registrar = event.registrar(Integer.toString(protocolVersion)).executesOn(HandlerThread.NETWORK);
 		
-		for (final MessageNetworkPayload<?> messagePayload : messages) {
-			registrar.play(messagePayload.getMessageId(), buffer -> new PacketPayload<>(messagePayload, buffer), handlers -> {
-				final Set<NetworkEnvironment> list = messagePayload.getPayload().getHandlerEnvironment();
+		for (final MessagePacketPayload<?> messagePayload : messages.values()) {
+			final MessagePacketPayload.CustomPacketPayloadImpl pl = null;
+			
+			registrar.playBidirectional(pl.type(), pl.streamCodec(), (payload, context) -> {
+				payload.ha
 				
-				if (list.contains(NetworkEnvironment.CLIENT)) {
-					handlers.client(PacketPayload::handle);
-				}
-				if (list.contains(NetworkEnvironment.SERVER)) {
-					handlers.server(PacketPayload::handle);
-				}
 			});
-		}
-	}
-	
-	private static class PacketPayload<M> implements CustomPacketPayload {
-		
-		private final MessageNetworkPayload<M> messagePayload;
-		private final M message;
-		
-		private PacketPayload(MessageNetworkPayload<M> messagePayload, FriendlyByteBuf buffer) {
-			this(messagePayload, messagePayload.read(buffer));
-		}
-		
-		private PacketPayload(MessageNetworkPayload<M> messagePayload, M message) {
-			this.messagePayload = messagePayload;
-			this.message = message;
-		}
-		
-		@Override
-		public void write(FriendlyByteBuf buffer) {
-			messagePayload.write(message, buffer);
-		}
-		
-		@Override
-		public ResourceLocation id() {
-			return messagePayload.getMessageId();
-		}
-		
-		private void handle(IPayloadContext context) {
-			messagePayload.handle(message, new NeoForgeNetworkContext(messagePayload.getMessageId(), context));
 		}
 	}
 	
 	public static class NeoForgeNetworkMessage<M> extends CommonNetworkMessage<M> {
 		
-		public static final PacketDistributor<Connection> CONNECTION = new PacketDistributor<>((distributor, connection) -> packet -> connection.send(packet), PacketFlow.CLIENTBOUND);
-		
-		NeoForgeNetworkMessage(MessageNetworkPayload<M> messagePayload) {
+		NeoForgeNetworkMessage(MessagePacketPayload<M> messagePayload) {
 			super(messagePayload);
 		}
 		
 		@Override
 		public void sendPacketToPlayer(ServerPlayer player, M message) {
-			PacketDistributor.PLAYER.with(player).send(new PacketPayload<>(messagePayload, message));
+			PacketDistributor.sendToPlayer(player, messagePayload);
 		}
 		
 		@Override
 		public void sendPacketToConnection(Connection connection, M message) {
-			CONNECTION.with(connection).send(new PacketPayload<>(messagePayload, message));
+			connection.send(null); // TODO
+			// CONNECTION.with(connection).send(new PacketPayload<>(messagePayload, message));
 		}
 		
 		@Override
 		public void sendPacketToServer(M message) {
-			PacketDistributor.SERVER.noArg().send(new PacketPayload<>(messagePayload, message));
+			PacketDistributor.sendToServer(messagePayload);
 		}
 	}
 	
-	public static class NeoForgeNetworkContext extends CommonNetworkContext {
+	public static class NeoForgeNetworkContext<M> extends CommonNetworkContext<M> {
 		
 		private final IPayloadContext context;
 		
-		NeoForgeNetworkContext(ResourceLocation messageId, IPayloadContext context) {
-			super(messageId);
+		NeoForgeNetworkContext(MessagePacketPayload<M> messagePayload, IPayloadContext context) {
+			super(messagePayload);
 			this.context = context;
 		}
 		
@@ -125,12 +89,12 @@ public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 		
 		@Override
 		public Player getPlayer() {
-			return context.player().orElse(null);
+			return context.player();
 		}
 		
 		@Override
 		protected CompletableFuture<Void> execute(Runnable runnable) {
-			return context.workHandler().submitAsync(runnable);
+			return context.enqueueWork(runnable);
 		}
 	}
 	
