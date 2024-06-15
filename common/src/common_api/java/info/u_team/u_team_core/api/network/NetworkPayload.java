@@ -2,15 +2,14 @@ package info.u_team.u_team_core.api.network;
 
 import java.util.Set;
 
-import net.minecraft.network.FriendlyByteBuf;
+import io.netty.buffer.ByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 
 public interface NetworkPayload<M> {
 	
-	Set<NetworkEnvironment> getHandlerEnvironment();
+	StreamCodec<? extends ByteBuf, M> streamCodec();
 	
-	void write(M message, FriendlyByteBuf buffer);
-	
-	M read(FriendlyByteBuf buffer);
+	Set<NetworkEnvironment> handlerEnvironment();
 	
 	void handle(M message, NetworkContext context);
 	

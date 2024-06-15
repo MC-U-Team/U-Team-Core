@@ -17,7 +17,7 @@ public interface NetworkHandler {
 	
 	void register();
 	
-	ResourceLocation getChannel();
+	ResourceLocation getNetworkId();
 	
 	int getProtocolVersion();
 	
