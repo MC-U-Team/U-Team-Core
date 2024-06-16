@@ -60,11 +60,13 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 	protected static class MessagePacketPayload<M> {
 		
 		private final CustomPacketPayload.Type<CustomPacketPayload> type;
+		private final StreamCodec<? super ByteBuf, CustomPacketPayload> streamCodec;
 		private final NetworkPayload<M> payload;
 		
 		private MessagePacketPayload(ResourceLocation messageId, NetworkPayload<M> payload) {
-			this.type = new CustomPacketPayload.Type<>(messageId);
 			this.payload = payload;
+			type = new CustomPacketPayload.Type<>(messageId);
+			streamCodec = CustomPacketPayloadImpl.cast(payload.streamCodec().map(CustomPacketPayloadImpl::new, CustomPacketPayloadImpl::getMessage));
 		}
 		
 		public NetworkPayload<M> payload() {
@@ -76,7 +78,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		}
 		
 		public StreamCodec<? super ByteBuf, CustomPacketPayload> streamCodec() {
-			return CustomPacketPayloadImpl.cast(payload.streamCodec().map(CustomPacketPayloadImpl::new, CustomPacketPayloadImpl::getMessage));
+			return streamCodec;
 		}
 		
 		public void handle(CustomPacketPayload customPacketPayload, NetworkContext context) {
