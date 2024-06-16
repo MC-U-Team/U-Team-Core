@@ -12,7 +12,6 @@ import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.api.network.NetworkMessage;
 import info.u_team.u_team_core.api.network.NetworkPayload;
-import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.NetworkUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.Connection;
@@ -68,7 +67,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			this.payload = payload;
 		}
 		
-		public NetworkPayload<M> getPayload() {
+		public NetworkPayload<M> payload() {
 			return payload;
 		}
 		
@@ -77,7 +76,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		}
 		
 		public StreamCodec<? super ByteBuf, CustomPacketPayload> streamCodec() {
-			return CastUtil.uncheckedCast(payload.streamCodec().map(CustomPacketPayloadImpl::new, CustomPacketPayloadImpl::getMessage)); // TODO .....
+			return CustomPacketPayloadImpl.cast(payload.streamCodec().map(CustomPacketPayloadImpl::new, CustomPacketPayloadImpl::getMessage));
 		}
 		
 		protected CustomPacketPayload createCustomPacketPayload(M message) {
@@ -123,6 +122,11 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			
 			private M getMessage() {
 				return message;
+			}
+			
+			@SuppressWarnings("unchecked")
+			private static StreamCodec<? super ByteBuf, CustomPacketPayload> cast(StreamCodec<? super ByteBuf, ? extends CustomPacketPayload> streamCodec) {
+				return (StreamCodec<? super ByteBuf, CustomPacketPayload>) streamCodec;
 			}
 		}
 	}
