@@ -58,11 +58,11 @@ public class ForgeNetworkHandler extends CommonNetworkHandler {
 		lastMessage.build();
 	}
 	
-	public static class ForgeNetworkContext<M> extends CommonNetworkContext<M> {
+	private static class ForgeNetworkContext<M> extends CommonNetworkContext<M> {
 		
 		private final CustomPayloadEvent.Context context;
 		
-		ForgeNetworkContext(MessagePacketPayload<M> messagePayload, CustomPayloadEvent.Context context) {
+		private ForgeNetworkContext(MessagePacketPayload<M> messagePayload, CustomPayloadEvent.Context context) {
 			super(messagePayload);
 			this.context = context;
 		}

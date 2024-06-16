@@ -40,13 +40,13 @@ public class FabricNetworkHandler extends CommonNetworkHandler {
 		}
 	}
 	
-	public static class FabricNetworkContext<M> extends CommonNetworkContext<M> {
+	private static class FabricNetworkContext<M> extends CommonNetworkContext<M> {
 		
 		private final NetworkEnvironment environment;
 		private final Player player;
 		private final BlockableEventLoop<?> executor;
 		
-		FabricNetworkContext(MessagePacketPayload<M> messagePayload, NetworkEnvironment environment, Player player, BlockableEventLoop<?> executor) {
+		private FabricNetworkContext(MessagePacketPayload<M> messagePayload, NetworkEnvironment environment, Player player, BlockableEventLoop<?> executor) {
 			super(messagePayload);
 			this.environment = environment;
 			this.player = player;

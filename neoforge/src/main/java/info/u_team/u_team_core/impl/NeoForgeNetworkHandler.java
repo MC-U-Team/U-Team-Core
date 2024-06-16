@@ -46,11 +46,11 @@ public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 		}
 	}
 	
-	public static class NeoForgeNetworkContext<M> extends CommonNetworkContext<M> {
+	private static class NeoForgeNetworkContext<M> extends CommonNetworkContext<M> {
 		
 		private final IPayloadContext context;
 		
-		NeoForgeNetworkContext(MessagePacketPayload<M> messagePayload, IPayloadContext context) {
+		private NeoForgeNetworkContext(MessagePacketPayload<M> messagePayload, IPayloadContext context) {
 			super(messagePayload);
 			this.context = context;
 		}
