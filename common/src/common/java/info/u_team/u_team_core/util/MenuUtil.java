@@ -5,7 +5,7 @@ import java.util.OptionalInt;
 import java.util.function.Consumer;
 
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
-import info.u_team.u_team_core.intern.network.OpenMenuScreenPayload.OpenMenuScreenMessage;
+import info.u_team.u_team_core.intern.network.OpenMenuScreenMessage;
 import io.netty.buffer.Unpooled;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
@@ -34,9 +34,14 @@ public class MenuUtil {
 			return OptionalInt.empty();
 		}
 		
-		final FriendlyByteBuf extraData = new FriendlyByteBuf(Unpooled.buffer());
-		data.accept(extraData);
-		extraData.readerIndex(0);
+		final FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer()); // TODO move to RegistryFriendlyByteBuf or direct StreamCodecs
+		final byte[] extraData;
+		try {
+			data.accept(buffer);
+			extraData = buffer.array(); // Right function? can be empty data when initial buffer is too big
+		} finally {
+			buffer.release();
+		}
 		UCoreNetwork.OPEN_MENU_SCREEN_MESSAGE.sendToPlayer(player, new OpenMenuScreenMessage(menu.containerId, menu.getType(), menuProvider.getDisplayName(), extraData));
 		
 		player.initMenu(menu);
