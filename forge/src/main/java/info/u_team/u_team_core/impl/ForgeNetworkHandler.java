@@ -10,7 +10,6 @@ import info.u_team.u_team_core.api.network.NetworkHandlerEnvironment;
 import info.u_team.u_team_core.impl.common.CommonNetworkHandler;
 import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.EnvironmentUtil;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
@@ -45,6 +44,7 @@ public class ForgeNetworkHandler extends CommonNetworkHandler {
 			final NetworkHandlerEnvironment environment = messagePayload.payload().handlerEnvironment();
 			final BiConsumer<CustomPacketPayload, CustomPayloadEvent.Context> handler = (payload, context) -> {
 				messagePayload.handle(payload, new ForgeNetworkContext<>(messagePayload, context));
+				context.setPacketHandled(true);
 			};
 			
 			if (environment == NetworkHandlerEnvironment.CLIENT) {
@@ -93,7 +93,7 @@ public class ForgeNetworkHandler extends CommonNetworkHandler {
 		}
 	}
 	
-	private StreamCodec<RegistryFriendlyByteBuf, CustomPacketPayload> cast(StreamCodec<? super ByteBuf, CustomPacketPayload> codec) {
+	private StreamCodec<RegistryFriendlyByteBuf, CustomPacketPayload> cast(StreamCodec<? super RegistryFriendlyByteBuf, CustomPacketPayload> codec) {
 		return CastUtil.uncheckedCast(codec);
 	}
 	

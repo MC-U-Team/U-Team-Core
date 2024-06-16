@@ -13,8 +13,8 @@ import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.api.network.NetworkMessage;
 import info.u_team.u_team_core.api.network.NetworkPayload;
 import info.u_team.u_team_core.util.NetworkUtil;
-import io.netty.buffer.ByteBuf;
 import net.minecraft.network.Connection;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
@@ -60,7 +60,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 	protected static class MessagePacketPayload<M> {
 		
 		private final CustomPacketPayload.Type<CustomPacketPayload> type;
-		private final StreamCodec<? super ByteBuf, CustomPacketPayload> streamCodec;
+		private final StreamCodec<? super RegistryFriendlyByteBuf, CustomPacketPayload> streamCodec;
 		private final NetworkPayload<M> payload;
 		
 		private MessagePacketPayload(ResourceLocation messageId, NetworkPayload<M> payload) {
@@ -77,7 +77,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			return type;
 		}
 		
-		public StreamCodec<? super ByteBuf, CustomPacketPayload> streamCodec() {
+		public StreamCodec<? super RegistryFriendlyByteBuf, CustomPacketPayload> streamCodec() {
 			return streamCodec;
 		}
 		
@@ -131,8 +131,8 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			}
 			
 			@SuppressWarnings("unchecked")
-			private static StreamCodec<? super ByteBuf, CustomPacketPayload> cast(StreamCodec<? super ByteBuf, ? extends CustomPacketPayload> streamCodec) {
-				return (StreamCodec<? super ByteBuf, CustomPacketPayload>) streamCodec;
+			private static StreamCodec<? super RegistryFriendlyByteBuf, CustomPacketPayload> cast(StreamCodec<? super RegistryFriendlyByteBuf, ? extends CustomPacketPayload> streamCodec) {
+				return (StreamCodec<? super RegistryFriendlyByteBuf, CustomPacketPayload>) streamCodec;
 			}
 			
 			@SuppressWarnings("unchecked")
