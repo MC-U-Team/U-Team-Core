@@ -38,7 +38,9 @@ public class MenuUtil {
 		final byte[] extraData;
 		try {
 			data.accept(buffer);
-			extraData = buffer.array(); // Right function? can be empty data when initial buffer is too big
+			buffer.readerIndex(0);
+			extraData = new byte[buffer.readableBytes()];
+			buffer.readBytes(extraData);
 		} finally {
 			buffer.release();
 		}
