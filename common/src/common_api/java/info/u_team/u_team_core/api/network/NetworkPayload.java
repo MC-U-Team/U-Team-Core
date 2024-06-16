@@ -5,7 +5,7 @@ import net.minecraft.network.codec.StreamCodec;
 
 public interface NetworkPayload<M> {
 	
-	StreamCodec<? extends ByteBuf, M> streamCodec();
+	StreamCodec<? super ByteBuf, M> streamCodec();
 	
 	NetworkHandlerEnvironment handlerEnvironment();
 	

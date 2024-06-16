@@ -12,6 +12,7 @@ import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.api.network.NetworkMessage;
 import info.u_team.u_team_core.api.network.NetworkPayload;
+import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.NetworkUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.Connection;
@@ -59,7 +60,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 	
 	protected static class MessagePacketPayload<M> {
 		
-		private final CustomPacketPayload.Type<CustomPacketPayloadImpl> type;
+		private final CustomPacketPayload.Type<CustomPacketPayload> type;
 		private final NetworkPayload<M> payload;
 		
 		private MessagePacketPayload(ResourceLocation messageId, NetworkPayload<M> payload) {
@@ -71,12 +72,12 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			return payload;
 		}
 		
-		public CustomPacketPayload.Type<CustomPacketPayloadImpl> type() {
+		public CustomPacketPayload.Type<CustomPacketPayload> type() {
 			return type;
 		}
 		
-		public StreamCodec<? extends ByteBuf, CustomPacketPayloadImpl> streamCodec() {
-			return payload.streamCodec().map(CustomPacketPayloadImpl::new, CustomPacketPayloadImpl::getMessage);
+		public StreamCodec<? super ByteBuf, CustomPacketPayload> streamCodec() {
+			return CastUtil.uncheckedCast(payload.streamCodec().map(CustomPacketPayloadImpl::new, CustomPacketPayloadImpl::getMessage)); // TODO .....
 		}
 		
 		protected CustomPacketPayload createCustomPacketPayload(M message) {
@@ -107,7 +108,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			}
 		}
 		
-		private class CustomPacketPayloadImpl implements CustomPacketPayload {
+		public class CustomPacketPayloadImpl implements CustomPacketPayload {
 			
 			private final M message;
 			
@@ -116,7 +117,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			}
 			
 			@Override
-			public CustomPacketPayload.Type<CustomPacketPayloadImpl> type() {
+			public CustomPacketPayload.Type<? extends CustomPacketPayload> type() {
 				return type;
 			}
 			
