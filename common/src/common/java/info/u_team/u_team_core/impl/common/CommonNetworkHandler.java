@@ -79,11 +79,15 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			return CustomPacketPayloadImpl.cast(payload.streamCodec().map(CustomPacketPayloadImpl::new, CustomPacketPayloadImpl::getMessage));
 		}
 		
-		protected CustomPacketPayload createCustomPacketPayload(M message) {
+		public void handle(CustomPacketPayload customPacketPayload, NetworkContext context) {
+			handle(CustomPacketPayloadImpl.cast(customPacketPayload).getMessage(), context);
+		}
+		
+		private CustomPacketPayload createCustomPacketPayload(M message) {
 			return new CustomPacketPayloadImpl(message);
 		}
 		
-		protected boolean canWrite(NetworkEnvironment handlerEnvironment) {
+		private boolean canWrite(NetworkEnvironment handlerEnvironment) {
 			if (!payload.handlerEnvironment().isValid(handlerEnvironment)) {
 				LOGGER.error("Failed to write message to channel {} because not handler is defined on the {} environment. Expected {} environment", type.id(), handlerEnvironment, payload.handlerEnvironment());
 				return false;
@@ -91,7 +95,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			return true;
 		}
 		
-		protected void handle(M message, NetworkContext context) {
+		private void handle(M message, NetworkContext context) {
 			if (message == null) {
 				return;
 			}
@@ -107,7 +111,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			}
 		}
 		
-		public class CustomPacketPayloadImpl implements CustomPacketPayload {
+		private class CustomPacketPayloadImpl implements CustomPacketPayload {
 			
 			private final M message;
 			
@@ -127,6 +131,11 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			@SuppressWarnings("unchecked")
 			private static StreamCodec<? super ByteBuf, CustomPacketPayload> cast(StreamCodec<? super ByteBuf, ? extends CustomPacketPayload> streamCodec) {
 				return (StreamCodec<? super ByteBuf, CustomPacketPayload>) streamCodec;
+			}
+			
+			@SuppressWarnings("unchecked")
+			private static CustomPacketPayloadImpl cast(CustomPacketPayload customPacketPayload) {
+				return (CustomPacketPayloadImpl) customPacketPayload;
 			}
 		}
 	}

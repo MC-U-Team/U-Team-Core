@@ -4,17 +4,15 @@ import java.util.concurrent.CompletableFuture;
 
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
-import info.u_team.u_team_core.api.network.NetworkMessage;
+import info.u_team.u_team_core.api.network.NetworkHandlerEnvironment;
 import info.u_team.u_team_core.impl.common.CommonNetworkHandler;
-import info.u_team.u_team_core.impl.common.CommonNetworkHandler.MessagePacketPayload.CustomPacketPayloadImpl;
 import info.u_team.u_team_core.util.registry.BusRegister;
-import net.minecraft.network.Connection;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.neoforged.neoforge.network.handling.IPayloadHandler;
 import net.neoforged.neoforge.network.registration.HandlerThread;
 import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 
@@ -22,11 +20,6 @@ public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 	
 	NeoForgeNetworkHandler(ResourceLocation networkId, int protocolVersion) {
 		super(networkId, protocolVersion);
-	}
-	
-	@Override
-	protected <M> NetworkMessage<M> createMessage(MessagePacketPayload<M> messagePayload) {
-		return new NeoForgeNetworkMessage<>(messagePayload);
 	}
 	
 	@Override
@@ -38,35 +31,18 @@ public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 		final PayloadRegistrar registrar = event.registrar(Integer.toString(protocolVersion)).executesOn(HandlerThread.NETWORK);
 		
 		for (final MessagePacketPayload<?> messagePayload : messages.values()) {
-			final MessagePacketPayload.CustomPacketPayloadImpl pl = null;
+			final NetworkHandlerEnvironment environment = messagePayload.payload().handlerEnvironment();
+			final IPayloadHandler<CustomPacketPayload> handler = (payload, context) -> {
+				messagePayload.handle(payload, new NeoForgeNetworkContext<>(messagePayload, context));
+			};
 			
-			registrar.playBidirectional(pl.type(), pl.streamCodec(), (payload, context) -> {
-				payload.ha
-				
-			});
-		}
-	}
-	
-	public static class NeoForgeNetworkMessage<M> extends CommonNetworkMessage<M> {
-		
-		NeoForgeNetworkMessage(MessagePacketPayload<M> messagePayload) {
-			super(messagePayload);
-		}
-		
-		@Override
-		public void sendPacketToPlayer(ServerPlayer player, M message) {
-			PacketDistributor.sendToPlayer(player, messagePayload);
-		}
-		
-		@Override
-		public void sendPacketToConnection(Connection connection, M message) {
-			connection.send(null); // TODO
-			// CONNECTION.with(connection).send(new PacketPayload<>(messagePayload, message));
-		}
-		
-		@Override
-		public void sendPacketToServer(M message) {
-			PacketDistributor.sendToServer(messagePayload);
+			if (environment == NetworkHandlerEnvironment.CLIENT) {
+				registrar.playToClient(messagePayload.type(), messagePayload.streamCodec(), handler);
+			} else if (environment == NetworkHandlerEnvironment.SERVER) {
+				registrar.playToServer(messagePayload.type(), messagePayload.streamCodec(), handler);
+			} else if (environment == NetworkHandlerEnvironment.BOTH) {
+				registrar.playBidirectional(messagePayload.type(), messagePayload.streamCodec(), handler);
+			}
 		}
 	}
 	
