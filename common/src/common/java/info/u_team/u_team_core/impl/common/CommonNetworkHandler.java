@@ -12,6 +12,7 @@ import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
 import info.u_team.u_team_core.api.network.NetworkMessage;
 import info.u_team.u_team_core.api.network.NetworkPayload;
+import info.u_team.u_team_core.util.NetworkUtil;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.network.Connection;
 import net.minecraft.network.codec.StreamCodec;
@@ -34,23 +35,16 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		messages = new HashMap<>();
 	}
 	
-	protected abstract <M> NetworkMessage<M> createMessage(MessagePacketPayload<M> messagePayload);
-	
 	@Override
 	public <M> NetworkMessage<M> register(String id, NetworkPayload<M> payload) {
 		final ResourceLocation messageId = networkId.withSuffix("/" + id);
-		
-		if (payload.handlerEnvironment().isEmpty()) {
-			throw new IllegalArgumentException("Handler environment cannot be empty for message id " + messageId);
-		}
-		
 		final MessagePacketPayload<M> messagePayload = new MessagePacketPayload<>(messageId, payload);
 		
 		if (messages.put(messagePayload.type, messagePayload) != null) {
 			throw new IllegalArgumentException("Duplicate message id " + messageId);
 		}
 		
-		return createMessage(messagePayload);
+		return new CommonNetworkMessage<M>(messagePayload);
 	}
 	
 	@Override
@@ -68,9 +62,13 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		private final CustomPacketPayload.Type<CustomPacketPayloadImpl> type;
 		private final NetworkPayload<M> payload;
 		
-		protected MessagePacketPayload(ResourceLocation messageId, NetworkPayload<M> payload) {
+		private MessagePacketPayload(ResourceLocation messageId, NetworkPayload<M> payload) {
 			this.type = new CustomPacketPayload.Type<>(messageId);
 			this.payload = payload;
+		}
+		
+		public NetworkPayload<M> getPayload() {
+			return payload;
 		}
 		
 		public CustomPacketPayload.Type<CustomPacketPayloadImpl> type() {
@@ -81,12 +79,12 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			return payload.streamCodec().map(CustomPacketPayloadImpl::new, CustomPacketPayloadImpl::getMessage);
 		}
 		
-		public CustomPacketPayload createPayload(M message) {
+		protected CustomPacketPayload createCustomPacketPayload(M message) {
 			return new CustomPacketPayloadImpl(message);
 		}
 		
 		protected boolean canWrite(NetworkEnvironment handlerEnvironment) {
-			if (!payload.handlerEnvironment().contains(handlerEnvironment)) {
+			if (!payload.handlerEnvironment().isValid(handlerEnvironment)) {
 				LOGGER.error("Failed to write message to channel {} because not handler is defined on the {} environment. Expected {} environment", type.id(), handlerEnvironment, payload.handlerEnvironment());
 				return false;
 			}
@@ -98,7 +96,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 				return;
 			}
 			final NetworkEnvironment current = context.getEnvironment();
-			if (!payload.handlerEnvironment().contains(current)) {
+			if (!payload.handlerEnvironment().isValid(current)) {
 				LOGGER.error("Message {} in channel {} cannot be handled on the {} environment. Expected {} environment", message.getClass(), type.id(), current, payload.handlerEnvironment());
 				return;
 			}
@@ -128,43 +126,37 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		}
 	}
 	
-	protected static abstract class CommonNetworkMessage<M> implements NetworkMessage<M> {
+	private static class CommonNetworkMessage<M> implements NetworkMessage<M> {
 		
-		protected final MessagePacketPayload<M> messagePayload;
+		private final MessagePacketPayload<M> messagePayload;
 		
-		protected CommonNetworkMessage(MessagePacketPayload<M> messagePayload) {
+		private CommonNetworkMessage(MessagePacketPayload<M> messagePayload) {
 			this.messagePayload = messagePayload;
 		}
 		
-		protected abstract void sendPacketToPlayer(ServerPlayer player, M message);
-		
-		protected abstract void sendPacketToConnection(Connection connection, M message);
-		
-		protected abstract void sendPacketToServer(M message);
-		
 		@Override
 		public CustomPacketPayload packet(M message) {
-			return messagePayload.createPayload(message);
+			return messagePayload.createCustomPacketPayload(message);
 		}
 		
 		@Override
 		public final void sendToPlayer(ServerPlayer player, M message) {
 			if (messagePayload.canWrite(NetworkEnvironment.CLIENT)) {
-				sendPacketToPlayer(player, message);
+				NetworkUtil.sendToPlayer(player, packet(message));
 			}
 		}
 		
 		@Override
 		public final void sendToConnection(Connection connection, M message) {
 			if (messagePayload.canWrite(NetworkEnvironment.CLIENT)) {
-				sendPacketToConnection(connection, message);
+				NetworkUtil.sendToConnection(connection, packet(message));
 			}
 		}
 		
 		@Override
 		public final void sendToServer(M message) {
 			if (messagePayload.canWrite(NetworkEnvironment.SERVER)) {
-				sendPacketToServer(message);
+				NetworkUtil.sendToServer(packet(message));
 			}
 		}
 		
