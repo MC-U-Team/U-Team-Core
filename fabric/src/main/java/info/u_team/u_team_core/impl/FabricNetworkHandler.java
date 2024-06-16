@@ -1,23 +1,17 @@
 package info.u_team.u_team_core.impl;
 
-import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 import info.u_team.u_team_core.api.Platform.Environment;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.network.NetworkHandler;
-import info.u_team.u_team_core.api.network.NetworkMessage;
+import info.u_team.u_team_core.api.network.NetworkHandlerEnvironment;
 import info.u_team.u_team_core.impl.common.CommonNetworkHandler;
-import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.EnvironmentUtil;
-import io.netty.buffer.Unpooled;
-import net.fabricmc.api.EnvType;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
+import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.network.Connection;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.util.thread.BlockableEventLoop;
 import net.minecraft.world.entity.player.Player;
 
@@ -28,64 +22,32 @@ public class FabricNetworkHandler extends CommonNetworkHandler {
 	}
 	
 	@Override
-	protected <M> NetworkMessage<M> createMessage(MessageNetworkPayload<M> messagePayload) {
-		return new FabricNetworkMessage<>(messagePayload);
-	}
-	
-	@Override
 	public void register() {
-		for (final MessageNetworkPayload<?> messagePayload : messages) {
-			final Set<NetworkEnvironment> list = messagePayload.getPayload().getHandlerEnvironment();
+		for (final MessagePacketPayload<?> messagePayload : messages.values()) {
+			final NetworkHandlerEnvironment environment = messagePayload.payload().handlerEnvironment();
 			
-			if (list.contains(NetworkEnvironment.CLIENT)) {
+			if (environment.isValid(NetworkEnvironment.CLIENT)) {
+				PayloadTypeRegistry.playS2C().register(messagePayload.type(), messagePayload.streamCodec());
 				EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.registerReceiver(messagePayload));
 			}
-			if (list.contains(NetworkEnvironment.SERVER)) {
-				ServerPlayNetworking.registerGlobalReceiver(messagePayload.getMessageId(), (server, player, handler, buffer, responseSender) -> {
-					final Object message = messagePayload.read(buffer);
-					messagePayload.handle(CastUtil.uncheckedCast(message), new FabricNetworkContext(messagePayload.getMessageId(), NetworkEnvironment.SERVER, player, server));
+			if (environment.isValid(NetworkEnvironment.SERVER)) {
+				PayloadTypeRegistry.playC2S().register(messagePayload.type(), messagePayload.streamCodec());
+				ServerPlayNetworking.registerGlobalReceiver(messagePayload.type(), (payload, context) -> {
+					messagePayload.handle(payload, new FabricNetworkContext<>(messagePayload, NetworkEnvironment.SERVER, context.player(), context.player().server));
+					context.player().getServer();
 				});
 			}
 		}
 	}
 	
-	public static class FabricNetworkMessage<M> extends CommonNetworkMessage<M> {
-		
-		FabricNetworkMessage(MessageNetworkPayload<M> messagePayload) {
-			super(messagePayload);
-		}
-		
-		@Override
-		public void sendPacketToPlayer(ServerPlayer player, M message) {
-			ServerPlayNetworking.send(player, messagePayload.getMessageId(), writeMessage(message));
-		}
-		
-		@Override
-		public void sendPacketToConnection(Connection connection, M message) {
-			connection.send(ServerPlayNetworking.createS2CPacket(messagePayload.getMessageId(), writeMessage(message)));
-		}
-		
-		@Override
-		public void sendPacketToServer(M message) {
-			EnvironmentUtil.runWhen(Environment.CLIENT, () -> () -> Client.send(messagePayload.getMessageId(), writeMessage(message)));
-		}
-		
-		private FriendlyByteBuf writeMessage(M message) {
-			final FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer());
-			messagePayload.write(message, buffer);
-			return buffer;
-		}
-		
-	}
-	
-	public static class FabricNetworkContext extends CommonNetworkContext {
+	public static class FabricNetworkContext<M> extends CommonNetworkContext<M> {
 		
 		private final NetworkEnvironment environment;
 		private final Player player;
 		private final BlockableEventLoop<?> executor;
 		
-		FabricNetworkContext(ResourceLocation messageId, NetworkEnvironment environment, Player player, BlockableEventLoop<?> executor) {
-			super(messageId);
+		FabricNetworkContext(MessagePacketPayload<M> messagePayload, NetworkEnvironment environment, Player player, BlockableEventLoop<?> executor) {
+			super(messagePayload);
 			this.environment = environment;
 			this.player = player;
 			this.executor = executor;
@@ -112,18 +74,12 @@ public class FabricNetworkHandler extends CommonNetworkHandler {
 		}
 	}
 	
-	@net.fabricmc.api.Environment(EnvType.CLIENT)
 	private class Client {
 		
-		private static void send(ResourceLocation messageId, FriendlyByteBuf buffer) {
-			ClientPlayNetworking.send(messageId, buffer);
-		}
-		
-		private static void registerReceiver(MessageNetworkPayload<?> messagePayload) {
-			ClientPlayNetworking.registerGlobalReceiver(messagePayload.getMessageId(), (client, packetListener, buffer, responseSender) -> {
-				final Object message = messagePayload.read(buffer);
-				
-				messagePayload.handle(CastUtil.uncheckedCast(message), new FabricNetworkContext(messagePayload.getMessageId(), NetworkEnvironment.CLIENT, client.player, client));
+		private static void registerReceiver(MessagePacketPayload<?> messagePayload) {
+			ClientPlayNetworking.registerGlobalReceiver(messagePayload.type(), (payload, context) -> {
+				messagePayload.handle(payload, new FabricNetworkContext<>(messagePayload, NetworkEnvironment.CLIENT, context.player(), context.client()));
+				context.player().getServer();
 			});
 		}
 	}
