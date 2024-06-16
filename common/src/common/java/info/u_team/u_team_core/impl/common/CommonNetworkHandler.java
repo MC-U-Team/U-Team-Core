@@ -116,7 +116,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			}
 			
 			@Override
-			public Type<CustomPacketPayloadImpl> type() {
+			public CustomPacketPayload.Type<CustomPacketPayloadImpl> type() {
 				return type;
 			}
 			
