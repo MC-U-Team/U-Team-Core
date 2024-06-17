@@ -10,7 +10,6 @@ import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.gui.screens.MenuScreens.ScreenConstructor;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.inventory.MenuAccess;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -24,12 +23,10 @@ import net.minecraft.world.inventory.MenuType;
 
 public record OpenMenuScreenMessage(int containerId, MenuType<?> type, Component title, byte[] extraData) {
 	
-	private static final Registry<MenuType<?>> REGISTRY = RegistryUtil.getBuiltInRegistry(Registries.MENU);
-	
 	public static final StreamCodec<RegistryFriendlyByteBuf, OpenMenuScreenMessage> STREAM_CODEC = StreamCodec.composite( //
 			ByteBufCodecs.VAR_INT, OpenMenuScreenMessage::containerId, //
-			ByteBufCodecs.idMapper(REGISTRY), OpenMenuScreenMessage::type, //
-			ComponentSerialization.STREAM_CODEC, OpenMenuScreenMessage::title, //
+			ByteBufCodecs.registry(Registries.MENU), OpenMenuScreenMessage::type, //
+			ComponentSerialization.TRUSTED_STREAM_CODEC, OpenMenuScreenMessage::title, //
 			ByteBufCodecs.BYTE_ARRAY, OpenMenuScreenMessage::extraData, //
 			OpenMenuScreenMessage::new);
 	
@@ -49,7 +46,7 @@ public record OpenMenuScreenMessage(int containerId, MenuType<?> type, Component
 				}
 				final ScreenConstructor<AbstractContainerMenu, ?> constructor = CastUtil.uncheckedCast(MenuScreens.getConstructor(type));
 				if (constructor == null) {
-					MenuScreens.LOGGER.warn("Failed to create screen for menu type: {}", REGISTRY.getKey(type));
+					MenuScreens.LOGGER.warn("Failed to create screen for menu type: {}", RegistryUtil.getBuiltInRegistry(Registries.MENU).getKey(type));
 					return;
 				}
 				

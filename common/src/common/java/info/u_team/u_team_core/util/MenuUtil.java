@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
 import info.u_team.u_team_core.intern.network.OpenMenuScreenMessage;
-import io.netty.buffer.Unpooled;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -34,16 +33,8 @@ public class MenuUtil {
 			return OptionalInt.empty();
 		}
 		
-		final FriendlyByteBuf buffer = new FriendlyByteBuf(Unpooled.buffer()); // TODO move to RegistryFriendlyByteBuf or direct StreamCodecs
-		final byte[] extraData;
-		try {
-			data.accept(buffer);
-			buffer.readerIndex(0);
-			extraData = new byte[buffer.readableBytes()];
-			buffer.readBytes(extraData);
-		} finally {
-			buffer.release();
-		}
+		final byte[] extraData = ByteBufUtil.writeCustomDataToByteArray(data); // TODO move to RegistryFriendlyByteBuf or direct StreamCodecs
+		
 		UCoreNetwork.OPEN_MENU_SCREEN_MESSAGE.sendToPlayer(player, new OpenMenuScreenMessage(menu.containerId, menu.getType(), menuProvider.getDisplayName(), extraData));
 		
 		player.initMenu(menu);

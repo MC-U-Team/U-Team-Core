@@ -7,8 +7,9 @@ import java.util.function.BiConsumer;
 import info.u_team.u_team_core.api.network.NetworkEnvironment;
 import info.u_team.u_team_core.api.sync.DataHolder;
 import info.u_team.u_team_core.intern.init.UCoreNetwork;
-import info.u_team.u_team_core.intern.network.DataHolderMenuPayload.DataHolderMenuMessage;
+import info.u_team.u_team_core.intern.network.DataHolderMenuMessage;
 import info.u_team.u_team_core.screen.UContainerMenuScreen;
+import info.u_team.u_team_core.util.ByteBufUtil;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.MenuType;
@@ -74,7 +75,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 		if (getSynchronizerPlayer() != null) {
 			for (int index = 0; index < dataHolderToClient.size(); index++) {
 				final DataHolder dataHolder = dataHolderToClient.get(index);
-				UCoreNetwork.DATA_HOLDER_MENU_MESSAGE.sendToPlayer(getSynchronizerPlayer(), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
+				UCoreNetwork.DATA_HOLDER_MENU_MESSAGE.sendToPlayer(getSynchronizerPlayer(), new DataHolderMenuMessage(containerId, index, ByteBufUtil.releaseToByteArray(dataHolder.get())));
 			}
 		}
 	}
@@ -88,7 +89,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 		
 		if (getSynchronizerPlayer() != null) {
 			checkForChanges(dataHolderToClient, (index, dataHolder) -> {
-				UCoreNetwork.DATA_HOLDER_MENU_MESSAGE.sendToPlayer(getSynchronizerPlayer(), new DataHolderMenuMessage(containerId, index, dataHolder.get()));
+				UCoreNetwork.DATA_HOLDER_MENU_MESSAGE.sendToPlayer(getSynchronizerPlayer(), new DataHolderMenuMessage(containerId, index, ByteBufUtil.releaseToByteArray(dataHolder.get())));
 			});
 		}
 	}
@@ -102,7 +103,7 @@ public abstract class UContainerMenu extends FluidContainerMenu {
 	 */
 	public void broadcastChangesToServer() {
 		checkForChanges(dataHolderToServer, (index, dataHolder) -> {
-			UCoreNetwork.DATA_HOLDER_MENU_MESSAGE.sendToServer(new DataHolderMenuMessage(containerId, index, dataHolder.get()));
+			UCoreNetwork.DATA_HOLDER_MENU_MESSAGE.sendToServer(new DataHolderMenuMessage(containerId, index, ByteBufUtil.releaseToByteArray(dataHolder.get())));
 		});
 	}
 	
