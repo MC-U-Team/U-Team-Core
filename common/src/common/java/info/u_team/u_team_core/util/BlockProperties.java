@@ -2,7 +2,6 @@ package info.u_team.u_team_core.util;
 
 import java.util.List;
 
-import info.u_team.u_team_core.intern.mixin.common.accessor.BlockPropertiesAccessor;
 import net.minecraft.world.level.block.state.BlockBehaviour.Properties;
 
 public class BlockProperties extends Properties {
@@ -35,10 +34,7 @@ public class BlockProperties extends Properties {
 		instrument = properties.instrument;
 		replaceable = properties.replaceable;
 		isValidSpawn = properties.isValidSpawn;
-		// Use mixin here
-		((BlockPropertiesAccessor) this).setRedstoneConductor(((BlockPropertiesAccessor) properties).isRedstoneConductor());
-		// TODO Add back when neoforge is not broken anymore
-		// isRedstoneConductor = properties.isRedstoneConductor;
+		isRedstoneConductor = properties.isRedstoneConductor;
 		isSuffocating = properties.isSuffocating;
 		isViewBlocking = properties.isViewBlocking;
 		hasPostProcess = properties.hasPostProcess;
