@@ -10,8 +10,8 @@ import info.u_team.u_team_test.data.provider.TestItemTagsProvider;
 import info.u_team.u_team_test.data.provider.TestLanguagesProvider;
 import info.u_team.u_team_test.data.provider.TestLootTableProvider;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 @EventBusSubscriber(modid = TestMod.MODID, bus = Bus.MOD)

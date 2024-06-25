@@ -4,14 +4,12 @@ import info.u_team.u_team_test.test_multiloader.loot_item_condition.TestEnchantm
 import info.u_team.u_team_test.test_multiloader.loot_item_function.TestLootItemFunction;
 import net.fabricmc.fabric.api.loot.v2.LootTableEvents;
 import net.fabricmc.fabric.api.loot.v2.LootTableSource;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.resources.ResourceManager;
-import net.minecraft.world.level.storage.loot.LootDataManager;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.LootTable;
 
 public class FabricTestMultiLoaderLootTableModifications {
 	
-	private static void modifyLootTable(ResourceManager resourceManager, LootDataManager lootManager, ResourceLocation id, LootTable.Builder tableBuilder, LootTableSource source) {
+	private static void modifyLootTable(ResourceKey<LootTable> key, LootTable.Builder tableBuilder, LootTableSource source) {
 		tableBuilder.apply(TestLootItemFunction.builder().when(TestEnchantmentLootItemCondition.create()));
 	}
 	

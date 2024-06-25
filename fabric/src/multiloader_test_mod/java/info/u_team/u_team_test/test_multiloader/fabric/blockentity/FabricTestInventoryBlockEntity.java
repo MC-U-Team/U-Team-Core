@@ -6,6 +6,7 @@ import info.u_team.u_team_core.menu.ItemContainerSlotCreator;
 import info.u_team.u_team_test.test_multiloader.blockentity.TestInventoryBlockEntity;
 import net.fabricmc.fabric.api.transfer.v1.item.InventoryStorage;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.SimpleContainer;
 import net.minecraft.world.level.block.state.BlockState;
@@ -22,15 +23,15 @@ public class FabricTestInventoryBlockEntity extends TestInventoryBlockEntity {
 	}
 	
 	@Override
-	public void saveNBT(CompoundTag compound) {
-		super.saveNBT(compound);
-		compound.put("inventory", slots.serializeNBT());
+	public void saveNBT(CompoundTag compound, HolderLookup.Provider lookup) {
+		super.saveNBT(compound, lookup);
+		compound.put("inventory", slots.serializeNBT(lookup));
 	}
 	
 	@Override
-	public void loadNBT(CompoundTag compound) {
-		super.loadNBT(compound);
-		slots.deserializeNBT(compound.getCompound("inventory"));
+	public void loadNBT(CompoundTag compound, HolderLookup.Provider lookup) {
+		super.loadNBT(compound, lookup);
+		slots.deserializeNBT(compound.getCompound("inventory"), lookup);
 	}
 	
 	public SimpleContainer getSlots() {

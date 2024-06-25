@@ -5,8 +5,8 @@ import info.u_team.u_team_test.test_multiloader.TestMultiLoaderMod;
 import info.u_team.u_team_test.test_multiloader.neoforge.data.provider.NeoForgeTestMultiLoaderDatapackBuiltinEntriesProvider;
 import info.u_team.u_team_test.test_multiloader.neoforge.data.provider.NeoForgeTestMultiLoaderGlobalLootModifierProvider;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 @EventBusSubscriber(modid = TestMultiLoaderMod.MODID, bus = Bus.MOD)

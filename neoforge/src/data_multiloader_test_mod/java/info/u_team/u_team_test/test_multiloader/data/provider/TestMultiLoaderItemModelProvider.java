@@ -20,8 +20,8 @@ public class TestMultiLoaderItemModelProvider extends CommonItemModelProvider {
 		simpleGenerated(TestMultiLoaderItems.TEST_DIMENSION_TELEPORT.get());
 		simpleGenerated(TestMultiLoaderItems.TEST_ENDERPEARL.get());
 		spawnEgg(TestMultiLoaderItems.TEST_LIVING_SPAWN_EGG.get());
-		iterateItems(TestMultiLoaderItems.ARMOR, this::simpleHandheld);
-		iterateItems(TestMultiLoaderItems.TIER, this::simpleGenerated);
+		iterateItems(TestMultiLoaderItems.TEST_ARMOR, this::simpleHandheld);
+		iterateItems(TestMultiLoaderItems.TEST_TIER, this::simpleGenerated);
 		// Blocks
 		simpleBlock(TestMultiLoaderBlocks.TEST.get());
 		simpleBlock(TestMultiLoaderBlocks.TEST_SYNC.get());

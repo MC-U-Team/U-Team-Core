@@ -7,6 +7,7 @@ import info.u_team.u_team_core.inventory.BlockEntityUItemStackHandler;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
 import info.u_team.u_team_test.menu.BasicEnergyCreatorMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -69,17 +70,17 @@ public class BasicEnergyCreatorBlockEntity extends UBlockEntity implements MenuS
 	}
 	
 	@Override
-	public void saveNBT(CompoundTag compound) {
-		super.saveNBT(compound);
-		compound.put("inventory", slots.serializeNBT());
-		compound.put("energy", energy.serializeNBT());
+	public void saveNBT(CompoundTag compound, HolderLookup.Provider lookup) {
+		super.saveNBT(compound, lookup);
+		compound.put("inventory", slots.serializeNBT(lookup));
+		compound.put("energy", energy.serializeNBT(lookup));
 	}
 	
 	@Override
-	public void loadNBT(CompoundTag compound) {
-		super.loadNBT(compound);
-		slots.deserializeNBT(compound.getCompound("inventory"));
-		energy.deserializeNBT(compound.getCompound("energy"));
+	public void loadNBT(CompoundTag compound, HolderLookup.Provider lookup) {
+		super.loadNBT(compound, lookup);
+		slots.deserializeNBT(lookup, compound.getCompound("inventory"));
+		energy.deserializeNBT(lookup, compound.getCompound("energy"));
 	}
 	
 	// Container

@@ -27,16 +27,16 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		addItem(TestMultiLoaderItems.TEST_ENDERPEARL, "Test Enderpearl");
 		addItem(TestMultiLoaderItems.TEST_LIVING_SPAWN_EGG, "Test Living Entity Spawn Egg");
 		
-		addItem(TestMultiLoaderItems.ARMOR.helmet(), "Test Helmet");
-		addItem(TestMultiLoaderItems.ARMOR.chestplate(), "Test Chestplate");
-		addItem(TestMultiLoaderItems.ARMOR.leggings(), "Test Leggings");
-		addItem(TestMultiLoaderItems.ARMOR.boots(), "Test Boots");
+		addItem(TestMultiLoaderItems.TEST_ARMOR.helmet(), "Test Helmet");
+		addItem(TestMultiLoaderItems.TEST_ARMOR.chestplate(), "Test Chestplate");
+		addItem(TestMultiLoaderItems.TEST_ARMOR.leggings(), "Test Leggings");
+		addItem(TestMultiLoaderItems.TEST_ARMOR.boots(), "Test Boots");
 		
-		addItem(TestMultiLoaderItems.TIER.axe(), "Test Axe");
-		addItem(TestMultiLoaderItems.TIER.hoe(), "Test Hoe");
-		addItem(TestMultiLoaderItems.TIER.pickaxe(), "Test Pickaxe");
-		addItem(TestMultiLoaderItems.TIER.shovel(), "Test Shovel");
-		addItem(TestMultiLoaderItems.TIER.sword(), "Test Sword");
+		addItem(TestMultiLoaderItems.TEST_TIER.axe(), "Test Axe");
+		addItem(TestMultiLoaderItems.TEST_TIER.hoe(), "Test Hoe");
+		addItem(TestMultiLoaderItems.TEST_TIER.pickaxe(), "Test Pickaxe");
+		addItem(TestMultiLoaderItems.TEST_TIER.shovel(), "Test Shovel");
+		addItem(TestMultiLoaderItems.TEST_TIER.sword(), "Test Sword");
 		
 		addBlock(TestMultiLoaderBlocks.TEST, "Test Block");
 		addBlock(TestMultiLoaderBlocks.TEST_SYNC, "Test Sync Block");

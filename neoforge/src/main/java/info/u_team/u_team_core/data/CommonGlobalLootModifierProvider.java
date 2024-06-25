@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import info.u_team.u_team_core.util.CastUtil;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput.PathProvider;
@@ -22,7 +23,7 @@ import net.neoforged.neoforge.common.conditions.WithConditions;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 
-public abstract class CommonGlobalLootModifierProvider implements DataProvider, CommonDataProvider<BiConsumer<String, WithConditions<IGlobalLootModifier>>> {
+public abstract class CommonGlobalLootModifierProvider implements DataProvider, CommonDataProvider<BiConsumer<String, WithConditions<? extends IGlobalLootModifier>>> {
 	
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	
@@ -48,7 +49,7 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 		final Map<String, WithConditions<IGlobalLootModifier>> serializers = new TreeMap<>();
 		
 		register((modifier, instance) -> {
-			serializers.put(modifier, instance);
+			serializers.put(modifier, CastUtil.uncheckedCast(instance));
 		});
 		
 		final List<CompletableFuture<?>> futures = new ArrayList<>();

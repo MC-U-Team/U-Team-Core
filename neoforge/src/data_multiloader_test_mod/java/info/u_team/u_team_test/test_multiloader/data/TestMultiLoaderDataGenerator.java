@@ -11,8 +11,8 @@ import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderLoo
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderRecipeProvider;
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderSoundProvider;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod.EventBusSubscriber;
-import net.neoforged.fml.common.Mod.EventBusSubscriber.Bus;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.fml.common.EventBusSubscriber.Bus;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 @EventBusSubscriber(modid = TestMultiLoaderMod.MODID, bus = Bus.MOD)

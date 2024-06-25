@@ -8,6 +8,7 @@ import info.u_team.u_team_core.inventory.UItemStackHandler;
 import info.u_team.u_team_test.init.TestBlockEntityTypes;
 import info.u_team.u_team_test.menu.BasicFluidInventoryMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.MenuProvider;
@@ -31,17 +32,17 @@ public class BasicFluidInventoryBlockEntity extends UBlockEntity implements Menu
 	}
 	
 	@Override
-	public void saveNBT(CompoundTag compound) {
-		super.saveNBT(compound);
-		compound.put("items", itemSlots.serializeNBT());
-		compound.put("fluids", fluidTanks.serializeNBT());
+	public void saveNBT(CompoundTag compound, HolderLookup.Provider lookup) {
+		super.saveNBT(compound, lookup);
+		compound.put("items", itemSlots.serializeNBT(lookup));
+		compound.put("fluids", fluidTanks.serializeNBT(lookup));
 	}
 	
 	@Override
-	public void loadNBT(CompoundTag compound) {
-		super.loadNBT(compound);
-		itemSlots.deserializeNBT(compound.getCompound("items"));
-		fluidTanks.deserializeNBT(compound.getCompound("fluids"));
+	public void loadNBT(CompoundTag compound, HolderLookup.Provider lookup) {
+		super.loadNBT(compound, lookup);
+		itemSlots.deserializeNBT(lookup, compound.getCompound("items"));
+		fluidTanks.deserializeNBT(lookup, compound.getCompound("fluids"));
 	}
 	
 	public UItemStackHandler getItemSlots() {
