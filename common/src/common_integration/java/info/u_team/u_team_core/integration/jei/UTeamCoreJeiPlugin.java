@@ -2,9 +2,9 @@ package info.u_team.u_team_core.integration.jei;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import info.u_team.u_team_core.UCoreReference;
-import info.u_team.u_team_core.api.dye.DyeableItem;
 import info.u_team.u_team_core.inventory.DummyCraftingContainer;
 import info.u_team.u_team_core.util.RegistryUtil;
 import mezz.jei.api.IModPlugin;
@@ -16,7 +16,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.DyeableLeatherItem;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.RecipeType;
@@ -39,11 +39,11 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 		
 		container.setItem(1, new ItemStack(Items.WHITE_DYE));
 		
-		final List<ItemStack> items = RegistryUtil.getBuiltInRegistry(Registries.ITEM).stream() //
-				.filter(item -> item instanceof DyeableItem || item instanceof DyeableLeatherItem) //
+		final List<ItemStack> items = StreamSupport.stream(RegistryUtil.getBuiltInRegistry(Registries.ITEM).getTagOrEmpty(ItemTags.DYEABLE).spliterator(), false) //
+				.filter(item -> item == null) //
 				.map(ItemStack::new) //
 				.filter(stack -> {
-					container.setItem(0, stack.copy());
+					container.setItem(0, stack);
 					return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, container, level).isPresent();
 				}).collect(Collectors.toList());
 		

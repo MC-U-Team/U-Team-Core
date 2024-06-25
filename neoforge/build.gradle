@@ -241,7 +241,7 @@ repositories {
 dependencies {
 	implementation gradlefiles.neoForgeDependency()
 	
-	//implementation "mezz.jei:jei-${config.minecraft.version}-neoforge:${config.jei.version}"
+	implementation "mezz.jei:jei-${config.minecraft.version}-neoforge:${config.jei.version}"
 }
 
 publishMods {

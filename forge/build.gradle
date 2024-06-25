@@ -52,6 +52,8 @@ java {
 minecraft {
 	mappings channel: config.forge.mapping_channel, version: config.forge.mapping
 	
+	reobf = false
+	
 	accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 	
 	runs {
@@ -125,14 +127,11 @@ minecraft {
 }
 
 mixin {
-	add sourceSets.main, "uteamcore.mixins.refmap.json"
 	config "uteamcore.mixins.json"
 	
 	debug.verbose = true
 	debug.export = true
 }
-
-reobf.create("jar")
 
 tasks.register("multiLoaderTestJar", Jar) {
 	archiveClassifier = "multiloader_test"
@@ -144,14 +143,6 @@ tasks.register("multiLoaderTestSourcesJar", Jar) {
 	archiveClassifier = "multiloader_testsources"
 	
 	from sourceSets.multiloader_test_mod.allJava
-}
-
-reobf.create("multiLoaderTestJar") {
-	dependsOn tasks.named("reobfJar")
-}
-
-tasks.named("reobfMultiLoaderTestJar").configure {
-	libraries.from(tasks.named("reobfJar").get().input)
 }
 
 // Skip mixin gradle for our test jars
@@ -167,18 +158,19 @@ tasks.withType(org.spongepowered.asm.gradle.plugins.MixinExtension$ConfigureReob
 	}
 }
 
-gradlefiles.allBuildingDependOn(tasks.named("reobfMultiLoaderTestJar"), tasks.named("multiLoaderTestSourcesJar"))
+gradlefiles.allBuildingDependOn(tasks.named("multiLoaderTestJar"), tasks.named("multiLoaderTestSourcesJar"))
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
+	// TODO maybe manually add mixin json
 }
 
 tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
-signjar.sign(tasks.named("reobfJar"))
-signjar.sign(tasks.named("reobfMultiLoaderTestJar"))
+signjar.sign(tasks.named("jar"))
+signjar.sign(tasks.named("multiLoaderTestJar"))
 
 processResources {
 	doLast {
@@ -197,7 +189,7 @@ repositories {
 dependencies {
 	minecraft gradlefiles.forgeDependency()
 	
-	//implementation fg.deobf("mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}")
+	implementation "mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}"
 	
 	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }

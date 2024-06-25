@@ -190,7 +190,7 @@ dependencies {
 		transitive=false
 	}
 	
-	//modImplementation "mezz.jei:jei-${config.minecraft.version}-fabric:${config.jei.version}"
+	modImplementation "mezz.jei:jei-${config.minecraft.version}-fabric:${config.jei.version}"
 	
 	modRuntimeOnly "com.terraformersmc:modmenu:${config.modmenu.fabric.version}"
 }
