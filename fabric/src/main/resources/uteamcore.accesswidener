@@ -104,6 +104,7 @@ accessible method net/minecraft/world/food/FoodProperties <init> (IFZZZLjava/uti
 accessible field net/minecraft/world/food/FoodProperties$Builder eatSeconds F
 
 accessible field net/minecraft/world/item/SpawnEggItem BY_ID Ljava/util/Map;
+accessible field net/minecraft/world/item/SpawnEggItem ENTITY_TYPE_FIELD_CODEC Lcom/mojang/serialization/MapCodec;
 
 accessible field net/minecraft/world/SimpleContainer items Lnet/minecraft/core/NonNullList;
 

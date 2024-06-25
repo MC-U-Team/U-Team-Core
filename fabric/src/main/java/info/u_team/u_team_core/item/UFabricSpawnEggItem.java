@@ -14,16 +14,17 @@ import info.u_team.u_team_core.event.SetupEvents;
 import info.u_team.u_team_core.util.EnvironmentUtil;
 import net.fabricmc.fabric.api.client.rendering.v1.ColorProviderRegistry;
 import net.minecraft.core.Direction;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.flag.FeatureFlagSet;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SpawnEggItem;
+import net.minecraft.world.item.component.CustomData;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.gameevent.GameEvent;
 
@@ -51,7 +52,7 @@ public class UFabricSpawnEggItem extends SpawnEggItem {
 			@Override
 			public ItemStack execute(BlockSource source, ItemStack stack) {
 				final Direction direction = source.state().getValue(DispenserBlock.FACING);
-				final EntityType<?> entityType = ((UFabricSpawnEggItem) stack.getItem()).getType(stack.getTag());
+				final EntityType<?> entityType = ((UFabricSpawnEggItem) stack.getItem()).getType(stack);
 				try {
 					entityType.spawn(source.level(), stack, null, source.pos().relative(direction), MobSpawnType.DISPENSER, direction != Direction.UP, false);
 				} catch (final Exception ex) {
@@ -74,9 +75,9 @@ public class UFabricSpawnEggItem extends SpawnEggItem {
 	}
 	
 	@Override
-	public EntityType<?> getType(CompoundTag nbt) {
-		final EntityType<?> type = super.getType(nbt);
-		return type != null ? type : getEntityType();
+	public EntityType<?> getType(ItemStack stack) {
+		final CustomData customdata = stack.getOrDefault(DataComponents.ENTITY_DATA, CustomData.EMPTY);
+		return !customdata.isEmpty() ? customdata.read(ENTITY_TYPE_FIELD_CODEC).result().orElse(getEntityType()) : getEntityType();
 	}
 	
 	@Override
