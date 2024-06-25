@@ -3,8 +3,38 @@ package info.u_team.u_team_core.util;
 import com.google.gson.JsonElement;
 
 import info.u_team.u_team_core.ingredient.FluidIngredient;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraftforge.fluids.FluidStack;
 
 public class SerializeUtil {
+	
+	private static final StreamCodec<RegistryFriendlyByteBuf, Holder<Fluid>> FLUID_STREAM_CODEC = ByteBufCodecs.holderRegistry(Registries.FLUID);
+	
+	public static StreamCodec<RegistryFriendlyByteBuf, FluidStack> FLUID_STACK_STREAM_CODEC = StreamCodec.of((buffer, stack) -> {
+		if (stack.isEmpty())
+			buffer.writeBoolean(false);
+		else {
+			buffer.writeBoolean(true);
+			FLUID_STREAM_CODEC.encode(buffer, RegistryUtil.getBuiltInRegistry(Registries.FLUID).wrapAsHolder(stack.getFluid()));
+			buffer.writeVarInt(stack.getAmount());
+			buffer.writeNbt(stack.getTag());
+		}
+	}, buffer -> {
+		if (buffer.readBoolean()) {
+			final Fluid stackFluid = FLUID_STREAM_CODEC.decode(buffer).get();
+			final int stackAmount = buffer.readVarInt();
+			final CompoundTag tag = buffer.readNbt();
+			return new FluidStack(stackFluid, stackAmount, tag);
+		} else {
+			return FluidStack.EMPTY;
+		}
+	});
 	
 	// TODO needed? Must be reworked with codecs
 	// public static JsonElement serializeItemIngredient(Ingredient ingredient) {

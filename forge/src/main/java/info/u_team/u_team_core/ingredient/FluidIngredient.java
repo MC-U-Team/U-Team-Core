@@ -15,14 +15,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
-import info.u_team.u_team_core.util.RegistryUtil;
+import info.u_team.u_team_core.util.SerializeUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.RegistryFriendlyByteBuf;
-import net.minecraft.network.codec.ByteBufCodecs;
-import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
@@ -77,22 +74,13 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		return amount;
 	}
 	
-	private static final StreamCodec<RegistryFriendlyByteBuf, Holder<Fluid>> FLUID_STREAM_CODEC = ByteBufCodecs.holderRegistry(Registries.FLUID);
-	
 	// Network write
 	public void write(RegistryFriendlyByteBuf buffer) {
 		buffer.writeInt(amount);
 		buffer.writeVarInt(matchingFluids.length);
 		
 		for (final FluidStack stack : matchingFluids) {
-			if (stack.isEmpty())
-				buffer.writeBoolean(false);
-			else {
-				buffer.writeBoolean(true);
-				FLUID_STREAM_CODEC.encode(buffer, RegistryUtil.getBuiltInRegistry(Registries.FLUID).wrapAsHolder(stack.getFluid()));
-				buffer.writeVarInt(getAmount());
-				buffer.writeNbt(stack.getTag());
-			}
+			SerializeUtil.FLUID_STACK_STREAM_CODEC.encode(buffer, stack);
 		}
 	}
 	
@@ -102,16 +90,7 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		final int length = buffer.readVarInt();
 		
 		return new FluidIngredient(amount, Stream.generate(() -> {
-			final FluidStack stack;
-			if (buffer.readBoolean()) {
-				final Fluid stackFluid = FLUID_STREAM_CODEC.decode(buffer).get();
-				final int stackAmount = buffer.readVarInt();
-				final CompoundTag tag = buffer.readNbt();
-				stack = new FluidStack(stackFluid, stackAmount, tag);
-			} else {
-				stack = FluidStack.EMPTY;
-			}
-			return new SingleFluidList(stack);
+			return new SingleFluidList(SerializeUtil.FLUID_STACK_STREAM_CODEC.decode(buffer));
 		}).limit(length));
 	}
 	

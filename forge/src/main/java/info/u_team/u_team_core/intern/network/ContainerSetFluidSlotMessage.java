@@ -4,8 +4,9 @@ import java.util.Optional;
 
 import info.u_team.u_team_core.menu.FluidContainerMenu;
 import info.u_team.u_team_core.menu.ForgeFluidContainerMenuDelegator;
+import info.u_team.u_team_core.util.SerializeUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.event.network.CustomPayloadEvent.Context;
 import net.minecraftforge.fluids.FluidStack;
@@ -24,18 +25,18 @@ public class ContainerSetFluidSlotMessage {
 		this.stack = stack.copy();
 	}
 	
-	public static void encode(ContainerSetFluidSlotMessage message, FriendlyByteBuf byteBuf) {
+	public static void encode(ContainerSetFluidSlotMessage message, RegistryFriendlyByteBuf byteBuf) {
 		byteBuf.writeByte(message.containerId);
 		byteBuf.writeVarInt(message.stateId);
 		byteBuf.writeShort(message.slot);
-		byteBuf.writeFluidStack(message.stack);
+		SerializeUtil.FLUID_STACK_STREAM_CODEC.encode(byteBuf, message.stack);
 	}
 	
-	public static ContainerSetFluidSlotMessage decode(FriendlyByteBuf byteBuf) {
+	public static ContainerSetFluidSlotMessage decode(RegistryFriendlyByteBuf byteBuf) {
 		final byte containerId = byteBuf.readByte();
 		final int stateId = byteBuf.readVarInt();
 		final short slot = byteBuf.readShort();
-		final FluidStack stack = byteBuf.readFluidStack();
+		final FluidStack stack = SerializeUtil.FLUID_STACK_STREAM_CODEC.decode(byteBuf);
 		
 		return new ContainerSetFluidSlotMessage(containerId, stateId, slot, stack);
 	}

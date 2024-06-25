@@ -4,7 +4,7 @@ import java.util.Optional;
 
 import info.u_team.u_team_core.menu.FluidContainerMenu;
 import info.u_team.u_team_core.menu.ForgeFluidContainerMenuDelegator;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.item.ItemStack;
@@ -24,18 +24,18 @@ public class FluidClickContainerMessage {
 		this.stack = stack;
 	}
 	
-	public static void encode(FluidClickContainerMessage message, FriendlyByteBuf byteBuf) {
+	public static void encode(FluidClickContainerMessage message, RegistryFriendlyByteBuf byteBuf) {
 		byteBuf.writeByte(message.id);
 		byteBuf.writeShort(message.slot);
 		byteBuf.writeBoolean(message.shift);
-		byteBuf.writeItemStack(message.stack, false);
+		ItemStack.OPTIONAL_STREAM_CODEC.encode(byteBuf, message.stack);
 	}
 	
-	public static FluidClickContainerMessage decode(FriendlyByteBuf byteBuf) {
+	public static FluidClickContainerMessage decode(RegistryFriendlyByteBuf byteBuf) {
 		final int id = byteBuf.readByte();
 		final int slot = byteBuf.readShort();
 		final boolean shift = byteBuf.readBoolean();
-		final ItemStack stack = byteBuf.readItem();
+		final ItemStack stack = ItemStack.OPTIONAL_STREAM_CODEC.decode(byteBuf);
 		
 		return new FluidClickContainerMessage(id, slot, shift, stack);
 	}

@@ -5,9 +5,10 @@ import java.util.Optional;
 
 import info.u_team.u_team_core.menu.FluidContainerMenu;
 import info.u_team.u_team_core.menu.ForgeFluidContainerMenuDelegator;
+import info.u_team.u_team_core.util.SerializeUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.NonNullList;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraftforge.event.network.CustomPayloadEvent.Context;
 import net.minecraftforge.fluids.FluidStack;
@@ -29,16 +30,16 @@ public class ContainerSetFluidContentMessage {
 		}
 	}
 	
-	public static void encode(ContainerSetFluidContentMessage message, FriendlyByteBuf byteBuf) {
+	public static void encode(ContainerSetFluidContentMessage message, RegistryFriendlyByteBuf byteBuf) {
 		byteBuf.writeByte(message.containerId);
 		byteBuf.writeVarInt(message.stateId);
-		byteBuf.writeCollection(message.fluids, FriendlyByteBuf::writeFluidStack);
+		byteBuf.writeCollection(message.fluids, (__, value) -> SerializeUtil.FLUID_STACK_STREAM_CODEC.encode(byteBuf, value));
 	}
 	
-	public static ContainerSetFluidContentMessage decode(FriendlyByteBuf byteBuf) {
+	public static ContainerSetFluidContentMessage decode(RegistryFriendlyByteBuf byteBuf) {
 		final byte containerId = byteBuf.readByte();
 		final int stateId = byteBuf.readVarInt();
-		final List<FluidStack> fluids = byteBuf.readCollection(NonNullList::createWithCapacity, FriendlyByteBuf::readFluidStack);
+		final List<FluidStack> fluids = byteBuf.readCollection(NonNullList::createWithCapacity, __ -> SerializeUtil.FLUID_STACK_STREAM_CODEC.decode(byteBuf));
 		return new ContainerSetFluidContentMessage(containerId, stateId, fluids);
 	}
 	
