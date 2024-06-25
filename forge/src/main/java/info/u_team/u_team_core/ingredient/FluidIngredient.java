@@ -15,10 +15,14 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 
+import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
@@ -73,22 +77,42 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		return amount;
 	}
 	
+	private static final StreamCodec<RegistryFriendlyByteBuf, Holder<Fluid>> FLUID_STREAM_CODEC = ByteBufCodecs.holderRegistry(Registries.FLUID);
+	
 	// Network write
-	public void write(FriendlyByteBuf buffer) {
+	public void write(RegistryFriendlyByteBuf buffer) {
 		buffer.writeInt(amount);
 		buffer.writeVarInt(matchingFluids.length);
 		
 		for (final FluidStack stack : matchingFluids) {
-			buffer.writeFluidStack(stack);
+			if (stack.isEmpty())
+				buffer.writeBoolean(false);
+			else {
+				buffer.writeBoolean(true);
+				FLUID_STREAM_CODEC.encode(buffer, RegistryUtil.getBuiltInRegistry(Registries.FLUID).wrapAsHolder(stack.getFluid()));
+				buffer.writeVarInt(getAmount());
+				buffer.writeNbt(stack.getTag());
+			}
 		}
 	}
 	
 	// Network read
-	public static FluidIngredient read(FriendlyByteBuf buffer) {
+	public static FluidIngredient read(RegistryFriendlyByteBuf buffer) {
 		final int amount = buffer.readInt();
 		final int length = buffer.readVarInt();
 		
-		return new FluidIngredient(amount, Stream.generate(() -> new SingleFluidList(buffer.readFluidStack())).limit(length));
+		return new FluidIngredient(amount, Stream.generate(() -> {
+			final FluidStack stack;
+			if (buffer.readBoolean()) {
+				final Fluid stackFluid = FLUID_STREAM_CODEC.decode(buffer).get();
+				final int stackAmount = buffer.readVarInt();
+				final CompoundTag tag = buffer.readNbt();
+				stack = new FluidStack(stackFluid, stackAmount, tag);
+			} else {
+				stack = FluidStack.EMPTY;
+			}
+			return new SingleFluidList(stack);
+		}).limit(length));
 	}
 	
 	// Serialize
@@ -196,7 +220,6 @@ public class FluidIngredient implements Predicate<FluidStack> {
 			this.tag = tag;
 		}
 		
-		@SuppressWarnings("deprecation")
 		@Override
 		public Collection<FluidStack> getStacks() {
 			final List<FluidStack> list = Lists.newArrayList();

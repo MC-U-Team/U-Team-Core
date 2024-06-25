@@ -19,7 +19,7 @@ import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.util.GsonHelper;
@@ -74,21 +74,21 @@ public class FluidIngredient implements Predicate<FluidStack> {
 	}
 	
 	// Network write
-	public void write(FriendlyByteBuf buffer) {
+	public void write(RegistryFriendlyByteBuf buffer) {
 		buffer.writeInt(amount);
 		buffer.writeVarInt(matchingFluids.length);
 		
 		for (final FluidStack stack : matchingFluids) {
-			buffer.writeFluidStack(stack);
+			FluidStack.STREAM_CODEC.encode(buffer, stack);
 		}
 	}
 	
 	// Network read
-	public static FluidIngredient read(FriendlyByteBuf buffer) {
+	public static FluidIngredient read(RegistryFriendlyByteBuf buffer) {
 		final int amount = buffer.readInt();
 		final int length = buffer.readVarInt();
 		
-		return new FluidIngredient(amount, Stream.generate(() -> new SingleFluidList(buffer.readFluidStack())).limit(length));
+		return new FluidIngredient(amount, Stream.generate(() -> new SingleFluidList(FluidStack.STREAM_CODEC.decode(buffer))).limit(length));
 	}
 	
 	// Serialize
