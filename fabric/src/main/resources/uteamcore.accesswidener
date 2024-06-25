@@ -1,11 +1,7 @@
 accessWidener v2 named
 
-accessible field net/minecraft/world/item/Item$Properties maxStackSize I
-accessible field net/minecraft/world/item/Item$Properties maxDamage I
+accessible field net/minecraft/world/item/Item$Properties components Lnet/minecraft/core/component/DataComponentMap$Builder;
 accessible field net/minecraft/world/item/Item$Properties craftingRemainingItem Lnet/minecraft/world/item/Item;
-accessible field net/minecraft/world/item/Item$Properties rarity Lnet/minecraft/world/item/Rarity;
-accessible field net/minecraft/world/item/Item$Properties foodProperties Lnet/minecraft/world/food/FoodProperties;
-accessible field net/minecraft/world/item/Item$Properties isFireResistant Z
 accessible field net/minecraft/world/item/Item$Properties requiredFeatures Lnet/minecraft/world/flag/FeatureFlagSet;
 
 extendable method net/minecraft/world/level/block/state/BlockBehaviour$Properties <init> ()V
@@ -20,7 +16,7 @@ accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties friction F
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties speedFactor F
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties jumpFactor F
-accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties drops Lnet/minecraft/resources/ResourceLocation;
+accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties drops Lnet/minecraft/resources/ResourceKey;
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties canOcclude Z
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties isAir Z
 accessible field net/minecraft/world/level/block/state/BlockBehaviour$Properties ignitedByLava Z
