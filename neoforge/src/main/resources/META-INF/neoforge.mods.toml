@@ -17,14 +17,14 @@ license="Apache-2.0 License"
 	[[dependencies.uteamcore]]
 	    modId="neoforge"
 	    type="required"
-	    versionRange="[20.4.233,)"
+	    versionRange="[20.6.119,)"
 	    ordering="NONE"
 	    side="BOTH"
 	
 	[[dependencies.uteamcore]]
 	    modId="minecraft"
 	    type="required"
-	    versionRange="[1.20.4]"
+	    versionRange="[1.20.6]"
 	    ordering="NONE"
 	    side="BOTH"
 	    
