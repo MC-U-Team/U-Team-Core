@@ -7,7 +7,6 @@ import info.u_team.u_team_test.test_multiloader.blockentity.TestSyncBlockEntity;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
@@ -24,7 +23,7 @@ public class TestSyncBlock extends UEntityBlock {
 	}
 	
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
 		if (level.isClientSide() || !(player instanceof ServerPlayer)) {
 			return InteractionResult.SUCCESS;
 		}

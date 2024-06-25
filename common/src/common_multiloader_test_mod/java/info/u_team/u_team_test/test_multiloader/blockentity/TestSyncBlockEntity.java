@@ -8,6 +8,7 @@ import com.mojang.logging.LogUtils;
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -32,12 +33,12 @@ public class TestSyncBlockEntity extends UBlockEntity {
 	}
 	
 	@Override
-	public void saveNBT(CompoundTag tag) {
+	public void saveNBT(CompoundTag tag, HolderLookup.Provider lookup) {
 		tag.putInt("counter", counter);
 	}
 	
 	@Override
-	public void loadNBT(CompoundTag tag) {
+	public void loadNBT(CompoundTag tag, HolderLookup.Provider lookup) {
 		counter = tag.getInt("counter");
 	}
 	

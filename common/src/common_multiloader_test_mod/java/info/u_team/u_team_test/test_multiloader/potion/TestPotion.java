@@ -9,6 +9,6 @@ import net.minecraft.world.effect.MobEffectInstance;
 public class TestPotion extends UPotion {
 	
 	public TestPotion(int duration, int amplifier) {
-		super("test", () -> List.of(new MobEffectInstance(TestMultiLoaderMobEffects.TEST.get(), duration, amplifier)));
+		super("test", () -> List.of(new MobEffectInstance(TestMultiLoaderMobEffects.TEST.getHolder().get(), duration, amplifier)));
 	}
 }

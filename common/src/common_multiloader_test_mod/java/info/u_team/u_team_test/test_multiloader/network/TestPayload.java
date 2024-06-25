@@ -7,7 +7,9 @@ import com.mojang.logging.LogUtils;
 import info.u_team.u_team_core.api.network.NetworkContext;
 import info.u_team.u_team_core.api.network.NetworkPayload;
 import info.u_team.u_team_test.test_multiloader.network.TestPayload.TestMessage;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 
 public abstract class TestPayload implements NetworkPayload<TestMessage> {
 	
@@ -17,13 +19,8 @@ public abstract class TestPayload implements NetworkPayload<TestMessage> {
 	private static final Logger LOGGER = LogUtils.getLogger();
 	
 	@Override
-	public void write(TestMessage message, FriendlyByteBuf buffer) {
-		buffer.writeUtf(message.value());
-	}
-	
-	@Override
-	public TestMessage read(FriendlyByteBuf buffer) {
-		return new TestMessage(buffer.readUtf());
+	public StreamCodec<? super RegistryFriendlyByteBuf, TestMessage> streamCodec() {
+		return ByteBufCodecs.STRING_UTF8.map(TestMessage::new, TestMessage::value);
 	}
 	
 	@Override

@@ -7,6 +7,7 @@ import info.u_team.u_team_core.util.ServiceUtil;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import info.u_team.u_team_test.test_multiloader.menu.TestInventoryMenu;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -47,13 +48,13 @@ public abstract class TestInventoryBlockEntity extends UBlockEntity implements M
 	}
 	
 	@Override
-	public void saveNBT(CompoundTag compound) {
+	public void saveNBT(CompoundTag compound, HolderLookup.Provider lookup) {
 		compound.putInt("value", value);
 		compound.putInt("cooldown", cooldown);
 	}
 	
 	@Override
-	public void loadNBT(CompoundTag compound) {
+	public void loadNBT(CompoundTag compound, HolderLookup.Provider lookup) {
 		value = compound.getInt("value");
 		cooldown = compound.getInt("cooldown");
 	}

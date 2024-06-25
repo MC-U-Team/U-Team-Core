@@ -22,7 +22,7 @@ public class TestEffect extends MobEffect {
 	}
 	
 	@Override
-	public void applyEffectTick(LivingEntity entity, int amplifier) {
+	public boolean applyEffectTick(LivingEntity entity, int amplifier) {
 		amplifier += 2;
 		if (entity.level().getGameRules().getBoolean(TestMultiLoaderGameRules.RULE_DO_RADIATION_DAMAGE.get())) {
 			entity.hurt(new DamageSource(RegistryUtil.getRegistry(entity.level(), Registries.DAMAGE_TYPE).getHolderOrThrow(TestMultiLoaderDamageSources.TEST)), random.nextInt(amplifier));
@@ -30,6 +30,7 @@ public class TestEffect extends MobEffect {
 				player.causeFoodExhaustion(0.005F * amplifier);
 			}
 		}
+		return true;
 	}
 	
 	@Override

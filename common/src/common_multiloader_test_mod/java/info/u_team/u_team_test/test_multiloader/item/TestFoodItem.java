@@ -19,7 +19,7 @@ import net.minecraft.world.level.Level;
 
 public class TestFoodItem extends UItem {
 	
-	private static final FoodProperties FOOD = UFoodPropertiesBuilder.builder().nutrition(4).saturationMod(1.2F).effect(() -> new MobEffectInstance(MobEffects.GLOWING, 200, 0), 1).alwaysEat().fast().build();
+	private static final FoodProperties FOOD = UFoodPropertiesBuilder.builder().nutrition(4).saturationModifier(1.2F).effect(new MobEffectInstance(MobEffects.GLOWING, 200, 0), 1).alwaysEdible().fast().build();
 	
 	public TestFoodItem() {
 		super(new Properties().rarity(Rarity.RARE).food(FOOD));

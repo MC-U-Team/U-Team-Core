@@ -5,6 +5,7 @@ import info.u_team.u_team_core.util.DimensionTeleportUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
@@ -14,7 +15,7 @@ import net.minecraft.world.level.portal.PortalInfo;
 public class TestDimensionTeleportItem extends UItem {
 	
 	public TestDimensionTeleportItem() {
-		super(new Properties().rarity(Rarity.EPIC).fireResistant().defaultDurability(10));
+		super(new Properties().rarity(Rarity.EPIC).fireResistant().durability(10));
 	}
 	
 	@Override
@@ -22,7 +23,7 @@ public class TestDimensionTeleportItem extends UItem {
 		final ItemStack stack = player.getItemInHand(hand);
 		
 		if (!level.isClientSide()) {
-			stack.hurtAndBreak(1, player, breakPlayer -> breakPlayer.broadcastBreakEvent(hand));
+			stack.hurtAndBreak(1, player, EquipmentSlot.MAINHAND);
 			
 			final ServerLevel destination;
 			if (Level.OVERWORLD == level.dimension()) {

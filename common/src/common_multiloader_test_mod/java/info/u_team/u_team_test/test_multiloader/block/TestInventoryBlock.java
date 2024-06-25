@@ -5,7 +5,6 @@ import info.u_team.u_team_test.test_multiloader.blockentity.TestInventoryBlockEn
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderBlockEntityTypes;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.context.BlockPlaceContext;
@@ -38,8 +37,8 @@ public class TestInventoryBlock extends UEntityBlock {
 	}
 	
 	@Override
-	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult hit) {
-		return openMenu(world, pos, player, true);
+	protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hitResult) {
+		return openMenu(level, pos, player, true);
 	}
 	
 	@Override
