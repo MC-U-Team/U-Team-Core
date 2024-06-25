@@ -14,36 +14,31 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.EventPriority;
+import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent.KeyPressed;
-import net.neoforged.neoforge.event.TickEvent.ClientTickEvent;
-import net.neoforged.neoforge.event.TickEvent.LevelTickEvent;
-import net.neoforged.neoforge.event.TickEvent.Phase;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
 
 public class NeoForgeClientEventsHandler implements ClientEvents.Handler {
 	
 	@Override
 	public void registerStartClientTick(StartClientTick event) {
-		registerForgeEvent(ClientTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.START) {
-				event.onStartTick(Minecraft.getInstance());
-			}
+		registerNeoForgeEvent(ClientTickEvent.Pre.class, forgeEvent -> {
+			event.onStartTick(Minecraft.getInstance());
 		});
 	}
 	
 	@Override
 	public void registerEndClientTick(EndClientTick event) {
-		registerForgeEvent(ClientTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.END) {
-				event.onEndTick(Minecraft.getInstance());
-			}
+		registerNeoForgeEvent(ClientTickEvent.Post.class, forgeEvent -> {
+			event.onEndTick(Minecraft.getInstance());
 		});
 	}
 	
 	@Override
 	public void registerStartClientLevelTick(StartClientLevelTick event) {
-		registerForgeEvent(LevelTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.START && forgeEvent.level instanceof ClientLevel clientLevel) {
+		registerNeoForgeEvent(LevelTickEvent.Pre.class, forgeEvent -> {
+			if (forgeEvent.getLevel() instanceof ClientLevel clientLevel) {
 				event.onStartTick(clientLevel);
 			}
 		});
@@ -51,8 +46,8 @@ public class NeoForgeClientEventsHandler implements ClientEvents.Handler {
 	
 	@Override
 	public void registerEndClientLevelTick(EndClientLevelTick event) {
-		registerForgeEvent(LevelTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.END && forgeEvent.level instanceof ClientLevel clientLevel) {
+		registerNeoForgeEvent(LevelTickEvent.Post.class, forgeEvent -> {
+			if (forgeEvent.getLevel() instanceof ClientLevel clientLevel) {
 				event.onEndTick(clientLevel);
 			}
 		});
@@ -60,7 +55,7 @@ public class NeoForgeClientEventsHandler implements ClientEvents.Handler {
 	
 	@Override
 	public void registerScreenAfterKeyPressed(ScreenAfterKeyPressed event) {
-		registerForgeEvent(KeyPressed.Post.class, forgeEvent -> {
+		registerNeoForgeEvent(KeyPressed.Post.class, forgeEvent -> {
 			if (event.onKeyPressed(forgeEvent.getScreen(), forgeEvent.getKeyCode(), forgeEvent.getScanCode(), forgeEvent.getModifiers())) {
 				forgeEvent.setCanceled(true);
 			}
@@ -69,12 +64,12 @@ public class NeoForgeClientEventsHandler implements ClientEvents.Handler {
 	
 	@Override
 	public void registerItemTooltip(ItemTooltip event) {
-		registerForgeEvent(ItemTooltipEvent.class, forgeEvent -> {
+		registerNeoForgeEvent(ItemTooltipEvent.class, forgeEvent -> {
 			event.onTooltip(forgeEvent.getItemStack(), forgeEvent.getFlags(), forgeEvent.getToolTip());
 		});
 	}
 	
-	private <T extends Event> void registerForgeEvent(Class<T> eventClass, Consumer<T> event) {
-		BusRegister.registerForge(bus -> bus.addListener(EventPriority.NORMAL, false, eventClass, event));
+	private <T extends Event> void registerNeoForgeEvent(Class<T> eventClass, Consumer<T> event) {
+		BusRegister.registerNeoForge(bus -> bus.addListener(EventPriority.NORMAL, false, eventClass, event));
 	}
 }

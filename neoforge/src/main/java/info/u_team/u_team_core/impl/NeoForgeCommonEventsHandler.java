@@ -16,10 +16,9 @@ import net.minecraft.server.level.ServerLevel;
 import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.neoforged.neoforge.event.TickEvent.LevelTickEvent;
-import net.neoforged.neoforge.event.TickEvent.Phase;
-import net.neoforged.neoforge.event.TickEvent.ServerTickEvent;
 import net.neoforged.neoforge.event.level.LevelEvent;
+import net.neoforged.neoforge.event.tick.LevelTickEvent;
+import net.neoforged.neoforge.event.tick.ServerTickEvent;
 
 public class NeoForgeCommonEventsHandler implements CommonEvents.Handler {
 	
@@ -43,26 +42,22 @@ public class NeoForgeCommonEventsHandler implements CommonEvents.Handler {
 	
 	@Override
 	public void registerStartServerTick(StartServerTick event) {
-		registerForgeEvent(ServerTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.START) {
-				event.onStartTick(forgeEvent.getServer());
-			}
+		registerNeoForgeEvent(ServerTickEvent.Pre.class, forgeEvent -> {
+			event.onStartTick(forgeEvent.getServer());
 		});
 	}
 	
 	@Override
 	public void registerEndServerTick(EndServerTick event) {
-		registerForgeEvent(ServerTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.END) {
-				event.onEndTick(forgeEvent.getServer());
-			}
+		registerNeoForgeEvent(ServerTickEvent.Post.class, forgeEvent -> {
+			event.onEndTick(forgeEvent.getServer());
 		});
 	}
 	
 	@Override
 	public void registerStartLevelTick(StartLevelTick event) {
-		registerForgeEvent(LevelTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.START && forgeEvent.level instanceof ServerLevel serverLevel) {
+		registerNeoForgeEvent(LevelTickEvent.Pre.class, forgeEvent -> {
+			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
 				event.onStartTick(serverLevel);
 			}
 		});
@@ -70,8 +65,8 @@ public class NeoForgeCommonEventsHandler implements CommonEvents.Handler {
 	
 	@Override
 	public void registerEndLevelTick(EndLevelTick event) {
-		registerForgeEvent(LevelTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.END && forgeEvent.level instanceof ServerLevel serverLevel) {
+		registerNeoForgeEvent(LevelTickEvent.Post.class, forgeEvent -> {
+			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
 				event.onEndTick(serverLevel);
 			}
 		});
@@ -79,7 +74,7 @@ public class NeoForgeCommonEventsHandler implements CommonEvents.Handler {
 	
 	@Override
 	public void registerLevelLoad(LevelLoad event) {
-		registerForgeEvent(LevelEvent.Load.class, forgeEvent -> {
+		registerNeoForgeEvent(LevelEvent.Load.class, forgeEvent -> {
 			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
 				event.onLoad(serverLevel);
 			}
@@ -88,7 +83,7 @@ public class NeoForgeCommonEventsHandler implements CommonEvents.Handler {
 	
 	@Override
 	public void registerLevelUnload(LevelUnload event) {
-		registerForgeEvent(LevelEvent.Unload.class, forgeEvent -> {
+		registerNeoForgeEvent(LevelEvent.Unload.class, forgeEvent -> {
 			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
 				event.onUnload(serverLevel);
 			}
@@ -99,8 +94,8 @@ public class NeoForgeCommonEventsHandler implements CommonEvents.Handler {
 		BusRegister.registerMod(bus -> bus.addListener(EventPriority.NORMAL, false, eventClass, event));
 	}
 	
-	private <T extends Event> void registerForgeEvent(Class<T> eventClass, Consumer<T> event) {
-		BusRegister.registerForge(bus -> bus.addListener(EventPriority.NORMAL, false, eventClass, event));
+	private <T extends Event> void registerNeoForgeEvent(Class<T> eventClass, Consumer<T> event) {
+		BusRegister.registerNeoForge(bus -> bus.addListener(EventPriority.NORMAL, false, eventClass, event));
 	}
 	
 }

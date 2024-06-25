@@ -4,6 +4,7 @@ import org.spongepowered.asm.mixin.Mixin;
 
 import info.u_team.u_team_core.blockentity.UBlockEntity;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Connection;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
@@ -19,12 +20,12 @@ abstract class UBlockEntityMixin extends BlockEntity {
 	}
 	
 	@Override
-	public void handleUpdateTag(CompoundTag tag) {
+	public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider lookup) {
 		((UBlockEntity) (Object) (this)).receiveUpdateTag(tag);
 	}
 	
 	@Override
-	public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+	public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider lookup) {
 		((UBlockEntity) (Object) (this)).receiveUpdatePacket(connection, packet);
 	}
 }

@@ -1,6 +1,7 @@
 package info.u_team.u_team_core.energy;
 
 import info.u_team.u_team_core.api.sync.DataHolder;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.neoforged.neoforge.energy.EnergyStorage;
@@ -68,18 +69,18 @@ public class BasicEnergyStorage extends EnergyStorage {
 	}
 	
 	@Override
-	public CompoundTag serializeNBT() {
+	public CompoundTag serializeNBT(HolderLookup.Provider lookup) {
 		final CompoundTag compound = new CompoundTag();
 		compound.putInt("energy", getEnergyStored());
 		return compound;
 	}
 	
 	@Override
-	public void deserializeNBT(Tag tag) {
+	public void deserializeNBT(HolderLookup.Provider lookup, Tag tag) {
 		if (tag instanceof final CompoundTag compoundTag) {
 			setEnergy(compoundTag.getInt("energy"));
 		} else {
-			super.deserializeNBT(tag);
+			super.deserializeNBT(lookup, tag);
 		}
 	}
 	

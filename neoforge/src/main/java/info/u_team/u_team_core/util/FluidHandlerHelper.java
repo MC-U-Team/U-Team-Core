@@ -5,11 +5,7 @@ import net.neoforged.neoforge.fluids.FluidStack;
 public class FluidHandlerHelper {
 	
 	public static boolean canFluidStacksStack(FluidStack stackA, FluidStack stackB) {
-		if (stackA.isEmpty() || !(stackA.getFluid() == stackB.getFluid()) || stackA.hasTag() != stackB.hasTag()) {
-			return false;
-		}
-		
-		return (!stackA.hasTag() || stackA.getTag().equals(stackB.getTag()));
+		return FluidStack.isSameFluidSameComponents(stackA, stackB);
 	}
 	
 	public static FluidStack copyStackWithSize(FluidStack stack, int size) {

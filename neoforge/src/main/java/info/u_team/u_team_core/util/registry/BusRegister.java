@@ -12,7 +12,7 @@ public class BusRegister {
 		register(ModLoadingContext.get().getActiveContainer().getEventBus(), consumer);
 	}
 	
-	public static void registerForge(Consumer<IEventBus> consumer) {
+	public static void registerNeoForge(Consumer<IEventBus> consumer) {
 		register(NeoForge.EVENT_BUS, consumer);
 	}
 	

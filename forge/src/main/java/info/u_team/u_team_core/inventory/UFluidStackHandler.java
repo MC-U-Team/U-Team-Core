@@ -10,6 +10,7 @@ import net.minecraft.nbt.Tag;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fluids.FluidStack;
 
+@SuppressWarnings("deprecation")
 public class UFluidStackHandler implements ExtendedFluidHandler, INBTSerializable<CompoundTag> {
 	
 	protected final NonNullList<FluidStack> stacks;

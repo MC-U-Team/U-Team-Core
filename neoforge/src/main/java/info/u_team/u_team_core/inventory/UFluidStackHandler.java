@@ -3,6 +3,7 @@ package info.u_team.u_team_core.inventory;
 import info.u_team.u_team_core.api.InteractionType;
 import info.u_team.u_team_core.api.fluid.ExtendedFluidHandler;
 import info.u_team.u_team_core.util.FluidHandlerHelper;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -130,7 +131,7 @@ public class UFluidStackHandler implements ExtendedFluidHandler, INBTSerializabl
 	}
 	
 	@Override
-	public CompoundTag serializeNBT() {
+	public CompoundTag serializeNBT(HolderLookup.Provider lookup) {
 		final CompoundTag compound = new CompoundTag();
 		final ListTag list = new ListTag();
 		
@@ -139,7 +140,7 @@ public class UFluidStackHandler implements ExtendedFluidHandler, INBTSerializabl
 			if (!fluidStack.isEmpty()) {
 				final CompoundTag slotCompound = new CompoundTag();
 				slotCompound.putByte("Slot", (byte) index);
-				fluidStack.writeToNBT(slotCompound);
+				slotCompound.put("Fluid", fluidStack.saveOptional(lookup));
 				list.add(slotCompound);
 			}
 		}
@@ -152,13 +153,13 @@ public class UFluidStackHandler implements ExtendedFluidHandler, INBTSerializabl
 	}
 	
 	@Override
-	public void deserializeNBT(CompoundTag compound) {
+	public void deserializeNBT(HolderLookup.Provider lookup, CompoundTag compound) {
 		final ListTag list = compound.getList("Fluids", Tag.TAG_COMPOUND);
 		for (int index = 0; index < list.size(); index++) {
 			final CompoundTag slotCompound = list.getCompound(index);
 			final int slot = slotCompound.getByte("Slot") & 255;
 			if (slot >= 0 && slot < stacks.size()) {
-				stacks.set(slot, FluidStack.loadFluidStackFromNBT(slotCompound));
+				stacks.set(slot, FluidStack.parseOptional(lookup, slotCompound.getCompound("Fluid")));
 			}
 		}
 		onLoad();

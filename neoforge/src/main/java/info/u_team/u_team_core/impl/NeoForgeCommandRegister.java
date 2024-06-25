@@ -12,7 +12,7 @@ public class NeoForgeCommandRegister extends CommonCommandRegister {
 	
 	@Override
 	public void register() {
-		BusRegister.registerForge(bus -> bus.addListener(this::registerCommand));
+		BusRegister.registerNeoForge(bus -> bus.addListener(this::registerCommand));
 	}
 	
 	private void registerCommand(RegisterCommandsEvent event) {

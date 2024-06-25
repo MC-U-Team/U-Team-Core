@@ -75,7 +75,7 @@ public class NeoForgeFluidContainerMenuDelegator implements FluidContainerDelega
 		
 		final FluidSlot fluidSlot = fluidSlots.get(index);
 		
-		final Optional<FluidStack> containedFluidOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(serverClickStack, 1)).map(handler -> handler.drain(Integer.MAX_VALUE, FluidAction.SIMULATE));
+		final Optional<FluidStack> containedFluidOptional = FluidUtil.getFluidHandler(serverClickStack.copyWithCount(1)).map(handler -> handler.drain(Integer.MAX_VALUE, FluidAction.SIMULATE));
 		
 		// Check if the item stack can hold fluids
 		if (!containedFluidOptional.isPresent()) {
@@ -106,7 +106,7 @@ public class NeoForgeFluidContainerMenuDelegator implements FluidContainerDelega
 		
 		final ItemStack stack = menu.getCarried();
 		
-		final Optional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
+		final Optional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(stack.copyWithCount(1));
 		
 		if (!fluidHandlerOptional.isPresent()) {
 			return false;
@@ -123,7 +123,7 @@ public class NeoForgeFluidContainerMenuDelegator implements FluidContainerDelega
 		
 		final boolean slotEmpty = fluidSlot.getFluid().isEmpty();
 		
-		if (!slotEmpty && !drainedFluidStack.isFluidEqual(fluidSlot.getFluid())) {
+		if (!slotEmpty && !FluidStack.isSameFluidSameComponents(drainedFluidStack, fluidSlot.getFluid())) {
 			return false;
 		}
 		
@@ -164,7 +164,7 @@ public class NeoForgeFluidContainerMenuDelegator implements FluidContainerDelega
 		
 		final ItemStack stack = menu.getCarried();
 		
-		final Optional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(ItemHandlerHelper.copyStackWithSize(stack, 1));
+		final Optional<IFluidHandlerItem> fluidHandlerOptional = FluidUtil.getFluidHandler(stack.copyWithCount(1));
 		
 		if (!fluidHandlerOptional.isPresent()) {
 			return false;
@@ -218,7 +218,7 @@ public class NeoForgeFluidContainerMenuDelegator implements FluidContainerDelega
 		}
 		
 		if (menu.getSynchronizerPlayer() != null) {
-			PacketDistributor.PLAYER.with(menu.getSynchronizerPlayer()).send(new ContainerSetFluidContentMessage(menu.containerId, menu.incrementStateId(), remoteFluidSlots));
+			PacketDistributor.sendToPlayer(menu.getSynchronizerPlayer(), new ContainerSetFluidContentMessage(menu.containerId, menu.incrementStateId(), remoteFluidSlots));
 		}
 	}
 	
@@ -255,7 +255,7 @@ public class NeoForgeFluidContainerMenuDelegator implements FluidContainerDelega
 	 */
 	private void triggerFluidSlotListeners(int slotId, FluidStack stack, Supplier<FluidStack> supplier) {
 		final FluidStack lastStack = lastFluidSlots.get(slotId);
-		if (!lastStack.isFluidStackIdentical(stack)) {
+		if (!FluidStack.matches(lastStack, stack)) {
 			final FluidStack copy = supplier.get();
 			lastFluidSlots.set(slotId, copy);
 			
@@ -277,12 +277,12 @@ public class NeoForgeFluidContainerMenuDelegator implements FluidContainerDelega
 	private void synchronizeFluidSlotToRemote(int slotId, FluidStack stack, Supplier<FluidStack> supplier) {
 		if (!menu.suppressRemoteUpdates) {
 			final FluidStack remoteStack = remoteFluidSlots.get(slotId);
-			if (!remoteStack.isFluidStackIdentical(stack)) {
+			if (!FluidStack.matches(remoteStack, stack)) {
 				final FluidStack copy = supplier.get();
 				remoteFluidSlots.set(slotId, copy);
 				
 				if (menu.getSynchronizerPlayer() != null) {
-					PacketDistributor.PLAYER.with(menu.getSynchronizerPlayer()).send(new ContainerSetFluidSlotMessage(menu.containerId, menu.incrementStateId(), slotId, copy));
+					PacketDistributor.sendToPlayer(menu.getSynchronizerPlayer(), new ContainerSetFluidSlotMessage(menu.containerId, menu.incrementStateId(), slotId, copy));
 				}
 			}
 		}

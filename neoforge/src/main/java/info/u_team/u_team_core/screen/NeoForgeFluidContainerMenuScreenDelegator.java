@@ -98,7 +98,7 @@ public class NeoForgeFluidContainerMenuScreenDelegator<T extends AbstractContain
 			final FluidSlot fluidSlot = findFluidSlot(mouseX, mouseY);
 			if (fluidSlot != null) {
 				if (!screen.getMenu().getCarried().isEmpty()) {
-					PacketDistributor.SERVER.noArg().send(new FluidClickContainerMessage(screen.getMenu().containerId, fluidSlot.index, Screen.hasShiftDown(), screen.getMenu().getCarried()));
+					PacketDistributor.sendToServer(new FluidClickContainerMessage(screen.getMenu().containerId, fluidSlot.index, Screen.hasShiftDown(), screen.getMenu().getCarried()));
 				}
 				return true;
 			}
@@ -130,7 +130,7 @@ public class NeoForgeFluidContainerMenuScreenDelegator<T extends AbstractContain
 		
 		final List<Component> list = new ArrayList<>();
 		
-		list.add(stack.getDisplayName());
+		list.add(stack.getHoverName());
 		list.add(Component.literal(stack.getAmount() + " mb/" + fluidSlot.getSlotCapacity() + " mb").withStyle(ChatFormatting.GRAY));
 		
 		if (screen.getMinecraft().options.advancedItemTooltips) {

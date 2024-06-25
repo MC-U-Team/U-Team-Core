@@ -19,4 +19,5 @@ public class UBucketItem extends BucketItem {
 	public ICapabilityProvider initCapabilities(ItemStack stack, CompoundTag compound) {
 		return new FluidBucketWrapper(stack);
 	}
+	
 }
