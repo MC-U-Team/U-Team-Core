@@ -101,11 +101,7 @@ accessible method net/minecraft/world/item/crafting/ShapedRecipePattern matches 
 
 accessible method net/minecraft/world/food/FoodProperties <init> (IFZZZLjava/util/List;)V
 
-accessible field net/minecraft/world/food/FoodProperties$Builder nutrition I
-accessible field net/minecraft/world/food/FoodProperties$Builder saturationModifier F
-accessible field net/minecraft/world/food/FoodProperties$Builder isMeat Z
-accessible field net/minecraft/world/food/FoodProperties$Builder canAlwaysEat Z
-accessible field net/minecraft/world/food/FoodProperties$Builder fastFood Z
+accessible field net/minecraft/world/food/FoodProperties$Builder eatSeconds F
 
 accessible field net/minecraft/world/item/SpawnEggItem BY_ID Ljava/util/Map;
 
