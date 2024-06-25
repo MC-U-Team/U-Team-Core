@@ -2,6 +2,7 @@ package info.u_team.u_team_core.util;
 
 import java.util.List;
 
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.world.item.Item.Properties;
 
 public class ItemProperties extends Properties {
@@ -10,13 +11,9 @@ public class ItemProperties extends Properties {
 	}
 	
 	public ItemProperties(Properties properties) {
-		maxStackSize = properties.maxStackSize;
-		maxDamage = properties.maxDamage;
 		craftingRemainingItem = properties.craftingRemainingItem;
-		rarity = properties.rarity;
-		foodProperties = properties.foodProperties;
-		isFireResistant = properties.isFireResistant;
 		requiredFeatures = properties.requiredFeatures;
+		components = DataComponentMap.builder().addAll(properties.components.build());
 		
 		Extension.INSTANCES.forEach(extension -> extension.copy(this, properties));
 	}
