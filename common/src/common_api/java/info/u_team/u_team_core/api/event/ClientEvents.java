@@ -7,6 +7,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item.TooltipContext;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 
@@ -86,7 +87,7 @@ public interface ClientEvents {
 	@FunctionalInterface
 	interface ItemTooltip {
 		
-		void onTooltip(ItemStack stack, TooltipFlag flag, List<Component> lines);
+		void onTooltip(ItemStack stack, TooltipContext context, TooltipFlag flag, List<Component> lines);
 	}
 	
 }

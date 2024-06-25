@@ -13,10 +13,10 @@ import net.minecraft.world.item.ItemStack;
 abstract class ItemMixin implements FabricItem {
 	
 	@Override
-	public boolean allowNbtUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
+	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
 		if (this instanceof UItemExtension extension) {
 			return extension.shouldPlayUpdateAnimation(oldStack, newStack);
 		}
-		return FabricItem.super.allowNbtUpdateAnimation(player, hand, oldStack, newStack);
+		return FabricItem.super.allowComponentsUpdateAnimation(player, hand, oldStack, newStack);
 	}
 }
