@@ -22,7 +22,7 @@ public class UCoreForgeCommonConstruct implements ModConstruct {
 			return Objects.equals(remoteVersion, version);
 		}));
 		
-		BusRegister.registerMod(UCoreNetworkForge::registerMod);
+		BusRegister.registerMod(UCoreForgeNetwork::registerMod);
 		BusRegister.registerMod(UCoreForgeCapabilities::registerMod);
 	}
 }

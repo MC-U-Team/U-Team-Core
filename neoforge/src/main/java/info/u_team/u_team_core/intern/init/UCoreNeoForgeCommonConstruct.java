@@ -10,7 +10,7 @@ public class UCoreNeoForgeCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
-		BusRegister.registerMod(UCoreNetworkNeoForge::registerMod);
+		BusRegister.registerMod(UCoreNeoForgeNetwork::registerMod);
 		BusRegister.registerMod(UCoreNeoForgeCapabilities::registerMod);
 	}
 }

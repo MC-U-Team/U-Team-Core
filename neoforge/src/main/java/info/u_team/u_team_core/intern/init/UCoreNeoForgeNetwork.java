@@ -9,7 +9,7 @@ import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
-public class UCoreNetworkNeoForge {
+public class UCoreNeoForgeNetwork {
 	
 	public static final String PROTOCOL = Integer.toString(UCoreReference.PROTOCOL_VERSION);
 	
@@ -22,7 +22,7 @@ public class UCoreNetworkNeoForge {
 	}
 	
 	public static void registerMod(IEventBus bus) {
-		bus.addListener(UCoreNetworkNeoForge::register);
+		bus.addListener(UCoreNeoForgeNetwork::register);
 	}
 	
 }

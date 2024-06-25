@@ -6,7 +6,7 @@ import java.util.List;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.gui.renderer.FluidInventoryRenderer;
-import info.u_team.u_team_core.intern.init.UCoreNetworkForge;
+import info.u_team.u_team_core.intern.init.UCoreForgeNetwork;
 import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
 import info.u_team.u_team_core.menu.FluidContainerMenu;
 import info.u_team.u_team_core.menu.FluidSlot;
@@ -98,7 +98,7 @@ public class ForgeFluidContainerMenuScreenDelegator<T extends AbstractContainerM
 			final FluidSlot fluidSlot = findFluidSlot(mouseX, mouseY);
 			if (fluidSlot != null) {
 				if (!screen.getMenu().getCarried().isEmpty()) {
-					UCoreNetworkForge.NETWORK.send(new FluidClickContainerMessage(screen.getMenu().containerId, fluidSlot.index, Screen.hasShiftDown(), screen.getMenu().getCarried()), PacketDistributor.SERVER.noArg());
+					UCoreForgeNetwork.NETWORK.send(new FluidClickContainerMessage(screen.getMenu().containerId, fluidSlot.index, Screen.hasShiftDown(), screen.getMenu().getCarried()), PacketDistributor.SERVER.noArg());
 				}
 				return true;
 			}

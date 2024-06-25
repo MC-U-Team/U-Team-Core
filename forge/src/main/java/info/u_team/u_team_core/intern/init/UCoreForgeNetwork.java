@@ -13,7 +13,7 @@ import net.minecraftforge.network.ChannelBuilder;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.SimpleChannel;
 
-public class UCoreNetworkForge {
+public class UCoreForgeNetwork {
 	
 	public static final int PROTOCOL = UCoreReference.PROTOCOL_VERSION;
 	
@@ -30,7 +30,7 @@ public class UCoreNetworkForge {
 	}
 	
 	public static void registerMod(IEventBus bus) {
-		bus.addListener(UCoreNetworkForge::setup);
+		bus.addListener(UCoreForgeNetwork::setup);
 	}
 	
 }

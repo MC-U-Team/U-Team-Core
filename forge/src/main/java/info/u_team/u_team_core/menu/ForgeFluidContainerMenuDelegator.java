@@ -8,7 +8,7 @@ import com.google.common.base.Suppliers;
 
 import info.u_team.u_team_core.api.fluid.FluidHandlerModifiable;
 import info.u_team.u_team_core.api.menu.FluidContainerListener;
-import info.u_team.u_team_core.intern.init.UCoreNetworkForge;
+import info.u_team.u_team_core.intern.init.UCoreForgeNetwork;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidContentMessage;
 import info.u_team.u_team_core.intern.network.ContainerSetFluidSlotMessage;
 import info.u_team.u_team_core.menu.FluidContainerMenu.FluidContainerDelegator;
@@ -220,7 +220,7 @@ public class ForgeFluidContainerMenuDelegator implements FluidContainerDelegator
 		}
 		
 		if (menu.getSynchronizerPlayer() != null) {
-			UCoreNetworkForge.NETWORK.send(new ContainerSetFluidContentMessage(menu.containerId, menu.incrementStateId(), remoteFluidSlots), PacketDistributor.PLAYER.with(menu.getSynchronizerPlayer()));
+			UCoreForgeNetwork.NETWORK.send(new ContainerSetFluidContentMessage(menu.containerId, menu.incrementStateId(), remoteFluidSlots), PacketDistributor.PLAYER.with(menu.getSynchronizerPlayer()));
 		}
 	}
 	
@@ -284,7 +284,7 @@ public class ForgeFluidContainerMenuDelegator implements FluidContainerDelegator
 				remoteFluidSlots.set(slotId, copy);
 				
 				if (menu.getSynchronizerPlayer() != null) {
-					UCoreNetworkForge.NETWORK.send(new ContainerSetFluidSlotMessage(menu.containerId, menu.incrementStateId(), slotId, copy), PacketDistributor.PLAYER.with(menu.getSynchronizerPlayer()));
+					UCoreForgeNetwork.NETWORK.send(new ContainerSetFluidSlotMessage(menu.containerId, menu.incrementStateId(), slotId, copy), PacketDistributor.PLAYER.with(menu.getSynchronizerPlayer()));
 				}
 			}
 		}
