@@ -10,7 +10,7 @@ import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.alchemy.PotionUtils;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 public class TestMultiLoaderCreativeTabs {
@@ -27,8 +27,8 @@ public class TestMultiLoaderCreativeTabs {
 				output.accept(item);
 			});
 			Stream.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.TIPPED_ARROW).forEach(item -> {
-				TestMultiLoaderPotions.POTIONS.entryIterable().forEach(potion -> {
-					output.accept(PotionUtils.setPotion(new ItemStack(item), potion), TabVisibility.PARENT_TAB_ONLY);
+				TestMultiLoaderPotions.POTIONS.forEach(potion -> {
+					output.accept(PotionContents.createItemStack(item, potion.getHolder().get()), TabVisibility.PARENT_TAB_ONLY);
 				});
 			});
 			output.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(TestMultiLoaderEnchantments.TEST.get(), 1)), TabVisibility.PARENT_TAB_ONLY);

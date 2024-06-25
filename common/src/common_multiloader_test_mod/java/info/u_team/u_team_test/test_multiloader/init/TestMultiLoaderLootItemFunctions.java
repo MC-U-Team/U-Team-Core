@@ -9,9 +9,9 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunctionType;
 
 public class TestMultiLoaderLootItemFunctions {
 	
-	public static final CommonRegister<LootItemFunctionType> LOOT_ITEM_FUNCTIONS = CommonRegister.create(Registries.LOOT_FUNCTION_TYPE, TestMultiLoaderReference.MODID);
+	public static final CommonRegister<LootItemFunctionType<?>> LOOT_ITEM_FUNCTIONS = CommonRegister.create(Registries.LOOT_FUNCTION_TYPE, TestMultiLoaderReference.MODID);
 	
-	public static final RegistryEntry<LootItemFunctionType> TEST = LOOT_ITEM_FUNCTIONS.register("test", () -> new LootItemFunctionType(TestLootItemFunction.CODEC));
+	public static final RegistryEntry<LootItemFunctionType<TestLootItemFunction>> TEST = LOOT_ITEM_FUNCTIONS.register("test", () -> new LootItemFunctionType<>(TestLootItemFunction.CODEC));
 	
 	static void register() {
 		LOOT_ITEM_FUNCTIONS.register();

@@ -2,7 +2,7 @@ package info.u_team.u_team_test.test_multiloader.loot_item_function;
 
 import java.util.List;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderLootItemFunctions;
@@ -15,7 +15,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 
 public class TestLootItemFunction extends LootItemConditionalFunction {
 	
-	public static final Codec<TestLootItemFunction> CODEC = RecordCodecBuilder.create(instance -> {
+	public static final MapCodec<TestLootItemFunction> CODEC = RecordCodecBuilder.mapCodec(instance -> {
 		return commonFields(instance).apply(instance, TestLootItemFunction::new);
 	});
 	
@@ -36,7 +36,7 @@ public class TestLootItemFunction extends LootItemConditionalFunction {
 	}
 	
 	@Override
-	public LootItemFunctionType getType() {
+	public LootItemFunctionType<TestLootItemFunction> getType() {
 		return TestMultiLoaderLootItemFunctions.TEST.get();
 	}
 }
