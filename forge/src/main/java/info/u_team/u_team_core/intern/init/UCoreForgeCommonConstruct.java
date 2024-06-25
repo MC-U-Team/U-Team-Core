@@ -23,5 +23,6 @@ public class UCoreForgeCommonConstruct implements ModConstruct {
 		}));
 		
 		BusRegister.registerMod(UCoreNetworkForge::registerMod);
+		BusRegister.registerMod(UCoreForgeCapabilities::registerMod);
 	}
 }
