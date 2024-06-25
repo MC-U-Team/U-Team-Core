@@ -7,6 +7,6 @@ import net.minecraft.world.item.SwordItem;
 public class USwordItem extends SwordItem {
 	
 	public USwordItem(Properties properties, ExtendedTier tier) {
-		super(tier, (int) tier.getAttackDamage(Tools.SWORD), tier.getAttackSpeed(Tools.SWORD), properties);
+		super(tier, properties.attributes(createAttributes(tier, (int) tier.getAttackDamage(Tools.SWORD), tier.getAttackSpeed(Tools.SWORD))));
 	}
 }

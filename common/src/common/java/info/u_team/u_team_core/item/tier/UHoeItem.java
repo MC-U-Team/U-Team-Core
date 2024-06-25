@@ -7,6 +7,6 @@ import net.minecraft.world.item.HoeItem;
 public class UHoeItem extends HoeItem {
 	
 	public UHoeItem(Properties properties, ExtendedTier tier) {
-		super(tier, (int) tier.getAttackDamage(Tools.HOE), tier.getAttackSpeed(Tools.HOE), properties);
+		super(tier, properties.attributes(createAttributes(tier, tier.getAttackDamage(Tools.HOE), tier.getAttackSpeed(Tools.HOE))));
 	}
 }

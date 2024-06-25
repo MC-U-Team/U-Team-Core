@@ -7,7 +7,7 @@ import net.minecraft.world.item.ShovelItem;
 public class UShovelItem extends ShovelItem {
 	
 	public UShovelItem(Properties properties, ExtendedTier tier) {
-		super(tier, tier.getAttackDamage(Tools.SHOVEL), tier.getAttackSpeed(Tools.SHOVEL), properties);
+		super(tier, properties.attributes(createAttributes(tier, tier.getAttackDamage(Tools.SHOVEL), tier.getAttackSpeed(Tools.SHOVEL))));
 	}
 	
 }

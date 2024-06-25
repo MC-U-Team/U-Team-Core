@@ -32,26 +32,11 @@ public interface ExtendedTier extends Tier {
 	 */
 	public static enum Tools {
 		
-		AXE(0),
-		HOE(1),
-		PICKAXE(2),
-		SHOVEL(3),
-		SWORD(4);
-		
-		private final int index;
-		
-		private Tools(int index) {
-			this.index = index;
-		}
-		
-		/**
-		 * Returns the index
-		 *
-		 * @return Index of tool
-		 */
-		public int getIndex() {
-			return index;
-		}
+		AXE,
+		HOE,
+		PICKAXE,
+		SHOVEL,
+		SWORD,
 	}
 	
 }

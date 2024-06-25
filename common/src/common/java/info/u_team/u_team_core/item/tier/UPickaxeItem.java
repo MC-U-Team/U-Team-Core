@@ -7,6 +7,6 @@ import net.minecraft.world.item.PickaxeItem;
 public class UPickaxeItem extends PickaxeItem {
 	
 	public UPickaxeItem(Properties properties, ExtendedTier tier) {
-		super(tier, (int) tier.getAttackDamage(Tools.PICKAXE), tier.getAttackSpeed(Tools.PICKAXE), properties);
+		super(tier, properties.attributes(createAttributes(tier, tier.getAttackDamage(Tools.PICKAXE), tier.getAttackSpeed(Tools.PICKAXE))));
 	}
 }
