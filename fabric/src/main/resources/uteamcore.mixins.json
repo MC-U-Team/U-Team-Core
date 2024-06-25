@@ -5,7 +5,6 @@
 	"refmap": "uteamcore.mixins.refmap.json",
 	"package": "info.u_team.u_team_core.intern.mixin",
 	"mixins": [
-		"HumanoidArmorLayerMixin",
 		"LevelChunkMixin",
 		"ClientPacketListenerMixin",
 		"MinecraftMixin",
