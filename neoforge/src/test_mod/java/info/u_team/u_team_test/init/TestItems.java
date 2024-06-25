@@ -19,9 +19,9 @@ public class TestItems {
 	public static final CommonRegister<Item> ITEMS = CommonRegister.create(Registries.ITEM, TestMod.MODID);
 	
 	public static final TierSet BASIC_TOOL = TierSetCreator.create(ITEMS, "basic_tool", new Properties().rarity(Rarity.UNCOMMON), TestTiers.BASIC);
-	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create(ITEMS, "basic_armor", new Properties().rarity(Rarity.RARE).fireResistant(), TestArmorMaterials.BASIC);
+	public static final ArmorSet BASIC_ARMOR = ArmorSetCreator.create(ITEMS, "basic_armor", new Properties().rarity(Rarity.RARE).fireResistant(), TestArmorMaterials.BASIC.getHolder().get());
 	
-	public static final RegistryEntry<UBucketItem> TEST_FLUID_BUCKET = ITEMS.register("test_fluid_bucket", () -> new UBucketItem(new Properties().craftRemainder(Items.BUCKET).stacksTo(1), TestFluids.TEST_FLUID));
+	public static final RegistryEntry<UBucketItem> TEST_FLUID_BUCKET = ITEMS.register("test_fluid_bucket", () -> new UBucketItem(new Properties().craftRemainder(Items.BUCKET).stacksTo(1), TestFluids.TEST_FLUID.get()));
 	
 	static void register() {
 		ITEMS.register();

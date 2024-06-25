@@ -19,7 +19,6 @@ public class TestCommonConstruct implements ModConstruct {
 		TestMenuTypes.register();
 		
 		BusRegister.registerMod(TestCapabilities::registerMod);
-		BusRegister.registerMod(TestTiers::registerMod);
 	}
 	
 }

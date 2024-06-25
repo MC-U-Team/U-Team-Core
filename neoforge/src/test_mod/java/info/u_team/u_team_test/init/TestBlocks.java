@@ -22,7 +22,7 @@ public class TestBlocks {
 	public static final BlockRegistryEntry<BasicEnergyCreatorBlock, BlockItem> BASIC_ENERGY_CREATOR = BLOCKS.register("basic_energy_creator", BasicEnergyCreatorBlock::new);
 	public static final BlockRegistryEntry<BasicFluidInventoryBlock, BlockItem> BASIC_FLUID_INVENTORY = BLOCKS.register("basic_fluid_inventory", BasicFluidInventoryBlock::new);
 	
-	public static final RegistryEntry<LiquidBlock> TEST_FLUID = BLOCKS.registerBlock("test_fluid", () -> new LiquidBlock(TestFluids.TEST_FLUID, Properties.of().mapColor(MapColor.COLOR_RED).replaceable().noCollission().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
+	public static final RegistryEntry<LiquidBlock> TEST_FLUID = BLOCKS.registerBlock("test_fluid", () -> new LiquidBlock(TestFluids.TEST_FLUID.get(), Properties.of().mapColor(MapColor.COLOR_RED).replaceable().noCollission().strength(100.0F).pushReaction(PushReaction.DESTROY).noLootTable().liquid().sound(SoundType.EMPTY)));
 	
 	static void register() {
 		BLOCKS.register();
