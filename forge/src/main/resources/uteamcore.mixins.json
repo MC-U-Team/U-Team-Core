@@ -9,8 +9,7 @@
 		"UBlockEntityMixin",
 		"DataMenuSupplierMixin",
 		"ItemMixin",
-		"common.ServerPlayerMixin",
-		"common.accessor.BlockPropertiesAccessor"
+		"common.ServerPlayerMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
