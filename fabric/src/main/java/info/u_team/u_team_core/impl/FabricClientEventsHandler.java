@@ -40,6 +40,6 @@ public class FabricClientEventsHandler implements ClientEvents.Handler {
 	
 	@Override
 	public void registerItemTooltip(ItemTooltip event) {
-		ItemTooltipCallback.EVENT.register(event::onTooltip);
+		ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, lines) -> event.onTooltip(stack, tooltipType, lines));
 	}
 }

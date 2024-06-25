@@ -15,7 +15,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraftforge.client.event.ScreenEvent.KeyPressed;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.LevelTickEvent;
-import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -24,26 +23,22 @@ public class ForgeClientEventsHandler implements ClientEvents.Handler {
 	
 	@Override
 	public void registerStartClientTick(StartClientTick event) {
-		registerForgeEvent(ClientTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.START) {
-				event.onStartTick(Minecraft.getInstance());
-			}
+		registerForgeEvent(ClientTickEvent.Pre.class, forgeEvent -> {
+			event.onStartTick(Minecraft.getInstance());
 		});
 	}
 	
 	@Override
 	public void registerEndClientTick(EndClientTick event) {
-		registerForgeEvent(ClientTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.END) {
-				event.onEndTick(Minecraft.getInstance());
-			}
+		registerForgeEvent(ClientTickEvent.Post.class, forgeEvent -> {
+			event.onEndTick(Minecraft.getInstance());
 		});
 	}
 	
 	@Override
 	public void registerStartClientLevelTick(StartClientLevelTick event) {
-		registerForgeEvent(LevelTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.START && forgeEvent.level instanceof ClientLevel clientLevel) {
+		registerForgeEvent(LevelTickEvent.Pre.class, forgeEvent -> {
+			if (forgeEvent.level instanceof ClientLevel clientLevel) {
 				event.onStartTick(clientLevel);
 			}
 		});
@@ -51,8 +46,8 @@ public class ForgeClientEventsHandler implements ClientEvents.Handler {
 	
 	@Override
 	public void registerEndClientLevelTick(EndClientLevelTick event) {
-		registerForgeEvent(LevelTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.END && forgeEvent.level instanceof ClientLevel clientLevel) {
+		registerForgeEvent(LevelTickEvent.Post.class, forgeEvent -> {
+			if (forgeEvent.level instanceof ClientLevel clientLevel) {
 				event.onEndTick(clientLevel);
 			}
 		});

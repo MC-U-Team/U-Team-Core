@@ -14,7 +14,6 @@ import info.u_team.u_team_core.api.event.CommonEvents.StartServerTick;
 import info.u_team.u_team_core.util.registry.BusRegister;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.event.TickEvent.LevelTickEvent;
-import net.minecraftforge.event.TickEvent.Phase;
 import net.minecraftforge.event.TickEvent.ServerTickEvent;
 import net.minecraftforge.event.level.LevelEvent;
 import net.minecraftforge.eventbus.api.Event;
@@ -43,26 +42,22 @@ public class ForgeCommonEventsHandler implements CommonEvents.Handler {
 	
 	@Override
 	public void registerStartServerTick(StartServerTick event) {
-		registerForgeEvent(ServerTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.START) {
-				event.onStartTick(forgeEvent.getServer());
-			}
+		registerForgeEvent(ServerTickEvent.Pre.class, forgeEvent -> {
+			event.onStartTick(forgeEvent.getServer());
 		});
 	}
 	
 	@Override
 	public void registerEndServerTick(EndServerTick event) {
-		registerForgeEvent(ServerTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.END) {
-				event.onEndTick(forgeEvent.getServer());
-			}
+		registerForgeEvent(ServerTickEvent.Post.class, forgeEvent -> {
+			event.onEndTick(forgeEvent.getServer());
 		});
 	}
 	
 	@Override
 	public void registerStartLevelTick(StartLevelTick event) {
-		registerForgeEvent(LevelTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.START && forgeEvent.level instanceof ServerLevel serverLevel) {
+		registerForgeEvent(LevelTickEvent.Pre.class, forgeEvent -> {
+			if (forgeEvent.level instanceof ServerLevel serverLevel) {
 				event.onStartTick(serverLevel);
 			}
 		});
@@ -70,8 +65,8 @@ public class ForgeCommonEventsHandler implements CommonEvents.Handler {
 	
 	@Override
 	public void registerEndLevelTick(EndLevelTick event) {
-		registerForgeEvent(LevelTickEvent.class, forgeEvent -> {
-			if (forgeEvent.phase == Phase.END && forgeEvent.level instanceof ServerLevel serverLevel) {
+		registerForgeEvent(LevelTickEvent.Post.class, forgeEvent -> {
+			if (forgeEvent.level instanceof ServerLevel serverLevel) {
 				event.onEndTick(serverLevel);
 			}
 		});
