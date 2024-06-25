@@ -1,10 +1,11 @@
 package info.u_team.u_team_core.recipeserializer;
 
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
-import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.ExtraCodecs;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.CraftingBookCategory;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -13,40 +14,46 @@ import net.minecraft.world.item.crafting.ShapedRecipePattern;
 
 public abstract class UShapedRecipeSerializer<T extends ShapedRecipe> implements RecipeSerializer<T> {
 	
-	private final Codec<T> codec = RecordCodecBuilder.create(instance -> {
-		return instance.group(ExtraCodecs.strictOptionalField(Codec.STRING, "group", "").forGetter(recipe -> {
+	private final MapCodec<T> codec = RecordCodecBuilder.mapCodec(instance -> {
+		return instance.group(Codec.STRING.optionalFieldOf("group", "").forGetter(recipe -> {
 			return recipe.group;
 		}), CraftingBookCategory.CODEC.fieldOf("category").orElse(CraftingBookCategory.MISC).forGetter(recipe -> {
 			return recipe.category;
 		}), ShapedRecipePattern.MAP_CODEC.forGetter((recipe) -> {
 			return recipe.pattern;
-		}), ItemStack.ITEM_WITH_COUNT_CODEC.fieldOf("result").forGetter(recipe -> {
+		}), ItemStack.STRICT_CODEC.fieldOf("result").forGetter(recipe -> {
 			return recipe.result;
-		}), ExtraCodecs.strictOptionalField(Codec.BOOL, "show_notification", true).forGetter(recipe -> {
+		}), Codec.BOOL.optionalFieldOf("show_notification", Boolean.valueOf(true)).forGetter(recipe -> {
 			return recipe.showNotification;
 		})).apply(instance, this::createRecipe);
 	});
 	
-	public Codec<T> codec() {
+	private final StreamCodec<RegistryFriendlyByteBuf, T> stream_codec = StreamCodec.of(this::toNetwork, this::fromNetwork);
+	
+	@Override
+	public MapCodec<T> codec() {
 		return codec;
 	}
 	
 	@Override
-	public T fromNetwork(FriendlyByteBuf buffer) {
+	public StreamCodec<RegistryFriendlyByteBuf, T> streamCodec() {
+		return stream_codec;
+	}
+	
+	public T fromNetwork(RegistryFriendlyByteBuf buffer) {
 		final String group = buffer.readUtf();
 		final CraftingBookCategory category = buffer.readEnum(CraftingBookCategory.class);
-		final ShapedRecipePattern pattern = ShapedRecipePattern.fromNetwork(buffer);
-		final ItemStack result = buffer.readItem();
+		final ShapedRecipePattern pattern = ShapedRecipePattern.STREAM_CODEC.decode(buffer);
+		final ItemStack result = ItemStack.STREAM_CODEC.decode(buffer);
 		final boolean showNotification = buffer.readBoolean();
 		return createRecipe(group, category, pattern, result, showNotification);
 	}
 	
-	@Override
-	public void toNetwork(FriendlyByteBuf buffer, T recipe) {
+	public void toNetwork(RegistryFriendlyByteBuf buffer, T recipe) {
 		buffer.writeUtf(recipe.group);
 		buffer.writeEnum(recipe.category);
-		recipe.pattern.toNetwork(buffer);
-		buffer.writeItem(recipe.result);
+		ShapedRecipePattern.STREAM_CODEC.encode(buffer, recipe.pattern);
+		ItemStack.STREAM_CODEC.encode(buffer, recipe.result);
 		buffer.writeBoolean(recipe.showNotification);
 	}
 	
