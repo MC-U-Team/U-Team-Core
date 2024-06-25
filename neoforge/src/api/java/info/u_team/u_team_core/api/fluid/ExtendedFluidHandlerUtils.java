@@ -39,7 +39,7 @@ public class ExtendedFluidHandlerUtils {
 			final FluidStack inTank = inTankGetter.get(tank);
 			if (inTank.isEmpty()) {
 				emptyTanks.add(tank);
-			} else if (inTank.isFluidEqual(stack)) {
+			} else if (FluidStack.isSameFluidSameComponents(inTank, stack)) {
 				matchingTanks.add(tank);
 			}
 		}
@@ -77,7 +77,7 @@ public class ExtendedFluidHandlerUtils {
 		FluidStack extracted = FluidStack.EMPTY;
 		int toDrain = amount;
 		for (int tank = 0; tank < tanks; tank++) {
-			if (extracted.isEmpty() || extracted.isFluidEqual(inTankGetter.get(tank))) {
+			if (extracted.isEmpty() || FluidStack.isSameFluidSameComponents(extracted, inTankGetter.get(tank))) {
 				// If there is fluid in the tank that matches the type we have started draining, or we haven't found a type yet
 				final FluidStack drained = extractFluid.extract(tank, toDrain, action);
 				if (!drained.isEmpty()) {
@@ -107,7 +107,7 @@ public class ExtendedFluidHandlerUtils {
 		final int tanks = tankCount.getAsInt();
 		if (tanks == 1) {
 			final FluidStack inTank = inTankGetter.get(0);
-			if (inTank.isEmpty() || !inTank.isFluidEqual(stack)) {
+			if (inTank.isEmpty() || !FluidStack.isSameFluidSameComponents(inTank, stack)) {
 				return FluidStack.EMPTY;
 			}
 			return extractFluid.extract(0, stack.getAmount(), action);
@@ -115,7 +115,7 @@ public class ExtendedFluidHandlerUtils {
 		FluidStack extracted = FluidStack.EMPTY;
 		int toDrain = stack.getAmount();
 		for (int tank = 0; tank < tanks; tank++) {
-			if (stack.isFluidEqual(inTankGetter.get(tank))) {
+			if (FluidStack.isSameFluidSameComponents(stack, inTankGetter.get(tank))) {
 				// If there is fluid in the tank that matches the type we are trying to drain, try to draining from it
 				final FluidStack drained = extractFluid.extract(tank, toDrain, action);
 				if (!drained.isEmpty()) {
