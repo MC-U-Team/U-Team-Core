@@ -6,7 +6,7 @@ import java.util.List;
 import info.u_team.u_team_core.api.registry.CommonRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
 import info.u_team.u_team_core.util.RegistryUtil;
-import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
+import info.u_team.u_team_test.TestMod;
 import net.minecraft.Util;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.sounds.SoundEvents;
@@ -17,7 +17,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 public class TestArmorMaterials {
 	
-	public static final CommonRegister<ArmorMaterial> ARMOR_MATERIALS = CommonRegister.create(Registries.ARMOR_MATERIAL, TestMultiLoaderReference.MODID);
+	public static final CommonRegister<ArmorMaterial> ARMOR_MATERIALS = CommonRegister.create(Registries.ARMOR_MATERIAL, TestMod.MODID);
 	
 	public static final RegistryEntry<ArmorMaterial> BASIC = ARMOR_MATERIALS.register("basic", () -> new ArmorMaterial(Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 5);
