@@ -1,5 +1,5 @@
-// 1.20.4	2024-01-23T06:02:10.5208947	Recipe: uteamtest_multiloader (common)
-e63c692691cb754a64a9fe5867cb29bbd09f9407 data/uteamtest_multiloader/advancements/recipes/misc/test_item_vanilla.json
-bb200454752de425849793043594bd75d273367d data/uteamtest_multiloader/advancements/recipes/test_item.json
-f75e55e9ae20a2ff399222f4518944536cba4cbe data/uteamtest_multiloader/recipes/test_item.json
-6892938fa4733c2108b1afcb6b8f4ae5b180054b data/uteamtest_multiloader/recipes/test_item_vanilla.json
+// 1.20.6	2024-06-26T02:09:52.0699683	Recipe: uteamtest_multiloader (common)
+97c9a869e76dd5b5bd0fdc53ea20a22569692353 data/uteamtest_multiloader/advancements/recipes/misc/test_item_vanilla.json
+d3811c55e9eddb489e8008cad08a46e4e43f554a data/uteamtest_multiloader/advancements/recipes/test_item.json
+fb57cbe4635d3077899ee8b6307e720ae8337048 data/uteamtest_multiloader/recipes/test_item.json
+154aa50249a3a949cdc8dad65a9e0239bbf008e0 data/uteamtest_multiloader/recipes/test_item_vanilla.json

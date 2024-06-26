@@ -21,6 +21,7 @@
 		"WLW"
 	],
 	"result": {
-		"item": "uteamtest_multiloader:test_item"
+		"count": 1,
+		"id": "uteamtest_multiloader:test_item"
 	}
 }
