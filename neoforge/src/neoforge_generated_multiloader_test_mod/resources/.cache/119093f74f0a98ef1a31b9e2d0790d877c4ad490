@@ -1,3 +1,3 @@
-// 1.20.4	2024-01-23T06:03:24.1808135	Global-Loot-Modifier: uteamtest_multiloader (neoforge)
+// 1.20.6	2024-06-26T02:12:36.4429099	Global-Loot-Modifier: uteamtest_multiloader (neoforge)
 6644b80fd39a98101843ba60b884e98bad54ade6 data/neoforge/loot_modifiers/global_loot_modifiers.json
-f7fb132e5d37cb7a556aa51b70216d9e34d3832c data/uteamtest_multiloader/loot_modifiers/test_enchantment_modifier.json
+d981f3fa42adff1cf5a90c13b0bf95d43816158b data/uteamtest_multiloader/loot_modifiers/test_enchantment_modifier.json
