@@ -101,8 +101,7 @@ minecraft {
 			args "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources")
 			args "--existing-mod", "uteamcore"
 			
-			property "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-			property "coremod.uteamcore.dataprovider-set-indent.value", "true"
+			property "coremod.uteamcore.dataprovider-set-indent", "true"
 			
 			mods {
 				"${config.mod.modid}" {
