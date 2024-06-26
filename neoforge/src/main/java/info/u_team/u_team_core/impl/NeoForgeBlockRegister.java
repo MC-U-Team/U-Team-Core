@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 import info.u_team.u_team_core.api.block.BlockItemProvider;
 import info.u_team.u_team_core.api.registry.BlockRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
-import info.u_team.u_team_core.impl.NeoForgeCommonRegister.ForgeRegistryEntry;
+import info.u_team.u_team_core.impl.NeoForgeCommonRegister.NeoForgeRegistryEntry;
 import info.u_team.u_team_core.impl.common.CommonBlockRegistryEntry;
 import info.u_team.u_team_core.util.RegistryUtil;
 import info.u_team.u_team_core.util.registry.BusRegister;
@@ -27,7 +27,7 @@ public class NeoForgeBlockRegister implements BlockRegister {
 	private final NeoForgeCommonRegister<Block> blocks;
 	private final NeoForgeCommonRegister<Item> items;
 	
-	private final Map<ForgeRegistryEntry<Block, ? extends Block>, ForgeRegistryEntry<Item, ? extends Item>> blockToItemsMap;
+	private final Map<NeoForgeRegistryEntry<Block, ? extends Block>, NeoForgeRegistryEntry<Item, ? extends Item>> blockToItemsMap;
 	
 	NeoForgeBlockRegister(String modid) {
 		blocks = new NeoForgeCommonRegister<>(Registries.BLOCK, modid);
@@ -36,29 +36,29 @@ public class NeoForgeBlockRegister implements BlockRegister {
 	}
 	
 	@Override
-	public <B extends Block & BlockItemProvider, I extends Item> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
-		final ForgeRegistryEntry<Block, B> block = blocks.register(name, supplier);
-		final ForgeRegistryEntry<Item, I> item = new ForgeRegistryEntry<>(DeferredHolder.create(Registries.ITEM, new ResourceLocation(blocks.getModid(), name)));
+	public <B extends Block & BlockItemProvider, I extends Item> NeoForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
+		final NeoForgeRegistryEntry<Block, B> block = blocks.register(name, supplier);
+		final NeoForgeRegistryEntry<Item, I> item = new NeoForgeRegistryEntry<>(DeferredHolder.create(Registries.ITEM, new ResourceLocation(blocks.getModid(), name)));
 		
 		blockToItemsMap.put(block, item);
 		
-		return new ForgeBlockRegistryEntry<>(block, item);
+		return new NeoForgeBlockRegistryEntry<>(block, item);
 	}
 	
 	@Override
-	public <B extends Block, I extends Item> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
+	public <B extends Block, I extends Item> NeoForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
 		return register(name, blockSupplier, () -> itemFunction.apply(RegistryUtil.getBuiltInRegistry(Registries.BLOCK).get(new ResourceLocation(blocks.getModid(), name))));
 	}
 	
 	@Override
-	public <B extends Block, I extends Item> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
-		final ForgeRegistryEntry<Block, B> block = blocks.register(name, blockSupplier);
-		final ForgeRegistryEntry<Item, I> item = items.register(name, itemSupplier);
-		return new ForgeBlockRegistryEntry<>(block, item);
+	public <B extends Block, I extends Item> NeoForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Supplier<? extends I> itemSupplier) {
+		final NeoForgeRegistryEntry<Block, B> block = blocks.register(name, blockSupplier);
+		final NeoForgeRegistryEntry<Item, I> item = items.register(name, itemSupplier);
+		return new NeoForgeBlockRegistryEntry<>(block, item);
 	}
 	
 	@Override
-	public <B extends Block> ForgeRegistryEntry<Block, B> registerBlock(String name, Supplier<? extends B> supplier) {
+	public <B extends Block> NeoForgeRegistryEntry<Block, B> registerBlock(String name, Supplier<? extends B> supplier) {
 		return blocks.register(name, supplier);
 	}
 	
@@ -119,9 +119,9 @@ public class NeoForgeBlockRegister implements BlockRegister {
 		return items;
 	}
 	
-	public static class ForgeBlockRegistryEntry<B extends Block, I extends Item> extends CommonBlockRegistryEntry<B, I, ForgeRegistryEntry<Block, B>, ForgeRegistryEntry<Item, I>> {
+	public static class NeoForgeBlockRegistryEntry<B extends Block, I extends Item> extends CommonBlockRegistryEntry<B, I, NeoForgeRegistryEntry<Block, B>, NeoForgeRegistryEntry<Item, I>> {
 		
-		ForgeBlockRegistryEntry(ForgeRegistryEntry<Block, B> block, ForgeRegistryEntry<Item, I> item) {
+		NeoForgeBlockRegistryEntry(NeoForgeRegistryEntry<Block, B> block, NeoForgeRegistryEntry<Item, I> item) {
 			super(block, item);
 		}
 		

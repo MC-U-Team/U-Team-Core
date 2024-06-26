@@ -30,13 +30,13 @@ public class NeoForgeCommonRegister<C> implements CommonRegister<C> {
 	}
 	
 	@Override
-	public <E extends C> ForgeRegistryEntry<C, E> register(String name, Function<ResourceLocation, ? extends E> function) {
+	public <E extends C> NeoForgeRegistryEntry<C, E> register(String name, Function<ResourceLocation, ? extends E> function) {
 		return register(name, () -> function.apply(new ResourceLocation(modid, name)));
 	}
 	
 	@Override
-	public <E extends C> ForgeRegistryEntry<C, E> register(String name, Supplier<? extends E> supplier) {
-		return new ForgeRegistryEntry<>(register.register(name, supplier));
+	public <E extends C> NeoForgeRegistryEntry<C, E> register(String name, Supplier<? extends E> supplier) {
+		return new NeoForgeRegistryEntry<>(register.register(name, supplier));
 	}
 	
 	@Override
@@ -56,18 +56,18 @@ public class NeoForgeCommonRegister<C> implements CommonRegister<C> {
 	
 	@Override
 	public Collection<RegistryEntry<C>> getEntries() {
-		return Collections.unmodifiableCollection(CastUtil.uncheckedCast(register.getEntries().stream().map(holder -> new ForgeRegistryEntry<>(holder)).collect(Collectors.toCollection(LinkedHashSet::new))));
+		return Collections.unmodifiableCollection(CastUtil.uncheckedCast(register.getEntries().stream().map(holder -> new NeoForgeRegistryEntry<>(holder)).collect(Collectors.toCollection(LinkedHashSet::new))));
 	}
 	
 	public DeferredRegister<C> getDeferredRegister() {
 		return register;
 	}
 	
-	public static class ForgeRegistryEntry<C, E extends C> implements RegistryEntry<E> {
+	public static class NeoForgeRegistryEntry<C, E extends C> implements RegistryEntry<E> {
 		
 		private final DeferredHolder<C, E> holder;
 		
-		ForgeRegistryEntry(DeferredHolder<C, E> holder) {
+		NeoForgeRegistryEntry(DeferredHolder<C, E> holder) {
 			this.holder = holder;
 		}
 		
