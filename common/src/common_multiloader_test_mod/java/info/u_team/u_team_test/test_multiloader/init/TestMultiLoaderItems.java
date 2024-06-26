@@ -33,7 +33,7 @@ public class TestMultiLoaderItems {
 	
 	public static final TierSet TEST_TIER = TierSetCreator.create(ITEMS, "test", new Properties().fireResistant(), TestMultiLoaderTiers.TEST);
 	
-	public static final ArmorSet TEST_ARMOR = ArmorSetCreator.create(ITEMS, "test", new Properties().fireResistant(), TestMultiLoaderArmorMaterials.TEST.getHolder().get());
+	public static final ArmorSet TEST_ARMOR = ArmorSetCreator.create(ITEMS, "test", new Properties().fireResistant(), () -> TestMultiLoaderArmorMaterials.TEST.getHolder().get());
 	
 	static void register() {
 		ITEMS.register();
