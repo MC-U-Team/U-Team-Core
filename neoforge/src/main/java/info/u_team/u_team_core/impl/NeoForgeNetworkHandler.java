@@ -28,7 +28,7 @@ public class NeoForgeNetworkHandler extends CommonNetworkHandler {
 	}
 	
 	private void registerPayloadHandlers(RegisterPayloadHandlersEvent event) {
-		final PayloadRegistrar registrar = event.registrar(Integer.toString(protocolVersion)).executesOn(HandlerThread.NETWORK);
+		final PayloadRegistrar registrar = event.registrar(Integer.toString(protocolVersion)).optional().executesOn(HandlerThread.NETWORK);
 		
 		for (final MessagePacketPayload<?> messagePayload : messages.values()) {
 			final NetworkHandlerEnvironment environment = messagePayload.payload().handlerEnvironment();
