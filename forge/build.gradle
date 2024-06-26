@@ -192,6 +192,13 @@ repositories {
 dependencies {
 	minecraft gradlefiles.forgeDependency()
 	
+	// Fix wrong jopt simple version
+	implementation("net.sf.jopt-simple:jopt-simple:5.0.4") {
+		version {
+			strictly "5.0.4"
+		}
+	}
+	
 	implementation "mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}"
 	
 	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
