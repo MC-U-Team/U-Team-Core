@@ -17,7 +17,7 @@ public class NeoForgeTestMultiLoaderGlobalLootModifierProvider extends CommonGlo
 	
 	@Override
 	public void register(BiConsumer<String, WithConditions<? extends IGlobalLootModifier>> consumer) {
-		consumer.accept("test_enchantment_modifier", WithConditions.builder(new TestLootModifier(TestEnchantmentLootItemCondition.create().build())).build());
+		consumer.accept("test_enchantment_modifier", new WithConditions<>(new TestLootModifier(TestEnchantmentLootItemCondition.create().build())));
 	}
 	
 }
