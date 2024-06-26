@@ -162,7 +162,10 @@ gradlefiles.allBuildingDependOn(tasks.named("multiLoaderTestJar"), tasks.named("
 
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
-	// TODO maybe manually add mixin json
+	
+	manifest {
+		attributes("MixinConfigs": "uteamcore.mixins.json")
+	}
 }
 
 tasks.withType(Javadoc).configureEach { task ->
