@@ -66,7 +66,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		private MessagePacketPayload(ResourceLocation messageId, NetworkPayload<M> payload) {
 			this.payload = payload;
 			type = new CustomPacketPayload.Type<>(messageId);
-			streamCodec = CustomPacketPayloadImpl.cast(payload.streamCodec().map(CustomPacketPayloadImpl::new, CustomPacketPayloadImpl::getMessage));
+			streamCodec = cast(payload.streamCodec().map(CustomPacketPayloadImpl::new, CustomPacketPayloadImpl::getMessage));
 		}
 		
 		public NetworkPayload<M> payload() {
@@ -82,7 +82,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		}
 		
 		public void handle(CustomPacketPayload customPacketPayload, NetworkContext context) {
-			handle(CustomPacketPayloadImpl.cast(customPacketPayload).getMessage(), context);
+			handle(cast(customPacketPayload).getMessage(), context);
 		}
 		
 		private CustomPacketPayload createCustomPacketPayload(M message) {
@@ -129,16 +129,16 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			private M getMessage() {
 				return message;
 			}
-			
-			@SuppressWarnings("unchecked")
-			private static StreamCodec<? super RegistryFriendlyByteBuf, CustomPacketPayload> cast(StreamCodec<? super RegistryFriendlyByteBuf, ? extends CustomPacketPayload> streamCodec) {
-				return (StreamCodec<? super RegistryFriendlyByteBuf, CustomPacketPayload>) streamCodec;
-			}
-			
-			@SuppressWarnings("unchecked")
-			private static CustomPacketPayloadImpl cast(CustomPacketPayload customPacketPayload) {
-				return (CustomPacketPayloadImpl) customPacketPayload;
-			}
+		}
+		
+		@SuppressWarnings("unchecked")
+		private StreamCodec<? super RegistryFriendlyByteBuf, CustomPacketPayload> cast(StreamCodec<? super RegistryFriendlyByteBuf, ? extends CustomPacketPayload> streamCodec) {
+			return (StreamCodec<? super RegistryFriendlyByteBuf, CustomPacketPayload>) streamCodec;
+		}
+		
+		@SuppressWarnings("unchecked")
+		private CustomPacketPayloadImpl cast(CustomPacketPayload customPacketPayload) {
+			return (CustomPacketPayloadImpl) customPacketPayload;
 		}
 	}
 	
