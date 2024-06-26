@@ -5,8 +5,8 @@
 		"minecraft:furnace",
 		"minecraft:smoker",
 		"minecraft:blast_furnace",
-		"#forge:chests/trapped",
-		"#forge:chests/wooden",
+		"#c:chests/trapped",
+		"#c:chests/wooden",
 		{
 			"id": "minecraft:ancient_debris",
 			"required": false
