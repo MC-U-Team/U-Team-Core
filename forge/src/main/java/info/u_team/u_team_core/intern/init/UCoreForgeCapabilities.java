@@ -16,7 +16,7 @@ public class UCoreForgeCapabilities {
 		}
 	}
 	
-	public static void registerMod(IEventBus bus) {
+	public static void registerForge(IEventBus bus) {
 		bus.addGenericListener(ItemStack.class, UCoreForgeCapabilities::register);
 	}
 	
