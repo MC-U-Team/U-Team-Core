@@ -40,14 +40,15 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 		container.setItem(1, new ItemStack(Items.WHITE_DYE));
 		
 		final List<ItemStack> items = StreamSupport.stream(RegistryUtil.getBuiltInRegistry(Registries.ITEM).getTagOrEmpty(ItemTags.DYEABLE).spliterator(), false) //
-				.filter(item -> item == null) //
 				.map(ItemStack::new) //
 				.filter(stack -> {
 					container.setItem(0, stack);
 					return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, container, level).isPresent();
 				}).collect(Collectors.toList());
 		
-		registration.addIngredientInfo(items, VanillaTypes.ITEM_STACK, Component.translatable("jei.uteamcore.dyeable.info"));
+		if (!items.isEmpty()) {
+			registration.addIngredientInfo(items, VanillaTypes.ITEM_STACK, Component.translatable("jei.uteamcore.dyeable.info"));
+		}
 	}
 	
 }
