@@ -24,7 +24,6 @@ public class UScreen extends Screen implements PerspectiveRenderable, TooltipRen
 	
 	@Override
 	public void renderBehind(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		renderBackground(guiGraphics, mouseX, mouseY, partialTick);
 	}
 	
 	@Override

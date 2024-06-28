@@ -86,7 +86,6 @@ public class UContainerMenuScreen<T extends AbstractContainerMenu> extends Fluid
 	
 	@Override
 	public void renderBehind(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		renderBackground(guiGraphics, mouseX, mouseY, partialTick);
 	}
 	
 	@Override
