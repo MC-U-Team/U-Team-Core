@@ -10,6 +10,7 @@ public class TestCommonConstruct implements ModConstruct {
 	
 	@Override
 	public void construct() {
+		TestArmorMaterials.register();
 		TestBlockEntityTypes.register();
 		TestBlocks.register();
 		TestCreativeTabs.register();
