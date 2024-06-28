@@ -9,6 +9,7 @@
 	"commands.uteamcore.stackinfo.success.copy": "Copy to clipboard",
 	"commands.uteamcore.stackinfo.success.item": "Item: %s",
 	"commands.uteamcore.stackinfo.success.nbt": "NBT: %s",
+	"commands.uteamcore.stackinfo.success.tag": "Tags: %s",
 	"gui.widget.uteamcore.energy.fe_tooltip": "%sFE/%sFE",
 	"jei.uteamcore.dyeable.info": "These items can be dyed with dye in the crafting field."
 }

@@ -20,6 +20,7 @@ public class UCoreLanguagesProvider extends CommonLanguagesProvider {
 		final String stackInfoSuccess = "commands.uteamcore.stackinfo.success.";
 		add(stackInfoSuccess + "item", "Item: %s");
 		add(stackInfoSuccess + "block", "Block: %s");
+		add(stackInfoSuccess + "tag", "Tags: %s");
 		add(stackInfoSuccess + "nbt", "NBT: %s");
 		add(stackInfoSuccess + "copy", "Copy to clipboard");
 		
