@@ -6,6 +6,7 @@ import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderBlo
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderBlockTagsProvider;
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderDatapackBuiltinEntriesProvider;
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderItemModelProvider;
+import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderItemTagsProvider;
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderLanguagesProvider;
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderLootTableProvider;
 import info.u_team.u_team_test.test_multiloader.data.provider.TestMultiLoaderRecipeProvider;
@@ -22,7 +23,7 @@ public class TestMultiLoaderDataGenerator {
 	public static void data(GatherDataEvent event) {
 		final GenerationData data = new GenerationData(TestMultiLoaderMod.MODID, "common", event);
 		
-		data.addProvider(event.includeServer(), TestMultiLoaderBlockTagsProvider::new);
+		data.addProvider(event.includeServer(), TestMultiLoaderBlockTagsProvider::new, TestMultiLoaderItemTagsProvider::new);
 		data.addProvider(event.includeServer(), TestMultiLoaderLootTableProvider::new);
 		data.addProvider(event.includeServer(), TestMultiLoaderDatapackBuiltinEntriesProvider::new);
 		data.addProvider(event.includeServer(), TestMultiLoaderRecipeProvider::new);
