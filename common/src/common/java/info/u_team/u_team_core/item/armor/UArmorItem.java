@@ -7,7 +7,7 @@ import net.minecraft.world.item.ArmorMaterial;
 public class UArmorItem extends ArmorItem {
 	
 	public UArmorItem(Properties properties, Holder<ArmorMaterial> material, ArmorItem.Type type) {
-		super(material, type, properties);
+		super(material, type, properties.stacksTo(1));
 	}
 	
 }
