@@ -18,12 +18,12 @@ public class TestMultiLoaderArmorMaterials {
 	
 	public static final CommonRegister<ArmorMaterial> ARMOR_MATERIALS = CommonRegister.create(Registries.ARMOR_MATERIAL, TestMultiLoaderReference.MODID);
 	
-	public static final RegistryEntry<ArmorMaterial> TEST = ARMOR_MATERIALS.register("test", () -> new ArmorMaterial(Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> TEST = ARMOR_MATERIALS.register("test", name -> new ArmorMaterial(Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 5);
 		map.put(ArmorItem.Type.LEGGINGS, 6);
 		map.put(ArmorItem.Type.CHESTPLATE, 8);
 		map.put(ArmorItem.Type.HELMET, 2);
-	}), 20, RegistryUtil.getBuiltInRegistry(Registries.SOUND_EVENT).wrapAsHolder(SoundEvents.BEACON_ACTIVATE), () -> Ingredient.of(TestMultiLoaderItems.TEST.get()), List.of(), 1, 1));
+	}), 20, RegistryUtil.getBuiltInRegistry(Registries.SOUND_EVENT).wrapAsHolder(SoundEvents.BEACON_ACTIVATE), () -> Ingredient.of(TestMultiLoaderItems.TEST.get()), List.of(new ArmorMaterial.Layer(name)), 1, 1));
 	
 	static void register() {
 		ARMOR_MATERIALS.register();

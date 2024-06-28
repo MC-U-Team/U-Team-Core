@@ -19,12 +19,12 @@ public class TestArmorMaterials {
 	
 	public static final CommonRegister<ArmorMaterial> ARMOR_MATERIALS = CommonRegister.create(Registries.ARMOR_MATERIAL, TestMod.MODID);
 	
-	public static final RegistryEntry<ArmorMaterial> BASIC = ARMOR_MATERIALS.register("basic", () -> new ArmorMaterial(Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
+	public static final RegistryEntry<ArmorMaterial> BASIC = ARMOR_MATERIALS.register("basic", name -> new ArmorMaterial(Util.make(new EnumMap<>(ArmorItem.Type.class), map -> {
 		map.put(ArmorItem.Type.BOOTS, 5);
 		map.put(ArmorItem.Type.LEGGINGS, 6);
 		map.put(ArmorItem.Type.CHESTPLATE, 8);
 		map.put(ArmorItem.Type.HELMET, 2);
-	}), 20, RegistryUtil.getBuiltInRegistry(Registries.SOUND_EVENT).wrapAsHolder(SoundEvents.PARROT_IMITATE_GUARDIAN), () -> Ingredient.of(Items.ZOMBIE_HEAD), List.of(), 1, 1));
+	}), 20, RegistryUtil.getBuiltInRegistry(Registries.SOUND_EVENT).wrapAsHolder(SoundEvents.PARROT_IMITATE_GUARDIAN), () -> Ingredient.of(Items.ZOMBIE_HEAD), List.of(new ArmorMaterial.Layer(name)), 1, 1));
 	
 	static void register() {
 		ARMOR_MATERIALS.register();
