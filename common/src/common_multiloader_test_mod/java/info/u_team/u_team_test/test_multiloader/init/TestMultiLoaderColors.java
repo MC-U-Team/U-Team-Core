@@ -9,7 +9,7 @@ public class TestMultiLoaderColors {
 	
 	private static final ColorProviderRegister COLORS = Util.make(ColorProviderRegister.create(), colors -> {
 		colors.register((itemColors, blockColors, colorRegister) -> colorRegister.register((stack, index) -> {
-			return FastColor.ARGB32.opaque(Mth.hsvToRgb((float) stack.getDamageValue() / (float) stack.getMaxDamage(), 0.8F, 0.5F));
+			return FastColor.ARGB32.color(0x80, Mth.hsvToRgb((float) stack.getDamageValue() / (float) stack.getMaxDamage(), 0.8F, 0.5F));
 		}, TestMultiLoaderItems.TEST_USE.get()));
 	});
 	
