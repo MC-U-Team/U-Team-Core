@@ -16,6 +16,7 @@ import info.u_team.u_team_core.util.NetworkUtil;
 import net.minecraft.network.Connection;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
@@ -35,6 +36,10 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		messages = new HashMap<>();
 	}
 	
+	public <M> NetworkMessage<M> createNetworkMessage(MessagePacketPayload<M> messagePayload) {
+		return new CommonNetworkMessage<>(messagePayload);
+	}
+	
 	@Override
 	public <M> NetworkMessage<M> register(String id, NetworkPayload<M> payload) {
 		final ResourceLocation messageId = networkId.withSuffix("/" + id);
@@ -44,7 +49,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			throw new IllegalArgumentException("Duplicate message id " + messageId);
 		}
 		
-		return new CommonNetworkMessage<>(messagePayload);
+		return createNetworkMessage(messagePayload);
 	}
 	
 	@Override
@@ -142,11 +147,11 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		}
 	}
 	
-	private static class CommonNetworkMessage<M> implements NetworkMessage<M> {
+	protected static class CommonNetworkMessage<M> implements NetworkMessage<M> {
 		
-		private final MessagePacketPayload<M> messagePayload;
+		protected final MessagePacketPayload<M> messagePayload;
 		
-		private CommonNetworkMessage(MessagePacketPayload<M> messagePayload) {
+		protected CommonNetworkMessage(MessagePacketPayload<M> messagePayload) {
 			this.messagePayload = messagePayload;
 		}
 		
@@ -156,23 +161,32 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 		}
 		
 		@Override
-		public final void sendToPlayer(ServerPlayer player, M message) {
+		public Packet<?> packet(NetworkEnvironment toEnvironment, M message) {
+			final CustomPacketPayload payload = packet(message);
+			return switch (toEnvironment) {
+			case CLIENT -> NetworkUtil.createClientBoundPacket(payload);
+			case SERVER -> NetworkUtil.createServerBoundPacket(payload);
+			};
+		}
+		
+		@Override
+		public void sendToPlayer(ServerPlayer player, M message) {
 			if (messagePayload.canWrite(NetworkEnvironment.CLIENT)) {
-				NetworkUtil.sendToPlayer(player, packet(message));
+				NetworkUtil.sendToPlayer(player, packet(NetworkEnvironment.CLIENT, message));
 			}
 		}
 		
 		@Override
-		public final void sendToConnection(Connection connection, M message) {
+		public void sendToConnection(Connection connection, M message) {
 			if (messagePayload.canWrite(NetworkEnvironment.CLIENT)) {
-				NetworkUtil.sendToConnection(connection, packet(message));
+				NetworkUtil.sendToConnection(connection, packet(NetworkEnvironment.CLIENT, message));
 			}
 		}
 		
 		@Override
-		public final void sendToServer(M message) {
+		public void sendToServer(M message) {
 			if (messagePayload.canWrite(NetworkEnvironment.SERVER)) {
-				NetworkUtil.sendToServer(packet(message));
+				NetworkUtil.sendToServer(packet(NetworkEnvironment.SERVER, message));
 			}
 		}
 		
