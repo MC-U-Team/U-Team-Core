@@ -15,6 +15,7 @@ public class UCoreNetworkNeoForge {
 	private static void register(RegisterPayloadHandlerEvent event) {
 		event.registrar(UCoreMod.MODID) //
 				.versioned(PROTOCOL) //
+				.optional() //
 				.play(ContainerSetFluidContentMessage.ID, ContainerSetFluidContentMessage::read, ContainerSetFluidContentMessage.Handler::handle) //
 				.play(ContainerSetFluidSlotMessage.ID, ContainerSetFluidSlotMessage::read, ContainerSetFluidSlotMessage.Handler::handle) //
 				.play(FluidClickContainerMessage.ID, FluidClickContainerMessage::read, FluidClickContainerMessage.Handler::handle);
