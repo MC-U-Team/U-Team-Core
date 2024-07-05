@@ -33,17 +33,17 @@ public class TestSyncBlockEntity extends UBlockEntity {
 	}
 	
 	@Override
-	public void saveNBT(CompoundTag tag, HolderLookup.Provider lookup) {
+	public void saveNBT(CompoundTag tag, HolderLookup.Provider registries) {
 		tag.putInt("counter", counter);
 	}
 	
 	@Override
-	public void loadNBT(CompoundTag tag, HolderLookup.Provider lookup) {
+	public void loadNBT(CompoundTag tag, HolderLookup.Provider registries) {
 		counter = tag.getInt("counter");
 	}
 	
 	@Override
-	public void sendChunkLoadData(CompoundTag tag) {
+	public void sendChunkLoadData(CompoundTag tag, HolderLookup.Provider registries) {
 		tag.putInt("chunk-val", counter);
 		tag.putString("info", "Chunk load data");
 		
@@ -51,14 +51,14 @@ public class TestSyncBlockEntity extends UBlockEntity {
 	}
 	
 	@Override
-	public void handleChunkLoadData(CompoundTag tag) {
+	public void handleChunkLoadData(CompoundTag tag, HolderLookup.Provider registries) {
 		counter = tag.getInt("chunk-val");
 		
 		logMethod(tag);
 	}
 	
 	@Override
-	public void sendUpdateStateData(CompoundTag tag) {
+	public void sendUpdateStateData(CompoundTag tag, HolderLookup.Provider registries) {
 		tag.putInt("update-val", counter);
 		tag.putString("info", "Update data");
 		
@@ -66,7 +66,7 @@ public class TestSyncBlockEntity extends UBlockEntity {
 	}
 	
 	@Override
-	public void handleUpdateStateData(CompoundTag tag) {
+	public void handleUpdateStateData(CompoundTag tag, HolderLookup.Provider registries) {
 		counter = tag.getInt("update-val");
 		
 		logMethod(tag);

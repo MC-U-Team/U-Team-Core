@@ -20,12 +20,12 @@ abstract class UBlockEntityMixin extends BlockEntity {
 	}
 	
 	@Override
-	public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider lookup) {
-		((UBlockEntity) (Object) (this)).receiveUpdateTag(tag);
+	public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
+		((UBlockEntity) (Object) (this)).receiveUpdateTag(tag, registries);
 	}
 	
 	@Override
-	public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider lookup) {
-		((UBlockEntity) (Object) (this)).receiveUpdatePacket(connection, packet);
+	public void onDataPacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider registries) {
+		((UBlockEntity) (Object) (this)).receiveUpdatePacket(connection, packet, registries);
 	}
 }

@@ -52,12 +52,12 @@ public abstract class UBlockEntity extends BlockEntity implements SyncedBlockEnt
 	@Override
 	public CompoundTag getUpdateTag(HolderLookup.Provider registries) {
 		final CompoundTag tag = new CompoundTag();
-		sendChunkLoadData(tag);
+		sendChunkLoadData(tag, registries);
 		return tag;
 	}
 	
-	public void receiveUpdateTag(CompoundTag tag) {
-		handleChunkLoadData(tag);
+	public void receiveUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
+		handleChunkLoadData(tag, registries);
 	}
 	
 	// synchronization on block update
@@ -65,13 +65,13 @@ public abstract class UBlockEntity extends BlockEntity implements SyncedBlockEnt
 	@Override
 	public ClientboundBlockEntityDataPacket getUpdatePacket() {
 		final CompoundTag tag = new CompoundTag();
-		sendUpdateStateData(tag);
+		sendUpdateStateData(tag, getLevel().registryAccess());
 		return ClientboundBlockEntityDataPacket.create(this, (blockEntity, provider) -> tag);
 	}
 	
-	public void receiveUpdatePacket(Connection connection, ClientboundBlockEntityDataPacket packet) {
+	public void receiveUpdatePacket(Connection connection, ClientboundBlockEntityDataPacket packet, HolderLookup.Provider registries) {
 		final CompoundTag tag = packet.getTag();
-		handleUpdateStateData(tag == null ? new CompoundTag() : tag);
+		handleUpdateStateData(tag == null ? new CompoundTag() : tag, registries);
 	}
 	
 	/**
@@ -101,40 +101,40 @@ interface SyncedBlockEntity {
 	
 	/**
 	 * Data here will be send to the client side when the chunk is loaded. The data is received in
-	 * {@link SyncedBlockEntity#handleChunkLoadData(CompoundNBT)}
+	 * {@link SyncedBlockEntity#handleChunkLoadData(CompoundTag, net.minecraft.core.HolderLookup.Provider)}
 	 *
 	 * @param tag
 	 */
-	default void sendChunkLoadData(CompoundTag tag) { // TODO add registry provider
+	default void sendChunkLoadData(CompoundTag tag, HolderLookup.Provider registries) {
 	}
 	
 	/**
 	 * The data from the chunk load is received here. The data is send from
-	 * {@link SyncedBlockEntity#sendChunkLoadData(CompoundNBT)}
+	 * {@link SyncedBlockEntity#sendChunkLoadData(CompoundTag, net.minecraft.core.HolderLookup.Provider)}
 	 *
 	 * @param tag
 	 */
-	default void handleChunkLoadData(CompoundTag tag) {
+	default void handleChunkLoadData(CompoundTag tag, HolderLookup.Provider registries) {
 	}
 	
 	/**
 	 * Data here will be send to the client side when the block is updated. The data is received in
-	 * {@link SyncedBlockEntity#handleUpdateStateData(CompoundNBT)}. To trigger an update call
-	 * {@link Level#sendBlockUpdated(BlockPos, BlockState, BlockState, int)} or
+	 * {@link SyncedBlockEntity#handleUpdateStateData(CompoundTag, net.minecraft.core.HolderLookup.Provider)}. To trigger an
+	 * update call {@link Level#sendBlockUpdated(BlockPos, BlockState, BlockState, int)} or
 	 * {@link UBlockEntity#sendChangesToClient(int)}
 	 *
 	 * @param tag
 	 */
-	default void sendUpdateStateData(CompoundTag tag) {
+	default void sendUpdateStateData(CompoundTag tag, HolderLookup.Provider registries) {
 	}
 	
 	/**
 	 * The data from the block update is received here. The data is send from
-	 * {@link SyncedBlockEntity#sendUpdateStateData(CompoundNBT)}
+	 * {@link SyncedBlockEntity#sendUpdateStateData(CompoundTag, net.minecraft.core.HolderLookup.Provider)}
 	 *
 	 * @param tag
 	 */
-	default void handleUpdateStateData(CompoundTag tag) {
+	default void handleUpdateStateData(CompoundTag tag, HolderLookup.Provider registries) {
 	}
 	
 }
