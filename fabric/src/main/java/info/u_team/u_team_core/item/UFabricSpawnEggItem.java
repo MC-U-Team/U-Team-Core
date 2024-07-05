@@ -18,6 +18,7 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
+import net.minecraft.util.FastColor;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
@@ -105,7 +106,7 @@ public class UFabricSpawnEggItem extends SpawnEggItem {
 		private static class Client {
 			
 			private static void register(UFabricSpawnEggItem spawnEgg) {
-				ColorProviderRegistry.ITEM.register((stack, tintIndex) -> spawnEgg.getColor(tintIndex), spawnEgg);
+				ColorProviderRegistry.ITEM.register((stack, tintIndex) -> FastColor.ARGB32.opaque(spawnEgg.getColor(tintIndex)), spawnEgg);
 			}
 		}
 	}
