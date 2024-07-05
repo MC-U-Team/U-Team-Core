@@ -22,7 +22,7 @@ abstract class ClientPacketListenerMixin extends ClientCommonPacketListenerImpl 
 	
 	@Final
 	@Shadow
-	private RegistryAccess.Frozen registries;
+	private RegistryAccess.Frozen registryAccess;
 	
 	private ClientPacketListenerMixin(Minecraft minecraft, Connection connection, CommonListenerCookie commonListenerCookie) {
 		super(minecraft, connection, commonListenerCookie);
@@ -32,7 +32,7 @@ abstract class ClientPacketListenerMixin extends ClientCommonPacketListenerImpl 
 	private void uteamcore$lambda$handleBlockEntityData$5(ClientboundBlockEntityDataPacket packet, BlockEntity blockEntity, CallbackInfo info) {
 		if (blockEntity instanceof final UBlockEntity uBlockEntity) {
 			info.cancel();
-			uBlockEntity.receiveUpdatePacket(connection, packet, registries);
+			uBlockEntity.receiveUpdatePacket(connection, packet, registryAccess);
 		}
 	}
 	
