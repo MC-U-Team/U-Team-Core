@@ -16,6 +16,7 @@ public class UCoreNeoForgeNetwork {
 	private static void register(RegisterPayloadHandlersEvent event) {
 		event.registrar(UCoreMod.MODID) //
 				.versioned(PROTOCOL) //
+				.optional() //
 				.playToClient(ContainerSetFluidContentMessage.TYPE, StreamCodec.of(ContainerSetFluidContentMessage::write, ContainerSetFluidContentMessage::read), ContainerSetFluidContentMessage.Handler::handle) //
 				.playToClient(ContainerSetFluidSlotMessage.TYPE, StreamCodec.of(ContainerSetFluidSlotMessage::write, ContainerSetFluidSlotMessage::read), ContainerSetFluidSlotMessage.Handler::handle) //
 				.playToClient(FluidClickContainerMessage.TYPE, StreamCodec.of(FluidClickContainerMessage::write, FluidClickContainerMessage::read), FluidClickContainerMessage.Handler::handle);
