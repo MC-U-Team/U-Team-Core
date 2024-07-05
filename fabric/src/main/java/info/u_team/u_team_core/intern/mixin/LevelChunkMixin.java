@@ -27,7 +27,6 @@ abstract class LevelChunkMixin {
 	private void uteamcore$lambda$replaceWithPacketData$3(BlockPos pos, BlockEntityType<?> type, CompoundTag tag, CallbackInfo info, BlockEntity blockEntity) {
 		if (blockEntity instanceof final UBlockEntity uBlockEntity) {
 			info.cancel();
-			blockEntity.getLevel();
 			uBlockEntity.receiveUpdateTag(tag, level.registryAccess());
 		}
 	}
