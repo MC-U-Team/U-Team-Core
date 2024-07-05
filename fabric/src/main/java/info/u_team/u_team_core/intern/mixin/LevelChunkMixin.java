@@ -23,7 +23,7 @@ abstract class LevelChunkMixin {
 	@Shadow
 	private Level level;
 	
-	@Inject(method = { "method_31716", "lambda$replaceWithPacketData$3" }, locals = LocalCapture.CAPTURE_FAILEXCEPTION, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntity;load(Lnet/minecraft/nbt/CompoundTag;)V", remap = true), remap = false, cancellable = true)
+	@Inject(method = { "method_31716", "lambda$replaceWithPacketData$3" }, locals = LocalCapture.CAPTURE_FAILHARD, at = @At(value = "INVOKE", target = "Lnet/minecraft/world/level/block/entity/BlockEntity;loadWithComponents(Lnet/minecraft/nbt/CompoundTag;Lnet/minecraft/core/HolderLookup$Provider;)V", remap = true), remap = false, cancellable = true)
 	private void uteamcore$lambda$replaceWithPacketData$3(BlockPos pos, BlockEntityType<?> type, CompoundTag tag, CallbackInfo info, BlockEntity blockEntity) {
 		if (blockEntity instanceof final UBlockEntity uBlockEntity) {
 			info.cancel();
