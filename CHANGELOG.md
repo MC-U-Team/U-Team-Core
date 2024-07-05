@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.20.4-5.3.0.301] - 2024-07-05
+### Changed
+ - Fixed network not being optional
+
 ## [1.20.4-5.3.0.300] - 2024-04-28
 ### Changed
  - Update to latest gradle changes
