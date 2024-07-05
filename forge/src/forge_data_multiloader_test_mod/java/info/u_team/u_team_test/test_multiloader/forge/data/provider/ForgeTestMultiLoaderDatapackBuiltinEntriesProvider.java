@@ -24,7 +24,7 @@ public class ForgeTestMultiLoaderDatapackBuiltinEntriesProvider extends CommonDa
 	
 	@Override
 	public void register(Consumer<DatapackBuiltinEntriesProvider> consumer) {
-		consumer.accept(new DatapackBuiltinEntriesProvider(getGenerationData().output(), getGenerationData().lookupProviderFuture(), new RegistrySetBuilder().add(ForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
+		consumer.accept(new DatapackBuiltinEntriesProvider(getGenerationData().output(), getGenerationData().registriesFuture(), new RegistrySetBuilder().add(ForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
 			context.register(ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(modid(), "add_test_living_entity_to_all_biomes")), AddSpawnsBiomeModifier.singleSpawn(context.lookup(Registries.BIOME).getOrThrow(BiomeTags.IS_OVERWORLD), new SpawnerData(TestMultiLoaderEntityTypes.TEST_LIVING.get(), 80, 4, 4)));
 		}), Set.of(modid())));
 	}

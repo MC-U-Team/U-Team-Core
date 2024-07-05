@@ -13,7 +13,7 @@ public class TestMultiLoaderBlockTagsProvider extends CommonBlockTagsProvider {
 	}
 	
 	@Override
-	public void register(HolderLookup.Provider provider) {
+	public void register(HolderLookup.Provider registries) {
 		// Add block tags for mining
 		tag(VanillaTierTags.MINEABLE_WITH_PICKAXE).add(TestMultiLoaderBlocks.TEST.get());
 		tag(VanillaTierTags.NEEDS_IRON_TOOL).add(TestMultiLoaderBlocks.TEST.get());

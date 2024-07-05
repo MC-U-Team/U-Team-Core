@@ -22,7 +22,7 @@ public class TestItemTagsProvider extends CommonItemTagsProvider {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public void register(HolderLookup.Provider provider) {
+	public void register(HolderLookup.Provider registries) {
 		tag(ItemTags.HEAD_ARMOR).add(TestItems.BASIC_ARMOR.helmet().get());
 		tag(ItemTags.CHEST_ARMOR).add(TestItems.BASIC_ARMOR.chestplate().get());
 		tag(ItemTags.LEG_ARMOR).add(TestItems.BASIC_ARMOR.leggings().get());

@@ -18,15 +18,15 @@ public class UItemStackHandler extends ItemStackHandler implements ExtendedItemH
 	}
 	
 	@Override
-	public CompoundTag serializeNBT(HolderLookup.Provider lookup) {
+	public CompoundTag serializeNBT(HolderLookup.Provider registries) {
 		final CompoundTag compound = new CompoundTag();
-		ContainerHelper.saveAllItems(compound, stacks, false, lookup);
+		ContainerHelper.saveAllItems(compound, stacks, false, registries);
 		return compound;
 	}
 	
 	@Override
-	public void deserializeNBT(HolderLookup.Provider lookup, CompoundTag compound) {
-		ContainerHelper.loadAllItems(compound, stacks, lookup);
+	public void deserializeNBT(HolderLookup.Provider registries, CompoundTag compound) {
+		ContainerHelper.loadAllItems(compound, stacks, registries);
 		onLoad();
 	}
 	

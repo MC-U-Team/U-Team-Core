@@ -17,7 +17,7 @@ import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.InventoryChangeTrigger.TriggerInstance;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.core.HolderLookup.Provider;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput.PathProvider;
@@ -51,7 +51,7 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	
 	@Override
 	public CompletableFuture<?> run(CachedOutput cache) {
-		return getGenerationData().lookupProviderFuture().thenCompose(lookupProvider -> {
+		return getGenerationData().registriesFuture().thenCompose(registries -> {
 			final Set<ResourceLocation> duplicates = Sets.newHashSet();
 			final List<CompletableFuture<?>> futures = new ArrayList<>();
 			final Function<Boolean, RecipeOutput> recipeOutputCreator = vanillaAdvancements -> new RecipeOutput() {
@@ -68,8 +68,8 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 				}
 				
 				@Override
-				public Provider registry() {
-					return lookupProvider;
+				public HolderLookup.Provider registry() {
+					return registries;
 				}
 			};
 			register(recipeOutputCreator.apply(false));

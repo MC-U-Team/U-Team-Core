@@ -14,7 +14,7 @@ public class TestFluidTagsProvider extends CommonFluidTagsProvider {
 	}
 	
 	@Override
-	public void register(HolderLookup.Provider provider) {
+	public void register(HolderLookup.Provider registries) {
 		tag(TagUtil.createFluidTag(TestMod.MODID, "test_fluid")).add(TestFluids.TEST_FLUID.get(), TestFluids.TEST_FLUID_FLOWING.get());
 	}
 	

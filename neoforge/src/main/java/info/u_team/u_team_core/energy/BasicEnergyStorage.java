@@ -69,18 +69,18 @@ public class BasicEnergyStorage extends EnergyStorage {
 	}
 	
 	@Override
-	public CompoundTag serializeNBT(HolderLookup.Provider lookup) {
+	public CompoundTag serializeNBT(HolderLookup.Provider registries) {
 		final CompoundTag compound = new CompoundTag();
 		compound.putInt("energy", getEnergyStored());
 		return compound;
 	}
 	
 	@Override
-	public void deserializeNBT(HolderLookup.Provider lookup, Tag tag) {
+	public void deserializeNBT(HolderLookup.Provider registries, Tag tag) {
 		if (tag instanceof final CompoundTag compoundTag) {
 			setEnergy(compoundTag.getInt("energy"));
 		} else {
-			super.deserializeNBT(lookup, tag);
+			super.deserializeNBT(registries, tag);
 		}
 	}
 	

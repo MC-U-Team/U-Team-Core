@@ -19,7 +19,7 @@ public class TestMultiLoaderDatapackBuiltinEntriesProvider extends CommonDatapac
 	
 	@Override
 	public void register(Consumer<DatapackBuiltinEntriesProvider> consumer) {
-		consumer.accept(new DatapackBuiltinEntriesProvider(getGenerationData().output(), getGenerationData().lookupProviderFuture(), new RegistrySetBuilder().add(Registries.DAMAGE_TYPE, context -> {
+		consumer.accept(new DatapackBuiltinEntriesProvider(getGenerationData().output(), getGenerationData().registriesFuture(), new RegistrySetBuilder().add(Registries.DAMAGE_TYPE, context -> {
 			context.register(TestMultiLoaderDamageSources.TEST, new DamageType("test", 0));
 		}), Set.of(modid())));
 	}

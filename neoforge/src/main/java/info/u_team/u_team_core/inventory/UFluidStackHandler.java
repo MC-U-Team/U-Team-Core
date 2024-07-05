@@ -131,7 +131,7 @@ public class UFluidStackHandler implements ExtendedFluidHandler, INBTSerializabl
 	}
 	
 	@Override
-	public CompoundTag serializeNBT(HolderLookup.Provider lookup) {
+	public CompoundTag serializeNBT(HolderLookup.Provider registries) {
 		final CompoundTag compound = new CompoundTag();
 		final ListTag list = new ListTag();
 		
@@ -140,7 +140,7 @@ public class UFluidStackHandler implements ExtendedFluidHandler, INBTSerializabl
 			if (!fluidStack.isEmpty()) {
 				final CompoundTag slotCompound = new CompoundTag();
 				slotCompound.putByte("Slot", (byte) index);
-				slotCompound.put("Fluid", fluidStack.saveOptional(lookup));
+				slotCompound.put("Fluid", fluidStack.saveOptional(registries));
 				list.add(slotCompound);
 			}
 		}
@@ -153,13 +153,13 @@ public class UFluidStackHandler implements ExtendedFluidHandler, INBTSerializabl
 	}
 	
 	@Override
-	public void deserializeNBT(HolderLookup.Provider lookup, CompoundTag compound) {
+	public void deserializeNBT(HolderLookup.Provider registries, CompoundTag compound) {
 		final ListTag list = compound.getList("Fluids", Tag.TAG_COMPOUND);
 		for (int index = 0; index < list.size(); index++) {
 			final CompoundTag slotCompound = list.getCompound(index);
 			final int slot = slotCompound.getByte("Slot") & 255;
 			if (slot >= 0 && slot < stacks.size()) {
-				stacks.set(slot, FluidStack.parseOptional(lookup, slotCompound.getCompound("Fluid")));
+				stacks.set(slot, FluidStack.parseOptional(registries, slotCompound.getCompound("Fluid")));
 			}
 		}
 		onLoad();

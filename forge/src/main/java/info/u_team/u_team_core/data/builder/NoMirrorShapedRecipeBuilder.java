@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 import info.u_team.u_team_core.intern.init.UCoreRecipeSerializers;
 import net.minecraft.advancements.Advancement.Builder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
@@ -47,22 +46,22 @@ public class NoMirrorShapedRecipeBuilder extends ShapedRecipeBuilder {
 				output.accept(id, new Recipe<Container>() {
 					
 					@Override
-					public boolean matches(Container pContainer, Level pLevel) {
+					public boolean matches(Container container, Level level) {
 						return false;
 					}
 					
 					@Override
-					public ItemStack assemble(Container pContainer, HolderLookup.Provider lookupProvider) {
+					public ItemStack assemble(Container container, HolderLookup.Provider registries) {
 						return null;
 					}
 					
 					@Override
-					public boolean canCraftInDimensions(int pWidth, int pHeight) {
+					public boolean canCraftInDimensions(int width, int height) {
 						return false;
 					}
 					
 					@Override
-					public ItemStack getResultItem(HolderLookup.Provider lookupProvider) {
+					public ItemStack getResultItem(HolderLookup.Provider registries) {
 						return null;
 					}
 					
@@ -80,7 +79,7 @@ public class NoMirrorShapedRecipeBuilder extends ShapedRecipeBuilder {
 			}
 			
 			@Override
-			public Provider registry() {
+			public HolderLookup.Provider registry() {
 				return output.registry();
 			}
 		}, location);

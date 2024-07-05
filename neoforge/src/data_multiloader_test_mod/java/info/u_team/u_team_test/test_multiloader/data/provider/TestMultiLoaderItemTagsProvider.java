@@ -14,7 +14,7 @@ public class TestMultiLoaderItemTagsProvider extends CommonItemTagsProvider {
 	}
 	
 	@Override
-	public void register(HolderLookup.Provider provider) {
+	public void register(HolderLookup.Provider registries) {
 		tag(ItemTags.HEAD_ARMOR).add(TestMultiLoaderItems.TEST_ARMOR.helmet().get());
 		tag(ItemTags.CHEST_ARMOR).add(TestMultiLoaderItems.TEST_ARMOR.chestplate().get());
 		tag(ItemTags.LEG_ARMOR).add(TestMultiLoaderItems.TEST_ARMOR.leggings().get());

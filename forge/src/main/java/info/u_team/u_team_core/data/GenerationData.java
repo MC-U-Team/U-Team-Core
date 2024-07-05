@@ -11,7 +11,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 
-public record GenerationData(String modid, String nameSuffix, DataGenerator generator, CompletableFuture<HolderLookup.Provider> lookupProviderFuture, ExistingFileHelper existingFileHelper) {
+public record GenerationData(String modid, String nameSuffix, DataGenerator generator, CompletableFuture<HolderLookup.Provider> registriesFuture, ExistingFileHelper existingFileHelper) {
 	
 	public GenerationData(String modid, GatherDataEvent event) {
 		this(modid, "", event);

@@ -18,7 +18,7 @@ public class TestBlockTagsProvider extends CommonBlockTagsProvider {
 	}
 	
 	@Override
-	public void register(HolderLookup.Provider provider) {
+	public void register(HolderLookup.Provider registries) {
 		// Add block tags for mining
 		tag(VanillaTierTags.MINEABLE_WITH_SHOVEL).add(TestBlocks.BASIC.get());
 		tag(VanillaTierTags.NEEDS_STONE_TOOL).add(TestBlocks.BASIC.get());

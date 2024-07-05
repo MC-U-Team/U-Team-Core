@@ -46,22 +46,22 @@ public class NoMirrorShapedRecipeBuilder extends ShapedRecipeBuilder {
 				output.accept(id, new Recipe<Container>() {
 					
 					@Override
-					public boolean matches(Container pContainer, Level pLevel) {
+					public boolean matches(Container container, Level level) {
 						return false;
 					}
 					
 					@Override
-					public ItemStack assemble(Container pContainer, HolderLookup.Provider lookupProvider) {
+					public ItemStack assemble(Container container, HolderLookup.Provider registries) {
 						return null;
 					}
 					
 					@Override
-					public boolean canCraftInDimensions(int pWidth, int pHeight) {
+					public boolean canCraftInDimensions(int width, int height) {
 						return false;
 					}
 					
 					@Override
-					public ItemStack getResultItem(HolderLookup.Provider lookupProvider) {
+					public ItemStack getResultItem(HolderLookup.Provider registries) {
 						return null;
 					}
 					

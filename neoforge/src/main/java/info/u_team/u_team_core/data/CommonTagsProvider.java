@@ -23,7 +23,7 @@ public abstract class CommonTagsProvider<T> extends IntrinsicHolderTagsProvider<
 	protected final IResourceType resourceType;
 	
 	public CommonTagsProvider(GenerationData generationData, ResourceKey<? extends Registry<T>> registryKey, Function<T, ResourceKey<T>> keyExtractor) {
-		super(generationData.output(), registryKey, generationData.lookupProviderFuture(), keyExtractor, generationData.modid(), generationData.existingFileHelper());
+		super(generationData.output(), registryKey, generationData.registriesFuture(), keyExtractor, generationData.modid(), generationData.existingFileHelper());
 		
 		this.generationData = generationData;
 		
@@ -37,8 +37,8 @@ public abstract class CommonTagsProvider<T> extends IntrinsicHolderTagsProvider<
 	}
 	
 	@Override
-	protected void addTags(HolderLookup.Provider provider) {
-		register(provider);
+	protected void addTags(HolderLookup.Provider registries) {
+		register(registries);
 	}
 	
 	@Override
