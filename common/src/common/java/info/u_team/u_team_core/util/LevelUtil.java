@@ -86,7 +86,7 @@ public class LevelUtil {
 	 * @return An instance of <T> with the loaded data or default data.
 	 */
 	public static <T extends SavedData> T getSaveData(ServerLevel level, String name, BiFunction<CompoundTag, HolderLookup.Provider, T> load, Supplier<T> defaultData) {
-		return level.getDataStorage().computeIfAbsent(new Factory<T>(defaultData, load, DataFixTypes.SAVED_DATA_COMMAND_STORAGE /* TODO fixup data fix types when a solution is ready */), name);
+		return level.getDataStorage().computeIfAbsent(new Factory<>(defaultData, load, DataFixTypes.SAVED_DATA_COMMAND_STORAGE /* TODO fixup data fix types when a solution is ready */), name);
 	}
 	
 	/**

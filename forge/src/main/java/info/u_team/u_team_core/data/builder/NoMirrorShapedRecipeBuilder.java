@@ -43,7 +43,7 @@ public class NoMirrorShapedRecipeBuilder extends ShapedRecipeBuilder {
 			@Override
 			public void accept(ResourceLocation id, Recipe<?> recipe, ResourceLocation advancementId, JsonElement advancement) {
 				// TODO maybe rework
-				output.accept(id, new Recipe<Container>() {
+				output.accept(id, new Recipe<>() {
 					
 					@Override
 					public boolean matches(Container container, Level level) {

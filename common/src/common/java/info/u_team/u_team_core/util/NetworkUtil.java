@@ -25,7 +25,7 @@ public class NetworkUtil {
 		} else {
 			final List<Packet<? super ClientGamePacketListener>> packets = new ArrayList<>();
 			packets.add(createClientBoundPacket(mainPayload));
-			for (CustomPacketPayload payload : payloads) {
+			for (final CustomPacketPayload payload : payloads) {
 				packets.add(createClientBoundPacket(payload));
 			}
 			return new ClientboundBundlePacket(packets);

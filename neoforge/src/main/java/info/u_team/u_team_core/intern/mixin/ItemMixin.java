@@ -13,7 +13,7 @@ abstract class ItemMixin implements IItemExtension {
 	
 	@Override
 	public boolean shouldCauseReequipAnimation(ItemStack oldStack, ItemStack newStack, boolean slotChanged) {
-		if (this instanceof UItemExtension extension) {
+		if (this instanceof final UItemExtension extension) {
 			return extension.shouldPlayUpdateAnimation(oldStack, newStack);
 		}
 		return IItemExtension.super.shouldCauseReequipAnimation(oldStack, newStack, slotChanged);
@@ -21,7 +21,7 @@ abstract class ItemMixin implements IItemExtension {
 	
 	@Override
 	public boolean onDroppedByPlayer(ItemStack stack, Player player) {
-		if (this instanceof UItemExtension extension) {
+		if (this instanceof final UItemExtension extension) {
 			return extension.canBeDropped(stack, player);
 		}
 		return IItemExtension.super.onDroppedByPlayer(stack, player);

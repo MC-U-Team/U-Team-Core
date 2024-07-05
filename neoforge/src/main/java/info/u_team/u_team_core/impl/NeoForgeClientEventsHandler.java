@@ -38,7 +38,7 @@ public class NeoForgeClientEventsHandler implements ClientEvents.Handler {
 	@Override
 	public void registerStartClientLevelTick(StartClientLevelTick event) {
 		registerNeoForgeEvent(LevelTickEvent.Pre.class, forgeEvent -> {
-			if (forgeEvent.getLevel() instanceof ClientLevel clientLevel) {
+			if (forgeEvent.getLevel() instanceof final ClientLevel clientLevel) {
 				event.onStartTick(clientLevel);
 			}
 		});
@@ -47,7 +47,7 @@ public class NeoForgeClientEventsHandler implements ClientEvents.Handler {
 	@Override
 	public void registerEndClientLevelTick(EndClientLevelTick event) {
 		registerNeoForgeEvent(LevelTickEvent.Post.class, forgeEvent -> {
-			if (forgeEvent.getLevel() instanceof ClientLevel clientLevel) {
+			if (forgeEvent.getLevel() instanceof final ClientLevel clientLevel) {
 				event.onEndTick(clientLevel);
 			}
 		});

@@ -36,6 +36,7 @@ public class NeoForgeTestInventoryBlockEntity extends TestInventoryBlockEntity {
 	
 	// Container
 	
+	@Override
 	public ItemSlotCreator getSlotCreator() {
 		return ItemHandlerSlotCreator.of(slots);
 	}

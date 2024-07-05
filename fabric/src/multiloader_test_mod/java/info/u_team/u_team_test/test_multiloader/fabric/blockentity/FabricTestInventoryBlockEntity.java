@@ -46,6 +46,7 @@ public class FabricTestInventoryBlockEntity extends TestInventoryBlockEntity {
 	
 	// Container
 	
+	@Override
 	public ItemSlotCreator getSlotCreator() {
 		return ItemContainerSlotCreator.of(slots);
 	}

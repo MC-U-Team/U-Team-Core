@@ -74,7 +74,7 @@ public class FabricNetworkHandler extends CommonNetworkHandler {
 		}
 	}
 	
-	private class Client {
+	private static class Client {
 		
 		private static void registerReceiver(MessagePacketPayload<?> messagePayload) {
 			ClientPlayNetworking.registerGlobalReceiver(messagePayload.type(), (payload, context) -> {

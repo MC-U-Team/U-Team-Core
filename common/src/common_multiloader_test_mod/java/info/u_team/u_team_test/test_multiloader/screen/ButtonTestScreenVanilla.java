@@ -10,7 +10,6 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
 import net.minecraft.client.gui.components.MultiLineEditBox;
-import net.minecraft.client.gui.components.SpriteIconButton.TextAndIcon;
 import net.minecraft.client.gui.components.Tooltip;
 import net.minecraft.client.gui.components.WidgetSprites;
 import net.minecraft.client.gui.screens.Screen;
@@ -38,7 +37,7 @@ public class ButtonTestScreenVanilla extends Screen {
 			LOGGER.info("Clicked Test ImageButton");
 		}, Component.literal("Test ImageButton")));
 		
-		final AbstractWidget textImageButton = addRenderableWidget(TextAndIcon.builder(Component.literal("Test Button with Image"), button -> {
+		final AbstractWidget textImageButton = addRenderableWidget(Button.builder(Component.literal("Test Button with Image"), button -> {
 			LOGGER.info("Clicked Testbutton with Image");
 		}).build());
 		textImageButton.setPosition(50, 110);

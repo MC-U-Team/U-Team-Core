@@ -37,7 +37,7 @@ public class TestItemModelProvider extends CommonItemModelProvider {
 				root.addProperty("loader", "neoforge:fluid_container");
 				root.addProperty("fluid", TestFluids.TEST_FLUID.getId().toString());
 				return root;
-			};
+			}
 		});
 	}
 	

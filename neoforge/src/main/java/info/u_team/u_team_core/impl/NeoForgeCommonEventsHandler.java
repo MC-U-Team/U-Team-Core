@@ -57,7 +57,7 @@ public class NeoForgeCommonEventsHandler implements CommonEvents.Handler {
 	@Override
 	public void registerStartLevelTick(StartLevelTick event) {
 		registerNeoForgeEvent(LevelTickEvent.Pre.class, forgeEvent -> {
-			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
+			if (forgeEvent.getLevel() instanceof final ServerLevel serverLevel) {
 				event.onStartTick(serverLevel);
 			}
 		});
@@ -66,7 +66,7 @@ public class NeoForgeCommonEventsHandler implements CommonEvents.Handler {
 	@Override
 	public void registerEndLevelTick(EndLevelTick event) {
 		registerNeoForgeEvent(LevelTickEvent.Post.class, forgeEvent -> {
-			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
+			if (forgeEvent.getLevel() instanceof final ServerLevel serverLevel) {
 				event.onEndTick(serverLevel);
 			}
 		});
@@ -75,7 +75,7 @@ public class NeoForgeCommonEventsHandler implements CommonEvents.Handler {
 	@Override
 	public void registerLevelLoad(LevelLoad event) {
 		registerNeoForgeEvent(LevelEvent.Load.class, forgeEvent -> {
-			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
+			if (forgeEvent.getLevel() instanceof final ServerLevel serverLevel) {
 				event.onLoad(serverLevel);
 			}
 		});
@@ -84,7 +84,7 @@ public class NeoForgeCommonEventsHandler implements CommonEvents.Handler {
 	@Override
 	public void registerLevelUnload(LevelUnload event) {
 		registerNeoForgeEvent(LevelEvent.Unload.class, forgeEvent -> {
-			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
+			if (forgeEvent.getLevel() instanceof final ServerLevel serverLevel) {
 				event.onUnload(serverLevel);
 			}
 		});

@@ -38,7 +38,7 @@ public class ForgeClientEventsHandler implements ClientEvents.Handler {
 	@Override
 	public void registerStartClientLevelTick(StartClientLevelTick event) {
 		registerForgeEvent(LevelTickEvent.Pre.class, forgeEvent -> {
-			if (forgeEvent.level instanceof ClientLevel clientLevel) {
+			if (forgeEvent.level instanceof final ClientLevel clientLevel) {
 				event.onStartTick(clientLevel);
 			}
 		});
@@ -47,7 +47,7 @@ public class ForgeClientEventsHandler implements ClientEvents.Handler {
 	@Override
 	public void registerEndClientLevelTick(EndClientLevelTick event) {
 		registerForgeEvent(LevelTickEvent.Post.class, forgeEvent -> {
-			if (forgeEvent.level instanceof ClientLevel clientLevel) {
+			if (forgeEvent.level instanceof final ClientLevel clientLevel) {
 				event.onEndTick(clientLevel);
 			}
 		});

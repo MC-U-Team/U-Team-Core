@@ -86,7 +86,7 @@ public class ForgeNetworkHandler extends CommonNetworkHandler {
 		}
 	}
 	
-	private class Client {
+	private static class Client {
 		
 		private static Player getClientPlayer() {
 			return Minecraft.getInstance().player;

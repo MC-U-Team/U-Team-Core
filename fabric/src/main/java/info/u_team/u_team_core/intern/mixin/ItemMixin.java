@@ -14,7 +14,7 @@ abstract class ItemMixin implements FabricItem {
 	
 	@Override
 	public boolean allowComponentsUpdateAnimation(Player player, InteractionHand hand, ItemStack oldStack, ItemStack newStack) {
-		if (this instanceof UItemExtension extension) {
+		if (this instanceof final UItemExtension extension) {
 			return extension.shouldPlayUpdateAnimation(oldStack, newStack);
 		}
 		return FabricItem.super.allowComponentsUpdateAnimation(player, hand, oldStack, newStack);

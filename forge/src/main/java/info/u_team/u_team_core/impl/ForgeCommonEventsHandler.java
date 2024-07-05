@@ -57,7 +57,7 @@ public class ForgeCommonEventsHandler implements CommonEvents.Handler {
 	@Override
 	public void registerStartLevelTick(StartLevelTick event) {
 		registerForgeEvent(LevelTickEvent.Pre.class, forgeEvent -> {
-			if (forgeEvent.level instanceof ServerLevel serverLevel) {
+			if (forgeEvent.level instanceof final ServerLevel serverLevel) {
 				event.onStartTick(serverLevel);
 			}
 		});
@@ -66,7 +66,7 @@ public class ForgeCommonEventsHandler implements CommonEvents.Handler {
 	@Override
 	public void registerEndLevelTick(EndLevelTick event) {
 		registerForgeEvent(LevelTickEvent.Post.class, forgeEvent -> {
-			if (forgeEvent.level instanceof ServerLevel serverLevel) {
+			if (forgeEvent.level instanceof final ServerLevel serverLevel) {
 				event.onEndTick(serverLevel);
 			}
 		});
@@ -75,7 +75,7 @@ public class ForgeCommonEventsHandler implements CommonEvents.Handler {
 	@Override
 	public void registerLevelLoad(LevelLoad event) {
 		registerForgeEvent(LevelEvent.Load.class, forgeEvent -> {
-			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
+			if (forgeEvent.getLevel() instanceof final ServerLevel serverLevel) {
 				event.onLoad(serverLevel);
 			}
 		});
@@ -84,7 +84,7 @@ public class ForgeCommonEventsHandler implements CommonEvents.Handler {
 	@Override
 	public void registerLevelUnload(LevelUnload event) {
 		registerForgeEvent(LevelEvent.Unload.class, forgeEvent -> {
-			if (forgeEvent.getLevel() instanceof ServerLevel serverLevel) {
+			if (forgeEvent.getLevel() instanceof final ServerLevel serverLevel) {
 				event.onUnload(serverLevel);
 			}
 		});

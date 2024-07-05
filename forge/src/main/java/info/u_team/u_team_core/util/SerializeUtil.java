@@ -17,9 +17,9 @@ public class SerializeUtil {
 	private static final StreamCodec<RegistryFriendlyByteBuf, Holder<Fluid>> FLUID_STREAM_CODEC = ByteBufCodecs.holderRegistry(Registries.FLUID);
 	
 	public static StreamCodec<RegistryFriendlyByteBuf, FluidStack> FLUID_STACK_STREAM_CODEC = StreamCodec.of((buffer, stack) -> {
-		if (stack.isEmpty())
+		if (stack.isEmpty()) {
 			buffer.writeBoolean(false);
-		else {
+		} else {
 			buffer.writeBoolean(true);
 			FLUID_STREAM_CODEC.encode(buffer, RegistryUtil.getBuiltInRegistry(Registries.FLUID).wrapAsHolder(stack.getFluid()));
 			buffer.writeVarInt(stack.getAmount());

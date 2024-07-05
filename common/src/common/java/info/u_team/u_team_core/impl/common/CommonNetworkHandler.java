@@ -44,7 +44,7 @@ public abstract class CommonNetworkHandler implements NetworkHandler {
 			throw new IllegalArgumentException("Duplicate message id " + messageId);
 		}
 		
-		return new CommonNetworkMessage<M>(messagePayload);
+		return new CommonNetworkMessage<>(messagePayload);
 	}
 	
 	@Override

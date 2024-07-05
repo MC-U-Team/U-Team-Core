@@ -32,7 +32,7 @@ public class TestFoodItem extends UItem {
 	
 	@Override
 	public ItemStack finishUsingItem(ItemStack stack, Level level, LivingEntity livingEntity) {
-		if (livingEntity instanceof ServerPlayer player) {
+		if (livingEntity instanceof final ServerPlayer player) {
 			final int enchantment = EnchantmentUtil.getEnchantmentLevel(Enchantments.UNBREAKING, stack);
 			if (enchantment > 0) {
 				final ItemEntity itemEntity = player.drop(new ItemStack(RegistryUtil.getBuiltInRegistry(Registries.ITEM).getRandom(player.getRandom()).map(reference -> reference.value()).orElse(Items.STONE), enchantment * 5), true);
