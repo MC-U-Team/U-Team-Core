@@ -8,6 +8,7 @@ import info.u_team.u_team_core.intern.network.FluidClickContainerMessage;
 import net.minecraft.network.codec.StreamCodec;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.HandlerThread;
 
 public class UCoreNeoForgeNetwork {
 	
@@ -17,6 +18,7 @@ public class UCoreNeoForgeNetwork {
 		event.registrar(UCoreMod.MODID) //
 				.versioned(PROTOCOL) //
 				.optional() //
+				.executesOn(HandlerThread.NETWORK) //
 				.playToClient(ContainerSetFluidContentMessage.TYPE, StreamCodec.of(ContainerSetFluidContentMessage::write, ContainerSetFluidContentMessage::read), ContainerSetFluidContentMessage.Handler::handle) //
 				.playToClient(ContainerSetFluidSlotMessage.TYPE, StreamCodec.of(ContainerSetFluidSlotMessage::write, ContainerSetFluidSlotMessage::read), ContainerSetFluidSlotMessage.Handler::handle) //
 				.playToClient(FluidClickContainerMessage.TYPE, StreamCodec.of(FluidClickContainerMessage::write, FluidClickContainerMessage::read), FluidClickContainerMessage.Handler::handle);
