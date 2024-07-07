@@ -50,8 +50,8 @@ public class ColorUtil {
 		DyeColor match = DyeColor.WHITE;
 		double clostestMatch = Double.MAX_VALUE;
 		for (final DyeColor color : DyeColor.values()) {
-			final float[] textureColor = color.getTextureDiffuseColors();
-			final double difference = Math.pow(textureColor[0] - rgb.getRedComponent(), 2) + Math.pow(textureColor[1] - rgb.getGreenComponent(), 2) + Math.pow(textureColor[2] - rgb.getBlueComponent(), 2);
+			final RGB textureColor = new RGB(color.getTextureDiffuseColor());
+			final double difference = Math.pow(textureColor.getRedComponent() - rgb.getRedComponent(), 2) + Math.pow(textureColor.getGreenComponent() - rgb.getGreenComponent(), 2) + Math.pow(textureColor.getBlueComponent() - rgb.getBlueComponent(), 2);
 			if (difference < clostestMatch) {
 				clostestMatch = difference;
 				match = color;

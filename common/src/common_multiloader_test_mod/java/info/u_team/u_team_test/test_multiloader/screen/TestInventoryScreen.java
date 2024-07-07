@@ -14,7 +14,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class TestInventoryScreen extends UContainerMenuScreen<TestInventoryMenu> {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMultiLoaderReference.MODID, "textures/gui/test_inventory.png");
+	private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(TestMultiLoaderReference.MODID, "textures/gui/test_inventory.png");
 	
 	private USlider slider;
 	

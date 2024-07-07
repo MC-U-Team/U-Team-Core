@@ -5,7 +5,6 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import info.u_team.u_team_core.UCoreReference;
-import info.u_team.u_team_core.inventory.DummyCraftingContainer;
 import info.u_team.u_team_core.util.RegistryUtil;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -19,12 +18,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.CraftingInput;
 import net.minecraft.world.item.crafting.RecipeType;
 
 @JeiPlugin
 public class UTeamCoreJeiPlugin implements IModPlugin {
 	
-	private final ResourceLocation id = new ResourceLocation(UCoreReference.MODID, "jei");
+	private final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(UCoreReference.MODID, "jei");
 	
 	@Override
 	public ResourceLocation getPluginUid() {
@@ -35,15 +35,13 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 	public void registerRecipes(IRecipeRegistration registration) {
 		final ClientLevel level = Minecraft.getInstance().level;
 		
-		final DummyCraftingContainer container = new DummyCraftingContainer(3, 3);
-		
-		container.setItem(1, new ItemStack(Items.WHITE_DYE));
+		CraftingInput.of(2, 1, null);
 		
 		final List<ItemStack> items = StreamSupport.stream(RegistryUtil.getBuiltInRegistry(Registries.ITEM).getTagOrEmpty(ItemTags.DYEABLE).spliterator(), false) //
 				.map(ItemStack::new) //
 				.filter(stack -> {
-					container.setItem(0, stack);
-					return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, container, level).isPresent();
+					final CraftingInput input = CraftingInput.of(2, 1, List.of(new ItemStack(Items.WHITE_DYE), stack));
+					return level.getRecipeManager().getRecipeFor(RecipeType.CRAFTING, input, level).isPresent();
 				}).collect(Collectors.toList());
 		
 		if (!items.isEmpty()) {

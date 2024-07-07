@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableMap;
 
+import net.minecraft.client.resources.model.BlockStateModelLoader;
 import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.block.Block;
@@ -20,10 +20,12 @@ import net.minecraft.world.level.block.state.StateDefinition;
 public class ModelUtil {
 	
 	static {
-		if (ModelBakery.STATIC_DEFINITIONS instanceof ImmutableMap) {
-			final Map<ResourceLocation, StateDefinition<Block, BlockState>> mutableMap = new HashMap<>();
-			ModelBakery.STATIC_DEFINITIONS.forEach(mutableMap::put);
-			ModelBakery.STATIC_DEFINITIONS = mutableMap;
+		synchronized (BlockStateModelLoader.STATIC_DEFINITIONS) {
+			if (!(BlockStateModelLoader.STATIC_DEFINITIONS instanceof HashMap)) {
+				final Map<ResourceLocation, StateDefinition<Block, BlockState>> mutableMap = new HashMap<>();
+				BlockStateModelLoader.STATIC_DEFINITIONS.forEach(mutableMap::put);
+				BlockStateModelLoader.STATIC_DEFINITIONS = mutableMap;
+			}
 		}
 	}
 	
@@ -34,7 +36,7 @@ public class ModelUtil {
 	 * @param definition Custom state definition
 	 */
 	public static void addCustomStateContainer(ResourceLocation location, StateDefinition<Block, BlockState> definition) {
-		ModelBakery.STATIC_DEFINITIONS.put(location, definition);
+		BlockStateModelLoader.STATIC_DEFINITIONS.put(location, definition);
 	}
 	
 	/**

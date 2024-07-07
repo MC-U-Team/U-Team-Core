@@ -10,7 +10,7 @@ import net.minecraft.resources.ResourceLocation;
 
 public class UCoreNetwork {
 	
-	private static final NetworkHandler NETWORK = NetworkHandler.create(new ResourceLocation(UCoreReference.MODID, "network"), UCoreReference.PROTOCOL_VERSION);
+	private static final NetworkHandler NETWORK = NetworkHandler.create(ResourceLocation.fromNamespaceAndPath(UCoreReference.MODID, "network"), UCoreReference.PROTOCOL_VERSION);
 	
 	public static final NetworkMessage<DataHolderMenuMessage> DATA_HOLDER_MENU_MESSAGE = NETWORK.register("data_holder_menu", NetworkHandlerEnvironment.BOTH, DataHolderMenuMessage.STREAM_CODEC, DataHolderMenuMessage::handle);
 	public static final NetworkMessage<OpenMenuScreenMessage> OPEN_MENU_SCREEN_MESSAGE = NETWORK.register("open_menu", NetworkHandlerEnvironment.CLIENT, OpenMenuScreenMessage.STREAM_CODEC, OpenMenuScreenMessage::handle);

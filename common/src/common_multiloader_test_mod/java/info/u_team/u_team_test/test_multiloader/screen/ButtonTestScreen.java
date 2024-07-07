@@ -28,8 +28,8 @@ public class ButtonTestScreen extends UScreen {
 	
 	private static final Logger LOGGER = LogUtils.getLogger();
 	
-	private static final ResourceLocation TEXTURE1 = new ResourceLocation(TestMultiLoaderReference.MODID, "textures/item/test_enderpearl_item.png");
-	private static final ResourceLocation TEXTURE2 = new ResourceLocation(TestMultiLoaderReference.MODID, "textures/item/test_item.png");
+	private static final ResourceLocation TEXTURE1 = ResourceLocation.fromNamespaceAndPath(TestMultiLoaderReference.MODID, "textures/item/test_enderpearl_item.png");
+	private static final ResourceLocation TEXTURE2 = ResourceLocation.fromNamespaceAndPath(TestMultiLoaderReference.MODID, "textures/item/test_item.png");
 	
 	private double mouseX;
 	private double mouseY;

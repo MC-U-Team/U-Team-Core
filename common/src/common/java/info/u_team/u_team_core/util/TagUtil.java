@@ -13,7 +13,7 @@ import net.minecraft.world.level.material.Fluid;
 public class TagUtil {
 	
 	public static TagKey<Block> createBlockTag(String modid, String name) {
-		return createBlockTag(new ResourceLocation(modid, name));
+		return createBlockTag(ResourceLocation.fromNamespaceAndPath(modid, name));
 	}
 	
 	public static TagKey<Block> createBlockTag(ResourceLocation location) {
@@ -21,7 +21,7 @@ public class TagUtil {
 	}
 	
 	public static TagKey<Item> createItemTag(String modid, String name) {
-		return createItemTag(new ResourceLocation(modid, name));
+		return createItemTag(ResourceLocation.fromNamespaceAndPath(modid, name));
 	}
 	
 	public static TagKey<Item> createItemTag(ResourceLocation location) {
@@ -29,7 +29,7 @@ public class TagUtil {
 	}
 	
 	public static TagKey<Fluid> createFluidTag(String modid, String name) {
-		return createFluidTag(new ResourceLocation(modid, name));
+		return createFluidTag(ResourceLocation.fromNamespaceAndPath(modid, name));
 	}
 	
 	public static TagKey<Fluid> createFluidTag(ResourceLocation location) {
@@ -37,7 +37,7 @@ public class TagUtil {
 	}
 	
 	public static TagKey<EntityType<?>> createEntityTypeTag(String modid, String name) {
-		return createEntityTypeTag(new ResourceLocation(modid, name));
+		return createEntityTypeTag(ResourceLocation.fromNamespaceAndPath(modid, name));
 	}
 	
 	public static TagKey<EntityType<?>> createEntityTypeTag(ResourceLocation location) {

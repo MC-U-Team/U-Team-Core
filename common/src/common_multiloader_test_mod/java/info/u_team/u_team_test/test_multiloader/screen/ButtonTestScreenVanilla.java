@@ -33,7 +33,7 @@ public class ButtonTestScreenVanilla extends Screen {
 			LOGGER.info("Clicked Testbutton");
 		}).bounds(50, 50, 200, 20).tooltip(Tooltip.create(Component.literal("Tooltip for Test Button"))).build());
 		
-		addRenderableWidget(new ImageButton(50, 80, 50, 20, new WidgetSprites(new ResourceLocation("backup/changes"), new ResourceLocation("backup/changes_highlighted")), button -> {
+		addRenderableWidget(new ImageButton(50, 80, 50, 20, new WidgetSprites(ResourceLocation.withDefaultNamespace("backup/changes"), ResourceLocation.withDefaultNamespace("backup/changes_highlighted")), button -> {
 			LOGGER.info("Clicked Test ImageButton");
 		}, Component.literal("Test ImageButton")));
 		

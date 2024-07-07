@@ -3,7 +3,6 @@ package info.u_team.u_team_test.test_multiloader.entity;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderEntityTypes;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderItems;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -81,16 +80,6 @@ public class TestEnderPearl extends ThrowableItemProjectile {
 			super.tick();
 		}
 		
-	}
-	
-	@Override
-	public Entity changeDimension(ServerLevel level) {
-		final Entity entity = getOwner();
-		if (entity != null && entity.level().dimension() != level.dimension()) {
-			setOwner(null);
-		}
-		
-		return super.changeDimension(level);
 	}
 	
 }

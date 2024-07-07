@@ -4,6 +4,7 @@ import org.joml.Matrix4f;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.Tesselator;
@@ -37,15 +38,13 @@ public class RenderUtil {
 	 */
 	public static void drawContainerBorder(PoseStack poseStack, int x, int y, int width, int height, float blitOffset, RGBA color) {
 		final Tesselator tessellator = Tesselator.getInstance();
-		final BufferBuilder bufferBuilder = tessellator.getBuilder();
+		final BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 		
 		RenderSystem.setShader(GameRenderer::getPositionColorShader);
 		setShaderColor(color);
 		
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
 		
 		addColoredQuad(bufferBuilder, poseStack, x, x + width - 1, y, y + 1, DARK_CONTAINER_BORDER_COLOR, blitOffset);
 		addColoredQuad(bufferBuilder, poseStack, x, x + 1, y, y + height - 1, DARK_CONTAINER_BORDER_COLOR, blitOffset);
@@ -56,7 +55,7 @@ public class RenderUtil {
 		addColoredQuad(bufferBuilder, poseStack, x + 1, x + width - 1, y + height - 1, y + height, BRIGHT_CONTAINER_BORDER_COLOR, blitOffset);
 		addColoredQuad(bufferBuilder, poseStack, x + width - 1, x + width, y + 1, y + height, BRIGHT_CONTAINER_BORDER_COLOR, blitOffset);
 		
-		tessellator.end();
+		BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
 		
 		RenderSystem.disableBlend();
 		
@@ -98,7 +97,7 @@ public class RenderUtil {
 		final float vScale = 1f / 256;
 		
 		final Tesselator tessellator = Tesselator.getInstance();
-		final BufferBuilder bufferBuilder = tessellator.getBuilder();
+		final BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, texture);
@@ -106,8 +105,6 @@ public class RenderUtil {
 		
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
 		// Draw Border
 		// Top Left
@@ -139,7 +136,7 @@ public class RenderUtil {
 			addTexturedRect(bufferBuilder, poseStack, x + leftBorder + canvasWidth, y + topBorder + (index * fillerHeight), u + leftBorder + fillerWidth, v + topBorder, uScale, vScale, rightBorder, (index == yPasses ? remainderHeight : fillerHeight), blitOffset);
 		}
 		
-		tessellator.end();
+		BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
 		
 		RenderSystem.disableBlend();
 		
@@ -202,7 +199,7 @@ public class RenderUtil {
 	 */
 	public static void drawTexturedQuad(PoseStack poseStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float blitOffset, ResourceLocation texture, RGBA color) {
 		final Tesselator tessellator = Tesselator.getInstance();
-		final BufferBuilder bufferBuilder = tessellator.getBuilder();
+		final BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, texture);
@@ -211,11 +208,9 @@ public class RenderUtil {
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
 		
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
-		
 		addTexturedQuad(bufferBuilder, poseStack, x1, x2, y1, y2, u1, u2, v1, v2, blitOffset);
 		
-		tessellator.end();
+		BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
 		
 		RenderSystem.disableBlend();
 		
@@ -241,10 +236,10 @@ public class RenderUtil {
 	public static void addTexturedRect(BufferBuilder bufferBuilder, PoseStack poseStack, int x, int y, int u, int v, float uScale, float vScale, int width, int height, float blitOffset) {
 		final Matrix4f matrix = poseStack.last().pose();
 		
-		bufferBuilder.vertex(matrix, x, y + height, blitOffset).uv(u * uScale, ((v + height) * vScale)).endVertex();
-		bufferBuilder.vertex(matrix, x + width, y + height, blitOffset).uv((u + width) * uScale, ((v + height) * vScale)).endVertex();
-		bufferBuilder.vertex(matrix, x + width, y, blitOffset).uv((u + width) * uScale, (v * vScale)).endVertex();
-		bufferBuilder.vertex(matrix, x, y, blitOffset).uv(u * uScale, (v * vScale)).endVertex();
+		bufferBuilder.addVertex(matrix, x, y + height, blitOffset).setUv(u * uScale, ((v + height) * vScale));
+		bufferBuilder.addVertex(matrix, x + width, y + height, blitOffset).setUv((u + width) * uScale, ((v + height) * vScale));
+		bufferBuilder.addVertex(matrix, x + width, y, blitOffset).setUv((u + width) * uScale, (v * vScale));
+		bufferBuilder.addVertex(matrix, x, y, blitOffset).setUv(u * uScale, (v * vScale));
 	}
 	
 	/**
@@ -266,10 +261,10 @@ public class RenderUtil {
 	public static void addTexturedQuad(BufferBuilder bufferBuilder, PoseStack poseStack, int x1, int x2, int y1, int y2, float u1, float u2, float v1, float v2, float blitOffset) {
 		final Matrix4f matrix = poseStack.last().pose();
 		
-		bufferBuilder.vertex(matrix, x1, y2, blitOffset).uv(u1, v2).endVertex();
-		bufferBuilder.vertex(matrix, x2, y2, blitOffset).uv(u2, v2).endVertex();
-		bufferBuilder.vertex(matrix, x2, y1, blitOffset).uv(u2, v1).endVertex();
-		bufferBuilder.vertex(matrix, x1, y1, blitOffset).uv(u1, v1).endVertex();
+		bufferBuilder.addVertex(matrix, x1, y2, blitOffset).setUv(u1, v2);
+		bufferBuilder.addVertex(matrix, x2, y2, blitOffset).setUv(u2, v2);
+		bufferBuilder.addVertex(matrix, x2, y1, blitOffset).setUv(u2, v1);
+		bufferBuilder.addVertex(matrix, x1, y1, blitOffset).setUv(u1, v1);
 	}
 	
 	/**
@@ -288,10 +283,10 @@ public class RenderUtil {
 	public static void addColoredQuad(BufferBuilder bufferBuilder, PoseStack poseStack, int x1, int x2, int y1, int y2, RGBA color, float blitOffset) {
 		final Matrix4f matrix = poseStack.last().pose();
 		
-		bufferBuilder.vertex(matrix, x1, y2, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
-		bufferBuilder.vertex(matrix, x2, y2, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
-		bufferBuilder.vertex(matrix, x2, y1, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
-		bufferBuilder.vertex(matrix, x1, y1, blitOffset).color(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha()).endVertex();
+		bufferBuilder.addVertex(matrix, x1, y2, blitOffset).setColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+		bufferBuilder.addVertex(matrix, x2, y2, blitOffset).setColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+		bufferBuilder.addVertex(matrix, x2, y1, blitOffset).setColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
+		bufferBuilder.addVertex(matrix, x1, y1, blitOffset).setColor(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 	}
 	
 	/**
@@ -309,10 +304,10 @@ public class RenderUtil {
 	public static void addQuad(BufferBuilder bufferBuilder, PoseStack poseStack, int x1, int x2, int y1, int y2, float blitOffset) {
 		final Matrix4f matrix = poseStack.last().pose();
 		
-		bufferBuilder.vertex(matrix, x1, y2, blitOffset).endVertex();
-		bufferBuilder.vertex(matrix, x2, y2, blitOffset).endVertex();
-		bufferBuilder.vertex(matrix, x2, y1, blitOffset).endVertex();
-		bufferBuilder.vertex(matrix, x1, y1, blitOffset).endVertex();
+		bufferBuilder.addVertex(matrix, x1, y2, blitOffset);
+		bufferBuilder.addVertex(matrix, x2, y2, blitOffset);
+		bufferBuilder.addVertex(matrix, x2, y1, blitOffset);
+		bufferBuilder.addVertex(matrix, x1, y1, blitOffset);
 	}
 	
 	/**

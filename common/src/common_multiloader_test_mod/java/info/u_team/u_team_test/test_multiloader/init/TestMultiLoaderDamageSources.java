@@ -8,6 +8,6 @@ import net.minecraft.world.damagesource.DamageType;
 
 public class TestMultiLoaderDamageSources {
 	
-	public static final ResourceKey<DamageType> TEST = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(TestMultiLoaderReference.MODID, "test"));
+	public static final ResourceKey<DamageType> TEST = ResourceKey.create(Registries.DAMAGE_TYPE, ResourceLocation.fromNamespaceAndPath(TestMultiLoaderReference.MODID, "test"));
 	
 }

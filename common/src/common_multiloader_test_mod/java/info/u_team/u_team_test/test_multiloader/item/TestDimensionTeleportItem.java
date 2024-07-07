@@ -1,7 +1,6 @@
 package info.u_team.u_team_test.test_multiloader.item;
 
 import info.u_team.u_team_core.item.UItem;
-import info.u_team.u_team_core.util.DimensionTeleportUtil;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -10,7 +9,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.portal.PortalInfo;
+import net.minecraft.world.level.portal.DimensionTransition;
 
 public class TestDimensionTeleportItem extends UItem {
 	
@@ -31,7 +30,7 @@ public class TestDimensionTeleportItem extends UItem {
 			} else {
 				destination = level.getServer().getLevel(Level.OVERWORLD);
 			}
-			DimensionTeleportUtil.changeDimension(player, destination, new PortalInfo(player.position(), player.getDeltaMovement(), player.getYRot(), player.getXRot()));
+			player.changeDimension(new DimensionTransition(destination, player, DimensionTransition.PLACE_PORTAL_TICKET));
 		}
 		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}

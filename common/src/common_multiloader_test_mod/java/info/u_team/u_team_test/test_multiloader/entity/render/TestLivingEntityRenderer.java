@@ -10,7 +10,7 @@ import net.minecraft.world.entity.monster.Zombie;
 
 public class TestLivingEntityRenderer extends ZombieRenderer {
 	
-	private static final ResourceLocation TEXTURE = new ResourceLocation(TestMultiLoaderReference.MODID, "textures/entity/test_living/test_living.png");
+	private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(TestMultiLoaderReference.MODID, "textures/entity/test_living/test_living.png");
 	
 	public TestLivingEntityRenderer(EntityRendererProvider.Context renderManager) {
 		super(renderManager);
