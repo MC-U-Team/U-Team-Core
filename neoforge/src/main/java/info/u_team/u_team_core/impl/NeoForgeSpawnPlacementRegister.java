@@ -4,7 +4,7 @@ import info.u_team.u_team_core.api.registry.SpawnPlacementRegister;
 import info.u_team.u_team_core.impl.common.CommonSpawnPlacementRegister;
 import info.u_team.u_team_core.util.CastUtil;
 import info.u_team.u_team_core.util.registry.BusRegister;
-import net.neoforged.neoforge.event.entity.SpawnPlacementRegisterEvent;
+import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
 public class NeoForgeSpawnPlacementRegister extends CommonSpawnPlacementRegister {
 	
@@ -16,9 +16,9 @@ public class NeoForgeSpawnPlacementRegister extends CommonSpawnPlacementRegister
 		BusRegister.registerMod(bus -> bus.addListener(this::spawnPlacementRegister));
 	}
 	
-	private void spawnPlacementRegister(SpawnPlacementRegisterEvent event) {
+	private void spawnPlacementRegister(RegisterSpawnPlacementsEvent event) {
 		spawnPlacements.forEach((supplier, holder) -> {
-			event.register(CastUtil.uncheckedCast(supplier.get()), holder.placementType(), holder.heightmap(), holder.predicate(), SpawnPlacementRegisterEvent.Operation.OR);
+			event.register(CastUtil.uncheckedCast(supplier.get()), holder.placementType(), holder.heightmap(), holder.predicate(), RegisterSpawnPlacementsEvent.Operation.OR);
 		});
 	}
 	
