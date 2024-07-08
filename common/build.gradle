@@ -46,8 +46,6 @@ java {
 	withJavadocJar()
 }
 
-tasks.named("validateAccessWidener") { enabled = false }
-
 loom {
 	accessWidenerPath = gradlefiles.project("fabric").file("src/main/resources/uteamcore.accesswidener")
 }
