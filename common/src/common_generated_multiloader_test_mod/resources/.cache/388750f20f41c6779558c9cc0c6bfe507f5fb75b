@@ -1,11 +1,11 @@
-// 1.20.6	2024-06-28T12:15:39.2133218	Item-Tags: uteamtest_multiloader (common)
-064d3c47eee8a08975811a3277f62f1633b79481 data/minecraft/tags/items/axes.json
-e8187cb774b558f0ae8af989bacd7b636600a5e9 data/minecraft/tags/items/chest_armor.json
-f0fb8a50f98b8911d5ddb36791fb35026a03c1c5 data/minecraft/tags/items/cluster_max_harvestables.json
-885eba5d4566536cb96e7648c3ff02777d857b55 data/minecraft/tags/items/foot_armor.json
-8d1ed5289464e878473a6c36ddc29663dedae629 data/minecraft/tags/items/head_armor.json
-6d8cd7ae1a4b30b240500d1fdce89d214da1ab32 data/minecraft/tags/items/hoes.json
-3e872dbe7d16d1104ae00e4cda1c51af80bb7d30 data/minecraft/tags/items/leg_armor.json
-f0fb8a50f98b8911d5ddb36791fb35026a03c1c5 data/minecraft/tags/items/pickaxes.json
-b63600e6f93c4c5724d3bcf94dd0806bbe47393e data/minecraft/tags/items/shovels.json
-b6175bbbe7778745d13c9638e88acd487e1c1a37 data/minecraft/tags/items/swords.json
+// 1.21	2024-07-08T17:22:20.6618417	Item-Tags: uteamtest_multiloader (common)
+064d3c47eee8a08975811a3277f62f1633b79481 data/minecraft/tags/item/axes.json
+e8187cb774b558f0ae8af989bacd7b636600a5e9 data/minecraft/tags/item/chest_armor.json
+f0fb8a50f98b8911d5ddb36791fb35026a03c1c5 data/minecraft/tags/item/cluster_max_harvestables.json
+885eba5d4566536cb96e7648c3ff02777d857b55 data/minecraft/tags/item/foot_armor.json
+8d1ed5289464e878473a6c36ddc29663dedae629 data/minecraft/tags/item/head_armor.json
+6d8cd7ae1a4b30b240500d1fdce89d214da1ab32 data/minecraft/tags/item/hoes.json
+3e872dbe7d16d1104ae00e4cda1c51af80bb7d30 data/minecraft/tags/item/leg_armor.json
+f0fb8a50f98b8911d5ddb36791fb35026a03c1c5 data/minecraft/tags/item/pickaxes.json
+b63600e6f93c4c5724d3bcf94dd0806bbe47393e data/minecraft/tags/item/shovels.json
+b6175bbbe7778745d13c9638e88acd487e1c1a37 data/minecraft/tags/item/swords.json

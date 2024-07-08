@@ -7,7 +7,7 @@
 				"predicates": {
 					"minecraft:enchantments": [
 						{
-							"enchantment": "uteamtest_multiloader:test",
+							"enchantments": "uteamtest_multiloader:test",
 							"levels": {
 								"min": 1
 							}
