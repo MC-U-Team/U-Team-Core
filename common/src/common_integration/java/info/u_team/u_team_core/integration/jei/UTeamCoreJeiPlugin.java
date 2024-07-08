@@ -35,8 +35,6 @@ public class UTeamCoreJeiPlugin implements IModPlugin {
 	public void registerRecipes(IRecipeRegistration registration) {
 		final ClientLevel level = Minecraft.getInstance().level;
 		
-		CraftingInput.of(2, 1, null);
-		
 		final List<ItemStack> items = StreamSupport.stream(RegistryUtil.getBuiltInRegistry(Registries.ITEM).getTagOrEmpty(ItemTags.DYEABLE).spliterator(), false) //
 				.map(ItemStack::new) //
 				.filter(stack -> {

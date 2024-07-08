@@ -145,14 +145,14 @@ public class FluidIngredient implements Predicate<FluidStack> {
 		if (jsonObject.has("fluid") && jsonObject.has("tag")) {
 			throw new JsonParseException("An ingredient entry is either a tag or a fluid, not both");
 		} else if (jsonObject.has("fluid")) {
-			final ResourceLocation key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "fluid"));
+			final ResourceLocation key = ResourceLocation.tryParse(GsonHelper.getAsString(jsonObject, "fluid"));
 			final Fluid fluid = RegistryUtil.getBuiltInRegistry(Registries.FLUID).get(key);
 			if (fluid == null) {
 				throw new JsonSyntaxException("Unknown fluid '" + key + "'");
 			}
 			return new SingleFluidList(new FluidStack(fluid, 1000));
 		} else if (jsonObject.has("tag")) {
-			final ResourceLocation key = new ResourceLocation(GsonHelper.getAsString(jsonObject, "tag"));
+			final ResourceLocation key = ResourceLocation.tryParse(GsonHelper.getAsString(jsonObject, "tag"));
 			final TagKey<Fluid> tag = TagKey.create(Registries.FLUID, key);
 			return new TagList(tag);
 		} else {

@@ -38,7 +38,7 @@ public class ForgeBlockRegister implements BlockRegister {
 	@Override
 	public <B extends Block & BlockItemProvider, I extends Item> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
 		final ForgeRegistryEntry<B> block = blocks.register(name, supplier);
-		final ForgeRegistryEntry<I> item = new ForgeRegistryEntry<>(RegistryObject.create(new ResourceLocation(blocks.getModid(), name), ForgeRegistries.ITEMS));
+		final ForgeRegistryEntry<I> item = new ForgeRegistryEntry<>(RegistryObject.create(ResourceLocation.fromNamespaceAndPath(blocks.getModid(), name), ForgeRegistries.ITEMS));
 		
 		blockToItemsMap.put(block, item);
 		
@@ -47,7 +47,7 @@ public class ForgeBlockRegister implements BlockRegister {
 	
 	@Override
 	public <B extends Block, I extends Item> ForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
-		return register(name, blockSupplier, () -> itemFunction.apply(ForgeRegistries.BLOCKS.getValue(new ResourceLocation(blocks.getModid(), name))));
+		return register(name, blockSupplier, () -> itemFunction.apply(ForgeRegistries.BLOCKS.getValue(ResourceLocation.fromNamespaceAndPath(blocks.getModid(), name))));
 	}
 	
 	@Override

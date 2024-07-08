@@ -59,7 +59,7 @@ public abstract class CommonItemModelProvider extends ItemModelProvider implemen
 	
 	protected void simpleBlock(Block block) {
 		final ResourceLocation registryName = ForgeRegistries.BLOCKS.getKey(block);
-		getBuilder(registryName.getPath()).parent(new UncheckedModelFile(new ResourceLocation(registryName.getNamespace(), "block/" + registryName.getPath())));
+		getBuilder(registryName.getPath()).parent(new UncheckedModelFile(ResourceLocation.fromNamespaceAndPath(registryName.getNamespace(), "block/" + registryName.getPath())));
 	}
 	
 	// Utility methods

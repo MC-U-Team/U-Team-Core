@@ -15,7 +15,6 @@ import com.google.gson.JsonObject;
 
 import info.u_team.u_team_core.util.CastUtil;
 import net.minecraft.data.CachedOutput;
-import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput.PathProvider;
 import net.minecraft.data.PackOutput.Target;
 import net.minecraft.resources.ResourceLocation;
@@ -23,7 +22,7 @@ import net.neoforged.neoforge.common.conditions.WithConditions;
 import net.neoforged.neoforge.common.loot.IGlobalLootModifier;
 import net.neoforged.neoforge.internal.versions.neoforge.NeoForgeVersion;
 
-public abstract class CommonGlobalLootModifierProvider implements DataProvider, CommonDataProvider<BiConsumer<String, WithConditions<? extends IGlobalLootModifier>>> {
+public abstract class CommonGlobalLootModifierProvider implements CommonDataProvider<BiConsumer<String, WithConditions<? extends IGlobalLootModifier>>> {
 	
 	private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 	
@@ -55,7 +54,7 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 		final List<CompletableFuture<?>> futures = new ArrayList<>();
 		final List<String> entries = serializers.entrySet().stream().map(entry -> {
 			final String name = entry.getKey();
-			final ResourceLocation location = new ResourceLocation(modid(), name);
+			final ResourceLocation location = ResourceLocation.fromNamespaceAndPath(modid(), name);
 			
 			futures.add(saveData(cache, IGlobalLootModifier.CONDITIONAL_CODEC, Optional.of(entry.getValue()), pathProvider.json(location)));
 			
@@ -66,7 +65,7 @@ public abstract class CommonGlobalLootModifierProvider implements DataProvider, 
 		json.addProperty("replace", replace);
 		json.add("entries", GSON.toJsonTree(entries));
 		
-		futures.add(saveData(cache, json, pathProvider.json(new ResourceLocation(NeoForgeVersion.MOD_ID, "global_loot_modifiers"))));
+		futures.add(saveData(cache, json, pathProvider.json(ResourceLocation.fromNamespaceAndPath(NeoForgeVersion.MOD_ID, "global_loot_modifiers"))));
 		
 		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 	}

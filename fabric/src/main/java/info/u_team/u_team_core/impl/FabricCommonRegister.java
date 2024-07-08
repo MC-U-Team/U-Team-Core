@@ -40,7 +40,7 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 	
 	@Override
 	public <E extends C> FabricRegistryEntry<E> register(String name, Function<ResourceLocation, ? extends E> function) {
-		return register(name, () -> function.apply(new ResourceLocation(modid, name)));
+		return register(name, () -> function.apply(ResourceLocation.fromNamespaceAndPath(modid, name)));
 	}
 	
 	@Override
@@ -49,7 +49,7 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 			throw new IllegalArgumentException("Registry is already frozen");
 		}
 		
-		final ResourceLocation id = new ResourceLocation(modid, name);
+		final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(modid, name);
 		final ResourceKey<C> key = ResourceKey.create(registry.key(), id);
 		
 		final FabricRegistryEntry<E> entry = new FabricRegistryEntry<>(id, CastUtil.uncheckedCast(key));

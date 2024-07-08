@@ -38,7 +38,7 @@ public class NeoForgeBlockRegister implements BlockRegister {
 	@Override
 	public <B extends Block & BlockItemProvider, I extends Item> NeoForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
 		final NeoForgeRegistryEntry<Block, B> block = blocks.register(name, supplier);
-		final NeoForgeRegistryEntry<Item, I> item = new NeoForgeRegistryEntry<>(DeferredHolder.create(Registries.ITEM, new ResourceLocation(blocks.getModid(), name)));
+		final NeoForgeRegistryEntry<Item, I> item = new NeoForgeRegistryEntry<>(DeferredHolder.create(Registries.ITEM, ResourceLocation.fromNamespaceAndPath(blocks.getModid(), name)));
 		
 		blockToItemsMap.put(block, item);
 		
@@ -47,7 +47,7 @@ public class NeoForgeBlockRegister implements BlockRegister {
 	
 	@Override
 	public <B extends Block, I extends Item> NeoForgeBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
-		return register(name, blockSupplier, () -> itemFunction.apply(RegistryUtil.getBuiltInRegistry(Registries.BLOCK).get(new ResourceLocation(blocks.getModid(), name))));
+		return register(name, blockSupplier, () -> itemFunction.apply(RegistryUtil.getBuiltInRegistry(Registries.BLOCK).get(ResourceLocation.fromNamespaceAndPath(blocks.getModid(), name))));
 	}
 	
 	@Override

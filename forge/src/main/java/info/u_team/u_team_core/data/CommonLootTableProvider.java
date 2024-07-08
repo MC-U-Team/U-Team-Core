@@ -12,6 +12,8 @@ import net.minecraft.advancements.critereon.ItemEnchantmentsPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.ItemSubPredicates;
 import net.minecraft.advancements.critereon.MinMaxBounds;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput.PathProvider;
@@ -90,16 +92,16 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 						.when(ExplosionCondition.survivesExplosion()));
 	}
 	
-	protected static LootTable.Builder addFortuneBlockLootTable(Block block, ItemLike item) {
+	protected static LootTable.Builder addFortuneBlockLootTable(HolderLookup.Provider registries, Block block, ItemLike item) {
 		return LootTable.lootTable() //
 				.setParamSet(LootContextParamSets.BLOCK) //
 				.withPool(LootPool.lootPool() //
 						.setRolls(ConstantValue.exactly(1)) //
 						.add(LootItem.lootTableItem(block) //
 								.when(MatchTool.toolMatches(ItemPredicate.Builder.item() //
-										.withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(Enchantments.SILK_TOUCH, MinMaxBounds.Ints.atLeast(1)))))) //
+										.withSubPredicate(ItemSubPredicates.ENCHANTMENTS, ItemEnchantmentsPredicate.enchantments(List.of(new EnchantmentPredicate(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.SILK_TOUCH), MinMaxBounds.Ints.atLeast(1)))))) //
 								).otherwise(LootItem.lootTableItem(item) //
-										.apply(ApplyBonusCount.addOreBonusCount(Enchantments.FORTUNE)) //
+										.apply(ApplyBonusCount.addOreBonusCount(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))) //
 										.apply(ApplyExplosionDecay.explosionDecay()))));
 	}
 	

@@ -8,6 +8,7 @@ import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderEnchantments
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderEntityTypes;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderItems;
 import info.u_team.u_team_test.test_multiloader.init.TestMultiLoaderMobEffects;
+import net.minecraft.Util;
 
 public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 	
@@ -49,7 +50,7 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		addEntityType(TestMultiLoaderEntityTypes.TEST_ENDERPEARL, "Test Enderpearl");
 		addEntityType(TestMultiLoaderEntityTypes.TEST_LIVING, "Test Living Entity");
 		
-		addEnchantment(TestMultiLoaderEnchantments.TEST, "Test Enchantment");
+		add(Util.makeDescriptionId("enchantment", TestMultiLoaderEnchantments.TEST.location()), "Test Enchantment");
 		
 		add("death.attack.test", "%1$s dies of test effect");
 		

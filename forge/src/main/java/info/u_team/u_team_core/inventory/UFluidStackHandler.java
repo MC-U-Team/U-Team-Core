@@ -3,6 +3,7 @@ package info.u_team.u_team_core.inventory;
 import info.u_team.u_team_core.api.InteractionType;
 import info.u_team.u_team_core.api.fluid.ExtendedFluidHandler;
 import info.u_team.u_team_core.util.FluidHandlerHelper;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.core.NonNullList;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -131,7 +132,7 @@ public class UFluidStackHandler implements ExtendedFluidHandler, INBTSerializabl
 	}
 	
 	@Override
-	public CompoundTag serializeNBT() {
+	public CompoundTag serializeNBT(HolderLookup.Provider registries) {
 		final CompoundTag compound = new CompoundTag();
 		final ListTag list = new ListTag();
 		
@@ -153,7 +154,7 @@ public class UFluidStackHandler implements ExtendedFluidHandler, INBTSerializabl
 	}
 	
 	@Override
-	public void deserializeNBT(CompoundTag compound) {
+	public void deserializeNBT(HolderLookup.Provider registries, CompoundTag compound) {
 		final ListTag list = compound.getList("Fluids", Tag.TAG_COMPOUND);
 		for (int index = 0; index < list.size(); index++) {
 			final CompoundTag slotCompound = list.getCompound(index);

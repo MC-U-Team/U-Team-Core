@@ -17,7 +17,7 @@ public class UCoreForgeNetwork {
 	
 	public static final int PROTOCOL = UCoreReference.PROTOCOL_VERSION;
 	
-	public static final SimpleChannel NETWORK = ChannelBuilder.named(new ResourceLocation(UCoreMod.MODID, "network_forge")) //
+	public static final SimpleChannel NETWORK = ChannelBuilder.named(ResourceLocation.fromNamespaceAndPath(UCoreMod.MODID, "network_forge")) //
 			.networkProtocolVersion(PROTOCOL) //
 			.optionalServer() //
 			.serverAcceptedVersions(VersionTest.exact(PROTOCOL)) //

@@ -5,6 +5,7 @@ import java.util.stream.Stream;
 import info.u_team.u_team_core.api.registry.CreativeModeTabRegister;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
 import info.u_team.u_team_test.test_multiloader.TestMultiLoaderReference;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.CreativeModeTab.TabVisibility;
 import net.minecraft.world.item.EnchantedBookItem;
@@ -31,7 +32,7 @@ public class TestMultiLoaderCreativeTabs {
 					output.accept(PotionContents.createItemStack(item, potion.getHolder().get()), TabVisibility.PARENT_TAB_ONLY);
 				});
 			});
-			output.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(TestMultiLoaderEnchantments.TEST.get(), 1)), TabVisibility.PARENT_TAB_ONLY);
+			output.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(parameters.holders().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TestMultiLoaderEnchantments.TEST), 1)), TabVisibility.PARENT_TAB_ONLY);
 		});
 	});
 	

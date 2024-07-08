@@ -88,7 +88,7 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 		futures.add(saveData(cache, Recipe.CONDITIONAL_CODEC, Optional.of(new WithConditions<>(recipe, conditions)), recipePathProvider.json(id)));
 		
 		if (advancement != null) {
-			final ResourceLocation advancementLocation = vanillaAdvancements ? advancement.id() : new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath());
+			final ResourceLocation advancementLocation = vanillaAdvancements ? advancement.id() : ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "recipes/" + id.getPath());
 			futures.add(saveData(cache, Advancement.CONDITIONAL_CODEC, Optional.of(new WithConditions<>(advancement.value(), conditions)), advancementPathProvider.json(advancementLocation)));
 		}
 	}

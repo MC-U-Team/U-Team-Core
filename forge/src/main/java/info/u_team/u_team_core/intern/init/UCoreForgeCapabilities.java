@@ -12,7 +12,7 @@ public class UCoreForgeCapabilities {
 	
 	private static void register(AttachCapabilitiesEvent<ItemStack> event) {
 		if (event.getObject().getItem() instanceof UBucketItem) {
-			event.addCapability(new ResourceLocation(UCoreMod.MODID, "ubucket_fluid"), new FluidBucketWrapper(event.getObject()));
+			event.addCapability(ResourceLocation.fromNamespaceAndPath(UCoreMod.MODID, "ubucket_fluid"), new FluidBucketWrapper(event.getObject()));
 		}
 	}
 	

@@ -7,6 +7,7 @@ import java.util.function.Supplier;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
+import com.mojang.blaze3d.vertex.BufferUploader;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.Tesselator;
 import com.mojang.blaze3d.vertex.VertexFormat;
@@ -31,7 +32,7 @@ import net.minecraftforge.energy.IEnergyStorage;
 
 public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRenderable, TooltipRenderable {
 	
-	public static final ResourceLocation ENERGY_TEXTURE = new ResourceLocation(UCoreMod.MODID, "textures/gui/energy.png");
+	public static final ResourceLocation ENERGY_TEXTURE = ResourceLocation.fromNamespaceAndPath(UCoreMod.MODID, "textures/gui/energy.png");
 	
 	private final LongSupplier capacity;
 	private final LongSupplier storage;
@@ -68,7 +69,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		final int storageOffset = (int) ((1 - ratio) * (height - 2));
 		
 		final Tesselator tessellator = Tesselator.getInstance();
-		final BufferBuilder bufferBuilder = tessellator.getBuilder();
+		final BufferBuilder bufferBuilder = tessellator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
 		RenderSystem.setShader(GameRenderer::getPositionTexShader);
 		RenderSystem.setShaderTexture(0, texture);
@@ -76,8 +77,6 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 		
 		RenderSystem.enableBlend();
 		RenderSystem.defaultBlendFunc();
-		
-		bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_TEX);
 		
 		for (int yComponent = 1; yComponent < height - 1; yComponent += 2) {
 			RenderUtil.addTexturedQuad(bufferBuilder, guiGraphics.pose(), x + 1, x + 1 + 12, y + yComponent, y + yComponent + 2, 0, 12 / 16f, 0, 2 / 16f, 0); // Background
@@ -91,7 +90,7 @@ public class EnergyStorageWidget extends AbstractWidget implements PerspectiveRe
 			}
 		}
 		
-		tessellator.end();
+		BufferUploader.drawWithShader(bufferBuilder.buildOrThrow());
 		
 		RenderSystem.disableBlend();
 	}

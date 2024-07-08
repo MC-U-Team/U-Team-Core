@@ -14,7 +14,7 @@ public class TestMultiLoaderSoundProvider extends CommonSoundProvider {
 	
 	@Override
 	public void register() {
-		add(TestMultiLoaderSoundEvents.TEST_ENDERPEARL_USE, definition().with(sound(new ResourceLocation(TestMultiLoaderReference.MODID, "test_ender_pearl_use"))));
+		add(TestMultiLoaderSoundEvents.TEST_ENDERPEARL_USE, definition().with(sound(ResourceLocation.fromNamespaceAndPath(TestMultiLoaderReference.MODID, "test_ender_pearl_use"))));
 	}
 	
 }

@@ -30,7 +30,7 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 	
 	@Override
 	public <E extends C> ForgeRegistryEntry<E> register(String name, Function<ResourceLocation, ? extends E> function) {
-		return register(name, () -> function.apply(new ResourceLocation(modid, name)));
+		return register(name, () -> function.apply(ResourceLocation.fromNamespaceAndPath(modid, name)));
 	}
 	
 	@Override

@@ -21,7 +21,6 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.material.Fluid;
 
@@ -55,7 +54,7 @@ public abstract class CommonLanguagesProvider implements DataProvider, CommonDat
 		return CompletableFuture.allOf(data.entrySet().stream().filter(entry -> !entry.getValue().isEmpty()).map(entry -> {
 			final String locale = entry.getKey();
 			final Map<String, String> map = entry.getValue();
-			return saveData(cache, GSON.toJsonTree(map), pathProvider.json(new ResourceLocation(modid(), locale)));
+			return saveData(cache, GSON.toJsonTree(map), pathProvider.json(ResourceLocation.fromNamespaceAndPath(modid(), locale)));
 		}).toArray(CompletableFuture[]::new));
 	}
 	
@@ -92,14 +91,6 @@ public abstract class CommonLanguagesProvider implements DataProvider, CommonDat
 	}
 	
 	protected void add(ItemStack key, String name) {
-		add(key.getDescriptionId(), name);
-	}
-	
-	protected void addEnchantment(Supplier<? extends Enchantment> key, String name) {
-		add(key.get(), name);
-	}
-	
-	protected void add(Enchantment key, String name) {
 		add(key.getDescriptionId(), name);
 	}
 	
@@ -159,14 +150,6 @@ public abstract class CommonLanguagesProvider implements DataProvider, CommonDat
 	}
 	
 	protected void add(String locale, ItemStack key, String name) {
-		add(locale, key.getDescriptionId(), name);
-	}
-	
-	protected void addEnchantment(String locale, Supplier<? extends Enchantment> key, String name) {
-		add(locale, key.get(), name);
-	}
-	
-	protected void add(String locale, Enchantment key, String name) {
 		add(locale, key.getDescriptionId(), name);
 	}
 	

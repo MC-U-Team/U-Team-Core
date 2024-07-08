@@ -17,7 +17,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class ContainerSetFluidContentMessage implements CustomPacketPayload {
 	
-	public static final Type<ContainerSetFluidContentMessage> TYPE = new Type<>(new ResourceLocation(UCoreMod.MODID, "container_set_fluid_content"));
+	public static final Type<ContainerSetFluidContentMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(UCoreMod.MODID, "container_set_fluid_content"));
 	
 	private final int containerId;
 	private final int stateId;

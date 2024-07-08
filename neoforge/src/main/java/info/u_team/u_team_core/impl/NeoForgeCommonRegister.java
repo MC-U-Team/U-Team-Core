@@ -31,7 +31,7 @@ public class NeoForgeCommonRegister<C> implements CommonRegister<C> {
 	
 	@Override
 	public <E extends C> NeoForgeRegistryEntry<C, E> register(String name, Function<ResourceLocation, ? extends E> function) {
-		return register(name, () -> function.apply(new ResourceLocation(modid, name)));
+		return register(name, () -> function.apply(ResourceLocation.fromNamespaceAndPath(modid, name)));
 	}
 	
 	@Override

@@ -40,7 +40,7 @@ public class FabricBlockRegister implements BlockRegister {
 	public <B extends Block & BlockItemProvider, I extends Item> FabricBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> supplier) {
 		final FabricRegistryEntry<B> block = blocks.register(name, supplier);
 		
-		final ResourceLocation id = new ResourceLocation(items.getModid(), name);
+		final ResourceLocation id = ResourceLocation.fromNamespaceAndPath(items.getModid(), name);
 		final ResourceKey<I> key = CastUtil.uncheckedCast(ResourceKey.create(items.getRegistryKey(), id));
 		final FabricRegistryEntry<I> item = new FabricRegistryEntry<>(id, key);
 		
@@ -51,7 +51,7 @@ public class FabricBlockRegister implements BlockRegister {
 	
 	@Override
 	public <B extends Block, I extends Item> FabricBlockRegistryEntry<B, I> register(String name, Supplier<? extends B> blockSupplier, Function<Block, ? extends I> itemFunction) {
-		return register(name, blockSupplier, () -> itemFunction.apply(BuiltInRegistries.BLOCK.get(new ResourceLocation(blocks.getModid(), name))));
+		return register(name, blockSupplier, () -> itemFunction.apply(BuiltInRegistries.BLOCK.get(ResourceLocation.fromNamespaceAndPath(blocks.getModid(), name))));
 	}
 	
 	@Override

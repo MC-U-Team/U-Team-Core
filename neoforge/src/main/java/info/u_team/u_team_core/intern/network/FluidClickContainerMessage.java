@@ -15,7 +15,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public class FluidClickContainerMessage implements CustomPacketPayload {
 	
-	public static final Type<FluidClickContainerMessage> TYPE = new Type<>(new ResourceLocation(UCoreMod.MODID, "fluid_click_container"));
+	public static final Type<FluidClickContainerMessage> TYPE = new Type<>(ResourceLocation.fromNamespaceAndPath(UCoreMod.MODID, "fluid_click_container"));
 	
 	private final int id;
 	private final int slot;
