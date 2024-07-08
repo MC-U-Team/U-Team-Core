@@ -30,7 +30,7 @@ public interface CommonDataProvider<V> extends DataProvider {
 		return builder.toString();
 	}
 	
-	default CompletableFuture<?> withRegistries(Function<HolderLookup.Provider, ? extends CompletionStage<?>> function) {
+	default <U> CompletableFuture<U> withRegistries(Function<HolderLookup.Provider, ? extends CompletionStage<U>> function) {
 		return getGenerationData().registriesFuture().thenCompose(function);
 	}
 	
