@@ -64,7 +64,7 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 				
 				@Override
 				public void accept(ResourceLocation id, Recipe<?> recipe, ResourceLocation advancementId, JsonElement advancement) {
-					generateRecipe(cache, id, recipe, advancementId, advancement, duplicates, vanillaAdvancements, futures);
+					generateRecipe(cache, registries, id, recipe, advancementId, advancement, duplicates, vanillaAdvancements, futures);
 				}
 				
 				@Override
@@ -86,12 +86,12 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	public void registerVanilla(RecipeOutput consumer) {
 	}
 	
-	private void generateRecipe(CachedOutput cache, ResourceLocation id, Recipe<?> recipe, ResourceLocation advancementId, JsonElement advancement, Set<ResourceLocation> duplicates, boolean vanillaAdvancements, List<CompletableFuture<?>> futures) {
+	private void generateRecipe(CachedOutput cache, HolderLookup.Provider registries, ResourceLocation id, Recipe<?> recipe, ResourceLocation advancementId, JsonElement advancement, Set<ResourceLocation> duplicates, boolean vanillaAdvancements, List<CompletableFuture<?>> futures) {
 		if (!duplicates.add(id)) {
 			throw new IllegalStateException("Duplicate recipe " + id);
 		}
 		
-		futures.add(saveData(cache, Recipe.CODEC, recipe, recipePathProvider.json(id)));
+		futures.add(saveData(cache, registries, Recipe.CODEC, recipe, recipePathProvider.json(id)));
 		
 		if (advancement != null) {
 			final ResourceLocation advancementLocation = vanillaAdvancements ? advancementId : ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "recipes/" + id.getPath());

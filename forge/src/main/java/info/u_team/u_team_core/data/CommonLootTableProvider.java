@@ -3,10 +3,11 @@ package info.u_team.u_team_core.data;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
+import info.u_team.u_team_core.data.CommonLootTableProvider.LootTableRegister;
 import info.u_team.u_team_core.intern.loot_item_function.SetBlockEntityNBTLootItemFunction;
+import info.u_team.u_team_core.util.RegistryUtil;
 import net.minecraft.advancements.critereon.EnchantmentPredicate;
 import net.minecraft.advancements.critereon.ItemEnchantmentsPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
@@ -31,9 +32,8 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.predicates.ExplosionCondition;
 import net.minecraft.world.level.storage.loot.predicates.MatchTool;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
-import net.minecraftforge.registries.ForgeRegistries;
 
-public abstract class CommonLootTableProvider implements DataProvider, CommonDataProvider<BiConsumer<ResourceLocation, LootTable>> {
+public abstract class CommonLootTableProvider implements DataProvider, CommonDataProvider<LootTableRegister> {
 	
 	private final GenerationData generationData;
 	
@@ -52,11 +52,22 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 	
 	@Override
 	public CompletableFuture<?> run(CachedOutput cache) {
-		final List<CompletableFuture<?>> futures = new ArrayList<>();
-		register((location, lootTable) -> {
-			futures.add(saveData(cache, LootTable.DIRECT_CODEC, lootTable, pathProvider.json(location)));
+		return withRegistries(registries -> {
+			final List<CompletableFuture<?>> futures = new ArrayList<>();
+			register(new LootTableRegister() {
+				
+				@Override
+				public HolderLookup.Provider registries() {
+					return registries;
+				}
+				
+				@Override
+				public void register(ResourceLocation location, LootTable lootTable) {
+					futures.add(saveData(cache, registries, LootTable.DIRECT_CODEC, lootTable, pathProvider.json(location)));
+				}
+			});
+			return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 		});
-		return CompletableFuture.allOf(futures.toArray(CompletableFuture[]::new));
 	}
 	
 	@Override
@@ -64,13 +75,13 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 		return "Loot-Table: " + nameSuffix();
 	}
 	
-	protected static void registerBlock(Supplier<? extends Block> supplier, LootTable.Builder builder, BiConsumer<ResourceLocation, LootTable> consumer) {
-		registerBlock(supplier.get(), builder, consumer);
+	protected static void registerBlock(Supplier<? extends Block> supplier, LootTable.Builder builder, LootTableRegister register) {
+		registerBlock(supplier.get(), builder, register);
 	}
 	
-	protected static void registerBlock(Block block, LootTable.Builder builder, BiConsumer<ResourceLocation, LootTable> consumer) {
-		final ResourceLocation location = ForgeRegistries.BLOCKS.getKey(block).withPrefix("blocks/");
-		consumer.accept(location, builder.setRandomSequence(location).build());
+	protected static void registerBlock(Block block, LootTable.Builder builder, LootTableRegister register) {
+		final ResourceLocation location = RegistryUtil.getBuiltInRegistry(Registries.BLOCK).getKey(block).withPrefix("blocks/");
+		register.register(location, builder.setRandomSequence(location).build());
 	}
 	
 	protected static LootTable.Builder addBasicBlockLootTable(ItemLike item) {
@@ -103,6 +114,13 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 								).otherwise(LootItem.lootTableItem(item) //
 										.apply(ApplyBonusCount.addOreBonusCount(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(Enchantments.FORTUNE))) //
 										.apply(ApplyExplosionDecay.explosionDecay()))));
+	}
+	
+	public static interface LootTableRegister {
+		
+		void register(ResourceLocation location, LootTable lootTable);
+		
+		HolderLookup.Provider registries();
 	}
 	
 }

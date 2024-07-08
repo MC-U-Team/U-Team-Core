@@ -15,7 +15,6 @@ import com.google.gson.JsonObject;
 import info.u_team.u_team_core.data.CommonGlobalLootModifierProvider.GlobalLootModifierRegister;
 import info.u_team.u_team_core.util.CastUtil;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.PackOutput.PathProvider;
 import net.minecraft.data.PackOutput.Target;
@@ -53,7 +52,7 @@ public abstract class CommonGlobalLootModifierProvider implements CommonDataProv
 			register(new GlobalLootModifierRegister() {
 				
 				@Override
-				public Provider registries() {
+				public HolderLookup.Provider registries() {
 					return registries;
 				}
 				
