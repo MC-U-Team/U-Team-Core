@@ -9,7 +9,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class BasicFluidInventoryScreen extends UContainerMenuScreen<BasicFluidInventoryMenu> {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/fluid_inventory.png");
+	private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(TestMod.MODID, "textures/gui/fluid_inventory.png");
 	
 	public BasicFluidInventoryScreen(BasicFluidInventoryMenu menu, Inventory playerInventory, Component title) {
 		super(menu, playerInventory, title, BACKGROUND);

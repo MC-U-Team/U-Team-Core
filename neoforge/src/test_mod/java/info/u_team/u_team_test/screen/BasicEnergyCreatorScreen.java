@@ -10,7 +10,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class BasicEnergyCreatorScreen extends UContainerMenuScreen<BasicEnergyCreatorMenu> {
 	
-	private static final ResourceLocation BACKGROUND = new ResourceLocation(TestMod.MODID, "textures/gui/energy_creator.png");
+	private static final ResourceLocation BACKGROUND = ResourceLocation.fromNamespaceAndPath(TestMod.MODID, "textures/gui/energy_creator.png");
 	
 	public BasicEnergyCreatorScreen(BasicEnergyCreatorMenu menu, Inventory playerInventory, Component title) {
 		super(menu, playerInventory, title, BACKGROUND, 176, 173);

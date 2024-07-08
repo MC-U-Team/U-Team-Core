@@ -39,8 +39,8 @@ public class TestFluidTypes {
 		public void initializeClient(Consumer<IClientFluidTypeExtensions> consumer) {
 			consumer.accept(new IClientFluidTypeExtensions() {
 				
-				private static final ResourceLocation STILL = new ResourceLocation("block/water_still");
-				private static final ResourceLocation FLOW = new ResourceLocation("block/water_flow");
+				private static final ResourceLocation STILL = ResourceLocation.withDefaultNamespace("block/water_still");
+				private static final ResourceLocation FLOW = ResourceLocation.withDefaultNamespace("block/water_flow");
 				
 				@Override
 				public ResourceLocation getStillTexture() {
@@ -54,7 +54,7 @@ public class TestFluidTypes {
 				
 				@Override
 				public ResourceLocation getRenderOverlayTexture(Minecraft minecraft) {
-					return new ResourceLocation("textures/misc/underwater.png");
+					return ResourceLocation.withDefaultNamespace("textures/misc/underwater.png");
 				}
 				
 				@Override
