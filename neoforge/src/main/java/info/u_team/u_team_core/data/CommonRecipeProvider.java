@@ -85,11 +85,11 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 			throw new IllegalStateException("Duplicate recipe " + id);
 		}
 		
-		futures.add(saveData(cache, Recipe.CONDITIONAL_CODEC, Optional.of(new WithConditions<>(recipe, conditions)), recipePathProvider.json(id)));
+		futures.add(withRegistries(registries -> saveData(cache, registries, Recipe.CONDITIONAL_CODEC, Optional.of(new WithConditions<>(recipe, conditions)), recipePathProvider.json(id))));
 		
 		if (advancement != null) {
 			final ResourceLocation advancementLocation = vanillaAdvancements ? advancement.id() : ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "recipes/" + id.getPath());
-			futures.add(saveData(cache, Advancement.CONDITIONAL_CODEC, Optional.of(new WithConditions<>(advancement.value(), conditions)), advancementPathProvider.json(advancementLocation)));
+			futures.add(withRegistries(registries -> saveData(cache, registries, Advancement.CONDITIONAL_CODEC, Optional.of(new WithConditions<>(advancement.value(), conditions)), advancementPathProvider.json(advancementLocation))));
 		}
 	}
 	

@@ -2,6 +2,8 @@ package info.u_team.u_team_core.data;
 
 import java.nio.file.Path;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.function.Function;
 
 import com.google.gson.JsonElement;
 import com.mojang.serialization.Codec;
@@ -28,13 +30,11 @@ public interface CommonDataProvider<V> extends DataProvider {
 		return builder.toString();
 	}
 	
-	void register(V param);
-	
-	default <T> CompletableFuture<?> saveData(CachedOutput cachedOutput, Codec<T> codec, T value, Path path) {
-		return getGenerationData().registriesFuture().thenCompose(registries -> {
-			return DataProvider.saveStable(cachedOutput, registries, codec, value, path);
-		});
+	default CompletableFuture<?> withRegistries(Function<HolderLookup.Provider, ? extends CompletionStage<?>> function) {
+		return getGenerationData().registriesFuture().thenCompose(function);
 	}
+	
+	void register(V param);
 	
 	default <T> CompletableFuture<?> saveData(CachedOutput cachedOutput, HolderLookup.Provider registries, Codec<T> codec, T value, Path path) {
 		return DataProvider.saveStable(cachedOutput, registries, codec, value, path);
