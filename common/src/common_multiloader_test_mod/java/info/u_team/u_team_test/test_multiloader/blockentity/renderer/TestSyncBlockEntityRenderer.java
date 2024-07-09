@@ -9,6 +9,7 @@ import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
 import net.minecraft.client.renderer.entity.EntityRenderDispatcher;
+import net.minecraft.world.phys.Vec3;
 
 public class TestSyncBlockEntityRenderer implements BlockEntityRenderer<TestSyncBlockEntity> {
 	
@@ -25,9 +26,12 @@ public class TestSyncBlockEntityRenderer implements BlockEntityRenderer<TestSync
 		final String displayString = "Counter: " + blockEntity.getCounter();
 		poseStack.pushPose();
 		
-		poseStack.translate(0.5, 1.5, 0.5);
-		poseStack.scale(-0.025F, -0.025F, -0.025F);
-		poseStack.mulPose(entityRenderer.cameraOrientation());
+		poseStack.setIdentity();
+		final Vec3 cameraPos = entityRenderer.camera.getPosition();
+		final Vec3 blockPos = blockEntity.getBlockPos().getCenter();
+		poseStack.translate(blockPos.x - cameraPos.x, blockPos.y + 1 - cameraPos.y, blockPos.z - cameraPos.z);
+		poseStack.mulPose(entityRenderer.camera.rotation());
+		poseStack.scale(0.025F, -0.025F, 0.025F);
 		
 		final float x = -font.width(displayString) / 2;
 		font.drawInBatch(displayString, x, 0, 0xFFFF00, true, poseStack.last().pose(), bufferSource, DisplayMode.POLYGON_OFFSET, 0, 0xF000F0);
