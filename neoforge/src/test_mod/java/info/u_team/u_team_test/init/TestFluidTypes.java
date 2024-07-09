@@ -19,7 +19,7 @@ public class TestFluidTypes {
 	public static final CommonRegister<FluidType> FLUID_TYPES = CommonRegister.create(NeoForgeRegistries.Keys.FLUID_TYPES, TestMod.MODID);
 	
 	public static final RegistryEntry<FluidType> TEST_FLUID = FLUID_TYPES.register("test_fluid", () -> new FluidType(FluidType.Properties.create() //
-			.descriptionId("block.test_mod.test_fluid") //
+			.descriptionId("block.uteamtest.test_fluid") //
 			.lightLevel(5) //
 			.fallDistanceModifier(0.1f) //
 			.rarity(Rarity.RARE) //
