@@ -1,4 +1,4 @@
-package info.u_team.u_team_test.test_multiloader.entity.render;
+package info.u_team.u_team_test.test_multiloader.entity.renderer;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 
