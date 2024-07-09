@@ -42,7 +42,7 @@ public abstract class CommonLootTableProvider implements DataProvider, CommonDat
 	public CommonLootTableProvider(GenerationData generationData) {
 		this.generationData = generationData;
 		
-		pathProvider = generationData.output().createPathProvider(Target.DATA_PACK, "loot_tables");
+		pathProvider = generationData.output().createPathProvider(Target.DATA_PACK, "loot_table");
 	}
 	
 	@Override

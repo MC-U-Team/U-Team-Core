@@ -40,8 +40,8 @@ public abstract class CommonRecipeProvider implements DataProvider, CommonDataPr
 	public CommonRecipeProvider(GenerationData generationData) {
 		this.generationData = generationData;
 		
-		recipePathProvider = generationData.output().createPathProvider(Target.DATA_PACK, "recipes");
-		advancementPathProvider = generationData.output().createPathProvider(Target.DATA_PACK, "advancements");
+		recipePathProvider = generationData.output().createPathProvider(Target.DATA_PACK, "recipe");
+		advancementPathProvider = generationData.output().createPathProvider(Target.DATA_PACK, "advancement");
 	}
 	
 	@Override
