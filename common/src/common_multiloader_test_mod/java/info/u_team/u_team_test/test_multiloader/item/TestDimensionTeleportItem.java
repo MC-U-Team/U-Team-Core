@@ -10,6 +10,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.portal.DimensionTransition;
+import net.minecraft.world.phys.Vec3;
 
 public class TestDimensionTeleportItem extends UItem {
 	
@@ -30,7 +31,8 @@ public class TestDimensionTeleportItem extends UItem {
 			} else {
 				destination = level.getServer().getLevel(Level.OVERWORLD);
 			}
-			player.changeDimension(new DimensionTransition(destination, player, DimensionTransition.PLACE_PORTAL_TICKET));
+			
+			player.changeDimension(new DimensionTransition(destination, player.position(), Vec3.ZERO, player.getYRot(), player.getXRot(), DimensionTransition.PLACE_PORTAL_TICKET));
 		}
 		return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
 	}
