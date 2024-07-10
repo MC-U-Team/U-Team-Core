@@ -86,7 +86,7 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 		
 		@Override
 		public Holder<E> getHolder() {
-			return object.getHolder().get();
+			return object.getHolder().orElseThrow(() -> new IllegalStateException("Holder does not exist, does the value exist?"));
 		}
 		
 		@Override
