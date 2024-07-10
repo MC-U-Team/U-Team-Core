@@ -9,7 +9,7 @@
 		"ClientPacketListenerMixin",
 		"MinecraftMixin",
 		"MinecraftServerMixin",
-		"MainMixin",
+		"BuiltInRegistriesMixin",
 		"SpawnEggItemMixin",
 		"KeyboardHandlerMixin",
 		"UContainerMenuScreenMixin",
