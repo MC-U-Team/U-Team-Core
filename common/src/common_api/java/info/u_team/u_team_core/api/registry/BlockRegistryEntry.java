@@ -1,7 +1,5 @@
 package info.u_team.u_team_core.api.registry;
 
-import java.util.Optional;
-
 import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -16,7 +14,7 @@ public interface BlockRegistryEntry<B extends Block, I extends Item> extends Reg
 	
 	ResourceKey<I> getItemKey();
 	
-	Optional<Holder<I>> getItemHolder();
+	Holder<I> getItemHolder();
 	
 	boolean isItemPresent();
 	

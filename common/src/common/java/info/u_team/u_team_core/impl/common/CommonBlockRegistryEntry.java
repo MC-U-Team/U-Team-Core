@@ -1,7 +1,5 @@
 package info.u_team.u_team_core.impl.common;
 
-import java.util.Optional;
-
 import info.u_team.u_team_core.api.registry.BlockRegistryEntry;
 import info.u_team.u_team_core.api.registry.RegistryEntry;
 import net.minecraft.core.Holder;
@@ -36,7 +34,7 @@ public abstract class CommonBlockRegistryEntry<B extends Block, I extends Item, 
 	}
 	
 	@Override
-	public Optional<Holder<B>> getHolder() {
+	public Holder<B> getHolder() {
 		return block.getHolder();
 	}
 	
@@ -61,7 +59,7 @@ public abstract class CommonBlockRegistryEntry<B extends Block, I extends Item, 
 	}
 	
 	@Override
-	public Optional<Holder<I>> getItemHolder() {
+	public Holder<I> getItemHolder() {
 		return item.getHolder();
 	}
 	

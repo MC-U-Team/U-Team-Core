@@ -29,7 +29,7 @@ public class TestMultiLoaderCreativeTabs {
 			});
 			Stream.of(Items.POTION, Items.SPLASH_POTION, Items.LINGERING_POTION, Items.TIPPED_ARROW).forEach(item -> {
 				TestMultiLoaderPotions.POTIONS.forEach(potion -> {
-					output.accept(PotionContents.createItemStack(item, potion.getHolder().get()), TabVisibility.PARENT_TAB_ONLY);
+					output.accept(PotionContents.createItemStack(item, potion.getHolder()), TabVisibility.PARENT_TAB_ONLY);
 				});
 			});
 			output.accept(EnchantedBookItem.createForEnchantment(new EnchantmentInstance(parameters.holders().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(TestMultiLoaderEnchantments.TEST), 1)), TabVisibility.PARENT_TAB_ONLY);

@@ -6,7 +6,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -125,8 +124,8 @@ public class FabricCommonRegister<C> implements CommonRegister<C> {
 		}
 		
 		@Override
-		public Optional<Holder<E>> getHolder() {
-			return Optional.ofNullable(holder);
+		public Holder<E> getHolder() {
+			return holder;
 		}
 		
 		@Override

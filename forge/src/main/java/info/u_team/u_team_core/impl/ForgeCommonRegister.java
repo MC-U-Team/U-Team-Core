@@ -3,7 +3,6 @@ package info.u_team.u_team_core.impl;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
@@ -86,8 +85,8 @@ public class ForgeCommonRegister<C> implements CommonRegister<C> {
 		}
 		
 		@Override
-		public Optional<Holder<E>> getHolder() {
-			return object.getHolder();
+		public Holder<E> getHolder() {
+			return object.getHolder().get();
 		}
 		
 		@Override
