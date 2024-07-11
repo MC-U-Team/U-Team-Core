@@ -119,6 +119,8 @@ minecraft {
 	}
 }
 
+reobf.create("jar")
+
 tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
 	
