@@ -178,6 +178,8 @@ mixin {
 	debug.export = true
 }
 
+reobf.create("jar")
+
 tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
 	
