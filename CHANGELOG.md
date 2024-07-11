@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.19.4-5.0.2.311] - 2024-07-11
+### Changed
+ - Fixed building
+
 ## [1.19.4-5.0.2.298] - 2024-04-28
 ### Changed
  - Update to latest gradle changes
