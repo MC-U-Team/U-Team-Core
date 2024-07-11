@@ -41,8 +41,6 @@ java {
 	withJavadocJar()
 }
 
-tasks.named("validateAccessWidener") { enabled = false }
-
 loom {
 	accessWidenerPath = file("src/main/resources/uteamcore.accesswidener")
 	

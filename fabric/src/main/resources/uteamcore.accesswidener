@@ -99,8 +99,6 @@ accessible field net/minecraft/world/item/crafting/ShapedRecipe showNotification
 
 accessible method net/minecraft/world/item/crafting/ShapedRecipePattern matches (Lnet/minecraft/world/inventory/CraftingContainer;IIZ)Z
 
-accessible method net/minecraft/world/food/FoodProperties <init> (IFZZZLjava/util/List;)V
-
 accessible field net/minecraft/world/food/FoodProperties$Builder eatSeconds F
 
 accessible field net/minecraft/world/item/SpawnEggItem BY_ID Ljava/util/Map;
