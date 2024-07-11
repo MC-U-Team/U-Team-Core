@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.20.6-5.4.0.313] - 2024-07-11
+### Changed
+ - Fixed invalid access widener
+ - Update versions
+
 ## [1.20.6-5.4.0.303] - 2024-07-09
 ### Changed
  - Fix wrong packet direction for fluid container
