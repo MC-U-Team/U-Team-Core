@@ -81,6 +81,8 @@ minecraft.getRuns().each { task ->
 	task.environment "MC_VERSION", "{mc_version}"
 }
 
+reobf.create("jar")
+
 tasks.register("testJar", Jar) {
 	archiveClassifier = "test"
 	
