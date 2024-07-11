@@ -58,7 +58,7 @@ abstract class HumanoidArmorLayerMixin<T extends LivingEntity, M extends Humanoi
 	
 	@Inject(method = "renderModel", at = @At("HEAD"), cancellable = true)
 	private void uteamcore$renderArmorPiece(PoseStack poseStack, MultiBufferSource buffer, int packedLight, ArmorItem item, A model, boolean layer2, float red, float green, float blue, String armorSuffix, CallbackInfo callbackInfo) {
-		if (item instanceof final UArmorItem armorItem) {
+		if (item instanceof UArmorItem) {
 			callbackInfo.cancel();
 		}
 	}
