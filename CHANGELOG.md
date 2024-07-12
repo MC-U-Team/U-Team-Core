@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.20.6-5.4.0.315] - 2024-07-12
+### Changed
+ - Fix poms for forged uteamcore version
+
 ## [1.20.6-5.4.0.313] - 2024-07-11
 ### Changed
  - Fixed invalid access widener
