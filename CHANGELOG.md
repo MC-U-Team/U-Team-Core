@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file.
 ## [1.21-5.5.0.317] - 2024-07-20
 ### Changed
  - Removed jar sign verifier from forge distribution
+ - Updated versions of modloaders
 
 ## [1.21-5.5.0.316] - 2024-07-12
 ### Changed
