@@ -66,7 +66,7 @@ public interface BlockEntityTypeRegister extends Iterable<RegistryEntry<BlockEnt
 		};
 	}
 	
-	<T extends BlockEntity> RegistryEntry<BlockEntityType<T>> register(String name, Function<ResourceLocation, BlockEntityType.Builder<T>> supplier);
+	<T extends BlockEntity> RegistryEntry<BlockEntityType<T>> register(String name, Function<ResourceLocation, BlockEntityType.Builder<T>> function);
 	
 	<T extends BlockEntity> RegistryEntry<BlockEntityType<T>> register(String name, Supplier<BlockEntityType.Builder<T>> supplier);
 	

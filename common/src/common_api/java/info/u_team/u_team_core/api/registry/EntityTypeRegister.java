@@ -68,7 +68,7 @@ public interface EntityTypeRegister extends Iterable<RegistryEntry<EntityType<?>
 		};
 	}
 	
-	<T extends Entity> RegistryEntry<EntityType<T>> register(String name, Function<ResourceLocation, EntityType.Builder<T>> supplier);
+	<T extends Entity> RegistryEntry<EntityType<T>> register(String name, Function<ResourceLocation, EntityType.Builder<T>> function);
 	
 	<T extends Entity> RegistryEntry<EntityType<T>> register(String name, Supplier<EntityType.Builder<T>> supplier);
 	

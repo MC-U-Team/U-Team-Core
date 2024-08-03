@@ -65,7 +65,7 @@ public interface DataComponentTypeRegister extends Iterable<RegistryEntry<DataCo
 		};
 	}
 	
-	<T> RegistryEntry<DataComponentType<T>> register(String name, Function<ResourceLocation, DataComponentType.Builder<T>> supplier);
+	<T> RegistryEntry<DataComponentType<T>> register(String name, Function<ResourceLocation, DataComponentType.Builder<T>> function);
 	
 	<T> RegistryEntry<DataComponentType<T>> register(String name, Supplier<DataComponentType.Builder<T>> supplier);
 	
