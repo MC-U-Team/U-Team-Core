@@ -29,5 +29,6 @@
 	"item.uteamtest_multiloader.test_shovel": "Test Shovel",
 	"item.uteamtest_multiloader.test_sword": "Test Sword",
 	"item.uteamtest_multiloader.test_use_item": "Test Use Item",
+	"item.uteamtest_multiloader.test_use_item.counter": "Counter: %s",
 	"item.uteamtest_multiloader.test_use_item.outofrange": "Out of range"
 }

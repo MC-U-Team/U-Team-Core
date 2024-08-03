@@ -23,6 +23,7 @@ public class TestMultiLoaderLanguagesProvider extends CommonLanguagesProvider {
 		addItem(TestMultiLoaderItems.TEST, "Test Item");
 		addItem(TestMultiLoaderItems.TEST_USE, "Test Use Item");
 		add(TestMultiLoaderItems.TEST_USE.get().getDescriptionId() + ".outofrange", "Out of range");
+		add(TestMultiLoaderItems.TEST_USE.get().getDescriptionId() + ".counter", "Counter: %s");
 		addItem(TestMultiLoaderItems.TEST_FOOD, "Test Food");
 		addItem(TestMultiLoaderItems.TEST_DIMENSION_TELEPORT, "Test Dimension Teleport");
 		addItem(TestMultiLoaderItems.TEST_ENDERPEARL, "Test Enderpearl");
