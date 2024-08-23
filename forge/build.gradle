@@ -203,7 +203,7 @@ dependencies {
 	
 	implementation "mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}"
 	
-	annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
+	annotationProcessor "org.spongepowered:mixin:0.8.7:processor"
 }
 
 publishMods {
