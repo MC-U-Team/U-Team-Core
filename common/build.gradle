@@ -18,6 +18,8 @@ sourceSets {
 		resources {
 			srcDirs += "src/common-generated/resources"
 		}
+		compileClasspath = main.compileClasspath
+		runtimeClasspath = main.runtimeClasspath
 	}
 	main {
 		java {
