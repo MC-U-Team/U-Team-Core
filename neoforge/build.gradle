@@ -115,11 +115,11 @@ runs {
 	data {
 		workingDirectory file("run/data").with { mkdirs(); it }
 		
-		programArguments "--mod", config.mod.modid
-		programArguments "--all"
-		programArguments "--output", gradlefiles.project("common").file("src/common_generated/resources").absolutePath
-		programArguments "--validate"
-		programArguments "--existing", gradlefiles.project("common").file("src/common/resources").absolutePath
+		arguments "--mod", config.mod.modid
+		arguments "--all"
+		arguments "--output", gradlefiles.project("common").file("src/common_generated/resources").absolutePath
+		arguments "--validate"
+		arguments "--existing", gradlefiles.project("common").file("src/common/resources").absolutePath
 		
 		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
@@ -129,16 +129,16 @@ runs {
 	}
 	
 	data_multiloader_test {
-		configure("data")
+		runType("data")
 		
 		workingDirectory file("run/data").with { mkdirs(); it }
 		
-		programArguments "--mod", "uteamtest_multiloader"
-		programArguments "--all"
-		programArguments "--output", gradlefiles.project("common").file("src/common_generated_multiloader_test_mod/resources").absolutePath
-		programArguments "--validate"
-		programArguments "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources").absolutePath
-		programArguments "--existing-mod", "uteamcore"
+		arguments "--mod", "uteamtest_multiloader"
+		arguments "--all"
+		arguments "--output", gradlefiles.project("common").file("src/common_generated_multiloader_test_mod/resources").absolutePath
+		arguments "--validate"
+		arguments "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources").absolutePath
+		arguments "--existing-mod", "uteamcore"
 		
 		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
@@ -149,16 +149,16 @@ runs {
 	}
 	
 	neoforge_data_multiloader_test {
-		configure("data")
+		runType("data")
 		
 		workingDirectory file("run/data").with { mkdirs(); it }
 		
-		programArguments "--mod", "uteamtest_multiloader"
-		programArguments "--all"
-		programArguments "--output", file("src/neoforge_generated_multiloader_test_mod/resources").absolutePath
-		programArguments "--validate"
-		programArguments "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources").absolutePath
-		programArguments "--existing-mod", "uteamcore"
+		arguments "--mod", "uteamtest_multiloader"
+		arguments "--all"
+		arguments "--output", file("src/neoforge_generated_multiloader_test_mod/resources").absolutePath
+		arguments "--validate"
+		arguments "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources").absolutePath
+		arguments "--existing-mod", "uteamcore"
 		
 		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
@@ -169,16 +169,16 @@ runs {
 	}
 	
 	data_test_mod {
-		configure("data")
+		runType("data")
 		
 		workingDirectory file("run/data").with { mkdirs(); it }
 		
-		programArguments "--mod", "uteamtest"
-		programArguments "--all"
-		programArguments "--output", file("src/generated_test_mod/resources").absolutePath
-		programArguments "--validate"
-		programArguments "--existing", file("src/test_mod/resources").absolutePath
-		programArguments "--existing-mod", "uteamcore"
+		arguments "--mod", "uteamtest"
+		arguments "--all"
+		arguments "--output", file("src/generated_test_mod/resources").absolutePath
+		arguments "--validate"
+		arguments "--existing", file("src/test_mod/resources").absolutePath
+		arguments "--existing-mod", "uteamcore"
 		
 		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
 		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
