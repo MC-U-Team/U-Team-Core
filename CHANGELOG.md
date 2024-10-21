@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.21-5.5.1.328] - 2024-10-21
+### Changed
+ - Update to latest gradle and fixed building
+
 ## [1.21-5.5.1.318] - 2024-08-03
 ### Changed
  - Add data component type register
