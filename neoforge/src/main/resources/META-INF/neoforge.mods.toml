@@ -17,7 +17,7 @@ license="Apache-2.0 License"
 	[[dependencies.uteamcore]]
 	    modId="neoforge"
 	    type="required"
-	    versionRange="[21.0.148,)"
+	    versionRange="[21.0.167,)"
 	    ordering="NONE"
 	    side="BOTH"
 	
