@@ -12,6 +12,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 @Construct(modid = UCoreMod.MODID, priority = 2000)
 public class UCoreForgeCommonConstruct implements ModConstruct {
 	
+	@SuppressWarnings("removal") // TODO remove code later
 	@Override
 	public void construct() {
 		final String version = ModLoadingContext.get().getActiveContainer().getModInfo().getVersion().toString();
