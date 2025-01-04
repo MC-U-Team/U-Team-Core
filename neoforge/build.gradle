@@ -96,6 +96,12 @@ runs {
 		jvmArguments "-Dmixin.debug.export=true"
 	}
 	
+	project.evaluationDependsOn(gradlefiles.project("neoforge/coremod").path)
+	
+	configureEach {
+		modSources gradlefiles.project("neoforge/coremod").sourceSets.main
+	}
+	
 	client {
 		workingDirectory file("run/client").with { mkdirs(); it }
 		
@@ -240,6 +246,8 @@ repositories {
 
 dependencies {
 	implementation gradlefiles.neoForgeDependency()
+	
+	compileOnly(jarJar(gradlefiles.project("neoforge/coremod")))
 	
 	compileOnly "mezz.jei:jei-${config.minecraft.version}-neoforge-api:${config.jei.version}"
 	compileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
