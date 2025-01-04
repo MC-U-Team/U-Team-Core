@@ -226,7 +226,7 @@ tasks.withType(Javadoc).configureEach { task ->
 	task.options.addStringOption("Xdoclint:none", "-quiet")
 }
 
-signjar.sign(tasks.named("jar"))
+signjar.sign(tasks.named("jarJar"))
 signjar.sign(tasks.named("multiLoaderTestJar"))
 signjar.sign(tasks.named("testJar"))
 
