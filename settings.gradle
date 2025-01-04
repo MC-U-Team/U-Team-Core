@@ -41,3 +41,5 @@ plugins {
 }
 
 gradlefiles.setupProject("U-Team-Core", "common", "neoforge", "forge", "fabric")
+
+gradlefiles.includeProject("neoforge/coremod")
