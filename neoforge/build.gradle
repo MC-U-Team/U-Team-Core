@@ -220,9 +220,7 @@ tasks.register("testSourcesJar", Jar) {
 
 tasks.named("jar").configure {
 	archiveClassifier = "slim"
-	destinationDirectory = project.layout.buildDirectory.map {
-		dir "slim"
-	}
+	destinationDirectory = project.layout.buildDirectory.map { directory -> directory.dir("slim") }
 }
 
 tasks.named("jarJar").configure {
