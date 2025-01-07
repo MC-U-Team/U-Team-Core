@@ -218,6 +218,17 @@ tasks.register("testSourcesJar", Jar) {
 	from sourceSets.test_mod.allJava
 }
 
+tasks.named("jar").configure { task ->
+	task.archiveClassifier = "slim"
+	task.destinationDirectory = project.layout.buildDirectory.map { directory ->
+		directory.dir("slim")
+	}
+}
+
+tasks.named("jarJar").configure { task ->
+	task.archiveClassifier = ""
+}
+
 tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 }
