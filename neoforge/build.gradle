@@ -218,15 +218,15 @@ tasks.register("testSourcesJar", Jar) {
 	from sourceSets.test_mod.allJava
 }
 
-tasks.named("jar").configure { task ->
-	task.archiveClassifier = "slim"
-	task.destinationDirectory = project.layout.buildDirectory.map { directory ->
-		directory.dir("slim")
+tasks.named("jar").configure {
+	archiveClassifier = "slim"
+	destinationDirectory = project.layout.buildDirectory.map {
+		dir "slim"
 	}
 }
 
-tasks.named("jarJar").configure { task ->
-	task.archiveClassifier = ""
+tasks.named("jarJar").configure {
+	archiveClassifier = ""
 }
 
 tasks.withType(Jar).configureEach { task ->
@@ -266,7 +266,7 @@ dependencies {
 }
 
 publishMods {
-	file = tasks.named("jar").flatMap { jar -> jar.archiveFile }
+	file = tasks.named("jarJar").flatMap { jar -> jar.archiveFile }
 	displayName = "${config.publish.display}-NeoForge-${config.minecraft.version}-${project.version}"
 	changelog = "[Changelog for version ${project.version}](${gradlefiles.changelogUrl()})"
 	type = me.modmuss50.mpp.ReleaseType.of(config.publish.type)
