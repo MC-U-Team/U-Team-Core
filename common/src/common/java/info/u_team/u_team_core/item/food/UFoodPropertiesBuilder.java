@@ -41,6 +41,7 @@ public class UFoodPropertiesBuilder extends FoodProperties.Builder {
 		return this;
 	}
 	
+	@SuppressWarnings("all")
 	@Override
 	public UFoodPropertiesBuilder effect(MobEffectInstance effect, float probability) {
 		super.effect(effect, probability);
