@@ -30,6 +30,8 @@ tasks.withType(Jar).configureEach { task ->
 	}
 }
 
+signjar.sign(tasks.named("jar"))
+
 repositories {
 	maven {
 		url = "https://maven.neoforged.net/releases"
