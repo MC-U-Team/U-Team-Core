@@ -97,10 +97,9 @@ runs {
 	}
 	
 	project.evaluationDependsOn(gradlefiles.project("neoforge/coremod").path)
-	//gradlefiles.project("neoforge/coremod").sourceSets.main.modIdentifier = config.mod.modid
 	
 	configureEach {
-		modSources.add gradlefiles.project("neoforge/coremod").sourceSets.main
+		modSources gradlefiles.project("neoforge/coremod").sourceSets.main
 	}
 	
 	client {
@@ -128,8 +127,7 @@ runs {
 		arguments "--validate"
 		arguments "--existing", gradlefiles.project("common").file("src/common/resources").absolutePath
 		
-		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
+		systemProperties "coremod.uteamcore.dataprovider-set-indent", "true"
 		
 		modSources sourceSets.main
 		modSources sourceSets.data
@@ -147,8 +145,7 @@ runs {
 		arguments "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources").absolutePath
 		arguments "--existing-mod", "uteamcore"
 		
-		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
+		systemProperties "coremod.uteamcore.dataprovider-set-indent", "true"
 		
 		modSources sourceSets.main
 		modSources sourceSets.multiloader_test_mod
@@ -167,8 +164,7 @@ runs {
 		arguments "--existing", gradlefiles.project("common").file("src/common_multiloader_test_mod/resources").absolutePath
 		arguments "--existing-mod", "uteamcore"
 		
-		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
+		systemProperties "coremod.uteamcore.dataprovider-set-indent", "true"
 		
 		modSources sourceSets.main
 		modSources sourceSets.multiloader_test_mod
@@ -187,8 +183,7 @@ runs {
 		arguments "--existing", file("src/test_mod/resources").absolutePath
 		arguments "--existing-mod", "uteamcore"
 		
-		systemProperties "coremod.uteamcore.dataprovider-set-indent", "coremod.uteamcore.dataprovider-set-indent.value"
-		systemProperties "coremod.uteamcore.dataprovider-set-indent.value", "true"
+		systemProperties "coremod.uteamcore.dataprovider-set-indent", "true"
 		
 		modSources sourceSets.main
 		modSources sourceSets.test_mod

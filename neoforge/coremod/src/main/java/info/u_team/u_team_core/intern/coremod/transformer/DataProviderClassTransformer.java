@@ -26,7 +26,7 @@ import net.neoforged.coremod.api.ASMAPI.MethodType;
 public class DataProviderClassTransformer implements ITransformer<ClassNode> {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(DataProviderClassTransformer.class);
-
+	
 	@Override
 	public @NotNull TargetType<ClassNode> getTargetType() {
 		return TargetType.CLASS;
@@ -36,11 +36,10 @@ public class DataProviderClassTransformer implements ITransformer<ClassNode> {
 	public @NotNull Set<Target<ClassNode>> targets() {
 		return Set.of(Target.targetClass("net.minecraft.data.DataProvider"));
 	}
-
-
+	
 	@Override
 	public @NotNull TransformerVoteResult castVote(ITransformerVotingContext context) {
-		return TransformerVoteResult.YES;
+		return Boolean.getBoolean("coremod.uteamcore.dataprovider-set-indent") ? TransformerVoteResult.YES : TransformerVoteResult.NO;
 	}
 	
 	@Override
@@ -53,7 +52,7 @@ public class DataProviderClassTransformer implements ITransformer<ClassNode> {
 				// Remove instructions we don't need
 				final List<AbstractInsnNode> instructionsForRemoval = new ArrayList<>();
 				AbstractInsnNode next = ldcNode.getNext();
-				while(next != setIndentMethod) {
+				while (next != setIndentMethod) {
 					instructionsForRemoval.add(next);
 					next = next.getNext();
 				}
@@ -64,5 +63,5 @@ public class DataProviderClassTransformer implements ITransformer<ClassNode> {
 			}
 		});
 		return classNode;
-	}	
+	}
 }
