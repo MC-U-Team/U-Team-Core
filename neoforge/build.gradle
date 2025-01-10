@@ -222,8 +222,8 @@ tasks.named("jar").configure {
 tasks.named("jarJar").configure {
 	archiveClassifier = ""
 	doLast {
-		configurations.apiElements.artifacts.clear()
-		configurations.apiElements.artifacts.addAll(configurations.runtimeElements.artifacts)
+		project.configurations.apiElements.artifacts.clear()
+		project.configurations.apiElements.artifacts.addAll(project.configurations.runtimeElements.artifacts)
 	}
 }
 
