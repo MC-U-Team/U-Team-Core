@@ -219,11 +219,12 @@ tasks.named("jar").configure {
 	destinationDirectory = project.layout.buildDirectory.map { directory -> directory.dir("slim") }
 }
 
-configurations.apiElements.artifacts.clear()
-configurations.apiElements.artifacts.addAll(configurations.runtimeElements.artifacts)
-
 tasks.named("jarJar").configure {
 	archiveClassifier = ""
+	doLast {
+		configurations.apiElements.artifacts.clear()
+		configurations.apiElements.artifacts.addAll(configurations.runtimeElements.artifacts)
+	}
 }
 
 tasks.withType(Jar).configureEach { task ->
