@@ -219,6 +219,8 @@ tasks.named("jar").configure {
 	destinationDirectory = project.layout.buildDirectory.map { directory -> directory.dir("slim") }
 }
 
+configurations.apiElements.artifacts.clear()
+
 tasks.named("jarJar").configure {
 	archiveClassifier = ""
 }
