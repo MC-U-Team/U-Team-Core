@@ -221,10 +221,14 @@ tasks.named("jar").configure {
 
 tasks.named("jarJar").configure {
 	archiveClassifier = ""
-	doLast {
-		project.configurations.apiElements.artifacts.clear()
-		project.configurations.apiElements.artifacts.addAll(project.configurations.runtimeElements.artifacts)
-	}
+}
+
+configurations.named("apiElements").configure {
+	artifacts.removeIf { artifact -> artifact.classifier == "slim" }
+}
+
+artifacts {
+	apiElements(tasks.named("jarJar"))
 }
 
 tasks.withType(Jar).configureEach { task ->
