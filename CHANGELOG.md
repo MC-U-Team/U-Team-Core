@@ -1,16 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.21-5.5.1.328] - 2024-10-21
+## [1.21-5.6.0.328] - 2024-10-21
 ### Changed
  - Update to latest gradle and fixed building
 
-## [1.21-5.5.1.318] - 2024-08-03
+## [1.21-5.6.0.318] - 2024-08-03
 ### Changed
  - Add data component type register
  - Update to stable versions
 
-## [1.21-5.5.0.317] - 2024-07-20
+## [1.21-5.6.0.317] - 2024-07-20
 ### Changed
  - Removed jar sign verifier from forge distribution
  - Updated versions of modloaders
