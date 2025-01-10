@@ -220,6 +220,7 @@ tasks.named("jar").configure {
 }
 
 configurations.apiElements.artifacts.clear()
+configurations.apiElements.artifacts.addAll(configurations.runtimeElements.artifacts)
 
 tasks.named("jarJar").configure {
 	archiveClassifier = ""
