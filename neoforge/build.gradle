@@ -97,9 +97,10 @@ runs {
 	}
 	
 	project.evaluationDependsOn(gradlefiles.project("neoforge/coremod").path)
+	//gradlefiles.project("neoforge/coremod").sourceSets.main.modIdentifier = config.mod.modid
 	
 	configureEach {
-		modSources gradlefiles.project("neoforge/coremod").sourceSets.main
+		modSources.add gradlefiles.project("neoforge/coremod").sourceSets.main
 	}
 	
 	client {

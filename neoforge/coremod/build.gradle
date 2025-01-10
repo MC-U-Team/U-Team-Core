@@ -25,6 +25,7 @@ tasks.withType(Jar).configureEach { task ->
 	gradlefiles.defaultJar(task)
 	
 	manifest {
+		attributes("Automatic-Module-Name": "info.u_team.uteamcore.coremod")
 		attributes("FMLModType": "LIBRARY")
 	}
 }
@@ -38,4 +39,5 @@ repositories {
 
 dependencies {
 	compileOnly "net.neoforged.fancymodloader:loader:4.0.34"
+	compileOnly "org.jetbrains:annotations:24.1.0"
 }
