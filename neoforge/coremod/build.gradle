@@ -36,7 +36,7 @@ configurations.runtimeElements.artifacts.clear()
 
 artifacts {
 	runtimeElements(tasks.named("jar")) {
-		builtBy tasks.named("signJar")
+		builtBy(tasks.named("signJar"))
 	}
 }
 
