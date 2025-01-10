@@ -1,10 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
-## [1.21.1-5.6.1.349] - 2025-01-10
+## [1.21.1-5.6.1.349-SNAPSHOT] - 2025-01-10
 ### Changed
  - Update versions
- - Fix neoforge coremod for data gen and update to java from js
+ - Rewritten coremod in java for neoforge
+ - Removed javascript coremod from neoforge (forges is still in javascript)
 
 ## [1.21.1-5.6.0.348] - 2025-01-03
 ### Changed
