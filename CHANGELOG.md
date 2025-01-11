@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.21.1-5.6.1.351] - 2025-01-11
+### Changed
+ - Release snapshot as stable release
+
 ## [1.21.1-5.6.1.350-SNAPSHOT] - 2025-01-10
 ### Changed
  - Fix publishing of jarJar content in apiElements variant for maven
