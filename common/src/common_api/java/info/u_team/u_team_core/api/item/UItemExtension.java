@@ -1,5 +1,6 @@
 package info.u_team.u_team_core.api.item;
 
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 
@@ -7,6 +8,7 @@ public interface UItemExtension {
 	
 	/**
 	 * Should play update animations when e.g. switching item slots or updating stacks
+	 * 
 	 * @param oldStack Old stack
 	 * @param newStack New stack
 	 * @return Return true to update
@@ -17,6 +19,7 @@ public interface UItemExtension {
 	
 	/**
 	 * Should the player be able to drop this item?
+	 * 
 	 * @param stack Stack
 	 * @param player Player
 	 * @return Return true to allow drops
@@ -25,4 +28,14 @@ public interface UItemExtension {
 		return true;
 	}
 	
+	/**
+	 * Called when the item is dropped in the world as an {@link ItemEntity}
+	 * 
+	 * @param stack Stack
+	 * @param entity ItemEntity that holds this stack
+	 * @return Return true to skip the default tick logic, false otherwise
+	 */
+	default boolean updateItemEntity(ItemStack stack, ItemEntity entity) {
+		return false;
+	}
 }
