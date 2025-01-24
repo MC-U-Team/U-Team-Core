@@ -15,6 +15,7 @@
 		"UContainerMenuScreenMixin",
 		"ItemMixin",
 		"ServerPlayerMixin",
+		"ItemEntityMixin",
 		"common.ServerPlayerMixin"
 	],
 	"injectors": {
