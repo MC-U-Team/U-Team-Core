@@ -3,6 +3,7 @@ package info.u_team.u_team_core.intern.mixin;
 import org.spongepowered.asm.mixin.Mixin;
 
 import info.u_team.u_team_core.api.item.UItemExtension;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -25,6 +26,14 @@ abstract class ItemMixin implements IItemExtension {
 			return extension.canBeDropped(stack, player);
 		}
 		return IItemExtension.super.onDroppedByPlayer(stack, player);
+	}
+	
+	@Override
+	public boolean onEntityItemUpdate(ItemStack stack, ItemEntity entity) {
+		if (this instanceof final UItemExtension extension) {
+			return extension.updateItemEntity(stack, entity);
+		}
+		return IItemExtension.super.onEntityItemUpdate(stack, entity);
 	}
 	
 }
