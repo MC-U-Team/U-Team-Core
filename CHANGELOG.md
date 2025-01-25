@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.21.1-5.6.2.352-SNAPSHOT] - 2025-01-25
+### Changed
+ - Add URecipeType as a common class to create new recipe types
+ - Add updateItemEntity method to UItemExtension
+
 ## [1.21.1-5.6.1.351] - 2025-01-11
 ### Changed
  - Release snapshot as stable release
