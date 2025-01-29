@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.21.1-5.6.2.353-SNAPSHOT] - 2025-01-29
+### Changed
+ - Add block highlight event
+ - Update gradle
+ - Fix fabric api dependency using wrong string
+
 ## [1.21.1-5.6.2.352-SNAPSHOT] - 2025-01-25
 ### Changed
  - Add URecipeType as a common class to create new recipe types
