@@ -25,22 +25,22 @@ public class NeoForgeClientEventsHandler implements ClientEvents.Handler {
 	
 	@Override
 	public void registerStartClientTick(StartClientTick event) {
-		registerNeoForgeEvent(ClientTickEvent.Pre.class, forgeEvent -> {
+		registerNeoForgeEvent(ClientTickEvent.Pre.class, neoForgeEvent -> {
 			event.onStartTick(Minecraft.getInstance());
 		});
 	}
 	
 	@Override
 	public void registerEndClientTick(EndClientTick event) {
-		registerNeoForgeEvent(ClientTickEvent.Post.class, forgeEvent -> {
+		registerNeoForgeEvent(ClientTickEvent.Post.class, neoForgeEvent -> {
 			event.onEndTick(Minecraft.getInstance());
 		});
 	}
 	
 	@Override
 	public void registerStartClientLevelTick(StartClientLevelTick event) {
-		registerNeoForgeEvent(LevelTickEvent.Pre.class, forgeEvent -> {
-			if (forgeEvent.getLevel() instanceof final ClientLevel clientLevel) {
+		registerNeoForgeEvent(LevelTickEvent.Pre.class, neoForgeEvent -> {
+			if (neoForgeEvent.getLevel() instanceof final ClientLevel clientLevel) {
 				event.onStartTick(clientLevel);
 			}
 		});
@@ -48,8 +48,8 @@ public class NeoForgeClientEventsHandler implements ClientEvents.Handler {
 	
 	@Override
 	public void registerEndClientLevelTick(EndClientLevelTick event) {
-		registerNeoForgeEvent(LevelTickEvent.Post.class, forgeEvent -> {
-			if (forgeEvent.getLevel() instanceof final ClientLevel clientLevel) {
+		registerNeoForgeEvent(LevelTickEvent.Post.class, neoForgeEvent -> {
+			if (neoForgeEvent.getLevel() instanceof final ClientLevel clientLevel) {
 				event.onEndTick(clientLevel);
 			}
 		});
@@ -57,25 +57,25 @@ public class NeoForgeClientEventsHandler implements ClientEvents.Handler {
 	
 	@Override
 	public void registerScreenAfterKeyPressed(ScreenAfterKeyPressed event) {
-		registerNeoForgeEvent(KeyPressed.Post.class, forgeEvent -> {
-			if (event.onKeyPressed(forgeEvent.getScreen(), forgeEvent.getKeyCode(), forgeEvent.getScanCode(), forgeEvent.getModifiers())) {
-				forgeEvent.setCanceled(true);
+		registerNeoForgeEvent(KeyPressed.Post.class, neoForgeEvent -> {
+			if (event.onKeyPressed(neoForgeEvent.getScreen(), neoForgeEvent.getKeyCode(), neoForgeEvent.getScanCode(), neoForgeEvent.getModifiers())) {
+				neoForgeEvent.setCanceled(true);
 			}
 		});
 	}
 	
 	@Override
 	public void registerItemTooltip(ItemTooltip event) {
-		registerNeoForgeEvent(ItemTooltipEvent.class, forgeEvent -> {
-			event.onTooltip(forgeEvent.getItemStack(), forgeEvent.getFlags(), forgeEvent.getToolTip());
+		registerNeoForgeEvent(ItemTooltipEvent.class, neoForgeEvent -> {
+			event.onTooltip(neoForgeEvent.getItemStack(), neoForgeEvent.getFlags(), neoForgeEvent.getToolTip());
 		});
 	}
 	
 	@Override
 	public void registerRenderBlockOutline(RenderBlockOutline event) {
-		registerNeoForgeEvent(RenderHighlightEvent.Block.class, forgeEvent -> {
-			if (!event.onRenderBlockOutline(forgeEvent.getLevelRenderer(), forgeEvent.getCamera(), forgeEvent.getTarget(), forgeEvent.getDeltaTracker(), forgeEvent.getPoseStack(), forgeEvent.getMultiBufferSource())) {
-				forgeEvent.setCanceled(true);
+		registerNeoForgeEvent(RenderHighlightEvent.Block.class, neoForgeEvent -> {
+			if (!event.onRenderBlockOutline(neoForgeEvent.getLevelRenderer(), neoForgeEvent.getCamera(), neoForgeEvent.getTarget(), neoForgeEvent.getDeltaTracker(), neoForgeEvent.getPoseStack(), neoForgeEvent.getMultiBufferSource())) {
+				neoForgeEvent.setCanceled(true);
 			}
 		});
 	}
