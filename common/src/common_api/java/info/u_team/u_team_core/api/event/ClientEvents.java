@@ -2,13 +2,20 @@ package info.u_team.u_team_core.api.event;
 
 import java.util.List;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import info.u_team.u_team_core.util.ServiceUtil;
+import net.minecraft.client.Camera;
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.phys.BlockHitResult;
 
 public interface ClientEvents {
 	
@@ -36,6 +43,10 @@ public interface ClientEvents {
 		Handler.INSTANCE.registerItemTooltip(event);
 	}
 	
+	static void registerRenderBlockOutline(RenderBlockOutline event) {
+		Handler.INSTANCE.registerRenderBlockOutline(event);
+	}
+	
 	interface Handler {
 		
 		Handler INSTANCE = ServiceUtil.loadOne(Handler.class);
@@ -51,6 +62,8 @@ public interface ClientEvents {
 		void registerScreenAfterKeyPressed(ScreenAfterKeyPressed event);
 		
 		void registerItemTooltip(ItemTooltip event);
+		
+		void registerRenderBlockOutline(RenderBlockOutline event);
 	}
 	
 	@FunctionalInterface
@@ -87,6 +100,12 @@ public interface ClientEvents {
 	interface ItemTooltip {
 		
 		void onTooltip(ItemStack stack, TooltipFlag flag, List<Component> lines);
+	}
+	
+	@FunctionalInterface
+	interface RenderBlockOutline {
+		
+		boolean onRenderBlockOutline(LevelRenderer levelRenderer, Camera camera, BlockHitResult target, DeltaTracker deltaTracker, PoseStack poseStack, MultiBufferSource bufferSource);
 	}
 	
 }

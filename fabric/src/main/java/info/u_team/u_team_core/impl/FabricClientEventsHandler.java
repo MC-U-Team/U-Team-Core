@@ -4,12 +4,16 @@ import info.u_team.u_team_core.api.event.ClientEvents;
 import info.u_team.u_team_core.api.event.ClientEvents.EndClientLevelTick;
 import info.u_team.u_team_core.api.event.ClientEvents.EndClientTick;
 import info.u_team.u_team_core.api.event.ClientEvents.ItemTooltip;
+import info.u_team.u_team_core.api.event.ClientEvents.RenderBlockOutline;
 import info.u_team.u_team_core.api.event.ClientEvents.ScreenAfterKeyPressed;
 import info.u_team.u_team_core.api.event.ClientEvents.StartClientLevelTick;
 import info.u_team.u_team_core.api.event.ClientEvents.StartClientTick;
 import info.u_team.u_team_core.event.ScreenEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
+import net.fabricmc.fabric.api.client.rendering.v1.WorldRenderEvents;
+import net.minecraft.world.phys.BlockHitResult;
+import net.minecraft.world.phys.HitResult;
 
 public class FabricClientEventsHandler implements ClientEvents.Handler {
 	
@@ -41,5 +45,15 @@ public class FabricClientEventsHandler implements ClientEvents.Handler {
 	@Override
 	public void registerItemTooltip(ItemTooltip event) {
 		ItemTooltipCallback.EVENT.register((stack, tooltipContext, tooltipType, lines) -> event.onTooltip(stack, tooltipType, lines));
+	}
+	
+	@Override
+	public void registerRenderBlockOutline(RenderBlockOutline event) {
+		WorldRenderEvents.BEFORE_BLOCK_OUTLINE.register((context, hitResult) -> {
+			if (context.blockOutlines() && hitResult != null && hitResult.getType() == HitResult.Type.BLOCK && hitResult instanceof BlockHitResult blockHitResult) {
+				return event.onRenderBlockOutline(context.worldRenderer(), context.camera(), blockHitResult, context.tickCounter(), context.matrixStack(), context.consumers());
+			}
+			return true;
+		});
 	}
 }

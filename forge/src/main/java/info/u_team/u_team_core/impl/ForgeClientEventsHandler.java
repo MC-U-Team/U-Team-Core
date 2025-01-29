@@ -6,12 +6,14 @@ import info.u_team.u_team_core.api.event.ClientEvents;
 import info.u_team.u_team_core.api.event.ClientEvents.EndClientLevelTick;
 import info.u_team.u_team_core.api.event.ClientEvents.EndClientTick;
 import info.u_team.u_team_core.api.event.ClientEvents.ItemTooltip;
+import info.u_team.u_team_core.api.event.ClientEvents.RenderBlockOutline;
 import info.u_team.u_team_core.api.event.ClientEvents.ScreenAfterKeyPressed;
 import info.u_team.u_team_core.api.event.ClientEvents.StartClientLevelTick;
 import info.u_team.u_team_core.api.event.ClientEvents.StartClientTick;
 import info.u_team.u_team_core.util.registry.BusRegister;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraftforge.client.event.RenderHighlightEvent;
 import net.minecraftforge.client.event.ScreenEvent.KeyPressed;
 import net.minecraftforge.event.TickEvent.ClientTickEvent;
 import net.minecraftforge.event.TickEvent.LevelTickEvent;
@@ -69,7 +71,17 @@ public class ForgeClientEventsHandler implements ClientEvents.Handler {
 		});
 	}
 	
+	@Override
+	public void registerRenderBlockOutline(RenderBlockOutline event) {
+		registerForgeEvent(RenderHighlightEvent.Block.class, forgeEvent -> {
+			if (!event.onRenderBlockOutline(forgeEvent.getLevelRenderer(), forgeEvent.getCamera(), forgeEvent.getTarget(), Minecraft.getInstance().getTimer(), forgeEvent.getPoseStack(), forgeEvent.getMultiBufferSource())) {
+				forgeEvent.setCanceled(true);
+			}
+		});
+	}
+	
 	private <T extends Event> void registerForgeEvent(Class<T> eventClass, Consumer<T> event) {
 		BusRegister.registerForge(bus -> bus.addListener(EventPriority.NORMAL, false, eventClass, event));
 	}
+	
 }

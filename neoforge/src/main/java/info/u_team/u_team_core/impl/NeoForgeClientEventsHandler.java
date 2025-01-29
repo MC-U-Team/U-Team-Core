@@ -6,6 +6,7 @@ import info.u_team.u_team_core.api.event.ClientEvents;
 import info.u_team.u_team_core.api.event.ClientEvents.EndClientLevelTick;
 import info.u_team.u_team_core.api.event.ClientEvents.EndClientTick;
 import info.u_team.u_team_core.api.event.ClientEvents.ItemTooltip;
+import info.u_team.u_team_core.api.event.ClientEvents.RenderBlockOutline;
 import info.u_team.u_team_core.api.event.ClientEvents.ScreenAfterKeyPressed;
 import info.u_team.u_team_core.api.event.ClientEvents.StartClientLevelTick;
 import info.u_team.u_team_core.api.event.ClientEvents.StartClientTick;
@@ -15,6 +16,7 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.neoforged.bus.api.Event;
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
+import net.neoforged.neoforge.client.event.RenderHighlightEvent;
 import net.neoforged.neoforge.client.event.ScreenEvent.KeyPressed;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
@@ -69,7 +71,17 @@ public class NeoForgeClientEventsHandler implements ClientEvents.Handler {
 		});
 	}
 	
+	@Override
+	public void registerRenderBlockOutline(RenderBlockOutline event) {
+		registerNeoForgeEvent(RenderHighlightEvent.Block.class, forgeEvent -> {
+			if (!event.onRenderBlockOutline(forgeEvent.getLevelRenderer(), forgeEvent.getCamera(), forgeEvent.getTarget(), forgeEvent.getDeltaTracker(), forgeEvent.getPoseStack(), forgeEvent.getMultiBufferSource())) {
+				forgeEvent.setCanceled(true);
+			}
+		});
+	}
+	
 	private <T extends Event> void registerNeoForgeEvent(Class<T> eventClass, Consumer<T> event) {
 		BusRegister.registerNeoForge(bus -> bus.addListener(EventPriority.NORMAL, false, eventClass, event));
 	}
+	
 }
