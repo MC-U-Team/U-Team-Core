@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.21.1-5.6.2.354] - 2025-02-01
+### Changed
+ - Release last snapshots as release
+
 ## [1.21.1-5.6.2.353-SNAPSHOT] - 2025-01-29
 ### Changed
  - Add block highlight event
