@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.2-3.0.2.357] - 2025-04-06
+### Changed
+ - Update to latest gradle
+ - Update gradle files version
+
 ## [1.15.2-3.0.2.341] - 2025-01-03
 ### Changed
  - Update to latest gradle
