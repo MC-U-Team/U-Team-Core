@@ -119,6 +119,8 @@ runs {
 	}
 	
 	data {
+		runType("clientData")
+
 		workingDirectory file("run/data").with { mkdirs(); it }
 		
 		arguments "--mod", config.mod.modid
@@ -134,7 +136,7 @@ runs {
 	}
 	
 	data_multiloader_test {
-		runType("data")
+		runType("clientData")
 		
 		workingDirectory file("run/data").with { mkdirs(); it }
 		
@@ -153,7 +155,7 @@ runs {
 	}
 	
 	neoforge_data_multiloader_test {
-		runType("data")
+		runType("clientData")
 		
 		workingDirectory file("run/data").with { mkdirs(); it }
 		
@@ -172,7 +174,7 @@ runs {
 	}
 	
 	data_test_mod {
-		runType("data")
+		runType("clientData")
 		
 		workingDirectory file("run/data").with { mkdirs(); it }
 		
@@ -265,9 +267,9 @@ dependencies {
 	
 	compileOnly(jarJar(gradlefiles.project("neoforge/coremod")))
 	
-	compileOnly "mezz.jei:jei-${config.minecraft.version}-neoforge-api:${config.jei.version}"
-	compileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
-	runtimeOnly "mezz.jei:jei-${config.minecraft.version}-neoforge:${config.jei.version}"
+	//compileOnly "mezz.jei:jei-${config.minecraft.version}-neoforge-api:${config.jei.version}"
+	//compileOnly "mezz.jei:jei-${config.minecraft.version}-common-api:${config.jei.version}"
+	//runtimeOnly "mezz.jei:jei-${config.minecraft.version}-neoforge:${config.jei.version}"
 }
 
 publishMods {

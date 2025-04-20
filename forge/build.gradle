@@ -201,7 +201,7 @@ dependencies {
 		}
 	}
 	
-	implementation "mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}"
+	//implementation "mezz.jei:jei-${config.minecraft.version}-forge:${config.jei.version}"
 	
 	annotationProcessor "org.spongepowered:mixin:0.8.7:processor"
 }
