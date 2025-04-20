@@ -120,7 +120,7 @@ runs {
 	
 	data {
 		runType("clientData")
-
+		
 		workingDirectory file("run/data").with { mkdirs(); it }
 		
 		arguments "--mod", config.mod.modid
