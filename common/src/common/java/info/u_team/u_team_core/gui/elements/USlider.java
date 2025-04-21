@@ -10,6 +10,7 @@ import info.u_team.u_team_core.util.RGBA;
 import info.u_team.u_team_core.util.RenderUtil;
 import info.u_team.u_team_core.util.WidgetUtil;
 import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.Component;
 
 public non-sealed class USlider extends AbstractSliderLogic implements WidgetRenderable, BackgroundColorProvider, TextProvider, Scalable, ScaleProvider {
@@ -99,7 +100,7 @@ public non-sealed class USlider extends AbstractSliderLogic implements WidgetRen
 	@Override
 	public void renderBehind(GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		RenderUtil.setShaderColor(WidgetUtil.respectWidgetAlpha(this, getCurrentSliderColor(guiGraphics, mouseX, mouseY, partialTick)));
-		guiGraphics.blitSprite(sliderTextureProvider.getTexture(), x + (int) (value * (width - 8)), y, 8, height);
+		guiGraphics.blitSprite(RenderType::guiTextured, sliderTextureProvider.getTexture(), x + (int) (value * (width - 8)), y, 8, height);
 		RenderUtil.resetShaderColor();
 	}
 	

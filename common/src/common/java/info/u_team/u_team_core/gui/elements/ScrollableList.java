@@ -43,13 +43,15 @@ public abstract class ScrollableList<T extends ObjectSelectionList.Entry<T>> ext
 		this.transparentBorderSize = transparentBorderSize;
 	}
 	
+	// TODO overrides needed?
 	@Override
 	public int getRowWidth() {
 		return width - sideDistance;
 	}
 	
+	// TODO overrides needed?
 	@Override
-	protected int getScrollbarPosition() {
+	protected int scrollBarX() {
 		return x + width - 5;
 	}
 	
