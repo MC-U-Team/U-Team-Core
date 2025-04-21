@@ -6,6 +6,8 @@ import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 import info.u_team.u_team_core.intern.init.UCoreLootItemFunctions;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.storage.loot.LootContext;
@@ -28,11 +30,16 @@ public class SetBlockEntityNBTLootItemFunction extends LootItemConditionalFuncti
 		super(conditions);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public ItemStack run(ItemStack stack, LootContext context) {
-		if (context.hasParam(LootContextParams.BLOCK_ENTITY)) {
-			final BlockEntity blockEntity = context.getParam(LootContextParams.BLOCK_ENTITY);
-			blockEntity.saveToItem(stack, blockEntity.getLevel().registryAccess());
+		if (context.hasParameter(LootContextParams.BLOCK_ENTITY)) {
+			final BlockEntity blockEntity = context.getParameter(LootContextParams.BLOCK_ENTITY);
+			
+			final CompoundTag compoundTag = blockEntity.saveCustomOnly(context.getLevel().registryAccess());
+			blockEntity.removeComponentsFromTag(compoundTag);
+			BlockItem.setBlockEntityData(stack, blockEntity.getType(), compoundTag);
+			stack.applyComponents(blockEntity.collectComponents());
 		}
 		return stack;
 	}
