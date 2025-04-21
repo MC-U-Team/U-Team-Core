@@ -31,7 +31,7 @@ public class NoMirrorShapedRecipe extends ShapedRecipe {
 	}
 	
 	@Override
-	public RecipeSerializer<?> getSerializer() {
+	public RecipeSerializer<NoMirrorShapedRecipe> getSerializer() {
 		return UCoreRecipeSerializers.NO_MIRROR_SHAPED.get();
 	}
 	
