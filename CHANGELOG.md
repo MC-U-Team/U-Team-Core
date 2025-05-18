@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.12.2-2.2.5.365] - 2025-05-18
+### Changed
+ - Update buildscript to fix breaking synatax in later gradle versions
+
 ## [1.12.2-2.2.5.355] - 2025-04-06
 ### Changed
  - Update to latest gradle
