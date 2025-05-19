@@ -1,6 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+## [1.15.2-3.0.2.377] - 2025-05-19
+### Changed
+ - Update gradle files version and fix release tags
+ - Update foojay provider for development
+
 ## [1.15.2-3.0.2.367] - 2025-05-18
 ### Changed
  - Update buildscript to fix breaking synatax in later gradle versions
