@@ -19,7 +19,7 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 	plugins {
-		id "org.gradle.toolchains.foojay-resolver-convention" version "0.9.0"
+		id "org.gradle.toolchains.foojay-resolver-convention" version "1.0.0"
 		
 		id "net.neoforged.gradle.userdev" version "7.0.+"
 		
@@ -29,7 +29,7 @@ pluginManagement {
 		
 		id "fabric-loom" version "1.10.+"
 		
-		id "info.u_team.gradle_files" version "4.0.5"
+		id "info.u_team.gradle_files" version "4.0.6"
 		
 		id "me.modmuss50.mod-publish-plugin" version "0.8.4"
 	}

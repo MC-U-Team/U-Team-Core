@@ -107,7 +107,7 @@ dependencies {
 publishing {
 	repositories {
 		maven {
-			url "https://repo.u-team.info"
+			url = "https://repo.u-team.info"
 			credentials {
 				username = "maven"
 				password = defaultPropertyValue("maven.password")
@@ -116,7 +116,7 @@ publishing {
 	}
 	publications {
 		mavenJava(MavenPublication) {
-			artifactId project.base.archivesName.get()
+			artifactId = project.base.archivesName.get()
 			
 			from gradlefiles.filteredJavaComponent()
 			
