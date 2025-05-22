@@ -1,6 +1,5 @@
 package info.u_team.u_team_core.util;
 
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import info.u_team.u_team_core.api.gui.BackgroundColorProvider;
@@ -14,6 +13,7 @@ import net.minecraft.Util;
 import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
@@ -23,8 +23,6 @@ public class WidgetUtil {
 	private static final String ELLIPSIS = "...";
 	
 	public static <T extends AbstractWidget & WidgetRenderable & BackgroundColorProvider> void renderWidget(T widget, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
-		RenderSystem.enableDepthTest();
-		
 		widget.renderWidgetTexture(guiGraphics, mouseX, mouseY, partialTick);
 		widget.renderBehind(guiGraphics, mouseX, mouseY, partialTick);
 		widget.renderBefore(guiGraphics, mouseX, mouseY, partialTick);
@@ -35,7 +33,7 @@ public class WidgetUtil {
 	
 	public static <T extends AbstractWidget & BackgroundColorProvider> void renderButtonLikeTexture(T widget, TextureProvider textureProvider, GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
 		RenderUtil.setShaderColor(respectWidgetAlpha(widget, widget.getCurrentBackgroundColor(guiGraphics, mouseY, mouseY, partialTick)));
-		guiGraphics.blitSprite(textureProvider.getTexture(), widget.getX(), widget.getY(), widget.getWidth(), widget.getHeight());
+		guiGraphics.blitSprite(RenderType::guiTextured, textureProvider.getTexture(), widget.getX(), widget.getY(), widget.getWidth(), widget.getHeight());
 		RenderUtil.resetShaderColor();
 	}
 	

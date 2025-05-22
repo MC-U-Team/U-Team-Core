@@ -12,7 +12,7 @@ public class RegistryUtil {
 	}
 	
 	public static <T> Registry<T> getRegistry(Level level, ResourceKey<? extends Registry<T>> key) {
-		return level.registryAccess().registryOrThrow(key);
+		return level.registryAccess().lookupOrThrow(key);
 	}
 	
 }
