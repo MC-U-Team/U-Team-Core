@@ -51,6 +51,6 @@ repositories {
 }
 
 dependencies {
-	compileOnly "net.neoforged.fancymodloader:loader:4.0.34"
+	compileOnly "net.neoforged.fancymodloader:loader:10.0.23"
 	compileOnly "org.jetbrains:annotations:24.1.0"
 }
